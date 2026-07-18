@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ats_utilities.validation.check_value module &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=514cf933" />
+    
+    <script src="_static/documentation_options.js?v=893dd00a"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ats_utilities.validation.context_error module" href="ats_utilities.validation.context_error.html" />
+    <link rel="prev" title="ats_utilities.validation.check_type module" href="ats_utilities.validation.check_type.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.validation.context_error.html" title="ats_utilities.validation.context_error module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.validation.check_type.html" title="ats_utilities.validation.check_type module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ats_utilities.html" >ats_utilities package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="ats_utilities.validation.html" accesskey="U">ats_utilities.validation package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.validation.check_value module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-ats_utilities.validation.check_value">
+<span id="ats-utilities-validation-check-value-module"></span><h1>ats_utilities.validation.check_value module<a class="headerlink" href="#module-ats_utilities.validation.check_value" title="Link to this heading">¶</a></h1>
+<dl class="simple">
+<dt>Module</dt><dd><p>check_value.py</p>
+</dd>
+<dt>Copyright</dt><dd><p>Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+ats_utilities is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ats_utilities is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
+</dd>
+<dt>Info</dt><dd><p>Defines value checking utility functions.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="ats_utilities.validation.check_value.not_empty">
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.validation.check_value.</span></span><span class="sig-name descname"><span class="pre">not_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value:</span> <span class="pre">~typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/validation/check_value.html#not_empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.validation.check_value.not_empty" title="Link to this definition">¶</a></dt>
+<dd><p>Requires a value to be not empty (not None, not empty sequence/mapping).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>&lt;Any&gt;</em>) – Value to check for emptiness.</p></li>
+<li><p><strong>exc_message</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Message to include in the exception message.</p></li>
+<li><p><strong>exception_class</strong> (<em>&lt;type</em><em>[</em><em>Exception</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSValueError</em><em>)</em>) – The exception class to raise if value is empty.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">Dynamically raises the provided exception_class (e.g., ATSValueError).</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ats_utilities.validation.check_value.not_none">
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.validation.check_value.</span></span><span class="sig-name descname"><span class="pre">not_none</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value:</span> <span class="pre">~typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/validation/check_value.html#not_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.validation.check_value.not_none" title="Link to this definition">¶</a></dt>
+<dd><p>Requires a value to be not None.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>&lt;Any&gt;</em>) – Value to check.</p></li>
+<li><p><strong>exc_message</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Message to include in the exception message.</p></li>
+<li><p><strong>exception_class</strong> (<em>&lt;type</em><em>[</em><em>Exception</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSValueError</em><em>)</em>) – The exception class to raise if value is None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">Dynamically raises the provided exception_class (e.g., ATSValueError).</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ats_utilities.validation.check_value.not_satisfied">
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.validation.check_value.</span></span><span class="sig-name descname"><span class="pre">not_satisfied</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status:</span> <span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/validation/check_value.html#not_satisfied"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.validation.check_value.not_satisfied" title="Link to this definition">¶</a></dt>
+<dd><p>Ensures that an unhappy status is NOT True. 
+Raises an exception if status is True (unhappy flow detected).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>status</strong> (<em>&lt;bool&gt;</em>) – Status which indicates unhappy flow (True = unhappy flow).</p></li>
+<li><p><strong>exc_message</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Message to include in the exception message.</p></li>
+<li><p><strong>exception_class</strong> (<em>&lt;type</em><em>[</em><em>Exception</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSValueError</em><em>)</em>) – The exception class to raise if status is not True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">Dynamically raises the provided exception_class (e.g., ATSValueError).</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ats_utilities.validation.check_value module</a><ul>
+<li><a class="reference internal" href="#ats_utilities.validation.check_value.not_empty"><code class="docutils literal notranslate"><span class="pre">not_empty()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.validation.check_value.not_none"><code class="docutils literal notranslate"><span class="pre">not_none()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.validation.check_value.not_satisfied"><code class="docutils literal notranslate"><span class="pre">not_satisfied()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="ats_utilities.validation.check_type.html"
+                          title="previous chapter">ats_utilities.validation.check_type module</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="ats_utilities.validation.context_error.html"
+                          title="next chapter">ats_utilities.validation.context_error module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ats_utilities.validation.check_value.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.validation.context_error.html" title="ats_utilities.validation.context_error module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.validation.check_type.html" title="ats_utilities.validation.check_type module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ats_utilities.html" >ats_utilities package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="ats_utilities.validation.html" >ats_utilities.validation package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.validation.check_value module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

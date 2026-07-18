@@ -161,9 +161,8 @@ class ConfigProcessorFactory:
         '''
             Creates a processor instance based on a file path.
             Uses create_from_extension method.
-            Note:
-                - If processor provided, it is returned immediately.
-                - If processor is not provided, creation is done from the file path extension.
+            Note: If processor provided, it is returned immediately.
+            If processor is not provided, creation is done from the file path extension.
 
             :param file_path: Path to the configuration file | None.
             :type file_path: <str | None>

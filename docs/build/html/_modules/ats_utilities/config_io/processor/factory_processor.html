@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ats_utilities.config_io.processor.factory_processor &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/classic.css?v=514cf933" />
+    
+    <script src="../../../../_static/documentation_options.js?v=893dd00a"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.config_io.processor.factory_processor</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ats_utilities.config_io.processor.factory_processor</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Module</span>
+<span class="sd">    factory_processor.py</span>
+<span class="sd">Copyright</span>
+<span class="sd">    Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
+<span class="sd">    ats_utilities is free software: you can redistribute it and/or modify it</span>
+<span class="sd">    under the terms of the GNU General Public License as published by the</span>
+<span class="sd">    Free Software Foundation, either version 3 of the License, or</span>
+<span class="sd">    (at your option) any later version.</span>
+<span class="sd">    ats_utilities is distributed in the hope that it will be useful, but</span>
+<span class="sd">    WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="sd">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
+<span class="sd">    See the GNU General Public License for more details.</span>
+<span class="sd">    You should have received a copy of the GNU General Public License along</span>
+<span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="sd">Info</span>
+<span class="sd">    Defines class ConfigProcessorFactory with attribute(s) and method(s).</span>
+<span class="sd">    Creates an API for creating an file processor instance based on the file extension.</span>
+<span class="sd">    1th level of configuration loader/storer implementation.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.iconfig_processor</span> <span class="kn">import</span> <span class="n">IConfigProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.cfg_processor</span> <span class="kn">import</span> <span class="n">CFGProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.ini_processor</span> <span class="kn">import</span> <span class="n">INIProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.json_processor</span> <span class="kn">import</span> <span class="n">JSONProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.xml_processor</span> <span class="kn">import</span> <span class="n">XMLProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.yaml_processor</span> <span class="kn">import</span> <span class="n">YAMLProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.files</span> <span class="kn">import</span> <span class="n">check_file_exists</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span><span class="p">,</span> <span class="n">not_satisfied</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
+
+
+<div class="viewcode-block" id="ConfigProcessorFactory">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.factory_processor.html#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory">[docs]</a>
+<span class="k">class</span> <span class="nc">ConfigProcessorFactory</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Defines class ConfigProcessorFactory with attribute(s) and method(s).</span>
+<span class="sd">        Creates an API for creating an file processor instance based on the file extension.</span>
+<span class="sd">        1th level of configuration loader/storer implementation.</span>
+
+<span class="sd">        It defines:</span>
+
+<span class="sd">            :attributes:</span>
+<span class="sd">                | _PROCESSOR_MAP - Mapping of file extensions to processor classes.</span>
+<span class="sd">            :methods:</span>
+<span class="sd">                | get_processor_class - Returns the processor class for a specific file extension.</span>
+<span class="sd">                | create_from_extension - Creates a processor instance based on a raw extension string.</span>
+<span class="sd">                | create_from_file_path - Creates a processor instance based on a file path.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">_PROCESSOR_MAP</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">[</span><span class="n">IConfigProcessor</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;.cfg&#39;</span><span class="p">:</span> <span class="n">CFGProcessor</span><span class="p">,</span>
+        <span class="s1">&#39;.ini&#39;</span><span class="p">:</span> <span class="n">INIProcessor</span><span class="p">,</span>
+        <span class="s1">&#39;.json&#39;</span><span class="p">:</span> <span class="n">JSONProcessor</span><span class="p">,</span>
+        <span class="s1">&#39;.xml&#39;</span><span class="p">:</span> <span class="n">XMLProcessor</span><span class="p">,</span>
+        <span class="s1">&#39;.yml&#39;</span><span class="p">:</span> <span class="n">YAMLProcessor</span><span class="p">,</span>
+        <span class="s1">&#39;.yaml&#39;</span><span class="p">:</span> <span class="n">YAMLProcessor</span>
+    <span class="p">}</span>
+
+<div class="viewcode-block" id="ConfigProcessorFactory.get_processor_class">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.factory_processor.html#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory.get_processor_class">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_processor_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">extension</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">IConfigProcessor</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the processor class for a specific file extension.</span>
+
+<span class="sd">            :param extension: File extension (e.g., &#39;.json&#39;, &#39;.cfg&#39;, &#39;.xml&#39;, &#39;.ini&#39;, &#39;.yml&#39;, &#39;.yaml&#39;).</span>
+<span class="sd">            :type extension: &lt;str&gt;</span>
+<span class="sd">            :return: Processor class.</span>
+<span class="sd">            :rtype: &lt;type[IConfigProcessor]&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Extension must be provided.</span>
+<span class="sd">                | ATSTypeError: Extension must be a string.</span>
+<span class="sd">                | ATSValueError: Extension is not supported.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;extension must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;extension must be a string&#39;</span><span class="p">)</span>
+
+        <span class="n">formatted_ext</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">extension</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">formatted_ext</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">):</span>
+            <span class="n">formatted_ext</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;.</span><span class="si">{</span><span class="n">formatted_ext</span><span class="si">}</span><span class="s1">&#39;</span>
+
+        <span class="n">not_satisfied</span><span class="p">(</span>
+            <span class="n">formatted_ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_PROCESSOR_MAP</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="sa">f</span><span class="s1">&#39;The extension </span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s1"> is not supported&#39;</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_PROCESSOR_MAP</span><span class="p">[</span><span class="n">formatted_ext</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="ConfigProcessorFactory.create_from_extension">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.factory_processor.html#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory.create_from_extension">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create_from_extension</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> 
+        <span class="n">extension</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">scheme</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">processor</span><span class="p">:</span> <span class="n">IConfigProcessor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IConfigProcessor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Creates a processor instance based on a raw extension string.</span>
+<span class="sd">            Uses get_processor_class utility.</span>
+<span class="sd">            Uses make_component and validate_component utilities.</span>
+
+<span class="sd">            :param extension: File extension (e.g., &#39;.json&#39;, &#39;.cfg&#39;, &#39;.xml&#39;, &#39;.ini&#39;, &#39;.yml&#39;, &#39;.yaml&#39;) | None.</span>
+<span class="sd">            :type extension: &lt;str | None&gt;</span>
+<span class="sd">            :param scheme: Scheme for the processor | None.</span>
+<span class="sd">            :type scheme: &lt;Mapping[str, str] | None&gt;</span>
+<span class="sd">            :param processor: Instance to be used as the processor | None.</span>
+<span class="sd">            :type processor: &lt;IConfigProcessor | None&gt;</span>
+<span class="sd">            :return: Processor instance.</span>
+<span class="sd">            :rtype: &lt;IConfigProcessor&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Extension must be provided.</span>
+<span class="sd">                | ATSTypeError: Extension must be a string.</span>
+<span class="sd">                | ATSValueError: Extension is not supported.</span>
+<span class="sd">                | ATSTypeError: Validation of processor instance failed.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">processor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">validate_component</span><span class="p">(</span>
+                <span class="n">instance</span><span class="o">=</span><span class="n">processor</span><span class="p">,</span>
+                <span class="n">expected_class</span><span class="o">=</span><span class="n">IConfigProcessor</span><span class="p">,</span>
+                <span class="n">exc_message</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;The provided processor must implement IConfigProcessor&#39;</span>
+            <span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">processor</span>
+
+        <span class="n">processor_class</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_processor_class</span><span class="p">(</span><span class="n">extension</span><span class="p">)</span>
+
+        <span class="n">resolved_processor</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
+            <span class="n">passed_obj</span><span class="o">=</span><span class="n">processor</span><span class="p">,</span>
+            <span class="n">default_class</span><span class="o">=</span><span class="n">processor_class</span><span class="p">,</span>
+            <span class="n">factory_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;scheme&#39;</span><span class="p">:</span> <span class="n">scheme</span><span class="p">}</span> <span class="k">if</span> <span class="n">scheme</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="p">)</span>
+
+        <span class="n">validate_component</span><span class="p">(</span>
+            <span class="n">instance</span><span class="o">=</span><span class="n">resolved_processor</span><span class="p">,</span>
+            <span class="n">expected_class</span><span class="o">=</span><span class="n">IConfigProcessor</span><span class="p">,</span>
+            <span class="n">exc_message</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;The processor for extension </span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s1"> must implement IConfigProcessor&#39;</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">resolved_processor</span></div>
+
+
+<div class="viewcode-block" id="ConfigProcessorFactory.create_from_file_path">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.factory_processor.html#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory.create_from_file_path">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create_from_file_path</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> 
+        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">scheme</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">processor</span><span class="p">:</span> <span class="n">IConfigProcessor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IConfigProcessor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Creates a processor instance based on a file path.</span>
+<span class="sd">            Uses create_from_extension method.</span>
+<span class="sd">            Note: If processor provided, it is returned immediately.</span>
+<span class="sd">            If processor is not provided, creation is done from the file path extension.</span>
+
+<span class="sd">            :param file_path: Path to the configuration file | None.</span>
+<span class="sd">            :type file_path: &lt;str | None&gt;</span>
+<span class="sd">            :param scheme: Scheme for the processor | None.</span>
+<span class="sd">            :type scheme: &lt;Mapping[str, str] | None&gt;</span>
+<span class="sd">            :param processor: Instance to be used as the processor | None.</span>
+<span class="sd">            :type processor: &lt;IConfigProcessor | None&gt;</span>
+<span class="sd">            :return: Processor instance.</span>
+<span class="sd">            :rtype: &lt;IConfigProcessor&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: File path must be provided when processor is None.</span>
+<span class="sd">                | ATSTypeError: File path must be a string.</span>
+<span class="sd">                | ATSValueError: File does not exist.</span>
+<span class="sd">                | ATSValueError: Extension must be provided.</span>
+<span class="sd">                | ATSTypeError: Extension must be a string.</span>
+<span class="sd">                | ATSValueError: Extension is not supported.</span>
+<span class="sd">                | ATSTypeError: Validation of processor instance failed.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">processor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_from_extension</span><span class="p">(</span><span class="n">processor</span><span class="o">=</span><span class="n">processor</span><span class="p">)</span>
+
+        <span class="n">not_none</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;file_path must be provided when processor is None&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;file_path must be a string&#39;</span><span class="p">)</span>
+        <span class="n">check_file_exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;file at </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1"> does not exist&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_from_extension</span><span class="p">(</span>
+            <span class="n">extension</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">suffix</span><span class="p">,</span>
+            <span class="n">scheme</span><span class="o">=</span><span class="n">scheme</span><span class="p">,</span>
+            <span class="n">processor</span><span class="o">=</span><span class="n">processor</span>
+        <span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.config_io.processor.factory_processor</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

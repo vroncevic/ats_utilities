@@ -70,6 +70,12 @@ class BaseRegistry:
         '''
             Creates a default BaseBundle with pre-configured components.
 
+            :param info_file: Path to the info file.
+            :type info_file: <str>
+            :param context_bundle: ContextBundle instance.
+            :type context_bundle: <ContextBundle>
+            :param use_generator: Whether to use the generator.
+            :type use_generator: <bool>
             :return: Default BaseBundle instance.
             :rtype: <BaseBundle>
             :exceptions:

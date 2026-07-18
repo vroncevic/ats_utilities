@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines vcheck decorator for checking method parameters.
+    Defines mcheck decorator for checking method parameters.
     Utility for parameter validation borrowing Checker from class instances.
 '''
 
@@ -27,8 +27,12 @@ import inspect
 from functools import wraps
 from typing import Any, cast
 
+from ats_utilities.checker.checker_registry import CheckerRegistry
+from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ParametersSpecs
-from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
+from ats_utilities.exceptions import (
+    ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
+)
 from ats_utilities.validation.context_error import raise_error
 
 __author__ = r'Vladimir Roncevic'
@@ -40,6 +44,7 @@ __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
+
 def proxy_validator_split(exp_type: str) -> tuple[str, str]:
     '''
         Splits the format string into type and name parts.
@@ -48,13 +53,113 @@ def proxy_validator_split(exp_type: str) -> tuple[str, str]:
         :type exp_type: <str>
         :return: A tuple containing the split components.
         :rtype: <tuple[str, str]>
-        :exceptions: None.
+        :exceptions:
+            | ATSValueError: Parameter format validation failed.
     '''
     parts = exp_type.split(sep=':')
+    if len(parts) != 2:
+        raise_error(
+            fallback_prefix='proxy_validator_split',
+            fallback_msg=f'Invalid parameter format: {exp_type}',
+            exc_message=None,
+            exception_class=ATSValueError,
+            depth=3
+        )
 
     return parts[0], parts[1]
 
-def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F], F]:
+
+def validate_args(
+    func: Callable[..., Any],
+    args: tuple[Any, ...],
+    kwargs: dict[str, Any],
+    specs: list[tuple[str, Any]],
+    checker: Checker,
+    prefix: str
+) -> None:
+    '''
+        Validates argument values against parameter specification.
+
+        :param func: Decorated function.
+        :type func: <Callable[..., Any]>
+        :param args: Position arguments passed.
+        :type args: <tuple[Any, ...]>
+        :param kwargs: Keyword arguments passed.
+        :type kwargs: <dict[str, Any]>
+        :param specs: Parameter specification list.
+        :type specs: <list[tuple[str, Any]]>
+        :param checker: Checker instance to validate with.
+        :type checker: <Checker>
+        :param prefix: Exception prefix.
+        :type prefix: <str>
+        :exceptions:
+            | ATSTypeError: Parameter type validation failed.
+            | ATSValueError: Parameter format validation failed.
+    '''
+    # Safely bind the passed args and kwargs to the function's signature
+    func_signature = inspect.signature(func)
+    bound_arguments = func_signature.bind(*args, **kwargs)
+
+    # Fill in empty optional parameters with their default values from definition
+    bound_arguments.apply_defaults()
+    actual_params_dict = bound_arguments.arguments
+
+    runtime_parameters: ParametersSpecs = []
+
+    # Iterate through specs and map them to actual arguments dynamically
+    for exp_type, _ in specs:
+        raw_type, pname = proxy_validator_split(exp_type)
+
+        # Validate only if the specified parameter is bound to the function
+        if pname in actual_params_dict:
+            actual_value = actual_params_dict[pname]
+
+            # We check if the type uses | None union syntax
+            is_optional = raw_type.endswith(' | None')
+
+            if is_optional:
+                # We highlight the internal type, e.g. str | None -> str
+                target_type = raw_type[:-7].strip()
+
+                # If the value is None, it is valid and we skip the check
+                if actual_value is None:
+                    continue
+            else:
+                target_type = raw_type
+
+                # If it is not optional and the value is None, it is immediately a type error
+                if actual_value is None:
+                    runtime_parameters.append((f'{target_type}:{pname}', actual_value))
+                    continue
+
+            # We form a cleaned specification string for Checker (eg str:version)
+            clean_exp_type = f'{target_type}:{pname}'
+            runtime_parameters.append((clean_exp_type, actual_value))
+
+    # Process parameter validation
+    if runtime_parameters:
+        report_message, error_id = checker.validates_parameters(runtime_parameters)
+
+        if error_id != checker.ERRORS.NO_ERROR:
+            if error_id == checker.ERRORS.TYPE_ERROR:
+                raise_error(
+                    fallback_prefix=prefix,
+                    fallback_msg=f'Type error: {report_message}',
+                    exc_message=None,
+                    exception_class=ATSTypeError,
+                    depth=4
+                )
+            else:
+                raise_error(
+                    fallback_prefix=prefix,
+                    fallback_msg=f'Format error: {report_message}',
+                    exc_message=None,
+                    exception_class=ATSValueError,
+                    depth=4
+                )
+
+
+def mcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F], F]:
     '''
         Decorator supporting class methods (instance methods, classmethods).
         Borrows the checker object dynamically from the class instance 
@@ -78,8 +183,8 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
 
             if self_instance is None:
                 raise_error(
-                    fallback_prefix='vcheck::decorator',
-                    fallback_msg=f'Decorator @vcheck on {func.__name__} can only be used on class methods',
+                    fallback_prefix='mcheck::decorator',
+                    fallback_msg=f'Decorator @mcheck on {func.__name__} can only be used on class methods',
                     exc_message=None,
                     exception_class=ATSRuntimeError,
                     depth=3
@@ -96,76 +201,38 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
 
             if checker is None:
                 raise_error(
-                    fallback_prefix='vcheck::decorator',
-                    fallback_msg=f'Class {cls_name} must have _checker attribute to use @vcheck decorator',
+                    fallback_prefix='mcheck::decorator',
+                    fallback_msg=f'Class {cls_name} must have _checker attribute to use @mcheck decorator',
                     exc_message=None,
                     exception_class=ATSAttributeError,
                     depth=3
                 )
 
-            # Safely bind the passed args and kwargs to the function's signature
-            func_signature = inspect.signature(func)
-            bound_arguments = func_signature.bind(*args, **kwargs)
+            validate_args(func, args, kwargs, specs, checker, 'mcheck::decorator')
+            return func(*args, **kwargs)
+        return cast(F, wrapper)
+    return decorator
 
-            # Fill in empty optional parameters with their default values from definition
-            bound_arguments.apply_defaults()
-            actual_params_dict = bound_arguments.arguments
 
-            runtime_parameters: ParametersSpecs = []
+def fcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F], F]:
+    '''
+        Decorator supporting free functions.
+        Uses a default Checker to validate function parameters.
 
-            # Iterate through specs and map them to actual arguments dynamically
-            for exp_type, _ in specs:
-                raw_type, pname = proxy_validator_split(exp_type)
+        :param specs: Specification for parameters.
+        :type specs: <list[tuple[str, Any]]>
+        :return: Wrapped function.
+        :rtype: <Callable[[F], F]>
+        :exceptions:
+            | ATSTypeError: Parameter type validation failed.
+            | ATSValueError: Parameter format validation failed.
+    '''
+    checker = Checker(CheckerRegistry.create_default_checker_bundle())
 
-                # Validate only if the specified parameter is bound to the function
-                if pname in actual_params_dict:
-                    actual_value = actual_params_dict[pname]
-
-                    # We check if the type uses | None union syntax
-                    is_optional = raw_type.endswith(' | None')
-
-                    if is_optional:
-                        # We highlight the internal type, e.g. str | None -> str
-                        target_type = raw_type[:-7].strip()
-
-                        # If the value is None, it is valid and we skip the check
-                        if actual_value is None:
-                            continue
-                    else:
-                        target_type = raw_type
-
-                        # If it is not optional and the value is None, it is immediately a type error
-                        if actual_value is None:
-                            runtime_parameters.append((f'{target_type}:{pname}', actual_value))
-                            continue
-
-                    # We form a cleaned specification string for Checker (eg str:version)
-                    clean_exp_type = f'{target_type}:{pname}'
-                    runtime_parameters.append((clean_exp_type, actual_value))
-
-            # FORWARDING: Process parameter validation via the borrowed checker instance
-            if runtime_parameters:
-                report_message, error_id = checker.validates_parameters(runtime_parameters)
-
-                if error_id != checker.ERRORS.NO_ERROR:
-                    if error_id == checker.ERRORS.TYPE_ERROR:
-                        raise_error(
-                            fallback_prefix=r'vcheck::decorator',
-                            fallback_msg=f'Type error: {report_message}',
-                            exc_message=None,
-                            exception_class=ATSTypeError,
-                            depth=3
-                        )
-                    
-                    else:
-                        raise_error(
-                            fallback_prefix=r'vcheck::decorator',
-                            fallback_msg=f'Format error: {report_message}',
-                            exc_message=None,
-                            exception_class=ATSValueError,
-                            depth=3
-                        )
-
+    def decorator(func: F) -> F:
+        @wraps(func)
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
+            validate_args(func, args, kwargs, specs, checker, 'fcheck::decorator')
             return func(*args, **kwargs)
         return cast(F, wrapper)
     return decorator

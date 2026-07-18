@@ -2,7 +2,7 @@
 
 '''
 Module
-    factory_type.py
+    check_type.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -106,7 +106,7 @@ def istype(
 
     if not isinstance(instance, check_types):
         raise_error(
-            fallback_prefix=r'factory_type::istype(..)',
+            fallback_prefix=r'check_type::istype(..)',
             fallback_msg=f'expected {class_or_tuple} for instance, got {type(instance).__name__}',
             exc_message=exc_message,
             exception_class=exception_class,

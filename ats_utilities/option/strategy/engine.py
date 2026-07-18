@@ -2,7 +2,7 @@
 
 '''
 Module
-    parser_strategy.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -59,8 +59,8 @@ class ParserStrategy(IParserStrategy):
         Defines class ParserStrategy with attribute(s) and method(s).
         Default built-in strategy using Python's standard argparse module.
         Note: If extern argument parser strategy is injected this object
-              is not instantiated (then the complete strategy is provided
-              by external parser strategy).
+        is not instantiated (then the complete strategy is provided by 
+        external parser strategy).
 
         It defines:
 

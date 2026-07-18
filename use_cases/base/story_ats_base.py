@@ -19,12 +19,13 @@ Info
     Use cases for ATS version.
 '''
 
+from logging import INFO, WARNING
 from os.path import dirname, realpath
-import logging
+from typing import override
+
 from ats_utilities.base.engine import Base
 from ats_utilities.base.base_registry import BaseRegistry
 from ats_utilities.context.context_registry import ContextRegistry
-
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -48,15 +49,19 @@ class MyTool(Base):
                 context_bundle=ContextRegistry.create_default_context_bundle()
             )
         )
-        
+
         # Log that initialization is complete using both logger and reporter
         context = self.get_shared_context()
-        context.logger.write_log('MyTool initialized successfully', logging.INFO)
-        context.reporter.success(['MyTool initialized successfully (Reporter Success)'])
+        my_logger = context.logger
+        my_reporter = context.reporter
 
+        my_logger.write_log('MyTool initialized successfully', INFO)
+        my_reporter.success(['MyTool initialized successfully (Reporter Success)'])
+
+    @override
     def process(self, verbose: bool = False) -> bool:
         context = self.get_shared_context()
-        context.logger.write_log(f'Processing starting, verbose: {verbose}', logging.INFO)
+        context.logger.write_log(f'Processing starting, verbose: {verbose}', INFO)
         context.reporter.verbose(verbose, [f'Processing starting, verbose: {verbose} (Reporter Verbose)'])
         print(f'Overwrite result {verbose} ...')
         return verbose
@@ -64,9 +69,9 @@ class MyTool(Base):
     def perform_action(self) -> None:
         '''A new method showing logging and reporting with different levels and colors.'''
         context = self.get_shared_context()
-        context.logger.write_log('Performing a specific tool action', logging.INFO)
-        context.logger.write_log('This is a warning log from MyTool action', logging.WARNING)
-        
+        context.logger.write_log('Performing a specific tool action', INFO)
+        context.logger.write_log('This is a warning log from MyTool action', WARNING)
+
         # Color logs via reporter
         context.reporter.warning(['This is a colored warning from MyTool (Reporter Warning)'])
         context.reporter.error(['This is a colored error from MyTool (Reporter Error)'])
@@ -81,3 +86,4 @@ if tool.is_initialized():
     tool.perform_action()
 
 print(f'Result: {result}')
+print(str(tool))

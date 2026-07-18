@@ -31,7 +31,7 @@ from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context.context_bundle_inject import inject_context_bundle
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
 __author__ = r'Vladimir Roncevic'
@@ -102,7 +102,7 @@ class Version(IVersion):
         return self._version
 
     @version.setter
-    @vcheck([('str:version', None)])
+    @mcheck([('str:version', None)])
     @vreport('setting version {version}')
     @override
     def version(self, version: str) -> None:

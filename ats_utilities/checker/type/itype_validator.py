@@ -46,7 +46,7 @@ class ITypeValidator(ABC):
                 | is_match - Compares instance type with expected type name.
                 | is_subtype - Checks if instance is a subtype of expected type name.
                 | get_type_name - Returns the string representation of an instance type.
-                | __str__ - Returns the vcheck as string representation.
+                | __str__ - Returns the mcheck as string representation.
     '''
 
     @abstractmethod
@@ -97,9 +97,9 @@ class ITypeValidator(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the vcheck as string representation.
+            Returns the mcheck as string representation.
 
-            :return: The vcheck as string representation.
+            :return: The mcheck as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

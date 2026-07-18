@@ -31,7 +31,7 @@ from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context.context_bundle_inject import inject_context_bundle
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
 __author__ = r'Vladimir Roncevic'
@@ -102,7 +102,7 @@ class BuildDate(IBuildDate):
         return self._build_date
 
     @build_date.setter
-    @vcheck([('str:build_date', None)])
+    @mcheck([('str:build_date', None)])
     @vreport('setting build_date {build_date}')
     @override
     def build_date(self, build_date: str) -> None:

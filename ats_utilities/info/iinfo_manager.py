@@ -43,7 +43,7 @@ class IInfoManager(ABC):
         Defines abstract class IInfoManager with method(s).
         Interface for the info manager mechanism.
         Note: The information is read-only data (it is provided by
-              configuraiton file which is loaded by config loader).
+        configuraiton file which is loaded by config loader).
 
         It defines:
 

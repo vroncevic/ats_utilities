@@ -74,4 +74,9 @@ class ProjectSetupRegistry:
         template_dir: TemplateDir = TemplateDir(context_bundle=context_bundle)
         template_dir.template_dir = setup.get('template_dir')
 
-        return ProjectSetupBundle(pro_name=pro_name, pro_config=pro_config, template_dir=template_dir)
+        return ProjectSetupBundle(
+            pro_name=pro_name,
+            pro_config=pro_config,
+            template_dir=template_dir,
+            context_bundle=context_bundle
+        )

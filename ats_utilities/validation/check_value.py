@@ -55,7 +55,7 @@ def not_none(
     '''
     if value is None:
         raise_error(
-            fallback_prefix=r'factory_value::not_none',
+            fallback_prefix=r'check_value::not_none',
             fallback_msg=r'value must not be None',
             exc_message=exc_message,
             exception_class=exception_class,
@@ -82,7 +82,7 @@ def not_empty(
     '''
     if not bool(value) and value != 0 and value != False:
         raise_error(
-            fallback_prefix=r'factory_value::not_empty',
+            fallback_prefix=r'check_value::not_empty',
             fallback_msg=r'value must not be empty',
             exc_message=exc_message,
             exception_class=exception_class,
@@ -110,7 +110,7 @@ def not_satisfied(
     '''
     if status:
         raise_error(
-            fallback_prefix=r'factory_value::not_satisfied',
+            fallback_prefix=r'check_value::not_satisfied',
             fallback_msg=r'condition not satisfied',
             exc_message=exc_message,
             exception_class=exception_class,

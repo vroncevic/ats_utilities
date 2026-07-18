@@ -33,7 +33,7 @@ from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context.context_bundle_inject import inject_context_bundle
 from ats_utilities.utils.reflection import has_attrs, to_str
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 from ats_utilities.utils.dicts import require_keys, cherry_pick_dict
 from ats_utilities.validation.check_value import not_empty
@@ -109,7 +109,7 @@ class GitHubInfrastructure(IExtInfrastructure):
         return self._infrastructure_property or {}
 
     @infrastructure_property.setter
-    @vcheck([('Mapping:setup', None)])
+    @mcheck([('Mapping:setup', None)])
     @vreport('setting infrastructure property {infrastructure_property}')
     @override
     def infrastructure_property(self, setup: Mapping[str, Any]) -> None:

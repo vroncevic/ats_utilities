@@ -22,9 +22,9 @@ Info
 from __future__ import annotations
 
 from ats_utilities.generator.generator_bundle import GeneratorBundle
-from ats_utilities.generator.template.template_processor import TemplateProcessor
-from ats_utilities.generator.scheme.scheme_loader import SchemeLoader
-from ats_utilities.generator.tar.tar_processor import TarProcessor
+from ats_utilities.generator.template.engine import TemplateProcessor
+from ats_utilities.generator.scheme.engine import SchemeLoader
+from ats_utilities.generator.tar.engine import TarProcessor
 from ats_utilities.context.context_bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'

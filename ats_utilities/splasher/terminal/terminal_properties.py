@@ -35,7 +35,7 @@ from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context.context_bundle_inject import inject_context_bundle
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
 __author__ = r'Vladimir Roncevic'
@@ -88,7 +88,7 @@ class TerminalProperties(ITerminalProperties):
         inject_context_bundle(self, context_bundle)
         self._window_size = None
 
-    @vcheck([('int:file_descriptor', None)])
+    @mcheck([('int:file_descriptor', None)])
     @vreport('ioctl get window size {window_size}')
     @override
     def ioctl_get_window_size(self, file_descriptor: int) -> tuple[Any, ...]:

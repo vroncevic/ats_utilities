@@ -24,7 +24,7 @@ from __future__ import annotations
 
 import sys
 from argparse import ArgumentParser
-from typing import NoReturn, override
+from typing import Any, NoReturn, override
 
 from ats_utilities.option.parser.iarg_parser import IArgParser
 from ats_utilities.option.parser.parser_bundle import ParserBundle
@@ -33,7 +33,7 @@ from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context.context_bundle_inject import inject_context_bundle
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
@@ -71,32 +71,43 @@ class ArgParser(ArgumentParser, IArgParser):
     _reporter: IReporter
     _verbose: bool
 
-    def __init__(self, component_bundle: ParserBundle) -> None:
+    def __init__(self, component_bundle: ParserBundle | None = None, **kwargs: Any) -> None:
         '''
             Initializes ArgParser constructor.
 
-            :param args: Additional positional arguments.
-            :type args: <Any>
-            :param context_bundle: Context bundle for argument parser.
-            :type context_bundle: <ContextBundle>
+            :param component_bundle: Bundle with components for argument parser.
+            :type component_bundle: <ParserBundle | None>
             :param kwargs: Additional keyword arguments.
             :type kwargs: <Any>
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSTypeError: Component bundle must be a ParserBundle instance.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        not_none(component_bundle, r'component bundle must be provided')
-        istype(component_bundle, ParserBundle, r'component bundle must be a ParserBundle instance')
-        super().__init__(
-            prog=component_bundle.prog,
-            epilog=component_bundle.epilog,
-            description=component_bundle.description
-        )
-        inject_context_bundle(self, component_bundle.context_bundle)
+        if component_bundle is not None:
+            not_none(component_bundle, r'component bundle must be provided')
+            istype(component_bundle, ParserBundle, r'component bundle must be a ParserBundle instance')
+            prog = component_bundle.prog
+            epilog = component_bundle.epilog
+            description = component_bundle.description
+            context_bundle = component_bundle.context_bundle
+        else:
+            from ats_utilities.context.context_registry import ContextRegistry
+            prog = kwargs.pop('prog', None)
+            epilog = kwargs.pop('epilog', None)
+            description = kwargs.pop('description', None)
+            context_bundle = kwargs.pop('context_bundle', None)
+            if context_bundle is None:
+                context_bundle = ContextRegistry.create_default_context_bundle()
 
-    @vcheck([('str:message', None)])
+        super().__init__(
+            prog=prog,
+            epilog=epilog,
+            description=description,
+            **kwargs
+        )
+        inject_context_bundle(self, context_bundle)
+
+    @mcheck([('str:message', None)])
     @vreport('argument error: {message}')
     @override
     def error(self, message: str) -> NoReturn:

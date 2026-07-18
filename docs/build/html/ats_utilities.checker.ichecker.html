@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ats_utilities.checker.ichecker module &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=514cf933" />
+    
+    <script src="_static/documentation_options.js?v=893dd00a"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ats_utilities.checker.proxy_validator module" href="ats_utilities.checker.proxy_validator.html" />
+    <link rel="prev" title="ats_utilities.checker.engine module" href="ats_utilities.checker.engine.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.checker.proxy_validator.html" title="ats_utilities.checker.proxy_validator module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.checker.engine.html" title="ats_utilities.checker.engine module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ats_utilities.html" >ats_utilities package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="ats_utilities.checker.html" accesskey="U">ats_utilities.checker package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.checker.ichecker module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-ats_utilities.checker.ichecker">
+<span id="ats-utilities-checker-ichecker-module"></span><h1>ats_utilities.checker.ichecker module<a class="headerlink" href="#module-ats_utilities.checker.ichecker" title="Link to this heading">¶</a></h1>
+<dl class="simple">
+<dt>Module</dt><dd><p>ichecker.py</p>
+</dd>
+<dt>Copyright</dt><dd><p>Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+ats_utilities is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ats_utilities is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
+</dd>
+<dt>Info</dt><dd><p>Defines abstract class IChecker with attribute(s) and method(s).
+Creates an interface for Checker and other checker implementations.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorChecker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.ichecker.</span></span><span class="sig-name descname"><span class="pre">ErrorChecker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names=&lt;not</span> <span class="pre">given&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker/ichecker.html#ErrorChecker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorChecker" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Defines class ErrorChecker with attribute(s).
+Marks error types for the Checker.</p>
+<p>It defines:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
+<div class="line">NO_ERROR - Marks no param error report (0).</div>
+<div class="line">TYPE_ERROR - Marks type param error report (1).</div>
+<div class="line">FORMAT_ERROR - Marks wrong format error report (2).</div>
+</div>
+</dd>
+<dt class="field-even">methods<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorChecker.FORMAT_ERROR">
+<span class="sig-name descname"><span class="pre">FORMAT_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorChecker.FORMAT_ERROR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorChecker.NO_ERROR">
+<span class="sig-name descname"><span class="pre">NO_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorChecker.NO_ERROR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorChecker.TYPE_ERROR">
+<span class="sig-name descname"><span class="pre">TYPE_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorChecker.TYPE_ERROR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorChecker._generate_next_value_">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_generate_next_value_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorChecker._generate_next_value_" title="Link to this definition">¶</a></dt>
+<dd><p>Generate the next value when not given.</p>
+<p>name: the name of the member
+start: the initial start value or None
+count: the number of existing members
+last_values: the list of values assigned</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorChecker._member_map_">
+<span class="sig-name descname"><span class="pre">_member_map_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'FORMAT_ERROR':</span> <span class="pre">ErrorChecker.FORMAT_ERROR,</span> <span class="pre">'NO_ERROR':</span> <span class="pre">ErrorChecker.NO_ERROR,</span> <span class="pre">'TYPE_ERROR':</span> <span class="pre">ErrorChecker.TYPE_ERROR}</span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorChecker._member_map_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorChecker._member_names_">
+<span class="sig-name descname"><span class="pre">_member_names_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['NO_ERROR',</span> <span class="pre">'TYPE_ERROR',</span> <span class="pre">'FORMAT_ERROR']</span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorChecker._member_names_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorChecker._member_type_">
+<span class="sig-name descname"><span class="pre">_member_type_</span></span><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorChecker._member_type_" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorChecker._new_member_">
+<span class="sig-name descname"><span class="pre">_new_member_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorChecker._new_member_" title="Link to this definition">¶</a></dt>
+<dd><p>Create and return a new object.  See help(type) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorChecker._unhashable_values_">
+<span class="sig-name descname"><span class="pre">_unhashable_values_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorChecker._unhashable_values_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorChecker._use_args_">
+<span class="sig-name descname"><span class="pre">_use_args_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorChecker._use_args_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorChecker._value2member_map_">
+<span class="sig-name descname"><span class="pre">_value2member_map_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">ErrorChecker.NO_ERROR,</span> <span class="pre">1:</span> <span class="pre">ErrorChecker.TYPE_ERROR,</span> <span class="pre">2:</span> <span class="pre">ErrorChecker.FORMAT_ERROR}</span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorChecker._value2member_map_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorChecker._value_repr_">
+<span class="sig-name descname"><span class="pre">_value_repr_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorChecker._value_repr_" title="Link to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IChecker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.ichecker.</span></span><span class="sig-name descname"><span class="pre">IChecker</span></span><a class="reference internal" href="_modules/ats_utilities/checker/ichecker.html#IChecker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ichecker.IChecker" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Defines abstract class IChecker with attribute(s) and method(s).
+Creates an interface for Checker and other checker implementations.</p>
+<p>It defines:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
+<div class="line">ERRORS - Marks error types for message reports (0 | 1 | 2).</div>
+</div>
+</dd>
+<dt class="field-even">methods<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">validates_parameters - Validates parameters for method(s) or function(s).</div>
+<div class="line">is_initialized - Checks if checker component is initialized.</div>
+<div class="line">__str__ - Returns the checker as string representation.</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IChecker.ERRORS">
+<span class="sig-name descname"><span class="pre">ERRORS</span></span><a class="headerlink" href="#ats_utilities.checker.ichecker.IChecker.ERRORS" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker" title="ats_utilities.checker.ichecker.ErrorChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">ErrorChecker</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IChecker._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.IChecker._abc_impl" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IChecker.is_initialized">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/ichecker.html#IChecker.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ichecker.IChecker.is_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if checker component is initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;bool&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IChecker.validates_parameters">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validates_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ParametersSpecs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ValidationResult</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/ichecker.html#IChecker.validates_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ichecker.IChecker.validates_parameters" title="Link to this definition">¶</a></dt>
+<dd><p>Validates parameters for a method(s) or function(s).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parameters</strong> (<em>&lt;ParametersSpecs&gt;</em>) – Specification for parameters.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple of error message report and error id.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>&lt;ValidationResult&gt;</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ats_utilities.checker.ichecker module</a><ul>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker"><code class="docutils literal notranslate"><span class="pre">ErrorChecker</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker.FORMAT_ERROR"><code class="docutils literal notranslate"><span class="pre">ErrorChecker.FORMAT_ERROR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker.NO_ERROR"><code class="docutils literal notranslate"><span class="pre">ErrorChecker.NO_ERROR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker.TYPE_ERROR"><code class="docutils literal notranslate"><span class="pre">ErrorChecker.TYPE_ERROR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker._generate_next_value_"><code class="docutils literal notranslate"><span class="pre">ErrorChecker._generate_next_value_()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker._member_map_"><code class="docutils literal notranslate"><span class="pre">ErrorChecker._member_map_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker._member_names_"><code class="docutils literal notranslate"><span class="pre">ErrorChecker._member_names_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker._member_type_"><code class="docutils literal notranslate"><span class="pre">ErrorChecker._member_type_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker._new_member_"><code class="docutils literal notranslate"><span class="pre">ErrorChecker._new_member_()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker._unhashable_values_"><code class="docutils literal notranslate"><span class="pre">ErrorChecker._unhashable_values_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker._use_args_"><code class="docutils literal notranslate"><span class="pre">ErrorChecker._use_args_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker._value2member_map_"><code class="docutils literal notranslate"><span class="pre">ErrorChecker._value2member_map_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker._value_repr_"><code class="docutils literal notranslate"><span class="pre">ErrorChecker._value_repr_()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.IChecker"><code class="docutils literal notranslate"><span class="pre">IChecker</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.IChecker.ERRORS"><code class="docutils literal notranslate"><span class="pre">IChecker.ERRORS</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.IChecker._abc_impl"><code class="docutils literal notranslate"><span class="pre">IChecker._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.IChecker.is_initialized"><code class="docutils literal notranslate"><span class="pre">IChecker.is_initialized()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.IChecker.validates_parameters"><code class="docutils literal notranslate"><span class="pre">IChecker.validates_parameters()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="ats_utilities.checker.engine.html"
+                          title="previous chapter">ats_utilities.checker.engine module</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="ats_utilities.checker.proxy_validator.html"
+                          title="next chapter">ats_utilities.checker.proxy_validator module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ats_utilities.checker.ichecker.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.checker.proxy_validator.html" title="ats_utilities.checker.proxy_validator module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.checker.engine.html" title="ats_utilities.checker.engine module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ats_utilities.html" >ats_utilities package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="ats_utilities.checker.html" >ats_utilities.checker package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.checker.ichecker module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

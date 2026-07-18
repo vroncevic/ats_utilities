@@ -71,12 +71,12 @@ class CheckerBundle:
             :exceptions:
                 | ATSValueError: Context provider must be provided.
                 | ATSValueError: Check reporter must be provided.
-                | ATSValueError: Format vcheck must be provided.
-                | ATSValueError: Type vcheck must be provided.
+                | ATSValueError: Format mcheck must be provided.
+                | ATSValueError: Type mcheck must be provided.
                 | ATSTypeError: Context provider must be an instance of IContextProvider.
                 | ATSTypeError: Check reporter must be an instance of ICheckReporter.
-                | ATSTypeError: Format vcheck must be an instance of IFormatValidator.
-                | ATSTypeError: Type vcheck must be an instance of ITypeValidator.
+                | ATSTypeError: Format mcheck must be an instance of IFormatValidator.
+                | ATSTypeError: Type mcheck must be an instance of ITypeValidator.
         '''
         self.validate()
 
@@ -89,21 +89,21 @@ class CheckerBundle:
             :exceptions:
                 | ATSValueError: Context provider must be provided.
                 | ATSValueError: Check reporter must be provided.
-                | ATSValueError: Format vcheck must be provided.
-                | ATSValueError: Type vcheck must be provided.
+                | ATSValueError: Format mcheck must be provided.
+                | ATSValueError: Type mcheck must be provided.
                 | ATSTypeError: Context provider must be an instance of IContextProvider.
                 | ATSTypeError: Check reporter must be an instance of ICheckReporter.
-                | ATSTypeError: Format vcheck must be an instance of IFormatValidator.
-                | ATSTypeError: Type vcheck must be an instance of ITypeValidator.
+                | ATSTypeError: Format mcheck must be an instance of IFormatValidator.
+                | ATSTypeError: Type mcheck must be an instance of ITypeValidator.
         '''
         not_none(self.context_provider, r'context provider must be provided')
         not_none(self.check_reporter, r'check reporter must be provided')
-        not_none(self.format_validator, r'format vcheck must be provided')
-        not_none(self.type_validator, r'type vcheck must be provided')
+        not_none(self.format_validator, r'format mcheck must be provided')
+        not_none(self.type_validator, r'type mcheck must be provided')
         istype(self.context_provider, IContextProvider, r'context provider must be an instance of IContextProvider')
         istype(self.check_reporter, ICheckReporter, r'check reporter must be an instance of ICheckReporter')
-        istype(self.format_validator, IFormatValidator, r'format vcheck must be an instance of IFormatValidator')
-        istype(self.type_validator, ITypeValidator, r'type vcheck must be an instance of ITypeValidator')
+        istype(self.format_validator, IFormatValidator, r'format mcheck must be an instance of IFormatValidator')
+        istype(self.type_validator, ITypeValidator, r'type mcheck must be an instance of ITypeValidator')
 
     def to_dict(self) -> dict[str, Any]:
         '''

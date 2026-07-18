@@ -31,7 +31,7 @@ from ats_utilities.reporter.reporter_bundle import ReporterBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
@@ -110,7 +110,7 @@ class Reporter(IReporter):
             reset: str = self._theme.get_color('reset')
             self._logger.write_log(f'{color}{message_out}{reset}', ctrl)
 
-    @vcheck([('bool:is_verbose', None), ('Sequence:message', None)])
+    @mcheck([('bool:is_verbose', None), ('Sequence:message', None)])
     @override
     def verbose(self, is_verbose: bool, message: Sequence[Any]) -> None:
         '''
@@ -129,7 +129,7 @@ class Reporter(IReporter):
         if is_verbose:
             self._report(message, self._theme.get_color('verbose'), DEBUG)
 
-    @vcheck([('Sequence:message', None)])
+    @mcheck([('Sequence:message', None)])
     @override
     def success(self, message: Sequence[Any]) -> None:
         '''
@@ -145,7 +145,7 @@ class Reporter(IReporter):
         '''
         self._report(message, self._theme.get_color('success'), INFO)
 
-    @vcheck([('Sequence:message', None)])
+    @mcheck([('Sequence:message', None)])
     @override
     def warning(self, message: Sequence[Any]) -> None:
         '''
@@ -161,7 +161,7 @@ class Reporter(IReporter):
         '''
         self._report(message, self._theme.get_color('warning'), WARNING)
 
-    @vcheck([('Sequence:message', None)])
+    @mcheck([('Sequence:message', None)])
     @override
     def error(self, message: Sequence[Any]) -> None:
         '''
@@ -177,7 +177,7 @@ class Reporter(IReporter):
         '''
         self._report(message, self._theme.get_color('error'), ERROR)
 
-    @vcheck([('int:level', None)])
+    @mcheck([('int:level', None)])
     @override
     def set_level(self, level: int) -> None:
         '''

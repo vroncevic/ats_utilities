@@ -44,7 +44,7 @@ class IFormatValidator(ABC):
             :methods:
                 | is_valid - Checks if the string follows the expected format.
                 | split - Splits the format string into components.
-                | __str__ - Returns the vcheck as string representation.
+                | __str__ - Returns the mcheck as string representation.
     '''
 
     @abstractmethod
@@ -76,9 +76,9 @@ class IFormatValidator(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the vcheck as string representation.
+            Returns the mcheck as string representation.
 
-            :return: The vcheck as string representation.
+            :return: The mcheck as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

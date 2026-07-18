@@ -27,7 +27,7 @@ from typing import Any, override
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str, has_attrs
 from ats_utilities.context.context_bundle_inject import inject_context_bundle
@@ -131,7 +131,7 @@ class OptionManager(IOptionManager):
         '''
         self._strategy.add_argument(*args, **kwargs)
 
-    @vcheck([('str | None:version', None)])
+    @mcheck([('str | None:version', None)])
     @vreport('add version {version}')
     @override
     def add_version_operation(self, version: str | None) -> None:

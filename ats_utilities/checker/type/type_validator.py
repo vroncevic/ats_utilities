@@ -50,11 +50,13 @@ class TypeValidator(ITypeValidator):
 
             :attributes:
                 | _ABSTRACT_TYPES - Mapping of abstract type names to their implementations.
+                | _abstract_types - Mapping of abstract type names to their implementations.
             :methods:
+                | __init__ - Initializes TypeValidator constructor.
                 | is_match - Compares instance type with expected type name.
                 | is_subtype - Checks if instance is a subtype of expected type name.
                 | get_type_name - Returns the string representation of an instance type.
-                | __str__ - Returns the ATS type vcheck as string representation.
+                | __str__ - Returns the ATS type mcheck as string representation.
     '''
 
     _ABSTRACT_TYPES: Final[Mapping[str, type]] = MappingProxyType({
@@ -62,6 +64,22 @@ class TypeValidator(ITypeValidator):
         'Sequence': Sequence,
         'Iterable': Iterable,
     })
+    _abstract_types: Mapping[str, type]
+
+    def __init__(self, abstract_types: Mapping[str, type] | None = None) -> None:
+        '''
+            Initializes TypeValidator constructor.
+
+            :param abstract_types: Mapping of abstract type names to their implementations.
+            :type abstract_types: <Mapping[str, type] | None>
+            :exceptions:
+                | ATSTypeError: Abstract types must be a Mapping.
+        '''
+        if abstract_types is not None:
+            istype(abstract_types, Mapping, r'abstract types must be a Mapping')
+            self._abstract_types = MappingProxyType(abstract_types)
+        else:
+            self._abstract_types = self._ABSTRACT_TYPES
 
     @override
     def is_match(self, instance: Any, expected_type_name: str) -> bool:
@@ -81,8 +99,8 @@ class TypeValidator(ITypeValidator):
         istype(expected_type_name, str, r'expected type name must be a string')
         base_type_name = expected_type_name.split('[')[0]
 
-        if base_type_name in self._ABSTRACT_TYPES:
-            return isinstance(instance, self._ABSTRACT_TYPES[base_type_name])
+        if base_type_name in self._abstract_types:
+            return isinstance(instance, self._abstract_types[base_type_name])
 
         return any(cls.__name__ == base_type_name for cls in type(instance).mro())
 
@@ -104,8 +122,8 @@ class TypeValidator(ITypeValidator):
         istype(expected_type_name, str, r'expected type name must be a string')
         base_type_name = expected_type_name.split('[')[0]
 
-        if base_type_name in self._ABSTRACT_TYPES:
-            return isinstance(instance, self._ABSTRACT_TYPES[base_type_name])
+        if base_type_name in self._abstract_types:
+            return isinstance(instance, self._abstract_types[base_type_name])
 
         return any(cls.__name__ == base_type_name for cls in type(instance).mro())
 
@@ -125,9 +143,9 @@ class TypeValidator(ITypeValidator):
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS type vcheck as string representation.
+            Returns the ATS type mcheck as string representation.
 
-            :return: The ATS type vcheck as string representation.
+            :return: The ATS type mcheck as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

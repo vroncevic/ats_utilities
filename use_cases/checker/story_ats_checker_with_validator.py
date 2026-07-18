@@ -24,7 +24,7 @@ from __future__ import annotations
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.checker_registry import CheckerRegistry
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
@@ -76,7 +76,7 @@ class TestData:
         return self._data
 
     @data.setter
-    @vcheck([('dict[str, int]:data', None)])
+    @mcheck([('dict[str, int]:data', None)])
     def data(self, data: dict[str, int]) -> None:
         '''
             Property method for setting data.
@@ -94,7 +94,7 @@ class TestData:
         '''
         self._data = data
 
-    @vcheck([('dict[str, int]:data', None)])
+    @mcheck([('dict[str, int]:data', None)])
     def set_my_data(self, data: dict[str, int]) -> None:
         """
          set_my_data method.

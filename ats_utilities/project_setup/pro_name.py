@@ -31,7 +31,7 @@ from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context.context_bundle_inject import inject_context_bundle
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
 __author__ = r'Vladimir Roncevic'
@@ -101,7 +101,7 @@ class ProName(IProName):
         return self._pro_name
 
     @pro_name.setter
-    @vcheck([('str:name', None)])
+    @mcheck([('str:name', None)])
     @vreport('getting pro name {pro_name}')
     @override
     def pro_name(self, name: str) -> None:

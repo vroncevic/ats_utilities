@@ -26,3 +26,10 @@
 07/17/2026 07:49:02 PM - WARNING - This is a warning log from MyTool action
 07/17/2026 07:49:02 PM - WARNING - [33mThis is a colored warning from MyTool (Reporter Warning)[0m
 07/17/2026 07:49:02 PM - ERROR - [31mThis is a colored error from MyTool (Reporter Error)[0m
+07/17/2026 08:44:57 PM - INFO - MyTool initialized successfully
+07/17/2026 08:44:57 PM - INFO - [32mMyTool initialized successfully (Reporter Success)[0m
+07/17/2026 08:44:57 PM - INFO - Processing starting, verbose: True
+07/17/2026 08:44:57 PM - INFO - Performing a specific tool action
+07/17/2026 08:44:57 PM - WARNING - This is a warning log from MyTool action
+07/17/2026 08:44:57 PM - WARNING - [33mThis is a colored warning from MyTool (Reporter Warning)[0m
+07/17/2026 08:44:57 PM - ERROR - [31mThis is a colored error from MyTool (Reporter Error)[0m

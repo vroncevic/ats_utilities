@@ -54,7 +54,7 @@ class InfoManager(IInfoManager):
         Creates an API for the information in one container object.
         The information container for App/Tool/Script.
         Note: The information is read-only data (it is provided by
-              configuraiton file which is loaded by config loader).
+        configuraiton file which is loaded by config loader).
 
         It defines:
 

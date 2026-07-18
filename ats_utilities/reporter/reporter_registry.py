@@ -2,7 +2,7 @@
 
 '''
 Module
-    component_bundle.py
+    reporter_registry.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it

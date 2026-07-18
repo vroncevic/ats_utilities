@@ -93,5 +93,5 @@ def raise_error(
     if exc_message is None:
         raise exception_class(f'{fallback_prefix} - {fallback_msg}')
 
-    context = get_caller(depth=depth)
+    context: str = get_caller(depth=depth)
     raise exception_class(f'{context} - {exc_message}')

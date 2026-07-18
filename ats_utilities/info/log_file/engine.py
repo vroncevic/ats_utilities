@@ -31,7 +31,7 @@ from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context.context_bundle_inject import inject_context_bundle
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
 __author__ = r'Vladimir Roncevic'
@@ -102,7 +102,7 @@ class LogFile(ILogFile):
         return self._log_file
 
     @log_file.setter
-    @vcheck([('str:log_file', None)])
+    @mcheck([('str:log_file', None)])
     @vreport('setting log file {log_file}')
     @override
     def log_file(self, log_file: str) -> None:

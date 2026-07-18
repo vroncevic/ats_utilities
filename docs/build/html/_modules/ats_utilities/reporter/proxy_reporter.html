@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ats_utilities.reporter.proxy_reporter &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/classic.css?v=514cf933" />
+    
+    <script src="../../../_static/documentation_options.js?v=893dd00a"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.reporter.proxy_reporter</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ats_utilities.reporter.proxy_reporter</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Module</span>
+<span class="sd">    proxy_reporter.py</span>
+<span class="sd">Copyright</span>
+<span class="sd">    Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
+<span class="sd">    ats_utilities is free software: you can redistribute it and/or modify it</span>
+<span class="sd">    under the terms of the GNU General Public License as published by the</span>
+<span class="sd">    Free Software Foundation, either version 3 of the License, or</span>
+<span class="sd">    (at your option) any later version.</span>
+<span class="sd">    ats_utilities is distributed in the hope that it will be useful, but</span>
+<span class="sd">    WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="sd">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General</span>
+<span class="sd">    Public License for more details.</span>
+<span class="sd">    You should have received a copy of the GNU General Public License along</span>
+<span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="sd">Info</span>
+<span class="sd">    Defines vreport decorator for automatic console logging via templates.</span>
+<span class="sd">    Utility for proxy reporting that borrows IReporter from class instances</span>
+<span class="sd">    and supports multiple message templates and variables.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="n">findall</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.context_error</span> <span class="kn">import</span> <span class="n">raise_error</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSValueError</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
+
+<div class="viewcode-block" id="vreport">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.proxy_reporter.html#ats_utilities.reporter.proxy_reporter.vreport">[docs]</a>
+<span class="k">def</span> <span class="nf">vreport</span><span class="p">[</span><span class="n">F</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]](</span><span class="n">templates</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">F</span><span class="p">],</span> <span class="n">F</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Decorator supporting class methods and property operations.</span>
+<span class="sd">        Borrows the reporter object and verbose flag dynamically from the </span>
+<span class="sd">        class instance to automatically format and report status messages.</span>
+<span class="sd">        Supports single or multiple message templates with multiple variables.</span>
+
+<span class="sd">        :param templates: Single template string or a list of template strings.</span>
+<span class="sd">        :type templates: &lt;str | list[str]&gt;</span>
+<span class="sd">        :return: Wrapped function.</span>
+<span class="sd">        :rtype: &lt;Callable[[F], F]&gt;</span>
+<span class="sd">        :exceptions:</span>
+<span class="sd">            | ATSValueError: Decorator requires at least one argument.</span>
+<span class="sd">            | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
+<span class="sd">            | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">            |                    use the @vreport decorator.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">message_templates</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">templates</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">templates</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">templates</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">message_templates</span><span class="p">:</span>
+        <span class="n">raise_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vreport::decorator&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Decorator @vreport requires at least one argument&#39;</span><span class="p">,</span>
+            <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSValueError</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">F</span><span class="p">:</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+            <span class="n">self_instance</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="kc">None</span>
+
+            <span class="k">if</span> <span class="n">self_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">raise_error</span><span class="p">(</span>
+                    <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vreport::decorator&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Decorator @vreport on </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> can only be used on class methods&#39;</span><span class="p">,</span>
+                    <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSRuntimeError</span><span class="p">,</span>
+                <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+            <span class="p">)</span>
+
+            <span class="n">class_name</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+
+            <span class="c1"># BORROWING: Extracting reporter from the instance</span>
+            <span class="n">reporter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+                <span class="n">self_instance</span><span class="p">,</span> <span class="s1">&#39;_reporter&#39;</span><span class="p">,</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">_reporter&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="c1"># BORROWING: Extracting verbose flag from the instance</span>
+            <span class="n">is_verbose</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+                <span class="n">self_instance</span><span class="p">,</span> <span class="s1">&#39;_verbose&#39;</span><span class="p">,</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">_verbose&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">reporter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">raise_error</span><span class="p">(</span>
+                    <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vreport::decorator&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Class </span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1"> is required to provide a _reporter object to use the @vreport decorator&#39;</span><span class="p">,</span>
+                    <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSAttributeError</span><span class="p">,</span>
+                    <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Executing the original method first to get updated state (critical for setters)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="n">final_messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">template</span> <span class="ow">in</span> <span class="n">message_templates</span><span class="p">:</span>
+                <span class="n">placeholders</span> <span class="o">=</span> <span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\{([^}]+)\}&#39;</span><span class="p">,</span> <span class="n">template</span><span class="p">)</span>
+                <span class="n">format_context</span> <span class="o">=</span> <span class="p">{}</span>
+
+                <span class="k">for</span> <span class="n">placeholder</span> <span class="ow">in</span> <span class="n">placeholders</span><span class="p">:</span>
+                    <span class="c1"># To prevent infinite recursion via public property getters,</span>
+                    <span class="c1"># we explicitly check the internal object&#39;s __dict__ for </span>
+                    <span class="c1"># mangled private, protected, or local attributes first.</span>
+                    <span class="n">private_mangled</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">__</span><span class="si">{</span><span class="n">placeholder</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="n">protected_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">placeholder</span><span class="si">}</span><span class="s1">&#39;</span>
+
+                    <span class="k">if</span> <span class="n">private_mangled</span> <span class="ow">in</span> <span class="n">self_instance</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+                        <span class="n">val</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">private_mangled</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="n">protected_name</span> <span class="ow">in</span> <span class="n">self_instance</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+                        <span class="n">val</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">protected_name</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="n">placeholder</span> <span class="ow">in</span> <span class="n">self_instance</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+                        <span class="n">val</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">placeholder</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># If the attribute isn&#39;t directly inside __dict__, we look up via getattr</span>
+                        <span class="c1"># while avoiding calling properties named identically to the active function.</span>
+                        <span class="k">if</span> <span class="n">placeholder</span> <span class="o">!=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span>
+                            <span class="n">val</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="n">placeholder</span><span class="p">,</span> <span class="s1">&#39;None&#39;</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">val</span> <span class="o">=</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;None&#39;</span>
+
+                    <span class="n">format_context</span><span class="p">[</span><span class="n">placeholder</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span> <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;None&#39;</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">formatted_msg</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">format_context</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+                    <span class="n">final_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">formatted_msg</span><span class="p">)</span>
+
+                <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                    <span class="n">final_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+
+            <span class="c1"># Forwarding the processed list of messages to the borrowed reporter</span>
+            <span class="n">reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="n">is_verbose</span><span class="p">,</span> <span class="n">final_messages</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">decorator</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.reporter.proxy_reporter</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

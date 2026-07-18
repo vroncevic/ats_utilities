@@ -33,7 +33,7 @@ from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context.context_bundle_inject import inject_context_bundle
 from ats_utilities.utils.reflection import has_attrs, to_str
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 from ats_utilities.utils.dicts import require_keys, has_required_keys
 
@@ -105,7 +105,7 @@ class SplashProperty(ISplashProperty):
         return self._splash_keys.to_dict() if self._splash_keys is not None else {}
 
     @splash_keys.setter
-    @vcheck([('Mapping:setup', None)])
+    @mcheck([('Mapping:setup', None)])
     @vreport('setting splash property {splash_keys}')
     @override
     def splash_keys(self, setup: Mapping[str, Any]) -> None:
