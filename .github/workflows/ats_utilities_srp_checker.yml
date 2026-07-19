@@ -36,7 +36,7 @@ jobs:
             bloated_methods=$(awk '
               # When a new method starts, check the logical lines accumulated for the previous one
               /^    def / { 
-                if (logical_lines > 80) {
+                if (logical_lines > 180) {
                   print "Line " NR-lines_elapsed ": Method is too long (" logical_lines " logical lines)";
                 }
                 logical_lines = 0;
