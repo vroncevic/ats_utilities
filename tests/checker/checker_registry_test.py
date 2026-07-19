@@ -60,6 +60,14 @@ class CheckerRegistryTest(unittest.TestCase):
         self.assertIsInstance(bundle.context_provider, ContextProvider)
         self.assertIsInstance(bundle.check_reporter, CheckReporter)
 
+    def test_create_bundle(self) -> None:
+        bundle = CheckerRegistry.create_bundle()
+        self.assertIsInstance(bundle, CheckerBundle)
+        self.assertIsInstance(bundle.format_validator, FormatValidator)
+        self.assertIsInstance(bundle.type_validator, TypeValidator)
+        self.assertIsInstance(bundle.context_provider, ContextProvider)
+        self.assertIsInstance(bundle.check_reporter, CheckReporter)
+
 
 if __name__ == "__main__":
     unittest.main()

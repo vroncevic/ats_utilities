@@ -71,7 +71,7 @@ Creates an API for the use GitHub infrastructure in one property object.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.info.use_github.engine.UseGitHub">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.use_github.engine.</span></span><span class="sig-name descname"><span class="pre">UseGitHub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/info/use_github/engine.html#UseGitHub"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.use_github.engine.UseGitHub" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.info.use_github.iuse_github.html#ats_utilities.info.use_github.iuse_github.IUseGitHub" title="ats_utilities.info.use_github.iuse_github.IUseGitHub"><code class="xref py py-class docutils literal notranslate"><span class="pre">IUseGitHub</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.context.context_support.html#ats_utilities.context.context_support.ContextSupport" title="ats_utilities.context.context_support.ContextSupport"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextSupport</span></code></a>, <a class="reference internal" href="ats_utilities.info.use_github.iuse_github.html#ats_utilities.info.use_github.iuse_github.IUseGitHub" title="ats_utilities.info.use_github.iuse_github.IUseGitHub"><code class="xref py py-class docutils literal notranslate"><span class="pre">IUseGitHub</span></code></a></p>
 <p>Defines class UseGitHub with attribute(s) and method(s).
 Creates an API for the use GitHub infrastructure in one property object.
 Note: Use GitHub is only prepared when it is set by user (not None).</p>
@@ -80,10 +80,6 @@ Note: Use GitHub is only prepared when it is set by user (not None).</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_checker - Injected parameters checker (default Checker).</div>
-<div class="line">_logger - Injected logger (default Logger).</div>
-<div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
-<div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
 <div class="line">_use_github - The use GitHub infrastructure for App/Tool/Script (default False).</div>
 </div>
 </dd>
@@ -103,28 +99,8 @@ Note: Use GitHub is only prepared when it is set by user (not None).</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.info.use_github.engine.UseGitHub._checker">
-<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.info.use_github.engine.UseGitHub._checker" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.info.use_github.engine.UseGitHub._logger">
-<span class="sig-name descname"><span class="pre">_logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a></em><a class="headerlink" href="#ats_utilities.info.use_github.engine.UseGitHub._logger" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.info.use_github.engine.UseGitHub._reporter">
-<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.info.use_github.engine.UseGitHub._reporter" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.info.use_github.engine.UseGitHub._use_github">
 <span class="sig-name descname"><span class="pre">_use_github</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.info.use_github.engine.UseGitHub._use_github" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.info.use_github.engine.UseGitHub._verbose">
-<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.info.use_github.engine.UseGitHub._verbose" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -192,11 +168,7 @@ Note: Use GitHub is only prepared when it is set by user (not None).</p>
 <li><a class="reference internal" href="#">ats_utilities.info.use_github.engine module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.info.use_github.engine.UseGitHub"><code class="docutils literal notranslate"><span class="pre">UseGitHub</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.info.use_github.engine.UseGitHub._abc_impl"><code class="docutils literal notranslate"><span class="pre">UseGitHub._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.info.use_github.engine.UseGitHub._checker"><code class="docutils literal notranslate"><span class="pre">UseGitHub._checker</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.info.use_github.engine.UseGitHub._logger"><code class="docutils literal notranslate"><span class="pre">UseGitHub._logger</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.info.use_github.engine.UseGitHub._reporter"><code class="docutils literal notranslate"><span class="pre">UseGitHub._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.use_github.engine.UseGitHub._use_github"><code class="docutils literal notranslate"><span class="pre">UseGitHub._use_github</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.info.use_github.engine.UseGitHub._verbose"><code class="docutils literal notranslate"><span class="pre">UseGitHub._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.use_github.engine.UseGitHub.not_none"><code class="docutils literal notranslate"><span class="pre">UseGitHub.not_none()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.use_github.engine.UseGitHub.use_github"><code class="docutils literal notranslate"><span class="pre">UseGitHub.use_github</span></code></a></li>
 </ul>

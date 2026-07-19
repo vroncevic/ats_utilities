@@ -63,6 +63,7 @@
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
+<span class="kn">from</span> <span class="nn">ats_utilities.context.icontext_support</span> <span class="kn">import</span> <span class="n">IContextSupport</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.parser.parser_bundle</span> <span class="kn">import</span> <span class="n">ParserBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptionNamespace</span><span class="p">,</span> <span class="n">OptArgs</span><span class="p">,</span> <span class="n">KnownArgs</span>
 
@@ -78,7 +79,7 @@
 
 <div class="viewcode-block" id="IArgParser">
 <a class="viewcode-back" href="../../../../ats_utilities.option.parser.iarg_parser.html#ats_utilities.option.parser.iarg_parser.IArgParser">[docs]</a>
-<span class="k">class</span> <span class="nc">IArgParser</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">IArgParser</span><span class="p">(</span><span class="n">IContextSupport</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines abstract class IArgParser with method(s).</span>
 <span class="sd">        Interface for custom argument parser.</span>

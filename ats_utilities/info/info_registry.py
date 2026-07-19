@@ -78,6 +78,7 @@ class InfoRegistry(IRegistry[InfoBundle]):
         InfoKeys.ATS_INFO_OK: InfoOk
     })
 
+    @classmethod
     @override
     def create_bundle(cls, **kwargs: Any) -> InfoBundle:
         '''
@@ -119,10 +120,26 @@ class InfoRegistry(IRegistry[InfoBundle]):
             :rtype: <InfoBundle>
             :exceptions: None.
         '''
-        not_none(context_bundle, r'context_bundle must be provided')
-        not_none(info, r'info must be provided')
-        istype(context_bundle, ContextBundle, r'context_bundle must be ContextBundle instance')
-        istype(info, Mapping, r'info must be Mapping instance')
+        not_none(
+            context_bundle,
+            r'info_registry::create_info_bundle_from_dict(...)',
+            r'context_bundle must be provided'
+        )
+        not_none(
+            info,
+            r'info_registry::create_info_bundle_from_dict(...)',
+            r'info must be provided'
+        )
+        istype(
+            context_bundle, ContextBundle,
+            r'info_registry::create_info_bundle_from_dict(...)',
+            r'context_bundle must be ContextBundle instance'
+        )
+        istype(
+            info, Mapping,
+            r'info_registry::create_info_bundle_from_dict(...)',
+            r'info must be Mapping instance'
+        )
         key_to_attr: MappingProxyType[str, str] = InfoKeys.get_key_to_attr()
         bundle_kwargs: dict[str, Any] = {}
 

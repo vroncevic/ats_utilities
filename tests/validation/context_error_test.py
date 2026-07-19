@@ -24,7 +24,7 @@ from __future__ import annotations
 import unittest
 
 from ats_utilities.exceptions import ATSValueError
-from ats_utilities.validation.context_error import get_caller, raise_error
+from ats_utilities.validation.context_error import raise_error
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,68 +36,6 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
 
 
-def helper_function() -> str:
-    '''
-        Helper function to test get_caller.
-
-        :return: Caller name.
-        :rtype: <str>
-    '''
-    return get_caller(depth=1)
-
-
-def helper_nested() -> str:
-    '''
-        Helper nested function to test get_caller at depth 2.
-
-        :return: Caller name.
-        :rtype: <str>
-    '''
-    return get_caller(depth=2)
-
-
-def helper_function_2() -> str:
-    '''
-        Helper function that calls helper_nested.
-
-        :return: Caller name.
-        :rtype: <str>
-    '''
-    return helper_nested()
-
-
-class DummyClass:
-    '''
-        Defines class DummyClass to test class and method context extraction.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | dummy_method - Instance method returning caller context.
-                | dummy_classmethod - Class method returning caller context.
-    '''
-
-    def dummy_method(self) -> str:
-        '''
-            Instance method returning caller context.
-
-            :return: Caller context.
-            :rtype: <str>
-        '''
-        return get_caller(depth=1)
-
-    @classmethod
-    def dummy_classmethod(cls) -> str:
-        '''
-            Class method returning caller context.
-
-            :return: Caller context.
-            :rtype: <str>
-        '''
-        return get_caller(depth=1)
-
-
 class ContextErrorTest(unittest.TestCase):
     '''
         Defines class ContextErrorTest with attribute(s) and method(s).
@@ -107,56 +45,11 @@ class ContextErrorTest(unittest.TestCase):
 
             :attributes: None.
             :methods:
-                | test_get_caller_function - Tests get_caller inside a regular function.
-                | test_get_caller_nested_function - Tests get_caller with higher depth.
-                | test_get_caller_method - Tests get_caller inside an instance method.
-                | test_get_caller_classmethod - Tests get_caller inside a class method.
-                | test_get_caller_unknown - Tests get_caller when depth is out of bounds.
                 | test_raise_error_fallback - Tests raise_error with fallback message.
                 | test_raise_error_fallback_custom_exception - Tests raise_error with custom exception.
-                | test_raise_error_msg - Tests raise_error with custom message and default depth.
-                | test_raise_error_msg_custom_exception - Tests raise_error with custom message and exception.
+                | test_raise_error_msg - Tests raise_error with custom message and context.
+                | test_raise_error_msg_custom_exception - Tests raise_error with custom message, context and exception.
     '''
-
-    def test_get_caller_function(self) -> None:
-        '''
-            Tests get_caller inside a regular function.
-
-            :exceptions: None.
-        '''
-        self.assertEqual(helper_function(), "helper_function")
-
-    def test_get_caller_nested_function(self) -> None:
-        '''
-            Tests get_caller with higher depth.
-
-            :exceptions: None.
-        '''
-        self.assertEqual(helper_function_2(), "helper_function_2")
-
-    def test_get_caller_method(self) -> None:
-        '''
-            Tests get_caller inside an instance method.
-
-            :exceptions: None.
-        '''
-        self.assertEqual(DummyClass().dummy_method(), "dummyclass::dummy_method")
-
-    def test_get_caller_classmethod(self) -> None:
-        '''
-            Tests get_caller inside a class method.
-
-            :exceptions: None.
-        '''
-        self.assertEqual(DummyClass.dummy_classmethod(), "dummyclass::dummy_classmethod")
-
-    def test_get_caller_unknown(self) -> None:
-        '''
-            Tests get_caller when depth is out of bounds.
-
-            :exceptions: None.
-        '''
-        self.assertEqual(get_caller(depth=100), "unknown")
 
     def test_raise_error_fallback(self) -> None:
         '''
@@ -165,7 +58,7 @@ class ContextErrorTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError) as ctx:
-            raise_error("my_prefix", "my_fallback")
+            raise_error("my_prefix", "my_fallback", "some_context")
         self.assertEqual(str(ctx.exception), "my_prefix - my_fallback")
 
     def test_raise_error_fallback_custom_exception(self) -> None:
@@ -175,28 +68,28 @@ class ContextErrorTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(RuntimeError) as ctx:
-            raise_error("my_prefix", "my_fallback", exception_class=RuntimeError)
+            raise_error("my_prefix", "my_fallback", "some_context", exc_class=RuntimeError)
         self.assertEqual(str(ctx.exception), "my_prefix - my_fallback")
 
     def test_raise_error_msg(self) -> None:
         '''
-            Tests raise_error with custom message and default depth.
+            Tests raise_error with custom message and context.
 
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError) as ctx:
-            raise_error("my_prefix", "my_fallback", exc_message="my message")
-        self.assertEqual(str(ctx.exception), "contexterrortest::test_raise_error_msg - my message")
+            raise_error("my_prefix", "my_fallback", "some_context", exc_message="my message")
+        self.assertEqual(str(ctx.exception), "some_context - my message")
 
     def test_raise_error_msg_custom_exception(self) -> None:
         '''
-            Tests raise_error with custom message and exception.
+            Tests raise_error with custom message, context and exception.
 
             :exceptions: None.
         '''
         with self.assertRaises(RuntimeError) as ctx:
-            raise_error("my_prefix", "my_fallback", exc_message="my message", exception_class=RuntimeError)
-        self.assertEqual(str(ctx.exception), "contexterrortest::test_raise_error_msg_custom_exception - my message")
+            raise_error("my_prefix", "my_fallback", "some_context", exc_message="my message", exc_class=RuntimeError)
+        self.assertEqual(str(ctx.exception), "some_context - my message")
 
 
 if __name__ == "__main__":

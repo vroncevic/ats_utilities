@@ -69,7 +69,11 @@ class FormatValidator(IFormatValidator):
             :exceptions:
                 | ATSTypeError: exp_type must be a string.
         '''
-        istype(exp_type, str, r'expected type must be a string')
+        istype(
+            exp_type, str,
+            r'format_validator::is_valid(...)',
+            r'expected type must be a string'
+        )
 
         return len(exp_type.split(sep=':')) == self.EXPECTED_FORMAT_PARTS
 
@@ -85,7 +89,11 @@ class FormatValidator(IFormatValidator):
             :exceptions:
                 | ATSTypeError: exp_type must be a string.
         '''
-        istype(exp_type, str, r'expected type must be a string')
+        istype(
+            exp_type, str,
+            r'format_validator::split(...)',
+            r'expected type must be a string'
+        )
         parts = exp_type.split(sep=':')
 
         return parts[0], parts[1]

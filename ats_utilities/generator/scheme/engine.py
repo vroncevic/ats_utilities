@@ -28,13 +28,10 @@ from collections.abc import Mapping
 
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.config_io.config_io_registry import ConfigIORegistry
 from ats_utilities.exceptions import ATSGeneratorError
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_satisfied
@@ -50,7 +47,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class SchemeLoader(ISchemeLoader):
+class SchemeLoader(ContextSupport, ISchemeLoader):
     '''
         Defines class SchemeLoader with method(s).
         Resolves generation scheme from dict or file path using config_io.
@@ -58,10 +55,6 @@ class SchemeLoader(ISchemeLoader):
         It defines:
 
             :attributes:
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger for logging (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _initialized - Flag indicating if the loader is initialized.
             :methods:
                 | __init__ - Initializes SchemeLoader constructor.
@@ -70,10 +63,6 @@ class SchemeLoader(ISchemeLoader):
                 | __str__ - Returns the loader as string representation.
     '''
 
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
     _initialized: bool
     _shared_context: ContextBundle
 
@@ -81,14 +70,14 @@ class SchemeLoader(ISchemeLoader):
         '''
             Initializes SchemeLoader constructor.
 
-            :param context_bundle: Context bundle for scheme loader | None.
-            :type context_bundle: <ContextBundle | None>
+            :param context_bundle: Context bundle for scheme loader.
+            :type context_bundle: <ContextBundle>
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
         self._shared_context = context_bundle
-        inject_context_bundle(self, self._shared_context)
+        ContextSupport.__init__(self, self._shared_context)
         self._initialized = True
 
     @override
@@ -107,11 +96,23 @@ class SchemeLoader(ISchemeLoader):
                 | ATSValueError: Failed to setup config loader.
                 | ATSGeneratorError: Loading scheme file fails.
         '''
-        istype(scheme, (str, Mapping), r'scheme must be of type str or Mapping')
+        istype(
+            scheme, (str, Mapping),
+            r'scheme_loader::load(...)',
+            r'scheme must be of type str or Mapping'
+        )
 
         if isinstance(scheme, str):
-            not_satisfied(not exists(scheme), f'scheme file at the provided path does not exist: {scheme}')
-            not_satisfied(not scheme.endswith('.json'), f'unsupported scheme file format for: {scheme}. Only .json is supported.')
+            not_satisfied(
+                not exists(scheme),
+                r'scheme_loader::load(...)',
+                f'scheme file at the provided path does not exist: {scheme}'
+            )
+            not_satisfied(
+                not scheme.endswith('.json'),
+                r'scheme_loader::load(...)',
+                f'unsupported scheme file format for: {scheme}. Only .json is supported.'
+            )
 
             try:
                 config_loader: Loader = Loader(
@@ -121,13 +122,22 @@ class SchemeLoader(ISchemeLoader):
                         context_bundle=self._shared_context
                     )
                 )
-                not_satisfied(config_loader is None, f'failed to setup config loader for: {scheme}')
+                not_satisfied(
+                    config_loader is None,
+                    r'scheme_loader::load(...)',
+                    f'failed to setup config loader for: {scheme}'
+                )
 
                 return config_loader.load_configuration()
 
             except Exception as exc:
                 msg: str = format_error_raw(self, exc)
-                not_satisfied(True, f'failed to load scheme file {scheme}: {msg}', ATSGeneratorError)
+                not_satisfied(
+                    True,
+                    r'scheme_loader::load(...)',
+                    f'failed to load scheme file {scheme}: {msg}',
+                    ATSGeneratorError
+                )
 
         return dict(scheme)
 

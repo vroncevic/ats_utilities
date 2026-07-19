@@ -76,7 +76,11 @@ class TypeValidator(ITypeValidator):
                 | ATSTypeError: Abstract types must be a Mapping.
         '''
         if abstract_types is not None:
-            istype(abstract_types, Mapping, r'abstract types must be a Mapping')
+            istype(
+                abstract_types, Mapping,
+                r'type_validator::init(...)',
+                r'abstract types must be a Mapping'
+            )
             self._abstract_types = MappingProxyType(abstract_types)
         else:
             self._abstract_types = self._ABSTRACT_TYPES
@@ -96,7 +100,11 @@ class TypeValidator(ITypeValidator):
             :exceptions:
                 | ATSTypeError: Expected type name must be a string.
         '''
-        istype(expected_type_name, str, r'expected type name must be a string')
+        istype(
+            expected_type_name, str,
+            r'type_validator::is_match(...)',
+            r'expected type name must be a string'
+        )
         base_type_name = expected_type_name.split('[')[0]
 
         if base_type_name in self._abstract_types:
@@ -119,7 +127,11 @@ class TypeValidator(ITypeValidator):
             :exceptions:
                 | ATSTypeError: Expected type name must be a string.
         '''
-        istype(expected_type_name, str, r'expected type name must be a string')
+        istype(
+            expected_type_name, str,
+            r'type_validator::is_subtype(...)',
+            r'expected type name must be a string'
+        )
         base_type_name = expected_type_name.split('[')[0]
 
         if base_type_name in self._abstract_types:

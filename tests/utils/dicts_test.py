@@ -92,7 +92,7 @@ class DictsTest(unittest.TestCase):
             :exceptions: None.
         '''
         try:
-            require_keys({"a": 1, "b": 2}, frozenset(["a", "b"]))
+            require_keys({"a": 1, "b": 2}, frozenset(["a", "b"]), 'dictstest::test_require_keys_valid')
         except ATSValueError:
             self.fail("require_keys raised ATSValueError unexpectedly.")
 
@@ -103,7 +103,7 @@ class DictsTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError) as ctx:
-            require_keys({"a": 1}, frozenset(["a", "b"]))
+            require_keys({"a": 1}, frozenset(["a", "b"]), 'dictstest::test_require_keys_missing')
         self.assertIn("mapping is missing required keys", str(ctx.exception))
         self.assertIn("b", str(ctx.exception))
 
@@ -114,10 +114,10 @@ class DictsTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSTypeError):
-            require_keys("not a dict", frozenset(["a"]))  # type: ignore
+            require_keys("not a dict", frozenset(["a"]), 'dictstest::test_require_keys_invalid_types')  # type: ignore
 
         with self.assertRaises(ATSTypeError):
-            require_keys({"a": 1}, ["a"])  # type: ignore
+            require_keys({"a": 1}, ["a"], 'dictstest::test_require_keys_invalid_types')  # type: ignore
 
     def test_require_keys_custom_exception(self) -> None:
         '''
@@ -126,7 +126,7 @@ class DictsTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ValueError):
-            require_keys({"a": 1}, frozenset(["a", "b"]), exception_class=ValueError)
+            require_keys({"a": 1}, frozenset(["a", "b"]), 'dictstest::test_require_keys_custom_exception', exc_class=ValueError)
 
     def test_require_keys_custom_message(self) -> None:
         '''
@@ -135,7 +135,7 @@ class DictsTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError) as ctx:
-            require_keys({"a": 1}, frozenset(["a", "b"]), exc_message="custom message")
+            require_keys({"a": 1}, frozenset(["a", "b"]), 'dictstest::test_require_keys_custom_message', exc_message="custom message")
         self.assertIn("dictstest::test_require_keys_custom_message - custom message", str(ctx.exception))
 
     def test_get_first_available(self) -> None:

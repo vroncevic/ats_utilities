@@ -9,6 +9,7 @@ from typing import Any
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
 from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.context.context_bundle import ContextBundle
 
 
 class TestConfFile(unittest.TestCase):
@@ -20,7 +21,7 @@ class TestConfFile(unittest.TestCase):
         self.mock_file_mode = "r"
         
         # Build mock bundle dependencies
-        self.mock_context_bundle = MagicMock()
+        self.mock_context_bundle = MagicMock(spec=ContextBundle)
         self.mock_bundle = MagicMock(spec=ConfFileBundle)
         self.mock_bundle.file_path = self.mock_file_path
         self.mock_bundle.file_mode = self.mock_file_mode
@@ -29,35 +30,30 @@ class TestConfFile(unittest.TestCase):
         # Setup mock reporter to satisfy the @vreport decorator requirements
         self.mock_reporter = MagicMock(spec=IReporter)
 
-    @patch("ats_utilities.config_io.conf_file.inject_context_bundle")
-    def test_initialization(self, mock_inject: MagicMock) -> None:
+    def test_initialization(self) -> None:
         """Test successful initialization and attribute assignment."""
         # Act
         conf_file = ConfFile(self.mock_bundle)
 
         # Assert
-        mock_inject.assert_called_once_with(conf_file, self.mock_context_bundle)
         self.assertEqual(conf_file._file_path, self.mock_file_path)
         self.assertEqual(conf_file._file_mode, self.mock_file_mode)
         self.assertIsNone(conf_file._file)
 
-    @patch("ats_utilities.config_io.conf_file.inject_context_bundle")
-    def test_initialization_fails_when_bundle_is_none(self, mock_inject: MagicMock) -> None:
+    def test_initialization_fails_when_bundle_is_none(self) -> None:
         """Test initialization failure when file_bundle is None."""
         with self.assertRaises(Exception):
             ConfFile(None)  # type: ignore
 
-    @patch("ats_utilities.config_io.conf_file.inject_context_bundle")
-    def test_initialization_fails_when_bundle_type_invalid(self, mock_inject: MagicMock) -> None:
+    def test_initialization_fails_when_bundle_type_invalid(self) -> None:
         """Test initialization failure when file_bundle is of an invalid type."""
         with self.assertRaises(Exception):
             ConfFile(MagicMock())  # type: ignore
 
     @patch("builtins.open", new_callable=mock_open)
     @patch("ats_utilities.config_io.conf_file.check_file_exists")
-    @patch("ats_utilities.config_io.conf_file.inject_context_bundle")
     def test_enter_in_read_mode(
-        self, mock_inject: MagicMock, mock_check_exists: MagicMock, mock_file_open: MagicMock
+        self, mock_check_exists: MagicMock, mock_file_open: MagicMock
     ) -> None:
         """Test __enter__ execution flow when opening a file in read ('r') mode."""
         # Arrange
@@ -69,7 +65,7 @@ class TestConfFile(unittest.TestCase):
 
         # Assert
         mock_check_exists.assert_called_once_with(
-            self.mock_file_path, f'file {self.mock_file_path} does not exist'
+            self.mock_file_path, 'conf_file::enter(...)', f'file {self.mock_file_path} does not exist'
         )
         mock_file_open.assert_called_once_with(self.mock_file_path, "r", encoding="utf-8")
         self.assertEqual(result, mock_file_open.return_value)
@@ -77,9 +73,8 @@ class TestConfFile(unittest.TestCase):
 
     @patch("builtins.open", new_callable=mock_open)
     @patch("ats_utilities.config_io.conf_file.check_file_exists")
-    @patch("ats_utilities.config_io.conf_file.inject_context_bundle")
     def test_enter_in_write_mode(
-        self, mock_inject: MagicMock, mock_check_exists: MagicMock, mock_file_open: MagicMock
+        self, mock_check_exists: MagicMock, mock_file_open: MagicMock
     ) -> None:
         """Test __enter__ execution flow when opening a file in write ('w') mode."""
         # Arrange
@@ -96,8 +91,7 @@ class TestConfFile(unittest.TestCase):
         mock_file_open.assert_called_once_with(self.mock_file_path, "w", encoding="utf-8")
         self.assertEqual(result, mock_file_open.return_value)
 
-    @patch("ats_utilities.config_io.conf_file.inject_context_bundle")
-    def test_exit_closes_file(self, mock_inject: MagicMock) -> None:
+    def test_exit_closes_file(self) -> None:
         """Test that __exit__ closes the managed file resource safely."""
         # Arrange
         conf_file = ConfFile(self.mock_bundle)
@@ -114,8 +108,7 @@ class TestConfFile(unittest.TestCase):
         mock_file.close.assert_called_once()
         self.assertIsNone(conf_file._file)
 
-    @patch("ats_utilities.config_io.conf_file.inject_context_bundle")
-    def test_exit_handles_exceptions_gracefully(self, mock_inject: MagicMock) -> None:
+    def test_exit_handles_exceptions_gracefully(self) -> None:
         """Test that __exit__ suppresses exceptions during closing operations."""
         # Arrange
         conf_file = ConfFile(self.mock_bundle)
@@ -134,9 +127,27 @@ class TestConfFile(unittest.TestCase):
         
         self.assertIsNone(conf_file._file)
 
+    def test_exit_when_file_is_none(self) -> None:
+        """Test __exit__ when _file is None."""
+        conf_file = ConfFile(self.mock_bundle)
+        conf_file._reporter = self.mock_reporter
+        conf_file._file = None
+        conf_file.__exit__(None, None, None)
+        self.assertIsNone(conf_file._file)
+
+    def test_exit_when_file_is_already_closed(self) -> None:
+        """Test __exit__ when _file is already closed."""
+        conf_file = ConfFile(self.mock_bundle)
+        conf_file._reporter = self.mock_reporter
+        mock_file = MagicMock()
+        mock_file.closed = True
+        conf_file._file = mock_file
+        conf_file.__exit__(None, None, None)
+        mock_file.close.assert_not_called()
+        self.assertIsNone(conf_file._file)
+
     @patch("ats_utilities.config_io.conf_file.to_str")
-    @patch("ats_utilities.config_io.conf_file.inject_context_bundle")
-    def test_string_representation(self, mock_inject: MagicMock, mock_to_str: MagicMock) -> None:
+    def test_string_representation(self, mock_to_str: MagicMock) -> None:
         """Test __str__ serialization proxies through to_str utility correctly."""
         # Arrange
         conf_file = ConfFile(self.mock_bundle)

@@ -64,10 +64,7 @@
 
 <span class="kn">from</span> <span class="nn">ats_utilities.info.logo.ilogo</span> <span class="kn">import</span> <span class="n">ILogo</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle_inject</span> <span class="kn">import</span> <span class="n">inject_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_support</span> <span class="kn">import</span> <span class="n">ContextSupport</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">mcheck</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreport</span>
@@ -84,7 +81,7 @@
 
 <div class="viewcode-block" id="Logo">
 <a class="viewcode-back" href="../../../../ats_utilities.info.logo.engine.html#ats_utilities.info.logo.engine.Logo">[docs]</a>
-<span class="k">class</span> <span class="nc">Logo</span><span class="p">(</span><span class="n">ILogo</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Logo</span><span class="p">(</span><span class="n">ContextSupport</span><span class="p">,</span> <span class="n">ILogo</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class Logo with attribute(s) and method(s).</span>
 <span class="sd">        Creates an API for the logo path in one property object.</span>
@@ -93,10 +90,6 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
-<span class="sd">                | _logger - Injected logger for logging (default Logger).</span>
-<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
-<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _logo - The logo path for App/Tool/Script (default None).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes Logo constructor.</span>
@@ -105,10 +98,6 @@
 <span class="sd">                | __str__ - Returns the Logo as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
-    <span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span>
-    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
-    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">_logo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -121,7 +110,7 @@
 <span class="sd">                | ATSValueError: Context bundle must be provided.</span>
 <span class="sd">                | ATSTypeError: Context bundle must be an instance of ContextBundle.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">inject_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
+        <span class="n">ContextSupport</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logo</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>

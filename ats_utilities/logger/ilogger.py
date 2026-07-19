@@ -46,6 +46,8 @@ class ILogger(ABC):
                 | is_initialized - Checks if logger is initialized.
                 | set_level - Sets log level.
                 | set_log_file - Sets log file.
+                | set_stdout - Sets log output to standard output (stdout).
+                | set_stderr - Sets log output to standard error (stderr).
                 | stop_buffering - Stops log buffering.
                 | __str__ - Returns the logger as string representation.
     '''
@@ -92,6 +94,24 @@ class ILogger(ABC):
 
             :param log_file: Log file path.
             :type log_file: <str>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def set_stdout(self) -> None:
+        '''
+            Sets log output to standard output (stdout).
+
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def set_stderr(self) -> None:
+        '''
+            Sets log output to standard error (stderr).
+
             :exceptions: None.
         '''
         pass

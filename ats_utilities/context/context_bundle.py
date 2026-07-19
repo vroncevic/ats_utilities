@@ -95,14 +95,46 @@ class ContextBundle:
                 | ATSTypeError: Reporter must be an instance of IReporter interface.
                 | ATSTypeError: Verbose must be a boolean.
         '''
-        not_none(self.checker, r'checker must be provided')
-        not_none(self.logger, r'logger must be provided')
-        not_none(self.reporter, r'reporter must be provided')
-        not_none(self.verbose, r'verbose must be provided')
-        istype(self.checker, IChecker, r'checker must be an instance of IChecker interface')
-        istype(self.logger, ILogger, r'logger must be an instance of ILogger interface')
-        istype(self.reporter, IReporter, r'reporter must be an instance of IReporter interface')
-        istype(self.verbose, bool, r'verbose must be a boolean')
+        not_none(
+            self.checker,
+            r'context_bundle::validate(...)',
+            r'checker must be provided'
+        )
+        not_none(
+            self.logger,
+            r'context_bundle::validate(...)',
+            r'logger must be provided'
+        )
+        not_none(
+            self.reporter,
+            r'context_bundle::validate(...)',
+            r'reporter must be provided'
+        )
+        not_none(
+            self.verbose,
+            r'context_bundle::validate(...)',
+            r'verbose must be provided'
+        )
+        istype(
+            self.checker, IChecker,
+            r'context_bundle::validate(...)',
+            r'checker must be an instance of IChecker interface'
+        )
+        istype(
+            self.logger, ILogger,
+            r'context_bundle::validate(...)',
+            r'logger must be an instance of ILogger interface'
+        )
+        istype(
+            self.reporter, IReporter,
+            r'context_bundle::validate(...)',
+            r'reporter must be an instance of IReporter interface'
+        )
+        istype(
+            self.verbose, bool,
+            r'context_bundle::validate(...)',
+            r'verbose must be a boolean'
+        )
 
     def to_dict(self) -> dict[str, Any]:
         '''

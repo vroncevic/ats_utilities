@@ -58,7 +58,7 @@ class BooleanTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        self.assertTrue(str_bool_to_bool('True'))
+        self.assertTrue(str_bool_to_bool('True', 'booleantest::test_str_bool_to_bool_true'))
 
     def test_str_bool_to_bool_false(self) -> None:
         '''
@@ -66,7 +66,7 @@ class BooleanTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        self.assertFalse(str_bool_to_bool('False'))
+        self.assertFalse(str_bool_to_bool('False', 'booleantest::test_str_bool_to_bool_false'))
 
     def test_str_bool_to_bool_invalid(self) -> None:
         '''
@@ -75,8 +75,8 @@ class BooleanTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError) as ctx:
-            str_bool_to_bool('abc')
-        self.assertIn("cannot convert abc to bool", str(ctx.exception))
+            str_bool_to_bool('abc', 'booleantest::test_str_bool_to_bool_invalid')
+        self.assertIn("can not convert abc to bool", str(ctx.exception))
 
     def test_str_bool_to_bool_custom_exception(self) -> None:
         '''
@@ -85,7 +85,7 @@ class BooleanTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ValueError):
-            str_bool_to_bool('abc', exception_class=ValueError)
+            str_bool_to_bool('abc', 'booleantest::test_str_bool_to_bool_custom_exception', exc_class=ValueError)
 
     def test_str_bool_to_bool_custom_message(self) -> None:
         '''
@@ -94,7 +94,7 @@ class BooleanTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError) as ctx:
-            str_bool_to_bool('abc', exc_message="custom message")
+            str_bool_to_bool('abc', 'booleantest::test_str_bool_to_bool_custom_message', exc_message="custom message")
         self.assertIn("booleantest::test_str_bool_to_bool_custom_message - custom message", str(ctx.exception))
 
 

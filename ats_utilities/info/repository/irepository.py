@@ -22,6 +22,8 @@ Info
 
 from __future__ import annotations
 
+from ats_utilities.context.icontext_support import IContextSupport
+
 from abc import ABC, abstractmethod
 
 __author__ = r'Vladimir Roncevic'
@@ -34,7 +36,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IRepository(ABC):
+class IRepository(IContextSupport, ABC):
     '''
         Defines abstract class IRepository with method(s).
         Interface for the repository mechanism.

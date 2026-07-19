@@ -111,7 +111,11 @@
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSTypeError: exp_type must be a string.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">exp_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;expected type must be a string&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="n">exp_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;format_validator::is_valid(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;expected type must be a string&#39;</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">exp_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">))</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">EXPECTED_FORMAT_PARTS</span></div>
 
@@ -130,7 +134,11 @@
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSTypeError: exp_type must be a string.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">exp_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;expected type must be a string&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="n">exp_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;format_validator::split(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;expected type must be a string&#39;</span>
+        <span class="p">)</span>
         <span class="n">parts</span> <span class="o">=</span> <span class="n">exp_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>

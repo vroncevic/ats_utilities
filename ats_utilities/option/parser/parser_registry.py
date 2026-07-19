@@ -51,6 +51,7 @@ class ParserRegistry(IRegistry[ParserBundle]):
                 | create_parser_bundle_from_dict - Creates a ParserBundle from dict parameters.
     '''
 
+    @classmethod
     @override
     def create_bundle(cls, **kwargs: Any) -> ParserBundle:
         '''

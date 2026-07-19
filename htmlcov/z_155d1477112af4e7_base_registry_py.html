@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Coverage for ats_utilities/base/base_registry.py: 90%</title>
+    <title>Coverage for ats_utilities/base/base_registry.py: 100%</title>
     <link rel="icon" sizes="32x32" href="favicon_32_cb_58284776.png">
     <link rel="stylesheet" href="style_cb_8e611ae1.css" type="text/css">
     <script src="coverage_html_cb_6fb7b396.js" defer></script>
@@ -12,7 +12,7 @@
     <div class="content">
         <h1>
             <span class="text">Coverage for </span><b>ats_utilities/base/base_registry.py</b>:
-            <span class="pc_cov">90%</span>
+            <span class="pc_cov">100%</span>
         </h1>
         <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
@@ -56,10 +56,10 @@
         </aside>
         <h2>
             <span class="text">56 statements &nbsp;</span>
-            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">52<span class="text"> run</span></button>
-            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">4<span class="text"> missing</span></button>
+            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">56<span class="text"> run</span></button>
+            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">0<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
-            <button type="button" class="par run show_par button_toggle_par" value="par" data-shortcut="p" title="Toggle lines partially run">2<span class="text"> partial</span></button>
+            <button type="button" class="par run show_par button_toggle_par" value="par" data-shortcut="p" title="Toggle lines partially run">0<span class="text"> partial</span></button>
         </h2>
         <p class="text">
             <a id="prevFileLink" class="nav" href="z_155d1477112af4e7_base_bundle_py.html">&#xab; prev</a> &nbsp; &nbsp;
@@ -67,7 +67,7 @@
             <a id="nextFileLink" class="nav" href="z_155d1477112af4e7_engine_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2026-07-18 19:35 +0200
+            created at 2026-07-19 16:13 +0200
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -162,11 +162,11 @@
     <p class="pln"><span class="n"><a id="t78" href="#t78">78</a></span><span class="t"><span class="str">                | ATSTypeError: context_bundle must be a ContextBundle instance.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t79" href="#t79">79</a></span><span class="t"><span class="str">                | ATSTypeError: use generator must be a boolean.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t80" href="#t80">80</a></span><span class="t"><span class="str">        '''</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t81" href="#t81">81</a></span><span class="t">        <span class="nam">info_file</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="nam">kwargs</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">'info_file'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t82" href="#t82">82</a></span><span class="t">        <span class="nam">context_bundle</span><span class="op">:</span> <span class="nam">ContextBundle</span> <span class="op">=</span> <span class="nam">kwargs</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">'context_bundle'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t83" href="#t83">83</a></span><span class="t">        <span class="nam">use_generator</span><span class="op">:</span> <span class="nam">bool</span> <span class="op">=</span> <span class="nam">kwargs</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">'use_generator'</span><span class="op">,</span> <span class="key">False</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t81" href="#t81">81</a></span><span class="t">        <span class="nam">info_file</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="nam">kwargs</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">'info_file'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t82" href="#t82">82</a></span><span class="t">        <span class="nam">context_bundle</span><span class="op">:</span> <span class="nam">ContextBundle</span> <span class="op">=</span> <span class="nam">kwargs</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">'context_bundle'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t83" href="#t83">83</a></span><span class="t">        <span class="nam">use_generator</span><span class="op">:</span> <span class="nam">bool</span> <span class="op">=</span> <span class="nam">kwargs</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">'use_generator'</span><span class="op">,</span> <span class="key">False</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t84" href="#t84">84</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t85" href="#t85">85</a></span><span class="t">        <span class="key">return</span> <span class="nam">cls</span><span class="op">.</span><span class="nam">create_default_base_bundle</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t85" href="#t85">85</a></span><span class="t">        <span class="key">return</span> <span class="nam">cls</span><span class="op">.</span><span class="nam">create_default_base_bundle</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t86" href="#t86">86</a></span><span class="t">            <span class="nam">info_file</span><span class="op">=</span><span class="nam">info_file</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t87" href="#t87">87</a></span><span class="t">            <span class="nam">context_bundle</span><span class="op">=</span><span class="nam">context_bundle</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t88" href="#t88">88</a></span><span class="t">            <span class="nam">use_generator</span><span class="op">=</span><span class="nam">use_generator</span>&nbsp;</span><span class="r"></span></p>
@@ -197,11 +197,11 @@
     <p class="pln"><span class="n"><a id="t113" href="#t113">113</a></span><span class="t"><span class="str">                | ATSTypeError: context_bundle must be a ContextBundle instance.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t114" href="#t114">114</a></span><span class="t"><span class="str">                | ATSTypeError: use generator must be a boolean.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t115" href="#t115">115</a></span><span class="t"><span class="str">        '''</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t116" href="#t116">116</a></span><span class="t">        <span class="nam">not_none</span><span class="op">(</span><span class="nam">info_file</span><span class="op">,</span> <span class="str">r'info file must be provided'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t117" href="#t117">117</a></span><span class="t">        <span class="nam">not_none</span><span class="op">(</span><span class="nam">context_bundle</span><span class="op">,</span> <span class="str">r'context bundle must be provided'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t118" href="#t118">118</a></span><span class="t">        <span class="nam">istype</span><span class="op">(</span><span class="nam">info_file</span><span class="op">,</span> <span class="nam">str</span><span class="op">,</span> <span class="str">r'info file must be a string'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t119" href="#t119">119</a></span><span class="t">        <span class="nam">istype</span><span class="op">(</span><span class="nam">context_bundle</span><span class="op">,</span> <span class="nam">ContextBundle</span><span class="op">,</span> <span class="str">r'context bundle must be a ContextBundle instance'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t120" href="#t120">120</a></span><span class="t">        <span class="nam">istype</span><span class="op">(</span><span class="nam">use_generator</span><span class="op">,</span> <span class="nam">bool</span><span class="op">,</span> <span class="str">r'use generator must be a boolean'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t116" href="#t116">116</a></span><span class="t">        <span class="nam">not_none</span><span class="op">(</span><span class="nam">info_file</span><span class="op">,</span> <span class="str">'baseregistry::create_default_base_bundle'</span><span class="op">,</span> <span class="str">r'info file must be provided'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t117" href="#t117">117</a></span><span class="t">        <span class="nam">not_none</span><span class="op">(</span><span class="nam">context_bundle</span><span class="op">,</span> <span class="str">'baseregistry::create_default_base_bundle'</span><span class="op">,</span> <span class="str">r'context bundle must be provided'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t118" href="#t118">118</a></span><span class="t">        <span class="nam">istype</span><span class="op">(</span><span class="nam">info_file</span><span class="op">,</span> <span class="nam">str</span><span class="op">,</span> <span class="str">'baseregistry::create_default_base_bundle'</span><span class="op">,</span> <span class="str">r'info file must be a string'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t119" href="#t119">119</a></span><span class="t">        <span class="nam">istype</span><span class="op">(</span><span class="nam">context_bundle</span><span class="op">,</span> <span class="nam">ContextBundle</span><span class="op">,</span> <span class="str">'baseregistry::create_default_base_bundle'</span><span class="op">,</span> <span class="str">r'context bundle must be a ContextBundle instance'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t120" href="#t120">120</a></span><span class="t">        <span class="nam">istype</span><span class="op">(</span><span class="nam">use_generator</span><span class="op">,</span> <span class="nam">bool</span><span class="op">,</span> <span class="str">'baseregistry::create_default_base_bundle'</span><span class="op">,</span> <span class="str">r'use generator must be a boolean'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t121" href="#t121">121</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t122" href="#t122">122</a></span><span class="t">        <span class="nam">config_loader</span><span class="op">:</span> <span class="nam">Loader</span> <span class="op">=</span> <span class="nam">Loader</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t123" href="#t123">123</a></span><span class="t">            <span class="nam">component_bundle</span><span class="op">=</span><span class="nam">ConfigIORegistry</span><span class="op">.</span><span class="nam">create_config_io_bundle_by_file_path_and_scheme</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
@@ -213,7 +213,7 @@
     <p class="run"><span class="n"><a id="t129" href="#t129">129</a></span><span class="t">        <span class="nam">config_data</span><span class="op">:</span> <span class="nam">dict</span><span class="op">[</span><span class="nam">str</span><span class="op">,</span> <span class="nam">Any</span><span class="op">]</span> <span class="op">=</span> <span class="nam">config_loader</span><span class="op">.</span><span class="nam">load_configuration</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t130" href="#t130">130</a></span><span class="t">        <span class="nam">log_file</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="nam">get_first_available</span><span class="op">(</span><span class="nam">config_data</span><span class="op">,</span> <span class="op">(</span><span class="str">'ats_log_path'</span><span class="op">,</span> <span class="str">'ats_log_file'</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t131" href="#t131">131</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="par run show_par"><span class="n"><a id="t132" href="#t132">132</a></span><span class="t">        <span class="key">if</span> <span class="nam">log_file</span> <span class="key">and</span> <span class="nam">hasattr</span><span class="op">(</span><span class="nam">context_bundle</span><span class="op">.</span><span class="nam">logger</span><span class="op">,</span> <span class="str">'set_log_file'</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"><span class="annotate short">132&#x202F;&#x219B;&#x202F;135</span><span class="annotate long">line 132 didn't jump to line 135 because the condition on line 132 was always true</span></span></p>
+    <p class="run"><span class="n"><a id="t132" href="#t132">132</a></span><span class="t">        <span class="key">if</span> <span class="nam">log_file</span> <span class="key">and</span> <span class="nam">hasattr</span><span class="op">(</span><span class="nam">context_bundle</span><span class="op">.</span><span class="nam">logger</span><span class="op">,</span> <span class="str">'set_log_file'</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t133" href="#t133">133</a></span><span class="t">            <span class="nam">context_bundle</span><span class="op">.</span><span class="nam">logger</span><span class="op">.</span><span class="nam">set_log_file</span><span class="op">(</span><span class="nam">log_file</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t134" href="#t134">134</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t135" href="#t135">135</a></span><span class="t">        <span class="nam">info_manager</span><span class="op">:</span> <span class="nam">InfoManager</span> <span class="op">=</span> <span class="nam">InfoManager</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
@@ -238,7 +238,7 @@
     <p class="pln"><span class="n"><a id="t154" href="#t154">154</a></span><span class="t">            <span class="nam">component_bundle</span><span class="op">=</span><span class="nam">GeneratorRegistry</span><span class="op">.</span><span class="nam">create_default_generator_bundle</span><span class="op">(</span><span class="nam">context_bundle</span><span class="op">=</span><span class="nam">context_bundle</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t155" href="#t155">155</a></span><span class="t">        <span class="op">)</span> <span class="key">if</span> <span class="nam">use_generator</span> <span class="key">else</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t156" href="#t156">156</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="par run show_par"><span class="n"><a id="t157" href="#t157">157</a></span><span class="t">        <span class="key">if</span> <span class="nam">hasattr</span><span class="op">(</span><span class="nam">context_bundle</span><span class="op">.</span><span class="nam">logger</span><span class="op">,</span> <span class="str">'stop_buffering'</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"><span class="annotate short">157&#x202F;&#x219B;&#x202F;160</span><span class="annotate long">line 157 didn't jump to line 160 because the condition on line 157 was always true</span></span></p>
+    <p class="run"><span class="n"><a id="t157" href="#t157">157</a></span><span class="t">        <span class="key">if</span> <span class="nam">hasattr</span><span class="op">(</span><span class="nam">context_bundle</span><span class="op">.</span><span class="nam">logger</span><span class="op">,</span> <span class="str">'stop_buffering'</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t158" href="#t158">158</a></span><span class="t">            <span class="nam">context_bundle</span><span class="op">.</span><span class="nam">logger</span><span class="op">.</span><span class="nam">stop_buffering</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t159" href="#t159">159</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t160" href="#t160">160</a></span><span class="t">        <span class="key">return</span> <span class="nam">BaseBundle</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
@@ -260,7 +260,7 @@
             <a class="nav" href="z_155d1477112af4e7_engine_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2026-07-18 19:35 +0200
+            created at 2026-07-19 16:13 +0200
         </p>
     </div>
 </footer>

@@ -137,14 +137,46 @@
 <span class="sd">                | ATSTypeError: Reporter must be an instance of IReporter interface.</span>
 <span class="sd">                | ATSTypeError: Verbose must be a boolean.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;checker must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logger must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;reporter must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;verbose must be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">IChecker</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;checker must be an instance of IChecker interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="n">ILogger</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logger must be an instance of ILogger interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="p">,</span> <span class="n">IReporter</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;reporter must be an instance of IReporter interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;verbose must be a boolean&#39;</span><span class="p">)</span></div>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;context_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;checker must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;context_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;logger must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;context_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;reporter must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;context_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;verbose must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">IChecker</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;context_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;checker must be an instance of IChecker interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="n">ILogger</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;context_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;logger must be an instance of ILogger interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="p">,</span> <span class="n">IReporter</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;context_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;reporter must be an instance of IReporter interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;context_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;verbose must be a boolean&#39;</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ContextBundle.to_dict">

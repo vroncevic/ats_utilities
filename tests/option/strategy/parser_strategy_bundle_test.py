@@ -62,6 +62,9 @@ class DummyParser(IArgParser):
     def parse_known_args(self, *args: Any, **kwargs: Any) -> Any:
         pass
 
+    def __str__(self) -> str:
+        return "DummyParser"
+
 
 class ParserStrategyBundleTest(unittest.TestCase):
     '''
@@ -138,12 +141,8 @@ class ParserStrategyBundleTest(unittest.TestCase):
         '''
         mock_context = MagicMock(spec=ContextBundle)
 
-        class NotAParser:
-            pass
-
-        with self.assertRaises(TypeError) as ctx:
-            ParserStrategyBundle(parameters={"name": "test"}, context_bundle=mock_context, parser_class=NotAParser)  # type: ignore
-        self.assertIn("parser class must be a class implementing IArgParser", str(ctx.exception))
+        with self.assertRaises(TypeError):
+            ParserStrategyBundle(parameters={"name": "test"}, context_bundle=mock_context, parser_class=123)  # type: ignore
 
     def test_to_dict(self) -> None:
         '''

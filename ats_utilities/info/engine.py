@@ -29,11 +29,8 @@ from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.info.info_bundle import InfoBundle
 from ats_utilities.info.info_keys import InfoKeys
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.exceptions import ATSAttributeError
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_satisfied, not_none
 from ats_utilities.validation.check_type import istype
@@ -48,7 +45,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class InfoManager(IInfoManager):
+class InfoManager(ContextSupport, IInfoManager):
     '''
         Defines class InfoManager with attribute(s) and method(s).
         Creates an API for the information in one container object.
@@ -60,10 +57,6 @@ class InfoManager(IInfoManager):
 
             :attributes:
                 | _components - The info components (default InfoBundle).
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _shared_context - Context bundle with shared context.
                 | _is_initialized - Indicates if the info manager component is initialized (default False).
             :methods:
@@ -76,10 +69,6 @@ class InfoManager(IInfoManager):
                 | __str__ - Returns the InfoManager as string representation.
     '''
 
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
     _is_initialized: bool
     _components: InfoBundle
     _shared_context: ContextBundle
@@ -96,11 +85,19 @@ class InfoManager(IInfoManager):
                 | ATSTypeError: Component bundle must be an instance of InfoBundle.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        not_none(component_bundle, r'component_bundle must be provided')
-        istype(component_bundle, InfoBundle, r'component_bundle must be an instance of InfoBundle')
+        not_none(
+            component_bundle,
+            r'info_manager::init(...)',
+            r'component_bundle must be provided'
+        )
+        istype(
+            component_bundle, InfoBundle,
+            r'info_manager::init(...)',
+            r'component_bundle must be an instance of InfoBundle'
+        )
         self._components = component_bundle
         self._shared_context = self._components.context_bundle
-        inject_context_bundle(self, self._shared_context)
+        ContextSupport.__init__(self, self._shared_context)
         self.refresh_status()
         self._is_initialized = True
 
@@ -129,9 +126,17 @@ class InfoManager(IInfoManager):
                 continue
 
             if key not in info:
-                not_none(None, f'info::set_info - missing key: {key}')
+                not_none(
+                    None,
+                    r'info_manager::set_info(...)',
+                    f'missing key: {key}'
+                )
 
-            not_none(info.get(key), f'info::set_info - null value for key: {key}')
+            not_none(
+                info.get(key),
+                r'info_manager::set_info(...)',
+                f'null value for key: {key}'
+            )
 
         for key, attr in InfoKeys.get_key_to_attr().items():
             val = info.get(key)
@@ -178,6 +183,7 @@ class InfoManager(IInfoManager):
 
         not_satisfied(
             True,
+            r'info_manager::getattr(...)',
             f'{type(self).__name__} object has no attribute {name}',
             ATSAttributeError
         )

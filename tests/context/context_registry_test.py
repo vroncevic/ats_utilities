@@ -70,6 +70,11 @@ class ContextRegistryTest(unittest.TestCase):
         self.assertIsInstance(bundle_verbose, ContextBundle)
         self.assertTrue(bundle_verbose.verbose)
 
+    def test_create_bundle(self) -> None:
+        bundle = ContextRegistry.create_bundle(verbose=True)
+        self.assertIsInstance(bundle, ContextBundle)
+        self.assertTrue(bundle.verbose)
+
 
 if __name__ == "__main__":
     unittest.main()

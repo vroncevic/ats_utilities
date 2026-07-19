@@ -32,10 +32,7 @@ from ats_utilities.splasher.splash_bundle import SplashBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 from ats_utilities.splasher.splash_center_registry import SplashCenterRegistry
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.utils.files import check_file_exists
 from ats_utilities.validation.check_value import not_satisfied, not_none
@@ -51,9 +48,9 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Splasher(ISplasher):
+class Splasher(ContextSupport, ISplasher):
     '''
-        Defines class Splasher with method(s).
+        Defines class Splasher with attribute(s) and method(s).
         Implements a splash screen with hyperlinks.
 
         It defines:
@@ -61,10 +58,6 @@ class Splasher(ISplasher):
             :attributes:
                 | _is_initialized - Indicates if the splasher component is initialized (default False).
                 | _show_splash - Indicates if the splasher should be shown (default False).
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _shared_context - Context bundle with shared context.
             :methods:
                 | __init__ - Initials Splasher constructor.
@@ -76,10 +69,6 @@ class Splasher(ISplasher):
 
     _is_initialized: bool
     _show_splash: bool
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
     _shared_context: ContextBundle
 
     def __init__(self, component_bundle: SplashBundle) -> None:
@@ -96,10 +85,18 @@ class Splasher(ISplasher):
         '''
         self._is_initialized = False
         self._show_splash = False
-        not_none(component_bundle, r'component_bundle must be provided')
-        istype(component_bundle, SplashBundle, r'component_bundle must be a SplashBundle instance')
+        not_none(
+            component_bundle,
+            r'splasher::init(...)',
+            r'component_bundle must be provided'
+        )
+        istype(
+            component_bundle, SplashBundle,
+            r'splasher::init(...)',
+            r'component_bundle must be a SplashBundle instance'
+        )
         self._shared_context = component_bundle.context_bundle
-        inject_context_bundle(self, self._shared_context)
+        ContextSupport.__init__(self, self._shared_context)
 
         if component_bundle.property_validated:
             splash_keys = component_bundle.splash_property.splash_keys or {}
@@ -117,6 +114,7 @@ class Splasher(ISplasher):
             if bool(component_bundle.prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE]):
                 check_file_exists(
                     component_bundle.prop[SplashKeys.ATS_LOGO_PATH],
+                    r'splasher::init(...)',
                     r'App/Tool/Script logo file path not correct'
                 )
                 stdout.write('\n\n')
@@ -135,7 +133,11 @@ class Splasher(ISplasher):
                                 self.center(splash_center_bundle, processed_line)
 
                 except (OSError, UnicodeDecodeError) as exc:
-                    not_satisfied(True, f'logo file content is invalid {exc}')
+                    not_satisfied(
+                        True,
+                        r'splasher::init(...)',
+                        f'logo file content is invalid {exc}'
+                    )
 
                 splash_center_bundle: SplashCenterBundle = SplashCenterRegistry.create_splash_center_bundle(
                     columns=int(size[1]),

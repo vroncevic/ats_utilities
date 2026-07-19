@@ -233,6 +233,55 @@ class TestBaseRegistry(unittest.TestCase):
             context_bundle=self.mock_context_bundle
         )
 
+    @patch("ats_utilities.base.base_registry.BaseRegistry.create_default_base_bundle")
+    def test_create_bundle(self, mock_create_default: MagicMock) -> None:
+        """Test create_bundle delegates correctly to create_default_base_bundle."""
+        BaseRegistry.create_bundle(
+            info_file=self.info_file,
+            context_bundle=self.mock_context_bundle,
+            use_generator=True
+        )
+        mock_create_default.assert_called_once_with(
+            info_file=self.info_file,
+            context_bundle=self.mock_context_bundle,
+            use_generator=True
+        )
+
+    @patch("ats_utilities.base.base_registry.Loader")
+    @patch("ats_utilities.base.base_registry.ConfigIORegistry")
+    @patch("ats_utilities.base.base_registry.InfoRegistry")
+    @patch("ats_utilities.base.base_registry.InfoManager")
+    @patch("ats_utilities.base.base_registry.SplashRegistry")
+    @patch("ats_utilities.base.base_registry.Splasher")
+    @patch("ats_utilities.base.base_registry.OptionRegistry")
+    @patch("ats_utilities.base.base_registry.OptionManager")
+    @patch("ats_utilities.base.base_registry.BaseBundle")
+    def test_create_default_base_bundle_logger_without_optional_methods(
+        self, mock_bundle_cls: MagicMock, mock_opt_cls: MagicMock,
+        mock_opt_reg: MagicMock, mock_splash_cls: MagicMock,
+        mock_splash_reg: MagicMock, mock_info_cls: MagicMock,
+        mock_info_reg: MagicMock, mock_cfg_reg: MagicMock,
+        mock_loader_cls: MagicMock
+    ) -> None:
+        """Test BaseRegistry orchestration when logger lacks set_log_file or stop_buffering."""
+        mock_loader_inst = MagicMock(spec=Loader)
+        mock_loader_inst.load_configuration.return_value = {}
+        mock_loader_cls.return_value = mock_loader_inst
+        
+        minimal_logger = object() 
+        context_bundle = MagicMock(spec=ContextBundle)
+        context_bundle.logger = minimal_logger
+
+        mock_info_inst = MagicMock(spec=InfoManager)
+        mock_info_inst.logo = "logo.png"
+        mock_info_cls.return_value = mock_info_inst
+        
+        BaseRegistry.create_default_base_bundle(
+            info_file=self.info_file,
+            context_bundle=context_bundle,
+            use_generator=False
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

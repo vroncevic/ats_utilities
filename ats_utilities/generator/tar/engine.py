@@ -32,10 +32,7 @@ from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
 from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.utils.files import (
     normalize_path, resolve_relative_path, is_excluded_path, apply_path_replacements, write_content
@@ -55,7 +52,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class TarProcessor(ITarProcessor):
+class TarProcessor(ContextSupport, ITarProcessor):
     '''
         Defines class TarProcessor with method(s).
         Handles tar archive extraction and template rendering.
@@ -63,10 +60,6 @@ class TarProcessor(ITarProcessor):
         It defines:
 
             :attributes:
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger for logging (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _template_processor - Renders placeholders inside template files.
             :methods:
                 | __init__ - Initializes TarProcessor constructor.
@@ -76,10 +69,6 @@ class TarProcessor(ITarProcessor):
                 | __str__ - Returns the processor as string representation.
     '''
 
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
     _template_processor: ITemplateProcessor
 
     def __init__(
@@ -100,9 +89,17 @@ class TarProcessor(ITarProcessor):
                 | ATSValueError: Template processor must be provided.
                 | ATSTypeError: Template processor must be an instance of ITemplateProcessor.   
         '''
-        inject_context_bundle(self, context_bundle)
-        not_none(template_processor, r'template processor must be provided')
-        istype(template_processor, ITemplateProcessor, r'template processor must be an instance of ITemplateProcessor')
+        ContextSupport.__init__(self, context_bundle)
+        not_none(
+            template_processor,
+            r'tar_processor::init(...)',
+            r'template processor must be provided'
+        )
+        istype(
+            template_processor, ITemplateProcessor,
+            r'tar_processor::init(...)',
+            r'template processor must be an instance of ITemplateProcessor'
+        )
         self._template_processor = template_processor
 
     @override
@@ -116,8 +113,16 @@ class TarProcessor(ITarProcessor):
                 | ATSValueError: Tar process member bundle must be provided.
                 | ATSTypeError: Tar process member bundle must be an instance of TarProcessMemberBundle.
         '''
-        not_none(tar_process_member_bundle, r'tar process member bundle must be provided')
-        istype(tar_process_member_bundle, TarProcessMemberBundle, r'tar process member bundle must be an instance of TarProcessMemberBundle')
+        not_none(
+            tar_process_member_bundle,
+            r'tar_processor::process_tar_member(...)',
+            r'tar process member bundle must be provided'
+        )
+        istype(
+            tar_process_member_bundle, TarProcessMemberBundle,
+            r'tar_processor::process_tar_member(...)',
+            r'tar process member bundle must be an instance of TarProcessMemberBundle'
+        )
 
         if tar_process_member_bundle.member.isdir():
             makedirs(tar_process_member_bundle.dest_full_path, exist_ok=True)
@@ -127,8 +132,16 @@ class TarProcessor(ITarProcessor):
 
             if f_obj is not None:
                 raw_content = f_obj.read()
-                rendered = self._template_processor.render(raw_content, tar_process_member_bundle.vals)
-                write_content(tar_process_member_bundle.dest_full_path, rendered)
+                rendered = self._template_processor.render(
+                    raw_content,
+                    tar_process_member_bundle.vals
+                )
+                write_content(
+                    tar_process_member_bundle.dest_full_path,
+                    rendered,
+                    r'tar_processor::process_tar_member(...)',
+                    f'error writing to file {tar_process_member_bundle.dest_full_path}'
+                )
 
     @override
     def process(self, tar_process_bundle: TarProcessBundle) -> None:
@@ -142,35 +155,80 @@ class TarProcessor(ITarProcessor):
                 | ATSTypeError: Tar process bundle must be an instance of TarProcessBundle.
                 | ATSGeneratorError: Archive processing or rendering failed.
         '''
-        not_none(tar_process_bundle, r'tar process bundle must be provided')
-        istype(tar_process_bundle, TarProcessBundle, r'tar process bundle must be an instance of TarProcessBundle')
+        not_none(
+            tar_process_bundle,
+            r'tar_processor::process(...)',
+            r'tar process bundle must be provided'
+        )
+        istype(
+            tar_process_bundle, TarProcessBundle,
+            r'tar_processor::process(...)',
+            r'tar process bundle must be an instance of TarProcessBundle'
+        )
 
         try:
             makedirs(tar_process_bundle.target_dir, exist_ok=True)
 
             with open(tar_process_bundle.archive_path, 'r:gz') as tar:
-                source_dir_clean = normalize_path(tar_process_bundle.source_dir)
+                source_dir_clean = normalize_path(
+                    tar_process_bundle.source_dir,
+                    r'tar_processor::process(...)'
+                )
 
                 for member in tar.getmembers():
-                    normalized_name = normalize_path(member.name)
-                    rel_path = resolve_relative_path(normalized_name, source_dir_clean)
+                    normalized_name = normalize_path(
+                        member.name,
+                        r'tar_processor::process(...)',
+                        f'error normalizing path {member.name}'
+                        f' in tar {tar_process_bundle.archive_path}'
+                    )
+                    rel_path = resolve_relative_path(
+                        normalized_name,
+                        source_dir_clean,
+                        r'tar_processor::process(...)',
+                        f'error resolving relative path {normalized_name}'
+                        f' with source dir {source_dir_clean}'
+                    )
 
                     if rel_path is None or not rel_path:
                         continue
 
-                    if is_excluded_path(rel_path, tar_process_bundle.exclude_patterns):
+                    if is_excluded_path(
+                        rel_path,
+                        tar_process_bundle.exclude_patterns,
+                        r'tar_processor::process(...)',
+                        f'error checking for excluded path {rel_path}'
+                        f' with patterns {tar_process_bundle.exclude_patterns}'
+                    ):
                         continue
 
-                    dest_rel_path = apply_path_replacements(rel_path, tar_process_bundle.path_replacements, tar_process_bundle.vals)
+                    dest_rel_path = apply_path_replacements(
+                        rel_path,
+                        tar_process_bundle.path_replacements,
+                        tar_process_bundle.vals,
+                        r'tar_processor::process(...)',
+                        f'error applying path replacements to {rel_path}'
+                        f' with replacements {tar_process_bundle.path_replacements}'
+                    )
                     dest_full_path = join(tar_process_bundle.target_dir, dest_rel_path)
 
                     self.process_tar_member(
-                        TarProcessMemberBundle(tar=tar, member=member, dest_full_path=dest_full_path, vals=tar_process_bundle.vals)
+                        TarProcessMemberBundle(
+                            tar=tar,
+                            member=member,
+                            dest_full_path=dest_full_path,
+                            vals=tar_process_bundle.vals
+                        )
                     )
 
         except Exception as exc:
             msg: str = format_error_raw(self, exc)
-            not_satisfied(True, f'TarProcessor execution failed: {msg}', ATSGeneratorError)
+            not_satisfied(
+                True,
+                r'tar_processor::process(...)',
+                f'process execution failed: {msg}',
+                ATSGeneratorError
+            )
 
     @override
     def is_initialized(self) -> bool:

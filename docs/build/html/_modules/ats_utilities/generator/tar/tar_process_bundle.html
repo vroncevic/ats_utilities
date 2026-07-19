@@ -149,18 +149,66 @@
 <span class="sd">                | ATSValueError: Values must be provided.</span>
 <span class="sd">                | ATSTypeError: Values must be a mapping.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;archive_path must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_dir</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;target_dir must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_dir</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;source_dir must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_replacements</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;path_replacements must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exclude_patterns</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;exclude_patterns must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;vals must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;archive_path must be a string.&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;target_dir must be a string.&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;source_dir must be a string.&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_replacements</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;path_replacements must be a mapping.&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exclude_patterns</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;exclude_patterns must be a sequence of strings.&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;vals must be a mapping.&#39;</span><span class="p">)</span></div>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;archive_path must be provided.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_dir</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;target_dir must be provided.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source_dir</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;source_dir must be provided.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_replacements</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;path_replacements must be provided.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exclude_patterns</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;exclude_patterns must be provided.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;vals must be provided.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;archive_path must be a string.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;target_dir must be a string.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;source_dir must be a string.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_replacements</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;path_replacements must be a mapping.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exclude_patterns</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;exclude_patterns must be a sequence of strings.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;vals must be a mapping.&#39;</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TarProcessBundle.to_dict">

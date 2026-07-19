@@ -23,6 +23,8 @@ Info
 
 from __future__ import annotations
 
+from ats_utilities.context.icontext_support import IContextSupport
+
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
 from io import TextIOBase
@@ -41,7 +43,7 @@ __status__ = r'Development'
 type File = TextIOBase | None
 
 
-class IConfFile(ABC):
+class IConfFile(IContextSupport, ABC):
     '''
         Defines abstract class IConfFile with method(s).
         Creates an interface for configuration file context manager.

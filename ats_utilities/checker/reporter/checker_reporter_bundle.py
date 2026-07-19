@@ -98,14 +98,46 @@ class CheckerReporterBundle:
                 | ATSTypeError: Error indices must be a sequence of integers.
                 | ATSTypeError: Is format error must be a boolean.
         '''
-        not_none(self.context, r'context must be provided')
-        not_none(self.parameters_meta, r'parameters_meta must be provided')
-        not_none(self.err_indices, r'err_indices must be provided')
-        not_none(self.is_fmt_err, r'is_fmt_err must be provided')
-        istype(self.context, str, r'context must be a string')
-        istype(self.parameters_meta, Sequence[ParamMetadata], r'parameters_meta must be a sequence of ParamMetadata')
-        istype(self.err_indices, Sequence[int], r'err_indices must be a sequence of integers')
-        istype(self.is_fmt_err, bool, r'is_fmt_err must be a boolean')
+        not_none(
+            self.context,
+            r'checker_reporter_bundle::validate(...)',
+            r'context must be provided'
+        )
+        not_none(
+            self.parameters_meta,
+            r'checker_reporter_bundle::validate(...)',
+            r'parameters_meta must be provided'
+        )
+        not_none(
+            self.err_indices,
+            r'checker_reporter_bundle::validate(...)',
+            r'err_indices must be provided'
+        )
+        not_none(
+            self.is_fmt_err,
+            r'checker_reporter_bundle::validate(...)',
+            r'is_fmt_err must be provided'
+        )
+        istype(
+            self.context, str,
+            r'checker_reporter_bundle::validate(...)',
+            r'context must be a string'
+        )
+        istype(
+            self.parameters_meta, Sequence[ParamMetadata],
+            r'checker_reporter_bundle::validate(...)',
+            r'parameters_meta must be a sequence of ParamMetadata'
+        )
+        istype(
+            self.err_indices, Sequence[int],
+            r'checker_reporter_bundle::validate(...)',
+            r'err_indices must be a sequence of integers'
+        )
+        istype(
+            self.is_fmt_err, bool,
+            r'checker_reporter_bundle::validate(...)',
+            r'is_fmt_err must be a boolean'
+        )
 
     def to_dict(self) -> dict[str, Any]:
         '''

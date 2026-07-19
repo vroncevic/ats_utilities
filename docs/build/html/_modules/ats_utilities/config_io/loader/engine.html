@@ -66,13 +66,10 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.loader.iloader</span> <span class="kn">import</span> <span class="n">ILoader</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.config_io_bundle</span> <span class="kn">import</span> <span class="n">ConfigIOBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.conf_file</span> <span class="kn">import</span> <span class="n">ConfFile</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.conf_file_bundle</span> <span class="kn">import</span> <span class="n">ConfFileBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.iconf_file</span> <span class="kn">import</span> <span class="n">IConfFile</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.conf_file_registry</span> <span class="kn">import</span> <span class="n">ConfFileRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.iconfig_processor</span> <span class="kn">import</span> <span class="n">IConfigProcessor</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle_inject</span> <span class="kn">import</span> <span class="n">inject_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_support</span> <span class="kn">import</span> <span class="n">ContextSupport</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
@@ -89,7 +86,7 @@
 
 <div class="viewcode-block" id="Loader">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.loader.engine.html#ats_utilities.config_io.loader.engine.Loader">[docs]</a>
-<span class="k">class</span> <span class="nc">Loader</span><span class="p">(</span><span class="n">ILoader</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Loader</span><span class="p">(</span><span class="n">ContextSupport</span><span class="p">,</span> <span class="n">ILoader</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class Loader with attribute(s) and method(s).</span>
 <span class="sd">        Creates an API for loading configuration from file and deploying as object.</span>
@@ -102,7 +99,7 @@
 <span class="sd">                | _logger - Injected logger for logging (default Logger).</span>
 <span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
 <span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
-<span class="sd">                | _context_bundle_shared - Injected shared context bundle (default ContextBundle).</span>
+<span class="sd">                | _shared_context - Injected shared context bundle (default ContextBundle).</span>
 <span class="sd">                | _processor - Format-specific file processor (provided/inferred).</span>
 <span class="sd">                | _conf_file_bundle - Bundle for file operations.</span>
 <span class="sd">            :methods:</span>
@@ -112,13 +109,9 @@
 <span class="sd">                | __str__ - Returns the Loader as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
-    <span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span>
-    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
-    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
-    <span class="n">_context_bundle_shared</span><span class="p">:</span> <span class="n">ContextBundle</span>
-    <span class="n">_processor</span><span class="p">:</span> <span class="n">IConfigProcessor</span> <span class="o">|</span> <span class="kc">None</span>
-    <span class="n">_conf_file_bundle</span><span class="p">:</span> <span class="n">ConfFileBundle</span>
+    <span class="n">_shared_context</span><span class="p">:</span> <span class="n">ContextBundle</span>
+    <span class="n">_processor</span><span class="p">:</span> <span class="n">IConfigProcessor</span>
+    <span class="n">_conf_file</span><span class="p">:</span> <span class="n">IConfFile</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">ConfigIOBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -139,15 +132,22 @@
 <span class="sd">                | ATSValueError: Extension is not supported.</span>
 <span class="sd">                | ATSTypeError: Validation of processor instance failed.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="n">component_bundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;component bundle must be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">component_bundle</span><span class="p">,</span> <span class="n">ConfigIOBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;component bundle must be an instance of ConfigIOBundle&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_context_bundle_shared</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">context_bundle</span>
-        <span class="n">inject_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_context_bundle_shared</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="n">component_bundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;loader::init(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;component bundle must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="n">component_bundle</span><span class="p">,</span> <span class="n">ConfigIOBundle</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;loader::init(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;component bundle must be an instance of ConfigIOBundle&#39;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">context_bundle</span>
+        <span class="n">ContextSupport</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_processor</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">processor</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_conf_file_bundle</span> <span class="o">=</span> <span class="n">ConfFileBundle</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_conf_file</span> <span class="o">=</span> <span class="n">ConfFileRegistry</span><span class="o">.</span><span class="n">create_conf_file</span><span class="p">(</span>
             <span class="n">file_path</span><span class="o">=</span><span class="n">component_bundle</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span>
             <span class="n">file_mode</span><span class="o">=</span><span class="n">component_bundle</span><span class="o">.</span><span class="n">READ_MODE</span><span class="p">,</span>
-            <span class="n">context_bundle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_context_bundle_shared</span>
+            <span class="n">context_bundle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="Loader.get_shared_context">
@@ -161,7 +161,7 @@
 <span class="sd">            :rtype: &lt;ContextBundle&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_context_bundle_shared</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span></div>
 
 
 <div class="viewcode-block" id="Loader.load_configuration">
@@ -178,7 +178,7 @@
         <span class="n">content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">ConfFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_conf_file_bundle</span><span class="p">)</span> <span class="k">as</span> <span class="n">config_file</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conf_file</span> <span class="k">as</span> <span class="n">config_file</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">config_file</span><span class="p">:</span>
                     <span class="n">content</span> <span class="o">=</span> <span class="n">config_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 

@@ -128,13 +128,34 @@
 <span class="sd">                | ATSTypeError: Log file must be a str instance.</span>
 <span class="sd">                | ATSTypeError: Log level must be an int instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logger must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_file</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;log file must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_level</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;log level must be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;log file must be a str instance&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_level</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;log level must be an int instance&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;logger_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;logger must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_file</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;logger_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;log file must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_level</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;logger_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;log level must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;logger_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;log file must be a str instance&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_level</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;logger_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;log level must be an int instance&#39;</span>
+        <span class="p">)</span>
         <span class="n">not_satisfied</span><span class="p">(</span>
             <span class="ow">not</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="s1">&#39;write_log&#39;</span><span class="p">)),</span>
+            <span class="sa">r</span><span class="s1">&#39;logger_bundle::validate(...)&#39;</span><span class="p">,</span>
             <span class="sa">r</span><span class="s1">&#39;logger must be an ILogger instance or a standard logging.Logger instance&#39;</span><span class="p">,</span>
         <span class="p">)</span></div>
 

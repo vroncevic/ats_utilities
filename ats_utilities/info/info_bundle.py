@@ -143,28 +143,116 @@ class InfoBundle:
                 | ATSTypeError: Info ok must be an instance of IInfoOk interface.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle class.
         '''
-        not_empty(self.name, r'name must be provided')
-        not_empty(self.version, r'version must be provided')
-        not_empty(self.licence, r'licence must be provided')
-        not_empty(self.build_date, r'build date must be provided')
-        not_empty(self.repository, r'repository must be provided')
-        not_empty(self.organization, r'organization must be provided')
-        not_empty(self.use_github, r'use github must be provided')
-        not_empty(self.logo, r'logo must be provided')
-        not_empty(self.log_file, r'log file must be provided')
-        not_empty(self.info_ok, r'info ok must be provided')
-        not_none(self.context_bundle, r'context bundle must be provided')
-        istype(self.name, IName, r'name must be an instance of IName interface')
-        istype(self.version, IVersion, r'version must be an instance of IVersion interface')
-        istype(self.licence, ILicence, r'licence must be an instance of ILicence interface')
-        istype(self.build_date, IBuildDate, r'build date must be an instance of IBuildDate interface')
-        istype(self.repository, IRepository, r'repository must be an instance of IRepository interface')
-        istype(self.organization, IOrganization, r'organization must be an instance of IOrganization interface')
-        istype(self.use_github, IUseGitHub, r'use github must be an instance of IUseGitHub interface')
-        istype(self.logo, ILogo, r'logo must be an instance of ILogo interface')
-        istype(self.log_file, ILogFile, r'log file must be an instance of ILogFile interface')
-        istype(self.info_ok, IInfoOk, r'info ok must be an instance of IInfoOk interface')
-        istype(self.context_bundle, ContextBundle, r'context bundle must be an instance of ContextBundle class')
+        not_empty(
+            self.name,
+            r'info_bundle::validate(...)',
+            r'name must be provided'
+        )
+        not_empty(
+            self.version,
+            r'info_bundle::validate(...)',
+            r'version must be provided'
+        )
+        not_empty(
+            self.licence,
+            r'info_bundle::validate(...)',
+            r'licence must be provided'
+        )
+        not_empty(
+            self.build_date,
+            r'info_bundle::validate(...)',
+            r'build date must be provided'
+        )
+        not_empty(
+            self.repository,
+            r'info_bundle::validate(...)',
+            r'repository must be provided'
+        )
+        not_empty(
+            self.organization,
+            r'info_bundle::validate(...)',
+            r'organization must be provided'
+        )
+        not_empty(
+            self.use_github,
+            r'info_bundle::validate(...)',
+            r'use github must be provided'
+        )
+        not_empty(
+            self.logo,
+            r'info_bundle::validate(...)',
+            r'logo must be provided'
+        )
+        not_empty(
+            self.log_file,
+            r'info_bundle::validate(...)',
+            r'log file must be provided'
+        )
+        not_empty(
+            self.info_ok,
+            r'info_bundle::validate(...)',
+            r'info ok must be provided'
+        )
+        not_none(
+            self.context_bundle,
+            r'info_bundle::validate(...)',
+            r'context bundle must be provided'
+        )
+        istype(
+            self.name, IName,
+            r'info_bundle::validate(...)',
+            r'name must be an instance of IName interface'
+        )
+        istype(
+            self.version, IVersion,
+            r'info_bundle::validate(...)',
+            r'version must be an instance of IVersion interface'
+        )
+        istype(
+            self.licence, ILicence,
+            r'info_bundle::validate(...)',
+            r'licence must be an instance of ILicence interface'
+        )
+        istype(
+            self.build_date, IBuildDate,
+            r'info_bundle::validate(...)',
+            r'build date must be an instance of IBuildDate interface'
+        )
+        istype(
+            self.repository, IRepository,
+            r'info_bundle::validate(...)',
+            r'repository must be an instance of IRepository interface'
+        )
+        istype(
+            self.organization, IOrganization,
+            r'info_bundle::validate(...)',
+            r'organization must be an instance of IOrganization interface'
+        )
+        istype(
+            self.use_github, IUseGitHub,
+            r'info_bundle::validate(...)',
+            r'use github must be an instance of IUseGitHub interface'
+        )
+        istype(
+            self.logo, ILogo,
+            r'info_bundle::validate(...)',
+            r'logo must be an instance of ILogo interface'
+        )
+        istype(
+            self.log_file, ILogFile,
+            r'info_bundle::validate(...)',
+            r'log file must be an instance of ILogFile interface'
+        )
+        istype(
+            self.info_ok, IInfoOk,
+            r'info_bundle::validate(...)',
+            r'info ok must be an instance of IInfoOk interface'
+        )
+        istype(
+            self.context_bundle, ContextBundle,
+            r'info_bundle::validate(...)',
+            r'context bundle must be an instance of ContextBundle class'
+        )
 
     def to_dict(self) -> dict[str, Any]:
         '''

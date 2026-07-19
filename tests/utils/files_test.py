@@ -103,7 +103,7 @@ class FilesTest(unittest.TestCase):
         with open(file_path, "w") as f:
             f.write("hello")
         try:
-            check_file_exists(file_path)
+            check_file_exists(file_path, 'filestest::test_check_file_exists_valid')
         except ATSValueError:
             self.fail("check_file_exists raised ATSValueError unexpectedly.")
 
@@ -115,7 +115,7 @@ class FilesTest(unittest.TestCase):
         '''
         file_path = os.path.join(self._temp_dir, "nonexistent.txt")
         with self.assertRaises(ATSValueError) as ctx:
-            check_file_exists(file_path)
+            check_file_exists(file_path, 'filestest::test_check_file_exists_invalid')
         self.assertIn("file at the provided path does not exist", str(ctx.exception))
 
     def test_check_file_exists_empty_or_invalid_type(self) -> None:
@@ -125,10 +125,10 @@ class FilesTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError):
-            check_file_exists("")
+            check_file_exists("", 'filestest::test_check_file_exists_empty_or_invalid_type')
 
         with self.assertRaises(ATSTypeError):
-            check_file_exists(123)  # type: ignore
+            check_file_exists(123, 'filestest::test_check_file_exists_empty_or_invalid_type')  # type: ignore
 
     def test_normalize_path(self) -> None:
         '''
@@ -136,9 +136,9 @@ class FilesTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        self.assertEqual(normalize_path("a\\b\\c"), "a/b/c")
-        self.assertEqual(normalize_path("/a/b/c"), "a/b/c")
-        self.assertEqual(normalize_path("C:\\a\\b"), "C:/a/b")
+        self.assertEqual(normalize_path("a\\b\\c", 'filestest::test_normalize_path'), "a/b/c")
+        self.assertEqual(normalize_path("/a/b/c", 'filestest::test_normalize_path'), "a/b/c")
+        self.assertEqual(normalize_path("C:\\a\\b", 'filestest::test_normalize_path'), "C:/a/b")
 
     def test_normalize_path_mock_drive(self) -> None:
         '''
@@ -154,7 +154,7 @@ class FilesTest(unittest.TestCase):
         mock_path.as_posix.return_value = "a/b"
 
         with patch("ats_utilities.utils.files.PurePosixPath", return_value=mock_path):
-            result = normalize_path("C:\\a\\b")
+            result = normalize_path("C:\\a\\b", 'filestest::test_normalize_path_mock_drive')
             self.assertEqual(result, "a/b")
 
     def test_normalize_path_exceptions(self) -> None:
@@ -164,10 +164,10 @@ class FilesTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError):
-            normalize_path("")
+            normalize_path("", 'filestest::test_normalize_path_exceptions')
 
         with self.assertRaises(ATSTypeError):
-            normalize_path(123)  # type: ignore
+            normalize_path(123, 'filestest::test_normalize_path_exceptions')  # type: ignore
 
     def test_resolve_relative_path(self) -> None:
         '''
@@ -175,9 +175,9 @@ class FilesTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        self.assertEqual(resolve_relative_path("a/b/c", "a/b/c"), "")
-        self.assertEqual(resolve_relative_path("a/b/c", "a/b"), "c")
-        self.assertEqual(resolve_relative_path("a/b/c", "x/y"), None)
+        self.assertEqual(resolve_relative_path("a/b/c", "a/b/c", 'filestest::test_resolve_relative_path'), "")
+        self.assertEqual(resolve_relative_path("a/b/c", "a/b", 'filestest::test_resolve_relative_path'), "c")
+        self.assertEqual(resolve_relative_path("a/b/c", "x/y", 'filestest::test_resolve_relative_path'), None)
 
     def test_resolve_relative_path_exceptions(self) -> None:
         '''
@@ -186,11 +186,11 @@ class FilesTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError):
-            resolve_relative_path("", "a/b")
+            resolve_relative_path("", "a/b", 'filestest::test_resolve_relative_path_exceptions')
         with self.assertRaises(ATSValueError):
-            resolve_relative_path("a/b", "")
+            resolve_relative_path("a/b", "", 'filestest::test_resolve_relative_path_exceptions')
         with self.assertRaises(ATSTypeError):
-            resolve_relative_path(123, "a/b")  # type: ignore
+            resolve_relative_path(123, "a/b", 'filestest::test_resolve_relative_path_exceptions')  # type: ignore
 
     def test_is_excluded_path(self) -> None:
         '''
@@ -198,9 +198,9 @@ class FilesTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        self.assertTrue(is_excluded_path("a/b/c.py", ["*.py"]))
-        self.assertTrue(is_excluded_path("a/b/c", ["**/b/**"]))
-        self.assertFalse(is_excluded_path("a/b/c.txt", ["*.py"]))
+        self.assertTrue(is_excluded_path("a/b/c.py", ["*.py"], 'filestest::test_is_excluded_path'))
+        self.assertTrue(is_excluded_path("a/b/c", ["**/b/**"], 'filestest::test_is_excluded_path'))
+        self.assertFalse(is_excluded_path("a/b/c.txt", ["*.py"], 'filestest::test_is_excluded_path'))
 
     def test_is_excluded_path_exceptions(self) -> None:
         '''
@@ -209,11 +209,11 @@ class FilesTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError):
-            is_excluded_path("", ["*.py"])
+            is_excluded_path("", ["*.py"], 'filestest::test_is_excluded_path_exceptions')
         with self.assertRaises(ATSValueError):
-            is_excluded_path("a/b", [])
+            is_excluded_path("a/b", [], 'filestest::test_is_excluded_path_exceptions')
         with self.assertRaises(ATSTypeError):
-            is_excluded_path(123, ["*.py"])  # type: ignore
+            is_excluded_path(123, ["*.py"], 'filestest::test_is_excluded_path_exceptions')  # type: ignore
 
     def test_format_casing_by_match(self) -> None:
         '''
@@ -221,10 +221,10 @@ class FilesTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        self.assertEqual(format_casing_by_match("CLEAN", "def", "UPP", "Cam", "das"), "UPP")
-        self.assertEqual(format_casing_by_match("Clean", "def", "UPP", "Cam", "das"), "Cam")
-        self.assertEqual(format_casing_by_match("clean-str", "def", "UPP", "Cam", "das"), "das")
-        self.assertEqual(format_casing_by_match("clean_str", "def", "UPP", "Cam", "das"), "def")
+        self.assertEqual(format_casing_by_match("CLEAN", "def", "UPP", "Cam", "das", 'filestest::test_format_casing_by_match'), "UPP")
+        self.assertEqual(format_casing_by_match("Clean", "def", "UPP", "Cam", "das", 'filestest::test_format_casing_by_match'), "Cam")
+        self.assertEqual(format_casing_by_match("clean-str", "def", "UPP", "Cam", "das", 'filestest::test_format_casing_by_match'), "das")
+        self.assertEqual(format_casing_by_match("clean_str", "def", "UPP", "Cam", "das", 'filestest::test_format_casing_by_match'), "def")
 
     def test_format_casing_by_match_exceptions(self) -> None:
         '''
@@ -233,17 +233,17 @@ class FilesTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError):
-            format_casing_by_match("", "def", "UPP", "Cam", "das")
+            format_casing_by_match("", "def", "UPP", "Cam", "das", 'filestest::test_format_casing_by_match_exceptions')
         with self.assertRaises(ATSValueError):
-            format_casing_by_match("clean", "", "UPP", "Cam", "das")
+            format_casing_by_match("clean", "", "UPP", "Cam", "das", 'filestest::test_format_casing_by_match_exceptions')
         with self.assertRaises(ATSValueError):
-            format_casing_by_match("clean", "def", "", "Cam", "das")
+            format_casing_by_match("clean", "def", "", "Cam", "das", 'filestest::test_format_casing_by_match_exceptions')
         with self.assertRaises(ATSValueError):
-            format_casing_by_match("clean", "def", "UPP", "", "das")
+            format_casing_by_match("clean", "def", "UPP", "", "das", 'filestest::test_format_casing_by_match_exceptions')
         with self.assertRaises(ATSValueError):
-            format_casing_by_match("clean", "def", "UPP", "Cam", "")
+            format_casing_by_match("clean", "def", "UPP", "Cam", "", 'filestest::test_format_casing_by_match_exceptions')
         with self.assertRaises(ATSTypeError):
-            format_casing_by_match(123, "def", "UPP", "Cam", "das")  # type: ignore
+            format_casing_by_match(123, "def", "UPP", "Cam", "das", 'filestest::test_format_casing_by_match_exceptions')  # type: ignore
 
     def test_write_content(self) -> None:
         '''
@@ -254,12 +254,12 @@ class FilesTest(unittest.TestCase):
         file_path_str = os.path.join(self._temp_dir, "subdir", "test_str.txt")
         file_path_bytes = os.path.join(self._temp_dir, "subdir", "test_bytes.bin")
 
-        write_content(file_path_str, "hello world")
+        write_content(file_path_str, "hello world", 'filestest::test_write_content')
         self.assertTrue(os.path.exists(file_path_str))
         with open(file_path_str, "r", encoding="utf-8") as f:
             self.assertEqual(f.read(), "hello world")
 
-        write_content(file_path_bytes, b"hello bytes")
+        write_content(file_path_bytes, b"hello bytes", 'filestest::test_write_content')
         self.assertTrue(os.path.exists(file_path_bytes))
         with open(file_path_bytes, "rb") as f:
             self.assertEqual(f.read(), b"hello bytes")
@@ -271,11 +271,11 @@ class FilesTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError):
-            write_content("", "hello")
+            write_content("", "hello", 'filestest::test_write_content_exceptions')
         with self.assertRaises(ATSValueError):
-            write_content("path", "")
+            write_content("path", "", 'filestest::test_write_content_exceptions')
         with self.assertRaises(ATSTypeError):
-            write_content(123, "hello")  # type: ignore
+            write_content(123, "hello", 'filestest::test_write_content_exceptions')  # type: ignore
 
     def test_apply_path_replacements(self) -> None:
         '''
@@ -292,35 +292,35 @@ class FilesTest(unittest.TestCase):
         }
 
         self.assertEqual(
-            apply_path_replacements("PROJECT-NAME/src", replacements, vals),
+            apply_path_replacements("PROJECT-NAME/src", replacements, vals, 'filestest::test_apply_path_replacements'),
             "MY_NEW_APP/src"
         )
         self.assertEqual(
-            apply_path_replacements("project-name/src", replacements, vals),
+            apply_path_replacements("project-name/src", replacements, vals, 'filestest::test_apply_path_replacements'),
             "my-new-app/src"
         )
         self.assertEqual(
-            apply_path_replacements("ProjectName/src", replacements, vals),
+            apply_path_replacements("ProjectName/src", replacements, vals, 'filestest::test_apply_path_replacements'),
             "MyNewApp/src"
         )
         self.assertEqual(
-            apply_path_replacements("PROJECT_NAME/src", replacements, vals),
+            apply_path_replacements("PROJECT_NAME/src", replacements, vals, 'filestest::test_apply_path_replacements'),
             "MY_NEW_APP/src"
         )
         self.assertEqual(
-            apply_path_replacements("project_name/src", replacements, vals),
+            apply_path_replacements("project_name/src", replacements, vals, 'filestest::test_apply_path_replacements'),
             "my_new_app/src"
         )
 
         # Missing replacement variable
         self.assertEqual(
-            apply_path_replacements("project_name/src", {"project_name": "missing_var"}, vals),
+            apply_path_replacements("project_name/src", {"project_name": "missing_var"}, vals, 'filestest::test_apply_path_replacements'),
             "project_name/src"
         )
 
         # Empty words case in replacement
         self.assertEqual(
-            apply_path_replacements("---/src", {"---": "val"}, {"val": "replacement"}),
+            apply_path_replacements("---/src", {"---": "val"}, {"val": "replacement"}, 'filestest::test_apply_path_replacements'),
             "replacement/src"
         )
 
@@ -331,13 +331,13 @@ class FilesTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError):
-            apply_path_replacements("", {"a": "b"}, {"b": "c"})
+            apply_path_replacements("", {"a": "b"}, {"b": "c"}, 'filestest::test_apply_path_replacements_exceptions')
         with self.assertRaises(ATSValueError):
-            apply_path_replacements("a", {}, {"b": "c"})
+            apply_path_replacements("a", {}, {"b": "c"}, 'filestest::test_apply_path_replacements_exceptions')
         with self.assertRaises(ATSValueError):
-            apply_path_replacements("a", {"a": "b"}, {})
+            apply_path_replacements("a", {"a": "b"}, {}, 'filestest::test_apply_path_replacements_exceptions')
         with self.assertRaises(ATSTypeError):
-            apply_path_replacements(123, {"a": "b"}, {"b": "c"})  # type: ignore
+            apply_path_replacements(123, {"a": "b"}, {"b": "c"}, 'filestest::test_apply_path_replacements_exceptions')  # type: ignore
 
 
 if __name__ == "__main__":

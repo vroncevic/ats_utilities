@@ -86,6 +86,8 @@
 <span class="sd">                | is_initialized - Checks if logger is initialized.</span>
 <span class="sd">                | set_level - Sets log level.</span>
 <span class="sd">                | set_log_file - Sets log file.</span>
+<span class="sd">                | set_stdout - Sets log output to standard output (stdout).</span>
+<span class="sd">                | set_stderr - Sets log output to standard error (stderr).</span>
 <span class="sd">                | stop_buffering - Stops log buffering.</span>
 <span class="sd">                | __str__ - Returns the logger as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -143,6 +145,30 @@
 
 <span class="sd">            :param log_file: Log file path.</span>
 <span class="sd">            :type log_file: &lt;str&gt;</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ILogger.set_stdout">
+<a class="viewcode-back" href="../../../ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger.set_stdout">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">set_stdout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Sets log output to standard output (stdout).</span>
+
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ILogger.set_stderr">
+<a class="viewcode-back" href="../../../ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger.set_stderr">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">set_stderr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Sets log output to standard error (stderr).</span>
+
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">pass</span></div>

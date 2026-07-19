@@ -167,6 +167,7 @@ Framework structure
          │   │   ├── cfg_processor.py
          │   │   ├── factory_processor.py
          │   │   ├── iconfig_processor.py
+         │   │   ├── ifactory_processor.py
          │   │   ├── ini_processor.py
          │   │   ├── __init__.py
          │   │   ├── json_processor.py
@@ -178,8 +179,9 @@ Framework structure
          │       └── istorer.py
          ├── context/
          │   ├── context_bundle.py
-         │   ├── context_bundle_inject.py
          │   ├── context_registry.py
+         │   ├── context_support.py
+         │   ├── icontext_support.py
          │   └── __init__.py
          ├── exceptions/
          │   ├── ats_attribute_error.py
@@ -294,7 +296,8 @@ Framework structure
          │       ├── engine.py
          │       ├── __init__.py
          │       ├── iparser_strategy.py
-         │       └── parser_strategy_bundle.py
+         │       ├── parser_strategy_bundle.py
+         │       └── parser_strategy_registry.py
          ├── project_setup/
          │   ├── __init__.py
          │   ├── ipro_config.py
@@ -350,6 +353,7 @@ Framework structure
          │   ├── dirs.py
          │   ├── files.py
          │   ├── __init__.py
+         │   ├── iregistry.py
          │   └── reflection.py
          └── validation/
              ├── check_type.py
@@ -357,7 +361,7 @@ Framework structure
              ├── context_error.py
              └── __init__.py
 
-     43 directories, 194 files
+     43 directories, 198 files
 
 Copyright and licence
 ----------------------

@@ -59,6 +59,7 @@
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">stdout</span>
 <span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">getLogger</span><span class="p">,</span> <span class="n">basicConfig</span><span class="p">,</span> <span class="n">INFO</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 
@@ -90,6 +91,7 @@
 
 <div class="viewcode-block" id="LoggerRegistry.create_bundle">
 <a class="viewcode-back" href="../../../ats_utilities.logger.logger_registry.html#ats_utilities.logger.logger_registry.LoggerRegistry.create_bundle">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LoggerBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -116,12 +118,16 @@
 <div class="viewcode-block" id="LoggerRegistry.create_default_logger_bundle">
 <a class="viewcode-back" href="../../../ats_utilities.logger.logger_registry.html#ats_utilities.logger.logger_registry.LoggerRegistry.create_default_logger_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_default_logger_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">log_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;run.log&#39;</span><span class="p">,</span> <span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">INFO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LoggerBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_default_logger_bundle</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">log_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">INFO</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LoggerBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates a default LoggerBundle with pre-configured components.</span>
 
-<span class="sd">            :param log_file: Path to the log file (default &#39;run.log&#39;).</span>
-<span class="sd">            :type log_file: &lt;str&gt;</span>
+<span class="sd">            :param log_file: Path to the log file (default None).</span>
+<span class="sd">            :type log_file: &lt;str | None&gt;</span>
 <span class="sd">            :param log_level: Log level (default 20 - INFO).</span>
 <span class="sd">            :type log_level: &lt;int&gt;</span>
 <span class="sd">            :return: Default LoggerBundle instance.</span>
@@ -132,9 +138,13 @@
             <span class="n">log_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;datefmt&#39;</span><span class="p">:</span> <span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y %I:%M:%S %p&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="n">log_level</span><span class="p">,</span>
-                <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="n">log_file</span>
+                <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="n">log_level</span>
             <span class="p">}</span>
+
+            <span class="k">if</span> <span class="n">log_file</span><span class="p">:</span>
+                <span class="n">log_config</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">log_file</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log_config</span><span class="p">[</span><span class="s1">&#39;stream&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stdout</span>
 
             <span class="n">basicConfig</span><span class="p">(</span><span class="o">**</span><span class="n">log_config</span><span class="p">)</span>
 
@@ -142,7 +152,7 @@
 
         <span class="k">return</span> <span class="n">LoggerBundle</span><span class="p">(</span>
             <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">,</span>
-            <span class="n">log_file</span><span class="o">=</span><span class="n">log_file</span><span class="p">,</span>
+            <span class="n">log_file</span><span class="o">=</span><span class="n">log_file</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
             <span class="n">log_level</span><span class="o">=</span><span class="n">log_level</span>
         <span class="p">)</span></div>
 </div>

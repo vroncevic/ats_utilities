@@ -107,18 +107,66 @@ class TarProcessBundle:
                 | ATSValueError: Values must be provided.
                 | ATSTypeError: Values must be a mapping.
         '''
-        not_none(self.archive_path, r'archive_path must be provided.')
-        not_none(self.target_dir, r'target_dir must be provided.')
-        not_none(self.source_dir, r'source_dir must be provided.')
-        not_none(self.path_replacements, r'path_replacements must be provided.')
-        not_none(self.exclude_patterns, r'exclude_patterns must be provided.')
-        not_none(self.vals, r'vals must be provided.')
-        istype(self.archive_path, str, r'archive_path must be a string.')
-        istype(self.target_dir, str, r'target_dir must be a string.')
-        istype(self.source_dir, str, r'source_dir must be a string.')
-        istype(self.path_replacements, Mapping, r'path_replacements must be a mapping.')
-        istype(self.exclude_patterns, Sequence, r'exclude_patterns must be a sequence of strings.')
-        istype(self.vals, Mapping, r'vals must be a mapping.')
+        not_none(
+            self.archive_path,
+            r'tar_process_bundle::validate(...)',
+            r'archive_path must be provided.'
+        )
+        not_none(
+            self.target_dir,
+            r'tar_process_bundle::validate(...)',
+            r'target_dir must be provided.'
+        )
+        not_none(
+            self.source_dir,
+            r'tar_process_bundle::validate(...)',
+            r'source_dir must be provided.'
+        )
+        not_none(
+            self.path_replacements,
+            r'tar_process_bundle::validate(...)',
+            r'path_replacements must be provided.'
+        )
+        not_none(
+            self.exclude_patterns,
+            r'tar_process_bundle::validate(...)',
+            r'exclude_patterns must be provided.'
+        )
+        not_none(
+            self.vals,
+            r'tar_process_bundle::validate(...)',
+            r'vals must be provided.'
+        )
+        istype(
+            self.archive_path, str,
+            r'tar_process_bundle::validate(...)',
+            r'archive_path must be a string.'
+        )
+        istype(
+            self.target_dir, str,
+            r'tar_process_bundle::validate(...)',
+            r'target_dir must be a string.'
+        )
+        istype(
+            self.source_dir, str,
+            r'tar_process_bundle::validate(...)',
+            r'source_dir must be a string.'
+        )
+        istype(
+            self.path_replacements, Mapping,
+            r'tar_process_bundle::validate(...)',
+            r'path_replacements must be a mapping.'
+        )
+        istype(
+            self.exclude_patterns, Sequence,
+            r'tar_process_bundle::validate(...)',
+            r'exclude_patterns must be a sequence of strings.'
+        )
+        istype(
+            self.vals, Mapping,
+            r'tar_process_bundle::validate(...)',
+            r'vals must be a mapping.'
+        )
 
     def to_dict(self) -> dict[str, Any]:
         '''

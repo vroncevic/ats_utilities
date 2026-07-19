@@ -90,6 +90,14 @@ class TestGeneratorRegistry(unittest.TestCase):
         self.assertEqual(result.scheme_loader, mock_scheme)
         self.assertEqual(result.tar_processor, mock_tar)
 
+    @patch("ats_utilities.generator.generator_registry.GeneratorBundle")
+    def test_create_bundle(self, mock_bundle_cls: MagicMock) -> None:
+        """Test create_bundle on GeneratorRegistry."""
+        mock_bundle_inst = MagicMock(spec=GeneratorBundle)
+        mock_bundle_cls.return_value = mock_bundle_inst
+        result = GeneratorRegistry.create_bundle(context_bundle=self.mock_context_bundle)
+        self.assertEqual(result, mock_bundle_inst)
+
 
 if __name__ == '__main__':
     unittest.main()

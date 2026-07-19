@@ -138,14 +138,46 @@
 <span class="sd">                | ATSTypeError: dest_full_path must be a string.</span>
 <span class="sd">                | ATSTypeError: vals must be a mapping.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tar</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;tar must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">member</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;member must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dest_full_path</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;dest_full_path must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;vals must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tar</span><span class="p">,</span> <span class="n">TarFile</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;tar must be a TarFile instance.&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">member</span><span class="p">,</span> <span class="n">TarInfo</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;member must be a TarInfo instance.&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dest_full_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;dest_full_path must be a string.&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;vals must be a mapping.&#39;</span><span class="p">)</span></div>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tar</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_member_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar must be provided.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">member</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_member_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;member must be provided.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dest_full_path</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_member_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;dest_full_path must be provided.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_member_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;vals must be provided.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tar</span><span class="p">,</span> <span class="n">TarFile</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_member_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar must be a TarFile instance.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">member</span><span class="p">,</span> <span class="n">TarInfo</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_member_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;member must be a TarInfo instance.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dest_full_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_member_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;dest_full_path must be a string.&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;tar_process_member_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;vals must be a mapping.&#39;</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TarProcessMemberBundle.to_dict">

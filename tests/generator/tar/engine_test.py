@@ -37,16 +37,13 @@ class TestTarProcessor(unittest.TestCase):
         self.mock_process_bundle.path_replacements = {}
         self.mock_process_bundle.vals = {"key": "value"}
 
-    @patch("ats_utilities.generator.tar.engine.inject_context_bundle")
-    def test_initialization_success(self, mock_inject: MagicMock) -> None:
+    def test_initialization_success(self) -> None:
         """Test successful instantiation and property alignment."""
         processor = TarProcessor(self.mock_context_bundle, self.mock_template_processor)
         
-        mock_inject.assert_called_once_with(processor, self.mock_context_bundle)
         self.assertEqual(processor._template_processor, self.mock_template_processor)
 
-    @patch("ats_utilities.generator.tar.engine.inject_context_bundle")
-    def test_initialization_invalid_template_processor(self, mock_inject: MagicMock) -> None:
+    def test_initialization_invalid_template_processor(self) -> None:
         """Test initialization failure when template processor validation fails."""
         with self.assertRaises(Exception):
             TarProcessor(self.mock_context_bundle, None)  # type: ignore
@@ -55,8 +52,7 @@ class TestTarProcessor(unittest.TestCase):
             TarProcessor(self.mock_context_bundle, MagicMock())  # type: ignore
 
     @patch("ats_utilities.generator.tar.engine.makedirs")
-    @patch("ats_utilities.generator.tar.engine.inject_context_bundle")
-    def test_process_tar_member_directory(self, mock_inject: MagicMock, mock_makedirs: MagicMock) -> None:
+    def test_process_tar_member_directory(self, mock_makedirs: MagicMock) -> None:
         """Test that process_tar_member constructs directory layouts for directory members."""
         processor = TarProcessor(self.mock_context_bundle, self.mock_template_processor)
         self.mock_member_bundle.member.isdir.return_value = True
@@ -68,9 +64,8 @@ class TestTarProcessor(unittest.TestCase):
 
     @patch("ats_utilities.generator.tar.engine.write_content")
     @patch("ats_utilities.generator.tar.engine.makedirs")
-    @patch("ats_utilities.generator.tar.engine.inject_context_bundle")
     def test_process_tar_member_file(
-        self, mock_inject: MagicMock, mock_makedirs: MagicMock, mock_write: MagicMock
+        self, mock_makedirs: MagicMock, mock_write: MagicMock
     ) -> None:
         """Test file member extraction, placeholder substitution, and content execution."""
         processor = TarProcessor(self.mock_context_bundle, self.mock_template_processor)
@@ -87,7 +82,35 @@ class TestTarProcessor(unittest.TestCase):
         mock_makedirs.assert_called_once_with("/target/path", exist_ok=True)
         self.mock_member_bundle.tar.extractfile.assert_called_once_with(self.mock_member_bundle.member)
         self.mock_template_processor.render.assert_called_once_with(b"raw content", {"name": "test"})
-        mock_write.assert_called_once_with("/target/path/file.txt", "rendered content")
+        mock_write.assert_called_once_with(
+            "/target/path/file.txt",
+            "rendered content",
+            "tar_processor::process_tar_member(...)",
+            "error writing to file /target/path/file.txt"
+        )
+
+    def test_process_tar_member_neither_dir_nor_file(self) -> None:
+        """Test process_tar_member when member is neither a directory nor a file."""
+        processor = TarProcessor(self.mock_context_bundle, self.mock_template_processor)
+        self.mock_member_bundle.member.isdir.return_value = False
+        self.mock_member_bundle.member.isfile.return_value = False
+
+        # Should exit cleanly without calling extractfile or render
+        processor.process_tar_member(self.mock_member_bundle)
+        self.mock_member_bundle.tar.extractfile.assert_not_called()
+
+    @patch("ats_utilities.generator.tar.engine.makedirs")
+    def test_process_tar_member_file_object_is_none(self, mock_makedirs: MagicMock) -> None:
+        """Test process_tar_member when extractfile returns None."""
+        processor = TarProcessor(self.mock_context_bundle, self.mock_template_processor)
+        self.mock_member_bundle.member.isdir.return_value = False
+        self.mock_member_bundle.member.isfile.return_value = True
+        self.mock_member_bundle.tar.extractfile.return_value = None
+
+        # Should exit cleanly without calling render
+        processor.process_tar_member(self.mock_member_bundle)
+        self.mock_template_processor.render.assert_not_called()
+        mock_makedirs.assert_called_once_with("/target/path", exist_ok=True)
 
     @patch("ats_utilities.generator.tar.engine.TarProcessMemberBundle")
     @patch("ats_utilities.generator.tar.engine.open")
@@ -96,9 +119,8 @@ class TestTarProcessor(unittest.TestCase):
     @patch("ats_utilities.generator.tar.engine.is_excluded_path")
     @patch("ats_utilities.generator.tar.engine.apply_path_replacements")
     @patch("ats_utilities.generator.tar.engine.makedirs")
-    @patch("ats_utilities.generator.tar.engine.inject_context_bundle")
     def test_process_success_loop(
-        self, mock_inject: MagicMock, mock_makedirs: MagicMock, mock_apply_repl: MagicMock,
+        self, mock_makedirs: MagicMock, mock_apply_repl: MagicMock,
         mock_is_excluded: MagicMock, mock_resolve_rel: MagicMock, mock_normalize: MagicMock,
         mock_tar_open: MagicMock, mock_member_bundle_cls: MagicMock
     ) -> None:
@@ -131,9 +153,8 @@ class TestTarProcessor(unittest.TestCase):
 
     @patch("ats_utilities.generator.tar.engine.open")
     @patch("ats_utilities.generator.tar.engine.makedirs")
-    @patch("ats_utilities.generator.tar.engine.inject_context_bundle")
     def test_process_skips_out_of_scope_or_excluded_paths(
-        self, mock_inject: MagicMock, mock_makedirs: MagicMock, mock_tar_open: MagicMock
+        self, mock_makedirs: MagicMock, mock_tar_open: MagicMock
     ) -> None:
         """Test skipping over file headers when paths are excluded or resolve out-of-scope."""
         processor = TarProcessor(self.mock_context_bundle, self.mock_template_processor)
@@ -157,9 +178,8 @@ class TestTarProcessor(unittest.TestCase):
 
     @patch("ats_utilities.generator.tar.engine.format_error_raw")
     @patch("ats_utilities.generator.tar.engine.open")
-    @patch("ats_utilities.generator.tar.engine.inject_context_bundle")
     def test_process_wraps_exceptions_safely(
-        self, mock_inject: MagicMock, mock_tar_open: MagicMock, mock_format_error: MagicMock
+        self, mock_tar_open: MagicMock, mock_format_error: MagicMock
     ) -> None:
         """Test that operational crashes convert strictly into raised ATSGeneratorError hooks."""
         processor = TarProcessor(self.mock_context_bundle, self.mock_template_processor)
@@ -169,8 +189,7 @@ class TestTarProcessor(unittest.TestCase):
         with self.assertRaises(ATSGeneratorError):
             processor.process(self.mock_process_bundle)
 
-    @patch("ats_utilities.generator.tar.engine.inject_context_bundle")
-    def test_is_initialized_delegation(self, mock_inject: MagicMock) -> None:
+    def test_is_initialized_delegation(self) -> None:
         """Test initialization flag queries mirror internal render dependencies."""
         processor = TarProcessor(self.mock_context_bundle, self.mock_template_processor)
         
@@ -181,8 +200,7 @@ class TestTarProcessor(unittest.TestCase):
         self.assertFalse(processor.is_initialized())
 
     @patch("ats_utilities.generator.tar.engine.to_str")
-    @patch("ats_utilities.generator.tar.engine.inject_context_bundle")
-    def test_string_representation(self, mock_inject: MagicMock, mock_to_str: MagicMock) -> None:
+    def test_string_representation(self, mock_to_str: MagicMock) -> None:
         """Test reflection serialization mappings upon string requests."""
         processor = TarProcessor(self.mock_context_bundle, self.mock_template_processor)
         mock_to_str.return_value = "TarProcessor{template_processor=ITemplateProcessor}"

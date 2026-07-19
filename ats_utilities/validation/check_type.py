@@ -71,8 +71,9 @@ def _resolve_type(type_to_resolve: Any) -> Any:
 def istype(
     instance: object,
     class_or_tuple: type[Any] | tuple[type[Any], ...],
+    exc_context: str | None = None,
     exc_message: str | None = None,
-    exception_class: type[BaseException] = ATSTypeError
+    exc_class: type[BaseException] = ATSTypeError
 ) -> None:
     '''
         Checks if an instance is of a specified type.
@@ -81,12 +82,14 @@ def istype(
         :type instance: <any>
         :param class_or_tuple: Type or tuple of types to check against.
         :type class_or_tuple: <type | tuple[type, ...]>
+        :param exc_context: Context representation in string format.
+        :type exc_context: <str | None>
         :param exc_message: Message to include in the exception message.
         :type exc_message: <str | None>
-        :param exception_class: The exception class to raise if instance is not of the specified type.
-        :type exception_class: <type[Exception]> (default ATSTypeError)
+        :param exc_class: The exception class to raise if instance is not of the specified type.
+        :type exc_class: <type[BaseException]> (default ATSTypeError)
         :exceptions:
-            | Dynamically raises the provided exception_class (e.g., ATSTypeError).
+            | Dynamically raises the provided exc_class (e.g., ATSTypeError).
     '''
     if isinstance(class_or_tuple, tuple):
         check_types = []
@@ -106,9 +109,9 @@ def istype(
 
     if not isinstance(instance, check_types):
         raise_error(
-            fallback_prefix=r'check_type::istype(..)',
+            fallback_context=r'check_type::istype(...)',
             fallback_msg=f'expected {class_or_tuple} for instance, got {type(instance).__name__}',
+            exc_context=exc_context,
             exc_message=exc_message,
-            exception_class=exception_class,
-            depth=3
+            exc_class=exc_class
         )

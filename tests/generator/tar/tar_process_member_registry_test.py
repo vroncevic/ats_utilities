@@ -61,6 +61,20 @@ class TestTarProcessMemberRegistry(unittest.TestCase):
         self.assertEqual(result.dest_full_path, self.dest_full_path)
         self.assertEqual(result.vals, self.vals)
 
+    def test_create_bundle(self) -> None:
+        """Test create_bundle on TarProcessRegistry."""
+        result = TarProcessRegistry.create_bundle(
+            tar=self.mock_tar,
+            member=self.mock_member,
+            dest_full_path=self.dest_full_path,
+            vals=self.vals
+        )
+        self.assertIsInstance(result, TarProcessMemberBundle)
+        self.assertEqual(result.tar, self.mock_tar)
+        self.assertEqual(result.member, self.mock_member)
+        self.assertEqual(result.dest_full_path, self.dest_full_path)
+        self.assertEqual(result.vals, self.vals)
+
 
 if __name__ == '__main__':
     unittest.main()

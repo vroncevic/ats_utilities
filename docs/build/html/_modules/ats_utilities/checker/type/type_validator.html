@@ -116,7 +116,11 @@
 <span class="sd">                | ATSTypeError: Abstract types must be a Mapping.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">abstract_types</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">istype</span><span class="p">(</span><span class="n">abstract_types</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;abstract types must be a Mapping&#39;</span><span class="p">)</span>
+            <span class="n">istype</span><span class="p">(</span>
+                <span class="n">abstract_types</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s1">&#39;type_validator::init(...)&#39;</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s1">&#39;abstract types must be a Mapping&#39;</span>
+            <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_abstract_types</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">(</span><span class="n">abstract_types</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_abstract_types</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ABSTRACT_TYPES</span>
@@ -138,7 +142,11 @@
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSTypeError: Expected type name must be a string.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">expected_type_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;expected type name must be a string&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="n">expected_type_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;type_validator::is_match(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;expected type name must be a string&#39;</span>
+        <span class="p">)</span>
         <span class="n">base_type_name</span> <span class="o">=</span> <span class="n">expected_type_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">base_type_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_abstract_types</span><span class="p">:</span>
@@ -164,7 +172,11 @@
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSTypeError: Expected type name must be a string.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">expected_type_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;expected type name must be a string&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="n">expected_type_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;type_validator::is_subtype(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;expected type name must be a string&#39;</span>
+        <span class="p">)</span>
         <span class="n">base_type_name</span> <span class="o">=</span> <span class="n">expected_type_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">base_type_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_abstract_types</span><span class="p">:</span>

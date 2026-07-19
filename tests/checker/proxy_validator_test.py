@@ -132,7 +132,7 @@ class ProxyValidatorTest(unittest.TestCase):
             obj.bad_method("test")
 
     def test_vcheck_non_class_method(self) -> None:
-        with self.assertRaises(ATSAttributeError):
+        with self.assertRaises(ATSRuntimeError):
             invalid_vcheck_free("test")
 
         with self.assertRaises(ATSRuntimeError):
@@ -140,7 +140,7 @@ class ProxyValidatorTest(unittest.TestCase):
 
     def test_vcheck_missing_checker(self) -> None:
         obj = DummyClass(use_checker=False)
-        with self.assertRaises(ATSAttributeError):
+        with self.assertRaises(ATSRuntimeError):
             obj.my_method("test", 123)
 
     def test_vcheck_unbound_param(self) -> None:

@@ -82,6 +82,8 @@ Interface for the logger mechanism.</p>
 <div class="line">is_initialized - Checks if logger is initialized.</div>
 <div class="line">set_level - Sets log level.</div>
 <div class="line">set_log_file - Sets log file.</div>
+<div class="line">set_stdout - Sets log output to standard output (stdout).</div>
+<div class="line">set_stderr - Sets log output to standard error (stderr).</div>
 <div class="line">stop_buffering - Stops log buffering.</div>
 <div class="line">__str__ - Returns the logger as string representation.</div>
 </div>
@@ -139,6 +141,28 @@ Interface for the logger mechanism.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger.set_stderr">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_stderr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.set_stderr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.set_stderr" title="Link to this definition">¶</a></dt>
+<dd><p>Sets log output to standard error (stderr).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger.set_stdout">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_stdout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.set_stdout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.set_stdout" title="Link to this definition">¶</a></dt>
+<dd><p>Sets log output to standard output (stdout).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger.stop_buffering">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stop_buffering</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.stop_buffering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.stop_buffering" title="Link to this definition">¶</a></dt>
 <dd><p>Stops log buffering.</p>
@@ -186,6 +210,8 @@ Interface for the logger mechanism.</p>
 <li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.is_initialized"><code class="docutils literal notranslate"><span class="pre">ILogger.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.set_level"><code class="docutils literal notranslate"><span class="pre">ILogger.set_level()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.set_log_file"><code class="docutils literal notranslate"><span class="pre">ILogger.set_log_file()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.set_stderr"><code class="docutils literal notranslate"><span class="pre">ILogger.set_stderr()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.set_stdout"><code class="docutils literal notranslate"><span class="pre">ILogger.set_stdout()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.stop_buffering"><code class="docutils literal notranslate"><span class="pre">ILogger.stop_buffering()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.write_log"><code class="docutils literal notranslate"><span class="pre">ILogger.write_log()</span></code></a></li>
 </ul>

@@ -30,8 +30,9 @@ from typing import Any, cast
 from ats_utilities.checker.checker_registry import CheckerRegistry
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ParametersSpecs
+from ats_utilities.context.icontext_support import IContextSupport
 from ats_utilities.exceptions import (
-    ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
+    ATSRuntimeError, ATSTypeError, ATSValueError
 )
 from ats_utilities.validation.context_error import raise_error
 
@@ -59,11 +60,11 @@ def proxy_validator_split(exp_type: str) -> tuple[str, str]:
     parts = exp_type.split(sep=':')
     if len(parts) != 2:
         raise_error(
-            fallback_prefix='proxy_validator_split',
+            fallback_context=r'proxy_validator_split(...)',
             fallback_msg=f'Invalid parameter format: {exp_type}',
+            exc_context=r'proxy_validator_split(...)',
             exc_message=None,
-            exception_class=ATSValueError,
-            depth=3
+            exc_class=ATSValueError
         )
 
     return parts[0], parts[1]
@@ -75,7 +76,7 @@ def validate_args(
     kwargs: dict[str, Any],
     specs: list[tuple[str, Any]],
     checker: Checker,
-    prefix: str
+    exc_context: str
 ) -> None:
     '''
         Validates argument values against parameter specification.
@@ -90,8 +91,8 @@ def validate_args(
         :type specs: <list[tuple[str, Any]]>
         :param checker: Checker instance to validate with.
         :type checker: <Checker>
-        :param prefix: Exception prefix.
-        :type prefix: <str>
+        :param exc_context: Exception context.
+        :type exc_context: <str>
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | ATSValueError: Parameter format validation failed.
@@ -127,10 +128,10 @@ def validate_args(
             else:
                 target_type = raw_type
 
-                # If it is not optional and the value is None, it is immediately a type error
-                if actual_value is None:
-                    runtime_parameters.append((f'{target_type}:{pname}', actual_value))
-                    continue
+            # If it is not optional and the value is None, it is immediately a type error
+            if actual_value is None:
+                runtime_parameters.append((f'{target_type}:{pname}', actual_value))
+                continue
 
             # We form a cleaned specification string for Checker (eg str:version)
             clean_exp_type = f'{target_type}:{pname}'
@@ -143,19 +144,19 @@ def validate_args(
         if error_id != checker.ERRORS.NO_ERROR:
             if error_id == checker.ERRORS.TYPE_ERROR:
                 raise_error(
-                    fallback_prefix=prefix,
-                    fallback_msg=f'Type error: {report_message}',
+                    fallback_context=exc_context,
+                    fallback_msg=f'type error: {report_message}',
+                    exc_context=exc_context,
                     exc_message=None,
-                    exception_class=ATSTypeError,
-                    depth=4
+                    exc_class=ATSTypeError
                 )
             else:
                 raise_error(
-                    fallback_prefix=prefix,
-                    fallback_msg=f'Format error: {report_message}',
+                    fallback_context=exc_context,
+                    fallback_msg=f'format error: {report_message}',
+                    exc_context=exc_context,
                     exc_message=None,
-                    exception_class=ATSValueError,
-                    depth=4
+                    exc_class=ATSValueError
                 )
 
 
@@ -183,32 +184,33 @@ def mcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
 
             if self_instance is None:
                 raise_error(
-                    fallback_prefix='mcheck::decorator',
-                    fallback_msg=f'Decorator @mcheck on {func.__name__} can only be used on class methods',
+                    fallback_context=r'mcheck::decorator(...)',
+                    fallback_msg=f'decorator @mcheck on {func.__name__} can only be used on class methods',
+                    exc_context=r'mcheck::decorator(...)',
                     exc_message=None,
-                    exception_class=ATSRuntimeError,
-                    depth=3
+                    exc_class=ATSRuntimeError
                 )
 
-            cls_name: str = self_instance.__class__.__name__
-
-            # BORROWING: Extracting the checker object that the class is responsible for.
-            # Supports protected '_checker' or name-mangled private '_checker' attributes.
-            checker = getattr(
-                self_instance, '_checker',
-                getattr(self_instance, f'_{cls_name}_checker', None)
-            )
+            if isinstance(self_instance, IContextSupport):
+                checker = self_instance.checker
+            else:
+                cls_name = self_instance.__class__.__name__
+                checker = getattr(
+                    self_instance, '_checker',
+                    getattr(self_instance, f'_{cls_name}_checker', None)
+                )
 
             if checker is None:
                 raise_error(
-                    fallback_prefix='mcheck::decorator',
-                    fallback_msg=f'Class {cls_name} must have _checker attribute to use @mcheck decorator',
+                    fallback_context=r'mcheck::decorator(...)',
+                    fallback_msg=f'class {self_instance.__class__.__name__} must provide a checker to use @mcheck decorator',
+                    exc_context=r'mcheck::decorator(...)',
                     exc_message=None,
-                    exception_class=ATSAttributeError,
-                    depth=3
+                    exc_class=ATSRuntimeError
                 )
 
-            validate_args(func, args, kwargs, specs, checker, 'mcheck::decorator')
+            context = f"{self_instance.__class__.__name__.lower()}::{func.__name__}"
+            validate_args(func, args, kwargs, specs, checker, context)
             return func(*args, **kwargs)
         return cast(F, wrapper)
     return decorator
@@ -232,7 +234,7 @@ def fcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
     def decorator(func: F) -> F:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            validate_args(func, args, kwargs, specs, checker, 'fcheck::decorator')
+            validate_args(func, args, kwargs, specs, checker, func.__name__)
             return func(*args, **kwargs)
         return cast(F, wrapper)
     return decorator

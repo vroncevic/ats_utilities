@@ -114,8 +114,9 @@
 <span class="k">def</span> <span class="nf">istype</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
     <span class="n">class_or_tuple</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">exc_context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">exc_message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">exception_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSTypeError</span>
+    <span class="n">exc_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSTypeError</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Checks if an instance is of a specified type.</span>
@@ -124,12 +125,14 @@
 <span class="sd">        :type instance: &lt;any&gt;</span>
 <span class="sd">        :param class_or_tuple: Type or tuple of types to check against.</span>
 <span class="sd">        :type class_or_tuple: &lt;type | tuple[type, ...]&gt;</span>
+<span class="sd">        :param exc_context: Context representation in string format.</span>
+<span class="sd">        :type exc_context: &lt;str | None&gt;</span>
 <span class="sd">        :param exc_message: Message to include in the exception message.</span>
 <span class="sd">        :type exc_message: &lt;str | None&gt;</span>
-<span class="sd">        :param exception_class: The exception class to raise if instance is not of the specified type.</span>
-<span class="sd">        :type exception_class: &lt;type[Exception]&gt; (default ATSTypeError)</span>
+<span class="sd">        :param exc_class: The exception class to raise if instance is not of the specified type.</span>
+<span class="sd">        :type exc_class: &lt;type[BaseException]&gt; (default ATSTypeError)</span>
 <span class="sd">        :exceptions:</span>
-<span class="sd">            | Dynamically raises the provided exception_class (e.g., ATSTypeError).</span>
+<span class="sd">            | Dynamically raises the provided exc_class (e.g., ATSTypeError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">class_or_tuple</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
         <span class="n">check_types</span> <span class="o">=</span> <span class="p">[]</span>
@@ -149,11 +152,11 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">check_types</span><span class="p">):</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;check_type::istype(..)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;check_type::istype(...)&#39;</span><span class="p">,</span>
             <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;expected </span><span class="si">{</span><span class="n">class_or_tuple</span><span class="si">}</span><span class="s1"> for instance, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
-            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
-            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+            <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
         <span class="p">)</span></div>
 
 </pre></div>

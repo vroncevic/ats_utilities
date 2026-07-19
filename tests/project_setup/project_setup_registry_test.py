@@ -73,6 +73,26 @@ class ProjectSetupRegistryTest(unittest.TestCase):
         self.assertEqual(bundle.template_dir.template_dir, "/tmp/templates")
         self.assertIs(bundle.context_bundle, context_bundle)
 
+    def test_create_bundle(self) -> None:
+        """Tests create_bundle on ProjectSetupRegistry."""
+        setup = {
+            "pro_name": "my_test_project",
+            "pro_config": {"key": "val"},
+            "template_dir": "/tmp/templates"
+        }
+        context_bundle = ContextRegistry.create_default_context_bundle()
+
+        bundle = ProjectSetupRegistry.create_bundle(
+            setup=setup,
+            context_bundle=context_bundle
+        )
+
+        self.assertIsInstance(bundle, ProjectSetupBundle)
+        self.assertEqual(bundle.pro_name.pro_name, "my_test_project")
+        self.assertEqual(bundle.pro_config.config, {"key": "val"})
+        self.assertEqual(bundle.template_dir.template_dir, "/tmp/templates")
+        self.assertIs(bundle.context_bundle, context_bundle)
+
 
 if __name__ == "__main__":
     unittest.main()

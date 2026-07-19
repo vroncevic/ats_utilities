@@ -81,6 +81,39 @@ class TestConfigIORegistry(unittest.TestCase):
         
         self.assertEqual(result, mock_expected_bundle)
 
+    def test_create_bundle_by_file_path_and_scheme(self) -> None:
+        """Test create_bundle delegates to create_config_io_bundle_by_file_path_and_scheme when processor is None."""
+        mock_expected_bundle = MagicMock(spec=ConfigIOBundle)
+        with patch.object(ConfigIORegistry, "create_config_io_bundle_by_file_path_and_scheme", return_value=mock_expected_bundle) as mock_create:
+            result = ConfigIORegistry.create_bundle(
+                file_path=self.mock_file_path,
+                scheme=self.mock_scheme,
+                context_bundle=self.mock_context_bundle,
+                processor=None
+            )
+            mock_create.assert_called_once_with(
+                file_path=self.mock_file_path,
+                scheme=self.mock_scheme,
+                context_bundle=self.mock_context_bundle
+            )
+            self.assertEqual(result, mock_expected_bundle)
+
+    def test_create_bundle_by_injected_processor(self) -> None:
+        """Test create_bundle delegates to create_config_io_bundle_by_injected_processor when processor is provided."""
+        mock_expected_bundle = MagicMock(spec=ConfigIOBundle)
+        with patch.object(ConfigIORegistry, "create_config_io_bundle_by_injected_processor", return_value=mock_expected_bundle) as mock_create:
+            result = ConfigIORegistry.create_bundle(
+                file_path=self.mock_file_path,
+                scheme=self.mock_scheme,
+                context_bundle=self.mock_context_bundle,
+                processor=self.mock_processor
+            )
+            mock_create.assert_called_once_with(
+                processor=self.mock_processor,
+                context_bundle=self.mock_context_bundle
+            )
+            self.assertEqual(result, mock_expected_bundle)
+
 
 if __name__ == '__main__':
     unittest.main()

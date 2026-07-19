@@ -29,11 +29,8 @@ from typing import Any, override
 from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
 from ats_utilities.config_io.iconf_file import File
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.utils.files import check_file_exists
 from ats_utilities.validation.check_value import not_none
@@ -49,7 +46,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ConfFile(IConfFile):
+class ConfFile(ContextSupport, IConfFile):
     '''
         Defines class ConfFile with attribute(s) and method(s).
         Creates an API for configuration file context manager.
@@ -58,10 +55,6 @@ class ConfFile(IConfFile):
         It defines:
 
             :attributes:
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger for logging (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _file - File instance (default None).
                 | _file_path - Configuration file path.
                 | _file_mode - Configuration file mode.
@@ -72,10 +65,6 @@ class ConfFile(IConfFile):
                 | __str__ - Returns the ConfFile as string representation.
     '''
 
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
     _file: File | None
     _file_path: str
     _file_mode: str
@@ -92,9 +81,17 @@ class ConfFile(IConfFile):
                 | ATSTypeError: File bundle must be an instance of ConfFileBundle.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        not_none(file_bundle, r'file bundle must be provided')
-        istype(file_bundle, ConfFileBundle, r'file bundle must be an instance of ConfFileBundle')
-        inject_context_bundle(self, file_bundle.context_bundle)
+        not_none(
+            file_bundle,
+            r'conf_file:init(...)',
+            r'file bundle must be provided'
+        )
+        istype(
+            file_bundle, ConfFileBundle,
+            r'conf_file:init(...)',
+            r'file bundle must be an instance of ConfFileBundle'
+        )
+        ContextSupport.__init__(self, file_bundle.context_bundle)
         self._file = None
         self._file_path = file_bundle.file_path
         self._file_mode = file_bundle.file_mode
@@ -115,13 +112,32 @@ class ConfFile(IConfFile):
                 | ATSValueError: File does not exist (when opening in read mode).
                 | ATSTypeError: File path and mode must be strings.
         '''
-        not_none(self._file_path, 'file path must be provided')
-        not_none(self._file_mode, 'file mode must be provided')
-        istype(self._file_path, str, 'file path must be a string')
-        istype(self._file_mode, str, 'file mode must be a string')
+        not_none(
+            self._file_path,
+            r'conf_file:enter(...)',
+            r'file path must be provided'
+        )
+        not_none(
+            self._file_mode,
+            r'conf_file:enter(...)',
+            r'file mode must be provided'
+        )
+        istype(
+            self._file_path, str,
+            r'conf_file:enter(...)',
+            r'file path must be a string')
+        istype(
+            self._file_mode, str,
+            r'conf_file:enter(...)',
+            r'file mode must be a string'
+        )
 
         if 'r' in self._file_mode:
-            check_file_exists(self._file_path, f'file {self._file_path} does not exist')
+            check_file_exists(
+                self._file_path,
+                r'conf_file::enter(...)',
+                f'file {self._file_path} does not exist'
+            )
 
         self._file = open(self._file_path, self._file_mode, encoding='utf-8')
 

@@ -43,7 +43,9 @@ class TestGenParamsBundle(unittest.TestCase):
         
         # Verify it checks the archive file path existence
         mock_check_file.assert_called_once_with(
-            self.archive_path, f"archive file does not exist: {self.archive_path}"
+            self.archive_path,
+            "gen_params_bundle::validate(...)",
+            f"archive file does not exist: {self.archive_path}"
         )
 
     @patch("ats_utilities.generator.gen_params_bundle.check_file_exists")
@@ -57,10 +59,14 @@ class TestGenParamsBundle(unittest.TestCase):
         self.assertEqual(bundle.scheme, self.scheme_path)
         # Verify both the archive path and scheme path checked for existence
         mock_check_file.assert_any_call(
-            self.archive_path, f"archive file does not exist: {self.archive_path}"
+            self.archive_path,
+            "gen_params_bundle::validate(...)",
+            f"archive file does not exist: {self.archive_path}"
         )
         mock_check_file.assert_any_call(
-            self.scheme_path, f"scheme file does not exist: {self.scheme_path}"
+            self.scheme_path,
+            "gen_params_bundle::validate(...)",
+            f"scheme file does not exist: {self.scheme_path}"
         )
         self.assertEqual(mock_check_file.call_count, 2)
 

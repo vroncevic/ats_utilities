@@ -71,7 +71,7 @@ Resolves generation scheme from dict or file path using config_io.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.generator.scheme.engine.SchemeLoader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.generator.scheme.engine.</span></span><span class="sig-name descname"><span class="pre">SchemeLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/generator/scheme/engine.html#SchemeLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.scheme.engine.SchemeLoader" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.generator.scheme.ischeme_loader.html#ats_utilities.generator.scheme.ischeme_loader.ISchemeLoader" title="ats_utilities.generator.scheme.ischeme_loader.ISchemeLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">ISchemeLoader</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.context.context_support.html#ats_utilities.context.context_support.ContextSupport" title="ats_utilities.context.context_support.ContextSupport"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextSupport</span></code></a>, <a class="reference internal" href="ats_utilities.generator.scheme.ischeme_loader.html#ats_utilities.generator.scheme.ischeme_loader.ISchemeLoader" title="ats_utilities.generator.scheme.ischeme_loader.ISchemeLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">ISchemeLoader</span></code></a></p>
 <p>Defines class SchemeLoader with method(s).
 Resolves generation scheme from dict or file path using config_io.</p>
 <p>It defines:</p>
@@ -79,10 +79,6 @@ Resolves generation scheme from dict or file path using config_io.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_checker - Injected parameters checker (default Checker).</div>
-<div class="line">_logger - Injected logger for logging (default Logger).</div>
-<div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
-<div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
 <div class="line">_initialized - Flag indicating if the loader is initialized.</div>
 </div>
 </dd>
@@ -102,33 +98,13 @@ Resolves generation scheme from dict or file path using config_io.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.generator.scheme.engine.SchemeLoader._checker">
-<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.generator.scheme.engine.SchemeLoader._checker" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.generator.scheme.engine.SchemeLoader._initialized">
 <span class="sig-name descname"><span class="pre">_initialized</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.generator.scheme.engine.SchemeLoader._initialized" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.generator.scheme.engine.SchemeLoader._logger">
-<span class="sig-name descname"><span class="pre">_logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a></em><a class="headerlink" href="#ats_utilities.generator.scheme.engine.SchemeLoader._logger" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.generator.scheme.engine.SchemeLoader._reporter">
-<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.generator.scheme.engine.SchemeLoader._reporter" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.generator.scheme.engine.SchemeLoader._shared_context">
 <span class="sig-name descname"><span class="pre">_shared_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.generator.scheme.engine.SchemeLoader._shared_context" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.generator.scheme.engine.SchemeLoader._verbose">
-<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.generator.scheme.engine.SchemeLoader._verbose" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -191,12 +167,8 @@ Resolves generation scheme from dict or file path using config_io.</p>
 <li><a class="reference internal" href="#">ats_utilities.generator.scheme.engine module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.generator.scheme.engine.SchemeLoader"><code class="docutils literal notranslate"><span class="pre">SchemeLoader</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.generator.scheme.engine.SchemeLoader._abc_impl"><code class="docutils literal notranslate"><span class="pre">SchemeLoader._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.generator.scheme.engine.SchemeLoader._checker"><code class="docutils literal notranslate"><span class="pre">SchemeLoader._checker</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.scheme.engine.SchemeLoader._initialized"><code class="docutils literal notranslate"><span class="pre">SchemeLoader._initialized</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.generator.scheme.engine.SchemeLoader._logger"><code class="docutils literal notranslate"><span class="pre">SchemeLoader._logger</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.generator.scheme.engine.SchemeLoader._reporter"><code class="docutils literal notranslate"><span class="pre">SchemeLoader._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.scheme.engine.SchemeLoader._shared_context"><code class="docutils literal notranslate"><span class="pre">SchemeLoader._shared_context</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.generator.scheme.engine.SchemeLoader._verbose"><code class="docutils literal notranslate"><span class="pre">SchemeLoader._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.scheme.engine.SchemeLoader.is_initialized"><code class="docutils literal notranslate"><span class="pre">SchemeLoader.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.scheme.engine.SchemeLoader.load"><code class="docutils literal notranslate"><span class="pre">SchemeLoader.load()</span></code></a></li>
 </ul>

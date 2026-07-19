@@ -22,6 +22,8 @@ Info
 
 from __future__ import annotations
 
+from ats_utilities.context.icontext_support import IContextSupport
+
 from abc import ABC, abstractmethod
 
 from ats_utilities.context.context_bundle import ContextBundle
@@ -37,7 +39,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ISplasher(ABC):
+class ISplasher(IContextSupport, ABC):
     '''
         Defines abstract class ISplasher with method(s).
         Interface for splash screen.
@@ -63,7 +65,11 @@ class ISplasher(ABC):
         pass
 
     @abstractmethod
-    def center(self, splash_center_bundle: SplashCenterBundle, text: str) -> None:
+    def center(
+        self,
+        splash_center_bundle: SplashCenterBundle,
+        text: str
+    ) -> None:
         '''
             Centers console line with given text.
 

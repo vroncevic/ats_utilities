@@ -36,13 +36,11 @@ class TestGenerator(unittest.TestCase):
         self.mock_gen_params.scheme = "scheme_config.json"
         self.mock_gen_params.template_values = {"project_name": "ats_utilities"}
 
-    @patch("ats_utilities.generator.engine.inject_context_bundle")
-    def test_initialization_success(self, mock_inject: MagicMock) -> None:
+    def test_initialization_success(self) -> None:
         """Test successful initialization and structural property mapping bindings."""
         generator = Generator(self.mock_component_bundle)
 
         self.assertEqual(generator.get_shared_context(), self.mock_context)
-        mock_inject.assert_called_once_with(generator, self.mock_context)
         self.assertEqual(generator._scheme_loader, self.mock_scheme_loader)
         self.assertEqual(generator._tar_processor, self.mock_tar_processor)
         self.assertTrue(generator._is_initialized)
@@ -69,6 +67,21 @@ class TestGenerator(unittest.TestCase):
 
         result = generator.prepare_template_values(input_values)
         self.assertEqual(result, expected_output)
+
+    def test_prepare_template_values_with_predefined_variations(self) -> None:
+        """Test prepare_template_values when case variations are already present in values."""
+        generator = Generator(self.mock_component_bundle)
+        input_values = {
+            "project_name": "sample_project",
+            "project_name_dashed": "predefined-dashed",
+            "project_name_camel": "PredefinedCamel",
+            "project_name_upper": "PREDEFINED_UPPER"
+        }
+
+        result = generator.prepare_template_values(input_values)
+        self.assertEqual(result["project_name_dashed"], "predefined-dashed")
+        self.assertEqual(result["project_name_camel"], "PredefinedCamel")
+        self.assertEqual(result["project_name_upper"], "PREDEFINED_UPPER")
 
     def test_prepare_template_values_missing_project_name(self) -> None:
         """Test validation check errors when missing key field designations inside inputs."""

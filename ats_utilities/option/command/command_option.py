@@ -100,16 +100,56 @@ class CommandOption:
                 | ATSValueError: Nargs must be provided.
                 | ATSTypeError: Nargs must be a string or an integer.
         '''
-        not_none(self.name, r'name must be provided')
-        not_none(self.help_text, r'help text must be provided')
-        not_none(self.action, r'action must be provided')
-        not_none(self.default, r'default must be provided')
-        not_none(self.required, r'required must be provided')
-        not_none(self.choices, r'choices must be provided')
-        not_none(self.nargs, r'nargs must be provided')
-        istype(self.required, bool, r'required must be a boolean')
-        istype(self.choices, Sequence, r'choices must be a sequence')
-        istype(self.nargs, (str, int), r'nargs must be a string or an integer')
+        not_none(
+            self.name,
+            r'command_option::validate(...)',
+            r'name must be provided'
+        )
+        not_none(
+            self.help_text,
+            r'command_option::validate(...)',
+            r'help text must be provided'
+        )
+        not_none(
+            self.action,
+            r'command_option::validate(...)',
+            r'action must be provided'
+        )
+        not_none(
+            self.default,
+            r'command_option::validate(...)',
+            r'default must be provided'
+        )
+        not_none(
+            self.required,
+            r'command_option::validate(...)',
+            r'required must be provided'
+        )
+        not_none(
+            self.choices,
+            r'command_option::validate(...)',
+            r'choices must be provided'
+        )
+        not_none(
+            self.nargs,
+            r'command_option::validate(...)',
+            r'nargs must be provided'
+        )
+        istype(
+            self.required, bool,
+            r'command_option::validate(...)',
+            r'required must be a boolean'
+        )
+        istype(
+            self.choices, Sequence,
+            r'command_option::validate(...)',
+            r'choices must be a sequence'
+        )
+        istype(
+            self.nargs, (str, int),
+            r'command_option::validate(...)',
+            r'nargs must be a string or an integer'
+        )
 
     def merge(self, other: CommandOption) -> None:
         '''
@@ -121,8 +161,16 @@ class CommandOption:
                 | ATSValueError: Other CommandOption must be provided.
                 | ATSTypeError: Other must be a CommandOption instance.
         '''
-        not_none(other, r'other CommandOption must be provided')
-        istype(other, CommandOption, r'other must be a CommandOption instance')
+        not_none(
+            other,
+            r'command_option::merge(...)',
+            r'other CommandOption must be provided'
+        )
+        istype(
+            other, CommandOption,
+            r'command_option::merge(...)',
+            r'other must be a CommandOption instance'
+        )
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

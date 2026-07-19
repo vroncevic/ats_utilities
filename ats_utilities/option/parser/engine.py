@@ -28,10 +28,8 @@ from typing import Any, NoReturn, override
 
 from ats_utilities.option.parser.iarg_parser import IArgParser
 from ats_utilities.option.parser.parser_bundle import ParserBundle
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.context_registry import ContextRegistry
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -48,28 +46,18 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ArgParser(ArgumentParser, IArgParser):
+class ArgParser(ContextSupport, ArgumentParser, IArgParser):
     '''
         Defines class ArgParser with attribute(s) and method(s).
         Custom ArgumentParser to route errors to IReporter.
 
         It defines:
 
-            :attributes:
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
             :methods:
                 | __init__ - Initials ArgParser constructor.
                 | error - Overrides default error handling to use IReporter.
                 | __str__ - Returns the string representation of ArgParser.
     '''
-
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
 
     def __init__(self, component_bundle: ParserBundle | None = None, **kwargs: Any) -> None:
         '''
@@ -79,33 +67,37 @@ class ArgParser(ArgumentParser, IArgParser):
             :type component_bundle: <ParserBundle | None>
             :param kwargs: Additional keyword arguments.
             :type kwargs: <Any>
-            :exceptions:
-                | ATSValueError: Component bundle must be provided.
-                | ATSTypeError: Component bundle must be a ParserBundle instance.
+            :exceptions: None.
         '''
-        if component_bundle is not None:
-            not_none(component_bundle, r'component bundle must be provided')
-            istype(component_bundle, ParserBundle, r'component bundle must be a ParserBundle instance')
-            prog = component_bundle.prog
-            epilog = component_bundle.epilog
-            description = component_bundle.description
-            context_bundle = component_bundle.context_bundle
-        else:
-            from ats_utilities.context.context_registry import ContextRegistry
-            prog = kwargs.pop('prog', None)
-            epilog = kwargs.pop('epilog', None)
-            description = kwargs.pop('description', None)
-            context_bundle = kwargs.pop('context_bundle', None)
-            if context_bundle is None:
-                context_bundle = ContextRegistry.create_default_context_bundle()
+        if component_bundle is None:
+            component_bundle = kwargs.pop('component_bundle', None)
 
-        super().__init__(
-            prog=prog,
-            epilog=epilog,
-            description=description,
-            **kwargs
-        )
-        inject_context_bundle(self, context_bundle)
+        if component_bundle is not None:
+            istype(
+                component_bundle, ParserBundle,
+                r'argparser::init(...)',
+                r'component bundle must be a ParserBundle instance'
+            )
+
+        if component_bundle is None:
+            ctx_bundle = kwargs.pop('context_bundle', None)
+
+            if ctx_bundle is None:
+                ctx_bundle = ContextRegistry.create_default_context_bundle()
+
+            component_bundle = ParserBundle(
+                prog=kwargs.get('prog', ''),
+                epilog=kwargs.get('epilog', ''),
+                description=kwargs.get('description', ''),
+                context_bundle=ctx_bundle
+            )
+
+        ContextSupport.__init__(self, component_bundle.context_bundle)
+        for name in ('prog', 'epilog', 'description'):
+            if name not in kwargs:
+                kwargs[name] = getattr(component_bundle, name)
+
+        ArgumentParser.__init__(self, **kwargs)
 
     @mcheck([('str:message', None)])
     @vreport('argument error: {message}')

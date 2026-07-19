@@ -185,28 +185,116 @@
 <span class="sd">                | ATSTypeError: Info ok must be an instance of IInfoOk interface.</span>
 <span class="sd">                | ATSTypeError: Context bundle must be an instance of ContextBundle class.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;name must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;version must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">licence</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;licence must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">build_date</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;build date must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;repository must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">organization</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;organization must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">use_github</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;use github must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logo must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_file</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;log file must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_ok</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info ok must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">IName</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;name must be an instance of IName interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">IVersion</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;version must be an instance of IVersion interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">licence</span><span class="p">,</span> <span class="n">ILicence</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;licence must be an instance of ILicence interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">build_date</span><span class="p">,</span> <span class="n">IBuildDate</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;build date must be an instance of IBuildDate interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="p">,</span> <span class="n">IRepository</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;repository must be an instance of IRepository interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">organization</span><span class="p">,</span> <span class="n">IOrganization</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;organization must be an instance of IOrganization interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">use_github</span><span class="p">,</span> <span class="n">IUseGitHub</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;use github must be an instance of IUseGitHub interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span> <span class="n">ILogo</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logo must be an instance of ILogo interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_file</span><span class="p">,</span> <span class="n">ILogFile</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;log file must be an instance of ILogFile interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_ok</span><span class="p">,</span> <span class="n">IInfoOk</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info ok must be an instance of IInfoOk interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be an instance of ContextBundle class&#39;</span><span class="p">)</span></div>
+        <span class="n">not_empty</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;name must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;version must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">licence</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;licence must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">build_date</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;build date must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;repository must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">organization</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;organization must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_github</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;use github must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;logo must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_file</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;log file must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">info_ok</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info ok must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;context bundle must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">IName</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;name must be an instance of IName interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">IVersion</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;version must be an instance of IVersion interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">licence</span><span class="p">,</span> <span class="n">ILicence</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;licence must be an instance of ILicence interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">build_date</span><span class="p">,</span> <span class="n">IBuildDate</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;build date must be an instance of IBuildDate interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="p">,</span> <span class="n">IRepository</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;repository must be an instance of IRepository interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">organization</span><span class="p">,</span> <span class="n">IOrganization</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;organization must be an instance of IOrganization interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_github</span><span class="p">,</span> <span class="n">IUseGitHub</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;use github must be an instance of IUseGitHub interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span> <span class="n">ILogo</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;logo must be an instance of ILogo interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_file</span><span class="p">,</span> <span class="n">ILogFile</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;log file must be an instance of ILogFile interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">info_ok</span><span class="p">,</span> <span class="n">IInfoOk</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info ok must be an instance of IInfoOk interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;info_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;context bundle must be an instance of ContextBundle class&#39;</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InfoBundle.to_dict">

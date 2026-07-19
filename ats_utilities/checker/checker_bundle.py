@@ -96,14 +96,46 @@ class CheckerBundle:
                 | ATSTypeError: Format mcheck must be an instance of IFormatValidator.
                 | ATSTypeError: Type mcheck must be an instance of ITypeValidator.
         '''
-        not_none(self.context_provider, r'context provider must be provided')
-        not_none(self.check_reporter, r'check reporter must be provided')
-        not_none(self.format_validator, r'format mcheck must be provided')
-        not_none(self.type_validator, r'type mcheck must be provided')
-        istype(self.context_provider, IContextProvider, r'context provider must be an instance of IContextProvider')
-        istype(self.check_reporter, ICheckReporter, r'check reporter must be an instance of ICheckReporter')
-        istype(self.format_validator, IFormatValidator, r'format mcheck must be an instance of IFormatValidator')
-        istype(self.type_validator, ITypeValidator, r'type mcheck must be an instance of ITypeValidator')
+        not_none(
+            self.context_provider,
+            r'checker_bundle::validate(...)',
+            r'context provider must be provided'
+        )
+        not_none(
+            self.check_reporter,
+            r'checker_bundle::validate(...)',
+            r'check reporter must be provided'
+        )
+        not_none(
+            self.format_validator,
+            r'checker_bundle::validate(...)',
+            r'format mcheck must be provided'
+        )
+        not_none(
+            self.type_validator,
+            r'checker_bundle::validate(...)',
+            r'type mcheck must be provided'
+        )
+        istype(
+            self.context_provider, IContextProvider,
+            r'checker_bundle::validate(...)',
+            r'context provider must be an instance of IContextProvider'
+        )
+        istype(
+            self.check_reporter, ICheckReporter,
+            r'checker_bundle::validate(...)',
+            r'check reporter must be an instance of ICheckReporter'
+        )
+        istype(
+            self.format_validator, IFormatValidator,
+            r'checker_bundle::validate(...)',
+            r'format mcheck must be an instance of IFormatValidator'
+        )
+        istype(
+            self.type_validator, ITypeValidator,
+            r'checker_bundle::validate(...)',
+            r'type mcheck must be an instance of ITypeValidator'
+        )
 
     def to_dict(self) -> dict[str, Any]:
         '''

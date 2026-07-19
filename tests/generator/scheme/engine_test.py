@@ -21,23 +21,19 @@ class TestSchemeLoader(unittest.TestCase):
         self.valid_dict_scheme = {"param1": "value1", "param2": 42}
         self.valid_file_path = "/path/to/scheme.json"
 
-    @patch("ats_utilities.generator.scheme.engine.inject_context_bundle")
-    def test_initialization(self, mock_inject: MagicMock) -> None:
+    def test_initialization(self) -> None:
         """Test successful initialization and context injection verification."""
         loader = SchemeLoader(self.mock_context_bundle)
 
         self.assertEqual(loader._shared_context, self.mock_context_bundle)
         self.assertTrue(loader._initialized)
-        mock_inject.assert_called_once_with(loader, self.mock_context_bundle)
 
-    @patch("ats_utilities.generator.scheme.engine.inject_context_bundle")
-    def test_is_initialized(self, mock_inject: MagicMock) -> None:
+    def test_is_initialized(self) -> None:
         """Test that is_initialized returns True when the component is ready."""
         loader = SchemeLoader(self.mock_context_bundle)
         self.assertTrue(loader.is_initialized())
 
-    @patch("ats_utilities.generator.scheme.engine.inject_context_bundle")
-    def test_load_with_mapping_returns_dict(self, mock_inject: MagicMock) -> None:
+    def test_load_with_mapping_returns_dict(self) -> None:
         """Test that providing a preloaded Mapping directly returns a standard dictionary copy."""
         loader = SchemeLoader(self.mock_context_bundle)
         
@@ -46,8 +42,7 @@ class TestSchemeLoader(unittest.TestCase):
         self.assertEqual(result, self.valid_dict_scheme)
         self.assertIsInstance(result, dict)
 
-    @patch("ats_utilities.generator.scheme.engine.inject_context_bundle")
-    def test_load_with_invalid_type_raises(self, mock_inject: MagicMock) -> None:
+    def test_load_with_invalid_type_raises(self) -> None:
         """Test that an input that is neither a string nor a mapping triggers an error."""
         loader = SchemeLoader(self.mock_context_bundle)
         
@@ -56,9 +51,8 @@ class TestSchemeLoader(unittest.TestCase):
             loader.load(12345)  # type: ignore
 
     @patch("ats_utilities.generator.scheme.engine.exists", return_value=False)
-    @patch("ats_utilities.generator.scheme.engine.inject_context_bundle")
     def test_load_with_nonexistent_file_path_raises(
-        self, mock_inject: MagicMock, mock_exists: MagicMock
+        self, mock_exists: MagicMock
     ) -> None:
         """Test that providing a file path that does not exist triggers a validation fault."""
         loader = SchemeLoader(self.mock_context_bundle)
@@ -69,9 +63,8 @@ class TestSchemeLoader(unittest.TestCase):
         mock_exists.assert_called_once_with(self.valid_file_path)
 
     @patch("ats_utilities.generator.scheme.engine.exists", return_value=True)
-    @patch("ats_utilities.generator.scheme.engine.inject_context_bundle")
     def test_load_with_unsupported_file_extension_raises(
-        self, mock_inject: MagicMock, mock_exists: MagicMock
+        self, mock_exists: MagicMock
     ) -> None:
         """Test that file paths without a .json extension trigger a validation fault."""
         loader = SchemeLoader(self.mock_context_bundle)
@@ -83,9 +76,8 @@ class TestSchemeLoader(unittest.TestCase):
     @patch("ats_utilities.generator.scheme.engine.Loader")
     @patch("ats_utilities.generator.scheme.engine.ConfigIORegistry")
     @patch("ats_utilities.generator.scheme.engine.exists", return_value=True)
-    @patch("ats_utilities.generator.scheme.engine.inject_context_bundle")
     def test_load_from_json_file_success(
-        self, mock_inject: MagicMock, mock_exists: MagicMock, 
+        self, mock_exists: MagicMock, 
         mock_registry: MagicMock, mock_loader_cls: MagicMock
     ) -> None:
         """Test successful loading and parsing workflow from a valid JSON file path."""
@@ -115,9 +107,8 @@ class TestSchemeLoader(unittest.TestCase):
     @patch("ats_utilities.generator.scheme.engine.Loader", return_value=None)
     @patch("ats_utilities.generator.scheme.engine.ConfigIORegistry")
     @patch("ats_utilities.generator.scheme.engine.exists", return_value=True)
-    @patch("ats_utilities.generator.scheme.engine.inject_context_bundle")
     def test_load_fails_when_config_loader_setup_is_none(
-        self, mock_inject: MagicMock, mock_exists: MagicMock, 
+        self, mock_exists: MagicMock, 
         mock_registry: MagicMock, mock_loader_cls: MagicMock
     ) -> None:
         """Test that an error is thrown if the configuration engine setup resolves to None."""
@@ -129,9 +120,8 @@ class TestSchemeLoader(unittest.TestCase):
     @patch("ats_utilities.generator.scheme.engine.format_error_raw")
     @patch("ats_utilities.generator.scheme.engine.ConfigIORegistry")
     @patch("ats_utilities.generator.scheme.engine.exists", return_value=True)
-    @patch("ats_utilities.generator.scheme.engine.inject_context_bundle")
     def test_load_catches_internal_exceptions_and_raises_generator_error(
-        self, mock_inject: MagicMock, mock_exists: MagicMock, 
+        self, mock_exists: MagicMock, 
         mock_registry: MagicMock, mock_format_error: MagicMock
     ) -> None:
         """Test that internal unexpected crashes are transformed and raised as ATSGeneratorError."""
@@ -147,8 +137,7 @@ class TestSchemeLoader(unittest.TestCase):
         mock_format_error.assert_called_once()
 
     @patch("ats_utilities.generator.scheme.engine.to_str")
-    @patch("ats_utilities.generator.scheme.engine.inject_context_bundle")
-    def test_string_representation(self, mock_inject: MagicMock, mock_to_str: MagicMock) -> None:
+    def test_string_representation(self, mock_to_str: MagicMock) -> None:
         """Test that __str__ delegates representation tracking cleanly to reflection utilities."""
         loader = SchemeLoader(self.mock_context_bundle)
         mock_to_str.return_value = "SchemeLoader{initialized=True}"

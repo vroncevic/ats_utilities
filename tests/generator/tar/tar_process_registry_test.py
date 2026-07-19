@@ -69,6 +69,24 @@ class TestTarProcessRegistry(unittest.TestCase):
         self.assertEqual(result.exclude_patterns, self.exclude_patterns)
         self.assertEqual(result.vals, self.vals)
 
+    def test_create_bundle(self) -> None:
+        """Test create_bundle on TarProcessRegistry."""
+        result = TarProcessRegistry.create_bundle(
+            archive_path=self.archive_path,
+            target_dir=self.target_dir,
+            source_dir=self.source_dir,
+            path_replacements=self.path_replacements,
+            exclude_patterns=self.exclude_patterns,
+            vals=self.vals
+        )
+        self.assertIsInstance(result, TarProcessBundle)
+        self.assertEqual(result.archive_path, self.archive_path)
+        self.assertEqual(result.target_dir, self.target_dir)
+        self.assertEqual(result.source_dir, self.source_dir)
+        self.assertEqual(result.path_replacements, self.path_replacements)
+        self.assertEqual(result.exclude_patterns, self.exclude_patterns)
+        self.assertEqual(result.vals, self.vals)
+
 
 if __name__ == '__main__':
     unittest.main()

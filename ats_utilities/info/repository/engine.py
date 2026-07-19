@@ -26,10 +26,7 @@ from typing import override
 
 from ats_utilities.info.repository.irepository import IRepository
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -44,7 +41,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Repository(IRepository):
+class Repository(ContextSupport, IRepository):
     '''
         Defines class Repository with attribute(s) and method(s).
         Creates an API for the repository in one property object.
@@ -53,10 +50,6 @@ class Repository(IRepository):
         It defines:
 
             :attributes:
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _repository - The repository for App/Tool/Script (default None).
             :methods:
                 | __init__ - Initializes Repository constructor.
@@ -65,10 +58,6 @@ class Repository(IRepository):
                 | __str__ - Returns the repository as string representation.
     '''
 
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
     _repository: str | None
 
     def __init__(self, context_bundle: ContextBundle) -> None:
@@ -81,7 +70,7 @@ class Repository(IRepository):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        inject_context_bundle(self, context_bundle)
+        ContextSupport.__init__(self, context_bundle)
         self._repository = None
 
     @property

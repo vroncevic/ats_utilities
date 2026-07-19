@@ -66,10 +66,7 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.property.isplash_property</span> <span class="kn">import</span> <span class="n">ISplashProperty</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.splash_keys</span> <span class="kn">import</span> <span class="n">SplashKeys</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle_inject</span> <span class="kn">import</span> <span class="n">inject_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_support</span> <span class="kn">import</span> <span class="n">ContextSupport</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">has_attrs</span><span class="p">,</span> <span class="n">to_str</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">mcheck</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreport</span>
@@ -87,7 +84,7 @@
 
 <div class="viewcode-block" id="SplashProperty">
 <a class="viewcode-back" href="../../../../ats_utilities.splasher.property.splash_property.html#ats_utilities.splasher.property.splash_property.SplashProperty">[docs]</a>
-<span class="k">class</span> <span class="nc">SplashProperty</span><span class="p">(</span><span class="n">ISplashProperty</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">SplashProperty</span><span class="p">(</span><span class="n">ContextSupport</span><span class="p">,</span> <span class="n">ISplashProperty</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class SplashProperty with attribute(s) and method(s).</span>
 <span class="sd">        Creates an API for checking splash screen property.</span>
@@ -96,10 +93,6 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
-<span class="sd">                | _logger - Injected logger (default Logger).</span>
-<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
-<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _splash_keys - Splash keys for App/Tool/Script splash screen (default None).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initials SplashProperty constructor.</span>
@@ -108,10 +101,6 @@
 <span class="sd">                | __str__ - Returns the string representation of SplashProperty.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
-    <span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span>
-    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
-    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">_splash_keys</span><span class="p">:</span> <span class="n">SplashKeys</span> <span class="o">|</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -124,7 +113,7 @@
 <span class="sd">                | ATSValueError: Context bundle must be provided.</span>
 <span class="sd">                | ATSTypeError: Context bundle must be a ContextBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">inject_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
+        <span class="n">ContextSupport</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_splash_keys</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
@@ -169,7 +158,11 @@
         <span class="n">is_enabled</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">setup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;enabled&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="n">is_enabled</span><span class="p">:</span>
-            <span class="n">require_keys</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">get_all_keys</span><span class="p">()))</span>
+            <span class="n">require_keys</span><span class="p">(</span>
+                <span class="n">setup</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">get_all_keys</span><span class="p">()),</span>
+                <span class="sa">r</span><span class="s1">&#39;splash_property::splash_keys(...)&#39;</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s1">&#39;splash property setup is missing required keys&#39;</span>
+            <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_splash_keys</span> <span class="o">=</span> <span class="n">SplashKeys</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">setup</span><span class="p">)</span>
 

@@ -25,12 +25,9 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import override
 
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.generator.generator_bundle import GeneratorBundle
 from ats_utilities.generator.gen_params_bundle import GenParamsBundle
 from ats_utilities.generator.igenerator import IGenerator
@@ -50,7 +47,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Generator(IGenerator):
+class Generator(ContextSupport, IGenerator):
     '''
         Defines class Generator with attribute(s) and method(s).
         Template-based file generation from .tgz archives.
@@ -58,10 +55,6 @@ class Generator(IGenerator):
         It defines:
 
             :attributes:
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger for logging (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _shared_context - Bundle of shared context.
                 | _scheme_loader - Loader/resolver for scheme configuration.
                 | _tar_processor - Processor for archive extraction and template rendering.
@@ -74,10 +67,6 @@ class Generator(IGenerator):
                 | __str__ - Returns the string representation of Generator.
     '''
 
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
     _shared_context: ContextBundle
     _scheme_loader: ISchemeLoader
     _tar_processor: ITarProcessor
@@ -103,10 +92,18 @@ class Generator(IGenerator):
                 | ATSTypeError: Component bundle must be of type GeneratorBundle.
                 | ATSTypeError: Context bundle must be of type ContextBundle.
         '''
-        not_none(component_bundle, 'component bundle must not be provided')
-        istype(component_bundle, GeneratorBundle, 'component bundle must be of type GeneratorBundle')
+        not_none(
+            component_bundle,
+            r'generator::init(...)',
+            r'component bundle must not be provided'
+        )
+        istype(
+            component_bundle, GeneratorBundle,
+            r'generator::init(...)',
+            r'component bundle must be of type GeneratorBundle'
+        )
         self._shared_context = component_bundle.context_bundle
-        inject_context_bundle(self, self._shared_context)
+        ContextSupport.__init__(self, self._shared_context)
         self._scheme_loader = component_bundle.scheme_loader
         self._tar_processor = component_bundle.tar_processor
         self._is_initialized = True
@@ -136,11 +133,23 @@ class Generator(IGenerator):
                 | ATSTypeError: Template values must be a mapping.
                 | ATSValueError: Template values is missing or empty.
         '''
-        not_none(template_values, r'template_values must be provided')
-        istype(template_values, Mapping, r'template_values must be a mapping')
+        not_none(
+            template_values,
+            r'generator::prepare_template_values(...)'
+            r'template_values must be provided'
+        )
+        istype(
+            template_values, Mapping,
+            r'generator::prepare_template_values(...)'
+            r'template_values must be a mapping'
+        )
 
         project_name = template_values.get('project_name')
-        not_empty(project_name, f'template values must contain a non-empty {project_name}')
+        not_empty(
+            project_name,
+            r'generator::prepare_template_values(...)'
+            r'template_values must contain a non-empty project_name'
+        )
 
         values = template_values.copy()
         if 'project_name_dashed' not in values:
@@ -182,9 +191,17 @@ class Generator(IGenerator):
         '''
         resolved_scheme = self._scheme_loader.load(generator_bundle.scheme)
         project_scheme = resolved_scheme.get(generator_bundle.template_key)
-        not_satisfied(not project_scheme, f'template_key {generator_bundle.template_key} not found in scheme configuration')
+        not_satisfied(
+            not project_scheme,
+            r'generator::generate(...)'
+            f'template_key {generator_bundle.template_key} not found in scheme configuration'
+        )
         source_dir = project_scheme.get('source_dir')
-        not_satisfied(not source_dir, f'source_dir not specified for template_key {generator_bundle.template_key}')
+        not_satisfied(
+            not source_dir,
+            r'generator::generate(...)'
+            f'source_dir not specified for template_key {generator_bundle.template_key}'
+        )
         path_replacements: dict[str, str] = project_scheme.get('path_replacements', {})
         exclude_patterns: list[str] = project_scheme.get('exclude', [])
         vals = self.prepare_template_values(generator_bundle.template_values)
@@ -204,7 +221,11 @@ class Generator(IGenerator):
             return True
 
         except Exception as exc:
-            not_satisfied(True, f'generation failed {exc}')
+            not_satisfied(
+                True,
+                r'generator::generate(...)'
+                f'generation failed {exc}'
+            )
 
     @override
     def is_initialized(self) -> bool:

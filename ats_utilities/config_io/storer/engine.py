@@ -30,13 +30,10 @@ from sys import stderr
 from ats_utilities.config_io.storer.istorer import IStorer
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.config_io.conf_file import ConfFile
-from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
+from ats_utilities.config_io.iconf_file import IConfFile
+from ats_utilities.config_io.conf_file_registry import ConfFileRegistry
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
@@ -51,7 +48,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Storer(IStorer):
+class Storer(ContextSupport, IStorer):
     '''
         Defines class Storer with attribute(s) and method(s).
         Creates an API for storing the configuration from mapping format to configuration file.
@@ -60,16 +57,9 @@ class Storer(IStorer):
         It defines:
 
             :attributes:
-                | _MODE - File open mode.
-                | _config_file_bundle - Configuration file bundle parameters (default None).
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger for logging (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
-                | _file_checker - FileCheck for checking file (default FileCheck).
-                | _file_path - Configuration file path (default None).
-                | _file_bundle_shared - File bundle parameters (default None).
-                | _format_type - File format extension.
+                | _shared_context - Shared context bundle.
+                | _processor - Processor instance.
+                | _conf_file_bundle - Configuration file bundle parameters.
             :methods:
                 | __init__ - Initializes Storer constructor.
                 | get_shared_context - Returns the shared context.
@@ -77,13 +67,9 @@ class Storer(IStorer):
                 | __str__ - Returns the Storer as string representation.
     '''
 
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
-    _context_bundle_shared: ContextBundle
-    _processor: IConfigProcessor | None
-    _conf_file_bundle: ConfFileBundle
+    _shared_context: ContextBundle
+    _processor: IConfigProcessor
+    _conf_file: IConfFile
 
     def __init__(self, component_bundle: ConfigIOBundle) -> None:
         '''
@@ -104,15 +90,23 @@ class Storer(IStorer):
                 | ATSValueError: Extension is not supported.
                 | ATSTypeError: Validation of processor instance failed.
         '''
-        not_none(component_bundle, r'component bundle must be provided')
-        istype(component_bundle, ConfigIOBundle, r'component bundle must be of type ConfigIOBundle')
-        self._context_bundle_shared = component_bundle.context_bundle
-        inject_context_bundle(self, self._context_bundle_shared)
+        not_none(
+            component_bundle,
+            r'storer::init(...)',
+            r'component bundle must be provided'
+        )
+        istype(
+            component_bundle, ConfigIOBundle,
+            r'storer::init(...)',
+            r'component bundle must be of type ConfigIOBundle'
+        )
+        self._shared_context = component_bundle.context_bundle
+        ContextSupport.__init__(self, self._shared_context)
         self._processor = component_bundle.processor
-        self._conf_file_bundle = ConfFileBundle(
+        self._conf_file = ConfFileRegistry.create_conf_file(
             file_path=component_bundle.file_path,
             file_mode=component_bundle.WRITE_MODE,
-            context_bundle=self._context_bundle_shared
+            context_bundle=self._shared_context
         )
 
     @override
@@ -124,7 +118,7 @@ class Storer(IStorer):
             :rtype: <ContextBundle>
             :exceptions: None.
         '''
-        return self._context_bundle_shared
+        return self._shared_context
 
     @override
     def store_configuration(self, config: Mapping[str, str]) -> bool:
@@ -146,9 +140,10 @@ class Storer(IStorer):
         content = self._processor.serialize()
 
         try:
-            with ConfFile(self._conf_file_bundle) as config_file:
+            with self._conf_file as config_file:
                 if config_file:
-                    return config_file.write(content)
+                    config_file.write(content)
+                    return True
 
         except Exception:
             return False

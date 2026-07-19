@@ -69,8 +69,9 @@ def make_component(
 def validate_component(
     instance: Any,
     expected_class: type[Any],
+    exc_context: str | None = None,
     exc_message: str | None = None,
-    exception_class: type[Exception] = ATSTypeError
+    exc_class: type[BaseException] = ATSTypeError
 ) -> None:
     '''
         Validates if a component instance is of the expected class type.
@@ -79,18 +80,20 @@ def validate_component(
         :type instance: <Any>
         :param expected_class: The expected concrete class type.
         :type expected_class: <type[Any]>
+        :param exc_context: Context representation in string format.
+        :type exc_context: <str | None>
         :param exc_message: Message to include in the exception message.
         :type exc_message: <str | None>
-        :param exception_class: The exception class to raise if value is None.
-        :type exception_class: <type[Exception]> (default ATSTypeError)
+        :param exc_class: The exception class to raise if value is None.
+        :type exc_class: <type[Exception]> (default ATSTypeError)
         :exceptions:
-            | Dynamically raises the provided exception_class (e.g., ATSTypeError).
+            | Dynamically raises the provided exc_class (e.g., ATSTypeError).
     '''
     if not isinstance(instance, expected_class):
         raise_error(
-            fallback_prefix=r'factory_component::validate_component',
+            fallback_context=r'factory_component::validate_component(...)',
             fallback_msg=f'instance is not of expected type {expected_class}',
+            exc_context=exc_context,
             exc_message=exc_message,
-            exception_class=exception_class,
-            depth=3
+            exc_class=exc_class
         )

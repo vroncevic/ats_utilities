@@ -22,6 +22,8 @@ Info
 
 from __future__ import annotations
 
+from ats_utilities.context.icontext_support import IContextSupport
+
 from abc import ABC, abstractmethod
 from collections.abc import Sequence, Mapping
 from typing import Any
@@ -41,7 +43,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IOptionManager(ABC):
+class IOptionManager(IContextSupport, ABC):
     '''
         Defines abstract class IOptionManager with method(s).
         Creates an interface for option parsing.

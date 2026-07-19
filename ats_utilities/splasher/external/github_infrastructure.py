@@ -28,10 +28,7 @@ from typing import Any, override
 from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -48,7 +45,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class GitHubInfrastructure(IExtInfrastructure):
+class GitHubInfrastructure(ContextSupport, IExtInfrastructure):
     '''
         Defines class GitHubInfrastructure with attribute(s) and method(s).
         Creates an API for processing hyperlinks for splash screen.
@@ -58,10 +55,6 @@ class GitHubInfrastructure(IExtInfrastructure):
 
             :attributes:
                 | _REQUIRED_KEYS - Required keys for infrastructure property (default frozenset).
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _infrastructure_property - Splasher GitHub hyperlinks property (default None).
             :methods:
                 | __init__ - Initials GitHubInfrastructure constructor.
@@ -72,10 +65,6 @@ class GitHubInfrastructure(IExtInfrastructure):
     '''
 
     _REQUIRED_KEYS: frozenset[str] = frozenset([SplashKeys.ATS_ORGANIZATION, SplashKeys.ATS_REPOSITORY])
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
     _infrastructure_property: Mapping[str, Any] | None
 
     def __init__(self, context_bundle: ContextBundle) -> None:
@@ -88,7 +77,7 @@ class GitHubInfrastructure(IExtInfrastructure):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        inject_context_bundle(self, context_bundle)
+        ContextSupport.__init__(self, context_bundle)
         self._infrastructure_property = None
 
     @property
@@ -130,7 +119,11 @@ class GitHubInfrastructure(IExtInfrastructure):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        require_keys(setup, self._REQUIRED_KEYS)
+        require_keys(
+            setup, self._REQUIRED_KEYS,
+            r'github_infrastructure::infrastructure_property(...)',
+            r'infrastructure property setup is missing required keys'
+        )
         self._infrastructure_property = cherry_pick_dict(setup, self._REQUIRED_KEYS)
 
     @vreport('getting info text {infrastructure_property}')
@@ -151,9 +144,17 @@ class GitHubInfrastructure(IExtInfrastructure):
                 |                    use the @vreport decorator.
         '''
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        not_empty(org, r'missing organization')
+        not_empty(
+            org,
+            r'github_infrastructure::get_info_text(...)',
+            r'info property organization is missing or empty'
+        )
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
-        not_empty(repo, r'missing repository')
+        not_empty(
+            repo,
+            r'github_infrastructure::get_info_text(...)',
+            r'info property repository is missing or empty'
+        )
 
         url_short: str = f'github.io/{repo}'
         url_long: str = f'https://{org}.github.io/{repo}'
@@ -178,9 +179,17 @@ class GitHubInfrastructure(IExtInfrastructure):
                 |                    use the @vreport decorator.
         '''
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        not_empty(org, r'missing organization')
+        not_empty(
+            org,
+            r'github_infrastructure::get_issue_text(...)',
+            r'issue property organization is missing or empty'
+        )
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
-        not_empty(repo, r'missing repository')
+        not_empty(
+            repo,
+            r'github_infrastructure::get_issue_text(...)',
+            r'issue property repository is missing or empty'
+        )
 
         url: str = f'https://github.com/{org}/{repo}/issues/new/choose'
 
@@ -204,7 +213,11 @@ class GitHubInfrastructure(IExtInfrastructure):
                 |                    use the @vreport decorator.
         '''
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        not_empty(org, r'missing organization')
+        not_empty(
+            org,
+            r'github_infrastructure::get_author_text(...)',
+            r'author property organization is missing or empty'
+        )
 
         org_short: str = f'{org}.github.io'
         org_long: str = f'https://{org}.github.io/bio/'

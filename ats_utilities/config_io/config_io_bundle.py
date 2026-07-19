@@ -101,14 +101,45 @@ class ConfigIOBundle:
                 | ATSTypeError: Processor must be an instance of IConfigProcessor interface.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle interface.
         '''
-        not_none(self.file_path, r'file path must be provided')
-        not_none(self.scheme, r'scheme must be provided')
-        not_none(self.processor, r'processor must be provided')
-        not_none(self.context_bundle, r'context_bundle must be provided')
-        istype(self.file_path, str, r'file path must be a string')
-        istype(self.scheme, Mapping, r'scheme must be an instance of Mapping interface')
-        istype(self.processor, IConfigProcessor, r'processor must be an instance of IConfigProcessor interface')
-        istype(self.context_bundle, ContextBundle, r'context_bundle must be an instance of ContextBundle interface')
+        not_none(
+            self.file_path, 
+            r'config_io_bundle::validate(...)', 
+            r'file path must be provided'
+        )
+        not_none(
+            self.scheme, 
+            r'config_io_bundle::validate(...)', 
+            r'scheme must be provided'
+        )
+        not_none(
+            self.processor, 
+            r'config_io_bundle::validate(...)', 
+            r'processor must be provided'
+        )
+        not_none(
+            self.context_bundle, 
+            r'config_io_bundle::validate(...)', 
+            r'context_bundle must be provided'
+        )
+        istype(
+            self.file_path, str,
+            r'config_io_bundle::validate(...)',
+            r'file path must be a string')
+        istype(
+            self.scheme, Mapping,
+            r'config_io_bundle::validate(...)', 
+            r'scheme must be an instance of Mapping interface'
+        )
+        istype(
+            self.processor, IConfigProcessor,
+            r'config_io_bundle::validate(...)', 
+            r'processor must be an instance of IConfigProcessor interface'
+        )
+        istype(
+            self.context_bundle, ContextBundle,
+            r'config_io_bundle::validate(...)', 
+            r'context_bundle must be an instance of ContextBundle interface'
+        )
 
     def to_dict(self) -> dict[str, Any]:
         '''

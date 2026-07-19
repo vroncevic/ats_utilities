@@ -71,7 +71,7 @@ Creates an interfaces for ATS option parsing.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.option.strategy.engine.ParserStrategy">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.option.strategy.engine.</span></span><span class="sig-name descname"><span class="pre">ParserStrategy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.option.strategy.parser_strategy_bundle.html#ats_utilities.option.strategy.parser_strategy_bundle.ParserStrategyBundle" title="ats_utilities.option.strategy.parser_strategy_bundle.ParserStrategyBundle"><span class="pre">ParserStrategyBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option/strategy/engine.html#ParserStrategy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.strategy.engine.ParserStrategy" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.option.strategy.iparser_strategy.html#ats_utilities.option.strategy.iparser_strategy.IParserStrategy" title="ats_utilities.option.strategy.iparser_strategy.IParserStrategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">IParserStrategy</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.context.context_support.html#ats_utilities.context.context_support.ContextSupport" title="ats_utilities.context.context_support.ContextSupport"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextSupport</span></code></a>, <a class="reference internal" href="ats_utilities.option.strategy.iparser_strategy.html#ats_utilities.option.strategy.iparser_strategy.IParserStrategy" title="ats_utilities.option.strategy.iparser_strategy.IParserStrategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">IParserStrategy</span></code></a></p>
 <p>Defines class ParserStrategy with attribute(s) and method(s).
 Default built-in strategy using Python’s standard argparse module.
 Note: If extern argument parser strategy is injected this object
@@ -82,10 +82,6 @@ external parser strategy).</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_checker - Injected parameters checker (default Checker).</div>
-<div class="line">_logger - Injected logger (default Logger).</div>
-<div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
-<div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
 <div class="line">_shared_context - Shared context for components.</div>
 <div class="line">_parser - Options parser.</div>
 <div class="line">_parser_class - Injected parser class.</div>
@@ -112,16 +108,6 @@ external parser strategy).</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.option.strategy.engine.ParserStrategy._checker">
-<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.option.strategy.engine.ParserStrategy._checker" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.option.strategy.engine.ParserStrategy._logger">
-<span class="sig-name descname"><span class="pre">_logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a></em><a class="headerlink" href="#ats_utilities.option.strategy.engine.ParserStrategy._logger" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.option.strategy.engine.ParserStrategy._parser">
 <span class="sig-name descname"><span class="pre">_parser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.option.parser.iarg_parser.html#ats_utilities.option.parser.iarg_parser.IArgParser" title="ats_utilities.option.parser.iarg_parser.IArgParser"><span class="pre">IArgParser</span></a></em><a class="headerlink" href="#ats_utilities.option.strategy.engine.ParserStrategy._parser" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -132,11 +118,6 @@ external parser strategy).</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.option.strategy.engine.ParserStrategy._reporter">
-<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.option.strategy.engine.ParserStrategy._reporter" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.option.strategy.engine.ParserStrategy._shared_context">
 <span class="sig-name descname"><span class="pre">_shared_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.option.strategy.engine.ParserStrategy._shared_context" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -144,11 +125,6 @@ external parser strategy).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.option.strategy.engine.ParserStrategy._subparsers">
 <span class="sig-name descname"><span class="pre">_subparsers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><a class="headerlink" href="#ats_utilities.option.strategy.engine.ParserStrategy._subparsers" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.option.strategy.engine.ParserStrategy._verbose">
-<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.option.strategy.engine.ParserStrategy._verbose" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -283,14 +259,10 @@ external parser strategy).</p>
 <li><a class="reference internal" href="#">ats_utilities.option.strategy.engine module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.option.strategy.engine.ParserStrategy"><code class="docutils literal notranslate"><span class="pre">ParserStrategy</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.option.strategy.engine.ParserStrategy._abc_impl"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.option.strategy.engine.ParserStrategy._checker"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._checker</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.option.strategy.engine.ParserStrategy._logger"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._logger</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.strategy.engine.ParserStrategy._parser"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._parser</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.strategy.engine.ParserStrategy._parser_class"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._parser_class</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.option.strategy.engine.ParserStrategy._reporter"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.strategy.engine.ParserStrategy._shared_context"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._shared_context</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.strategy.engine.ParserStrategy._subparsers"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._subparsers</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.option.strategy.engine.ParserStrategy._verbose"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.strategy.engine.ParserStrategy.add_argument"><code class="docutils literal notranslate"><span class="pre">ParserStrategy.add_argument()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.strategy.engine.ParserStrategy.add_version"><code class="docutils literal notranslate"><span class="pre">ParserStrategy.add_version()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.strategy.engine.ParserStrategy.is_initialized"><code class="docutils literal notranslate"><span class="pre">ParserStrategy.is_initialized()</span></code></a></li>

@@ -78,7 +78,11 @@ class ContextProvider(IContextProvider):
             :exceptions:
                 | ATSTypeError: Stack index caller must be an integer.
         '''
-        istype(stack_index_caller, int, r'stack index caller must be an integer')
+        istype(
+            stack_index_caller, int,
+            r'context_provider::set_stack_index_caller(...)',
+            r'stack index caller must be an integer'
+        )
         self._stack_index_caller = stack_index_caller
 
     @override

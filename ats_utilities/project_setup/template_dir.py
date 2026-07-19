@@ -26,10 +26,7 @@ from typing import override
 
 from ats_utilities.project_setup.itemplate_dir import ITemplateDir
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -44,7 +41,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class TemplateDir(ITemplateDir):
+class TemplateDir(ContextSupport, ITemplateDir):
     '''
         Defines class TemplateDir with attribute(s) and method(s).
         Defines project template directory container.
@@ -53,10 +50,6 @@ class TemplateDir(ITemplateDir):
         It defines:
 
             :attributes:
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger for logging (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _template_dir - Project template dir path (default None).
             :methods:
                 | __init__ - Initializes TemplateDir constructor.
@@ -65,10 +58,6 @@ class TemplateDir(ITemplateDir):
                 | __str__ - Returns the ATS project template directory as string representation.
     '''
 
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
     _template_dir: str | None
 
     def __init__(self, context_bundle: ContextBundle) -> None:
@@ -81,7 +70,7 @@ class TemplateDir(ITemplateDir):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        inject_context_bundle(self, context_bundle)
+        ContextSupport.__init__(self, context_bundle)
         self._template_dir = None
 
     @property

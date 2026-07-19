@@ -92,6 +92,8 @@ Creates an API for the logging mechanism.</p>
 <div class="line">is_initialized - Checks if logger is initialized.</div>
 <div class="line">set_level - Sets log level.</div>
 <div class="line">set_log_file - Sets log file.</div>
+<div class="line">set_stdout - Sets log output to standard output (stdout).</div>
+<div class="line">set_stderr - Sets log output to standard error (stderr).</div>
 <div class="line">stop_buffering - Stops log buffering.</div>
 <div class="line">__str__ - Returns the logger as string representation.</div>
 </div>
@@ -190,6 +192,28 @@ Stripping ANSI color codes and emojis if output is redirected or disabled.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logger.engine.Logger.set_stderr">
+<span class="sig-name descname"><span class="pre">set_stderr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/engine.html#Logger.set_stderr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.engine.Logger.set_stderr" title="Link to this definition">¶</a></dt>
+<dd><p>Sets log output to standard error (stderr).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logger.engine.Logger.set_stdout">
+<span class="sig-name descname"><span class="pre">set_stdout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/engine.html#Logger.set_stdout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.engine.Logger.set_stdout" title="Link to this definition">¶</a></dt>
+<dd><p>Sets log output to standard output (stdout).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.logger.engine.Logger.stop_buffering">
 <span class="sig-name descname"><span class="pre">stop_buffering</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/engine.html#Logger.stop_buffering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.engine.Logger.stop_buffering" title="Link to this definition">¶</a></dt>
 <dd><p>Stops log buffering.</p>
@@ -242,6 +266,8 @@ Stripping ANSI color codes and emojis if output is redirected or disabled.</p>
 <li><a class="reference internal" href="#ats_utilities.logger.engine.Logger.is_initialized"><code class="docutils literal notranslate"><span class="pre">Logger.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logger.engine.Logger.set_level"><code class="docutils literal notranslate"><span class="pre">Logger.set_level()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logger.engine.Logger.set_log_file"><code class="docutils literal notranslate"><span class="pre">Logger.set_log_file()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.engine.Logger.set_stderr"><code class="docutils literal notranslate"><span class="pre">Logger.set_stderr()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.engine.Logger.set_stdout"><code class="docutils literal notranslate"><span class="pre">Logger.set_stdout()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logger.engine.Logger.stop_buffering"><code class="docutils literal notranslate"><span class="pre">Logger.stop_buffering()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logger.engine.Logger.write_log"><code class="docutils literal notranslate"><span class="pre">Logger.write_log()</span></code></a></li>
 </ul>

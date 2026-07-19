@@ -89,12 +89,36 @@ class ConfFileBundle:
                 | ATSTypeError: File mode must be a string.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        not_none(self.file_path, r'file path must be provided')
-        not_none(self.file_mode, r'file mode must be provided')
-        not_none(self.context_bundle, r'context bundle must be provided')
-        istype(self.file_path, str, r'file path must be a string')
-        istype(self.file_mode, str, r'file mode must be a string')
-        istype(self.context_bundle, ContextBundle, r'context bundle must be a ContextBundle instance')
+        not_none(
+            self.file_path,
+            r'conf_file_bundle::validate(...)',
+            r'file path must be provided'
+        )
+        not_none(
+            self.file_mode,
+            r'conf_file_bundle::validate(...)',
+            r'file mode must be provided'
+        )
+        not_none(
+            self.context_bundle,
+            r'conf_file_bundle::validate(...)',
+            r'context bundle must be provided'
+        )
+        istype(
+            self.file_path, str,
+            r'conf_file_bundle::validate(...)',
+            r'file path must be a string'
+        )
+        istype(
+            self.file_mode, str,
+            r'conf_file_bundle::validate(...)',
+            r'file mode must be a string'
+        )
+        istype(
+            self.context_bundle, ContextBundle,
+            r'conf_file_bundle::validate(...)',
+            r'context bundle must be a ContextBundle instance'
+        )
 
     def to_dict(self) -> dict[str, Any]:
         '''

@@ -76,7 +76,12 @@ class ConsoleTheme(IConsoleTheme):
                 | ATSTypeError: Palette must be a dictionary.
         '''
         if palette is not None:
-            istype(palette, dict, r'palette must be a dictionary')
+            istype(
+                palette,
+                dict,
+                r'console_theme::init(...)',
+                r'palette must be a dictionary'
+            )
 
         # No dependency injection then use default ones.
         self._palette = MappingProxyType(palette) if palette is not None else self._DEFAULT_PALETTE_COLORS
@@ -97,9 +102,21 @@ class ConsoleTheme(IConsoleTheme):
                 | ATSTypeError: Color type must be a string.
                 | ATSValueError: Color type not found in palette.
         '''
-        not_none(color_type, r'color type must be provided')
-        istype(color_type, str, r'color type must be a string')
-        not_satisfied(color_type not in self._palette, f'color type {color_type} not found in palette')
+        not_none(
+            color_type,
+            r'console_theme::get_color(...)',
+            r'color type must be provided'
+        )
+        istype(
+            color_type, str,
+            r'console_theme::get_color(...)',
+            r'color type must be a string'
+        )
+        not_satisfied(
+            color_type not in self._palette,
+            r'console_theme::get_color(...)',
+            f'color type {color_type} not found in palette'
+        )
 
         return self._palette[color_type]
 

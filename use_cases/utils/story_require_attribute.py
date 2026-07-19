@@ -64,9 +64,9 @@ class TestComponent:
         logger_instance = make_component(None, Logger, {'component_bundle': logger_bundle})
         reporter_bundle = ReporterBundle(theme=self._theme, checker=self._checker, logger=logger_instance)
         self._reporter: IReporter = make_component(None, Reporter, {'component_bundle': reporter_bundle})
-        validate_component(self._checker, IChecker, 'checker should be of type IChecker')
-        validate_component(self._theme, IConsoleTheme, 'theme should be of type IConsoleTheme')
-        validate_component(self._reporter, IReporter, 'reporter should be of type IReporter')
+        validate_component(self._checker, IChecker, 'testcomponent::__init__', 'checker should be of type IChecker')
+        validate_component(self._theme, IConsoleTheme, 'testcomponent::__init__', 'theme should be of type IConsoleTheme')
+        validate_component(self._reporter, IReporter, 'testcomponent::__init__', 'reporter should be of type IReporter')
 
     def none_reporter(self) -> None:
         '''

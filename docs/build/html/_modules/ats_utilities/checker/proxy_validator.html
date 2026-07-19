@@ -68,8 +68,9 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.checker_registry</span> <span class="kn">import</span> <span class="n">CheckerRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.engine</span> <span class="kn">import</span> <span class="n">Checker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">ParametersSpecs</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.icontext_support</span> <span class="kn">import</span> <span class="n">IContextSupport</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">ATSAttributeError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span>
+    <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.context_error</span> <span class="kn">import</span> <span class="n">raise_error</span>
 
@@ -99,11 +100,11 @@
     <span class="n">parts</span> <span class="o">=</span> <span class="n">exp_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_prefix</span><span class="o">=</span><span class="s1">&#39;proxy_validator_split&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;proxy_validator_split(...)&#39;</span><span class="p">,</span>
             <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Invalid parameter format: </span><span class="si">{</span><span class="n">exp_type</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">exc_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;proxy_validator_split(...)&#39;</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSValueError</span><span class="p">,</span>
-            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+            <span class="n">exc_class</span><span class="o">=</span><span class="n">ATSValueError</span>
         <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
@@ -118,7 +119,7 @@
     <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="n">specs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
     <span class="n">checker</span><span class="p">:</span> <span class="n">Checker</span><span class="p">,</span>
-    <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">exc_context</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Validates argument values against parameter specification.</span>
@@ -133,8 +134,8 @@
 <span class="sd">        :type specs: &lt;list[tuple[str, Any]]&gt;</span>
 <span class="sd">        :param checker: Checker instance to validate with.</span>
 <span class="sd">        :type checker: &lt;Checker&gt;</span>
-<span class="sd">        :param prefix: Exception prefix.</span>
-<span class="sd">        :type prefix: &lt;str&gt;</span>
+<span class="sd">        :param exc_context: Exception context.</span>
+<span class="sd">        :type exc_context: &lt;str&gt;</span>
 <span class="sd">        :exceptions:</span>
 <span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
 <span class="sd">            | ATSValueError: Parameter format validation failed.</span>
@@ -170,10 +171,10 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">target_type</span> <span class="o">=</span> <span class="n">raw_type</span>
 
-                <span class="c1"># If it is not optional and the value is None, it is immediately a type error</span>
-                <span class="k">if</span> <span class="n">actual_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">runtime_parameters</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">pname</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">actual_value</span><span class="p">))</span>
-                    <span class="k">continue</span>
+            <span class="c1"># If it is not optional and the value is None, it is immediately a type error</span>
+            <span class="k">if</span> <span class="n">actual_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">runtime_parameters</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">pname</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">actual_value</span><span class="p">))</span>
+                <span class="k">continue</span>
 
             <span class="c1"># We form a cleaned specification string for Checker (eg str:version)</span>
             <span class="n">clean_exp_type</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">pname</span><span class="si">}</span><span class="s1">&#39;</span>
@@ -186,19 +187,19 @@
         <span class="k">if</span> <span class="n">error_id</span> <span class="o">!=</span> <span class="n">checker</span><span class="o">.</span><span class="n">ERRORS</span><span class="o">.</span><span class="n">NO_ERROR</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">checker</span><span class="o">.</span><span class="n">ERRORS</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
                 <span class="n">raise_error</span><span class="p">(</span>
-                    <span class="n">fallback_prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span>
-                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Type error: </span><span class="si">{</span><span class="n">report_message</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;type error: </span><span class="si">{</span><span class="n">report_message</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
                     <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                    <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSTypeError</span><span class="p">,</span>
-                    <span class="n">depth</span><span class="o">=</span><span class="mi">4</span>
+                    <span class="n">exc_class</span><span class="o">=</span><span class="n">ATSTypeError</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">raise_error</span><span class="p">(</span>
-                    <span class="n">fallback_prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span>
-                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Format error: </span><span class="si">{</span><span class="n">report_message</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;format error: </span><span class="si">{</span><span class="n">report_message</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
                     <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                    <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSValueError</span><span class="p">,</span>
-                    <span class="n">depth</span><span class="o">=</span><span class="mi">4</span>
+                    <span class="n">exc_class</span><span class="o">=</span><span class="n">ATSValueError</span>
                 <span class="p">)</span></div>
 
 
@@ -229,32 +230,33 @@
 
             <span class="k">if</span> <span class="n">self_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">raise_error</span><span class="p">(</span>
-                    <span class="n">fallback_prefix</span><span class="o">=</span><span class="s1">&#39;mcheck::decorator&#39;</span><span class="p">,</span>
-                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Decorator @mcheck on </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> can only be used on class methods&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;mcheck::decorator(...)&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;decorator @mcheck on </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> can only be used on class methods&#39;</span><span class="p">,</span>
+                    <span class="n">exc_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;mcheck::decorator(...)&#39;</span><span class="p">,</span>
                     <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                    <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSRuntimeError</span><span class="p">,</span>
-                    <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+                    <span class="n">exc_class</span><span class="o">=</span><span class="n">ATSRuntimeError</span>
                 <span class="p">)</span>
 
-            <span class="n">cls_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
-
-            <span class="c1"># BORROWING: Extracting the checker object that the class is responsible for.</span>
-            <span class="c1"># Supports protected &#39;_checker&#39; or name-mangled private &#39;_checker&#39; attributes.</span>
-            <span class="n">checker</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
-                <span class="n">self_instance</span><span class="p">,</span> <span class="s1">&#39;_checker&#39;</span><span class="p">,</span>
-                <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">cls_name</span><span class="si">}</span><span class="s1">_checker&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="n">IContextSupport</span><span class="p">):</span>
+                <span class="n">checker</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="n">checker</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cls_name</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+                <span class="n">checker</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+                    <span class="n">self_instance</span><span class="p">,</span> <span class="s1">&#39;_checker&#39;</span><span class="p">,</span>
+                    <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">cls_name</span><span class="si">}</span><span class="s1">_checker&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">checker</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">raise_error</span><span class="p">(</span>
-                    <span class="n">fallback_prefix</span><span class="o">=</span><span class="s1">&#39;mcheck::decorator&#39;</span><span class="p">,</span>
-                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Class </span><span class="si">{</span><span class="n">cls_name</span><span class="si">}</span><span class="s1"> must have _checker attribute to use @mcheck decorator&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;mcheck::decorator(...)&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;class </span><span class="si">{</span><span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> must provide a checker to use @mcheck decorator&#39;</span><span class="p">,</span>
+                    <span class="n">exc_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;mcheck::decorator(...)&#39;</span><span class="p">,</span>
                     <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                    <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSAttributeError</span><span class="p">,</span>
-                    <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+                    <span class="n">exc_class</span><span class="o">=</span><span class="n">ATSRuntimeError</span>
                 <span class="p">)</span>
 
-            <span class="n">validate_args</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">specs</span><span class="p">,</span> <span class="n">checker</span><span class="p">,</span> <span class="s1">&#39;mcheck::decorator&#39;</span><span class="p">)</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">::</span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">validate_args</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">specs</span><span class="p">,</span> <span class="n">checker</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">decorator</span></div>
@@ -281,7 +283,7 @@
     <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">F</span><span class="p">:</span>
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-            <span class="n">validate_args</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">specs</span><span class="p">,</span> <span class="n">checker</span><span class="p">,</span> <span class="s1">&#39;fcheck::decorator&#39;</span><span class="p">)</span>
+            <span class="n">validate_args</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">specs</span><span class="p">,</span> <span class="n">checker</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">decorator</span></div>

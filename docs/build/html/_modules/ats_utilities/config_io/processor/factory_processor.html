@@ -131,8 +131,16 @@
 <span class="sd">                | ATSTypeError: Extension must be a string.</span>
 <span class="sd">                | ATSValueError: Extension is not supported.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;extension must be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;extension must be a string&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="n">extension</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;config_processor_factory::get_processor_class(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;extension must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="n">extension</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;config_processor_factory::get_processor_class(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;extension must be a string&#39;</span>
+        <span class="p">)</span>
 
         <span class="n">formatted_ext</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">extension</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
@@ -140,7 +148,9 @@
             <span class="n">formatted_ext</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;.</span><span class="si">{</span><span class="n">formatted_ext</span><span class="si">}</span><span class="s1">&#39;</span>
 
         <span class="n">not_satisfied</span><span class="p">(</span>
-            <span class="n">formatted_ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_PROCESSOR_MAP</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="sa">f</span><span class="s1">&#39;The extension </span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s1"> is not supported&#39;</span>
+            <span class="n">formatted_ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_PROCESSOR_MAP</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span>
+            <span class="sa">r</span><span class="s1">&#39;config_processor_factory::get_processor_class(...)&#39;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s1">&#39;The extension </span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s1"> is not supported&#39;</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_PROCESSOR_MAP</span><span class="p">[</span><span class="n">formatted_ext</span><span class="p">]</span></div>
@@ -179,7 +189,8 @@
             <span class="n">validate_component</span><span class="p">(</span>
                 <span class="n">instance</span><span class="o">=</span><span class="n">processor</span><span class="p">,</span>
                 <span class="n">expected_class</span><span class="o">=</span><span class="n">IConfigProcessor</span><span class="p">,</span>
-                <span class="n">exc_message</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;The provided processor must implement IConfigProcessor&#39;</span>
+                <span class="n">exc_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;config_processor_factory::create_from_extension(...)&#39;</span><span class="p">,</span>
+                <span class="n">exc_message</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;provided processor must implement IConfigProcessor&#39;</span>
             <span class="p">)</span>
 
             <span class="k">return</span> <span class="n">processor</span>
@@ -195,7 +206,8 @@
         <span class="n">validate_component</span><span class="p">(</span>
             <span class="n">instance</span><span class="o">=</span><span class="n">resolved_processor</span><span class="p">,</span>
             <span class="n">expected_class</span><span class="o">=</span><span class="n">IConfigProcessor</span><span class="p">,</span>
-            <span class="n">exc_message</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;The processor for extension </span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s1"> must implement IConfigProcessor&#39;</span>
+            <span class="n">exc_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;config_processor_factory::create_from_extension(...)&#39;</span><span class="p">,</span>
+            <span class="n">exc_message</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;processor for extension </span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s1"> must implement IConfigProcessor&#39;</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">resolved_processor</span></div>
@@ -237,9 +249,22 @@
         <span class="k">if</span> <span class="n">processor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_from_extension</span><span class="p">(</span><span class="n">processor</span><span class="o">=</span><span class="n">processor</span><span class="p">)</span>
 
-        <span class="n">not_none</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;file_path must be provided when processor is None&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;file_path must be a string&#39;</span><span class="p">)</span>
-        <span class="n">check_file_exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;file at </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1"> does not exist&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="n">file_path</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;config_processor_factory::create_from_file_path(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;file path must be provided when processor is None&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="n">file_path</span><span class="p">,</span>
+            <span class="nb">str</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;config_processor_factory::create_from_file_path(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;file path must be a string&#39;</span>
+        <span class="p">)</span>
+        <span class="n">check_file_exists</span><span class="p">(</span>
+            <span class="n">file_path</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;config_processor_factory::create_from_file_path(...)&#39;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s1">&#39;file at </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1"> does not exist&#39;</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_from_extension</span><span class="p">(</span>
             <span class="n">extension</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">suffix</span><span class="p">,</span>

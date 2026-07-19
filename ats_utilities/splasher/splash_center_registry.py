@@ -47,6 +47,7 @@ class SplashCenterRegistry(IRegistry[SplashCenterBundle]):
                 | create_splash_center_bundle - Creates a SplashCenterBundle.
     '''
 
+    @classmethod
     @override
     def create_bundle(cls, **kwargs: Any) -> SplashCenterBundle:
         '''
@@ -70,7 +71,11 @@ class SplashCenterRegistry(IRegistry[SplashCenterBundle]):
         )
 
     @classmethod
-    def create_splash_center_bundle(cls, columns: int, additional_shifter: int) -> SplashCenterBundle:
+    def create_splash_center_bundle(
+        cls, 
+        columns: int, 
+        additional_shifter: int
+    ) -> SplashCenterBundle:
         '''
             Creates a SplashCenterBundle.
 

@@ -89,6 +89,7 @@
 
 <div class="viewcode-block" id="SplashCenterRegistry.create_bundle">
 <a class="viewcode-back" href="../../../ats_utilities.splasher.splash_center_registry.html#ats_utilities.splasher.splash_center_registry.SplashCenterRegistry.create_bundle">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SplashCenterBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -115,7 +116,11 @@
 <div class="viewcode-block" id="SplashCenterRegistry.create_splash_center_bundle">
 <a class="viewcode-back" href="../../../ats_utilities.splasher.splash_center_registry.html#ats_utilities.splasher.splash_center_registry.SplashCenterRegistry.create_splash_center_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_splash_center_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">additional_shifter</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SplashCenterBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_splash_center_bundle</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> 
+        <span class="n">columns</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">additional_shifter</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SplashCenterBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates a SplashCenterBundle.</span>
 

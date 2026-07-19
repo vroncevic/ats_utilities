@@ -59,7 +59,7 @@ class MyTool(Base):
         my_reporter.success(['MyTool initialized successfully (Reporter Success)'])
 
     @override
-    def process(self, verbose: bool = False) -> bool:
+    def process(self, verbose: bool = True) -> bool:
         context = self.get_shared_context()
         context.logger.write_log(f'Processing starting, verbose: {verbose}', INFO)
         context.reporter.verbose(verbose, [f'Processing starting, verbose: {verbose} (Reporter Verbose)'])

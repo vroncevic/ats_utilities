@@ -17,7 +17,7 @@ class TestDirsUtility(unittest.TestCase):
         with patch.object(Path, "is_dir", return_value=True):
             # Should run cleanly without raising any exception hooks
             try:
-                check_dir_exists("/valid/existing/directory/path")
+                check_dir_exists("/valid/existing/directory/path", 'testdirsutility::test_check_dir_exists_success')
             except Exception as exc:
                 self.fail(f"check_dir_exists raised an exception unexpectedly: {exc}")
 
@@ -25,22 +25,22 @@ class TestDirsUtility(unittest.TestCase):
         """Test that passing a non-string type fails the strict type check."""
         # The istype checker hook should trigger a failure before checking existence
         with self.assertRaises(Exception):
-            check_dir_exists(12345)  # type: ignore
+            check_dir_exists(12345, 'testdirsutility::test_check_dir_exists_invalid_type')  # type: ignore
 
         with self.assertRaises(Exception):
-            check_dir_exists(["/not/a/raw/string"])  # type: ignore
+            check_dir_exists(["/not/a/raw/string"], 'testdirsutility::test_check_dir_exists_invalid_type')  # type: ignore
 
     @patch("ats_utilities.utils.dirs.raise_error")
     def test_check_dir_exists_empty_string(self, mock_raise_error: MagicMock) -> None:
         """Test that an empty directory path defaults to the path provision error flow."""
-        check_dir_exists("", exc_message="Custom empty path error message")
+        check_dir_exists("", 'testdirsutility::test_check_dir_exists_empty_string', exc_message="Custom empty path error message")
 
         mock_raise_error.assert_called_once_with(
-            fallback_prefix="dirs::check_dir_exists",
+            fallback_context="dirs::check_dir_exists(...)",
             fallback_msg="directory path must be provided",
+            exc_context="testdirsutility::test_check_dir_exists_empty_string",
             exc_message="Custom empty path error message",
-            exception_class=ATSValueError,
-            depth=3
+            exc_class=ATSValueError
         )
 
     @patch("ats_utilities.utils.dirs.raise_error")
@@ -49,15 +49,15 @@ class TestDirsUtility(unittest.TestCase):
         """Test that a non-existent path properly registers a directory existence error."""
         missing_path = "/path/to/nowhere"
         
-        check_dir_exists(missing_path, exc_message="Missing directory context")
+        check_dir_exists(missing_path, 'testdirsutility::test_check_dir_exists_missing_directory', exc_message="Missing directory context")
 
         mock_is_dir.assert_called_once()
         mock_raise_error.assert_called_once_with(
-            fallback_prefix="dirs::check_dir_exists",
+            fallback_context="dirs::check_dir_exists(...)",
             fallback_msg=f"directory at the provided path does not exist: {missing_path}",
+            exc_context="testdirsutility::test_check_dir_exists_missing_directory",
             exc_message="Missing directory context",
-            exception_class=ATSValueError,
-            depth=3
+            exc_class=ATSValueError
         )
 
     @patch("ats_utilities.utils.dirs.raise_error")
@@ -70,17 +70,18 @@ class TestDirsUtility(unittest.TestCase):
         missing_path = "/path/to/missing/dir"
         
         check_dir_exists(
-            missing_path, 
+            missing_path, 'testdirsutility::test_check_dir_exists_custom_exception_class', 
             exc_message="Custom exception testing", 
-            exception_class=CustomTestException
+            exc_class=CustomTestException
         )
 
+        mock_is_dir.assert_called_once()
         mock_raise_error.assert_called_once_with(
-            fallback_prefix="dirs::check_dir_exists",
+            fallback_context="dirs::check_dir_exists(...)",
             fallback_msg=f"directory at the provided path does not exist: {missing_path}",
+            exc_context="testdirsutility::test_check_dir_exists_custom_exception_class",
             exc_message="Custom exception testing",
-            exception_class=CustomTestException,
-            depth=3
+            exc_class=CustomTestException
         )
 
 

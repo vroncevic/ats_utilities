@@ -67,6 +67,23 @@ class TestGenParamsRegistry(unittest.TestCase):
         self.assertEqual(result.template_values, self.template_values)
         mock_check_file.assert_called_once()
 
+    @patch("ats_utilities.generator.gen_params_bundle.check_file_exists")
+    def test_create_bundle(self, mock_check_file: MagicMock) -> None:
+        """Test create_bundle on GenParamsRegistry."""
+        result = GenParamsRegistry.create_bundle(
+            archive_path=self.archive_path,
+            target_dir=self.target_dir,
+            template_key=self.template_key,
+            scheme=self.scheme,
+            template_values=self.template_values
+        )
+        self.assertIsInstance(result, GenParamsBundle)
+        self.assertEqual(result.archive_path, self.archive_path)
+        self.assertEqual(result.target_dir, self.target_dir)
+        self.assertEqual(result.template_key, self.template_key)
+        self.assertEqual(result.scheme, self.scheme)
+        self.assertEqual(result.template_values, self.template_values)
+
 
 if __name__ == '__main__':
     unittest.main()

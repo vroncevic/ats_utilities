@@ -178,8 +178,11 @@ class EngineTest(unittest.TestCase):
     def test_early_logs_buffering_and_flush_custom(self) -> None:
         class CustomLogger:
             def __init__(self) -> None:
-                self.write_log = MagicMock()
-                self.set_log_file = MagicMock()
+                self.calls = []
+            def write_log(self, message: str, ctrl: int) -> None:
+                self.calls.append((message, ctrl))
+            def set_log_file(self, log_file: str) -> None:
+                pass
 
         custom = CustomLogger()
         bundle = LoggerBundle(
@@ -192,8 +195,66 @@ class EngineTest(unittest.TestCase):
         self.assertEqual(len(logger._early_logs_buffer), 1)
 
         logger.set_log_file("some_custom.log")
-        custom.write_log.assert_any_call("custom buffered msg", logging.WARNING)
+        self.assertEqual(custom.calls, [
+            ("custom buffered msg", logging.WARNING),
+            ("custom buffered msg", logging.WARNING)
+        ])
         self.assertEqual(len(logger._early_logs_buffer), 0)
+
+    def test_early_logs_buffering_and_flush_custom_no_log_methods(self) -> None:
+        """Tests branch 224->228 when logger has neither log nor write_log during flush."""
+        class CustomLogger:
+            def __init__(self) -> None:
+                self.write_log = MagicMock()
+            def set_log_file(self, log_file: str) -> None:
+                pass
+
+        custom = CustomLogger()
+        bundle = LoggerBundle(
+            logger=custom,
+            log_file="",
+            log_level=logging.INFO
+        )
+        logger = Logger(bundle)
+        # Delete write_log attribute to simulate a logger without log/write_log methods
+        if hasattr(custom, 'write_log'):
+            delattr(custom, 'write_log')
+        if hasattr(CustomLogger, 'write_log'):
+            delattr(CustomLogger, 'write_log')
+
+        logger._early_logs_buffer.append(("msg", logging.INFO))
+        logger.set_log_file("some_custom.log")
+        self.assertEqual(len(logger._early_logs_buffer), 0)
+
+    def test_init_logger_with_no_log_methods(self) -> None:
+        """Tests branch 112->exit when custom logger has neither info nor write_log."""
+        class MinimalLogger:
+            def write_log(self, message: str, ctrl: int) -> None:
+                pass
+        custom = MinimalLogger()
+        bundle = LoggerBundle(
+            logger=custom,
+            log_file="test.log",
+            log_level=logging.INFO
+        )
+        delattr(MinimalLogger, "write_log")
+        logger = Logger(bundle)
+        self.assertFalse(hasattr(logger, "_log_methods"))
+
+    def test_set_level_with_no_set_level_methods(self) -> None:
+        """Tests branch 187->exit when custom logger has neither setLevel nor set_level."""
+        class MinimalLogger:
+            def write_log(self, message: str, ctrl: int) -> None:
+                pass
+        custom = MinimalLogger()
+        bundle = LoggerBundle(
+            logger=custom,
+            log_file="test.log",
+            log_level=logging.INFO
+        )
+        logger = Logger(bundle)
+        # Should exit cleanly without raising an exception
+        logger.set_level(logging.DEBUG)
 
     def test_is_initialized(self) -> None:
         # Case 1: Custom logger
@@ -402,6 +463,254 @@ class EngineTest(unittest.TestCase):
         )
         logger = Logger(bundle)
         self.assertIn("Logger", str(logger))
+
+    def test_set_stdout(self) -> None:
+        mock_std_logger = MagicMock(spec=logging.Logger)
+        mock_std_logger.handlers = []
+        bundle = LoggerBundle(
+            logger=mock_std_logger,
+            log_file="test.log",
+            log_level=logging.INFO
+        )
+        logger = Logger(bundle)
+        logger.set_stdout()
+        self.assertTrue(logger._has_file_handler)
+        mock_std_logger.addHandler.assert_called_once()
+        handler = mock_std_logger.addHandler.call_args[0][0]
+        self.assertIsInstance(handler, logging.StreamHandler)
+        self.assertIs(handler.stream, sys.stdout)
+
+    def test_set_stderr(self) -> None:
+        mock_std_logger = MagicMock(spec=logging.Logger)
+        mock_std_logger.handlers = []
+        bundle = LoggerBundle(
+            logger=mock_std_logger,
+            log_file="test.log",
+            log_level=logging.INFO
+        )
+        logger = Logger(bundle)
+        logger.set_stderr()
+        self.assertTrue(logger._has_file_handler)
+        mock_std_logger.addHandler.assert_called_once()
+        handler = mock_std_logger.addHandler.call_args[0][0]
+        self.assertIsInstance(handler, logging.StreamHandler)
+        self.assertIs(handler.stream, sys.stderr)
+
+    def test_set_stdout_flushes_early_logs(self) -> None:
+        mock_std_logger = MagicMock(spec=logging.Logger)
+        mock_std_logger.handlers = []
+        bundle = LoggerBundle(
+            logger=mock_std_logger,
+            log_file="",
+            log_level=logging.INFO
+        )
+        logger = Logger(bundle)
+        logger.write_log("early message", logging.INFO)
+        self.assertEqual(len(logger._early_logs_buffer), 1)
+
+        logger.set_stdout()
+        self.assertEqual(len(logger._early_logs_buffer), 0)
+        mock_std_logger.log.assert_called_once_with(logging.INFO, "early message")
+
+    def test_set_stderr_flushes_early_logs(self) -> None:
+        mock_std_logger = MagicMock(spec=logging.Logger)
+        mock_std_logger.handlers = []
+        bundle = LoggerBundle(
+            logger=mock_std_logger,
+            log_file="",
+            log_level=logging.INFO
+        )
+        logger = Logger(bundle)
+        logger.write_log("early message", logging.INFO)
+        self.assertEqual(len(logger._early_logs_buffer), 1)
+
+        logger.set_stderr()
+        self.assertEqual(len(logger._early_logs_buffer), 0)
+        mock_std_logger.log.assert_called_once_with(logging.INFO, "early message")
+
+    def test_set_stdout_removes_other_handlers(self) -> None:
+        mock_std_logger = MagicMock(spec=logging.Logger)
+        file_handler = MagicMock(spec=logging.FileHandler)
+        stderr_stream = MagicMock(spec=logging.StreamHandler)
+        stderr_stream.stream = sys.stderr
+        stdout_stream = MagicMock(spec=logging.StreamHandler)
+        stdout_stream.stream = sys.stdout
+
+        mock_std_logger.handlers = [file_handler, stderr_stream, stdout_stream]
+        bundle = LoggerBundle(
+            logger=mock_std_logger,
+            log_file="test.log",
+            log_level=logging.INFO
+        )
+        logger = Logger(bundle)
+        logger.set_stdout()
+
+        mock_std_logger.removeHandler.assert_any_call(file_handler)
+        mock_std_logger.removeHandler.assert_any_call(stderr_stream)
+        self.assertEqual(mock_std_logger.removeHandler.call_count, 2)
+
+    def test_set_stderr_removes_other_handlers(self) -> None:
+        mock_std_logger = MagicMock(spec=logging.Logger)
+        file_handler = MagicMock(spec=logging.FileHandler)
+        stderr_stream = MagicMock(spec=logging.StreamHandler)
+        stderr_stream.stream = sys.stderr
+        stdout_stream = MagicMock(spec=logging.StreamHandler)
+        stdout_stream.stream = sys.stdout
+
+        mock_std_logger.handlers = [file_handler, stderr_stream, stdout_stream]
+        bundle = LoggerBundle(
+            logger=mock_std_logger,
+            log_file="test.log",
+            log_level=logging.INFO
+        )
+        logger = Logger(bundle)
+        logger.set_stderr()
+
+        mock_std_logger.removeHandler.assert_any_call(file_handler)
+        mock_std_logger.removeHandler.assert_any_call(stdout_stream)
+        self.assertEqual(mock_std_logger.removeHandler.call_count, 2)
+
+    def test_set_stdout_custom_logger_flushes_write_log(self) -> None:
+        class CustomLoggerMock:
+            def __init__(self):
+                self.logs = []
+                self.handlers = []
+            def addHandler(self, h):
+                pass
+            def removeHandler(self, h):
+                pass
+            def write_log(self, msg, level):
+                self.logs.append((msg, level))
+
+        custom_logger = CustomLoggerMock()
+        bundle = LoggerBundle(
+            logger=custom_logger,
+            log_file="",
+            log_level=logging.INFO
+        )
+        logger = Logger(bundle)
+        logger.write_log("custom early", logging.INFO)
+        logger.set_stdout()
+        self.assertEqual(custom_logger.logs, [
+            ("custom early", logging.INFO),
+            ("custom early", logging.INFO)
+        ])
+
+    def test_set_stderr_custom_logger_flushes_write_log(self) -> None:
+        class CustomLoggerMock:
+            def __init__(self):
+                self.logs = []
+                self.handlers = []
+            def addHandler(self, h):
+                pass
+            def removeHandler(self, h):
+                pass
+            def write_log(self, msg, level):
+                self.logs.append((msg, level))
+
+        custom_logger = CustomLoggerMock()
+        bundle = LoggerBundle(
+            logger=custom_logger,
+            log_file="",
+            log_level=logging.INFO
+        )
+        logger = Logger(bundle)
+        logger.write_log("custom early", logging.INFO)
+        logger.set_stderr()
+        self.assertEqual(custom_logger.logs, [
+            ("custom early", logging.INFO),
+            ("custom early", logging.INFO)
+        ])
+
+    def test_set_stdout_logger_no_add_handler(self) -> None:
+        class MinimalLogger:
+            def __init__(self):
+                self.calls = []
+            def write_log(self, msg, level):
+                pass
+            def log(self, level, msg):
+                self.calls.append((msg, level))
+
+        minimal_logger = MinimalLogger()
+        bundle = LoggerBundle(
+            logger=minimal_logger,
+            log_file="",
+            log_level=logging.INFO
+        )
+        logger = Logger(bundle)
+        logger.write_log("early message", logging.INFO)
+        logger.set_stdout()
+        self.assertEqual(minimal_logger.calls, [("early message", logging.INFO)])
+
+    def test_set_stderr_logger_no_add_handler(self) -> None:
+        class MinimalLogger:
+            def __init__(self):
+                self.calls = []
+            def write_log(self, msg, level):
+                pass
+            def log(self, level, msg):
+                self.calls.append((msg, level))
+
+        minimal_logger = MinimalLogger()
+        bundle = LoggerBundle(
+            logger=minimal_logger,
+            log_file="",
+            log_level=logging.INFO
+        )
+        logger = Logger(bundle)
+        logger.write_log("early message", logging.INFO)
+        logger.set_stderr()
+        self.assertEqual(minimal_logger.calls, [("early message", logging.INFO)])
+
+    def test_set_stdout_logger_no_log_methods_flushes_nothing(self) -> None:
+        class DummyLogger:
+            def __init__(self):
+                self.handlers = []
+            def addHandler(self, h):
+                pass
+            def removeHandler(self, h):
+                pass
+            def debug(self, msg): pass
+            def info(self, msg): pass
+            def warning(self, msg): pass
+            def error(self, msg): pass
+            def critical(self, msg): pass
+
+        dummy_logger = DummyLogger()
+        bundle = LoggerBundle(
+            logger=dummy_logger,
+            log_file="",
+            log_level=logging.INFO
+        )
+        logger = Logger(bundle)
+        logger._early_logs_buffer.append(("msg", logging.INFO))
+        logger.set_stdout()
+        self.assertEqual(len(logger._early_logs_buffer), 0)
+
+    def test_set_stderr_logger_no_log_methods_flushes_nothing(self) -> None:
+        class DummyLogger:
+            def __init__(self):
+                self.handlers = []
+            def addHandler(self, h):
+                pass
+            def removeHandler(self, h):
+                pass
+            def debug(self, msg): pass
+            def info(self, msg): pass
+            def warning(self, msg): pass
+            def error(self, msg): pass
+            def critical(self, msg): pass
+
+        dummy_logger = DummyLogger()
+        bundle = LoggerBundle(
+            logger=dummy_logger,
+            log_file="",
+            log_level=logging.INFO
+        )
+        logger = Logger(bundle)
+        logger._early_logs_buffer.append(("msg", logging.INFO))
+        logger.set_stderr()
+        self.assertEqual(len(logger._early_logs_buffer), 0)
 
 
 if __name__ == "__main__":

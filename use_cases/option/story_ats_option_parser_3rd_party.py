@@ -28,7 +28,7 @@ from typing import Any
 from fire import Fire  # type: ignore
 
 from ats_utilities.context.context_registry import ContextRegistry
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.option.engine import OptionManager
@@ -47,7 +47,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class MyAppFireStrategy(IParserStrategy):
+class MyAppFireStrategy(IParserStrategy, ContextSupport):
     '''
         Define class MyAppFireStrategy with attribute(s) and method(s).
         3rd party option parser based on Fire.
@@ -73,7 +73,7 @@ class MyAppFireStrategy(IParserStrategy):
             :type component_bundle: <ParserStrategyBundle>
             :exceptions: None.
         '''
-        inject_context_bundle(self, component_bundle.context_bundle)
+        ContextSupport.__init__(self, component_bundle.context_bundle)
         self._target = types.SimpleNamespace()
 
     def add_argument(self, *args: str, **kwargs: Any) -> None:

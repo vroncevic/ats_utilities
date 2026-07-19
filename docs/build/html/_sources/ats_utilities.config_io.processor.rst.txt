@@ -10,6 +10,7 @@ Submodules
    ats_utilities.config_io.processor.cfg_processor
    ats_utilities.config_io.processor.factory_processor
    ats_utilities.config_io.processor.iconfig_processor
+   ats_utilities.config_io.processor.ifactory_processor
    ats_utilities.config_io.processor.ini_processor
    ats_utilities.config_io.processor.json_processor
    ats_utilities.config_io.processor.xml_processor

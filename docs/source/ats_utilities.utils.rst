@@ -12,6 +12,7 @@ Submodules
    ats_utilities.utils.dicts
    ats_utilities.utils.dirs
    ats_utilities.utils.files
+   ats_utilities.utils.iregistry
    ats_utilities.utils.reflection
 
 Module contents

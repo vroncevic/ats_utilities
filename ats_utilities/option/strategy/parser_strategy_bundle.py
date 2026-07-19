@@ -30,7 +30,7 @@ from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.option.parser.iarg_parser import IArgParser
 from ats_utilities.option.parser.engine import ArgParser
 from ats_utilities.validation.check_type import istype
-from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_value import not_none, not_satisfied
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -82,13 +82,36 @@ class ParserStrategyBundle:
             Validates strategy bundle.
             Performs validation of all bundle attributes.
         '''
-        not_none(self.parameters, r'parameters must be provided')
-        not_none(self.context_bundle, r'context bundle must be provided')
-        not_none(self.parser_class, r'parser class must be provided')
-        istype(self.parameters, Mapping, r'parameters must be a Mapping[str, str] instance')
-        istype(self.context_bundle, ContextBundle, r'context bundle must be a ContextBundle instance')
-        if not isinstance(self.parser_class, type) or not issubclass(self.parser_class, IArgParser):
-            raise TypeError(r'parser class must be a class implementing IArgParser')
+        not_none(
+            self.parameters,
+            r'parser_strategy_bundle::validate(...)',
+            r'parameters must be provided'
+        )
+        not_none(
+            self.context_bundle,
+            r'parser_strategy_bundle::validate(...)',
+            r'context bundle must be provided'
+        )
+        not_none(
+            self.parser_class,
+            r'parser_strategy_bundle::validate(...)',
+            r'parser class must be provided'
+        )
+        istype(
+            self.parameters, Mapping,
+            r'parser_strategy_bundle::validate(...)',
+            r'parameters must be a Mapping[str, str] instance'
+        )
+        istype(
+            self.context_bundle, ContextBundle,
+            r'parser_strategy_bundle::validate(...)',
+            r'context bundle must be a ContextBundle instance'
+        )
+        not_satisfied(
+            not isinstance(self.parser_class, type) and not issubclass(self.parser_class, IArgParser),
+            r'parser_strategy_bundle::validate(...)',
+            r'parser class must be a class implementing IArgParser'
+        )
 
     def to_dict(self) -> dict[str, Any]:
         '''

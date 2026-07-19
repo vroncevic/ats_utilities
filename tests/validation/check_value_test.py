@@ -67,10 +67,10 @@ class CheckValueTest(unittest.TestCase):
             :exceptions: None.
         '''
         try:
-            not_none(1)
-            not_none("test")
-            not_none([])
-            not_none(False)
+            not_none(1, 'checkvaluetest::test_not_none_valid')
+            not_none("test", 'checkvaluetest::test_not_none_valid')
+            not_none([], 'checkvaluetest::test_not_none_valid')
+            not_none(False, 'checkvaluetest::test_not_none_valid')
         except ATSValueError:
             self.fail("not_none raised ATSValueError unexpectedly for non-None values.")
 
@@ -81,7 +81,7 @@ class CheckValueTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError) as ctx:
-            not_none(None)
+            not_none(None, 'checkvaluetest::test_not_none_invalid')
         self.assertIn("value must not be None", str(ctx.exception))
 
     def test_not_none_custom_exception(self) -> None:
@@ -91,7 +91,7 @@ class CheckValueTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ValueError):
-            not_none(None, exception_class=ValueError)
+            not_none(None, 'checkvaluetest::test_not_none_custom_exception', exc_class=ValueError)
 
     def test_not_none_custom_message(self) -> None:
         '''
@@ -100,7 +100,7 @@ class CheckValueTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError) as ctx:
-            not_none(None, exc_message="custom error msg")
+            not_none(None, 'checkvaluetest::test_not_none_custom_message', exc_message="custom error msg")
         self.assertIn("checkvaluetest::test_not_none_custom_message - custom error msg", str(ctx.exception))
 
     def test_not_empty_valid(self) -> None:
@@ -110,11 +110,9 @@ class CheckValueTest(unittest.TestCase):
             :exceptions: None.
         '''
         try:
-            not_empty(1)
-            not_empty("test")
-            not_empty([1])
-            not_empty(0)
-            not_empty(False)
+            not_empty(1, 'checkvaluetest::test_not_empty_valid')
+            not_empty("test", 'checkvaluetest::test_not_empty_valid')
+            not_empty([1], 'checkvaluetest::test_not_empty_valid')
         except ATSValueError:
             self.fail("not_empty raised ATSValueError unexpectedly for non-empty values.")
 
@@ -125,20 +123,35 @@ class CheckValueTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError) as ctx:
-            not_empty("")
+            not_empty("", 'checkvaluetest::test_not_empty_invalid')
         self.assertIn("value must not be empty", str(ctx.exception))
 
         with self.assertRaises(ATSValueError):
-            not_empty([])
+            not_empty([], 'checkvaluetest::test_not_empty_invalid')
 
         with self.assertRaises(ATSValueError):
-            not_empty({})
+            not_empty({}, 'checkvaluetest::test_not_empty_invalid')
 
         with self.assertRaises(ATSValueError):
-            not_empty(())
+            not_empty((), 'checkvaluetest::test_not_empty_invalid')
 
         with self.assertRaises(ATSValueError):
-            not_empty(None)
+            not_empty(None, 'checkvaluetest::test_not_empty_invalid')
+
+    def test_not_empty_allow_flags(self) -> None:
+        """Tests not_empty with allow_zero and allow_false flags."""
+        # By default, allow_zero and allow_false are True, so they do NOT raise errors
+        try:
+            not_empty(0, 'checkvaluetest::test_not_empty_allow_flags')
+            not_empty(False, 'checkvaluetest::test_not_empty_allow_flags')
+        except ATSValueError:
+            self.fail("not_empty raised ATSValueError with default allow_zero/allow_false.")
+
+        # When set to False, they raise errors
+        with self.assertRaises(ATSValueError):
+            not_empty(0, 'checkvaluetest::test_not_empty_allow_flags', allow_zero=False)
+        with self.assertRaises(ATSValueError):
+            not_empty(False, 'checkvaluetest::test_not_empty_allow_flags', allow_false=False)
 
     def test_not_empty_custom_exception(self) -> None:
         '''
@@ -147,7 +160,7 @@ class CheckValueTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ValueError):
-            not_empty("", exception_class=ValueError)
+            not_empty("", 'checkvaluetest::test_not_empty_custom_exception', exc_class=ValueError)
 
     def test_not_empty_custom_message(self) -> None:
         '''
@@ -156,7 +169,7 @@ class CheckValueTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError) as ctx:
-            not_empty("", exc_message="custom error msg")
+            not_empty("", 'checkvaluetest::test_not_empty_custom_message', exc_message="custom error msg")
         self.assertIn("checkvaluetest::test_not_empty_custom_message - custom error msg", str(ctx.exception))
 
     def test_not_satisfied_valid(self) -> None:
@@ -166,7 +179,7 @@ class CheckValueTest(unittest.TestCase):
             :exceptions: None.
         '''
         try:
-            not_satisfied(False)
+            not_satisfied(False, 'checkvaluetest::test_not_satisfied_valid')
         except ATSValueError:
             self.fail("not_satisfied raised ATSValueError unexpectedly for False status.")
 
@@ -177,7 +190,7 @@ class CheckValueTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError) as ctx:
-            not_satisfied(True)
+            not_satisfied(True, 'checkvaluetest::test_not_satisfied_invalid')
         self.assertIn("condition not satisfied", str(ctx.exception))
 
     def test_not_satisfied_custom_exception(self) -> None:
@@ -187,7 +200,7 @@ class CheckValueTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ValueError):
-            not_satisfied(True, exception_class=ValueError)
+            not_satisfied(True, 'checkvaluetest::test_not_satisfied_custom_exception', exc_class=ValueError)
 
     def test_not_satisfied_custom_message(self) -> None:
         '''
@@ -196,7 +209,7 @@ class CheckValueTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError) as ctx:
-            not_satisfied(True, exc_message="custom error msg")
+            not_satisfied(True, 'checkvaluetest::test_not_satisfied_custom_message', exc_message="custom error msg")
         self.assertIn("checkvaluetest::test_not_satisfied_custom_message - custom error msg", str(ctx.exception))
 
 

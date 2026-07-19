@@ -28,8 +28,9 @@ from re import findall
 from functools import wraps
 from typing import Any, cast
 
+from ats_utilities.context.icontext_support import IContextSupport
 from ats_utilities.validation.context_error import raise_error
-from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSValueError
+from ats_utilities.exceptions import ATSRuntimeError, ATSValueError
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -61,11 +62,11 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
 
     if not message_templates:
         raise_error(
-            fallback_prefix=r'vreport::decorator',
+            fallback_context=r'vreport::decorator',
             fallback_msg=r'Decorator @vreport requires at least one argument',
+            exc_context=r'vreport::decorator',
             exc_message=None,
-            exception_class=ATSValueError,
-            depth=3
+            exc_class=ATSValueError
         )
 
     def decorator(func: F) -> F:
@@ -75,34 +76,36 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
 
             if self_instance is None:
                 raise_error(
-                    fallback_prefix=r'vreport::decorator',
+                    fallback_context=r'vreport::decorator',
                     fallback_msg=f'Decorator @vreport on {func.__name__} can only be used on class methods',
+                    exc_context=r'vreport::decorator',
                     exc_message=None,
-                    exception_class=ATSRuntimeError,
-                depth=3
-            )
+                    exc_class=ATSRuntimeError
+                )
 
             class_name = self_instance.__class__.__name__
+            context = f'{class_name.lower()}::{func.__name__}'
 
-            # BORROWING: Extracting reporter from the instance
-            reporter = getattr(
-                self_instance, '_reporter',
-                getattr(self_instance, f'_{class_name}_reporter', None)
-            )
-
-            # BORROWING: Extracting verbose flag from the instance
-            is_verbose = getattr(
-                self_instance, '_verbose',
-                getattr(self_instance, f'_{class_name}_verbose', False)
-            )
+            if isinstance(self_instance, IContextSupport):
+                reporter = self_instance.reporter
+                is_verbose = self_instance.verbose
+            else:
+                reporter = getattr(
+                    self_instance, '_reporter',
+                    getattr(self_instance, f'_{class_name}_reporter', None)
+                )
+                is_verbose = getattr(
+                    self_instance, '_verbose',
+                    getattr(self_instance, f'_{class_name}_verbose', False)
+                )
 
             if reporter is None:
                 raise_error(
-                    fallback_prefix=r'vreport::decorator',
-                    fallback_msg=f'Class {class_name} is required to provide a _reporter object to use the @vreport decorator',
+                    fallback_context=r'vreport::decorator',
+                    fallback_msg=f'Class {class_name} must provide a reporter to use @vreport decorator',
+                    exc_context=context,
                     exc_message=None,
-                    exception_class=ATSAttributeError,
-                    depth=3
+                    exc_class=ATSRuntimeError
                 )
 
             # Executing the original method first to get updated state (critical for setters)

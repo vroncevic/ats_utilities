@@ -68,16 +68,13 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.option.strategy.parser_strategy_bundle</span> <span class="kn">import</span> <span class="n">ParserStrategyBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.strategy.iparser_strategy</span> <span class="kn">import</span> <span class="n">IParserStrategy</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.parser.iarg_parser</span> <span class="kn">import</span> <span class="n">IArgParser</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.parser.parser_registry</span> <span class="kn">import</span> <span class="n">ParserRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptionNamespace</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptArgs</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">KnownArgs</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.command.ioption_command</span> <span class="kn">import</span> <span class="n">IOptionCommand</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle_inject</span> <span class="kn">import</span> <span class="n">inject_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_support</span> <span class="kn">import</span> <span class="n">ContextSupport</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">has_attrs</span><span class="p">,</span> <span class="n">to_str</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span>
@@ -94,7 +91,7 @@
 
 <div class="viewcode-block" id="ParserStrategy">
 <a class="viewcode-back" href="../../../../ats_utilities.option.strategy.engine.html#ats_utilities.option.strategy.engine.ParserStrategy">[docs]</a>
-<span class="k">class</span> <span class="nc">ParserStrategy</span><span class="p">(</span><span class="n">IParserStrategy</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ParserStrategy</span><span class="p">(</span><span class="n">ContextSupport</span><span class="p">,</span> <span class="n">IParserStrategy</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ParserStrategy with attribute(s) and method(s).</span>
 <span class="sd">        Default built-in strategy using Python&#39;s standard argparse module.</span>
@@ -105,10 +102,6 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
-<span class="sd">                | _logger - Injected logger (default Logger).</span>
-<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
-<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _shared_context - Shared context for components.</span>
 <span class="sd">                | _parser - Options parser.</span>
 <span class="sd">                | _parser_class - Injected parser class.</span>
@@ -124,10 +117,6 @@
 <span class="sd">                | __str__ - Returns the string representation of ParserStrategy.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
-    <span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span>
-    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
-    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">_shared_context</span><span class="p">:</span> <span class="n">ContextBundle</span>
     <span class="n">_parser</span><span class="p">:</span> <span class="n">IArgParser</span>
     <span class="n">_parser_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">IArgParser</span><span class="p">]</span>
@@ -147,15 +136,31 @@
 <span class="sd">                | ATSTypeError: Context bundle must be an instance of ContextBundle.</span>
 <span class="sd">                | ATSTypeError: Parser must be an IArgParser instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="n">component_bundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;component_bundle must be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">component_bundle</span><span class="p">,</span> <span class="n">ParserStrategyBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;component_bundle must be a ParserStrategyBundle instance&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">component_bundle</span><span class="o">.</span><span class="n">parser_class</span><span class="p">,</span> <span class="nb">type</span><span class="p">[</span><span class="n">IArgParser</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;parser_class must be a type[IArgParser]&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="n">component_bundle</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;parser_strategy::init(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;component_bundle must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="n">component_bundle</span><span class="p">,</span> <span class="n">ParserStrategyBundle</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;parser_strategy::init(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;component_bundle must be a ParserStrategyBundle instance&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="n">component_bundle</span><span class="o">.</span><span class="n">parser_class</span><span class="p">,</span> <span class="nb">type</span><span class="p">[</span><span class="n">IArgParser</span><span class="p">],</span>
+            <span class="sa">r</span><span class="s1">&#39;parser_strategy::init(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;parser_class must be a type[IArgParser]&#39;</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">context_bundle</span>
-        <span class="n">inject_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span><span class="p">)</span>
+        <span class="n">ContextSupport</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser_class</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">parser_class</span>
         <span class="n">parser_bundle</span> <span class="o">=</span> <span class="n">ParserRegistry</span><span class="o">.</span><span class="n">create_parser_bundle_from_dict</span><span class="p">(</span><span class="n">component_bundle</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser_class</span><span class="p">(</span><span class="n">component_bundle</span><span class="o">=</span><span class="n">parser_bundle</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">,</span> <span class="n">IArgParser</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;parser must be an IArgParser instance&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">,</span> <span class="n">IArgParser</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;parser_strategy::init(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;parser must be an IArgParser instance&#39;</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="ParserStrategy.add_argument">
 <a class="viewcode-back" href="../../../../ats_utilities.option.strategy.engine.html#ats_utilities.option.strategy.engine.ParserStrategy.add_argument">[docs]</a>

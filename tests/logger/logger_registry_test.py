@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import logging
 import unittest
+from unittest.mock import patch, MagicMock
 
 from ats_utilities.logger.logger_bundle import LoggerBundle
 from ats_utilities.logger.logger_registry import LoggerRegistry
@@ -58,6 +59,48 @@ class LoggerRegistryTest(unittest.TestCase):
         self.assertEqual(bundle.log_file, "test_registry.log")
         self.assertEqual(bundle.log_level, logging.WARNING)
         self.assertIsInstance(bundle.logger, logging.Logger)
+
+    def test_create_default_logger_bundle_without_parameters(self) -> None:
+        bundle = LoggerRegistry.create_default_logger_bundle()
+        self.assertIsInstance(bundle, LoggerBundle)
+        self.assertEqual(bundle.log_file, "")
+        self.assertEqual(bundle.log_level, logging.INFO)
+
+    def test_create_bundle(self) -> None:
+        bundle = LoggerRegistry.create_bundle(
+            log_file="test_registry.log",
+            log_level=logging.WARNING
+        )
+        self.assertIsInstance(bundle, LoggerBundle)
+        self.assertEqual(bundle.log_file, "test_registry.log")
+        self.assertEqual(bundle.log_level, logging.WARNING)
+        self.assertIsInstance(bundle.logger, logging.Logger)
+
+    @patch("ats_utilities.logger.logger_registry.getLogger")
+    def test_create_default_logger_bundle_configures_stream(self, mock_get_logger) -> None:
+        mock_logger = MagicMock()
+        mock_logger.hasHandlers.return_value = False
+        mock_get_logger.return_value = mock_logger
+
+        with patch("ats_utilities.logger.logger_registry.basicConfig") as mock_basic_config:
+            bundle = LoggerRegistry.create_default_logger_bundle(log_file=None)
+            mock_basic_config.assert_called_once()
+            args, kwargs = mock_basic_config.call_args
+            self.assertIn('stream', kwargs)
+            self.assertNotIn('filename', kwargs)
+
+    @patch("ats_utilities.logger.logger_registry.getLogger")
+    def test_create_default_logger_bundle_configures_filename(self, mock_get_logger) -> None:
+        mock_logger = MagicMock()
+        mock_logger.hasHandlers.return_value = False
+        mock_get_logger.return_value = mock_logger
+
+        with patch("ats_utilities.logger.logger_registry.basicConfig") as mock_basic_config:
+            bundle = LoggerRegistry.create_default_logger_bundle(log_file="test_file.log")
+            mock_basic_config.assert_called_once()
+            args, kwargs = mock_basic_config.call_args
+            self.assertIn('filename', kwargs)
+            self.assertNotIn('stream', kwargs)
 
 
 if __name__ == "__main__":

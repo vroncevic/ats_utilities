@@ -27,10 +27,7 @@ from typing import Any, override
 
 from ats_utilities.project_setup.ipro_config import IProConfig
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -45,7 +42,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ProConfig(IProConfig):
+class ProConfig(ContextSupport, IProConfig):
     '''
         Defines class ProConfig with attribute(s) and method(s).
         Defines project configuration container.
@@ -57,10 +54,6 @@ class ProConfig(IProConfig):
                 | TEMPLATES - Templates key used for processing template files.
                 | MODULES - Modules key used for processing template files.
                 | FORMAT - Format for template file extension.
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger for logging (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _config - Tool configuration in dictionary format (default None).
             :methods:
                 | __init__ - Initializes ProConfig constructor.
@@ -72,10 +65,6 @@ class ProConfig(IProConfig):
     TEMPLATES: str = 'templates'
     MODULES: str = 'modules'
     FORMAT: str = 'template'
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
     _config: Mapping[str, Any] | None
 
     def __init__(self, context_bundle: ContextBundle) -> None:
@@ -88,7 +77,7 @@ class ProConfig(IProConfig):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        inject_context_bundle(self, context_bundle)
+        ContextSupport.__init__(self, context_bundle)
         self._config = None
 
     @property

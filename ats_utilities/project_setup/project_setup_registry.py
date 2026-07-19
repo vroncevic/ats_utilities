@@ -52,6 +52,7 @@ class ProjectSetupRegistry(IRegistry[ProjectSetupBundle]):
                 | create_default_project_setup_bundle - Creates a default ProjectSetupBundle.
     '''
 
+    @classmethod
     @override
     def create_bundle(cls, **kwargs: Any) -> ProjectSetupBundle:
         '''
