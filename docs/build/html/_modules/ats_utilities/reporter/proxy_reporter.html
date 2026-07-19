@@ -66,8 +66,9 @@
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span>
 
+<span class="kn">from</span> <span class="nn">ats_utilities.context.icontext_support</span> <span class="kn">import</span> <span class="n">IContextSupport</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.context_error</span> <span class="kn">import</span> <span class="n">raise_error</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSValueError</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -101,11 +102,11 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">message_templates</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vreport::decorator&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vreport::decorator&#39;</span><span class="p">,</span>
             <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Decorator @vreport requires at least one argument&#39;</span><span class="p">,</span>
+            <span class="n">exc_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vreport::decorator&#39;</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSValueError</span><span class="p">,</span>
-            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+            <span class="n">exc_class</span><span class="o">=</span><span class="n">ATSValueError</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">F</span><span class="p">:</span>
@@ -115,34 +116,36 @@
 
             <span class="k">if</span> <span class="n">self_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">raise_error</span><span class="p">(</span>
-                    <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vreport::decorator&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vreport::decorator&#39;</span><span class="p">,</span>
                     <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Decorator @vreport on </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> can only be used on class methods&#39;</span><span class="p">,</span>
+                    <span class="n">exc_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vreport::decorator&#39;</span><span class="p">,</span>
                     <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                    <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSRuntimeError</span><span class="p">,</span>
-                <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
-            <span class="p">)</span>
+                    <span class="n">exc_class</span><span class="o">=</span><span class="n">ATSRuntimeError</span>
+                <span class="p">)</span>
 
             <span class="n">class_name</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">class_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s1">::</span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span>
 
-            <span class="c1"># BORROWING: Extracting reporter from the instance</span>
-            <span class="n">reporter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
-                <span class="n">self_instance</span><span class="p">,</span> <span class="s1">&#39;_reporter&#39;</span><span class="p">,</span>
-                <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">_reporter&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="p">)</span>
-
-            <span class="c1"># BORROWING: Extracting verbose flag from the instance</span>
-            <span class="n">is_verbose</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
-                <span class="n">self_instance</span><span class="p">,</span> <span class="s1">&#39;_verbose&#39;</span><span class="p">,</span>
-                <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">_verbose&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="n">IContextSupport</span><span class="p">):</span>
+                <span class="n">reporter</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="n">reporter</span>
+                <span class="n">is_verbose</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="n">verbose</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">reporter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+                    <span class="n">self_instance</span><span class="p">,</span> <span class="s1">&#39;_reporter&#39;</span><span class="p">,</span>
+                    <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">_reporter&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">is_verbose</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+                    <span class="n">self_instance</span><span class="p">,</span> <span class="s1">&#39;_verbose&#39;</span><span class="p">,</span>
+                    <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">_verbose&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">reporter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">raise_error</span><span class="p">(</span>
-                    <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vreport::decorator&#39;</span><span class="p">,</span>
-                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Class </span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1"> is required to provide a _reporter object to use the @vreport decorator&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vreport::decorator&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Class </span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1"> must provide a reporter to use @vreport decorator&#39;</span><span class="p">,</span>
+                    <span class="n">exc_context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
                     <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                    <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSAttributeError</span><span class="p">,</span>
-                    <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+                    <span class="n">exc_class</span><span class="o">=</span><span class="n">ATSRuntimeError</span>
                 <span class="p">)</span>
 
             <span class="c1"># Executing the original method first to get updated state (critical for setters)</span>

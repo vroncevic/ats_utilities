@@ -18,22 +18,18 @@ class TestTemplateProcessor(unittest.TestCase):
         self.sample_text_bytes = b"Hello, $name! Welcome to $project."
         self.sample_vals = {"name": "Alice", "project": "ATS"}
 
-    @patch("ats_utilities.generator.template.engine.inject_context_bundle")
-    def test_initialization(self, mock_inject: MagicMock) -> None:
+    def test_initialization(self) -> None:
         """Test successful initialization and verification of context injection."""
         processor = TemplateProcessor(self.mock_context_bundle)
 
         self.assertTrue(processor._initialized)
-        mock_inject.assert_called_once_with(processor, self.mock_context_bundle)
 
-    @patch("ats_utilities.generator.template.engine.inject_context_bundle")
-    def test_is_initialized_returns_true(self, mock_inject: MagicMock) -> None:
+    def test_is_initialized_returns_true(self) -> None:
         """Test that is_initialized returns True when the processor is ready."""
         processor = TemplateProcessor(self.mock_context_bundle)
         self.assertTrue(processor.is_initialized())
 
-    @patch("ats_utilities.generator.template.engine.inject_context_bundle")
-    def test_render_with_valid_utf8_template(self, mock_inject: MagicMock) -> None:
+    def test_render_with_valid_utf8_template(self) -> None:
         """Test template rendering with valid UTF-8 content and exact variable matching."""
         processor = TemplateProcessor(self.mock_context_bundle)
         
@@ -42,8 +38,7 @@ class TestTemplateProcessor(unittest.TestCase):
         self.assertIsInstance(result, str)
         self.assertEqual(result, "Hello, Alice! Welcome to ATS.")
 
-    @patch("ats_utilities.generator.template.engine.inject_context_bundle")
-    def test_render_uses_safe_substitution_on_missing_placeholders(self, mock_inject: MagicMock) -> None:
+    def test_render_uses_safe_substitution_on_missing_placeholders(self) -> None:
         """Test that placeholders missing from the mapping are left intact without raising KeyError."""
         processor = TemplateProcessor(self.mock_context_bundle)
         incomplete_vals = {"name": "Bob"}  # 'project' is intentionally omitted
@@ -53,8 +48,7 @@ class TestTemplateProcessor(unittest.TestCase):
         self.assertIsInstance(result, str)
         self.assertEqual(result, "Hello, Bob! Welcome to $project.")
 
-    @patch("ats_utilities.generator.template.engine.inject_context_bundle")
-    def test_render_fallback_on_binary_or_corrupted_bytes(self, mock_inject: MagicMock) -> None:
+    def test_render_fallback_on_binary_or_corrupted_bytes(self) -> None:
         """Test that text rendering gracefully returns original bytes when decoding fails."""
         processor = TemplateProcessor(self.mock_context_bundle)
         # 0x80 is an invalid stand-alone byte sequence in UTF-8
@@ -67,8 +61,7 @@ class TestTemplateProcessor(unittest.TestCase):
         self.assertEqual(result, corrupted_binary_data)
 
     @patch("ats_utilities.generator.template.engine.to_str")
-    @patch("ats_utilities.generator.template.engine.inject_context_bundle")
-    def test_string_representation(self, mock_inject: MagicMock, mock_to_str: MagicMock) -> None:
+    def test_string_representation(self, mock_to_str: MagicMock) -> None:
         """Test that __str__ delegates tracking cleanly to reflection serialization utilities."""
         processor = TemplateProcessor(self.mock_context_bundle)
         mock_to_str.return_value = "TemplateProcessor{initialized=True}"

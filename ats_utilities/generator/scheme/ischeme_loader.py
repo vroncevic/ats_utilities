@@ -22,6 +22,8 @@ Info
 
 from __future__ import annotations
 
+from ats_utilities.context.icontext_support import IContextSupport
+
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -37,7 +39,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ISchemeLoader(ABC):
+class ISchemeLoader(IContextSupport, ABC):
     '''
         Defines abstract class ISchemeLoader with method(s).
         Interface for loading/resolving generation scheme.

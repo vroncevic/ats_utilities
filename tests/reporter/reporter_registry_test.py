@@ -58,6 +58,13 @@ class ReporterRegistryTest(unittest.TestCase):
         self.assertIsInstance(bundle.theme, ConsoleTheme)
         self.assertIsInstance(bundle.logger, Logger)
 
+    def test_create_bundle(self) -> None:
+        bundle = ReporterRegistry.create_bundle()
+        self.assertIsInstance(bundle, ReporterBundle)
+        self.assertIsInstance(bundle.checker, Checker)
+        self.assertIsInstance(bundle.theme, ConsoleTheme)
+        self.assertIsInstance(bundle.logger, Logger)
+
 
 if __name__ == "__main__":
     unittest.main()

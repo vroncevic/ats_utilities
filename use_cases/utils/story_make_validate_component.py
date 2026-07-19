@@ -69,9 +69,9 @@ class TestComponent:
 
         :exceptions: None.
         '''
-        validate_component(self.checker, IChecker, 'checker should be of type IChecker')
-        validate_component(self.theme, IConsoleTheme, 'theme should be of type IConsoleTheme')
-        validate_component(self.reporter, IReporter, 'reporter should be of type IReporter')
+        validate_component(self.checker, IChecker, 'testcomponent::validate', 'checker should be of type IChecker')
+        validate_component(self.theme, IConsoleTheme, 'testcomponent::validate', 'theme should be of type IConsoleTheme')
+        validate_component(self.reporter, IReporter, 'testcomponent::validate', 'reporter should be of type IReporter')
 
     def wrong_validate(self) -> None:
         '''
@@ -79,9 +79,9 @@ class TestComponent:
 
         :exceptions: None.
         '''
-        validate_component(self.checker, IChecker, 'checker should be of type IChecker')
-        validate_component(self.theme, IConsoleTheme, 'theme should be of type IConsoleTheme')
-        validate_component(self.reporter, int, 'reporter should be of type IReporter')
+        validate_component(self.checker, IChecker, 'testcomponent::wrong_validate', 'checker should be of type IChecker')
+        validate_component(self.theme, IConsoleTheme, 'testcomponent::wrong_validate', 'theme should be of type IConsoleTheme')
+        validate_component(self.reporter, int, 'testcomponent::wrong_validate', 'reporter should be of type IReporter')
 
     def run_message(self, message: Sequence[str]) -> None:
         """

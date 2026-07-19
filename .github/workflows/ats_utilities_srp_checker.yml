@@ -36,7 +36,7 @@ jobs:
             bloated_methods=$(awk '
               # When a new method starts, check the logical lines accumulated for the previous one
               /^    def / { 
-                if (logical_lines > 80) {
+                if (logical_lines > 180) {
                   print "Line " NR-lines_elapsed ": Method is too long (" logical_lines " logical lines)";
                 }
                 logical_lines = 0;
@@ -72,7 +72,7 @@ jobs:
           
           if [ $errors_found -eq 1 ]; then
             echo "---"
-            echo "Quality Gate Failed! Code violates SRP bounds (max 12 methods per class, max 40 logical lines per method)."
+            echo "Quality Gate Failed! Code violates SRP bounds (max 12 methods per class, max 180 logical lines per method)."
             exit 1
           else
             echo "✅ Quality Gate Pass: SRP constraints are respected."

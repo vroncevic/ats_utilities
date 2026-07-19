@@ -116,7 +116,12 @@
 <span class="sd">                | ATSTypeError: Palette must be a dictionary.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">palette</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">istype</span><span class="p">(</span><span class="n">palette</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;palette must be a dictionary&#39;</span><span class="p">)</span>
+            <span class="n">istype</span><span class="p">(</span>
+                <span class="n">palette</span><span class="p">,</span>
+                <span class="nb">dict</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s1">&#39;console_theme::init(...)&#39;</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s1">&#39;palette must be a dictionary&#39;</span>
+            <span class="p">)</span>
 
         <span class="c1"># No dependency injection then use default ones.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_palette</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">(</span><span class="n">palette</span><span class="p">)</span> <span class="k">if</span> <span class="n">palette</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_PALETTE_COLORS</span>
@@ -139,9 +144,21 @@
 <span class="sd">                | ATSTypeError: Color type must be a string.</span>
 <span class="sd">                | ATSValueError: Color type not found in palette.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="n">color_type</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;color type must be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">color_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;color type must be a string&#39;</span><span class="p">)</span>
-        <span class="n">not_satisfied</span><span class="p">(</span><span class="n">color_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_palette</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;color type </span><span class="si">{</span><span class="n">color_type</span><span class="si">}</span><span class="s1"> not found in palette&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="n">color_type</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;console_theme::get_color(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;color type must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="n">color_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;console_theme::get_color(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;color type must be a string&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_satisfied</span><span class="p">(</span>
+            <span class="n">color_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_palette</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;console_theme::get_color(...)&#39;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s1">&#39;color type </span><span class="si">{</span><span class="n">color_type</span><span class="si">}</span><span class="s1"> not found in palette&#39;</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_palette</span><span class="p">[</span><span class="n">color_type</span><span class="p">]</span></div>
 

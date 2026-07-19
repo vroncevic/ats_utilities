@@ -65,10 +65,7 @@
 
 <span class="kn">from</span> <span class="nn">ats_utilities.project_setup.ipro_config</span> <span class="kn">import</span> <span class="n">IProConfig</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle_inject</span> <span class="kn">import</span> <span class="n">inject_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_support</span> <span class="kn">import</span> <span class="n">ContextSupport</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">mcheck</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreport</span>
@@ -85,7 +82,7 @@
 
 <div class="viewcode-block" id="ProConfig">
 <a class="viewcode-back" href="../../../ats_utilities.project_setup.pro_config.html#ats_utilities.project_setup.pro_config.ProConfig">[docs]</a>
-<span class="k">class</span> <span class="nc">ProConfig</span><span class="p">(</span><span class="n">IProConfig</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ProConfig</span><span class="p">(</span><span class="n">ContextSupport</span><span class="p">,</span> <span class="n">IProConfig</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ProConfig with attribute(s) and method(s).</span>
 <span class="sd">        Defines project configuration container.</span>
@@ -97,10 +94,6 @@
 <span class="sd">                | TEMPLATES - Templates key used for processing template files.</span>
 <span class="sd">                | MODULES - Modules key used for processing template files.</span>
 <span class="sd">                | FORMAT - Format for template file extension.</span>
-<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
-<span class="sd">                | _logger - Injected logger for logging (default Logger).</span>
-<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
-<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _config - Tool configuration in dictionary format (default None).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes ProConfig constructor.</span>
@@ -112,10 +105,6 @@
     <span class="n">TEMPLATES</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;templates&#39;</span>
     <span class="n">MODULES</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;modules&#39;</span>
     <span class="n">FORMAT</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;template&#39;</span>
-    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
-    <span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span>
-    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
-    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">_config</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -128,7 +117,7 @@
 <span class="sd">                | ATSValueError: Context bundle must be provided.</span>
 <span class="sd">                | ATSTypeError: Context bundle must be a ContextBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">inject_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
+        <span class="n">ContextSupport</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>

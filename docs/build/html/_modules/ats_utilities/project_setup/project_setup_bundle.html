@@ -138,14 +138,46 @@
 <span class="sd">                | ATSTypeError: Template directory must be an instance of ITemplateDir interface.</span>
 <span class="sd">                | ATSTypeError: Context bundle must be an instance of ContextBundle class.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pro_name</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;project name must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pro_config</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;project configuration must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_dir</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;template directory must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pro_name</span><span class="p">,</span> <span class="n">IProName</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;project name must be an instance of IProName interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pro_config</span><span class="p">,</span> <span class="n">IProConfig</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;project configuration must be an instance of IProConfig interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_dir</span><span class="p">,</span> <span class="n">ITemplateDir</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;template directory must be an instance of ITemplateDir interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be an instance of ContextBundle class&#39;</span><span class="p">)</span></div>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pro_name</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;project_setup_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;project name must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pro_config</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;project_setup_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;project configuration must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">template_dir</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;project_setup_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;template directory must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;project_setup_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;context bundle must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pro_name</span><span class="p">,</span> <span class="n">IProName</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;project_setup_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;project name must be an instance of IProName interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pro_config</span><span class="p">,</span> <span class="n">IProConfig</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;project_setup_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;project configuration must be an instance of IProConfig interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">template_dir</span><span class="p">,</span> <span class="n">ITemplateDir</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;project_setup_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;template directory must be an instance of ITemplateDir interface&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;project_setup_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;context bundle must be an instance of ContextBundle class&#39;</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ProjectSetupBundle.to_dict">

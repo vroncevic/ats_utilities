@@ -74,8 +74,9 @@ def has_required_keys(source: Mapping[Any, Any], keys: frozenset[str]) -> bool:
 def require_keys(
     source: Mapping[Any, Any],
     keys: frozenset[str],
+    exc_context: str | None = None,
     exc_message: str | None = None,
-    exception_class: type[BaseException] = ATSValueError
+    exc_class: type[BaseException] = ATSValueError
 ) -> None:
     '''
         Requires all keys to be present in the source dictionary.
@@ -84,32 +85,35 @@ def require_keys(
         :type source: <Mapping[Any, Any]>
         :param keys: Set of mandatory keys.
         :type keys: <frozenset[str]>
+        :param exc_context: Context representation in string format.
+        :type exc_context: <str | None>
         :param exc_message: Message to include in the exception message.
         :type exc_message: <str | None>
-        :param exception_class: The exception class to raise if value is None.
-        :type exception_class: <type[Exception]> (default ATSValueError)
+        :param exc_class: The exception class to raise if value is None.
+        :type exc_class: <type[BaseException]> (default ATSValueError)
         :exceptions:
             | ATSTypeError: Parameters (source and keys) types validation failed.
-            | Dynamically raises the provided exception_class (e.g., ATSValueError).
+            | Dynamically raises the provided exc_class (e.g., ATSValueError).
     '''
-    istype(source, Mapping, exc_message)
-    istype(keys, frozenset, exc_message)
+    istype(source, Mapping, exc_context, exc_message)
+    istype(keys, frozenset, exc_context, exc_message)
 
     if not has_required_keys(source, keys):
         missing = list(keys - frozenset(source.keys() if source else []))
 
         raise_error(
-            fallback_prefix=r'factory_dict_utils::require_keys',
+            fallback_context=r'dicts::require_keys(...)',
             fallback_msg=f'mapping is missing required keys: {missing}',
+            exc_context=exc_context,
             exc_message=exc_message,
-            exception_class=exception_class,
-            depth=3
+            exc_class=exc_class
         )
 
 
 def get_first_available(
     source: Mapping[Any, Any],
     keys: Sequence[Any],
+    exc_context: str | None = None,
     exc_message: str | None = None
 ) -> Any | None:
     '''
@@ -120,6 +124,8 @@ def get_first_available(
         :type source: <Mapping[Any, Any]>
         :param keys: Sequence of keys to check in order of priority.
         :type keys: <Sequence[Any]>
+        :param exc_context: Context representation in string format.
+        :type exc_context: <str | None>
         :param exc_message: Message to include in the exception message.
         :type exc_message: <str | None>
         :return: The first non-empty value found, or None if none of the keys exist/have value.
@@ -127,8 +133,8 @@ def get_first_available(
         :exceptions:
             | ATSTypeError: Parameters (source and keys) types validation failed.
     '''
-    istype(source, Mapping, exc_message)
-    istype(keys, Sequence, exc_message)
+    istype(source, Mapping, exc_context, exc_message)
+    istype(keys, Sequence, exc_context, exc_message)
 
     if not source or not keys:
         return None

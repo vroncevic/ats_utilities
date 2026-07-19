@@ -43,6 +43,39 @@ class TestConfFileRegistry(unittest.TestCase):
         # Ensure the factory returns the constructed ConfFileBundle instance
         self.assertEqual(result, mock_expected_bundle)
 
+    @patch("ats_utilities.config_io.conf_file_registry.ConfFileBundle")
+    def test_create_bundle(self, mock_bundle_cls: MagicMock) -> None:
+        """Test create_bundle delegates correctly to create_conf_file_bundle."""
+        mock_expected_bundle = MagicMock(spec=ConfFileBundle)
+        mock_bundle_cls.return_value = mock_expected_bundle
+
+        result = ConfFileRegistry.create_bundle(
+            file_path=self.mock_file_path,
+            file_mode=self.mock_file_mode,
+            context_bundle=self.mock_context_bundle
+        )
+
+        mock_bundle_cls.assert_called_once_with(
+            file_path=self.mock_file_path,
+            file_mode=self.mock_file_mode,
+            context_bundle=self.mock_context_bundle
+        )
+        self.assertEqual(result, mock_expected_bundle)
+
+    @patch("ats_utilities.config_io.conf_file_registry.ConfFile")
+    def test_create_conf_file(self, mock_conf_file_cls: MagicMock) -> None:
+        """Test create_conf_file instantiates ConfFile properly."""
+        mock_conf_file = MagicMock()
+        mock_conf_file_cls.return_value = mock_conf_file
+
+        result = ConfFileRegistry.create_conf_file(
+            file_path=self.mock_file_path,
+            file_mode=self.mock_file_mode,
+            context_bundle=self.mock_context_bundle
+        )
+
+        self.assertEqual(result, mock_conf_file)
+
 
 if __name__ == '__main__':
     unittest.main()

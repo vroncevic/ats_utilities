@@ -23,6 +23,8 @@ Info
 
 from __future__ import annotations
 
+from ats_utilities.context.icontext_support import IContextSupport
+
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -38,7 +40,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ILoader(ABC):
+class ILoader(IContextSupport, ABC):
     '''
         Defines abstract class ILoader with method(s).
         Creates an interface for loading the configuration from configuration reader.

@@ -97,6 +97,19 @@ class ContextProviderTest(unittest.TestCase):
         ctx = wrapper()
         self.assertIn("wrapper", ctx)
 
+    def test_get_context_decorated_wrapper_has_name(self) -> None:
+        provider = ContextProvider(stack_index_caller=1)
+
+        def my_func() -> None:
+            pass
+
+        def wrapper() -> str:
+            func = my_func
+            return provider.get_context()
+
+        ctx = wrapper()
+        self.assertIn("my_func", ctx)
+
     def test_str(self) -> None:
         provider = ContextProvider()
         self.assertIn("ContextProvider", str(provider))

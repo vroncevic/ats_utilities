@@ -86,13 +86,34 @@ class LoggerBundle:
                 | ATSTypeError: Log file must be a str instance.
                 | ATSTypeError: Log level must be an int instance.
         '''
-        not_none(self.logger, r'logger must be provided')
-        not_none(self.log_file, r'log file must be provided')
-        not_none(self.log_level, r'log level must be provided')
-        istype(self.log_file, str, r'log file must be a str instance')
-        istype(self.log_level, int, r'log level must be an int instance')
+        not_none(
+            self.logger,
+            r'logger_bundle::validate(...)',
+            r'logger must be provided'
+        )
+        not_none(
+            self.log_file,
+            r'logger_bundle::validate(...)',
+            r'log file must be provided'
+        )
+        not_none(
+            self.log_level,
+            r'logger_bundle::validate(...)',
+            r'log level must be provided'
+        )
+        istype(
+            self.log_file, str,
+            r'logger_bundle::validate(...)',
+            r'log file must be a str instance'
+        )
+        istype(
+            self.log_level, int,
+            r'logger_bundle::validate(...)',
+            r'log level must be an int instance'
+        )
         not_satisfied(
             not (hasattr(self.logger, 'info') or hasattr(self.logger, 'write_log')),
+            r'logger_bundle::validate(...)',
             r'logger must be an ILogger instance or a standard logging.Logger instance',
         )
 

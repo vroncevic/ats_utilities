@@ -59,6 +59,14 @@ class TestCFGProcessor(unittest.TestCase):
         processor.deserialize(content_with_spaces)
         self.assertEqual(processor.to_dict(), {"key_one": "value_one"})
 
+    def test_deserialize_ignores_lines_without_equals(self) -> None:
+        """Test that non-empty lines without an equals sign are ignored."""
+        processor = CFGProcessor()
+        content = "key_one = value_one\ninvalid_line_without_equals\n"
+        
+        processor.deserialize(content)
+        self.assertEqual(processor.to_dict(), {"key_one": "value_one"})
+
     def test_deserialize_fails_validation_scheme(self) -> None:
         """Test that deserialization reports failure if mandatory schema fields are missing."""
         processor = CFGProcessor(scheme=self.sample_scheme)

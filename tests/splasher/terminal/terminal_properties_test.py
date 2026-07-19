@@ -136,6 +136,16 @@ class TerminalPropertiesTest(unittest.TestCase):
         res = tp.size()
         self.assertEqual(res, (24, 80, 0, 0))
 
+    @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.ioctl_for_all_descriptors")
+    @patch("ats_utilities.splasher.terminal.terminal_properties.open")
+    def test_size_open_ctermid_raises_oserror_with_preexisting_window_size(self, mock_open: MagicMock, mock_ioctl_all: MagicMock) -> None:
+        context_bundle = ContextRegistry.create_default_context_bundle()
+        tp = TerminalProperties(context_bundle)
+        tp._window_size = (30, 90, 0, 0)
+        mock_open.side_effect = OSError("open failed")
+        res = tp.size()
+        self.assertEqual(res, (30, 90, 0, 0))
+
     def test_str(self) -> None:
         context_bundle = ContextRegistry.create_default_context_bundle()
         tp = TerminalProperties(context_bundle)

@@ -22,6 +22,8 @@ Info
 
 from __future__ import annotations
 
+from ats_utilities.context.icontext_support import IContextSupport
+
 from abc import ABC, abstractmethod
 from collections.abc import Sequence
 from typing import Any
@@ -42,7 +44,7 @@ __status__ = r'Development'
 type ArgSeq = Sequence[str] | None
 
 
-class IBase(ABC):
+class IBase(IContextSupport, ABC):
     '''
         Defines abstract class IBase with method(s).
         Interface for ATS base setup.

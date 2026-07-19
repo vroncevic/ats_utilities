@@ -21,6 +21,7 @@ Info
 
 from __future__ import annotations
 
+from sys import stdout
 from logging import Logger, getLogger, basicConfig, INFO
 from typing import Any, override
 
@@ -48,6 +49,7 @@ class LoggerRegistry(IRegistry[LoggerBundle]):
                 | create_default_logger_bundle - Creates a default LoggerBundle.
     '''
 
+    @classmethod
     @override
     def create_bundle(cls, **kwargs: Any) -> LoggerBundle:
         '''
@@ -71,12 +73,16 @@ class LoggerRegistry(IRegistry[LoggerBundle]):
         )
 
     @classmethod
-    def create_default_logger_bundle(cls, log_file: str = 'run.log', log_level: int = INFO) -> LoggerBundle:
+    def create_default_logger_bundle(
+        cls,
+        log_file: str | None = None,
+        log_level: int = INFO
+    ) -> LoggerBundle:
         '''
             Creates a default LoggerBundle with pre-configured components.
 
-            :param log_file: Path to the log file (default 'run.log').
-            :type log_file: <str>
+            :param log_file: Path to the log file (default None).
+            :type log_file: <str | None>
             :param log_level: Log level (default 20 - INFO).
             :type log_level: <int>
             :return: Default LoggerBundle instance.
@@ -87,9 +93,13 @@ class LoggerRegistry(IRegistry[LoggerBundle]):
             log_config: dict[str, Any] = {
                 'format': '%(asctime)s - %(levelname)s - %(message)s',
                 'datefmt': '%m/%d/%Y %I:%M:%S %p',
-                'level': log_level,
-                'filename': log_file
+                'level': log_level
             }
+
+            if log_file:
+                log_config['filename'] = log_file
+            else:
+                log_config['stream'] = stdout
 
             basicConfig(**log_config)
 
@@ -97,6 +107,6 @@ class LoggerRegistry(IRegistry[LoggerBundle]):
 
         return LoggerBundle(
             logger=logger,
-            log_file=log_file,
+            log_file=log_file or '',
             log_level=log_level
         )

@@ -25,6 +25,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Any
 
+from ats_utilities.context.icontext_support import IContextSupport
 from ats_utilities.option.parser.parser_bundle import ParserBundle
 from ats_utilities.option.option_namespace import OptionNamespace, OptArgs, KnownArgs
 
@@ -38,7 +39,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IArgParser(ABC):
+class IArgParser(IContextSupport, ABC):
     '''
         Defines abstract class IArgParser with method(s).
         Interface for custom argument parser.

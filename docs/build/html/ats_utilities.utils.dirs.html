@@ -68,20 +68,21 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="ats_utilities.utils.dirs.check_dir_exists">
-<span class="sig-prename descclassname"><span class="pre">ats_utilities.utils.dirs.</span></span><span class="sig-name descname"><span class="pre">check_dir_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_path:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/utils/dirs.html#check_dir_exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.utils.dirs.check_dir_exists" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.utils.dirs.</span></span><span class="sig-name descname"><span class="pre">check_dir_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_path:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_context:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/utils/dirs.html#check_dir_exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.utils.dirs.check_dir_exists" title="Link to this definition">¶</a></dt>
 <dd><p>Checks if a directory exists.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dir_path</strong> (<em>&lt;str&gt;</em>) – Path to the directory.</p></li>
+<li><p><strong>exc_context</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Context representation in string format.</p></li>
 <li><p><strong>exc_message</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Message to include in the exception message.</p></li>
-<li><p><strong>exception_class</strong> (<em>&lt;type</em><em>[</em><em>BaseException</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSValueError</em><em>)</em>) – The exception class to raise if value is None.</p></li>
+<li><p><strong>exc_class</strong> (<em>&lt;type</em><em>[</em><em>BaseException</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSValueError</em><em>)</em>) – The exception class to raise if value is None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
 <div class="line">ATSTypeError: Parameter type validation failed.</div>
-<div class="line">Dynamically raises the provided exception_class (e.g., ATSValueError).</div>
+<div class="line">Dynamically raises the provided exc_class (e.g., ATSValueError).</div>
 </div>
 </dd>
 </dl>

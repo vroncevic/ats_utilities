@@ -26,10 +26,7 @@ from typing import override
 
 from ats_utilities.info.build_date.ibuild_date import IBuildDate
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -44,7 +41,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class BuildDate(IBuildDate):
+class BuildDate(ContextSupport, IBuildDate):
     '''
         Defines class BuildDate with attribute(s) and method(s).
         Creates an API for the build date in one property object.
@@ -53,10 +50,6 @@ class BuildDate(IBuildDate):
         It defines:
 
             :attributes:
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger for logging (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _build_date - The build date for App/Tool/Script (default None).
             :methods:
                 | __init__ - Initializes BuildDate constructor.
@@ -65,10 +58,6 @@ class BuildDate(IBuildDate):
                 | __str__ - Returns the BuildDate as string representation.
     '''
 
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
     _build_date: str | None
 
     def __init__(self, context_bundle: ContextBundle) -> None:
@@ -81,7 +70,7 @@ class BuildDate(IBuildDate):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        inject_context_bundle(self, context_bundle)
+        ContextSupport.__init__(self, context_bundle)
         self._build_date = None
 
     @property

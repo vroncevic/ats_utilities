@@ -88,8 +88,16 @@ class Checker(IChecker):
                 | ATSValueError - Component bundle must be provided.
                 | ATSTypeError - Component bundle must be a CheckerBundle instance.
         '''
-        not_none(component_bundle, r'component bundle must be provided')
-        istype(component_bundle, CheckerBundle, r'component bundle must be a CheckerBundle instance')
+        not_none(
+            component_bundle,
+            r'checker::init(...)',
+            r'component bundle must be provided'
+        )
+        istype(
+            component_bundle, CheckerBundle,
+            r'checker::init(...)',
+            r'component bundle must be a CheckerBundle instance'
+        )
         self._format_validator = component_bundle.format_validator
         self._type_validator = component_bundle.type_validator
         self._context_provider = component_bundle.context_provider

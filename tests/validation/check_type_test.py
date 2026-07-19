@@ -128,8 +128,8 @@ class CheckTypeTest(unittest.TestCase):
             :exceptions: None.
         '''
         try:
-            istype(1, int)
-            istype("test", str)
+            istype(1, int, 'checktypetest::test_istype_valid_single')
+            istype("test", str, 'checktypetest::test_istype_valid_single')
         except ATSTypeError:
             self.fail("istype raised ATSTypeError unexpectedly for valid inputs.")
 
@@ -140,9 +140,9 @@ class CheckTypeTest(unittest.TestCase):
             :exceptions: None.
         '''
         try:
-            istype(1, (int, str))
-            istype("test", (int, str))
-            istype(1.5, (int | str, float))
+            istype(1, (int, str), 'checktypetest::test_istype_valid_tuple')
+            istype("test", (int, str), 'checktypetest::test_istype_valid_tuple')
+            istype(1.5, (int | str, float), 'checktypetest::test_istype_valid_tuple')
         except ATSTypeError:
             self.fail("istype raised ATSTypeError unexpectedly for valid tuple inputs.")
 
@@ -153,8 +153,8 @@ class CheckTypeTest(unittest.TestCase):
             :exceptions: None.
         '''
         try:
-            istype(1, int | str)
-            istype("test", Union[int, str])
+            istype(1, int | str, 'checktypetest::test_istype_valid_union')
+            istype("test", Union[int, str], 'checktypetest::test_istype_valid_union')
         except ATSTypeError:
             self.fail("istype raised ATSTypeError unexpectedly for valid union inputs.")
 
@@ -165,7 +165,7 @@ class CheckTypeTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSTypeError) as ctx:
-            istype("test", int)
+            istype("test", int, 'checktypetest::test_istype_invalid_single')
         self.assertIn("expected <class 'int'> for instance, got str", str(ctx.exception))
 
     def test_istype_invalid_tuple(self) -> None:
@@ -175,7 +175,7 @@ class CheckTypeTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSTypeError) as ctx:
-            istype([1, 2], (int, str))
+            istype([1, 2], (int, str), 'checktypetest::test_istype_invalid_tuple')
         self.assertIn("expected (<class 'int'>, <class 'str'>) for instance, got list", str(ctx.exception))
 
     def test_istype_custom_exception(self) -> None:
@@ -185,7 +185,7 @@ class CheckTypeTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ValueError):
-            istype("test", int, exception_class=ValueError)
+            istype("test", int, 'checktypetest::test_istype_custom_exception', exc_class=ValueError)
 
     def test_istype_custom_message(self) -> None:
         '''
@@ -194,7 +194,7 @@ class CheckTypeTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSTypeError) as ctx:
-            istype("test", int, exc_message="custom message")
+            istype("test", int, 'checktypetest::test_istype_custom_message', exc_message="custom message")
         self.assertIn("checktypetest::test_istype_custom_message - custom message", str(ctx.exception))
 
 

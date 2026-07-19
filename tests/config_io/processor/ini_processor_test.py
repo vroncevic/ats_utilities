@@ -162,6 +162,63 @@ class TestINIProcessor(unittest.TestCase):
         
         self.assertFalse(processor.validate_by_scheme())
 
+    def test_update_data_creates_missing_section(self) -> None:
+        """Test update_data creates missing section if not in config."""
+        processor = INIProcessor(scheme=self.sample_scheme)
+        # Initially only load ats_info section
+        processor.deserialize("[ats_info]\nats_name = test\nats_version = 1.0.0")
+        # Now update hostname which expects 'connection' section
+        success = processor.update_data({"hostname": "127.0.0.1"})
+        self.assertTrue(success)
+        self.assertEqual(processor._config.get("connection", "hostname"), "127.0.0.1")
+
+    def test_update_data_flat_key(self) -> None:
+        """Test update_data stores a flat key (no section in scheme) in the first section."""
+        flat_scheme = {"flat_key": ""}
+        processor = INIProcessor(scheme=flat_scheme)
+        processor.deserialize("[sec1]\nkey1 = val1\n")
+        success = processor.update_data({"flat_key": "flat_val"})
+        self.assertTrue(success)
+        self.assertEqual(processor._config.get("sec1", "flat_key"), "flat_val")
+
+    def test_update_data_flat_key_no_sections(self) -> None:
+        """Test update_data with a flat key when no sections exist."""
+        flat_scheme = {"flat_key": ""}
+        processor = INIProcessor(scheme=flat_scheme)
+        success = processor.update_data({"flat_key": "flat_val"})
+        self.assertFalse(success)
+
+    def test_to_dict_missing_option_in_section(self) -> None:
+        """Test to_dict populates missing option key from section with an empty string."""
+        processor = INIProcessor(scheme=self.sample_scheme)
+        # Deserialize incomplete content (missing ats_version in ats_info)
+        processor.deserialize("[ats_info]\nats_name = test\n[connection]\nhostname = localhost")
+        result = processor.to_dict()
+        self.assertEqual(result["ats_version"], "")
+
+    def test_to_dict_flat_key_searches_sections(self) -> None:
+        """Test to_dict flat key resolves searching all sections, and gets empty string if missing."""
+        flat_scheme = {"flat_key": "", "missing_flat": ""}
+        processor = INIProcessor(scheme=flat_scheme)
+        processor.deserialize("[sec1]\nkey1 = val1\n[sec2]\nflat_key = flat_val\n")
+        result = processor.to_dict()
+        self.assertEqual(result["flat_key"], "flat_val")
+        self.assertEqual(result["missing_flat"], "")
+
+    def test_validate_by_scheme_missing_section(self) -> None:
+        """Test validate_by_scheme returns False if section is missing."""
+        processor = INIProcessor(scheme=self.sample_scheme)
+        # connection section is missing
+        processor.deserialize("[ats_info]\nats_name = test\nats_version = 1.0.0")
+        self.assertFalse(processor.validate_by_scheme())
+
+    def test_validate_by_scheme_missing_flat_key(self) -> None:
+        """Test validate_by_scheme returns False if flat key is missing in all sections."""
+        flat_scheme = {"flat_key": ""}
+        processor = INIProcessor(scheme=flat_scheme)
+        processor.deserialize("[sec1]\nkey1 = val1\n")
+        self.assertFalse(processor.validate_by_scheme())
+
     @patch("ats_utilities.config_io.processor.ini_processor.to_str")
     def test_string_representation(self, mock_to_str: MagicMock) -> None:
         """Test that __str__ structural serialization targets generic class converters."""

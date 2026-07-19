@@ -90,20 +90,21 @@ into a tuple of concrete types (int, float).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ats_utilities.validation.check_type.istype">
-<span class="sig-prename descclassname"><span class="pre">ats_utilities.validation.check_type.</span></span><span class="sig-name descname"><span class="pre">istype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">instance:</span> <span class="pre">object,</span> <span class="pre">class_or_tuple:</span> <span class="pre">type[~typing.Any]</span> <span class="pre">|</span> <span class="pre">tuple[type[~typing.Any],</span> <span class="pre">...],</span> <span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">exception_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_type_error.ATSTypeError'&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/validation/check_type.html#istype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.validation.check_type.istype" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.validation.check_type.</span></span><span class="sig-name descname"><span class="pre">istype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">instance:</span> <span class="pre">object,</span> <span class="pre">class_or_tuple:</span> <span class="pre">type[~typing.Any]</span> <span class="pre">|</span> <span class="pre">tuple[type[~typing.Any],</span> <span class="pre">...],</span> <span class="pre">exc_context:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">exc_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_type_error.ATSTypeError'&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/validation/check_type.html#istype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.validation.check_type.istype" title="Link to this definition">¶</a></dt>
 <dd><p>Checks if an instance is of a specified type.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> (<em>&lt;any&gt;</em>) – Instance to check.</p></li>
 <li><p><strong>class_or_tuple</strong> (<em>&lt;type</em><em> | </em><em>tuple</em><em>[</em><em>type</em><em>, </em><em>...</em><em>]</em><em>&gt;</em>) – Type or tuple of types to check against.</p></li>
+<li><p><strong>exc_context</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Context representation in string format.</p></li>
 <li><p><strong>exc_message</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Message to include in the exception message.</p></li>
-<li><p><strong>exception_class</strong> (<em>&lt;type</em><em>[</em><em>Exception</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSTypeError</em><em>)</em>) – The exception class to raise if instance is not of the specified type.</p></li>
+<li><p><strong>exc_class</strong> (<em>&lt;type</em><em>[</em><em>BaseException</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSTypeError</em><em>)</em>) – The exception class to raise if instance is not of the specified type.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">Dynamically raises the provided exception_class (e.g., ATSTypeError).</div>
+<div class="line">Dynamically raises the provided exc_class (e.g., ATSTypeError).</div>
 </div>
 </dd>
 </dl>

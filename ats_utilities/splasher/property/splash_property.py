@@ -28,10 +28,7 @@ from collections.abc import Mapping
 from ats_utilities.splasher.property.isplash_property import ISplashProperty
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -47,7 +44,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class SplashProperty(ISplashProperty):
+class SplashProperty(ContextSupport, ISplashProperty):
     '''
         Defines class SplashProperty with attribute(s) and method(s).
         Creates an API for checking splash screen property.
@@ -56,10 +53,6 @@ class SplashProperty(ISplashProperty):
         It defines:
 
             :attributes:
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _splash_keys - Splash keys for App/Tool/Script splash screen (default None).
             :methods:
                 | __init__ - Initials SplashProperty constructor.
@@ -68,10 +61,6 @@ class SplashProperty(ISplashProperty):
                 | __str__ - Returns the string representation of SplashProperty.
     '''
 
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
     _splash_keys: SplashKeys | None
 
     def __init__(self, context_bundle: ContextBundle) -> None:
@@ -84,7 +73,7 @@ class SplashProperty(ISplashProperty):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        inject_context_bundle(self, context_bundle)
+        ContextSupport.__init__(self, context_bundle)
         self._splash_keys = None
 
     @property
@@ -129,7 +118,11 @@ class SplashProperty(ISplashProperty):
         is_enabled = bool(setup.get('enabled', True))
 
         if is_enabled:
-            require_keys(setup, frozenset(SplashKeys.get_all_keys()))
+            require_keys(
+                setup, frozenset(SplashKeys.get_all_keys()),
+                r'splash_property::splash_keys(...)',
+                r'splash property setup is missing required keys'
+            )
 
         self._splash_keys = SplashKeys.from_dict(setup)
 

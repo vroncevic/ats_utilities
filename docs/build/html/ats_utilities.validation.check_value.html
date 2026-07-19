@@ -68,39 +68,69 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="ats_utilities.validation.check_value.not_empty">
-<span class="sig-prename descclassname"><span class="pre">ats_utilities.validation.check_value.</span></span><span class="sig-name descname"><span class="pre">not_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value:</span> <span class="pre">~typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/validation/check_value.html#not_empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.validation.check_value.not_empty" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.validation.check_value.</span></span><span class="sig-name descname"><span class="pre">not_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value:</span> <span class="pre">~typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_context:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_zero:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_false:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/validation/check_value.html#not_empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.validation.check_value.not_empty" title="Link to this definition">¶</a></dt>
 <dd><p>Requires a value to be not empty (not None, not empty sequence/mapping).</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>value</strong> (<em>&lt;Any&gt;</em>) – Value to check for emptiness.</p></li>
+<li><p><strong>exc_context</strong> (<em>&lt;str&gt;</em>) – Context representation in string format.</p></li>
 <li><p><strong>exc_message</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Message to include in the exception message.</p></li>
-<li><p><strong>exception_class</strong> (<em>&lt;type</em><em>[</em><em>Exception</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSValueError</em><em>)</em>) – The exception class to raise if value is empty.</p></li>
+<li><p><strong>exc_class</strong> (<em>&lt;type</em><em>[</em><em>BaseException</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSValueError</em><em>)</em>) – The exception class to raise if value is empty.</p></li>
+<li><p><strong>allow_zero</strong> (<em>&lt;bool&gt;</em>) – If False, treat 0 and 0.0 as empty/invalid values.</p></li>
+<li><p><strong>allow_false</strong> (<em>&lt;bool&gt;</em>) – If False, treat False as an empty/invalid value.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">Dynamically raises the provided exception_class (e.g., ATSValueError).</div>
+<div class="line">Dynamically raises the provided exc_class (e.g., ATSValueError).</div>
 </div>
 </dd>
 </dl>
+<section id="examples">
+<h2>Examples:<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">not_empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">allow_zero</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">ats_utilities.exceptions.ATSValueError</span>: <span class="n">check_value::not_empty(...) - value must not be empty</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">not_empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">allow_zero</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">not_empty</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_false</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">ats_utilities.exceptions.ATSValueError</span>: <span class="n">check_value::not_empty(...) - value must not be empty</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">not_empty</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_false</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">not_empty</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_zero</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_false</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">ats_utilities.exceptions.ATSValueError</span>: <span class="n">check_value::not_empty(...) - value must not be empty</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">not_empty</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_zero</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_false</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">not_empty</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">allow_zero</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_false</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">ats_utilities.exceptions.ATSValueError</span>: <span class="n">check_value::not_empty(...) - value must not be empty</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">not_empty</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">allow_zero</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_false</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">---------------------------------------</span>
+</pre></div>
+</div>
+</section>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ats_utilities.validation.check_value.not_none">
-<span class="sig-prename descclassname"><span class="pre">ats_utilities.validation.check_value.</span></span><span class="sig-name descname"><span class="pre">not_none</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value:</span> <span class="pre">~typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/validation/check_value.html#not_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.validation.check_value.not_none" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.validation.check_value.</span></span><span class="sig-name descname"><span class="pre">not_none</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value:</span> <span class="pre">~typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_context:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/validation/check_value.html#not_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.validation.check_value.not_none" title="Link to this definition">¶</a></dt>
 <dd><p>Requires a value to be not None.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>value</strong> (<em>&lt;Any&gt;</em>) – Value to check.</p></li>
+<li><p><strong>exc_context</strong> (<em>&lt;str&gt;</em>) – Context representation in string format.</p></li>
 <li><p><strong>exc_message</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Message to include in the exception message.</p></li>
-<li><p><strong>exception_class</strong> (<em>&lt;type</em><em>[</em><em>Exception</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSValueError</em><em>)</em>) – The exception class to raise if value is None.</p></li>
+<li><p><strong>exc_class</strong> (<em>&lt;type</em><em>[</em><em>BaseException</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSValueError</em><em>)</em>) – The exception class to raise if value is None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">Dynamically raises the provided exception_class (e.g., ATSValueError).</div>
+<div class="line">Dynamically raises the provided exc_class (e.g., ATSValueError).</div>
 </div>
 </dd>
 </dl>
@@ -108,20 +138,21 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ats_utilities.validation.check_value.not_satisfied">
-<span class="sig-prename descclassname"><span class="pre">ats_utilities.validation.check_value.</span></span><span class="sig-name descname"><span class="pre">not_satisfied</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status:</span> <span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/validation/check_value.html#not_satisfied"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.validation.check_value.not_satisfied" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.validation.check_value.</span></span><span class="sig-name descname"><span class="pre">not_satisfied</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status:</span> <span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_context:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/validation/check_value.html#not_satisfied"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.validation.check_value.not_satisfied" title="Link to this definition">¶</a></dt>
 <dd><p>Ensures that an unhappy status is NOT True. 
 Raises an exception if status is True (unhappy flow detected).</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>status</strong> (<em>&lt;bool&gt;</em>) – Status which indicates unhappy flow (True = unhappy flow).</p></li>
+<li><p><strong>exc_context</strong> (<em>&lt;str&gt;</em>) – Context representation in string format.</p></li>
 <li><p><strong>exc_message</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Message to include in the exception message.</p></li>
-<li><p><strong>exception_class</strong> (<em>&lt;type</em><em>[</em><em>Exception</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSValueError</em><em>)</em>) – The exception class to raise if status is not True.</p></li>
+<li><p><strong>exc_class</strong> (<em>&lt;type</em><em>[</em><em>BaseException</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSValueError</em><em>)</em>) – The exception class to raise if status is not True.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">Dynamically raises the provided exception_class (e.g., ATSValueError).</div>
+<div class="line">Dynamically raises the provided exc_class (e.g., ATSValueError).</div>
 </div>
 </dd>
 </dl>

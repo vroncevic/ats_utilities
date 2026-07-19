@@ -83,14 +83,46 @@ class ParserBundle:
             Validates parser bundle.
             Performs validation of all bundle attributes.
         '''
-        not_none(self.context_bundle, r'context bundle must be provided')
-        not_none(self.prog, r'prog must be provided')
-        not_none(self.epilog, r'epilog must be provided')
-        not_none(self.description, r'description must be provided')
-        istype(self.context_bundle, ContextBundle, r'context bundle must be a ContextBundle instance')
-        istype(self.prog, str, r'prog must be a string')
-        istype(self.epilog, str, r'epilog must be a string')
-        istype(self.description, str, r'description must be a string')
+        not_none(
+            self.context_bundle,
+            r'parser_bundle::validate(...)',
+            r'context bundle must be provided'
+        )
+        not_none(
+            self.prog,
+            r'parser_bundle::validate(...)',
+            r'prog must be provided'
+        )
+        not_none(
+            self.epilog,
+            r'parser_bundle::validate(...)',
+            r'epilog must be provided'
+        )
+        not_none(
+            self.description,
+            r'parser_bundle::validate(...)',
+            r'description must be provided'
+        )
+        istype(
+            self.context_bundle, ContextBundle,
+            r'parser_bundle::validate(...)',
+            r'context bundle must be a ContextBundle instance'
+        )
+        istype(
+            self.prog, str,
+            r'parser_bundle::validate(...)',
+            r'prog must be a string'
+        )
+        istype(
+            self.epilog, str,
+            r'parser_bundle::validate(...)',
+            r'epilog must be a string'
+        )
+        istype(
+            self.description, str,
+            r'parser_bundle::validate(...)',
+            r'description must be a string'
+        )
 
     def to_dict(self) -> dict[str, Any]:
         '''

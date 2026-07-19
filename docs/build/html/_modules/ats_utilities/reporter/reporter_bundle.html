@@ -131,12 +131,36 @@
 <span class="sd">                | ATSTypeError: Theme must be an instance of IConsoleTheme interface.</span>
 <span class="sd">                | ATSTypeError: Logger must be an instance of ILogger interface.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;checker must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;theme must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logger must be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">IChecker</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;checker must be an IChecker instance&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="n">IConsoleTheme</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;theme must be an IConsoleTheme instance&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="n">ILogger</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logger must be an ILogger instance&#39;</span><span class="p">)</span></div>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;reporter_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;checker must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;reporter_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;theme must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;reporter_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;logger must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">IChecker</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;reporter_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;checker must be an IChecker instance&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="n">IConsoleTheme</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;reporter_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;theme must be an IConsoleTheme instance&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="n">ILogger</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;reporter_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;logger must be an ILogger instance&#39;</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ReporterBundle.to_dict">

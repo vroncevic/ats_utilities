@@ -61,6 +61,19 @@ class CheckerReporterRegistryTest(unittest.TestCase):
         self.assertEqual(bundle.err_indices, [0])
         self.assertFalse(bundle.is_fmt_err)
 
+    def test_create_bundle(self) -> None:
+        bundle = CheckerReporterRegistry.create_bundle(
+            context="my_context",
+            parameters_meta=[("p", "t", "v")],
+            err_indices=[0],
+            is_fmt_err=False
+        )
+        self.assertIsInstance(bundle, CheckerReporterBundle)
+        self.assertEqual(bundle.context, "my_context")
+        self.assertEqual(bundle.parameters_meta, [("p", "t", "v")])
+        self.assertEqual(bundle.err_indices, [0])
+        self.assertFalse(bundle.is_fmt_err)
+
 
 if __name__ == "__main__":
     unittest.main()

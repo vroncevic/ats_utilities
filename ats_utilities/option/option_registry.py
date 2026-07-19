@@ -53,6 +53,7 @@ class OptionRegistry(IRegistry[OptionBundle]):
                 | create_option_bundle_from_dict - Creates an OptionBundle.
     '''
 
+    @classmethod
     @override
     def create_bundle(cls, **kwargs: Any) -> OptionBundle:
         '''

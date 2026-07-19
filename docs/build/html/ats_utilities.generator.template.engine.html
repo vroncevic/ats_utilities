@@ -71,7 +71,7 @@ Handles string rendering and template substitutions.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.generator.template.engine.TemplateProcessor">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.generator.template.engine.</span></span><span class="sig-name descname"><span class="pre">TemplateProcessor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/generator/template/engine.html#TemplateProcessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.template.engine.TemplateProcessor" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.generator.template.itemplate_processor.html#ats_utilities.generator.template.itemplate_processor.ITemplateProcessor" title="ats_utilities.generator.template.itemplate_processor.ITemplateProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITemplateProcessor</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.context.context_support.html#ats_utilities.context.context_support.ContextSupport" title="ats_utilities.context.context_support.ContextSupport"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextSupport</span></code></a>, <a class="reference internal" href="ats_utilities.generator.template.itemplate_processor.html#ats_utilities.generator.template.itemplate_processor.ITemplateProcessor" title="ats_utilities.generator.template.itemplate_processor.ITemplateProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITemplateProcessor</span></code></a></p>
 <p>Defines class TemplateProcessor with method(s).
 Handles string rendering and template substitutions.</p>
 <p>It defines:</p>
@@ -79,9 +79,6 @@ Handles string rendering and template substitutions.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_checker - Injected parameters checker (default Checker).</div>
-<div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
-<div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
 <div class="line">_initialized - Status of the template processor.</div>
 </div>
 </dd>
@@ -101,23 +98,8 @@ Handles string rendering and template substitutions.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.generator.template.engine.TemplateProcessor._checker">
-<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.generator.template.engine.TemplateProcessor._checker" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.generator.template.engine.TemplateProcessor._initialized">
 <span class="sig-name descname"><span class="pre">_initialized</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.generator.template.engine.TemplateProcessor._initialized" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.generator.template.engine.TemplateProcessor._reporter">
-<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.generator.template.engine.TemplateProcessor._reporter" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.generator.template.engine.TemplateProcessor._verbose">
-<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.generator.template.engine.TemplateProcessor._verbose" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -177,10 +159,7 @@ Handles string rendering and template substitutions.</p>
 <li><a class="reference internal" href="#">ats_utilities.generator.template.engine module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.generator.template.engine.TemplateProcessor"><code class="docutils literal notranslate"><span class="pre">TemplateProcessor</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.generator.template.engine.TemplateProcessor._abc_impl"><code class="docutils literal notranslate"><span class="pre">TemplateProcessor._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.generator.template.engine.TemplateProcessor._checker"><code class="docutils literal notranslate"><span class="pre">TemplateProcessor._checker</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.template.engine.TemplateProcessor._initialized"><code class="docutils literal notranslate"><span class="pre">TemplateProcessor._initialized</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.generator.template.engine.TemplateProcessor._reporter"><code class="docutils literal notranslate"><span class="pre">TemplateProcessor._reporter</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.generator.template.engine.TemplateProcessor._verbose"><code class="docutils literal notranslate"><span class="pre">TemplateProcessor._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.template.engine.TemplateProcessor.is_initialized"><code class="docutils literal notranslate"><span class="pre">TemplateProcessor.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.template.engine.TemplateProcessor.render"><code class="docutils literal notranslate"><span class="pre">TemplateProcessor.render()</span></code></a></li>
 </ul>

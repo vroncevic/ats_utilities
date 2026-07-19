@@ -75,32 +75,35 @@
 <div class="viewcode-block" id="str_bool_to_bool">
 <a class="viewcode-back" href="../../../ats_utilities.utils.boolean.html#ats_utilities.utils.boolean.str_bool_to_bool">[docs]</a>
 <span class="k">def</span> <span class="nf">str_bool_to_bool</span><span class="p">(</span>
-    <span class="n">val</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">exc_context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">exc_message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">exception_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSValueError</span>
+    <span class="n">exc_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSValueError</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Converts a string boolean to a boolean.</span>
 
-<span class="sd">        :param val: String boolean to convert to a boolean.</span>
-<span class="sd">        :type val: &lt;str&gt;</span>
+<span class="sd">        :param value: String boolean to convert to a boolean.</span>
+<span class="sd">        :type value: &lt;str&gt;</span>
+<span class="sd">        :param exc_context: Context representation in string format.</span>
+<span class="sd">        :type exc_context: &lt;str | None&gt;</span>
 <span class="sd">        :return: Boolean value.</span>
 <span class="sd">        :rtype: &lt;bool&gt;</span>
 <span class="sd">        :exceptions:</span>
-<span class="sd">            | Dynamically raises the provided exception_class (e.g., ATSValueError).</span>
+<span class="sd">            | Dynamically raises the provided exc_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">match</span> <span class="n">val</span><span class="p">:</span>
+    <span class="k">match</span> <span class="n">value</span><span class="p">:</span>
         <span class="k">case</span> <span class="s1">&#39;True&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">case</span> <span class="s1">&#39;False&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
             <span class="n">raise_error</span><span class="p">(</span>
-                <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;boolean::str_bool_to_bool&#39;</span><span class="p">,</span>
-                <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;cannot convert </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1"> to bool&#39;</span><span class="p">,</span>
+                <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;boolean::str_bool_to_bool(...)&#39;</span><span class="p">,</span>
+                <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;can not convert </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1"> to bool&#39;</span><span class="p">,</span>
+                <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
                 <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
-                <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
-                <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+                <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
             <span class="p">)</span></div>
 
 </pre></div>

@@ -33,6 +33,7 @@ from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.splash_center_registry import SplashCenterRegistry
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.splasher.splash_registry import SplashRegistry
+from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -68,8 +69,13 @@ class EngineTest(unittest.TestCase):
         self.temp_logo = tempfile.NamedTemporaryFile(delete=False, mode="w", encoding="utf-8")
         self.temp_logo.write("LOGO LINE 1\n\nLOGO LINE 2\n")
         self.temp_logo.close()
+        
+        # Patch ProgressBar.__del__ to prevent non-deterministic GC stdout.write calls
+        self._orig_pb_del = ProgressBar.__del__
+        ProgressBar.__del__ = lambda self: None
 
     def tearDown(self) -> None:
+        ProgressBar.__del__ = self._orig_pb_del
         try:
             os.remove(self.temp_logo.name)
         except OSError:

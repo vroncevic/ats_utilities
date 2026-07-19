@@ -96,14 +96,46 @@ class TarProcessMemberBundle:
                 | ATSTypeError: dest_full_path must be a string.
                 | ATSTypeError: vals must be a mapping.
         '''
-        not_none(self.tar, r'tar must be provided.')
-        not_none(self.member, r'member must be provided.')
-        not_none(self.dest_full_path, r'dest_full_path must be provided.')
-        not_none(self.vals, r'vals must be provided.')
-        istype(self.tar, TarFile, r'tar must be a TarFile instance.')
-        istype(self.member, TarInfo, r'member must be a TarInfo instance.')
-        istype(self.dest_full_path, str, r'dest_full_path must be a string.')
-        istype(self.vals, Mapping, r'vals must be a mapping.')
+        not_none(
+            self.tar,
+            r'tar_process_member_bundle::validate(...)',
+            r'tar must be provided.'
+        )
+        not_none(
+            self.member,
+            r'tar_process_member_bundle::validate(...)',
+            r'member must be provided.'
+        )
+        not_none(
+            self.dest_full_path,
+            r'tar_process_member_bundle::validate(...)',
+            r'dest_full_path must be provided.'
+        )
+        not_none(
+            self.vals,
+            r'tar_process_member_bundle::validate(...)',
+            r'vals must be provided.'
+        )
+        istype(
+            self.tar, TarFile,
+            r'tar_process_member_bundle::validate(...)',
+            r'tar must be a TarFile instance.'
+        )
+        istype(
+            self.member, TarInfo,
+            r'tar_process_member_bundle::validate(...)',
+            r'member must be a TarInfo instance.'
+        )
+        istype(
+            self.dest_full_path, str,
+            r'tar_process_member_bundle::validate(...)',
+            r'dest_full_path must be a string.'
+        )
+        istype(
+            self.vals, Mapping,
+            r'tar_process_member_bundle::validate(...)',
+            r'vals must be a mapping.'
+        )
 
     def to_dict(self) -> dict[str, Any]:
         '''

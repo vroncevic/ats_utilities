@@ -84,12 +84,36 @@ class SplashCenterBundle:
                 | ATSTypeError: Additional shifter is not an integer.
                 | ATSValueError: Additional shifter cannot be negative.
         '''
-        not_none(self.columns, r'columns count must be provided')
-        istype(self.columns, int, r'columns count must be an integer')
-        not_satisfied(self.columns < 0, r'columns count cannot be negative')
-        not_none(self.additional_shifter, r'additional shifter must be provided')
-        istype(self.additional_shifter, int, r'additional shifter must be an integer')
-        not_satisfied(self.additional_shifter < 0, r'additional shifter cannot be negative')
+        not_none(
+            self.columns,
+            r'splash_center_bundle::validate(...)',
+            r'columns count must be provided'
+        )
+        istype(
+            self.columns, int,
+            r'splash_center_bundle::validate(...)',
+            r'columns count must be an integer'
+        )
+        not_satisfied(
+            self.columns < 0,
+            r'splash_center_bundle::validate(...)',
+            r'columns count cannot be negative'
+        )
+        not_none(
+            self.additional_shifter,
+            r'splash_center_bundle::validate(...)',
+            r'additional shifter must be provided'
+        )
+        istype(
+            self.additional_shifter, int,
+            r'splash_center_bundle::validate(...)',
+            r'additional shifter must be an integer'
+        )
+        not_satisfied(
+            self.additional_shifter < 0,
+            r'splash_center_bundle::validate(...)',
+            r'additional shifter cannot be negative'
+        )
 
     def to_dict(self) -> dict[str, Any]:
         '''

@@ -52,6 +52,7 @@ class ReporterRegistry(IRegistry[ReporterBundle]):
                 | create_default_reporter_bundle - Creates a default ReporterBundle.
     '''
 
+    @classmethod
     @override
     def create_bundle(cls, **kwargs: Any) -> ReporterBundle:
         '''

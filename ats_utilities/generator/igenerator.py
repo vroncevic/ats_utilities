@@ -22,6 +22,8 @@ Info
 
 from __future__ import annotations
 
+from ats_utilities.context.icontext_support import IContextSupport
+
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
 
@@ -38,7 +40,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IGenerator(ABC):
+class IGenerator(IContextSupport, ABC):
     '''
         Defines abstract class IGenerator with method(s).
         Creates an interface for template-based file generation from .tgz archives.

@@ -63,12 +63,9 @@
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">override</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle_inject</span> <span class="kn">import</span> <span class="n">inject_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_support</span> <span class="kn">import</span> <span class="n">ContextSupport</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generator.generator_bundle</span> <span class="kn">import</span> <span class="n">GeneratorBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generator.gen_params_bundle</span> <span class="kn">import</span> <span class="n">GenParamsBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generator.igenerator</span> <span class="kn">import</span> <span class="n">IGenerator</span>
@@ -90,7 +87,7 @@
 
 <div class="viewcode-block" id="Generator">
 <a class="viewcode-back" href="../../../ats_utilities.generator.engine.html#ats_utilities.generator.engine.Generator">[docs]</a>
-<span class="k">class</span> <span class="nc">Generator</span><span class="p">(</span><span class="n">IGenerator</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Generator</span><span class="p">(</span><span class="n">ContextSupport</span><span class="p">,</span> <span class="n">IGenerator</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class Generator with attribute(s) and method(s).</span>
 <span class="sd">        Template-based file generation from .tgz archives.</span>
@@ -98,10 +95,6 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
-<span class="sd">                | _logger - Injected logger for logging (default Logger).</span>
-<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
-<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _shared_context - Bundle of shared context.</span>
 <span class="sd">                | _scheme_loader - Loader/resolver for scheme configuration.</span>
 <span class="sd">                | _tar_processor - Processor for archive extraction and template rendering.</span>
@@ -114,10 +107,6 @@
 <span class="sd">                | __str__ - Returns the string representation of Generator.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
-    <span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span>
-    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
-    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">_shared_context</span><span class="p">:</span> <span class="n">ContextBundle</span>
     <span class="n">_scheme_loader</span><span class="p">:</span> <span class="n">ISchemeLoader</span>
     <span class="n">_tar_processor</span><span class="p">:</span> <span class="n">ITarProcessor</span>
@@ -143,10 +132,18 @@
 <span class="sd">                | ATSTypeError: Component bundle must be of type GeneratorBundle.</span>
 <span class="sd">                | ATSTypeError: Context bundle must be of type ContextBundle.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="n">component_bundle</span><span class="p">,</span> <span class="s1">&#39;component bundle must not be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">component_bundle</span><span class="p">,</span> <span class="n">GeneratorBundle</span><span class="p">,</span> <span class="s1">&#39;component bundle must be of type GeneratorBundle&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="n">component_bundle</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;generator::init(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;component bundle must not be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="n">component_bundle</span><span class="p">,</span> <span class="n">GeneratorBundle</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;generator::init(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;component bundle must be of type GeneratorBundle&#39;</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">context_bundle</span>
-        <span class="n">inject_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span><span class="p">)</span>
+        <span class="n">ContextSupport</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_scheme_loader</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">scheme_loader</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tar_processor</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">tar_processor</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
@@ -181,11 +178,23 @@
 <span class="sd">                | ATSTypeError: Template values must be a mapping.</span>
 <span class="sd">                | ATSValueError: Template values is missing or empty.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="n">template_values</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;template_values must be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">template_values</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;template_values must be a mapping&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="n">template_values</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;generator::prepare_template_values(...)&#39;</span>
+            <span class="sa">r</span><span class="s1">&#39;template_values must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="n">template_values</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;generator::prepare_template_values(...)&#39;</span>
+            <span class="sa">r</span><span class="s1">&#39;template_values must be a mapping&#39;</span>
+        <span class="p">)</span>
 
         <span class="n">project_name</span> <span class="o">=</span> <span class="n">template_values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;project_name&#39;</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span><span class="n">project_name</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;template values must contain a non-empty </span><span class="si">{</span><span class="n">project_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span>
+            <span class="n">project_name</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;generator::prepare_template_values(...)&#39;</span>
+            <span class="sa">r</span><span class="s1">&#39;template_values must contain a non-empty project_name&#39;</span>
+        <span class="p">)</span>
 
         <span class="n">values</span> <span class="o">=</span> <span class="n">template_values</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">if</span> <span class="s1">&#39;project_name_dashed&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
@@ -230,9 +239,17 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">resolved_scheme</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scheme_loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">scheme</span><span class="p">)</span>
         <span class="n">project_scheme</span> <span class="o">=</span> <span class="n">resolved_scheme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">template_key</span><span class="p">)</span>
-        <span class="n">not_satisfied</span><span class="p">(</span><span class="ow">not</span> <span class="n">project_scheme</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;template_key </span><span class="si">{</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">template_key</span><span class="si">}</span><span class="s1"> not found in scheme configuration&#39;</span><span class="p">)</span>
+        <span class="n">not_satisfied</span><span class="p">(</span>
+            <span class="ow">not</span> <span class="n">project_scheme</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;generator::generate(...)&#39;</span>
+            <span class="sa">f</span><span class="s1">&#39;template_key </span><span class="si">{</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">template_key</span><span class="si">}</span><span class="s1"> not found in scheme configuration&#39;</span>
+        <span class="p">)</span>
         <span class="n">source_dir</span> <span class="o">=</span> <span class="n">project_scheme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source_dir&#39;</span><span class="p">)</span>
-        <span class="n">not_satisfied</span><span class="p">(</span><span class="ow">not</span> <span class="n">source_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;source_dir not specified for template_key </span><span class="si">{</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">template_key</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">not_satisfied</span><span class="p">(</span>
+            <span class="ow">not</span> <span class="n">source_dir</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;generator::generate(...)&#39;</span>
+            <span class="sa">f</span><span class="s1">&#39;source_dir not specified for template_key </span><span class="si">{</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">template_key</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="p">)</span>
         <span class="n">path_replacements</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">project_scheme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;path_replacements&#39;</span><span class="p">,</span> <span class="p">{})</span>
         <span class="n">exclude_patterns</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">project_scheme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;exclude&#39;</span><span class="p">,</span> <span class="p">[])</span>
         <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_template_values</span><span class="p">(</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">template_values</span><span class="p">)</span>
@@ -252,7 +269,11 @@
             <span class="k">return</span> <span class="kc">True</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="n">not_satisfied</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;generation failed </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+            <span class="n">not_satisfied</span><span class="p">(</span>
+                <span class="kc">True</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s1">&#39;generator::generate(...)&#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;generation failed </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Generator.is_initialized">

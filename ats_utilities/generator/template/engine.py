@@ -28,9 +28,7 @@ from typing import override
 
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
@@ -43,7 +41,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class TemplateProcessor(ITemplateProcessor):
+class TemplateProcessor(ContextSupport, ITemplateProcessor):
     '''
         Defines class TemplateProcessor with method(s).
         Handles string rendering and template substitutions.
@@ -51,9 +49,6 @@ class TemplateProcessor(ITemplateProcessor):
         It defines:
 
             :attributes:
-                | _checker - Injected parameters checker (default Checker).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _initialized - Status of the template processor.
             :methods:
                 | __init__ - Initializes TemplateProcessor constructor.
@@ -62,9 +57,6 @@ class TemplateProcessor(ITemplateProcessor):
                 | __str__ - Returns the processor as string representation.
     '''
 
-    _checker: IChecker
-    _reporter: IReporter
-    _verbose: bool
     _initialized: bool
 
     def __init__(self, context_bundle: ContextBundle) -> None:
@@ -77,7 +69,7 @@ class TemplateProcessor(ITemplateProcessor):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        inject_context_bundle(self, context_bundle)
+        ContextSupport.__init__(self, context_bundle)
         self._initialized = True
 
     @override

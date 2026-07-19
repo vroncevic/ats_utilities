@@ -35,30 +35,33 @@ __status__ = r'Development'
 
 
 def str_bool_to_bool(
-    val: str,
+    value: str,
+    exc_context: str | None = None,
     exc_message: str | None = None,
-    exception_class: type[BaseException] = ATSValueError
+    exc_class: type[BaseException] = ATSValueError
 ) -> bool:
     '''
         Converts a string boolean to a boolean.
 
-        :param val: String boolean to convert to a boolean.
-        :type val: <str>
+        :param value: String boolean to convert to a boolean.
+        :type value: <str>
+        :param exc_context: Context representation in string format.
+        :type exc_context: <str | None>
         :return: Boolean value.
         :rtype: <bool>
         :exceptions:
-            | Dynamically raises the provided exception_class (e.g., ATSValueError).
+            | Dynamically raises the provided exc_class (e.g., ATSValueError).
     '''
-    match val:
+    match value:
         case 'True':
             return True
         case 'False':
             return False
         case _:
             raise_error(
-                fallback_prefix=r'boolean::str_bool_to_bool',
-                fallback_msg=f'cannot convert {val} to bool',
+                fallback_context=r'boolean::str_bool_to_bool(...)',
+                fallback_msg=f'can not convert {value} to bool',
+                exc_context=exc_context,
                 exc_message=exc_message,
-                exception_class=exception_class,
-                depth=3
+                exc_class=exc_class
             )

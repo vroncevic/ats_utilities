@@ -121,21 +121,21 @@ class BaseBundle:
                 | ATSTypeError: Generator must be IGenerator interface or None.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        not_none(self.info_file, r'information file must be provided')
-        not_none(self.config_loader, r'config loader must be provided')
-        not_none(self.info_manager, r'info manager must be provided')
-        not_none(self.options_parser, r'options parser must be provided')
-        not_none(self.splasher, r'splasher must be provided')
-        not_none(self.use_generator, r'use_generator must be provided')
-        not_none(self.context_bundle, r'context bundle must be provided')
-        istype(self.info_file, str, r'information file must be str')
-        istype(self.config_loader, ILoader, r'config loader must be an ILoader interface')
-        istype(self.info_manager, IInfoManager, r'info manager must be an IInfoManager interface')
-        istype(self.options_parser, IOptionManager, r'options parser must be an IOptionManager interface')
-        istype(self.splasher, ISplasher, r'splasher must be an ISplasher interface')
-        istype(self.use_generator, bool, r'use generator flag must be a bool')
-        istype(self.generator, (IGenerator, type(None)), r'generator must be IGenerator interface or None')
-        istype(self.context_bundle, ContextBundle, r'context bundle must be a ContextBundle instance')
+        not_none(self.info_file, 'basebundle::validate', r'information file must be provided')
+        not_none(self.config_loader, 'basebundle::validate', r'config loader must be provided')
+        not_none(self.info_manager, 'basebundle::validate', r'info manager must be provided')
+        not_none(self.options_parser, 'basebundle::validate', r'options parser must be provided')
+        not_none(self.splasher, 'basebundle::validate', r'splasher must be provided')
+        not_none(self.use_generator, 'basebundle::validate', r'use_generator must be provided')
+        not_none(self.context_bundle, 'basebundle::validate', r'context bundle must be provided')
+        istype(self.info_file, str, 'basebundle::validate', r'information file must be str')
+        istype(self.config_loader, ILoader, 'basebundle::validate', r'config loader must be an ILoader interface')
+        istype(self.info_manager, IInfoManager, 'basebundle::validate', r'info manager must be an IInfoManager interface')
+        istype(self.options_parser, IOptionManager, 'basebundle::validate', r'options parser must be an IOptionManager interface')
+        istype(self.splasher, ISplasher, 'basebundle::validate', r'splasher must be an ISplasher interface')
+        istype(self.use_generator, bool, 'basebundle::validate', r'use generator flag must be a bool')
+        istype(self.generator, (IGenerator, type(None)), 'basebundle::validate', r'generator must be IGenerator interface or None')
+        istype(self.context_bundle, ContextBundle, 'basebundle::validate', r'context bundle must be a ContextBundle instance')
 
     def to_dict(self) -> dict[str, Any]:
         '''

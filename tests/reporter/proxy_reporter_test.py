@@ -72,7 +72,7 @@ class ProxyReporterTest(unittest.TestCase):
                 pass
 
         d = Dummy()
-        with self.assertRaises(ATSAttributeError):
+        with self.assertRaises(ATSRuntimeError):
             d.do_something()
 
     def test_decorator_success_formatting(self) -> None:

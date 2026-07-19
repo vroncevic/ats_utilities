@@ -53,6 +53,7 @@ class ParserStrategyRegistry(IRegistry[ParserStrategyBundle]):
                 | create_parser_strategy_bundle_from_dict - Creates a ParserStrategyBundle from dict parameters.
     '''
 
+    @classmethod
     @override
     def create_bundle(cls, **kwargs: Any) -> ParserStrategyBundle:
         '''

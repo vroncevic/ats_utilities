@@ -114,6 +114,17 @@ class SplashRegistryTest(unittest.TestCase):
         with self.assertRaises(ATSTypeError):
             SplashRegistry.create_splash_bundle_from_dict(prop, object())  # type: ignore
 
+    @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.size")
+    def test_create_bundle(self, mock_size: MagicMock) -> None:
+        """Tests create_bundle on SplashRegistry."""
+        mock_size.return_value = (24, 80, 0, 0)
+        context_bundle = ContextRegistry.create_default_context_bundle()
+        prop = self._get_valid_prop()
+        bundle = SplashRegistry.create_bundle(prop=prop, context_bundle=context_bundle)
+        self.assertIsInstance(bundle, SplashBundle)
+        self.assertTrue(bundle.property_validated)
+        self.assertTrue(bundle.github.infrastructure_property)
+
 
 if __name__ == "__main__":
     unittest.main()

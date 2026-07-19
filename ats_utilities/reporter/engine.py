@@ -85,8 +85,17 @@ class Reporter(IReporter):
                 | ATSValueError: Component bundle must be provided.
                 | ATSTypeError: Component bundle must be a ReporterBundle instance.
         '''
-        not_none(component_bundle, r'component bundle must be provided')
-        istype(component_bundle, ReporterBundle, r'component bundle must be a ReporterBundle instance')
+        not_none(
+            component_bundle,
+            r'reporter::init',
+            r'component bundle must be provided'
+        )
+        istype(
+            component_bundle,
+            ReporterBundle,
+            r'reporter::init',
+            r'component bundle must be a ReporterBundle instance'
+        )
         self._checker = component_bundle.checker
         self._theme = component_bundle.theme
         self._logger = component_bundle.logger

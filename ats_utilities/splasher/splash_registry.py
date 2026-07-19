@@ -55,6 +55,7 @@ class SplashRegistry(IRegistry[SplashBundle]):
                 | create_splash_bundle_from_dict - Creates a SplashBundle from properties.
     '''
 
+    @classmethod
     @override
     def create_bundle(cls, **kwargs: Any) -> SplashBundle:
         '''
@@ -76,7 +77,11 @@ class SplashRegistry(IRegistry[SplashBundle]):
         )
 
     @classmethod
-    def create_splash_bundle_from_dict(cls, prop: Mapping[str, Any], context_bundle: ContextBundle) -> SplashBundle:
+    def create_splash_bundle_from_dict(
+        cls,
+        prop: Mapping[str, Any],
+        context_bundle: ContextBundle
+    ) -> SplashBundle:
         '''
             Creates a SplashBundle from properties.
 

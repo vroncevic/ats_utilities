@@ -140,14 +140,46 @@
 <span class="sd">                | ATSTypeError: Error indices must be a sequence of integers.</span>
 <span class="sd">                | ATSTypeError: Is format error must be a boolean.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters_meta</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;parameters_meta must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">err_indices</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;err_indices must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">is_fmt_err</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;is_fmt_err must be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context must be a string&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters_meta</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ParamMetadata</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;parameters_meta must be a sequence of ParamMetadata&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">err_indices</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;err_indices must be a sequence of integers&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">is_fmt_err</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;is_fmt_err must be a boolean&#39;</span><span class="p">)</span></div>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;checker_reporter_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;context must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters_meta</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;checker_reporter_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;parameters_meta must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">err_indices</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;checker_reporter_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;err_indices must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_fmt_err</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;checker_reporter_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;is_fmt_err must be provided&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;checker_reporter_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;context must be a string&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters_meta</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ParamMetadata</span><span class="p">],</span>
+            <span class="sa">r</span><span class="s1">&#39;checker_reporter_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;parameters_meta must be a sequence of ParamMetadata&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">err_indices</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+            <span class="sa">r</span><span class="s1">&#39;checker_reporter_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;err_indices must be a sequence of integers&#39;</span>
+        <span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_fmt_err</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;checker_reporter_bundle::validate(...)&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;is_fmt_err must be a boolean&#39;</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CheckerReporterBundle.to_dict">

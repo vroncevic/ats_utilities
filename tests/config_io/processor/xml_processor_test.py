@@ -152,6 +152,58 @@ class TestXMLProcessor(unittest.TestCase):
         result = processor.to_dict()
         self.assertEqual(result, {"key1": "val1", "key2": "val2"})
 
+    def test_update_data_skips_root_key(self) -> None:
+        """Test update_data ignores key '__root__'."""
+        processor = XMLProcessor(scheme=self.sample_scheme)
+        processor.deserialize(self.valid_xml_content)
+        updates = {"__root__": "invalid", "verbose": "False"}
+        success = processor.update_data(updates)
+        self.assertTrue(success)
+        self.assertEqual(processor._root.tag, "ats_utility")
+        self.assertEqual(processor.to_dict()["verbose"], "False")
+
+    def test_update_data_creates_missing_parent(self) -> None:
+        """Test update_data creates parent element if parent element does not exist yet."""
+        processor = XMLProcessor(scheme=self.sample_scheme)
+        # Initially, create an XML without 'ats_info'
+        processor.deserialize(
+            "<ats_utility>"
+            "<connection><hostname>localhost</hostname></connection>"
+            "<verbose>True</verbose>"
+            "</ats_utility>"
+        )
+        
+        # Now update 'ats_name' which expects parent 'ats_info'
+        success = processor.update_data({"ats_name": "new_app"})
+        self.assertTrue(success)
+        self.assertEqual(processor.to_dict()["ats_name"], "new_app")
+
+    def test_update_data_creates_child_when_parent_exists(self) -> None:
+        """Test update_data creates child element under parent if parent already exists."""
+        processor = XMLProcessor(scheme=self.sample_scheme)
+        # Parent 'ats_info' exists but is empty (missing 'ats_name')
+        processor.deserialize(
+            "<ats_utility>"
+            "<ats_info></ats_info>"
+            "<connection><hostname>localhost</hostname></connection>"
+            "<verbose>True</verbose>"
+            "</ats_utility>"
+        )
+        success = processor.update_data({"ats_name": "new_app"})
+        self.assertTrue(success)
+        self.assertEqual(processor.to_dict()["ats_name"], "new_app")
+
+    def test_to_dict_handles_missing_elements(self) -> None:
+        """Test to_dict populates missing elements from scheme with empty strings."""
+        processor = XMLProcessor(scheme=self.sample_scheme)
+        # Deserialize incomplete XML (missing 'ats_name' and 'hostname')
+        processor.deserialize("<ats_utility><verbose>True</verbose></ats_utility>")
+        
+        result = processor.to_dict()
+        self.assertEqual(result["ats_name"], "")
+        self.assertEqual(result["hostname"], "")
+        self.assertEqual(result["verbose"], "True")
+
     def test_validate_by_scheme_without_root(self) -> None:
         """Test that validation fails immediately if there is no root element available."""
         processor = XMLProcessor(scheme=self.sample_scheme)

@@ -23,7 +23,8 @@ Info
 from abc import ABC, abstractmethod
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.context.context_registry import ContextRegistry
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.icontext_support import IContextSupport
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
@@ -36,7 +37,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IMyClass(ABC):
+class IMyClass(IContextSupport, ABC):
     '''
         Defines class MyClass with attribute(s) and method(s).
         Creates an API for the instance.
@@ -71,7 +72,7 @@ class IMyClass(ABC):
         pass
 
 
-class MyClass(IMyClass):
+class MyClass(IMyClass, ContextSupport):
     '''
         Defines class MyClass with attribute(s) and method(s).
         Creates an API for the instance.
@@ -97,8 +98,7 @@ class MyClass(IMyClass):
             :type context_bundle: <ContextBundle | None>
             :exceptions: None.
         '''
-        # No dependency injection then use default ones.
-        inject_context_bundle(self, context_bundle)
+        ContextSupport.__init__(self, context_bundle)
         self.my: str | None = None
 
     def not_none(self) -> bool:

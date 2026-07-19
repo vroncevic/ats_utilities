@@ -39,12 +39,19 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
 
 
-class DummyParser(IArgParser):
+from ats_utilities.context.context_support import ContextSupport
+
+
+class DummyParser(IArgParser, ContextSupport):
     '''
         Dummy parser class for registry tests.
     '''
     def __init__(self, component_bundle: Any) -> None:
-        pass
+        if component_bundle and hasattr(component_bundle, 'context_bundle'):
+            ContextSupport.__init__(self, component_bundle.context_bundle)
+        else:
+            from ats_utilities.context.context_registry import ContextRegistry
+            ContextSupport.__init__(self, ContextRegistry.create_default_context_bundle())
 
     def error(self, message: str) -> Any:
         pass
@@ -60,6 +67,9 @@ class DummyParser(IArgParser):
 
     def parse_known_args(self, *args: Any, **kwargs: Any) -> Any:
         pass
+
+    def __str__(self) -> str:
+        return "DummyParser"
 
 
 class OptionRegistryTest(unittest.TestCase):
@@ -89,6 +99,26 @@ class OptionRegistryTest(unittest.TestCase):
         context_bundle = ContextRegistry.create_default_context_bundle()
 
         bundle = OptionRegistry.create_option_bundle_from_dict(
+            parameters=parameters,
+            context_bundle=context_bundle,
+            parser_class=DummyParser
+        )
+
+        self.assertIsInstance(bundle, OptionBundle)
+        self.assertEqual(bundle.parameters, parameters)
+        self.assertIs(bundle.context_bundle, context_bundle)
+
+    def test_create_bundle(self) -> None:
+        """Tests create_bundle on OptionRegistry."""
+        parameters = {
+            "name": "mytool",
+            "version": "1.0.0",
+            "description": "desc",
+            "epilog": "epi"
+        }
+        context_bundle = ContextRegistry.create_default_context_bundle()
+
+        bundle = OptionRegistry.create_bundle(
             parameters=parameters,
             context_bundle=context_bundle,
             parser_class=DummyParser

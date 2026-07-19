@@ -72,7 +72,7 @@ Creates an API for storing the configuration from mapping format to configuratio
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.storer.engine.</span></span><span class="sig-name descname"><span class="pre">Storer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.config_io_bundle.html#ats_utilities.config_io.config_io_bundle.ConfigIOBundle" title="ats_utilities.config_io.config_io_bundle.ConfigIOBundle"><span class="pre">ConfigIOBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/storer/engine.html#Storer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.storer.istorer.html#ats_utilities.config_io.storer.istorer.IStorer" title="ats_utilities.config_io.storer.istorer.IStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IStorer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.context.context_support.html#ats_utilities.context.context_support.ContextSupport" title="ats_utilities.context.context_support.ContextSupport"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextSupport</span></code></a>, <a class="reference internal" href="ats_utilities.config_io.storer.istorer.html#ats_utilities.config_io.storer.istorer.IStorer" title="ats_utilities.config_io.storer.istorer.IStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IStorer</span></code></a></p>
 <p>Defines class Storer with attribute(s) and method(s).
 Creates an API for storing the configuration from mapping format to configuration file.
 2nd level of configuration storer implementation.</p>
@@ -81,16 +81,9 @@ Creates an API for storing the configuration from mapping format to configuratio
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_MODE - File open mode.</div>
-<div class="line">_config_file_bundle - Configuration file bundle parameters (default None).</div>
-<div class="line">_checker - Injected parameters checker (default Checker).</div>
-<div class="line">_logger - Injected logger for logging (default Logger).</div>
-<div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
-<div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
-<div class="line">_file_checker - FileCheck for checking file (default FileCheck).</div>
-<div class="line">_file_path - Configuration file path (default None).</div>
-<div class="line">_file_bundle_shared - File bundle parameters (default None).</div>
-<div class="line">_format_type - File format extension.</div>
+<div class="line">_shared_context - Shared context bundle.</div>
+<div class="line">_processor - Processor instance.</div>
+<div class="line">_conf_file_bundle - Configuration file bundle parameters.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -109,38 +102,18 @@ Creates an API for storing the configuration from mapping format to configuratio
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer._checker">
-<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._checker" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer._conf_file_bundle">
-<span class="sig-name descname"><span class="pre">_conf_file_bundle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.conf_file_bundle.html#ats_utilities.config_io.conf_file_bundle.ConfFileBundle" title="ats_utilities.config_io.conf_file_bundle.ConfFileBundle"><span class="pre">ConfFileBundle</span></a></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._conf_file_bundle" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer._context_bundle_shared">
-<span class="sig-name descname"><span class="pre">_context_bundle_shared</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._context_bundle_shared" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer._logger">
-<span class="sig-name descname"><span class="pre">_logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._logger" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer._conf_file">
+<span class="sig-name descname"><span class="pre">_conf_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.iconf_file.html#ats_utilities.config_io.iconf_file.IConfFile" title="ats_utilities.config_io.iconf_file.IConfFile"><span class="pre">IConfFile</span></a></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._conf_file" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer._processor">
-<span class="sig-name descname"><span class="pre">_processor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.processor.iconfig_processor.html#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor" title="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor"><span class="pre">IConfigProcessor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._processor" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_processor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.processor.iconfig_processor.html#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor" title="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor"><span class="pre">IConfigProcessor</span></a></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._processor" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer._reporter">
-<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._reporter" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer._verbose">
-<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._verbose" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer._shared_context">
+<span class="sig-name descname"><span class="pre">_shared_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._shared_context" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -197,13 +170,9 @@ Creates an API for storing the configuration from mapping format to configuratio
 <li><a class="reference internal" href="#">ats_utilities.config_io.storer.engine module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer"><code class="docutils literal notranslate"><span class="pre">Storer</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._abc_impl"><code class="docutils literal notranslate"><span class="pre">Storer._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._checker"><code class="docutils literal notranslate"><span class="pre">Storer._checker</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._conf_file_bundle"><code class="docutils literal notranslate"><span class="pre">Storer._conf_file_bundle</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._context_bundle_shared"><code class="docutils literal notranslate"><span class="pre">Storer._context_bundle_shared</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._logger"><code class="docutils literal notranslate"><span class="pre">Storer._logger</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._conf_file"><code class="docutils literal notranslate"><span class="pre">Storer._conf_file</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._processor"><code class="docutils literal notranslate"><span class="pre">Storer._processor</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._reporter"><code class="docutils literal notranslate"><span class="pre">Storer._reporter</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._verbose"><code class="docutils literal notranslate"><span class="pre">Storer._verbose</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._shared_context"><code class="docutils literal notranslate"><span class="pre">Storer._shared_context</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer.get_shared_context"><code class="docutils literal notranslate"><span class="pre">Storer.get_shared_context()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer.store_configuration"><code class="docutils literal notranslate"><span class="pre">Storer.store_configuration()</span></code></a></li>
 </ul>

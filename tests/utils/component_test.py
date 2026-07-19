@@ -122,7 +122,7 @@ class ComponentTest(unittest.TestCase):
         '''
         instance = DummyComponent()
         try:
-            validate_component(instance, DummyComponent)
+            validate_component(instance, DummyComponent, 'componenttest::test_validate_component_valid')
         except ATSTypeError:
             self.fail("validate_component raised ATSTypeError unexpectedly for valid component type.")
 
@@ -133,7 +133,7 @@ class ComponentTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSTypeError) as ctx:
-            validate_component("not a component", DummyComponent)
+            validate_component("not a component", DummyComponent, 'componenttest::test_validate_component_invalid')
         self.assertIn("instance is not of expected type", str(ctx.exception))
 
     def test_validate_component_custom_exception(self) -> None:
@@ -143,7 +143,7 @@ class ComponentTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ValueError):
-            validate_component("not a component", DummyComponent, exception_class=ValueError)
+            validate_component("not a component", DummyComponent, 'componenttest::test_validate_component_custom_exception', exc_class=ValueError)
 
     def test_validate_component_custom_message(self) -> None:
         '''
@@ -152,7 +152,7 @@ class ComponentTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSTypeError) as ctx:
-            validate_component("not a component", DummyComponent, exc_message="custom message")
+            validate_component("not a component", DummyComponent, 'componenttest::test_validate_component_custom_message', exc_message="custom message")
         self.assertIn("componenttest::test_validate_component_custom_message - custom message", str(ctx.exception))
 
 

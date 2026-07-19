@@ -37,7 +37,7 @@ from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.splasher.isplasher import ISplasher
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str, has_attrs
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
@@ -52,7 +52,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Base(IBase):
+class Base(ContextSupport, IBase):
     '''
         Defines class Base with attribute(s) and method(s).
         Creates an API for setup (App/Tool/Script).
@@ -118,10 +118,10 @@ class Base(IBase):
                 | ATSTypeError: Generator must be IGenerator interface or None.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        not_none(component_bundle, r'component bundle must be provided')
-        istype(component_bundle, BaseBundle, r'component bundle must be an instance of BaseBundle')
+        not_none(component_bundle, 'base::__init__', r'component bundle must be provided')
+        istype(component_bundle, BaseBundle, 'base::__init__', r'component bundle must be an instance of BaseBundle')
         self._shared_context = component_bundle.context_bundle
-        inject_context_bundle(self, self._shared_context)
+        ContextSupport.__init__(self, self._shared_context)
         self._config_loader = component_bundle.config_loader
         self._info_manager = component_bundle.info_manager
         self._splasher = component_bundle.splasher

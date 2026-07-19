@@ -24,12 +24,12 @@ from __future__ import annotations
 
 from collections.abc import Callable, Mapping
 from logging import (
-    getLogger, DEBUG, INFO, WARNING, ERROR, CRITICAL, FileHandler, Formatter
+    getLogger, DEBUG, INFO, WARNING, ERROR, CRITICAL, FileHandler, Formatter, StreamHandler
 )
 from os import environ, makedirs
 from os.path import dirname, exists
 from re import compile, Pattern
-from sys import stdout
+from sys import stdout, stderr
 from types import MappingProxyType
 from typing import Any, override
 
@@ -68,6 +68,8 @@ class Logger(ILogger):
                 | is_initialized - Checks if logger is initialized.
                 | set_level - Sets log level.
                 | set_log_file - Sets log file.
+                | set_stdout - Sets log output to standard output (stdout).
+                | set_stderr - Sets log output to standard error (stderr).
                 | stop_buffering - Stops log buffering.
                 | __str__ - Returns the logger as string representation.
     '''
@@ -87,8 +89,16 @@ class Logger(ILogger):
                 | ATSValueError - Component bundle must be provided.
                 | ATSTypeError - Component bundle must be a LoggerBundle instance.
         '''
-        not_none(component_bundle, r'component_bundle must be provided')
-        istype(component_bundle, LoggerBundle, r'component_bundle must be a LoggerBundle instance')
+        not_none(
+            component_bundle,
+            r'logger::init(...)',
+            r'component_bundle must be provided'
+        )
+        istype(
+            component_bundle, LoggerBundle,
+            r'logger::init(...)',
+            r'component_bundle must be a LoggerBundle instance'
+        )
         self._logger = component_bundle.logger
         self._early_logs_buffer = []
         self._has_file_handler = bool(component_bundle.log_file)
@@ -161,7 +171,9 @@ class Logger(ILogger):
             :exceptions: None.
         '''
         if hasattr(self._logger, 'hasHandlers'):
-            return bool(self._log_methods) and (self._logger.hasHandlers() or getLogger().hasHandlers())
+            return bool(self._log_methods) and (
+                self._logger.hasHandlers() or getLogger().hasHandlers()
+            )
 
         return bool(self._logger and self._log_methods)
 
@@ -208,6 +220,84 @@ class Logger(ILogger):
             ))
             self._logger.addHandler(file_handler)
             self._has_file_handler = True
+
+        if self._has_file_handler and self._early_logs_buffer:
+            if hasattr(self._logger, 'log'):
+                for msg, ctrl in self._early_logs_buffer:
+                    self._logger.log(ctrl, msg)
+            elif hasattr(self._logger, 'write_log'):
+                for msg, ctrl in self._early_logs_buffer:
+                    self._logger.write_log(msg, ctrl)
+
+            self._early_logs_buffer.clear()
+
+    @override
+    def set_stdout(self) -> None:
+        '''
+            Sets log output to standard output (stdout).
+
+            :exceptions: None.
+        '''
+        if hasattr(self._logger, 'addHandler'):
+            for handler in list(self._logger.handlers):
+                if isinstance(handler, FileHandler):
+                    self._logger.removeHandler(handler)
+                elif isinstance(handler, StreamHandler) and getattr(handler, 'stream', None) is not stdout:
+                    self._logger.removeHandler(handler)
+
+            has_stdout = any(
+                isinstance(h, StreamHandler) and getattr(h, 'stream', None) is stdout
+                for h in self._logger.handlers
+            )
+
+            if not has_stdout:
+                stream_handler = StreamHandler(stdout)
+                stream_handler.setFormatter(Formatter(
+                    '%(asctime)s - %(levelname)s - %(message)s',
+                    datefmt='%m/%d/%Y %I:%M:%S %p'
+                ))
+                self._logger.addHandler(stream_handler)
+
+        self._has_file_handler = True
+
+        if self._has_file_handler and self._early_logs_buffer:
+            if hasattr(self._logger, 'log'):
+                for msg, ctrl in self._early_logs_buffer:
+                    self._logger.log(ctrl, msg)
+            elif hasattr(self._logger, 'write_log'):
+                for msg, ctrl in self._early_logs_buffer:
+                    self._logger.write_log(msg, ctrl)
+
+            self._early_logs_buffer.clear()
+
+    @override
+    def set_stderr(self) -> None:
+        '''
+            Sets log output to standard error (stderr).
+
+            :exceptions: None.
+        '''
+        if hasattr(self._logger, 'addHandler'):
+            for handler in list(self._logger.handlers):
+                if isinstance(handler, FileHandler):
+                    self._logger.removeHandler(handler)
+                elif isinstance(handler, StreamHandler) and getattr(handler, 'stream', None) is not stderr:
+                    self._logger.removeHandler(handler)
+
+            has_stderr = any(
+                isinstance(h, StreamHandler) and getattr(h, 'stream', None) is stderr
+                for h in self._logger.handlers
+            )
+
+            if not has_stderr:
+                stream_handler = StreamHandler(stderr)
+                stream_handler.setFormatter(Formatter(
+                    '%(asctime)s - %(levelname)s - %(message)s',
+                    datefmt='%m/%d/%Y %I:%M:%S %p'
+                ))
+                self._logger.addHandler(stream_handler)
+
+        self._has_file_handler = True
 
         if self._has_file_handler and self._early_logs_buffer:
             if hasattr(self._logger, 'log'):

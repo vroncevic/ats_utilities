@@ -136,6 +136,24 @@ class InfoRegistryTest(unittest.TestCase):
         finally:
             InfoRegistry._ATTR_TO_CLASS = original_attr_to_class
 
+    def test_create_bundle(self) -> None:
+        context_bundle = ContextRegistry.create_default_context_bundle()
+        info_data = {
+            InfoKeys.ATS_NAME: "ats_utilities",
+            InfoKeys.ATS_VERSION: "3.4.3",
+            InfoKeys.ATS_BUILD_DATE: "2026-07-18",
+            InfoKeys.ATS_LICENCE: "GPLv3",
+            InfoKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
+            InfoKeys.ATS_ORGANIZATION: "vroncevic",
+            InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: "True",
+            InfoKeys.ATS_LOGO_PATH: "/path/to/logo.png",
+            InfoKeys.ATS_LOG_FILE: "/path/to/run.log",
+            InfoKeys.ATS_INFO_OK: True
+        }
+        bundle = InfoRegistry.create_bundle(info=info_data, context_bundle=context_bundle)
+        self.assertIsInstance(bundle, InfoBundle)
+        self.assertEqual(bundle.name.name, "ats_utilities")
+
 
 if __name__ == "__main__":
     unittest.main()

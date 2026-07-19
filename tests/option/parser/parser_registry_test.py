@@ -76,6 +76,27 @@ class ParserRegistryTest(unittest.TestCase):
         self.assertEqual(bundle.description, "mytool build date 2026-01-01")
         self.assertIs(bundle.context_bundle, mock_context)
 
+    def test_create_bundle(self) -> None:
+        """Tests create_bundle on ParserRegistry."""
+        parameters = {
+            InfoKeys.ATS_NAME: "mytool",
+            InfoKeys.ATS_VERSION: "1.0.0",
+            InfoKeys.ATS_LICENCE: "MIT",
+            InfoKeys.ATS_BUILD_DATE: "2026-01-01"
+        }
+        mock_context = MagicMock(spec=ContextBundle)
+
+        bundle = ParserRegistry.create_bundle(
+            parameters=parameters,
+            context_bundle=mock_context
+        )
+
+        self.assertIsInstance(bundle, ParserBundle)
+        self.assertEqual(bundle.prog, "mytool 1.0.0")
+        self.assertEqual(bundle.epilog, "mytool copyright (c) MIT")
+        self.assertEqual(bundle.description, "mytool build date 2026-01-01")
+        self.assertIs(bundle.context_bundle, mock_context)
+
 
 if __name__ == "__main__":
     unittest.main()

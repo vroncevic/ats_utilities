@@ -66,8 +66,16 @@ class CheckReporter(ICheckReporter):
                 | ATSValueError: Report checker reporter bundle must be provided.
                 | ATSTypeError: Report checker reporter bundle must be an instance of CheckerReporterBundle.
         '''
-        not_none(report_bundle, r'report checker reporter bundle must be provided')
-        istype(report_bundle, CheckerReporterBundle , r'report bundle must be an instance of CheckerReporterBundle')
+        not_none(
+            report_bundle,
+            r'check_reporter::build_message_format(...)',
+            r'report checker reporter bundle must be provided'
+        )
+        istype(
+            report_bundle, CheckerReporterBundle,
+            r'check_reporter::build_message_format(...)',
+            r'report bundle must be an instance of CheckerReporterBundle'
+        )
 
         message = report_bundle.context
         err_set = set(report_bundle.err_indices)

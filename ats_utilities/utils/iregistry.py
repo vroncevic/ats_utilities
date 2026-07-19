@@ -39,15 +39,21 @@ class IRegistry[T](ABC):
     '''
         Abstract interface for all component factories and registries.
         Encapsulates standard orchestration behavior across dynamic bundles.
+
+        It defines:
+
+            :methods:
+                | create_bundle - Factory method to orchestrate and build a component bundle.
     '''
 
     @classmethod
     @abstractmethod
     def create_bundle(cls, **kwargs: Any) -> T:
         '''
-            Abstract factory method to orchestrate and build a component bundle.
+            Factory method to orchestrate and build a component bundle.
 
             :param kwargs: Additional registry-specific orchestration parameters.
+            :type kwargs: Mapping[str, Any]
             :return: A fully constructed and validated bundle instance.
             :rtype: <T>
         '''

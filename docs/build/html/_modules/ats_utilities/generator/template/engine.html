@@ -66,9 +66,7 @@
 
 <span class="kn">from</span> <span class="nn">ats_utilities.generator.template.itemplate_processor</span> <span class="kn">import</span> <span class="n">ITemplateProcessor</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle_inject</span> <span class="kn">import</span> <span class="n">inject_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_support</span> <span class="kn">import</span> <span class="n">ContextSupport</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -83,7 +81,7 @@
 
 <div class="viewcode-block" id="TemplateProcessor">
 <a class="viewcode-back" href="../../../../ats_utilities.generator.template.engine.html#ats_utilities.generator.template.engine.TemplateProcessor">[docs]</a>
-<span class="k">class</span> <span class="nc">TemplateProcessor</span><span class="p">(</span><span class="n">ITemplateProcessor</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">TemplateProcessor</span><span class="p">(</span><span class="n">ContextSupport</span><span class="p">,</span> <span class="n">ITemplateProcessor</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class TemplateProcessor with method(s).</span>
 <span class="sd">        Handles string rendering and template substitutions.</span>
@@ -91,9 +89,6 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
-<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
-<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _initialized - Status of the template processor.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes TemplateProcessor constructor.</span>
@@ -102,9 +97,6 @@
 <span class="sd">                | __str__ - Returns the processor as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
-    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
-    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">_initialized</span><span class="p">:</span> <span class="nb">bool</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -117,7 +109,7 @@
 <span class="sd">                | ATSValueError: Context bundle must be provided.</span>
 <span class="sd">                | ATSTypeError: Context bundle must be a ContextBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">inject_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
+        <span class="n">ContextSupport</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
 <div class="viewcode-block" id="TemplateProcessor.render">

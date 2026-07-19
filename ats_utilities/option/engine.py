@@ -25,18 +25,15 @@ from __future__ import annotations
 from collections.abc import Sequence, Mapping
 from typing import Any, override
 
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str, has_attrs
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.option.option_bundle import OptionBundle
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.option.option_namespace import OptArgs, OptionNamespace
-from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.proxy_reporter import vreport
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
@@ -52,7 +49,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class OptionManager(IOptionManager):
+class OptionManager(ContextSupport, IOptionManager):
     '''
         Defines class OptionManager with attribute(s) and method(s).
         Creates an option parser based on the argparse argument processor.
@@ -60,10 +57,6 @@ class OptionManager(IOptionManager):
         It defines:
 
             :attributes:
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _shared_context - Context bundle with shared context.
                 | _is_initialized - Indicates if the option manager component is initialized (default False).
                 | _strategy - Strategy for argument parsing (default ParserStrategy).
@@ -80,10 +73,6 @@ class OptionManager(IOptionManager):
                 | __str__ - Returns the string representation of OptionManager.
     '''
 
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
     _is_initialized: bool
     _shared_context: ContextBundle
     _strategy: IParserStrategy
@@ -98,10 +87,18 @@ class OptionManager(IOptionManager):
                 | ATSValueError - Component bundle must be provided.
                 | ATSTypeError - Component bundle must be an OptionBundle instance.
         '''
-        not_none(component_bundle, r'component bundle must be provided')
-        istype(component_bundle, OptionBundle, r'component bundle must be an OptionBundle instance')
+        not_none(
+            component_bundle,
+            r'option_manager::init(...)',
+            r'component bundle must be provided'
+        )
+        istype(
+            component_bundle, OptionBundle,
+            r'option_manager::init(...)'
+            r'component bundle must be an OptionBundle instance'
+        )
         self._shared_context = component_bundle.context_bundle
-        inject_context_bundle(self, self._shared_context)
+        ContextSupport.__init__(self, self._shared_context)
         self._strategy = component_bundle.strategy
         self._is_initialized = True
 

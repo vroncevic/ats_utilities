@@ -113,11 +113,11 @@ class BaseRegistry(IRegistry[BaseBundle]):
                 | ATSTypeError: context_bundle must be a ContextBundle instance.
                 | ATSTypeError: use generator must be a boolean.
         '''
-        not_none(info_file, r'info file must be provided')
-        not_none(context_bundle, r'context bundle must be provided')
-        istype(info_file, str, r'info file must be a string')
-        istype(context_bundle, ContextBundle, r'context bundle must be a ContextBundle instance')
-        istype(use_generator, bool, r'use generator must be a boolean')
+        not_none(info_file, 'baseregistry::create_default_base_bundle', r'info file must be provided')
+        not_none(context_bundle, 'baseregistry::create_default_base_bundle', r'context bundle must be provided')
+        istype(info_file, str, 'baseregistry::create_default_base_bundle', r'info file must be a string')
+        istype(context_bundle, ContextBundle, 'baseregistry::create_default_base_bundle', r'context bundle must be a ContextBundle instance')
+        istype(use_generator, bool, 'baseregistry::create_default_base_bundle', r'use generator must be a boolean')
 
         config_loader: Loader = Loader(
             component_bundle=ConfigIORegistry.create_config_io_bundle_by_file_path_and_scheme(

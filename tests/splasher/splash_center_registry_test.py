@@ -54,6 +54,15 @@ class SplashCenterRegistryTest(unittest.TestCase):
         self.assertEqual(bundle.columns, 80)
         self.assertEqual(bundle.additional_shifter, 2)
 
+    def test_create_bundle(self) -> None:
+        bundle = SplashCenterRegistry.create_bundle(
+            columns=80,
+            additional_shifter=2
+        )
+        self.assertIsInstance(bundle, SplashCenterBundle)
+        self.assertEqual(bundle.columns, 80)
+        self.assertEqual(bundle.additional_shifter, 2)
+
 
 if __name__ == "__main__":
     unittest.main()

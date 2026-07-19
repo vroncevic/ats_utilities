@@ -83,8 +83,9 @@ def has_attrs(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., 
 
                 if not bool(value) and value != 0 and value != False:
                     raise_error(
-                        fallback_prefix=context,
+                        fallback_context=context,
                         fallback_msg=f'missing or empty attribute {attr}',
+                        exc_context=context,
                         exc_message=None
                     )
 

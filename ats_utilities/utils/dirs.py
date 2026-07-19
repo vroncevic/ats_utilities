@@ -39,38 +39,41 @@ __status__ = r'Development'
 
 def check_dir_exists(
     dir_path: str,
+    exc_context: str | None = None,
     exc_message: str | None = None,
-    exception_class: type[BaseException] = ATSValueError
+    exc_class: type[BaseException] = ATSValueError
 ) -> None:
     '''
         Checks if a directory exists.
 
         :param dir_path: Path to the directory.
         :type dir_path: <str>
+        :param exc_context: Context representation in string format.
+        :type exc_context: <str | None>
         :param exc_message: Message to include in the exception message.
         :type exc_message: <str | None>
-        :param exception_class: The exception class to raise if value is None.
-        :type exception_class: <type[BaseException]> (default ATSValueError)
+        :param exc_class: The exception class to raise if value is None.
+        :type exc_class: <type[BaseException]> (default ATSValueError)
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
-            | Dynamically raises the provided exception_class (e.g., ATSValueError).
+            | Dynamically raises the provided exc_class (e.g., ATSValueError).
     '''
-    istype(dir_path, str, exc_message)
+    istype(dir_path, str, exc_context, exc_message)
 
     if not dir_path:
         raise_error(
-            fallback_prefix=r'dirs::check_dir_exists',
+            fallback_context=r'dirs::check_dir_exists(...)',
             fallback_msg=r'directory path must be provided',
+            exc_context=exc_context,
             exc_message=exc_message,
-            exception_class=exception_class,
-            depth=3
+            exc_class=exc_class
         )
 
     if not Path(dir_path).is_dir():
         raise_error(
-            fallback_prefix=r'dirs::check_dir_exists',
+            fallback_context=r'dirs::check_dir_exists(...)',
             fallback_msg=f'directory at the provided path does not exist: {dir_path}',
+            exc_context=exc_context,
             exc_message=exc_message,
-            exception_class=exception_class,
-            depth=3
+            exc_class=exc_class
         )

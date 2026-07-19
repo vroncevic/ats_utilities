@@ -54,22 +54,19 @@ class TestBaseEngine(unittest.TestCase):
         self.mock_bundle.generator = self.mock_generator
         self.mock_bundle.use_generator = False
 
-    @patch("ats_utilities.base.engine.inject_context_bundle")
-    def test_initialization_success_without_generator(self, mock_inject: MagicMock) -> None:
+    def test_initialization_success_without_generator(self) -> None:
         """Test successful initialization and readiness flags when the generator is disabled."""
         self.mock_bundle.use_generator = False
         
         base_instance = ConcreteBase(self.mock_bundle)
 
         self.assertEqual(base_instance.get_shared_context(), self.mock_context)
-        mock_inject.assert_called_once_with(base_instance, self.mock_context)
         self.assertTrue(base_instance.is_initialized())
         
         # Verify generator was not checked or bound
         self.assertFalse(hasattr(base_instance, "_generator"))
 
-    @patch("ats_utilities.base.engine.inject_context_bundle")
-    def test_initialization_success_with_generator(self, mock_inject: MagicMock) -> None:
+    def test_initialization_success_with_generator(self) -> None:
         """Test successful initialization and readiness verification when the generator is enabled."""
         self.mock_bundle.use_generator = True
         
@@ -79,8 +76,7 @@ class TestBaseEngine(unittest.TestCase):
         self.mock_generator.is_initialized.assert_called_once()
         self.assertTrue(base_instance.is_initialized())
 
-    @patch("ats_utilities.base.engine.inject_context_bundle")
-    def test_initialization_fails_when_component_uninitialized(self, mock_inject: MagicMock) -> None:
+    def test_initialization_fails_when_component_uninitialized(self) -> None:
         """Test that if any sub-component is uninitialized, the engine reports uninitialized."""
         self.mock_info_manager.is_initialized.return_value = False
         
