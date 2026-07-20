@@ -26,6 +26,7 @@ from typing import Any, override
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
+from ats_utilities.config_io.conf_file_params import ConfFileParams
 from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.context.context_bundle import ContextBundle
 
@@ -39,7 +40,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ConfFileRegistry(IRegistry[ConfFileBundle]):
+class ConfFileRegistry(IRegistry[ConfFileBundle, ConfFileParams]):
     '''
         Encapsulates core config I/O components for simplification of ConfFileBundle creation.
 
@@ -53,11 +54,12 @@ class ConfFileRegistry(IRegistry[ConfFileBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> ConfFileBundle:
+    def create_bundle(cls, params: ConfFileParams) -> ConfFileBundle:
         '''
             Creates a ConfFileBundle instance using either file path and file mode.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: ConfFileParams
             :return: ConfFileBundle instance.
             :rtype: <ConfFileBundle>
             :exceptions:
@@ -68,9 +70,9 @@ class ConfFileRegistry(IRegistry[ConfFileBundle]):
                 | ATSTypeError: File mode must be a string.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle interface.
         '''
-        file_path: str = kwargs.get('file_path')
-        file_mode: str = kwargs.get('file_mode')
-        context_bundle: ContextBundle = kwargs.get('context_bundle')
+        file_path: str = params.get('file_path')
+        file_mode: str = params.get('file_mode')
+        context_bundle: ContextBundle = params.get('context_bundle')
 
         return cls.create_conf_file_bundle(
             file_path=file_path,

@@ -6,6 +6,7 @@ from unittest.mock import MagicMock, patch
 # Adjust imports according to your project structure
 from ats_utilities.config_io.conf_file_registry import ConfFileRegistry
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
+from ats_utilities.config_io.conf_file_params import ConfFileParams
 from ats_utilities.context.context_bundle import ContextBundle
 
 
@@ -50,9 +51,11 @@ class TestConfFileRegistry(unittest.TestCase):
         mock_bundle_cls.return_value = mock_expected_bundle
 
         result = ConfFileRegistry.create_bundle(
-            file_path=self.mock_file_path,
-            file_mode=self.mock_file_mode,
-            context_bundle=self.mock_context_bundle
+            ConfFileParams(
+                file_path=self.mock_file_path,
+                file_mode=self.mock_file_mode,
+                context_bundle=self.mock_context_bundle
+            )
         )
 
         mock_bundle_cls.assert_called_once_with(

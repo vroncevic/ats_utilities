@@ -32,6 +32,7 @@ from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.reporter_bundle import ReporterBundle
 from ats_utilities.reporter.theme.engine import ConsoleTheme
 from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.context_params import ContextParams
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -43,7 +44,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ContextRegistry(IRegistry[ContextBundle]):
+class ContextRegistry(IRegistry[ContextBundle, ContextParams | None]):
     '''
         Encapsulates core runtime components for simplification of ContextBundle creation.
 
@@ -56,18 +57,19 @@ class ContextRegistry(IRegistry[ContextBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> ContextBundle:
+    def create_bundle(cls, params: ContextParams | None = None) -> ContextBundle:
         '''
             Creates a ContextBundle instance using optional verbose parameter.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: ContextParams | None
             :return: ContextBundle instance.
             :rtype: <ContextBundle>
             :exceptions:
                 | ATSValueError: Verbose must be provided.
                 | ATSTypeError: Verbose must be a boolean.
         '''
-        verbose: bool = kwargs.get('verbose')
+        verbose: bool = params.get('verbose', False) if params else False
 
         return cls.create_default_context_bundle(
             verbose=verbose

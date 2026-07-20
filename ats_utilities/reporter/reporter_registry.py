@@ -25,6 +25,7 @@ from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.reporter.reporter_bundle import ReporterBundle
+from ats_utilities.reporter.reporter_params import ReporterParams
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.checker_registry import CheckerRegistry
 from ats_utilities.reporter.theme.engine import ConsoleTheme
@@ -41,7 +42,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ReporterRegistry(IRegistry[ReporterBundle]):
+class ReporterRegistry(IRegistry[ReporterBundle, ReporterParams | None]):
     '''
         Encapsulates core runtime components for simplification of ReporterBundle creation.
 
@@ -54,11 +55,12 @@ class ReporterRegistry(IRegistry[ReporterBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> ReporterBundle:
+    def create_bundle(cls, params: ReporterParams | None = None) -> ReporterBundle:
         '''
             Creates a ReporterBundle instance.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: ReporterParams | None
             :return: ReporterBundle instance.
             :rtype: <ReporterBundle>
             :exceptions:

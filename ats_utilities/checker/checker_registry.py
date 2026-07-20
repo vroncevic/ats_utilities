@@ -25,6 +25,7 @@ from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.checker.checker_bundle import CheckerBundle
+from ats_utilities.checker.checker_params import CheckerParams
 from ats_utilities.checker.format.format_validator import FormatValidator
 from ats_utilities.checker.type.type_validator import TypeValidator
 from ats_utilities.checker.context.context_provider import ContextProvider
@@ -40,7 +41,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class CheckerRegistry(IRegistry[CheckerBundle]):
+class CheckerRegistry(IRegistry[CheckerBundle, CheckerParams | None]):
     '''
         Encapsulates core runtime components for simplification of CheckerBundle creation.
 
@@ -53,11 +54,12 @@ class CheckerRegistry(IRegistry[CheckerBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> CheckerBundle:
+    def create_bundle(cls, params: CheckerParams | None = None) -> CheckerBundle:
         '''
             Creates a CheckerBundle instance using provided components or default ones if not provided.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: CheckerParams | None
             :return: CheckerBundle instance.
             :rtype: <CheckerBundle>
             :exceptions:
@@ -70,14 +72,14 @@ class CheckerRegistry(IRegistry[CheckerBundle]):
                 | ATSTypeError: Format validator must be an instance of IFormatValidator.
                 | ATSTypeError: Type validator must be an instance of ITypeValidator.
         '''
-        if not kwargs:
+        if not params:
             return cls.create_default_checker_bundle()
 
         return CheckerBundle(
-            format_validator=kwargs.get('format_validator'),
-            type_validator=kwargs.get('type_validator'),
-            context_provider=kwargs.get('context_provider'),
-            check_reporter=kwargs.get('check_reporter')
+            format_validator=params.get('format_validator'),
+            type_validator=params.get('type_validator'),
+            context_provider=params.get('context_provider'),
+            check_reporter=params.get('check_reporter')
         )
 
     @classmethod

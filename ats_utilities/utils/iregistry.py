@@ -35,7 +35,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IRegistry[T](ABC):
+class IRegistry[T, P](ABC):
     '''
         Abstract interface for all component factories and registries.
         Encapsulates standard orchestration behavior across dynamic bundles.
@@ -48,13 +48,14 @@ class IRegistry[T](ABC):
 
     @classmethod
     @abstractmethod
-    def create_bundle(cls, **kwargs: Any) -> T:
+    def create_bundle(cls, params: P) -> T:
         '''
             Factory method to orchestrate and build a component bundle.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
-            :type kwargs: Mapping[str, Any]
+            :param params: Registry-specific orchestration parameters.
+            :type params: P
             :return: A fully constructed and validated bundle instance.
             :rtype: <T>
         '''
         pass
+

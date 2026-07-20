@@ -27,6 +27,7 @@ from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle
+from ats_utilities.generator.tar.tar_process_member_params import TarProcessMemberParams
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,7 +39,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class TarProcessRegistry(IRegistry[TarProcessMemberBundle]):
+class TarProcessRegistry(IRegistry[TarProcessMemberBundle, TarProcessMemberParams]):
     '''
         Encapsulates core runtime components for creation of tar process member bundle.
 
@@ -51,11 +52,12 @@ class TarProcessRegistry(IRegistry[TarProcessMemberBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> TarProcessMemberBundle:
+    def create_bundle(cls, params: TarProcessMemberParams) -> TarProcessMemberBundle:
         '''
             Creates a TarProcessMemberBundle instance.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: TarProcessMemberParams
             :return: TarProcessMemberBundle instance.
             :rtype: <TarProcessMemberBundle>
             :exceptions:
@@ -68,10 +70,10 @@ class TarProcessRegistry(IRegistry[TarProcessMemberBundle]):
                 | ATSTypeError: Dest full path must be a string.
                 | ATSTypeError: Vals must be a mapping.
         '''
-        tar: TarFile = kwargs.get('tar')
-        member: TarInfo = kwargs.get('member')
-        dest_full_path: str = kwargs.get('dest_full_path')
-        vals: Mapping[str, str] = kwargs.get('vals')
+        tar: TarFile = params.get('tar')
+        member: TarInfo = params.get('member')
+        dest_full_path: str = params.get('dest_full_path')
+        vals: Mapping[str, str] = params.get('vals')
 
         return cls.create_tar_process_member_bundle(
             tar=tar,

@@ -30,6 +30,7 @@ from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.splasher.splash_bundle import SplashBundle
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.splasher.splash_registry import SplashRegistry
+from ats_utilities.splasher.splash_params import SplashParams
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -120,7 +121,9 @@ class SplashRegistryTest(unittest.TestCase):
         mock_size.return_value = (24, 80, 0, 0)
         context_bundle = ContextRegistry.create_default_context_bundle()
         prop = self._get_valid_prop()
-        bundle = SplashRegistry.create_bundle(prop=prop, context_bundle=context_bundle)
+        bundle = SplashRegistry.create_bundle(
+            SplashParams(prop=prop, context_bundle=context_bundle)
+        )
         self.assertIsInstance(bundle, SplashBundle)
         self.assertTrue(bundle.property_validated)
         self.assertTrue(bundle.github.infrastructure_property)

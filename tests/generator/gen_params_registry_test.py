@@ -7,6 +7,7 @@ from collections.abc import Mapping
 # Adjust imports according to your project structure
 from ats_utilities.generator.gen_params_registry import GenParamsRegistry
 from ats_utilities.generator.gen_params_bundle import GenParamsBundle
+from ats_utilities.generator.gen_params_params import GenParamsParams
 
 
 class TestGenParamsRegistry(unittest.TestCase):
@@ -71,11 +72,13 @@ class TestGenParamsRegistry(unittest.TestCase):
     def test_create_bundle(self, mock_check_file: MagicMock) -> None:
         """Test create_bundle on GenParamsRegistry."""
         result = GenParamsRegistry.create_bundle(
-            archive_path=self.archive_path,
-            target_dir=self.target_dir,
-            template_key=self.template_key,
-            scheme=self.scheme,
-            template_values=self.template_values
+            GenParamsParams(
+                archive_path=self.archive_path,
+                target_dir=self.target_dir,
+                template_key=self.template_key,
+                scheme=self.scheme,
+                template_values=self.template_values
+            )
         )
         self.assertIsInstance(result, GenParamsBundle)
         self.assertEqual(result.archive_path, self.archive_path)

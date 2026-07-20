@@ -7,6 +7,7 @@ from collections.abc import Mapping
 # Adjust imports according to your project structure
 from ats_utilities.config_io.config_io_registry import ConfigIORegistry
 from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
+from ats_utilities.config_io.config_io_params import ConfigIOParams
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.context.context_bundle import ContextBundle
 
@@ -86,10 +87,12 @@ class TestConfigIORegistry(unittest.TestCase):
         mock_expected_bundle = MagicMock(spec=ConfigIOBundle)
         with patch.object(ConfigIORegistry, "create_config_io_bundle_by_file_path_and_scheme", return_value=mock_expected_bundle) as mock_create:
             result = ConfigIORegistry.create_bundle(
-                file_path=self.mock_file_path,
-                scheme=self.mock_scheme,
-                context_bundle=self.mock_context_bundle,
-                processor=None
+                ConfigIOParams(
+                    file_path=self.mock_file_path,
+                    scheme=self.mock_scheme,
+                    context_bundle=self.mock_context_bundle,
+                    processor=None
+                )
             )
             mock_create.assert_called_once_with(
                 file_path=self.mock_file_path,
@@ -103,10 +106,12 @@ class TestConfigIORegistry(unittest.TestCase):
         mock_expected_bundle = MagicMock(spec=ConfigIOBundle)
         with patch.object(ConfigIORegistry, "create_config_io_bundle_by_injected_processor", return_value=mock_expected_bundle) as mock_create:
             result = ConfigIORegistry.create_bundle(
-                file_path=self.mock_file_path,
-                scheme=self.mock_scheme,
-                context_bundle=self.mock_context_bundle,
-                processor=self.mock_processor
+                ConfigIOParams(
+                    file_path=self.mock_file_path,
+                    scheme=self.mock_scheme,
+                    context_bundle=self.mock_context_bundle,
+                    processor=self.mock_processor
+                )
             )
             mock_create.assert_called_once_with(
                 processor=self.mock_processor,

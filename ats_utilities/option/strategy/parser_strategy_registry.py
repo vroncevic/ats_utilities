@@ -30,6 +30,7 @@ from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.option.parser.iarg_parser import IArgParser
 from ats_utilities.option.parser.engine import ArgParser
 from ats_utilities.option.strategy.parser_strategy_bundle import ParserStrategyBundle
+from ats_utilities.option.strategy.parser_strategy_params import ParserStrategyParams
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -41,7 +42,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ParserStrategyRegistry(IRegistry[ParserStrategyBundle]):
+class ParserStrategyRegistry(IRegistry[ParserStrategyBundle, ParserStrategyParams]):
     '''
         Encapsulates core parser components for simplification of ParserStrategyBundle creation.
 
@@ -54,11 +55,12 @@ class ParserStrategyRegistry(IRegistry[ParserStrategyBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> ParserStrategyBundle:
+    def create_bundle(cls, params: ParserStrategyParams) -> ParserStrategyBundle:
         '''
             Creates a ParserStrategyBundle instance.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: ParserStrategyParams
             :return: ParserStrategyBundle instance.
             :rtype: <ParserStrategyBundle>
             :exceptions:
@@ -67,9 +69,9 @@ class ParserStrategyRegistry(IRegistry[ParserStrategyBundle]):
                 | ATSTypeError: Parameters must be a mapping.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        parameters: Mapping[str, str] = kwargs.get('parameters')
-        context_bundle: ContextBundle = kwargs.get('context_bundle')
-        parser_class: type[IArgParser] = kwargs.get('parser_class', ArgParser)
+        parameters: Mapping[str, str] = params.get('parameters')
+        context_bundle: ContextBundle = params.get('context_bundle')
+        parser_class: type[IArgParser] = params.get('parser_class', ArgParser)
 
         return cls.create_parser_strategy_bundle_from_dict(
             parameters=parameters,

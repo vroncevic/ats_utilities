@@ -30,6 +30,7 @@ from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.info.info_bundle import InfoBundle
 from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.info.info_registry import InfoRegistry
+from ats_utilities.info.info_params import InfoParams
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -150,7 +151,7 @@ class InfoRegistryTest(unittest.TestCase):
             InfoKeys.ATS_LOG_FILE: "/path/to/run.log",
             InfoKeys.ATS_INFO_OK: True
         }
-        bundle = InfoRegistry.create_bundle(info=info_data, context_bundle=context_bundle)
+        bundle = InfoRegistry.create_bundle(InfoParams(info=info_data, context_bundle=context_bundle))
         self.assertIsInstance(bundle, InfoBundle)
         self.assertEqual(bundle.name.name, "ats_utilities")
 

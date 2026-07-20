@@ -28,6 +28,7 @@ from typing import Any, override
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.option.parser.parser_bundle import ParserBundle
+from ats_utilities.option.parser.parser_params import ParserParams
 from ats_utilities.info.info_keys import InfoKeys
 
 __author__ = r'Vladimir Roncevic'
@@ -40,7 +41,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ParserRegistry(IRegistry[ParserBundle]):
+class ParserRegistry(IRegistry[ParserBundle, ParserParams]):
     '''
         Encapsulates core parser components for simplification of ParserBundle creation.
 
@@ -53,11 +54,12 @@ class ParserRegistry(IRegistry[ParserBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> ParserBundle:
+    def create_bundle(cls, params: ParserParams) -> ParserBundle:
         '''
             Creates a ParserBundle instance.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: ParserParams
             :return: ParserBundle instance.
             :rtype: <ParserBundle>
             :exceptions:
@@ -66,8 +68,8 @@ class ParserRegistry(IRegistry[ParserBundle]):
                 | ATSTypeError: Parameters must be a mapping.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        parameters: Mapping[str, str] = kwargs.get('parameters')
-        context_bundle: ContextBundle = kwargs.get('context_bundle')
+        parameters: Mapping[str, str] = params.get('parameters')
+        context_bundle: ContextBundle = params.get('context_bundle')
 
         return cls.create_parser_bundle_from_dict(
             parameters=parameters,

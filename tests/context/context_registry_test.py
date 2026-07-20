@@ -26,6 +26,7 @@ import unittest
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_params import ContextParams
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 
@@ -71,7 +72,7 @@ class ContextRegistryTest(unittest.TestCase):
         self.assertTrue(bundle_verbose.verbose)
 
     def test_create_bundle(self) -> None:
-        bundle = ContextRegistry.create_bundle(verbose=True)
+        bundle = ContextRegistry.create_bundle(ContextParams(verbose=True))
         self.assertIsInstance(bundle, ContextBundle)
         self.assertTrue(bundle.verbose)
 

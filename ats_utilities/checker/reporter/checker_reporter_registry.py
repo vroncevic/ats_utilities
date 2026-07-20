@@ -26,6 +26,7 @@ from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle, ParamMetadata
+from ats_utilities.checker.reporter.checker_reporter_params import CheckerReporterParams
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,7 +38,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class CheckerReporterRegistry(IRegistry[CheckerReporterBundle]):
+class CheckerReporterRegistry(IRegistry[CheckerReporterBundle, CheckerReporterParams]):
     '''
         Encapsulates core runtime components for simplification of CheckerReporterBundle creation.
 
@@ -49,11 +50,12 @@ class CheckerReporterRegistry(IRegistry[CheckerReporterBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> CheckerReporterBundle:
+    def create_bundle(cls, params: CheckerReporterParams) -> CheckerReporterBundle:
         '''
             Creates a CheckerReporterBundle instance.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: CheckerReporterParams
             :return: CheckerReporterBundle instance.
             :rtype: <CheckerReporterBundle>
             :exceptions:
@@ -66,10 +68,10 @@ class CheckerReporterRegistry(IRegistry[CheckerReporterBundle]):
                 | ATSTypeError: Error indices must be a sequence of integers.
                 | ATSTypeError: Is format error must be a boolean.
         '''
-        context: str | None = kwargs.get('context')
-        parameters_meta: Sequence[ParamMetadata] | None = kwargs.get('parameters_meta')
-        err_indices: Sequence[int] | None = kwargs.get('err_indices')
-        is_fmt_err: bool | None = kwargs.get('is_fmt_err')
+        context: str | None = params.get('context')
+        parameters_meta: Sequence[ParamMetadata] | None = params.get('parameters_meta')
+        err_indices: Sequence[int] | None = params.get('err_indices')
+        is_fmt_err: bool | None = params.get('is_fmt_err')
 
         return CheckerReporterBundle(
             context=context,

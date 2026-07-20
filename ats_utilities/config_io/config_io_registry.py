@@ -26,6 +26,7 @@ from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
+from ats_utilities.config_io.config_io_params import ConfigIOParams
 from ats_utilities.config_io.processor.factory_processor import ConfigProcessorFactory
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.context.context_bundle import ContextBundle
@@ -40,7 +41,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ConfigIORegistry(IRegistry[ConfigIOBundle]):
+class ConfigIORegistry(IRegistry[ConfigIOBundle, ConfigIOParams]):
     '''
         Encapsulates core config I/O components for simplification of ConfigIOBundle creation.
 
@@ -54,11 +55,12 @@ class ConfigIORegistry(IRegistry[ConfigIOBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> ConfigIOBundle:
+    def create_bundle(cls, params: ConfigIOParams) -> ConfigIOBundle:
         '''
             Creates a ConfigIOBundle instance using either file path and scheme or injected processor.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: ConfigIOParams
             :return: ConfigIOBundle instance.
             :rtype: <ConfigIOBundle>
             :exceptions:
@@ -69,10 +71,10 @@ class ConfigIORegistry(IRegistry[ConfigIOBundle]):
                 | ATSTypeError: Scheme must be an instance of Mapping interface.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle interface.
         '''
-        file_path: str = kwargs.get('file_path')
-        scheme: Mapping[str, str] | None = kwargs.get('scheme')
-        context_bundle: ContextBundle = kwargs.get('context_bundle')
-        processor: IConfigProcessor | None = kwargs.get('processor')
+        file_path: str = params.get('file_path')
+        scheme: Mapping[str, str] | None = params.get('scheme')
+        context_bundle: ContextBundle = params.get('context_bundle')
+        processor: IConfigProcessor | None = params.get('processor')
 
         return cls.create_config_io_bundle_by_file_path_and_scheme(
             file_path=file_path,

@@ -7,6 +7,7 @@ from unittest.mock import MagicMock, patch
 from ats_utilities.generator.generator_registry import GeneratorRegistry
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.generator.generator_bundle import GeneratorBundle
+from ats_utilities.generator.generator_params import GeneratorParams
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.itar_processor import ITarProcessor
@@ -95,7 +96,9 @@ class TestGeneratorRegistry(unittest.TestCase):
         """Test create_bundle on GeneratorRegistry."""
         mock_bundle_inst = MagicMock(spec=GeneratorBundle)
         mock_bundle_cls.return_value = mock_bundle_inst
-        result = GeneratorRegistry.create_bundle(context_bundle=self.mock_context_bundle)
+        result = GeneratorRegistry.create_bundle(
+            GeneratorParams(context_bundle=self.mock_context_bundle)
+        )
         self.assertEqual(result, mock_bundle_inst)
 
 

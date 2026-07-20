@@ -27,6 +27,7 @@ from typing import Any, Final, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.info.info_bundle import InfoBundle
+from ats_utilities.info.info_params import InfoParams
 from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.info.name.engine import Name
 from ats_utilities.info.version.engine import Version
@@ -52,7 +53,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class InfoRegistry(IRegistry[InfoBundle]):
+class InfoRegistry(IRegistry[InfoBundle, InfoParams]):
     '''
         Encapsulates core runtime components for simplification of InfoBundle creation.
 
@@ -80,11 +81,12 @@ class InfoRegistry(IRegistry[InfoBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> InfoBundle:
+    def create_bundle(cls, params: InfoParams) -> InfoBundle:
         '''
             Creates an InfoBundle instance.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: InfoParams
             :return: InfoBundle instance.
             :rtype: <InfoBundle>
             :exceptions:
@@ -93,8 +95,8 @@ class InfoRegistry(IRegistry[InfoBundle]):
                 | ATSTypeError: Info must be a mapping.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        info: Mapping[str, Any] = kwargs.get('info')
-        context_bundle: ContextBundle = kwargs.get('context_bundle')
+        info: Mapping[str, Any] = params.get('info')
+        context_bundle: ContextBundle = params.get('context_bundle')
 
         return cls.create_info_bundle_from_dict(
             info=info,

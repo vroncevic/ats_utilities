@@ -8,6 +8,7 @@ from tarfile import TarFile, TarInfo
 # Adjust imports according to your project structure
 from ats_utilities.generator.tar.tar_process_member_registry import TarProcessRegistry
 from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle
+from ats_utilities.generator.tar.tar_process_member_params import TarProcessMemberParams
 
 
 class TestTarProcessMemberRegistry(unittest.TestCase):
@@ -64,10 +65,12 @@ class TestTarProcessMemberRegistry(unittest.TestCase):
     def test_create_bundle(self) -> None:
         """Test create_bundle on TarProcessRegistry."""
         result = TarProcessRegistry.create_bundle(
-            tar=self.mock_tar,
-            member=self.mock_member,
-            dest_full_path=self.dest_full_path,
-            vals=self.vals
+            TarProcessMemberParams(
+                tar=self.mock_tar,
+                member=self.mock_member,
+                dest_full_path=self.dest_full_path,
+                vals=self.vals
+            )
         )
         self.assertIsInstance(result, TarProcessMemberBundle)
         self.assertEqual(result.tar, self.mock_tar)

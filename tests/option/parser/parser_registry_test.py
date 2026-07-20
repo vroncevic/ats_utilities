@@ -28,6 +28,7 @@ from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.option.parser.parser_bundle import ParserBundle
 from ats_utilities.option.parser.parser_registry import ParserRegistry
+from ats_utilities.option.parser.parser_params import ParserParams
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -87,8 +88,10 @@ class ParserRegistryTest(unittest.TestCase):
         mock_context = MagicMock(spec=ContextBundle)
 
         bundle = ParserRegistry.create_bundle(
-            parameters=parameters,
-            context_bundle=mock_context
+            ParserParams(
+                parameters=parameters,
+                context_bundle=mock_context
+            )
         )
 
         self.assertIsInstance(bundle, ParserBundle)

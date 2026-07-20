@@ -26,6 +26,7 @@ import unittest
 from ats_utilities.context.context_registry import ContextRegistry
 from ats_utilities.project_setup.project_setup_bundle import ProjectSetupBundle
 from ats_utilities.project_setup.project_setup_registry import ProjectSetupRegistry
+from ats_utilities.project_setup.project_setup_params import ProjectSetupParams
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -83,8 +84,10 @@ class ProjectSetupRegistryTest(unittest.TestCase):
         context_bundle = ContextRegistry.create_default_context_bundle()
 
         bundle = ProjectSetupRegistry.create_bundle(
-            setup=setup,
-            context_bundle=context_bundle
+            ProjectSetupParams(
+                setup=setup,
+                context_bundle=context_bundle
+            )
         )
 
         self.assertIsInstance(bundle, ProjectSetupBundle)

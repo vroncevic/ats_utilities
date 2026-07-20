@@ -27,6 +27,7 @@ from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.logger.logger_bundle import LoggerBundle
+from ats_utilities.logger.logger_params import LoggerParams
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,7 +39,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class LoggerRegistry(IRegistry[LoggerBundle]):
+class LoggerRegistry(IRegistry[LoggerBundle, LoggerParams]):
     '''
         Encapsulates core runtime components for simplification of LoggerBundle creation.
 
@@ -51,11 +52,12 @@ class LoggerRegistry(IRegistry[LoggerBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> LoggerBundle:
+    def create_bundle(cls, params: LoggerParams) -> LoggerBundle:
         '''
             Creates a LoggerBundle instance.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: LoggerParams
             :return: LoggerBundle instance.
             :rtype: <LoggerBundle>
             :exceptions:
@@ -64,8 +66,8 @@ class LoggerRegistry(IRegistry[LoggerBundle]):
                 | ATSTypeError: Log file must be a string.
                 | ATSTypeError: Log level must be an integer.
         '''
-        log_file: str = kwargs.get('log_file')
-        log_level: int = kwargs.get('log_level')
+        log_file: str = params.get('log_file')
+        log_level: int = params.get('log_level')
 
         return cls.create_default_logger_bundle(
             log_file=log_file,

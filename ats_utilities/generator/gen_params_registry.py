@@ -26,6 +26,7 @@ from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.generator.gen_params_bundle import GenParamsBundle
+from ats_utilities.generator.gen_params_params import GenParamsParams
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,7 +38,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class GenParamsRegistry(IRegistry[GenParamsBundle]):
+class GenParamsRegistry(IRegistry[GenParamsBundle, GenParamsParams]):
     '''
         Encapsulates core runtime components for creation of generator parameters bundle.
 
@@ -50,11 +51,12 @@ class GenParamsRegistry(IRegistry[GenParamsBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> GenParamsBundle:
+    def create_bundle(cls, params: GenParamsParams) -> GenParamsBundle:
         '''
             Creates a GenParamsBundle instance.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: GenParamsParams
             :return: GenParamsBundle instance.
             :rtype: <GenParamsBundle>
             :exceptions:
@@ -71,11 +73,11 @@ class GenParamsRegistry(IRegistry[GenParamsBundle]):
                 | ATSValueError: Archive file does not exist.
                 | ATSValueError: Scheme file does not exist.
         '''
-        archive_path: str = kwargs.get('archive_path')
-        target_dir: str = kwargs.get('target_dir')
-        template_key: str = kwargs.get('template_key')
-        scheme: str | Mapping[str, str] = kwargs.get('scheme')
-        template_values: Mapping[str, str] = kwargs.get('template_values')
+        archive_path: str = params.get('archive_path')
+        target_dir: str = params.get('target_dir')
+        template_key: str = params.get('template_key')
+        scheme: str | Mapping[str, str] = params.get('scheme')
+        template_values: Mapping[str, str] = params.get('template_values')
 
         return cls.create_gen_params_bundle(
             archive_path=archive_path,

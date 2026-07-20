@@ -25,6 +25,7 @@ from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.generator.generator_bundle import GeneratorBundle
+from ats_utilities.generator.generator_params import GeneratorParams
 from ats_utilities.generator.template.engine import TemplateProcessor
 from ats_utilities.generator.scheme.engine import SchemeLoader
 from ats_utilities.generator.tar.engine import TarProcessor
@@ -40,7 +41,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class GeneratorRegistry(IRegistry[GeneratorBundle]):
+class GeneratorRegistry(IRegistry[GeneratorBundle, GeneratorParams]):
     '''
         Encapsulates core runtime components for simplification of GeneratorBundle creation.
 
@@ -53,18 +54,19 @@ class GeneratorRegistry(IRegistry[GeneratorBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> GeneratorBundle:
+    def create_bundle(cls, params: GeneratorParams) -> GeneratorBundle:
         '''
             Creates a GeneratorBundle instance.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: GeneratorParams
             :return: GeneratorBundle instance.
             :rtype: <GeneratorBundle>
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be of type ContextBundle.
         '''
-        context_bundle: ContextBundle = kwargs.get('context_bundle')
+        context_bundle: ContextBundle = params.get('context_bundle')
 
         return cls.create_default_generator_bundle(
             context_bundle=context_bundle

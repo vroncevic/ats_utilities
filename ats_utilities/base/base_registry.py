@@ -26,6 +26,7 @@ from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.base.base_bundle import BaseBundle
+from ats_utilities.base.base_params import BaseParams
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.config_io.loader.iloader import ILoader
@@ -56,7 +57,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class BaseRegistry(IRegistry[BaseBundle]):
+class BaseRegistry(IRegistry[BaseBundle, BaseParams]):
     '''
         Encapsulates core runtime components for simplification of BaseBundle creation.
 
@@ -69,11 +70,12 @@ class BaseRegistry(IRegistry[BaseBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> BaseBundle:
+    def create_bundle(cls, params: BaseParams) -> BaseBundle:
         '''
             Creates a BaseBundle.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: BaseParams
             :return: BaseBundle instance.
             :rtype: <BaseBundle>
             :exceptions:
@@ -83,9 +85,9 @@ class BaseRegistry(IRegistry[BaseBundle]):
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
                 | ATSTypeError: Use generator must be a boolean.
         '''
-        info_file: str = kwargs.get('info_file')
-        context_bundle: ContextBundle = kwargs.get('context_bundle')
-        use_generator: bool = kwargs.get('use_generator', False)
+        info_file: str = params.get('info_file')
+        context_bundle: ContextBundle = params.get('context_bundle')
+        use_generator: bool = params.get('use_generator', False)
 
         return cls.create_default_base_bundle(
             info_file=info_file,

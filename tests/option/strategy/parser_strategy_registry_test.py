@@ -27,6 +27,7 @@ from unittest.mock import MagicMock
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.option.strategy.parser_strategy_bundle import ParserStrategyBundle
 from ats_utilities.option.strategy.parser_strategy_registry import ParserStrategyRegistry
+from ats_utilities.option.strategy.parser_strategy_params import ParserStrategyParams
 from ats_utilities.option.parser.engine import ArgParser
 
 __author__: str = 'Vladimir Roncevic'
@@ -54,9 +55,11 @@ class ParserStrategyRegistryTest(unittest.TestCase):
             Tests create_bundle method.
         '''
         bundle = ParserStrategyRegistry.create_bundle(
-            parameters=self.parameters,
-            context_bundle=self.mock_context,
-            parser_class=ArgParser
+            ParserStrategyParams(
+                parameters=self.parameters,
+                context_bundle=self.mock_context,
+                parser_class=ArgParser
+            )
         )
         self.assertIsInstance(bundle, ParserStrategyBundle)
         self.assertEqual(bundle.parameters, self.parameters)

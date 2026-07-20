@@ -27,6 +27,7 @@ from unittest.mock import patch, MagicMock
 
 from ats_utilities.logger.logger_bundle import LoggerBundle
 from ats_utilities.logger.logger_registry import LoggerRegistry
+from ats_utilities.logger.logger_params import LoggerParams
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -68,8 +69,10 @@ class LoggerRegistryTest(unittest.TestCase):
 
     def test_create_bundle(self) -> None:
         bundle = LoggerRegistry.create_bundle(
-            log_file="test_registry.log",
-            log_level=logging.WARNING
+            LoggerParams(
+                log_file="test_registry.log",
+                log_level=logging.WARNING
+            )
         )
         self.assertIsInstance(bundle, LoggerBundle)
         self.assertEqual(bundle.log_file, "test_registry.log")

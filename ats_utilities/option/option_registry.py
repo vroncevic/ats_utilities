@@ -26,6 +26,7 @@ from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.option.option_bundle import OptionBundle
+from ats_utilities.option.option_params import OptionParams
 from ats_utilities.option.strategy.engine import ParserStrategy
 from ats_utilities.option.strategy.parser_strategy_registry import ParserStrategyRegistry
 from ats_utilities.context.context_bundle import ContextBundle
@@ -42,7 +43,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class OptionRegistry(IRegistry[OptionBundle]):
+class OptionRegistry(IRegistry[OptionBundle, OptionParams]):
     '''
         Encapsulates core option components for simplification of OptionBundle creation.
 
@@ -55,11 +56,12 @@ class OptionRegistry(IRegistry[OptionBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> OptionBundle:
+    def create_bundle(cls, params: OptionParams) -> OptionBundle:
         '''
             Creates an OptionBundle.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: OptionParams
             :return: OptionBundle.
             :rtype: <OptionBundle>
             :exceptions:
@@ -68,9 +70,9 @@ class OptionRegistry(IRegistry[OptionBundle]):
                 | ATSTypeError: Parameters must be a mapping.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        parameters: Mapping[str, str] = kwargs.get('parameters')
-        context_bundle: ContextBundle = kwargs.get('context_bundle')
-        parser_class: type[IArgParser] = kwargs.get('parser_class', ArgParser)
+        parameters: Mapping[str, str] = params.get('parameters')
+        context_bundle: ContextBundle = params.get('context_bundle')
+        parser_class: type[IArgParser] = params.get('parser_class', ArgParser)
 
         return cls.create_option_bundle_from_dict(
             parameters=parameters,

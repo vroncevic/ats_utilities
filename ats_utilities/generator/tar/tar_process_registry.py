@@ -26,6 +26,7 @@ from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
+from ats_utilities.generator.tar.tar_process_params import TarProcessParams
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,7 +38,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class TarProcessRegistry(IRegistry[TarProcessBundle]):
+class TarProcessRegistry(IRegistry[TarProcessBundle, TarProcessParams]):
     '''
         Encapsulates core runtime components for creation of tar process bundle.
 
@@ -50,11 +51,12 @@ class TarProcessRegistry(IRegistry[TarProcessBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> TarProcessBundle:
+    def create_bundle(cls, params: TarProcessParams) -> TarProcessBundle:
         '''
             Creates a TarProcessBundle instance.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: TarProcessParams
             :return: TarProcessBundle instance.
             :rtype: <TarProcessBundle>
             :exceptions:
@@ -72,12 +74,12 @@ class TarProcessRegistry(IRegistry[TarProcessBundle]):
                 | ATSTypeError: Vals must be a mapping.
                 | ATSValueError: Archive file does not exist.
         '''
-        archive_path: str = kwargs.get('archive_path')
-        target_dir: str = kwargs.get('target_dir')
-        source_dir: str = kwargs.get('source_dir')
-        path_replacements: Mapping[str, str] = kwargs.get('path_replacements')
-        exclude_patterns: Sequence[str] = kwargs.get('exclude_patterns')
-        vals: Mapping[str, str] = kwargs.get('vals')
+        archive_path: str = params.get('archive_path')
+        target_dir: str = params.get('target_dir')
+        source_dir: str = params.get('source_dir')
+        path_replacements: Mapping[str, str] = params.get('path_replacements')
+        exclude_patterns: Sequence[str] = params.get('exclude_patterns')
+        vals: Mapping[str, str] = params.get('vals')
 
         return cls.create_tar_process_bundle(
             archive_path=archive_path,

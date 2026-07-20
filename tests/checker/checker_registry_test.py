@@ -25,6 +25,7 @@ import unittest
 
 from ats_utilities.checker.checker_bundle import CheckerBundle
 from ats_utilities.checker.checker_registry import CheckerRegistry
+from ats_utilities.checker.checker_params import CheckerParams
 from ats_utilities.checker.context.context_provider import ContextProvider
 from ats_utilities.checker.format.format_validator import FormatValidator
 from ats_utilities.checker.reporter.check_reporter import CheckReporter
@@ -75,10 +76,12 @@ class CheckerRegistryTest(unittest.TestCase):
         check_reporter = CheckReporter()
 
         bundle = CheckerRegistry.create_bundle(
-            format_validator=format_validator,
-            type_validator=type_validator,
-            context_provider=context_provider,
-            check_reporter=check_reporter
+            CheckerParams(
+                format_validator=format_validator,
+                type_validator=type_validator,
+                context_provider=context_provider,
+                check_reporter=check_reporter
+            )
         )
         self.assertIsInstance(bundle, CheckerBundle)
         self.assertIs(bundle.format_validator, format_validator)

@@ -6,6 +6,7 @@ from unittest.mock import MagicMock, patch
 # Adjust imports according to your project structure
 from ats_utilities.base.base_registry import BaseRegistry
 from ats_utilities.base.base_bundle import BaseBundle
+from ats_utilities.base.base_params import BaseParams
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.info.engine import InfoManager
@@ -237,9 +238,11 @@ class TestBaseRegistry(unittest.TestCase):
     def test_create_bundle(self, mock_create_default: MagicMock) -> None:
         """Test create_bundle delegates correctly to create_default_base_bundle."""
         BaseRegistry.create_bundle(
-            info_file=self.info_file,
-            context_bundle=self.mock_context_bundle,
-            use_generator=True
+            BaseParams(
+                info_file=self.info_file,
+                context_bundle=self.mock_context_bundle,
+                use_generator=True
+            )
         )
         mock_create_default.assert_called_once_with(
             info_file=self.info_file,

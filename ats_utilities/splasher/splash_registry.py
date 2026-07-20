@@ -26,6 +26,7 @@ from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.splasher.splash_bundle import SplashBundle
+from ats_utilities.splasher.splash_params import SplashParams
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.splasher.property.isplash_property import ISplashProperty
 from ats_utilities.splasher.property.splash_property import SplashProperty
@@ -48,7 +49,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class SplashRegistry(IRegistry[SplashBundle]):
+class SplashRegistry(IRegistry[SplashBundle, SplashParams]):
     '''
         Encapsulates splash screen components for simplification of SplashBundle creation.
 
@@ -61,24 +62,25 @@ class SplashRegistry(IRegistry[SplashBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> SplashBundle:
+    def create_bundle(cls, params: SplashParams) -> SplashBundle:
         '''
             Creates a SplashBundle instance.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: SplashParams
             :return: SplashBundle instance.
             :rtype: <SplashBundle>
             :exceptions:
                 | ATSValueError: Context bundle must not be provided.
                 | ATSTypeError: Context bundle must be of type ContextBundle.
         '''
-        prop: Mapping[str, Any] = kwargs.get('prop')
-        splash_property: ISplashProperty = kwargs.get('splash_property')
-        property_validated: bool = kwargs.get('property_validated')
-        terminal_property: ITerminalProperties = kwargs.get('terminal_property')
-        ext: IExtInfrastructure = kwargs.get('ext')
-        pb: IProgressBar = kwargs.get('pb')
-        context_bundle: ContextBundle = kwargs.get('context_bundle')
+        prop: Mapping[str, Any] = params.get('prop')
+        splash_property: ISplashProperty = params.get('splash_property')
+        property_validated: bool = params.get('property_validated')
+        terminal_property: ITerminalProperties = params.get('terminal_property')
+        ext: IExtInfrastructure = params.get('ext')
+        pb: IProgressBar = params.get('pb')
+        context_bundle: ContextBundle = params.get('context_bundle')
 
         return SplashBundle(
             prop=prop,

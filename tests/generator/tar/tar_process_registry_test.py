@@ -7,6 +7,7 @@ from collections.abc import Mapping, Sequence
 # Adjust imports according to your project structure
 from ats_utilities.generator.tar.tar_process_registry import TarProcessRegistry
 from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
+from ats_utilities.generator.tar.tar_process_params import TarProcessParams
 
 
 class TestTarProcessRegistry(unittest.TestCase):
@@ -72,12 +73,14 @@ class TestTarProcessRegistry(unittest.TestCase):
     def test_create_bundle(self) -> None:
         """Test create_bundle on TarProcessRegistry."""
         result = TarProcessRegistry.create_bundle(
-            archive_path=self.archive_path,
-            target_dir=self.target_dir,
-            source_dir=self.source_dir,
-            path_replacements=self.path_replacements,
-            exclude_patterns=self.exclude_patterns,
-            vals=self.vals
+            TarProcessParams(
+                archive_path=self.archive_path,
+                target_dir=self.target_dir,
+                source_dir=self.source_dir,
+                path_replacements=self.path_replacements,
+                exclude_patterns=self.exclude_patterns,
+                vals=self.vals
+            )
         )
         self.assertIsInstance(result, TarProcessBundle)
         self.assertEqual(result.archive_path, self.archive_path)

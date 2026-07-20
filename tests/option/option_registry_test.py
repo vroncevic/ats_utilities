@@ -27,6 +27,7 @@ from typing import Any
 from ats_utilities.context.context_registry import ContextRegistry
 from ats_utilities.option.option_bundle import OptionBundle
 from ats_utilities.option.option_registry import OptionRegistry
+from ats_utilities.option.option_params import OptionParams
 from ats_utilities.option.parser.iarg_parser import IArgParser
 
 __author__: str = 'Vladimir Roncevic'
@@ -119,9 +120,11 @@ class OptionRegistryTest(unittest.TestCase):
         context_bundle = ContextRegistry.create_default_context_bundle()
 
         bundle = OptionRegistry.create_bundle(
-            parameters=parameters,
-            context_bundle=context_bundle,
-            parser_class=DummyParser
+            OptionParams(
+                parameters=parameters,
+                context_bundle=context_bundle,
+                parser_class=DummyParser
+            )
         )
 
         self.assertIsInstance(bundle, OptionBundle)

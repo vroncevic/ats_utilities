@@ -25,6 +25,7 @@ import unittest
 
 from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle
 from ats_utilities.checker.reporter.checker_reporter_registry import CheckerReporterRegistry
+from ats_utilities.checker.reporter.checker_reporter_params import CheckerReporterParams
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -50,10 +51,12 @@ class CheckerReporterRegistryTest(unittest.TestCase):
 
     def test_create_bundle(self) -> None:
         bundle = CheckerReporterRegistry.create_bundle(
-            context="my_context",
-            parameters_meta=[("p", "t", "v")],
-            err_indices=[0],
-            is_fmt_err=False
+            CheckerReporterParams(
+                context="my_context",
+                parameters_meta=[("p", "t", "v")],
+                err_indices=[0],
+                is_fmt_err=False
+            )
         )
         self.assertIsInstance(bundle, CheckerReporterBundle)
         self.assertEqual(bundle.context, "my_context")

@@ -26,6 +26,7 @@ from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.project_setup.project_setup_bundle import ProjectSetupBundle
+from ats_utilities.project_setup.project_setup_params import ProjectSetupParams
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.project_setup.pro_name import ProName
 from ats_utilities.project_setup.pro_config import ProConfig
@@ -41,7 +42,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ProjectSetupRegistry(IRegistry[ProjectSetupBundle]):
+class ProjectSetupRegistry(IRegistry[ProjectSetupBundle, ProjectSetupParams]):
     '''
         Encapsulates core runtime components for simplification of ProjectSetupBundle creation.
 
@@ -54,11 +55,12 @@ class ProjectSetupRegistry(IRegistry[ProjectSetupBundle]):
 
     @classmethod
     @override
-    def create_bundle(cls, **kwargs: Any) -> ProjectSetupBundle:
+    def create_bundle(cls, params: ProjectSetupParams) -> ProjectSetupBundle:
         '''
             Creates a ProjectSetupBundle instance.
 
-            :param kwargs: Additional registry-specific orchestration parameters.
+            :param params: Registry-specific orchestration parameters.
+            :type params: ProjectSetupParams
             :return: ProjectSetupBundle instance.
             :rtype: <ProjectSetupBundle>
             :exceptions:
@@ -67,8 +69,8 @@ class ProjectSetupRegistry(IRegistry[ProjectSetupBundle]):
                 | ATSTypeError: Setup must be a mapping.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        setup: Mapping[str, Any] = kwargs.get('setup')
-        context_bundle: ContextBundle = kwargs.get('context_bundle')
+        setup: Mapping[str, Any] = params.get('setup')
+        context_bundle: ContextBundle = params.get('context_bundle')
 
         return cls.create_default_project_setup_bundle(
             setup=setup,

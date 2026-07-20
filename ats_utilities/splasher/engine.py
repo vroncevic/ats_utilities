@@ -31,6 +31,7 @@ from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.splasher.splash_bundle import SplashBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 from ats_utilities.splasher.splash_center_registry import SplashCenterRegistry
+from ats_utilities.splasher.splash_center_params import SplashCenterParams
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
@@ -117,7 +118,7 @@ class Splasher(ContextSupport, ISplasher):
 
                         if bool(processed_line):
                             splash_center_bundle: SplashCenterBundle = SplashCenterRegistry.create_bundle(
-                                columns=int(size[1]), additional_shifter=0
+                                SplashCenterParams(columns=int(size[1]), additional_shifter=0)
                             )
 
                             self.center(splash_center_bundle, processed_line)
@@ -126,7 +127,7 @@ class Splasher(ContextSupport, ISplasher):
                 not_satisfied(True, context, f'logo file content is invalid {exc}')
 
             splash_center_bundle: SplashCenterBundle = SplashCenterRegistry.create_bundle(
-                columns=int(size[1]), additional_shifter=2
+                SplashCenterParams(columns=int(size[1]), additional_shifter=2)
             )
 
             self.center(splash_center_bundle, component_bundle.ext.get_info_text())

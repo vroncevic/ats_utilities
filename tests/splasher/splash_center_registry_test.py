@@ -25,6 +25,7 @@ import unittest
 
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 from ats_utilities.splasher.splash_center_registry import SplashCenterRegistry
+from ats_utilities.splasher.splash_center_params import SplashCenterParams
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -56,8 +57,10 @@ class SplashCenterRegistryTest(unittest.TestCase):
 
     def test_create_bundle(self) -> None:
         bundle = SplashCenterRegistry.create_bundle(
-            columns=80,
-            additional_shifter=2
+            SplashCenterParams(
+                columns=80,
+                additional_shifter=2
+            )
         )
         self.assertIsInstance(bundle, SplashCenterBundle)
         self.assertEqual(bundle.columns, 80)
