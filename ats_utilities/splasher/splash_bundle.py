@@ -54,7 +54,6 @@ class SplashBundle:
                 | prop - Splash screen properties in dict format.
                 | splash_property - Splash screen property instance.
                 | terminal_property - Terminal properties instance.
-                | github - GitHub infrastructure instance.
                 | ext - Generic external infrastructure instance.
                 | pb - Progress bar component instance.
                 | context_bundle - Context bundle instance.
@@ -68,7 +67,6 @@ class SplashBundle:
     splash_property: ISplashProperty
     property_validated: bool
     terminal_property: ITerminalProperties
-    github: IExtInfrastructure
     ext: IExtInfrastructure
     pb: IProgressBar
     context_bundle: ContextBundle
@@ -81,14 +79,12 @@ class SplashBundle:
                 | ATSValueError: Properties dictionary 'prop' must be provided.
                 | ATSValueError: Splash property 'splash_property' must be provided.
                 | ATSValueError: Terminal properties 'terminal_property' must be provided.
-                | ATSValueError: GitHub infrastructure 'github' must be provided.
                 | ATSValueError: External infrastructure 'ext' must be provided.
                 | ATSValueError: Progress bar 'pb' must be provided.
                 | ATSValueError: Context bundle 'context_bundle' must be provided.
                 | ATSTypeError: Property 'prop' must be a Mapping[str, Any] instance.
                 | ATSTypeError: Splash property 'splash_property' must be an ISplashProperty instance.
                 | ATSTypeError: Terminal properties 'terminal_property' must be an ITerminalProperties instance.
-                | ATSTypeError: GitHub infrastructure 'github' must be an IExtInfrastructure instance.
                 | ATSTypeError: External infrastructure 'ext' must be an IExtInfrastructure instance.
                 | ATSTypeError: Progress bar 'pb' must be an IProgressBar instance.
                 | ATSTypeError: Context bundle 'context_bundle' must be a ContextBundle instance.
@@ -105,14 +101,12 @@ class SplashBundle:
                 | ATSValueError: Properties dictionary 'prop' must be provided.
                 | ATSValueError: Splash property 'splash_property' must be provided.
                 | ATSValueError: Terminal properties 'terminal_property' must be provided.
-                | ATSValueError: GitHub infrastructure 'github' must be provided.
                 | ATSValueError: External infrastructure 'ext' must be provided.
                 | ATSValueError: Progress bar 'pb' must be provided.
                 | ATSValueError: Context bundle 'context_bundle' must be provided.
                 | ATSTypeError: Property 'prop' must be a Mapping[str, Any] instance.
                 | ATSTypeError: Splash property 'splash_property' must be an ISplashProperty instance.
                 | ATSTypeError: Terminal properties 'terminal_property' must be an ITerminalProperties instance.
-                | ATSTypeError: GitHub infrastructure 'github' must be an IExtInfrastructure instance.
                 | ATSTypeError: External infrastructure 'ext' must be an IExtInfrastructure instance.
                 | ATSTypeError: Progress bar 'pb' must be an IProgressBar instance.
                 | ATSTypeError: Context bundle 'context_bundle' must be a ContextBundle instance.
@@ -121,14 +115,12 @@ class SplashBundle:
         not_none(self.prop, context, r'properties dictionary must be provided')
         not_none(self.splash_property, context, r'splash property must be provided')
         not_none(self.terminal_property, context, r'terminal properties must be provided')
-        not_none(self.github, context, r'gitHub infrastructure must be provided')
         not_none(self.ext, context, r'external infrastructure must be provided')
         not_none(self.pb, context, r'progress bar must be provided')
         not_none(self.context_bundle, context, r'context bundle must be provided')
         istype(self.prop, Mapping, context, r'properties dictionary must be a Mapping[str, Any] instance')
         istype(self.splash_property, ISplashProperty, context, r'splash property must be an ISplashProperty instance')
         istype(self.terminal_property, ITerminalProperties, context, r'terminal properties must be an ITerminalProperties instance')
-        istype(self.github, IExtInfrastructure, context, r'gitHub infrastructure must be an IExtInfrastructure instance')
         istype(self.ext, IExtInfrastructure, context, r'external infrastructure must be an IExtInfrastructure instance')
         istype(self.pb, IProgressBar, context, r'progress bar must be an IProgressBar instance')
         istype(self.context_bundle, ContextBundle, context, r'context bundle must be a ContextBundle instance')

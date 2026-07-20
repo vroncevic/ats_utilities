@@ -62,12 +62,9 @@ class SplashCenterRegistry(IRegistry[SplashCenterBundle]):
                 | ATSTypeError: Columns must be an integer.
                 | ATSTypeError: Additional shifter must be an integer.
         '''
-        columns: int = kwargs.get('columns')
-        additional_shifter: int = kwargs.get('additional_shifter')
-
         return cls.create_splash_center_bundle(
-            columns=columns,
-            additional_shifter=additional_shifter,
+            columns=kwargs.get('columns'),
+            additional_shifter=kwargs.get('additional_shifter')
         )
 
     @classmethod

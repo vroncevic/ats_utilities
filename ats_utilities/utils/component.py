@@ -91,7 +91,7 @@ def validate_component(
     '''
     if not isinstance(instance, expected_class):
         raise_error(
-            fallback_context=r'factory_component::validate_component(...)',
+            fallback_context=r'component::validate_component(...)',
             fallback_msg=f'instance is not of expected type {expected_class}',
             exc_context=exc_context,
             exc_message=exc_message,

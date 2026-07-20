@@ -27,12 +27,16 @@ from typing import Any, override
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.splasher.splash_bundle import SplashBundle
 from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.splasher.property.isplash_property import ISplashProperty
 from ats_utilities.splasher.property.splash_property import SplashProperty
-from ats_utilities.splasher.splash_keys import SplashKeys
+from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
 from ats_utilities.splasher.terminal.terminal_properties import TerminalProperties
+from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.external.ext_infrastructure import ExtInfrastructure
 from ats_utilities.splasher.external.github_infrastructure import GitHubInfrastructure
+from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
 from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
+from ats_utilities.splasher.splash_keys import SplashKeys
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -69,11 +73,21 @@ class SplashRegistry(IRegistry[SplashBundle]):
                 | ATSTypeError: Context bundle must be of type ContextBundle.
         '''
         prop: Mapping[str, Any] = kwargs.get('prop')
+        splash_property: ISplashProperty = kwargs.get('splash_property')
+        property_validated: bool = kwargs.get('property_validated')
+        terminal_property: ITerminalProperties = kwargs.get('terminal_property')
+        ext: IExtInfrastructure = kwargs.get('ext')
+        pb: IProgressBar = kwargs.get('pb')
         context_bundle: ContextBundle = kwargs.get('context_bundle')
 
-        return cls.create_splash_bundle_from_dict(
+        return SplashBundle(
             prop=prop,
-            context_bundle=context_bundle,
+            splash_property=splash_property,
+            property_validated=property_validated,
+            terminal_property=terminal_property,
+            ext=ext,
+            pb=pb,
+            context_bundle=context_bundle
         )
 
     @classmethod
@@ -95,37 +109,33 @@ class SplashRegistry(IRegistry[SplashBundle]):
                 | ATSValueError: Context bundle must not be provided.
                 | ATSTypeError: Context bundle must be of type ContextBundle.
         '''
-        splash_property = SplashProperty(context_bundle)
-        property_validated = False
+        splash_property: ISplashProperty = SplashProperty(context_bundle)
+        property_validated: bool = False
 
         if prop is not None:
             splash_property.splash_keys = prop
             property_validated = splash_property.validates()
 
-        terminal_property = TerminalProperties(context_bundle)
-        github = GitHubInfrastructure(context_bundle)
-        ext = ExtInfrastructure(context_bundle)
+        if prop.get(SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE, False):
+            ext: IExtInfrastructure = GitHubInfrastructure(context_bundle)
+        else:
+            ext: IExtInfrastructure = ExtInfrastructure(context_bundle)
+
+        terminal_property: ITerminalProperties = TerminalProperties(context_bundle)
 
         if property_validated and prop is not None:
-            is_enabled = bool(prop.get('enabled', True))
 
-            if is_enabled:
-                use_github = bool(prop.get(SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE, False))
-
-                if use_github:
-                    github.infrastructure_property = prop
-                else:
-                    ext.infrastructure_property = prop
+            if prop.get('enabled', True):
+                ext.infrastructure_property = prop
 
         size: tuple[Any, ...] = terminal_property.size()
-        pb = ProgressBar(int(size[1]) - int(int(size[1]) / 2))
+        pb: IProgressBar = ProgressBar(int(size[1]) - int(int(size[1]) / 2))
 
         return SplashBundle(
             prop=prop if prop is not None else {},
             splash_property=splash_property,
             property_validated=property_validated,
             terminal_property=terminal_property,
-            github=github,
             ext=ext,
             pb=pb,
             context_bundle=context_bundle

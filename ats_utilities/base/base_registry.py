@@ -58,7 +58,7 @@ __status__ = r'Development'
 
 class BaseRegistry(IRegistry[BaseBundle]):
     '''
-        Encapsulates core runtime components for simplification of CheckerBundle creation.
+        Encapsulates core runtime components for simplification of BaseBundle creation.
 
         It defines:
 

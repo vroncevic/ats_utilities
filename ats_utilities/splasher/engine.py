@@ -85,16 +85,9 @@ class Splasher(ContextSupport, ISplasher):
         '''
         self._is_initialized = False
         self._show_splash = False
-        not_none(
-            component_bundle,
-            r'splasher::init(...)',
-            r'component_bundle must be provided'
-        )
-        istype(
-            component_bundle, SplashBundle,
-            r'splasher::init(...)',
-            r'component_bundle must be a SplashBundle instance'
-        )
+        context: str = r'splasher::init(...)'
+        not_none(component_bundle, context, r'component_bundle must be provided')
+        istype(component_bundle, SplashBundle, context, r'component_bundle must be a SplashBundle instance')
         self._shared_context = component_bundle.context_bundle
         ContextSupport.__init__(self, self._shared_context)
 
@@ -111,60 +104,40 @@ class Splasher(ContextSupport, ISplasher):
 
             size: tuple[Any, ...] = component_bundle.terminal_property.size()
 
-            if bool(component_bundle.prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE]):
-                check_file_exists(
-                    component_bundle.prop[SplashKeys.ATS_LOGO_PATH],
-                    r'splasher::init(...)',
-                    r'App/Tool/Script logo file path not correct'
-                )
-                stdout.write('\n\n')
+            check_file_exists(
+                component_bundle.prop[SplashKeys.ATS_LOGO_PATH], context,
+                r'App/Tool/Script logo file path not correct'
+            )
+            stdout.write('\n\n')
 
-                try:
-                    with open(component_bundle.prop[SplashKeys.ATS_LOGO_PATH], 'r', encoding='utf-8') as scr:
-                        for line in scr:
-                            processed_line: str = line.rstrip()
+            try:
+                with open(component_bundle.prop[SplashKeys.ATS_LOGO_PATH], 'r', encoding='utf-8') as scr:
+                    for line in scr:
+                        processed_line: str = line.rstrip()
 
-                            if bool(processed_line):
-                                splash_center_bundle: SplashCenterBundle = SplashCenterRegistry.create_splash_center_bundle(
-                                    columns=int(size[1]),
-                                    additional_shifter=0,
-                                )
+                        if bool(processed_line):
+                            splash_center_bundle: SplashCenterBundle = SplashCenterRegistry.create_bundle(
+                                columns=int(size[1]), additional_shifter=0
+                            )
 
-                                self.center(splash_center_bundle, processed_line)
+                            self.center(splash_center_bundle, processed_line)
 
-                except (OSError, UnicodeDecodeError) as exc:
-                    not_satisfied(
-                        True,
-                        r'splasher::init(...)',
-                        f'logo file content is invalid {exc}'
-                    )
+            except (OSError, UnicodeDecodeError) as exc:
+                not_satisfied(True, context, f'logo file content is invalid {exc}')
 
-                splash_center_bundle: SplashCenterBundle = SplashCenterRegistry.create_splash_center_bundle(
-                    columns=int(size[1]),
-                    additional_shifter=2,
-                )
+            splash_center_bundle: SplashCenterBundle = SplashCenterRegistry.create_bundle(
+                columns=int(size[1]), additional_shifter=2
+            )
 
-                self.center(splash_center_bundle, component_bundle.github.get_info_text())
-                self.center(splash_center_bundle, component_bundle.github.get_issue_text())
-                self.center(splash_center_bundle, component_bundle.github.get_author_text())
-                stdout.write('\n\n')
-            else:
-                splash_center_bundle: SplashCenterBundle = SplashCenterRegistry.create_splash_center_bundle(
-                    columns=int(size[1]),
-                    additional_shifter=2,
-                )
-
-                self.center(splash_center_bundle, component_bundle.ext.get_info_text())
-                self.center(splash_center_bundle, component_bundle.ext.get_issue_text())
-                self.center(splash_center_bundle, component_bundle.ext.get_author_text())
-                stdout.write('\n\n')
-                self.center(splash_center_bundle, component_bundle.ext.get_issue_text())
-                self.center(splash_center_bundle, component_bundle.ext.get_author_text())
-                stdout.write('\n\n')
+            self.center(splash_center_bundle, component_bundle.ext.get_info_text())
+            self.center(splash_center_bundle, component_bundle.ext.get_issue_text())
+            self.center(splash_center_bundle, component_bundle.ext.get_author_text())
+            stdout.write('\n\n')
 
             for i in range(0, int(size[1]) - int(int(size[1]) / 2)):
                 component_bundle.pb.set_and_plot(i + 1, int(size[1]))
                 sleep(0.01)
+
             stdout.write('\n')
 
         self._is_initialized = True

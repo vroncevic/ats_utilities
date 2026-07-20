@@ -541,7 +541,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/reporter/theme/engine.py` | 33 | 0 | 100%|
 | `ats_utilities/reporter/theme/iconsole_theme.py` | 11 | 0 | 100%|
 | `ats_utilities/splasher/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/splasher/engine.py` | 87 | 0 | 100%|
+| `ats_utilities/splasher/engine.py` | 79 | 0 | 99%|
 | `ats_utilities/splasher/external/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/external/ext_infrastructure.py` | 66 | 0 | 100%|
 | `ats_utilities/splasher/external/github_infrastructure.py` | 75 | 0 | 100%|
@@ -553,11 +553,11 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/splasher/property/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/property/isplash_property.py` | 14 | 0 | 100%|
 | `ats_utilities/splasher/property/splash_property.py` | 49 | 0 | 100%|
-| `ats_utilities/splasher/splash_bundle.py` | 49 | 0 | 100%|
+| `ats_utilities/splasher/splash_bundle.py` | 46 | 1 | 98%|
 | `ats_utilities/splasher/splash_center_bundle.py` | 29 | 0 | 100%|
-| `ats_utilities/splasher/splash_center_registry.py` | 22 | 0 | 100%|
+| `ats_utilities/splasher/splash_center_registry.py` | 20 | 0 | 100%|
 | `ats_utilities/splasher/splash_keys.py` | 59 | 0 | 100%|
-| `ats_utilities/splasher/splash_registry.py` | 47 | 0 | 100%|
+| `ats_utilities/splasher/splash_registry.py` | 53 | 0 | 98%|
 | `ats_utilities/splasher/terminal/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/terminal/iterminal_properties.py` | 13 | 0 | 100%|
 | `ats_utilities/splasher/terminal/terminal_properties.py` | 59 | 0 | 100%|
@@ -573,7 +573,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/validation/check_type.py` | 37 | 0 | 100%|
 | `ats_utilities/validation/check_value.py` | 26 | 0 | 100%|
 | `ats_utilities/validation/context_error.py` | 14 | 0 | 100%|
-| **Total** | 5655 | 0 | 100% |
+| **Total** | 5648 | 1 | 99% |
 
 </details>
 
