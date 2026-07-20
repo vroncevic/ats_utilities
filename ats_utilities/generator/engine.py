@@ -92,16 +92,9 @@ class Generator(ContextSupport, IGenerator):
                 | ATSTypeError: Component bundle must be of type GeneratorBundle.
                 | ATSTypeError: Context bundle must be of type ContextBundle.
         '''
-        not_none(
-            component_bundle,
-            r'generator::init(...)',
-            r'component bundle must not be provided'
-        )
-        istype(
-            component_bundle, GeneratorBundle,
-            r'generator::init(...)',
-            r'component bundle must be of type GeneratorBundle'
-        )
+        context: str = r'generator::init(...)'
+        not_none(component_bundle, context, r'component bundle must not be provided')
+        istype(component_bundle, GeneratorBundle, context, r'component bundle must be of type GeneratorBundle')
         self._shared_context = component_bundle.context_bundle
         ContextSupport.__init__(self, self._shared_context)
         self._scheme_loader = component_bundle.scheme_loader
@@ -133,23 +126,11 @@ class Generator(ContextSupport, IGenerator):
                 | ATSTypeError: Template values must be a mapping.
                 | ATSValueError: Template values is missing or empty.
         '''
-        not_none(
-            template_values,
-            r'generator::prepare_template_values(...)'
-            r'template_values must be provided'
-        )
-        istype(
-            template_values, Mapping,
-            r'generator::prepare_template_values(...)'
-            r'template_values must be a mapping'
-        )
-
+        context: str = r'generator::prepare_template_values(...)'
+        not_none(template_values, context, r'template_values must be provided')
+        istype(template_values, Mapping, context, r'template_values must be a mapping')
         project_name = template_values.get('project_name')
-        not_empty(
-            project_name,
-            r'generator::prepare_template_values(...)'
-            r'template_values must contain a non-empty project_name'
-        )
+        not_empty(project_name, context, r'template_values must contain a non-empty project_name')
 
         values = template_values.copy()
         if 'project_name_dashed' not in values:
@@ -191,15 +172,14 @@ class Generator(ContextSupport, IGenerator):
         '''
         resolved_scheme = self._scheme_loader.load(generator_bundle.scheme)
         project_scheme = resolved_scheme.get(generator_bundle.template_key)
+        context: str = r'generator::generate(...)'
         not_satisfied(
-            not project_scheme,
-            r'generator::generate(...)'
+            not project_scheme, context,
             f'template_key {generator_bundle.template_key} not found in scheme configuration'
         )
         source_dir = project_scheme.get('source_dir')
         not_satisfied(
-            not source_dir,
-            r'generator::generate(...)'
+            not source_dir, context,
             f'source_dir not specified for template_key {generator_bundle.template_key}'
         )
         path_replacements: dict[str, str] = project_scheme.get('path_replacements', {})
@@ -221,11 +201,7 @@ class Generator(ContextSupport, IGenerator):
             return True
 
         except Exception as exc:
-            not_satisfied(
-                True,
-                r'generator::generate(...)'
-                f'generation failed {exc}'
-            )
+            not_satisfied(True, context, f'generation failed {exc}')
 
     @override
     def is_initialized(self) -> bool:

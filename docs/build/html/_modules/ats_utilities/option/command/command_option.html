@@ -142,56 +142,17 @@
 <span class="sd">                | ATSValueError: Nargs must be provided.</span>
 <span class="sd">                | ATSTypeError: Nargs must be a string or an integer.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;command_option::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;name must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">help_text</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;command_option::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;help text must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;command_option::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;action must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;command_option::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;default must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">required</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;command_option::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;required must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;command_option::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;choices must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">nargs</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;command_option::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;nargs must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">required</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;command_option::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;required must be a boolean&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;command_option::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;choices must be a sequence&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">nargs</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
-            <span class="sa">r</span><span class="s1">&#39;command_option::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;nargs must be a string or an integer&#39;</span>
-        <span class="p">)</span></div>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;command_option::validate(...)&#39;</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;name must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help_text</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;help text must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;action must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;default must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">required</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;required must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;choices must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nargs</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;nargs must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">required</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;required must be a boolean&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;choices must be a sequence&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nargs</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;nargs must be a string or an integer&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CommandOption.merge">
@@ -206,16 +167,9 @@
 <span class="sd">                | ATSValueError: Other CommandOption must be provided.</span>
 <span class="sd">                | ATSTypeError: Other must be a CommandOption instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="n">other</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;command_option::merge(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;other CommandOption must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="n">other</span><span class="p">,</span> <span class="n">CommandOption</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;command_option::merge(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;other must be a CommandOption instance&#39;</span>
-        <span class="p">)</span>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;command_option::merge(...)&#39;</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;other CommandOption must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">CommandOption</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;other must be a CommandOption instance&#39;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span><span class="p">:</span>
             <span class="n">other_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>

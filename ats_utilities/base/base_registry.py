@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of CheckerBundle creation.
+    Encapsulates core runtime components for simplification of BaseBundle creation.
 '''
 
 from __future__ import annotations
@@ -28,10 +28,15 @@ from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.base.base_bundle import BaseBundle
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
+from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.info.engine import InfoManager
+from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.engine import OptionManager
+from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.splasher.engine import Splasher
+from ats_utilities.splasher.isplasher import ISplasher
 from ats_utilities.generator.engine import Generator
+from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.config_io.config_io_registry import ConfigIORegistry
 from ats_utilities.info.info_registry import InfoRegistry
 from ats_utilities.option.option_registry import OptionRegistry
@@ -72,11 +77,11 @@ class BaseRegistry(IRegistry[BaseBundle]):
             :return: BaseBundle instance.
             :rtype: <BaseBundle>
             :exceptions:
-                | ATSValueError: info_file must be provided.
-                | ATSValueError: context_bundle must be provided.
-                | ATSTypeError: info_file must be a string.
-                | ATSTypeError: context_bundle must be a ContextBundle instance.
-                | ATSTypeError: use generator must be a boolean.
+                | ATSValueError: Info file must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Info file must be a string.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSTypeError: Use generator must be a boolean.
         '''
         info_file: str = kwargs.get('info_file')
         context_bundle: ContextBundle = kwargs.get('context_bundle')
@@ -102,24 +107,24 @@ class BaseRegistry(IRegistry[BaseBundle]):
             :type info_file: <str>
             :param context_bundle: ContextBundle instance.
             :type context_bundle: <ContextBundle>
-            :param use_generator: Whether to use the generator.
+            :param use_generator: Whether to use the generator (default False).
             :type use_generator: <bool>
             :return: Default BaseBundle instance.
             :rtype: <BaseBundle>
             :exceptions:
-                | ATSValueError: info_file must be provided.
-                | ATSValueError: context_bundle must be provided.
-                | ATSTypeError: info_file must be a string.
-                | ATSTypeError: context_bundle must be a ContextBundle instance.
-                | ATSTypeError: use generator must be a boolean.
+                | ATSValueError: Info file must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Info file must be a string.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSTypeError: Use generator must be a boolean.
         '''
-        not_none(info_file, 'baseregistry::create_default_base_bundle', r'info file must be provided')
-        not_none(context_bundle, 'baseregistry::create_default_base_bundle', r'context bundle must be provided')
-        istype(info_file, str, 'baseregistry::create_default_base_bundle', r'info file must be a string')
-        istype(context_bundle, ContextBundle, 'baseregistry::create_default_base_bundle', r'context bundle must be a ContextBundle instance')
-        istype(use_generator, bool, 'baseregistry::create_default_base_bundle', r'use generator must be a boolean')
-
-        config_loader: Loader = Loader(
+        context: str = r'base_registry::create_default_base_bundle(...)'
+        not_none(info_file, context, r'info file must be provided')
+        not_none(context_bundle, context, r'context bundle must be provided')
+        istype(info_file, str, context, r'info file must be a string')
+        istype(context_bundle, ContextBundle, context, r'context bundle must be a ContextBundle instance')
+        istype(use_generator, bool, context, r'use generator must be a boolean')
+        config_loader: ILoader = Loader(
             component_bundle=ConfigIORegistry.create_config_io_bundle_by_file_path_and_scheme(
                 file_path=info_file,
                 scheme={},
@@ -132,26 +137,30 @@ class BaseRegistry(IRegistry[BaseBundle]):
         if log_file and hasattr(context_bundle.logger, 'set_log_file'):
             context_bundle.logger.set_log_file(log_file)
 
-        info_manager: InfoManager = InfoManager(
+        info_manager: IInfoManager = InfoManager(
             component_bundle=InfoRegistry.create_info_bundle_from_dict(
                 info=config_data,
                 context_bundle=context_bundle
             )
         )
-        logo_path = info_manager.logo
+        logo_path: str = info_manager.logo
         info_manager.logo = f'{dirname(info_file)}/{logo_path}'
-        splasher: Splasher = Splasher(
+        splasher: ISplasher = Splasher(
             component_bundle=SplashRegistry.create_splash_bundle_from_dict(
-                prop=info_manager.get_info(), context_bundle=context_bundle
+                prop=info_manager.get_info(),
+                context_bundle=context_bundle
             )
         )
-        options_parser: OptionManager = OptionManager(
+        options_parser: IOptionManager = OptionManager(
             component_bundle=OptionRegistry.create_option_bundle_from_dict(
-                parameters=info_manager.get_info(), context_bundle=context_bundle
+                parameters=info_manager.get_info(),
+                context_bundle=context_bundle
             )
         )
-        generator: Generator | None = Generator(
-            component_bundle=GeneratorRegistry.create_default_generator_bundle(context_bundle=context_bundle)
+        generator: IGenerator | None = Generator(
+            component_bundle=GeneratorRegistry.create_default_generator_bundle(
+                context_bundle=context_bundle
+            )
         ) if use_generator else None
 
         if hasattr(context_bundle.logger, 'stop_buffering'):

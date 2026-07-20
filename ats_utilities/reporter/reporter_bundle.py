@@ -89,36 +89,13 @@ class ReporterBundle:
                 | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
                 | ATSTypeError: Logger must be an instance of ILogger interface.
         '''
-        not_none(
-            self.checker,
-            r'reporter_bundle::validate(...)',
-            r'checker must be provided'
-        )
-        not_none(
-            self.theme,
-            r'reporter_bundle::validate(...)',
-            r'theme must be provided'
-        )
-        not_none(
-            self.logger,
-            r'reporter_bundle::validate(...)',
-            r'logger must be provided'
-        )
-        istype(
-            self.checker, IChecker,
-            r'reporter_bundle::validate(...)',
-            r'checker must be an IChecker instance'
-        )
-        istype(
-            self.theme, IConsoleTheme,
-            r'reporter_bundle::validate(...)',
-            r'theme must be an IConsoleTheme instance'
-        )
-        istype(
-            self.logger, ILogger,
-            r'reporter_bundle::validate(...)',
-            r'logger must be an ILogger instance'
-        )
+        context: str = r'reporter_bundle::validate(...)'
+        not_none(self.checker, context, r'checker must be provided')
+        not_none(self.theme, context, r'theme must be provided')
+        not_none(self.logger, context, r'logger must be provided')
+        istype(self.checker, IChecker, context, r'checker must be an IChecker instance')
+        istype(self.theme, IConsoleTheme, context, r'theme must be an IConsoleTheme instance')
+        istype(self.logger, ILogger, context, r'logger must be an ILogger instance')
 
     def to_dict(self) -> dict[str, Any]:
         '''

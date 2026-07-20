@@ -87,9 +87,8 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :methods:</span>
-<span class="sd">                | create_bundle - Creates a CheckerBundle instance using either file path and scheme or injected processor.</span>
-<span class="sd">                | create_checker_bundle_by_file_path_and_scheme - Creates a CheckerBundle based on file path and scheme.</span>
-<span class="sd">                | create_checker_bundle_by_processor - Creates a CheckerBundle based on an injected processor.</span>
+<span class="sd">                | create_bundle - Creates a CheckerBundle instance using provided components or default ones if not provided.</span>
+<span class="sd">                | create_default_checker_bundle - Creates a default CheckerBundle with pre-configured components.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
 <div class="viewcode-block" id="CheckerRegistry.create_bundle">
@@ -98,20 +97,30 @@
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckerBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Creates a CheckerBundle instance using either file path and scheme or injected processor.</span>
+<span class="sd">            Creates a CheckerBundle instance using provided components or default ones if not provided.</span>
 
 <span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
 <span class="sd">            :return: CheckerBundle instance.</span>
 <span class="sd">            :rtype: &lt;CheckerBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: File path must be provided.</span>
-<span class="sd">                | ATSValueError: Scheme must be provided.</span>
-<span class="sd">                | ATSValueError: Context bundle must be provided.</span>
-<span class="sd">                | ATSTypeError: File path must be a string.</span>
-<span class="sd">                | ATSTypeError: Scheme must be an instance of Mapping interface.</span>
-<span class="sd">                | ATSTypeError: Context bundle must be an instance of ContextBundle interface.</span>
+<span class="sd">                | ATSValueError: Context provider must be provided.</span>
+<span class="sd">                | ATSValueError: Check reporter must be provided.</span>
+<span class="sd">                | ATSValueError: Format validator must be provided.</span>
+<span class="sd">                | ATSValueError: Type validator must be provided.</span>
+<span class="sd">                | ATSTypeError: Context provider must be an instance of IContextProvider.</span>
+<span class="sd">                | ATSTypeError: Check reporter must be an instance of ICheckReporter.</span>
+<span class="sd">                | ATSTypeError: Format validator must be an instance of IFormatValidator.</span>
+<span class="sd">                | ATSTypeError: Type validator must be an instance of ITypeValidator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_default_checker_bundle</span><span class="p">()</span></div>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_default_checker_bundle</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">CheckerBundle</span><span class="p">(</span>
+            <span class="n">format_validator</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;format_validator&#39;</span><span class="p">),</span>
+            <span class="n">type_validator</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type_validator&#39;</span><span class="p">),</span>
+            <span class="n">context_provider</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_provider&#39;</span><span class="p">),</span>
+            <span class="n">check_reporter</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;check_reporter&#39;</span><span class="p">)</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CheckerRegistry.create_default_checker_bundle">
@@ -123,7 +132,15 @@
 
 <span class="sd">            :return: Default CheckerBundle instance.</span>
 <span class="sd">            :rtype: &lt;CheckerBundle&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Context provider must be provided.</span>
+<span class="sd">                | ATSValueError: Check reporter must be provided.</span>
+<span class="sd">                | ATSValueError: Format validator must be provided.</span>
+<span class="sd">                | ATSValueError: Type validator must be provided.</span>
+<span class="sd">                | ATSTypeError: Context provider must be an instance of IContextProvider.</span>
+<span class="sd">                | ATSTypeError: Check reporter must be an instance of ICheckReporter.</span>
+<span class="sd">                | ATSTypeError: Format validator must be an instance of IFormatValidator.</span>
+<span class="sd">                | ATSTypeError: Type validator must be an instance of ITypeValidator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">CheckerBundle</span><span class="p">(</span>
             <span class="n">format_validator</span><span class="o">=</span><span class="n">FormatValidator</span><span class="p">(),</span>

@@ -89,16 +89,9 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
                 | ATSTypeError: Extension must be a string.
                 | ATSValueError: Extension is not supported.
         '''
-        not_none(
-            extension,
-            r'config_processor_factory::get_processor_class(...)',
-            r'extension must be provided'
-        )
-        istype(
-            extension, str,
-            r'config_processor_factory::get_processor_class(...)',
-            r'extension must be a string'
-        )
+        context: str = r'config_processor_factory::get_processor_class(...)'
+        not_none(extension, context, r'extension must be provided.')
+        istype(extension, str, context, r'extension must be a string.')
 
         formatted_ext: str = extension.lower()
 
@@ -106,9 +99,7 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
             formatted_ext = f'.{formatted_ext}'
 
         not_satisfied(
-            formatted_ext not in cls._PROCESSOR_MAP.keys(),
-            r'config_processor_factory::get_processor_class(...)',
-            f'The extension {extension} is not supported'
+            formatted_ext not in cls._PROCESSOR_MAP.keys(), context, f'The extension {extension} is not supported'
         )
 
         return cls._PROCESSOR_MAP[formatted_ext]
@@ -140,11 +131,13 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
                 | ATSValueError: Extension is not supported.
                 | ATSTypeError: Validation of processor instance failed.
         '''
+        context: str = r'config_processor_factory::create_from_extension(...)'
+
         if processor is not None:
             validate_component(
                 instance=processor,
                 expected_class=IConfigProcessor,
-                exc_context=r'config_processor_factory::create_from_extension(...)',
+                exc_context=context,
                 exc_message=r'provided processor must implement IConfigProcessor'
             )
 
@@ -161,7 +154,7 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
         validate_component(
             instance=resolved_processor,
             expected_class=IConfigProcessor,
-            exc_context=r'config_processor_factory::create_from_extension(...)',
+            exc_context=context, 
             exc_message=f'processor for extension {extension} must implement IConfigProcessor'
         )
 
@@ -201,22 +194,10 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
         if processor is not None:
             return cls.create_from_extension(processor=processor)
 
-        not_none(
-            file_path,
-            r'config_processor_factory::create_from_file_path(...)',
-            r'file path must be provided when processor is None'
-        )
-        istype(
-            file_path,
-            str,
-            r'config_processor_factory::create_from_file_path(...)',
-            r'file path must be a string'
-        )
-        check_file_exists(
-            file_path,
-            r'config_processor_factory::create_from_file_path(...)',
-            f'file at {file_path} does not exist'
-        )
+        context: str = r'config_processor_factory::create_from_file_path(...)'
+        not_none(file_path, context, r'file path must be provided when processor is None')
+        istype(file_path, str, context, r'file path must be a string')
+        check_file_exists(file_path, context, f'file at {file_path} does not exist')
 
         return cls.create_from_extension(
             extension=Path(file_path).suffix,

@@ -76,9 +76,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">create_bundle - Creates a CheckerBundle instance using either file path and scheme or injected processor.</div>
-<div class="line">create_checker_bundle_by_file_path_and_scheme - Creates a CheckerBundle based on file path and scheme.</div>
-<div class="line">create_checker_bundle_by_processor - Creates a CheckerBundle based on an injected processor.</div>
+<div class="line">create_bundle - Creates a CheckerBundle instance using provided components or default ones if not provided.</div>
+<div class="line">create_default_checker_bundle - Creates a default CheckerBundle with pre-configured components.</div>
 </div>
 </dd>
 </dl>
@@ -91,7 +90,7 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.checker_registry.CheckerRegistry.create_bundle">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.checker.checker_bundle.html#ats_utilities.checker.checker_bundle.CheckerBundle" title="ats_utilities.checker.checker_bundle.CheckerBundle"><span class="pre">CheckerBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/checker/checker_registry.html#CheckerRegistry.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.checker_registry.CheckerRegistry.create_bundle" title="Link to this definition">¶</a></dt>
-<dd><p>Creates a CheckerBundle instance using either file path and scheme or injected processor.</p>
+<dd><p>Creates a CheckerBundle instance using provided components or default ones if not provided.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>kwargs</strong> – Additional registry-specific orchestration parameters.</p>
@@ -104,12 +103,14 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">ATSValueError: File path must be provided.</div>
-<div class="line">ATSValueError: Scheme must be provided.</div>
-<div class="line">ATSValueError: Context bundle must be provided.</div>
-<div class="line">ATSTypeError: File path must be a string.</div>
-<div class="line">ATSTypeError: Scheme must be an instance of Mapping interface.</div>
-<div class="line">ATSTypeError: Context bundle must be an instance of ContextBundle interface.</div>
+<div class="line">ATSValueError: Context provider must be provided.</div>
+<div class="line">ATSValueError: Check reporter must be provided.</div>
+<div class="line">ATSValueError: Format validator must be provided.</div>
+<div class="line">ATSValueError: Type validator must be provided.</div>
+<div class="line">ATSTypeError: Context provider must be an instance of IContextProvider.</div>
+<div class="line">ATSTypeError: Check reporter must be an instance of ICheckReporter.</div>
+<div class="line">ATSTypeError: Format validator must be an instance of IFormatValidator.</div>
+<div class="line">ATSTypeError: Type validator must be an instance of ITypeValidator.</div>
 </div>
 </dd>
 </dl>
@@ -119,7 +120,7 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <dt class="sig sig-object py" id="ats_utilities.checker.checker_registry.CheckerRegistry.create_default_checker_bundle">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_default_checker_bundle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.checker.checker_bundle.html#ats_utilities.checker.checker_bundle.CheckerBundle" title="ats_utilities.checker.checker_bundle.CheckerBundle"><span class="pre">CheckerBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/checker/checker_registry.html#CheckerRegistry.create_default_checker_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.checker_registry.CheckerRegistry.create_default_checker_bundle" title="Link to this definition">¶</a></dt>
 <dd><p>Creates a default CheckerBundle with pre-configured components.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Default CheckerBundle instance.</p>
 </dd>
@@ -127,7 +128,16 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <dd class="field-even"><p>&lt;CheckerBundle&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><div class="line-block">
+<div class="line">ATSValueError: Context provider must be provided.</div>
+<div class="line">ATSValueError: Check reporter must be provided.</div>
+<div class="line">ATSValueError: Format validator must be provided.</div>
+<div class="line">ATSValueError: Type validator must be provided.</div>
+<div class="line">ATSTypeError: Context provider must be an instance of IContextProvider.</div>
+<div class="line">ATSTypeError: Check reporter must be an instance of ICheckReporter.</div>
+<div class="line">ATSTypeError: Format validator must be an instance of IFormatValidator.</div>
+<div class="line">ATSTypeError: Type validator must be an instance of ITypeValidator.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>

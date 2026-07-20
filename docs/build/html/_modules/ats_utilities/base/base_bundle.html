@@ -54,8 +54,8 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines component bundle dataclass for dependency grouping and management.</span>
-<span class="sd">    Encapsulates base components to minimize constructor overhead.</span>
+<span class="sd">    Defines component bundle dataclass for dependency grouping and validation.</span>
+<span class="sd">    Encapsulates base components for minimization of constructor overhead.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -87,23 +87,24 @@
 <span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">BaseBundle</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines component bundle dataclass for dependency grouping and management.</span>
-<span class="sd">        Encapsulates base components to minimize constructor overhead.</span>
+<span class="sd">        Defines component bundle dataclass for dependency grouping and validation.</span>
+<span class="sd">        Encapsulates base components for minimization of constructor overhead.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | info_file - Information file path.</span>
-<span class="sd">                | config_loader - Configuration loader.</span>
-<span class="sd">                | info_manager - Information manager.</span>
-<span class="sd">                | options_parser - Options parser.</span>
-<span class="sd">                | splasher - Splasher.</span>
-<span class="sd">                | generator - Generator.</span>
+<span class="sd">                | info_file - Information file path for App/Tool/Script.</span>
+<span class="sd">                | config_loader - Configuration loader (loads configuration).</span>
+<span class="sd">                | info_manager - Information manager (info configuration).</span>
+<span class="sd">                | options_parser - Options parser (argument parser).</span>
+<span class="sd">                | splasher - Splasher for App/Tool/Script (shows logo).</span>
+<span class="sd">                | generator - Generator (if App/Tool/Script has ability geenration).</span>
 <span class="sd">                | use_generator - Enable/Disable generator usage.</span>
 <span class="sd">                | context_bundle - Context bundle for dependency injection.</span>
 <span class="sd">            :methods:</span>
+<span class="sd">                | __post_init__ - Post-initialization hook for base components validation.</span>
 <span class="sd">                | validate - Validates that essential components are set.</span>
-<span class="sd">                | to_dict - Converts the BaseBundle instance to a dictionary.</span>
+<span class="sd">                | to_dict - Returns a dictionary representation of the BaseBundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">info_file</span><span class="p">:</span> <span class="nb">str</span>
@@ -117,7 +118,7 @@
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Post-initialization hook for automatic component creation.</span>
+<span class="sd">            Post-initialization hook for base components validation.</span>
 
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSValueError: Information file must be provided.</span>
@@ -163,30 +164,31 @@
 <span class="sd">                | ATSTypeError: Generator must be IGenerator interface or None.</span>
 <span class="sd">                | ATSTypeError: Context bundle must be a ContextBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_file</span><span class="p">,</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;information file must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_loader</span><span class="p">,</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;config loader must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_manager</span><span class="p">,</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info manager must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options_parser</span><span class="p">,</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;options parser must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splasher</span><span class="p">,</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;splasher must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">use_generator</span><span class="p">,</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;use_generator must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;information file must be str&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_loader</span><span class="p">,</span> <span class="n">ILoader</span><span class="p">,</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;config loader must be an ILoader interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_manager</span><span class="p">,</span> <span class="n">IInfoManager</span><span class="p">,</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info manager must be an IInfoManager interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options_parser</span><span class="p">,</span> <span class="n">IOptionManager</span><span class="p">,</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;options parser must be an IOptionManager interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splasher</span><span class="p">,</span> <span class="n">ISplasher</span><span class="p">,</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;splasher must be an ISplasher interface&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">use_generator</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;use generator flag must be a bool&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="p">,</span> <span class="p">(</span><span class="n">IGenerator</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)),</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;generator must be IGenerator interface or None&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="s1">&#39;basebundle::validate&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be a ContextBundle instance&#39;</span><span class="p">)</span></div>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;base_bundle::validate(...)&#39;</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_file</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;information file must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_loader</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;config loader must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_manager</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info manager must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options_parser</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;options parser must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splasher</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;splasher must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">use_generator</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;use_generator must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;information file must be str&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_loader</span><span class="p">,</span> <span class="n">ILoader</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;config loader must be an ILoader interface&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_manager</span><span class="p">,</span> <span class="n">IInfoManager</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info manager must be an IInfoManager interface&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options_parser</span><span class="p">,</span> <span class="n">IOptionManager</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;options parser must be an IOptionManager interface&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splasher</span><span class="p">,</span> <span class="n">ISplasher</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;splasher must be an ISplasher interface&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">use_generator</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;use generator flag must be a bool&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="p">,</span> <span class="p">(</span><span class="n">IGenerator</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)),</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;generator must be an IGenerator interface or None&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be a ContextBundle instance&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BaseBundle.to_dict">
 <a class="viewcode-back" href="../../../ats_utilities.base.base_bundle.html#ats_utilities.base.base_bundle.BaseBundle.to_dict">[docs]</a>
     <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Converts the BaseBundle instance to a dictionary.</span>
+<span class="sd">            Returns a dictionary representation of the BaseBundle.</span>
 
-<span class="sd">            :return: Dictionary representation of the BaseBundle instance.</span>
+<span class="sd">            :return: Dictionary representation of the BaseBundle.</span>
 <span class="sd">            :rtype: &lt;dict[str, Any]&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>

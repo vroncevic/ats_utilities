@@ -165,26 +165,11 @@
 <span class="sd">            :rtype: &lt;InfoBundle&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="n">context_bundle</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;info_registry::create_info_bundle_from_dict(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;context_bundle must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="n">info</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;info_registry::create_info_bundle_from_dict(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;info must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;info_registry::create_info_bundle_from_dict(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;context_bundle must be ContextBundle instance&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="n">info</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;info_registry::create_info_bundle_from_dict(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;info must be Mapping instance&#39;</span>
-        <span class="p">)</span>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;info_registry::create_info_bundle_from_dict(...)&#39;</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context_bundle must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context_bundle must be ContextBundle instance&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info must be Mapping instance&#39;</span><span class="p">)</span>
         <span class="n">key_to_attr</span><span class="p">:</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">get_key_to_attr</span><span class="p">()</span>
         <span class="n">bundle_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 

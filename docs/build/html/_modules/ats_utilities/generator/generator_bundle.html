@@ -140,46 +140,15 @@
 <span class="sd">                | ATSTypeError: Tar processor must be an ITarProcessor instance.</span>
 <span class="sd">                | ATSTypeError: Template processor must be an ITemplateProcessor instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;generator_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;context bundle must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">scheme_loader</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;generator_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;scheme loader must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tar_processor</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;generator_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;tar processor must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">template_processor</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;generator_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;template processor must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;generator_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;context bundle must be a ContextBundle instance&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">scheme_loader</span><span class="p">,</span> <span class="n">ISchemeLoader</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;generator_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;scheme loader must be an ISchemeLoader instance&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tar_processor</span><span class="p">,</span> <span class="n">ITarProcessor</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;generator_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;tar processor must be an ITarProcessor instance&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">template_processor</span><span class="p">,</span> <span class="n">ITemplateProcessor</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;generator_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;template processor must be an ITemplateProcessor instance&#39;</span>
-        <span class="p">)</span></div>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;generator_bundle::validate(...)&#39;</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scheme_loader</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;scheme loader must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tar_processor</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;tar processor must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_processor</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;template processor must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be a ContextBundle instance&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scheme_loader</span><span class="p">,</span> <span class="n">ISchemeLoader</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;scheme loader must be an ISchemeLoader instance&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tar_processor</span><span class="p">,</span> <span class="n">ITarProcessor</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;tar processor must be an ITarProcessor instance&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_processor</span><span class="p">,</span> <span class="n">ITemplateProcessor</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;template processor must be an ITemplateProcessor instance&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="GeneratorBundle.to_dict">

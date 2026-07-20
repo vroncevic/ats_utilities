@@ -89,36 +89,13 @@ class OptionBundle:
                 | ATSTypeError: Strategy must be an IParserStrategy instance.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        not_none(
-            self.parameters,
-            r'option_bundle::validate(...)',
-            r'parameters must be provided'
-        )
-        not_none(
-            self.strategy,
-            r'option_bundle::validate(...)',
-            r'strategy must be provided'
-        )
-        not_none(
-            self.context_bundle,
-            r'option_bundle::validate(...)',
-            r'context bundle must be provided'
-        )
-        istype(
-            self.parameters, Mapping[str, str],
-            r'option_bundle::validate(...)',
-            r'parameters must be a Mapping[str, str] instance'
-        )
-        istype(
-            self.strategy, IParserStrategy,
-            r'option_bundle::validate(...)',
-            r'strategy must be an IParserStrategy instance'
-        )
-        istype(
-            self.context_bundle, ContextBundle,
-            r'option_bundle::validate(...)',
-            r'context bundle must be a ContextBundle instance'
-        )
+        context: str = r'option_bundle::validate(...)'
+        not_none(self.parameters, context, r'parameters must be provided')
+        not_none(self.strategy, context, r'strategy must be provided')
+        not_none(self.context_bundle, context, r'context bundle must be provided')
+        istype(self.parameters, Mapping[str, str], context, r'parameters must be a Mapping[str, str] instance')
+        istype(self.strategy, IParserStrategy, context, r'strategy must be an IParserStrategy instance')
+        istype(self.context_bundle, ContextBundle, context, r'context bundle must be a ContextBundle instance')
 
     def to_dict(self) -> dict[str, Any]:
         '''

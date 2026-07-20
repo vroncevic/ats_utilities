@@ -63,35 +63,36 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines component bundle dataclass for dependency grouping and management.
-Encapsulates base components to minimize constructor overhead.</p>
+<dt>Info</dt><dd><p>Defines component bundle dataclass for dependency grouping and validation.
+Encapsulates base components for minimization of constructor overhead.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.base.base_bundle.BaseBundle">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.base.base_bundle.</span></span><span class="sig-name descname"><span class="pre">BaseBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_loader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.loader.iloader.html#ats_utilities.config_io.loader.iloader.ILoader" title="ats_utilities.config_io.loader.iloader.ILoader"><span class="pre">ILoader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">info_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.info.iinfo_manager.html#ats_utilities.info.iinfo_manager.IInfoManager" title="ats_utilities.info.iinfo_manager.IInfoManager"><span class="pre">IInfoManager</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">options_parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.option.ioption_manager.html#ats_utilities.option.ioption_manager.IOptionManager" title="ats_utilities.option.ioption_manager.IOptionManager"><span class="pre">IOptionManager</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">splasher</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.splasher.isplasher.html#ats_utilities.splasher.isplasher.ISplasher" title="ats_utilities.splasher.isplasher.ISplasher"><span class="pre">ISplasher</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.generator.igenerator.html#ats_utilities.generator.igenerator.IGenerator" title="ats_utilities.generator.igenerator.IGenerator"><span class="pre">IGenerator</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_generator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/base/base_bundle.html#BaseBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.base_bundle.BaseBundle" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Defines component bundle dataclass for dependency grouping and management.
-Encapsulates base components to minimize constructor overhead.</p>
+<p>Defines component bundle dataclass for dependency grouping and validation.
+Encapsulates base components for minimization of constructor overhead.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">info_file - Information file path.</div>
-<div class="line">config_loader - Configuration loader.</div>
-<div class="line">info_manager - Information manager.</div>
-<div class="line">options_parser - Options parser.</div>
-<div class="line">splasher - Splasher.</div>
-<div class="line">generator - Generator.</div>
+<div class="line">info_file - Information file path for App/Tool/Script.</div>
+<div class="line">config_loader - Configuration loader (loads configuration).</div>
+<div class="line">info_manager - Information manager (info configuration).</div>
+<div class="line">options_parser - Options parser (argument parser).</div>
+<div class="line">splasher - Splasher for App/Tool/Script (shows logo).</div>
+<div class="line">generator - Generator (if App/Tool/Script has ability geenration).</div>
 <div class="line">use_generator - Enable/Disable generator usage.</div>
 <div class="line">context_bundle - Context bundle for dependency injection.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
+<div class="line">__post_init__ - Post-initialization hook for base components validation.</div>
 <div class="line">validate - Validates that essential components are set.</div>
-<div class="line">to_dict - Converts the BaseBundle instance to a dictionary.</div>
+<div class="line">to_dict - Returns a dictionary representation of the BaseBundle.</div>
 </div>
 </dd>
 </dl>
@@ -134,10 +135,10 @@ Encapsulates base components to minimize constructor overhead.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.base.base_bundle.BaseBundle.to_dict">
 <span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/base/base_bundle.html#BaseBundle.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.base_bundle.BaseBundle.to_dict" title="Link to this definition">¶</a></dt>
-<dd><p>Converts the BaseBundle instance to a dictionary.</p>
+<dd><p>Returns a dictionary representation of the BaseBundle.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary representation of the BaseBundle instance.</p>
+<dd class="field-odd"><p>Dictionary representation of the BaseBundle.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;dict[str, Any]&gt;</p>

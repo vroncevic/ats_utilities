@@ -119,11 +119,8 @@ class GitHubInfrastructure(ContextSupport, IExtInfrastructure):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        require_keys(
-            setup, self._REQUIRED_KEYS,
-            r'github_infrastructure::infrastructure_property(...)',
-            r'infrastructure property setup is missing required keys'
-        )
+        context: str = r'github_infrastructure::infrastructure_property(...)'
+        require_keys(setup, self._REQUIRED_KEYS, context, r'infrastructure property setup is missing required keys')
         self._infrastructure_property = cherry_pick_dict(setup, self._REQUIRED_KEYS)
 
     @vreport('getting info text {infrastructure_property}')
@@ -143,18 +140,11 @@ class GitHubInfrastructure(ContextSupport, IExtInfrastructure):
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
+        context: str = r'github_infrastructure::get_info_text(...)'
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        not_empty(
-            org,
-            r'github_infrastructure::get_info_text(...)',
-            r'info property organization is missing or empty'
-        )
+        not_empty(org, context, r'info property organization is missing or empty')
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
-        not_empty(
-            repo,
-            r'github_infrastructure::get_info_text(...)',
-            r'info property repository is missing or empty'
-        )
+        not_empty(repo, context, r'info property repository is missing or empty')
 
         url_short: str = f'github.io/{repo}'
         url_long: str = f'https://{org}.github.io/{repo}'
@@ -178,18 +168,11 @@ class GitHubInfrastructure(ContextSupport, IExtInfrastructure):
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
+        context: str = r'github_infrastructure::get_issue_text(...)'
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        not_empty(
-            org,
-            r'github_infrastructure::get_issue_text(...)',
-            r'issue property organization is missing or empty'
-        )
+        not_empty(org, context, r'issue property organization is missing or empty')
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
-        not_empty(
-            repo,
-            r'github_infrastructure::get_issue_text(...)',
-            r'issue property repository is missing or empty'
-        )
+        not_empty(repo, context, r'issue property repository is missing or empty')
 
         url: str = f'https://github.com/{org}/{repo}/issues/new/choose'
 
@@ -212,12 +195,9 @@ class GitHubInfrastructure(ContextSupport, IExtInfrastructure):
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
+        context: str = r'github_infrastructure::get_author_text(...)'
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        not_empty(
-            org,
-            r'github_infrastructure::get_author_text(...)',
-            r'author property organization is missing or empty'
-        )
+        not_empty(org, context, r'author property organization is missing or empty')
 
         org_short: str = f'{org}.github.io'
         org_long: str = f'https://{org}.github.io/bio/'

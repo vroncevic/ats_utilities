@@ -158,10 +158,10 @@
         <span class="n">is_enabled</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">setup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;enabled&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="n">is_enabled</span><span class="p">:</span>
+            <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;splash_property::splash_keys(...)&#39;</span>
             <span class="n">require_keys</span><span class="p">(</span>
                 <span class="n">setup</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">get_all_keys</span><span class="p">()),</span>
-                <span class="sa">r</span><span class="s1">&#39;splash_property::splash_keys(...)&#39;</span><span class="p">,</span>
-                <span class="sa">r</span><span class="s1">&#39;splash property setup is missing required keys&#39;</span>
+                <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;splash property setup is missing required keys&#39;</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_splash_keys</span> <span class="o">=</span> <span class="n">SplashKeys</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">setup</span><span class="p">)</span>

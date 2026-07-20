@@ -89,16 +89,9 @@ class Logger(ILogger):
                 | ATSValueError - Component bundle must be provided.
                 | ATSTypeError - Component bundle must be a LoggerBundle instance.
         '''
-        not_none(
-            component_bundle,
-            r'logger::init(...)',
-            r'component_bundle must be provided'
-        )
-        istype(
-            component_bundle, LoggerBundle,
-            r'logger::init(...)',
-            r'component_bundle must be a LoggerBundle instance'
-        )
+        context: str = r'logger::init(...)'
+        not_none(component_bundle, context, r'component_bundle must be provided')
+        istype(component_bundle, LoggerBundle, context, r'component_bundle must be a LoggerBundle instance')
         self._logger = component_bundle.logger
         self._early_logs_buffer = []
         self._has_file_handler = bool(component_bundle.log_file)

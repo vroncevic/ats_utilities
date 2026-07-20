@@ -82,35 +82,22 @@ class ParserStrategyBundle:
             Validates strategy bundle.
             Performs validation of all bundle attributes.
         '''
-        not_none(
-            self.parameters,
-            r'parser_strategy_bundle::validate(...)',
-            r'parameters must be provided'
-        )
-        not_none(
-            self.context_bundle,
-            r'parser_strategy_bundle::validate(...)',
-            r'context bundle must be provided'
-        )
-        not_none(
-            self.parser_class,
-            r'parser_strategy_bundle::validate(...)',
-            r'parser class must be provided'
-        )
-        istype(
-            self.parameters, Mapping,
-            r'parser_strategy_bundle::validate(...)',
-            r'parameters must be a Mapping[str, str] instance'
-        )
-        istype(
-            self.context_bundle, ContextBundle,
-            r'parser_strategy_bundle::validate(...)',
-            r'context bundle must be a ContextBundle instance'
-        )
+        context: str = r'parser_strategy_bundle::validate(...)'
+        not_none(self.parameters, context, r'parameters must be provided')
+        not_none(self.context_bundle, context, r'context bundle must be provided')
+        not_none(self.parser_class, context, r'parser class must be provided')
+        istype(self.parameters, Mapping[str, str], context, r'parameters must be a Mapping[str, str] instance')
+        istype(self.context_bundle, ContextBundle, context, r'context bundle must be a ContextBundle instance')
+        istype(self.parser_class, type, context, r'parser class must be a type')
         not_satisfied(
             not isinstance(self.parser_class, type) and not issubclass(self.parser_class, IArgParser),
-            r'parser_strategy_bundle::validate(...)',
-            r'parser class must be a class implementing IArgParser'
+            context, r'parser class must be provided'
+        )
+        istype(self.parameters, Mapping, context, r'parameters must be a Mapping[str, str] instance')
+        istype(self.context_bundle, ContextBundle, context, r'context bundle must be a ContextBundle instance')
+        not_satisfied(
+            not isinstance(self.parser_class, type) and not issubclass(self.parser_class, IArgParser),
+            context, r'parser class must be a class implementing IArgParser'
         )
 
     def to_dict(self) -> dict[str, Any]:

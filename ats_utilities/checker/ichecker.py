@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IChecker with attribute(s) and method(s).
-    Creates an interface for Checker and other checker implementations.
+    Creates an interface for Checker implementation.
 '''
 
 from __future__ import annotations
@@ -63,7 +63,7 @@ class ErrorChecker(int, Enum):
 class IChecker(ABC):
     '''
         Defines abstract class IChecker with attribute(s) and method(s).
-        Creates an interface for Checker and other checker implementations.
+        Creates an interface for Checker implementation.
 
         It defines:
 

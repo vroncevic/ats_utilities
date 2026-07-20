@@ -47,29 +47,38 @@ class CheckerRegistry(IRegistry[CheckerBundle]):
         It defines:
 
             :methods:
-                | create_bundle - Creates a CheckerBundle instance using either file path and scheme or injected processor.
-                | create_checker_bundle_by_file_path_and_scheme - Creates a CheckerBundle based on file path and scheme.
-                | create_checker_bundle_by_processor - Creates a CheckerBundle based on an injected processor.
+                | create_bundle - Creates a CheckerBundle instance using provided components or default ones if not provided.
+                | create_default_checker_bundle - Creates a default CheckerBundle with pre-configured components.
     '''
 
     @classmethod
     @override
     def create_bundle(cls, **kwargs: Any) -> CheckerBundle:
         '''
-            Creates a CheckerBundle instance using either file path and scheme or injected processor.
+            Creates a CheckerBundle instance using provided components or default ones if not provided.
 
             :param kwargs: Additional registry-specific orchestration parameters.
             :return: CheckerBundle instance.
             :rtype: <CheckerBundle>
             :exceptions:
-                | ATSValueError: File path must be provided.
-                | ATSValueError: Scheme must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: File path must be a string.
-                | ATSTypeError: Scheme must be an instance of Mapping interface.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle interface.
+                | ATSValueError: Context provider must be provided.
+                | ATSValueError: Check reporter must be provided.
+                | ATSValueError: Format validator must be provided.
+                | ATSValueError: Type validator must be provided.
+                | ATSTypeError: Context provider must be an instance of IContextProvider.
+                | ATSTypeError: Check reporter must be an instance of ICheckReporter.
+                | ATSTypeError: Format validator must be an instance of IFormatValidator.
+                | ATSTypeError: Type validator must be an instance of ITypeValidator.
         '''
-        return cls.create_default_checker_bundle()
+        if not kwargs:
+            return cls.create_default_checker_bundle()
+
+        return CheckerBundle(
+            format_validator=kwargs.get('format_validator'),
+            type_validator=kwargs.get('type_validator'),
+            context_provider=kwargs.get('context_provider'),
+            check_reporter=kwargs.get('check_reporter')
+        )
 
     @classmethod
     def create_default_checker_bundle(cls) -> CheckerBundle:
@@ -78,7 +87,15 @@ class CheckerRegistry(IRegistry[CheckerBundle]):
 
             :return: Default CheckerBundle instance.
             :rtype: <CheckerBundle>
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Context provider must be provided.
+                | ATSValueError: Check reporter must be provided.
+                | ATSValueError: Format validator must be provided.
+                | ATSValueError: Type validator must be provided.
+                | ATSTypeError: Context provider must be an instance of IContextProvider.
+                | ATSTypeError: Check reporter must be an instance of ICheckReporter.
+                | ATSTypeError: Format validator must be an instance of IFormatValidator.
+                | ATSTypeError: Type validator must be an instance of ITypeValidator.
         '''
         return CheckerBundle(
             format_validator=FormatValidator(),

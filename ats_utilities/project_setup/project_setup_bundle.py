@@ -96,46 +96,15 @@ class ProjectSetupBundle:
                 | ATSTypeError: Template directory must be an instance of ITemplateDir interface.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle class.
         '''
-        not_none(
-            self.pro_name,
-            r'project_setup_bundle::validate(...)',
-            r'project name must be provided'
-        )
-        not_none(
-            self.pro_config,
-            r'project_setup_bundle::validate(...)',
-            r'project configuration must be provided'
-        )
-        not_none(
-            self.template_dir,
-            r'project_setup_bundle::validate(...)',
-            r'template directory must be provided'
-        )
-        not_none(
-            self.context_bundle,
-            r'project_setup_bundle::validate(...)',
-            r'context bundle must be provided'
-        )
-        istype(
-            self.pro_name, IProName,
-            r'project_setup_bundle::validate(...)',
-            r'project name must be an instance of IProName interface'
-        )
-        istype(
-            self.pro_config, IProConfig,
-            r'project_setup_bundle::validate(...)',
-            r'project configuration must be an instance of IProConfig interface'
-        )
-        istype(
-            self.template_dir, ITemplateDir,
-            r'project_setup_bundle::validate(...)',
-            r'template directory must be an instance of ITemplateDir interface'
-        )
-        istype(
-            self.context_bundle, ContextBundle,
-            r'project_setup_bundle::validate(...)',
-            r'context bundle must be an instance of ContextBundle class'
-        )
+        context: str = r'project_setup_bundle::validate(...)'
+        not_none(self.pro_name, context, r'project name must be provided')
+        not_none(self.pro_config, context, r'project configuration must be provided')
+        not_none(self.template_dir, context, r'template directory must be provided')
+        not_none(self.context_bundle, context, r'context bundle must be provided')
+        istype(self.pro_name, IProName, context, r'project name must be an IProName instance')
+        istype(self.pro_config, IProConfig, context, r'project configuration must be an IProConfig instance')
+        istype(self.template_dir, ITemplateDir, context, r'template directory must be an ITemplateDir instance')
+        istype(self.context_bundle, ContextBundle, context, r'context bundle must be a ContextBundle instance')
 
     def to_dict(self) -> dict:
         '''

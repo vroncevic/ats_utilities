@@ -57,8 +57,8 @@ class ICheckReporter(ABC):
             :return: Formatted message report
             :rtype: <str>
             :exceptions:
-                | ATSValueError: Checker reporter bundle must be provided.
-                | ATSTypeError: Checker reporter bundle must be a CheckerReporterBundle instance.
+                | ATSValueError: Report bundle must be provided.
+                | ATSTypeError: Report bundle must be a CheckerReporterBundle instance.
         '''
         pass
 

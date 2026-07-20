@@ -159,11 +159,8 @@
 <span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
 <span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">require_keys</span><span class="p">(</span>
-            <span class="n">setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_REQUIRED_KEYS</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;github_infrastructure::infrastructure_property(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;infrastructure property setup is missing required keys&#39;</span>
-        <span class="p">)</span>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;github_infrastructure::infrastructure_property(...)&#39;</span>
+        <span class="n">require_keys</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_REQUIRED_KEYS</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;infrastructure property setup is missing required keys&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span> <span class="o">=</span> <span class="n">cherry_pick_dict</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_REQUIRED_KEYS</span><span class="p">)</span>
 
 <div class="viewcode-block" id="GitHubInfrastructure.get_info_text">
@@ -185,18 +182,11 @@
 <span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
 <span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;github_infrastructure::get_info_text(...)&#39;</span>
         <span class="n">org</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span>
-            <span class="n">org</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;github_infrastructure::get_info_text(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;info property organization is missing or empty&#39;</span>
-        <span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span><span class="n">org</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info property organization is missing or empty&#39;</span><span class="p">)</span>
         <span class="n">repo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span>
-            <span class="n">repo</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;github_infrastructure::get_info_text(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;info property repository is missing or empty&#39;</span>
-        <span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info property repository is missing or empty&#39;</span><span class="p">)</span>
 
         <span class="n">url_short</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;github.io/</span><span class="si">{</span><span class="n">repo</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="n">url_long</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">org</span><span class="si">}</span><span class="s1">.github.io/</span><span class="si">{</span><span class="n">repo</span><span class="si">}</span><span class="s1">&#39;</span>
@@ -223,18 +213,11 @@
 <span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
 <span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;github_infrastructure::get_issue_text(...)&#39;</span>
         <span class="n">org</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span>
-            <span class="n">org</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;github_infrastructure::get_issue_text(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;issue property organization is missing or empty&#39;</span>
-        <span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span><span class="n">org</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;issue property organization is missing or empty&#39;</span><span class="p">)</span>
         <span class="n">repo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span>
-            <span class="n">repo</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;github_infrastructure::get_issue_text(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;issue property repository is missing or empty&#39;</span>
-        <span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;issue property repository is missing or empty&#39;</span><span class="p">)</span>
 
         <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://github.com/</span><span class="si">{</span><span class="n">org</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">repo</span><span class="si">}</span><span class="s1">/issues/new/choose&#39;</span>
 
@@ -260,12 +243,9 @@
 <span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
 <span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;github_infrastructure::get_author_text(...)&#39;</span>
         <span class="n">org</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">)</span>
-        <span class="n">not_empty</span><span class="p">(</span>
-            <span class="n">org</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;github_infrastructure::get_author_text(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;author property organization is missing or empty&#39;</span>
-        <span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span><span class="n">org</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;author property organization is missing or empty&#39;</span><span class="p">)</span>
 
         <span class="n">org_short</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">org</span><span class="si">}</span><span class="s1">.github.io&#39;</span>
         <span class="n">org_long</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">org</span><span class="si">}</span><span class="s1">.github.io/bio/&#39;</span>

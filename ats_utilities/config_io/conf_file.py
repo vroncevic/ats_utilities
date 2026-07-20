@@ -81,16 +81,9 @@ class ConfFile(ContextSupport, IConfFile):
                 | ATSTypeError: File bundle must be an instance of ConfFileBundle.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        not_none(
-            file_bundle,
-            r'conf_file:init(...)',
-            r'file bundle must be provided'
-        )
-        istype(
-            file_bundle, ConfFileBundle,
-            r'conf_file:init(...)',
-            r'file bundle must be an instance of ConfFileBundle'
-        )
+        context: str = r'conf_file::init(...)'
+        not_none(file_bundle, context, r'file bundle must be provided')
+        istype(file_bundle, ConfFileBundle, context, r'file bundle must be an instance of ConfFileBundle')
         ContextSupport.__init__(self, file_bundle.context_bundle)
         self._file = None
         self._file_path = file_bundle.file_path
@@ -112,32 +105,14 @@ class ConfFile(ContextSupport, IConfFile):
                 | ATSValueError: File does not exist (when opening in read mode).
                 | ATSTypeError: File path and mode must be strings.
         '''
-        not_none(
-            self._file_path,
-            r'conf_file:enter(...)',
-            r'file path must be provided'
-        )
-        not_none(
-            self._file_mode,
-            r'conf_file:enter(...)',
-            r'file mode must be provided'
-        )
-        istype(
-            self._file_path, str,
-            r'conf_file:enter(...)',
-            r'file path must be a string')
-        istype(
-            self._file_mode, str,
-            r'conf_file:enter(...)',
-            r'file mode must be a string'
-        )
+        context: str = r'conf_file::enter(...)'
+        not_none(self._file_path, context, r'file path must be provided')
+        not_none(self._file_mode, context, r'file mode must be provided')
+        istype(self._file_path, str, context, r'file path must be a string')
+        istype(self._file_mode, str, context, r'file mode must be a string')
 
         if 'r' in self._file_mode:
-            check_file_exists(
-                self._file_path,
-                r'conf_file::enter(...)',
-                f'file {self._file_path} does not exist'
-            )
+            check_file_exists(self._file_path, context, f'file {self._file_path} does not exist')
 
         self._file = open(self._file_path, self._file_mode, encoding='utf-8')
 

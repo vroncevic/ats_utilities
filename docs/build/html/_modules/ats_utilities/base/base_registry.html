@@ -54,7 +54,7 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Encapsulates core runtime components for simplification of CheckerBundle creation.</span>
+<span class="sd">    Encapsulates core runtime components for simplification of BaseBundle creation.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -66,10 +66,15 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.base.base_bundle</span> <span class="kn">import</span> <span class="n">BaseBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.loader.engine</span> <span class="kn">import</span> <span class="n">Loader</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.loader.iloader</span> <span class="kn">import</span> <span class="n">ILoader</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.engine</span> <span class="kn">import</span> <span class="n">InfoManager</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.iinfo_manager</span> <span class="kn">import</span> <span class="n">IInfoManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.engine</span> <span class="kn">import</span> <span class="n">OptionManager</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.ioption_manager</span> <span class="kn">import</span> <span class="n">IOptionManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.engine</span> <span class="kn">import</span> <span class="n">Splasher</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splasher.isplasher</span> <span class="kn">import</span> <span class="n">ISplasher</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generator.engine</span> <span class="kn">import</span> <span class="n">Generator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.igenerator</span> <span class="kn">import</span> <span class="n">IGenerator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.config_io_registry</span> <span class="kn">import</span> <span class="n">ConfigIORegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.info_registry</span> <span class="kn">import</span> <span class="n">InfoRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_registry</span> <span class="kn">import</span> <span class="n">OptionRegistry</span>
@@ -114,11 +119,11 @@
 <span class="sd">            :return: BaseBundle instance.</span>
 <span class="sd">            :rtype: &lt;BaseBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: info_file must be provided.</span>
-<span class="sd">                | ATSValueError: context_bundle must be provided.</span>
-<span class="sd">                | ATSTypeError: info_file must be a string.</span>
-<span class="sd">                | ATSTypeError: context_bundle must be a ContextBundle instance.</span>
-<span class="sd">                | ATSTypeError: use generator must be a boolean.</span>
+<span class="sd">                | ATSValueError: Info file must be provided.</span>
+<span class="sd">                | ATSValueError: Context bundle must be provided.</span>
+<span class="sd">                | ATSTypeError: Info file must be a string.</span>
+<span class="sd">                | ATSTypeError: Context bundle must be a ContextBundle instance.</span>
+<span class="sd">                | ATSTypeError: Use generator must be a boolean.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">info_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;info_file&#39;</span><span class="p">)</span>
         <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
@@ -147,24 +152,24 @@
 <span class="sd">            :type info_file: &lt;str&gt;</span>
 <span class="sd">            :param context_bundle: ContextBundle instance.</span>
 <span class="sd">            :type context_bundle: &lt;ContextBundle&gt;</span>
-<span class="sd">            :param use_generator: Whether to use the generator.</span>
+<span class="sd">            :param use_generator: Whether to use the generator (default False).</span>
 <span class="sd">            :type use_generator: &lt;bool&gt;</span>
 <span class="sd">            :return: Default BaseBundle instance.</span>
 <span class="sd">            :rtype: &lt;BaseBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: info_file must be provided.</span>
-<span class="sd">                | ATSValueError: context_bundle must be provided.</span>
-<span class="sd">                | ATSTypeError: info_file must be a string.</span>
-<span class="sd">                | ATSTypeError: context_bundle must be a ContextBundle instance.</span>
-<span class="sd">                | ATSTypeError: use generator must be a boolean.</span>
+<span class="sd">                | ATSValueError: Info file must be provided.</span>
+<span class="sd">                | ATSValueError: Context bundle must be provided.</span>
+<span class="sd">                | ATSTypeError: Info file must be a string.</span>
+<span class="sd">                | ATSTypeError: Context bundle must be a ContextBundle instance.</span>
+<span class="sd">                | ATSTypeError: Use generator must be a boolean.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="n">info_file</span><span class="p">,</span> <span class="s1">&#39;baseregistry::create_default_base_bundle&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info file must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">,</span> <span class="s1">&#39;baseregistry::create_default_base_bundle&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">info_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;baseregistry::create_default_base_bundle&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info file must be a string&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="s1">&#39;baseregistry::create_default_base_bundle&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be a ContextBundle instance&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">use_generator</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="s1">&#39;baseregistry::create_default_base_bundle&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;use generator must be a boolean&#39;</span><span class="p">)</span>
-
-        <span class="n">config_loader</span><span class="p">:</span> <span class="n">Loader</span> <span class="o">=</span> <span class="n">Loader</span><span class="p">(</span>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;base_registry::create_default_base_bundle(...)&#39;</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="n">info_file</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info file must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">info_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info file must be a string&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be a ContextBundle instance&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">use_generator</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;use generator must be a boolean&#39;</span><span class="p">)</span>
+        <span class="n">config_loader</span><span class="p">:</span> <span class="n">ILoader</span> <span class="o">=</span> <span class="n">Loader</span><span class="p">(</span>
             <span class="n">component_bundle</span><span class="o">=</span><span class="n">ConfigIORegistry</span><span class="o">.</span><span class="n">create_config_io_bundle_by_file_path_and_scheme</span><span class="p">(</span>
                 <span class="n">file_path</span><span class="o">=</span><span class="n">info_file</span><span class="p">,</span>
                 <span class="n">scheme</span><span class="o">=</span><span class="p">{},</span>
@@ -177,26 +182,30 @@
         <span class="k">if</span> <span class="n">log_file</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="s1">&#39;set_log_file&#39;</span><span class="p">):</span>
             <span class="n">context_bundle</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">set_log_file</span><span class="p">(</span><span class="n">log_file</span><span class="p">)</span>
 
-        <span class="n">info_manager</span><span class="p">:</span> <span class="n">InfoManager</span> <span class="o">=</span> <span class="n">InfoManager</span><span class="p">(</span>
+        <span class="n">info_manager</span><span class="p">:</span> <span class="n">IInfoManager</span> <span class="o">=</span> <span class="n">InfoManager</span><span class="p">(</span>
             <span class="n">component_bundle</span><span class="o">=</span><span class="n">InfoRegistry</span><span class="o">.</span><span class="n">create_info_bundle_from_dict</span><span class="p">(</span>
                 <span class="n">info</span><span class="o">=</span><span class="n">config_data</span><span class="p">,</span>
                 <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span>
             <span class="p">)</span>
         <span class="p">)</span>
-        <span class="n">logo_path</span> <span class="o">=</span> <span class="n">info_manager</span><span class="o">.</span><span class="n">logo</span>
+        <span class="n">logo_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">info_manager</span><span class="o">.</span><span class="n">logo</span>
         <span class="n">info_manager</span><span class="o">.</span><span class="n">logo</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dirname</span><span class="p">(</span><span class="n">info_file</span><span class="p">)</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">logo_path</span><span class="si">}</span><span class="s1">&#39;</span>
-        <span class="n">splasher</span><span class="p">:</span> <span class="n">Splasher</span> <span class="o">=</span> <span class="n">Splasher</span><span class="p">(</span>
+        <span class="n">splasher</span><span class="p">:</span> <span class="n">ISplasher</span> <span class="o">=</span> <span class="n">Splasher</span><span class="p">(</span>
             <span class="n">component_bundle</span><span class="o">=</span><span class="n">SplashRegistry</span><span class="o">.</span><span class="n">create_splash_bundle_from_dict</span><span class="p">(</span>
-                <span class="n">prop</span><span class="o">=</span><span class="n">info_manager</span><span class="o">.</span><span class="n">get_info</span><span class="p">(),</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span>
+                <span class="n">prop</span><span class="o">=</span><span class="n">info_manager</span><span class="o">.</span><span class="n">get_info</span><span class="p">(),</span>
+                <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span>
             <span class="p">)</span>
         <span class="p">)</span>
-        <span class="n">options_parser</span><span class="p">:</span> <span class="n">OptionManager</span> <span class="o">=</span> <span class="n">OptionManager</span><span class="p">(</span>
+        <span class="n">options_parser</span><span class="p">:</span> <span class="n">IOptionManager</span> <span class="o">=</span> <span class="n">OptionManager</span><span class="p">(</span>
             <span class="n">component_bundle</span><span class="o">=</span><span class="n">OptionRegistry</span><span class="o">.</span><span class="n">create_option_bundle_from_dict</span><span class="p">(</span>
-                <span class="n">parameters</span><span class="o">=</span><span class="n">info_manager</span><span class="o">.</span><span class="n">get_info</span><span class="p">(),</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span>
+                <span class="n">parameters</span><span class="o">=</span><span class="n">info_manager</span><span class="o">.</span><span class="n">get_info</span><span class="p">(),</span>
+                <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span>
             <span class="p">)</span>
         <span class="p">)</span>
-        <span class="n">generator</span><span class="p">:</span> <span class="n">Generator</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">(</span>
-            <span class="n">component_bundle</span><span class="o">=</span><span class="n">GeneratorRegistry</span><span class="o">.</span><span class="n">create_default_generator_bundle</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
+        <span class="n">generator</span><span class="p">:</span> <span class="n">IGenerator</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">(</span>
+            <span class="n">component_bundle</span><span class="o">=</span><span class="n">GeneratorRegistry</span><span class="o">.</span><span class="n">create_default_generator_bundle</span><span class="p">(</span>
+                <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span>
+            <span class="p">)</span>
         <span class="p">)</span> <span class="k">if</span> <span class="n">use_generator</span> <span class="k">else</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="s1">&#39;stop_buffering&#39;</span><span class="p">):</span>

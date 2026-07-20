@@ -90,16 +90,9 @@ class Storer(ContextSupport, IStorer):
                 | ATSValueError: Extension is not supported.
                 | ATSTypeError: Validation of processor instance failed.
         '''
-        not_none(
-            component_bundle,
-            r'storer::init(...)',
-            r'component bundle must be provided'
-        )
-        istype(
-            component_bundle, ConfigIOBundle,
-            r'storer::init(...)',
-            r'component bundle must be of type ConfigIOBundle'
-        )
+        context: str = r'storer::init(...)'
+        not_none(component_bundle, context, r'component bundle must be provided')
+        istype(component_bundle, ConfigIOBundle, context, r'component bundle must be of type ConfigIOBundle')
         self._shared_context = component_bundle.context_bundle
         ContextSupport.__init__(self, self._shared_context)
         self._processor = component_bundle.processor
