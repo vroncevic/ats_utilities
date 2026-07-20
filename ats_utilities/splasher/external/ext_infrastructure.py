@@ -122,10 +122,9 @@ class ExtInfrastructure(ContextSupport, IExtInfrastructure):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
+        context: str = r'ext_infrastructure::infrastructure_property(...)'
         require_keys(
-            setup, self._REQUIRED_KEYS,
-            r'ext_infrastructure::infrastructure_property(...)',
-            r'infrastructure property setup is missing required keys'
+            setup, self._REQUIRED_KEYS, context, r'infrastructure property setup is missing required keys'
         )
         self._infrastructure_property = cherry_pick_dict(setup, self._REQUIRED_KEYS)
 
@@ -146,12 +145,9 @@ class ExtInfrastructure(ContextSupport, IExtInfrastructure):
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
+        context: str = r'ext_infrastructure::get_info_text(...)'
         name: str = self._infrastructure_property.get(SplashKeys.ATS_NAME)
-        not_empty(
-            name,
-            r'ext_infrastructure::get_info_text(...)',
-            r'info property name is missing or empty'
-        )
+        not_empty(name, context, r'info property name is missing or empty')
 
         return f'\x1b]8;;{name}\a{name}\x1b]8;;\a'
 
@@ -172,12 +168,9 @@ class ExtInfrastructure(ContextSupport, IExtInfrastructure):
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
+        context: str = r'ext_infrastructure::get_issue_text(...)'
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
-        not_empty(
-            repo,
-            r'ext_infrastructure::get_issue_text(...)',
-            r'issue property repository is missing or empty'
-        )
+        not_empty(repo, context, r'issue property repository is missing or empty')
 
         return f'\x1b]8;;{repo}\a{repo}\x1b]8;;\a'
 
@@ -198,14 +191,11 @@ class ExtInfrastructure(ContextSupport, IExtInfrastructure):
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        not_empty(
-            org,
-            r'ext_infrastructure::get_author_text(...)',
-            r'author property organization is missing or empty'
-        )
+        context: str = r'ext_infrastructure::get_author_text(...)'
+        organization: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
+        not_empty(organization, context, r'author property organization is missing or empty')
 
-        return f'\x1b]8;;{org}\a{org}\x1b]8;;\a'
+        return f'\x1b]8;;{organization}\a{organization}\x1b]8;;\a'
 
     @override
     def __str__(self) -> str:

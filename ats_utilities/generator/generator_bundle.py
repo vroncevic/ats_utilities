@@ -98,46 +98,15 @@ class GeneratorBundle:
                 | ATSTypeError: Tar processor must be an ITarProcessor instance.
                 | ATSTypeError: Template processor must be an ITemplateProcessor instance.
         '''
-        not_none(
-            self.context_bundle,
-            r'generator_bundle::validate(...)',
-            r'context bundle must be provided'
-        )
-        not_none(
-            self.scheme_loader,
-            r'generator_bundle::validate(...)',
-            r'scheme loader must be provided'
-        )
-        not_none(
-            self.tar_processor,
-            r'generator_bundle::validate(...)',
-            r'tar processor must be provided'
-        )
-        not_none(
-            self.template_processor,
-            r'generator_bundle::validate(...)',
-            r'template processor must be provided'
-        )
-        istype(
-            self.context_bundle, ContextBundle,
-            r'generator_bundle::validate(...)',
-            r'context bundle must be a ContextBundle instance'
-        )
-        istype(
-            self.scheme_loader, ISchemeLoader,
-            r'generator_bundle::validate(...)',
-            r'scheme loader must be an ISchemeLoader instance'
-        )
-        istype(
-            self.tar_processor, ITarProcessor,
-            r'generator_bundle::validate(...)',
-            r'tar processor must be an ITarProcessor instance'
-        )
-        istype(
-            self.template_processor, ITemplateProcessor,
-            r'generator_bundle::validate(...)',
-            r'template processor must be an ITemplateProcessor instance'
-        )
+        context: str = r'generator_bundle::validate(...)'
+        not_none(self.context_bundle, context, r'context bundle must be provided')
+        not_none(self.scheme_loader, context, r'scheme loader must be provided')
+        not_none(self.tar_processor, context, r'tar processor must be provided')
+        not_none(self.template_processor, context, r'template processor must be provided')
+        istype(self.context_bundle, ContextBundle, context, r'context bundle must be a ContextBundle instance')
+        istype(self.scheme_loader, ISchemeLoader, context, r'scheme loader must be an ISchemeLoader instance')
+        istype(self.tar_processor, ITarProcessor, context, r'tar processor must be an ITarProcessor instance')
+        istype(self.template_processor, ITemplateProcessor, context, r'template processor must be an ITemplateProcessor instance')
 
     def to_dict(self) -> dict[str, Any]:
         '''

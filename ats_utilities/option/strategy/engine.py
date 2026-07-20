@@ -96,31 +96,16 @@ class ParserStrategy(ContextSupport, IParserStrategy):
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
                 | ATSTypeError: Parser must be an IArgParser instance.
         '''
-        not_none(
-            component_bundle,
-            r'parser_strategy::init(...)',
-            r'component_bundle must be provided'
-        )
-        istype(
-            component_bundle, ParserStrategyBundle,
-            r'parser_strategy::init(...)',
-            r'component_bundle must be a ParserStrategyBundle instance'
-        )
-        istype(
-            component_bundle.parser_class, type[IArgParser],
-            r'parser_strategy::init(...)',
-            r'parser_class must be a type[IArgParser]'
-        )
+        context: str = r'parser_strategy::init(...)'
+        not_none(component_bundle, context, r'component bundle must be provided')
+        istype(component_bundle, ParserStrategyBundle, context, r'component_bundle must be a ParserStrategyBundle instance')
+        istype(component_bundle.parser_class, type[IArgParser], context, r'parser_class must be a type[IArgParser]')
         self._shared_context = component_bundle.context_bundle
         ContextSupport.__init__(self, self._shared_context)
         self._parser_class = component_bundle.parser_class
         parser_bundle = ParserRegistry.create_parser_bundle_from_dict(component_bundle.parameters, self._shared_context)
         self._parser = self._parser_class(component_bundle=parser_bundle)
-        istype(
-            self._parser, IArgParser,
-            r'parser_strategy::init(...)',
-            r'parser must be an IArgParser instance'
-        )
+        istype(self._parser, IArgParser, context, r'parser must be an IArgParser instance')
 
     @has_attrs('_parser')
     @override

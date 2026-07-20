@@ -106,67 +106,21 @@ class GenParamsBundle:
                 | ATSValueError: Archive file does not exist.
                 | ATSValueError: Scheme file does not exist.
         '''
-        not_none(
-            self.archive_path,
-            r'gen_params_bundle::validate(...)',
-            r'archive_path must be provided'
-        )
-        not_none(
-            self.target_dir,
-            r'gen_params_bundle::validate(...)',
-            r'target_dir must be provided'
-        )
-        not_none(
-            self.template_key,
-            r'gen_params_bundle::validate(...)',
-            r'template_key must be provided'
-        )
-        not_none(
-            self.scheme,
-            r'gen_params_bundle::validate(...)',
-            r'scheme must be provided'
-        )
-        not_none(
-            self.template_values,
-            r'gen_params_bundle::validate(...)',
-            r'template_values must be provided'
-        )
-        istype(
-            self.archive_path, str,
-            r'gen_params_bundle::validate(...)',
-            r'archive_path must be a string'
-        )
-        istype(
-            self.target_dir, str,
-            r'gen_params_bundle::validate(...)',
-            r'target_dir must be a string'
-        )
-        istype(
-            self.template_key, str,
-            r'gen_params_bundle::validate(...)',
-            r'template_key must be a string'
-        )
-        istype(
-            self.scheme, (str, Mapping),
-            r'gen_params_bundle::validate(...)',
-            r'scheme must be a string or a mapping'
-        )
-        istype(
-            self.template_values, Mapping,
-            r'gen_params_bundle::validate(...)',
-            r'template_values must be a mapping'
-        )
-        check_file_exists(
-            self.archive_path,
-            r'gen_params_bundle::validate(...)',
-            f'archive file does not exist: {self.archive_path}'
-        )
+        context: str = r'gen_params_bundle::validate(...)'
+        not_none(self.archive_path, context, r'archive_path must be provided')
+        not_none(self.target_dir, context, r'target_dir must be provided')
+        not_none(self.template_key, context, r'template_key must be provided')
+        not_none(self.scheme, context, r'scheme must be provided')
+        not_none(self.template_values, context, r'template_values must be provided')
+        istype(self.archive_path, str, context, r'archive_path must be a string')
+        istype(self.target_dir, str, context, r'target_dir must be a string')
+        istype(self.template_key, str, context, r'template_key must be a string')
+        istype(self.scheme, (str, Mapping), context, r'scheme must be a string or a mapping')
+        istype(self.template_values, Mapping, context, r'template_values must be a mapping')
+        check_file_exists(self.archive_path, context, f'archive file does not exist: {self.archive_path}')
+
         if isinstance(self.scheme, str):
-            check_file_exists(
-                self.scheme,
-                r'gen_params_bundle::validate(...)',
-                f'scheme file does not exist: {self.scheme}'
-            )
+            check_file_exists(self.scheme, context, f'scheme file does not exist: {self.scheme}')
 
     def to_dict(self) -> dict[str, Any]:
         '''

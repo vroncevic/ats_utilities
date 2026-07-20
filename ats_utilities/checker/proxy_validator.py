@@ -18,6 +18,7 @@ Copyright
 Info
     Defines mcheck decorator for checking method parameters.
     Utility for parameter validation borrowing Checker from class instances.
+    Mechanism for parameters checking in methods and functions.
 '''
 
 from __future__ import annotations
@@ -58,6 +59,7 @@ def proxy_validator_split(exp_type: str) -> tuple[str, str]:
             | ATSValueError: Parameter format validation failed.
     '''
     parts = exp_type.split(sep=':')
+
     if len(parts) != 2:
         raise_error(
             fallback_context=r'proxy_validator_split(...)',
@@ -165,6 +167,7 @@ def mcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
         Decorator supporting class methods (instance methods, classmethods).
         Borrows the checker object dynamically from the class instance 
         to validate method parameters.
+        Mechanism for parameters checking in methods only.
 
         :param specs: Specification for parameters.
         :type specs: <list[tuple[str, Any]]>
@@ -211,8 +214,11 @@ def mcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
 
             context = f"{self_instance.__class__.__name__.lower()}::{func.__name__}"
             validate_args(func, args, kwargs, specs, checker, context)
+
             return func(*args, **kwargs)
+
         return cast(F, wrapper)
+
     return decorator
 
 
@@ -220,6 +226,7 @@ def fcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
     '''
         Decorator supporting free functions.
         Uses a default Checker to validate function parameters.
+        Mechanism for parameters checking in functions only.
 
         :param specs: Specification for parameters.
         :type specs: <list[tuple[str, Any]]>
@@ -236,5 +243,7 @@ def fcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             validate_args(func, args, kwargs, specs, checker, func.__name__)
             return func(*args, **kwargs)
+
         return cast(F, wrapper)
+
     return decorator

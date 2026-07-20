@@ -52,9 +52,9 @@ class IFormatValidator(ABC):
         '''
             Checks if the string follows the expected format.
 
-            :param exp_type: The expected format string to validate
+            :param exp_type: The expected format string to validate.
             :type exp_type: <str>
-            :return: True (success), False (fail)
+            :return: <True> if successfully, otherwise <False>.
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -65,9 +65,9 @@ class IFormatValidator(ABC):
         '''
             Splits the format string into components.
 
-            :param exp_type: The format string to split
+            :param exp_type: The format string to split.
             :type exp_type: <str>
-            :return: A tuple containing the split components
+            :return: A tuple containing the split components.
             :rtype: <tuple[str, str]>
             :exceptions: None.
         '''

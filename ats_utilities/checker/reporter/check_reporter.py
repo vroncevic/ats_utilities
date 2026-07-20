@@ -24,9 +24,9 @@ from __future__ import annotations
 
 from typing import override
 
-from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle
+from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
@@ -63,19 +63,12 @@ class CheckReporter(ICheckReporter):
             :return: Formatted message report.
             :rtype: <str>
             :exceptions:
-                | ATSValueError: Report checker reporter bundle must be provided.
-                | ATSTypeError: Report checker reporter bundle must be an instance of CheckerReporterBundle.
+                | ATSValueError: Report bundle must be provided.
+                | ATSTypeError: Report bundle must be a CheckerReporterBundle instance.
         '''
-        not_none(
-            report_bundle,
-            r'check_reporter::build_message_format(...)',
-            r'report checker reporter bundle must be provided'
-        )
-        istype(
-            report_bundle, CheckerReporterBundle,
-            r'check_reporter::build_message_format(...)',
-            r'report bundle must be an instance of CheckerReporterBundle'
-        )
+        context = r'check_reporter::build_message_format(...)'
+        not_none(report_bundle, context, r'report bundle must be provided')
+        istype(report_bundle, CheckerReporterBundle, context, r'report bundle must be a CheckerReporterBundle instance')
 
         message = report_bundle.context
         err_set = set(report_bundle.err_indices)

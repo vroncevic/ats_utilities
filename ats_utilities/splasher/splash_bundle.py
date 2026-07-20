@@ -117,76 +117,21 @@ class SplashBundle:
                 | ATSTypeError: Progress bar 'pb' must be an IProgressBar instance.
                 | ATSTypeError: Context bundle 'context_bundle' must be a ContextBundle instance.
         '''
-        not_none(
-            self.prop,
-            r'splash_bundle::validate(...)',
-            r'properties dictionary prop must be provided'
-        )
-        not_none(
-            self.splash_property,
-            r'splash_bundle::validate(...)',
-            r'splash property splash_property must be provided'
-        )
-        not_none(
-            self.terminal_property,
-            r'splash_bundle::validate(...)',
-            r'terminal properties terminal_property must be provided'
-        )
-        not_none(
-            self.github,
-            r'splash_bundle::validate(...)',
-            r'gitHub infrastructure github must be provided'
-        )
-        not_none(
-            self.ext,
-            r'splash_bundle::validate(...)',
-            r'external infrastructure ext must be provided'
-        )
-        not_none(
-            self.pb,
-            r'splash_bundle::validate(...)',
-            r'progress bar pb must be provided'
-        )
-        not_none(
-            self.context_bundle,
-            r'splash_bundle::validate(...)',
-            r'context bundle context_bundle must be provided'
-        )
-        istype(
-            self.prop, Mapping,
-            r'splash_bundle::validate(...)',
-            r'properties dictionary prop must be a Mapping[str, Any] instance'
-        )
-        istype(
-            self.splash_property, ISplashProperty,
-            r'splash_bundle::validate(...)',
-            r'splash property splash_property must be an ISplashProperty instance'
-        )
-        istype(
-            self.terminal_property, ITerminalProperties,
-            r'splash_bundle::validate(...)',
-            r'terminal properties terminal_property must be an ITerminalProperties instance'
-        )
-        istype(
-            self.github, IExtInfrastructure,
-            r'splash_bundle::validate(...)',
-            r'gitHub infrastructure github must be an IExtInfrastructure instance'
-        )
-        istype(
-            self.ext, IExtInfrastructure,
-            r'splash_bundle::validate(...)',
-            r'external infrastructure ext must be an IExtInfrastructure instance'
-        )
-        istype(
-            self.pb, IProgressBar,
-            r'splash_bundle::validate(...)',
-            r'progress bar pb must be an IProgressBar instance'
-        )
-        istype(
-            self.context_bundle, ContextBundle,
-            r'splash_bundle::validate(...)',
-            r'context bundle context_bundle must be a ContextBundle instance'
-        )
+        context: str = r'splash_bundle::validate(...)'
+        not_none(self.prop, context, r'properties dictionary must be provided')
+        not_none(self.splash_property, context, r'splash property must be provided')
+        not_none(self.terminal_property, context, r'terminal properties must be provided')
+        not_none(self.github, context, r'gitHub infrastructure must be provided')
+        not_none(self.ext, context, r'external infrastructure must be provided')
+        not_none(self.pb, context, r'progress bar must be provided')
+        not_none(self.context_bundle, context, r'context bundle must be provided')
+        istype(self.prop, Mapping, context, r'properties dictionary must be a Mapping[str, Any] instance')
+        istype(self.splash_property, ISplashProperty, context, r'splash property must be an ISplashProperty instance')
+        istype(self.terminal_property, ITerminalProperties, context, r'terminal properties must be an ITerminalProperties instance')
+        istype(self.github, IExtInfrastructure, context, r'gitHub infrastructure must be an IExtInfrastructure instance')
+        istype(self.ext, IExtInfrastructure, context, r'external infrastructure must be an IExtInfrastructure instance')
+        istype(self.pb, IProgressBar, context, r'progress bar must be an IProgressBar instance')
+        istype(self.context_bundle, ContextBundle, context, r'context bundle must be a ContextBundle instance')
 
     def to_dict(self) -> dict[str, Any]:
         '''

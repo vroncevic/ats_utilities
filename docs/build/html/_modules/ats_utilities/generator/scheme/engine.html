@@ -138,22 +138,15 @@
 <span class="sd">                | ATSValueError: Failed to setup config loader.</span>
 <span class="sd">                | ATSGeneratorError: Loading scheme file fails.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="n">scheme</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">),</span>
-            <span class="sa">r</span><span class="s1">&#39;scheme_loader::load(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;scheme must be of type str or Mapping&#39;</span>
-        <span class="p">)</span>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;scheme_loader::load(...)&#39;</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">scheme</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">),</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;scheme must be of type str or Mapping&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scheme</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">not_satisfied</span><span class="p">(</span>
-                <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">scheme</span><span class="p">),</span>
-                <span class="sa">r</span><span class="s1">&#39;scheme_loader::load(...)&#39;</span><span class="p">,</span>
-                <span class="sa">f</span><span class="s1">&#39;scheme file at the provided path does not exist: </span><span class="si">{</span><span class="n">scheme</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">scheme</span><span class="p">),</span> <span class="n">context</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;scheme file at the provided path does not exist: </span><span class="si">{</span><span class="n">scheme</span><span class="si">}</span><span class="s1">&#39;</span>
             <span class="p">)</span>
             <span class="n">not_satisfied</span><span class="p">(</span>
-                <span class="ow">not</span> <span class="n">scheme</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.json&#39;</span><span class="p">),</span>
-                <span class="sa">r</span><span class="s1">&#39;scheme_loader::load(...)&#39;</span><span class="p">,</span>
-                <span class="sa">f</span><span class="s1">&#39;unsupported scheme file format for: </span><span class="si">{</span><span class="n">scheme</span><span class="si">}</span><span class="s1">. Only .json is supported.&#39;</span>
+                <span class="ow">not</span> <span class="n">scheme</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.json&#39;</span><span class="p">),</span> <span class="n">context</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;unsupported scheme file format for: </span><span class="si">{</span><span class="n">scheme</span><span class="si">}</span><span class="s1">. Only .json is supported.&#39;</span>
             <span class="p">)</span>
 
             <span class="k">try</span><span class="p">:</span>
@@ -164,22 +157,13 @@
                         <span class="n">context_bundle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
-                <span class="n">not_satisfied</span><span class="p">(</span>
-                    <span class="n">config_loader</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span>
-                    <span class="sa">r</span><span class="s1">&#39;scheme_loader::load(...)&#39;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;failed to setup config loader for: </span><span class="si">{</span><span class="n">scheme</span><span class="si">}</span><span class="s1">&#39;</span>
-                <span class="p">)</span>
+                <span class="n">not_satisfied</span><span class="p">(</span><span class="n">config_loader</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;failed to setup config loader for: </span><span class="si">{</span><span class="n">scheme</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
                 <span class="k">return</span> <span class="n">config_loader</span><span class="o">.</span><span class="n">load_configuration</span><span class="p">()</span>
 
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
                 <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">format_error_raw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc</span><span class="p">)</span>
-                <span class="n">not_satisfied</span><span class="p">(</span>
-                    <span class="kc">True</span><span class="p">,</span>
-                    <span class="sa">r</span><span class="s1">&#39;scheme_loader::load(...)&#39;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;failed to load scheme file </span><span class="si">{</span><span class="n">scheme</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-                    <span class="n">ATSGeneratorError</span>
-                <span class="p">)</span>
+                <span class="n">not_satisfied</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;failed to load scheme file </span><span class="si">{</span><span class="n">scheme</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">ATSGeneratorError</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">scheme</span><span class="p">)</span></div>
 

@@ -85,16 +85,9 @@ class InfoManager(ContextSupport, IInfoManager):
                 | ATSTypeError: Component bundle must be an instance of InfoBundle.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        not_none(
-            component_bundle,
-            r'info_manager::init(...)',
-            r'component_bundle must be provided'
-        )
-        istype(
-            component_bundle, InfoBundle,
-            r'info_manager::init(...)',
-            r'component_bundle must be an instance of InfoBundle'
-        )
+        context: str = r'info_manager::init(...)'
+        not_none(component_bundle, context, r'component_bundle must be provided')
+        istype(component_bundle, InfoBundle, context, r'component_bundle must be an instance of InfoBundle')
         self._components = component_bundle
         self._shared_context = self._components.context_bundle
         ContextSupport.__init__(self, self._shared_context)
@@ -125,18 +118,12 @@ class InfoManager(ContextSupport, IInfoManager):
             if key == InfoKeys.ATS_LOG_FILE:
                 continue
 
-            if key not in info:
-                not_none(
-                    None,
-                    r'info_manager::set_info(...)',
-                    f'missing key: {key}'
-                )
+            context: str = r'info_manager::set_info(...)'
 
-            not_none(
-                info.get(key),
-                r'info_manager::set_info(...)',
-                f'null value for key: {key}'
-            )
+            if key not in info:
+                not_none(None, context, f'missing key: {key}')
+
+            not_none(info.get(key), context, f'null value for key: {key}')
 
         for key, attr in InfoKeys.get_key_to_attr().items():
             val = info.get(key)
@@ -181,12 +168,8 @@ class InfoManager(ContextSupport, IInfoManager):
 
             return getattr(component, name, None) if component else None
 
-        not_satisfied(
-            True,
-            r'info_manager::getattr(...)',
-            f'{type(self).__name__} object has no attribute {name}',
-            ATSAttributeError
-        )
+        context: str = r'info_manager::getattr(...)'
+        not_satisfied(True, context, f'{type(self).__name__} object has no attribute {name}', ATSAttributeError)
 
     def __setattr__(self, name: str, value: str | bool | None) -> None:
         '''

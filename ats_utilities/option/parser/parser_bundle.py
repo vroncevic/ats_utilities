@@ -83,46 +83,15 @@ class ParserBundle:
             Validates parser bundle.
             Performs validation of all bundle attributes.
         '''
-        not_none(
-            self.context_bundle,
-            r'parser_bundle::validate(...)',
-            r'context bundle must be provided'
-        )
-        not_none(
-            self.prog,
-            r'parser_bundle::validate(...)',
-            r'prog must be provided'
-        )
-        not_none(
-            self.epilog,
-            r'parser_bundle::validate(...)',
-            r'epilog must be provided'
-        )
-        not_none(
-            self.description,
-            r'parser_bundle::validate(...)',
-            r'description must be provided'
-        )
-        istype(
-            self.context_bundle, ContextBundle,
-            r'parser_bundle::validate(...)',
-            r'context bundle must be a ContextBundle instance'
-        )
-        istype(
-            self.prog, str,
-            r'parser_bundle::validate(...)',
-            r'prog must be a string'
-        )
-        istype(
-            self.epilog, str,
-            r'parser_bundle::validate(...)',
-            r'epilog must be a string'
-        )
-        istype(
-            self.description, str,
-            r'parser_bundle::validate(...)',
-            r'description must be a string'
-        )
+        context: str = r'parser_bundle::validate(...)'
+        not_none(self.context_bundle, context, r'context bundle must be provided')
+        not_none(self.prog, context, r'prog must be provided')
+        not_none(self.epilog, context, r'epilog must be provided')
+        not_none(self.description, context, r'description must be provided')
+        istype(self.context_bundle, ContextBundle, context, r'context bundle must be a ContextBundle instance')
+        istype(self.prog, str, context, r'prog must be a string')
+        istype(self.epilog, str, context, r'epilog must be a string')
+        istype(self.description, str, context, r'description must be a string')
 
     def to_dict(self) -> dict[str, Any]:
         '''

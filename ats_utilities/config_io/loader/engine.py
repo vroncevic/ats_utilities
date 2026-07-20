@@ -92,15 +92,9 @@ class Loader(ContextSupport, ILoader):
                 | ATSValueError: Extension is not supported.
                 | ATSTypeError: Validation of processor instance failed.
         '''
-        not_none(
-            component_bundle, r'loader::init(...)',
-            r'component bundle must be provided'
-        )
-        istype(
-            component_bundle, ConfigIOBundle,
-            r'loader::init(...)',
-            r'component bundle must be an instance of ConfigIOBundle'
-        )
+        context: str = r'loader::init(...)'
+        not_none(component_bundle, context, r'component bundle must be provided')
+        istype(component_bundle, ConfigIOBundle, context, r'component bundle must be an instance of ConfigIOBundle')
         self._shared_context = component_bundle.context_bundle
         ContextSupport.__init__(self, self._shared_context)
         self._processor = component_bundle.processor

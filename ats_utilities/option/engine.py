@@ -87,16 +87,9 @@ class OptionManager(ContextSupport, IOptionManager):
                 | ATSValueError - Component bundle must be provided.
                 | ATSTypeError - Component bundle must be an OptionBundle instance.
         '''
-        not_none(
-            component_bundle,
-            r'option_manager::init(...)',
-            r'component bundle must be provided'
-        )
-        istype(
-            component_bundle, OptionBundle,
-            r'option_manager::init(...)'
-            r'component bundle must be an OptionBundle instance'
-        )
+        context: str = r'option_manager::init(...)'
+        not_none(component_bundle, context, r'component bundle must be provided')
+        istype(component_bundle, OptionBundle, context, r'component bundle must be an OptionBundle instance')
         self._shared_context = component_bundle.context_bundle
         ContextSupport.__init__(self, self._shared_context)
         self._strategy = component_bundle.strategy

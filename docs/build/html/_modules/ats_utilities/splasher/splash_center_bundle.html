@@ -126,36 +126,13 @@
 <span class="sd">                | ATSTypeError: Additional shifter is not an integer.</span>
 <span class="sd">                | ATSValueError: Additional shifter cannot be negative.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;splash_center_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;columns count must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;splash_center_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;columns count must be an integer&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_satisfied</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">columns</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;splash_center_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;columns count cannot be negative&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">additional_shifter</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;splash_center_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;additional shifter must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">additional_shifter</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;splash_center_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;additional shifter must be an integer&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_satisfied</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">additional_shifter</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;splash_center_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;additional shifter cannot be negative&#39;</span>
-        <span class="p">)</span></div>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;splash_center_bundle::validate(...)&#39;</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;columns count must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;columns count must be an integer&#39;</span><span class="p">)</span>
+        <span class="n">not_satisfied</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;columns count cannot be negative&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_shifter</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;additional shifter must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_shifter</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;additional shifter must be an integer&#39;</span><span class="p">)</span>
+        <span class="n">not_satisfied</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_shifter</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;additional shifter cannot be negative&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SplashCenterBundle.to_dict">

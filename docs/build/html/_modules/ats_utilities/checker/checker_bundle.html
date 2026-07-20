@@ -111,12 +111,12 @@
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSValueError: Context provider must be provided.</span>
 <span class="sd">                | ATSValueError: Check reporter must be provided.</span>
-<span class="sd">                | ATSValueError: Format mcheck must be provided.</span>
-<span class="sd">                | ATSValueError: Type mcheck must be provided.</span>
+<span class="sd">                | ATSValueError: Format validator must be provided.</span>
+<span class="sd">                | ATSValueError: Type validator must be provided.</span>
 <span class="sd">                | ATSTypeError: Context provider must be an instance of IContextProvider.</span>
 <span class="sd">                | ATSTypeError: Check reporter must be an instance of ICheckReporter.</span>
-<span class="sd">                | ATSTypeError: Format mcheck must be an instance of IFormatValidator.</span>
-<span class="sd">                | ATSTypeError: Type mcheck must be an instance of ITypeValidator.</span>
+<span class="sd">                | ATSTypeError: Format validator must be an instance of IFormatValidator.</span>
+<span class="sd">                | ATSTypeError: Type validator must be an instance of ITypeValidator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
 
@@ -131,53 +131,22 @@
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSValueError: Context provider must be provided.</span>
 <span class="sd">                | ATSValueError: Check reporter must be provided.</span>
-<span class="sd">                | ATSValueError: Format mcheck must be provided.</span>
-<span class="sd">                | ATSValueError: Type mcheck must be provided.</span>
+<span class="sd">                | ATSValueError: Format validator must be provided.</span>
+<span class="sd">                | ATSValueError: Type validator must be provided.</span>
 <span class="sd">                | ATSTypeError: Context provider must be an instance of IContextProvider.</span>
 <span class="sd">                | ATSTypeError: Check reporter must be an instance of ICheckReporter.</span>
-<span class="sd">                | ATSTypeError: Format mcheck must be an instance of IFormatValidator.</span>
-<span class="sd">                | ATSTypeError: Type mcheck must be an instance of ITypeValidator.</span>
+<span class="sd">                | ATSTypeError: Format validator must be an instance of IFormatValidator.</span>
+<span class="sd">                | ATSTypeError: Type validator must be an instance of ITypeValidator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">context_provider</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;checker_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;context provider must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">check_reporter</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;checker_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;check reporter must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">format_validator</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;checker_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;format mcheck must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">type_validator</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;checker_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;type mcheck must be provided&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">context_provider</span><span class="p">,</span> <span class="n">IContextProvider</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;checker_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;context provider must be an instance of IContextProvider&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">check_reporter</span><span class="p">,</span> <span class="n">ICheckReporter</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;checker_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;check reporter must be an instance of ICheckReporter&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">format_validator</span><span class="p">,</span> <span class="n">IFormatValidator</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;checker_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;format mcheck must be an instance of IFormatValidator&#39;</span>
-        <span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">type_validator</span><span class="p">,</span> <span class="n">ITypeValidator</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;checker_bundle::validate(...)&#39;</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s1">&#39;type mcheck must be an instance of ITypeValidator&#39;</span>
-        <span class="p">)</span></div>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;checker_bundle::validate(...)&#39;</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_provider</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context provider must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_reporter</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;check reporter must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">format_validator</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;format validator must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_validator</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;type validator must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_provider</span><span class="p">,</span> <span class="n">IContextProvider</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context provider must be an instance of IContextProvider&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_reporter</span><span class="p">,</span> <span class="n">ICheckReporter</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;check reporter must be an instance of ICheckReporter&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">format_validator</span><span class="p">,</span> <span class="n">IFormatValidator</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;format validator must be an instance of IFormatValidator&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_validator</span><span class="p">,</span> <span class="n">ITypeValidator</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;type validator must be an instance of ITypeValidator&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CheckerBundle.to_dict">

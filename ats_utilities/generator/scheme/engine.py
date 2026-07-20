@@ -96,22 +96,15 @@ class SchemeLoader(ContextSupport, ISchemeLoader):
                 | ATSValueError: Failed to setup config loader.
                 | ATSGeneratorError: Loading scheme file fails.
         '''
-        istype(
-            scheme, (str, Mapping),
-            r'scheme_loader::load(...)',
-            r'scheme must be of type str or Mapping'
-        )
+        context: str = r'scheme_loader::load(...)'
+        istype(scheme, (str, Mapping), context, r'scheme must be of type str or Mapping')
 
         if isinstance(scheme, str):
             not_satisfied(
-                not exists(scheme),
-                r'scheme_loader::load(...)',
-                f'scheme file at the provided path does not exist: {scheme}'
+                not exists(scheme), context, f'scheme file at the provided path does not exist: {scheme}'
             )
             not_satisfied(
-                not scheme.endswith('.json'),
-                r'scheme_loader::load(...)',
-                f'unsupported scheme file format for: {scheme}. Only .json is supported.'
+                not scheme.endswith('.json'), context, f'unsupported scheme file format for: {scheme}. Only .json is supported.'
             )
 
             try:
@@ -122,22 +115,13 @@ class SchemeLoader(ContextSupport, ISchemeLoader):
                         context_bundle=self._shared_context
                     )
                 )
-                not_satisfied(
-                    config_loader is None,
-                    r'scheme_loader::load(...)',
-                    f'failed to setup config loader for: {scheme}'
-                )
+                not_satisfied(config_loader is None, context, f'failed to setup config loader for: {scheme}')
 
                 return config_loader.load_configuration()
 
             except Exception as exc:
                 msg: str = format_error_raw(self, exc)
-                not_satisfied(
-                    True,
-                    r'scheme_loader::load(...)',
-                    f'failed to load scheme file {scheme}: {msg}',
-                    ATSGeneratorError
-                )
+                not_satisfied(True, context, f'failed to load scheme file {scheme}: {msg}', ATSGeneratorError)
 
         return dict(scheme)
 

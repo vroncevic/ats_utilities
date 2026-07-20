@@ -77,16 +77,9 @@ class ContextSupport(IContextSupport):
                 | ATSValueError - Context bundle must be provided.
                 | ATSTypeError - Context bundle must be a ContextBundle instance.
         '''
-        not_none(
-            context_bundle,
-            r'context_support::init(...)',
-            r'context bundle must be provided'
-        )
-        istype(
-            context_bundle, ContextBundle,
-            r'context_support::init(...)',
-            r'context bundle must be a ContextBundle instance'
-        )
+        context: str = r'context_support::init(...)'
+        not_none(context_bundle, context, r'context bundle must be provided.')
+        istype(context_bundle, ContextBundle, context, r'context bundle must be a ContextBundle instance.')
         self._checker = context_bundle.checker
         self._logger = context_bundle.logger
         self._reporter = context_bundle.reporter

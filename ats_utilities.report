@@ -1,28 +1,28 @@
 ************* Module /data/dev/python/ats_utilities/github/ats_utilities/.pylintrc
 .pylintrc:1:0: E0015: Unrecognized option found: max-positional-arguments (unrecognized-option)
 ************* Module ats_utilities.generator.gen_params_bundle
-ats_utilities/generator/gen_params_bundle.py:179:54: E1101: Instance of 'GenParamsBundle' has no '__slots__' member (no-member)
+ats_utilities/generator/gen_params_bundle.py:133:54: E1101: Instance of 'GenParamsBundle' has no '__slots__' member (no-member)
 ************* Module ats_utilities.generator.gen_params_registry
 ats_utilities/generator/gen_params_registry.py:40:24: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
 ************* Module ats_utilities.generator.generator_registry
 ats_utilities/generator/generator_registry.py:43:24: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
 ************* Module ats_utilities.generator.generator_bundle
-ats_utilities/generator/generator_bundle.py:152:25: E1101: Instance of 'GeneratorBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/generator/generator_bundle.py:121:25: E1101: Instance of 'GeneratorBundle' has no '__dataclass_fields__' member (no-member)
 ************* Module ats_utilities.generator.engine
-ats_utilities/generator/engine.py:255:0: C0305: Trailing newlines (trailing-newlines)
-ats_utilities/generator/engine.py:223:15: W0718: Catching too general exception Exception (broad-exception-caught)
-ats_utilities/generator/engine.py:167:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+ats_utilities/generator/engine.py:231:0: C0305: Trailing newlines (trailing-newlines)
+ats_utilities/generator/engine.py:203:15: W0718: Catching too general exception Exception (broad-exception-caught)
+ats_utilities/generator/engine.py:148:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
 ************* Module ats_utilities.generator.igenerator
 ats_utilities/generator/igenerator.py:27:0: C0411: standard import "from abc import ABC, abstractmethod" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/generator/igenerator.py:28:0: C0411: standard import "from collections.abc import Mapping" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ************* Module ats_utilities.generator.template.itemplate_processor
 ats_utilities/generator/template/itemplate_processor.py:27:0: C0411: standard import "from abc import ABC, abstractmethod" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ************* Module ats_utilities.generator.tar.tar_process_bundle
-ats_utilities/generator/tar/tar_process_bundle.py:179:54: E1101: Instance of 'TarProcessBundle' has no '__slots__' member (no-member)
+ats_utilities/generator/tar/tar_process_bundle.py:132:54: E1101: Instance of 'TarProcessBundle' has no '__slots__' member (no-member)
 ************* Module ats_utilities.generator.tar.itar_processor
 ats_utilities/generator/tar/itar_processor.py:27:0: C0411: standard import "from abc import ABC, abstractmethod" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ************* Module ats_utilities.generator.tar.tar_process_member_bundle
-ats_utilities/generator/tar/tar_process_member_bundle.py:148:54: E1101: Instance of 'TarProcessMemberBundle' has no '__slots__' member (no-member)
+ats_utilities/generator/tar/tar_process_member_bundle.py:117:54: E1101: Instance of 'TarProcessMemberBundle' has no '__slots__' member (no-member)
 ************* Module ats_utilities.generator.tar.engine
 ats_utilities/generator/tar/engine.py:27:0: W0622: Redefining built-in 'open' (redefined-builtin)
 ats_utilities/generator/tar/engine.py:224:15: W0718: Catching too general exception Exception (broad-exception-caught)
@@ -35,18 +35,18 @@ ats_utilities/generator/scheme/ischeme_loader.py:27:0: C0411: standard import "f
 ats_utilities/generator/scheme/ischeme_loader.py:28:0: C0411: standard import "from typing import Any" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/generator/scheme/ischeme_loader.py:30:0: C0411: standard import "from collections.abc import Mapping" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ************* Module ats_utilities.generator.scheme.engine
-ats_utilities/generator/scheme/engine.py:133:19: W0718: Catching too general exception Exception (broad-exception-caught)
+ats_utilities/generator/scheme/engine.py:122:19: W0718: Catching too general exception Exception (broad-exception-caught)
 ************* Module ats_utilities.reporter.proxy_reporter
 ats_utilities/reporter/proxy_reporter.py:122:76: C0303: Trailing whitespace (trailing-whitespace)
 ************* Module ats_utilities.reporter.reporter_registry
 ats_utilities/reporter/reporter_registry.py:44:23: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
 ats_utilities/reporter/reporter_registry.py:57:0: W0613: Unused argument 'kwargs' (unused-argument)
 ************* Module ats_utilities.reporter.reporter_bundle
-ats_utilities/reporter/reporter_bundle.py:133:25: E1101: Instance of 'ReporterBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/reporter/reporter_bundle.py:110:25: E1101: Instance of 'ReporterBundle' has no '__dataclass_fields__' member (no-member)
 ************* Module ats_utilities.reporter.theme.engine
 ats_utilities/reporter/theme/engine.py:67:4: C0103: Class constant name "_palette" doesn't conform to UPPER_CASE naming style (invalid-name)
 ************* Module ats_utilities.base.base_bundle
-ats_utilities/base/base_bundle.py:150:25: E1101: Instance of 'BaseBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/base/base_bundle.py:152:25: E1101: Instance of 'BaseBundle' has no '__dataclass_fields__' member (no-member)
 ************* Module ats_utilities.base.ibase
 ats_utilities/base/ibase.py:27:0: C0411: standard import "from abc import ABC, abstractmethod" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/base/ibase.py:28:0: C0411: standard import "from collections.abc import Sequence" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
@@ -58,7 +58,7 @@ ats_utilities/option/ioption_manager.py:27:0: C0411: standard import "from abc i
 ats_utilities/option/ioption_manager.py:28:0: C0411: standard import "from collections.abc import Sequence, Mapping" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/option/ioption_manager.py:29:0: C0411: standard import "from typing import Any" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ************* Module ats_utilities.option.option_bundle
-ats_utilities/option/option_bundle.py:133:25: E1101: Instance of 'OptionBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/option/option_bundle.py:110:25: E1101: Instance of 'OptionBundle' has no '__dataclass_fields__' member (no-member)
 ************* Module ats_utilities.option.option_registry
 ats_utilities/option/option_registry.py:45:21: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
 ************* Module ats_utilities.option.strategy.iparser_strategy
@@ -66,37 +66,32 @@ ats_utilities/option/strategy/iparser_strategy.py:27:0: C0411: standard import "
 ats_utilities/option/strategy/iparser_strategy.py:28:0: C0411: standard import "from collections.abc import Sequence, Mapping" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/option/strategy/iparser_strategy.py:29:0: C0411: standard import "from typing import Any" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ************* Module ats_utilities.option.strategy.parser_strategy_registry
-ats_utilities/option/strategy/parser_strategy_registry.py:45:29: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
-ats_utilities/option/strategy/parser_strategy_registry.py:33:0: W0611: Unused InfoKeys imported from ats_utilities.info.info_keys (unused-import)
+ats_utilities/option/strategy/parser_strategy_registry.py:44:29: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
 ************* Module ats_utilities.option.strategy.parser_strategy_bundle
-ats_utilities/option/strategy/parser_strategy_bundle.py:126:25: E1101: Instance of 'ParserStrategyBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/option/strategy/parser_strategy_bundle.py:113:25: E1101: Instance of 'ParserStrategyBundle' has no '__dataclass_fields__' member (no-member)
 ************* Module ats_utilities.option.command.command_option
-ats_utilities/option/command/command_option.py:175:26: E1101: Instance of 'CommandOption' has no '__dataclass_fields__' member (no-member)
-ats_utilities/option/command/command_option.py:195:25: E1101: Instance of 'CommandOption' has no '__dataclass_fields__' member (no-member)
+ats_utilities/option/command/command_option.py:129:26: E1101: Instance of 'CommandOption' has no '__dataclass_fields__' member (no-member)
+ats_utilities/option/command/command_option.py:149:25: E1101: Instance of 'CommandOption' has no '__dataclass_fields__' member (no-member)
 ************* Module ats_utilities.option.parser.parser_registry
 ats_utilities/option/parser/parser_registry.py:43:21: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
 ************* Module ats_utilities.option.parser.parser_bundle
-ats_utilities/option/parser/parser_bundle.py:137:25: E1101: Instance of 'ParserBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/option/parser/parser_bundle.py:106:25: E1101: Instance of 'ParserBundle' has no '__dataclass_fields__' member (no-member)
 ************* Module ats_utilities.option.parser.engine
 ats_utilities/option/parser/engine.py:37:0: W0611: Unused not_none imported from ats_utilities.validation.check_value (unused-import)
 ************* Module ats_utilities.config_io.config_io_registry
 ats_utilities/config_io/config_io_registry.py:153:0: C0304: Final newline missing (missing-final-newline)
 ats_utilities/config_io/config_io_registry.py:43:23: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
 ************* Module ats_utilities.config_io.conf_file
-ats_utilities/config_io/conf_file.py:165:15: W0718: Catching too general exception Exception (broad-exception-caught)
+ats_utilities/config_io/conf_file.py:140:15: W0718: Catching too general exception Exception (broad-exception-caught)
 ************* Module ats_utilities.config_io.conf_file_bundle
-ats_utilities/config_io/conf_file_bundle.py:133:25: E1101: Instance of 'ConfFileBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/config_io/conf_file_bundle.py:110:25: E1101: Instance of 'ConfFileBundle' has no '__dataclass_fields__' member (no-member)
 ************* Module ats_utilities.config_io.iconf_file
 ats_utilities/config_io/iconf_file.py:28:0: C0411: standard import "from abc import ABC, abstractmethod" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/config_io/iconf_file.py:29:0: C0411: standard import "from collections.abc import Mapping" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/config_io/iconf_file.py:30:0: C0411: standard import "from io import TextIOBase" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/config_io/iconf_file.py:31:0: C0411: standard import "from typing import Any" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ************* Module ats_utilities.config_io.config_io_bundle
-ats_utilities/config_io/config_io_bundle.py:105:27: C0303: Trailing whitespace (trailing-whitespace)
-ats_utilities/config_io/config_io_bundle.py:110:24: C0303: Trailing whitespace (trailing-whitespace)
-ats_utilities/config_io/config_io_bundle.py:115:27: C0303: Trailing whitespace (trailing-whitespace)
-ats_utilities/config_io/config_io_bundle.py:120:32: C0303: Trailing whitespace (trailing-whitespace)
-ats_utilities/config_io/config_io_bundle.py:152:54: E1101: Instance of 'ConfigIOBundle' has no '__slots__' member (no-member)
+ats_utilities/config_io/config_io_bundle.py:122:54: E1101: Instance of 'ConfigIOBundle' has no '__slots__' member (no-member)
 ************* Module ats_utilities.config_io.conf_file_registry
 ats_utilities/config_io/conf_file_registry.py:42:23: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
 ************* Module ats_utilities.config_io.processor.ifactory_processor
@@ -105,20 +100,21 @@ ats_utilities/config_io/processor/ifactory_processor.py:92:12: C0303: Trailing w
 ************* Module ats_utilities.config_io.processor.yaml_processor
 ats_utilities/config_io/processor/yaml_processor.py:108:15: W0718: Catching too general exception Exception (broad-exception-caught)
 ************* Module ats_utilities.config_io.processor.factory_processor
-ats_utilities/config_io/processor/factory_processor.py:119:12: C0303: Trailing whitespace (trailing-whitespace)
-ats_utilities/config_io/processor/factory_processor.py:173:12: C0303: Trailing whitespace (trailing-whitespace)
-ats_utilities/config_io/processor/factory_processor.py:109:33: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
+ats_utilities/config_io/processor/factory_processor.py:110:12: C0303: Trailing whitespace (trailing-whitespace)
+ats_utilities/config_io/processor/factory_processor.py:157:32: C0303: Trailing whitespace (trailing-whitespace)
+ats_utilities/config_io/processor/factory_processor.py:166:12: C0303: Trailing whitespace (trailing-whitespace)
+ats_utilities/config_io/processor/factory_processor.py:102:33: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
 ************* Module ats_utilities.config_io.storer.istorer
 ats_utilities/config_io/storer/istorer.py:28:0: C0411: standard import "from abc import ABC, abstractmethod" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/config_io/storer/istorer.py:29:0: C0411: standard import "from collections.abc import Mapping" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ************* Module ats_utilities.config_io.storer.engine
-ats_utilities/config_io/storer/engine.py:148:15: W0718: Catching too general exception Exception (broad-exception-caught)
+ats_utilities/config_io/storer/engine.py:141:15: W0718: Catching too general exception Exception (broad-exception-caught)
 ats_utilities/config_io/storer/engine.py:28:0: W0611: Unused stderr imported from sys (unused-import)
 ************* Module ats_utilities.config_io.loader.iloader
 ats_utilities/config_io/loader/iloader.py:28:0: C0411: standard import "from abc import ABC, abstractmethod" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/config_io/loader/iloader.py:29:0: C0411: standard import "from typing import Any" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ************* Module ats_utilities.config_io.loader.engine
-ats_utilities/config_io/loader/engine.py:140:15: W0718: Catching too general exception Exception (broad-exception-caught)
+ats_utilities/config_io/loader/engine.py:134:15: W0718: Catching too general exception Exception (broad-exception-caught)
 ************* Module ats_utilities.splasher.splash_center_registry
 ats_utilities/splasher/splash_center_registry.py:75:12: C0303: Trailing whitespace (trailing-whitespace)
 ats_utilities/splasher/splash_center_registry.py:76:21: C0303: Trailing whitespace (trailing-whitespace)
@@ -130,9 +126,9 @@ ats_utilities/splasher/isplasher.py:27:0: C0411: standard import "from abc impor
 ************* Module ats_utilities.splasher.engine
 ats_utilities/splasher/engine.py:104:12: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
 ************* Module ats_utilities.splasher.splash_bundle
-ats_utilities/splasher/splash_bundle.py:201:25: E1101: Instance of 'SplashBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/splasher/splash_bundle.py:146:25: E1101: Instance of 'SplashBundle' has no '__dataclass_fields__' member (no-member)
 ************* Module ats_utilities.splasher.splash_center_bundle
-ats_utilities/splasher/splash_center_bundle.py:128:25: E1101: Instance of 'SplashCenterBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/splasher/splash_center_bundle.py:105:25: E1101: Instance of 'SplashCenterBundle' has no '__dataclass_fields__' member (no-member)
 ************* Module ats_utilities.splasher.external.iext_infrastructure
 ats_utilities/splasher/external/iext_infrastructure.py:27:0: C0411: standard import "from abc import ABC, abstractmethod" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/splasher/external/iext_infrastructure.py:28:0: C0411: standard import "from collections.abc import Mapping" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
@@ -148,28 +144,28 @@ ats_utilities/splasher/terminal/terminal_properties.py:123:19: W0718: Catching t
 ats_utilities/splasher/terminal/iterminal_properties.py:27:0: C0411: standard import "from abc import ABC, abstractmethod" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/splasher/terminal/iterminal_properties.py:28:0: C0411: standard import "from typing import Any" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ************* Module ats_utilities.info.info_bundle
-ats_utilities/info/info_bundle.py:267:25: E1101: Instance of 'InfoBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/info/info_bundle.py:180:25: E1101: Instance of 'InfoBundle' has no '__dataclass_fields__' member (no-member)
 ************* Module ats_utilities.info.info_registry
 ats_utilities/info/info_registry.py:55:19: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
-ats_utilities/info/info_registry.py:157:26: R1719: The if expression can be replaced with 'test' (simplifiable-if-expression)
-ats_utilities/info/info_registry.py:166:15: E1125: Missing mandatory keyword argument 'name' in constructor call (missing-kwoa)
-ats_utilities/info/info_registry.py:166:15: E1125: Missing mandatory keyword argument 'version' in constructor call (missing-kwoa)
-ats_utilities/info/info_registry.py:166:15: E1125: Missing mandatory keyword argument 'licence' in constructor call (missing-kwoa)
-ats_utilities/info/info_registry.py:166:15: E1125: Missing mandatory keyword argument 'build_date' in constructor call (missing-kwoa)
-ats_utilities/info/info_registry.py:166:15: E1125: Missing mandatory keyword argument 'repository' in constructor call (missing-kwoa)
-ats_utilities/info/info_registry.py:166:15: E1125: Missing mandatory keyword argument 'organization' in constructor call (missing-kwoa)
-ats_utilities/info/info_registry.py:166:15: E1125: Missing mandatory keyword argument 'use_github' in constructor call (missing-kwoa)
-ats_utilities/info/info_registry.py:166:15: E1125: Missing mandatory keyword argument 'logo' in constructor call (missing-kwoa)
-ats_utilities/info/info_registry.py:166:15: E1125: Missing mandatory keyword argument 'log_file' in constructor call (missing-kwoa)
-ats_utilities/info/info_registry.py:166:15: E1125: Missing mandatory keyword argument 'info_ok' in constructor call (missing-kwoa)
-ats_utilities/info/info_registry.py:166:15: E1125: Missing mandatory keyword argument 'context_bundle' in constructor call (missing-kwoa)
+ats_utilities/info/info_registry.py:142:26: R1719: The if expression can be replaced with 'test' (simplifiable-if-expression)
+ats_utilities/info/info_registry.py:151:15: E1125: Missing mandatory keyword argument 'name' in constructor call (missing-kwoa)
+ats_utilities/info/info_registry.py:151:15: E1125: Missing mandatory keyword argument 'version' in constructor call (missing-kwoa)
+ats_utilities/info/info_registry.py:151:15: E1125: Missing mandatory keyword argument 'licence' in constructor call (missing-kwoa)
+ats_utilities/info/info_registry.py:151:15: E1125: Missing mandatory keyword argument 'build_date' in constructor call (missing-kwoa)
+ats_utilities/info/info_registry.py:151:15: E1125: Missing mandatory keyword argument 'repository' in constructor call (missing-kwoa)
+ats_utilities/info/info_registry.py:151:15: E1125: Missing mandatory keyword argument 'organization' in constructor call (missing-kwoa)
+ats_utilities/info/info_registry.py:151:15: E1125: Missing mandatory keyword argument 'use_github' in constructor call (missing-kwoa)
+ats_utilities/info/info_registry.py:151:15: E1125: Missing mandatory keyword argument 'logo' in constructor call (missing-kwoa)
+ats_utilities/info/info_registry.py:151:15: E1125: Missing mandatory keyword argument 'log_file' in constructor call (missing-kwoa)
+ats_utilities/info/info_registry.py:151:15: E1125: Missing mandatory keyword argument 'info_ok' in constructor call (missing-kwoa)
+ats_utilities/info/info_registry.py:151:15: E1125: Missing mandatory keyword argument 'context_bundle' in constructor call (missing-kwoa)
 ************* Module ats_utilities.info.iinfo_manager
 ats_utilities/info/iinfo_manager.py:27:0: C0411: standard import "from abc import ABC, abstractmethod" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/info/iinfo_manager.py:28:0: C0411: standard import "from collections.abc import Mapping" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/info/iinfo_manager.py:29:0: C0411: standard import "from typing import Any" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ************* Module ats_utilities.info.engine
-ats_utilities/info/engine.py:149:26: R1719: The if expression can be replaced with 'test' (simplifiable-if-expression)
-ats_utilities/info/engine.py:168:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+ats_utilities/info/engine.py:136:26: R1719: The if expression can be replaced with 'test' (simplifiable-if-expression)
+ats_utilities/info/engine.py:155:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
 ************* Module ats_utilities.info.build_date.ibuild_date
 ats_utilities/info/build_date/ibuild_date.py:27:0: C0411: standard import "from abc import ABC, abstractmethod" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ************* Module ats_utilities.info.version.iversion
@@ -193,10 +189,10 @@ ats_utilities/info/info_ok/iinfo_ok.py:27:0: C0411: standard import "from abc im
 ************* Module ats_utilities.logger.logger_registry
 ats_utilities/logger/logger_registry.py:41:21: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
 ************* Module ats_utilities.logger.logger_bundle
-ats_utilities/logger/logger_bundle.py:130:25: E1101: Instance of 'LoggerBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/logger/logger_bundle.py:110:25: E1101: Instance of 'LoggerBundle' has no '__dataclass_fields__' member (no-member)
 ************* Module ats_utilities.logger.engine
-ats_utilities/logger/engine.py:158:0: C0303: Trailing whitespace (trailing-whitespace)
-ats_utilities/logger/engine.py:161:0: C0303: Trailing whitespace (trailing-whitespace)
+ats_utilities/logger/engine.py:151:0: C0303: Trailing whitespace (trailing-whitespace)
+ats_utilities/logger/engine.py:154:0: C0303: Trailing whitespace (trailing-whitespace)
 ats_utilities/logger/engine.py:31:0: W0622: Redefining built-in 'compile' (redefined-builtin)
 ************* Module ats_utilities.utils.dicts
 ats_utilities/utils/dicts.py:145:40: C0121: Comparison 'value == False' should be 'value is False' if checking for the singleton value False, or 'not value' if testing for falsiness (singleton-comparison)
@@ -214,12 +210,11 @@ ats_utilities/utils/files.py:486:58: W0640: Cell variable replacement_val define
 ************* Module ats_utilities.utils.reflection
 ats_utilities/utils/reflection.py:84:54: C0121: Comparison 'value != False' should be 'value is not False' if checking for the singleton value False, or 'bool(value)' if testing for truthiness (singleton-comparison)
 ************* Module ats_utilities.checker.checker_bundle
-ats_utilities/checker/checker_bundle.py:150:25: E1101: Instance of 'CheckerBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/checker/checker_bundle.py:119:25: E1101: Instance of 'CheckerBundle' has no '__dataclass_fields__' member (no-member)
 ************* Module ats_utilities.checker.checker_registry
 ats_utilities/checker/checker_registry.py:43:22: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
-ats_utilities/checker/checker_registry.py:57:0: W0613: Unused argument 'kwargs' (unused-argument)
 ************* Module ats_utilities.checker.reporter.checker_reporter_bundle
-ats_utilities/checker/reporter/checker_reporter_bundle.py:150:54: E1101: Instance of 'CheckerReporterBundle' has no '__slots__' member (no-member)
+ats_utilities/checker/reporter/checker_reporter_bundle.py:119:54: E1101: Instance of 'CheckerReporterBundle' has no '__slots__' member (no-member)
 ************* Module ats_utilities.checker.reporter.checker_reporter_registry
 ats_utilities/checker/reporter/checker_reporter_registry.py:40:30: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
 ************* Module ats_utilities.checker.context.icontext_provider
@@ -227,13 +222,13 @@ ats_utilities/checker/context/icontext_provider.py:83:0: C0305: Trailing newline
 ************* Module ats_utilities.context.context_registry
 ats_utilities/context/context_registry.py:46:22: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
 ************* Module ats_utilities.context.context_bundle
-ats_utilities/context/context_bundle.py:149:25: E1101: Instance of 'ContextBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/context/context_bundle.py:118:25: E1101: Instance of 'ContextBundle' has no '__dataclass_fields__' member (no-member)
 ************* Module ats_utilities.project_setup.ipro_config
 ats_utilities/project_setup/ipro_config.py:27:0: C0411: standard import "from abc import ABC, abstractmethod" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/project_setup/ipro_config.py:28:0: C0411: standard import "from collections.abc import Mapping" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ats_utilities/project_setup/ipro_config.py:29:0: C0411: standard import "from typing import Any" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ************* Module ats_utilities.project_setup.project_setup_bundle
-ats_utilities/project_setup/project_setup_bundle.py:148:54: E1101: Instance of 'ProjectSetupBundle' has no '__slots__' member (no-member)
+ats_utilities/project_setup/project_setup_bundle.py:117:54: E1101: Instance of 'ProjectSetupBundle' has no '__slots__' member (no-member)
 ************* Module ats_utilities.project_setup.itemplate_dir
 ats_utilities/project_setup/itemplate_dir.py:27:0: C0411: standard import "from abc import ABC, abstractmethod" should be placed before "from ats_utilities.context.icontext_support import IContextSupport" (wrong-import-order)
 ************* Module ats_utilities.project_setup.ipro_name
@@ -241,7 +236,7 @@ ats_utilities/project_setup/ipro_name.py:27:0: C0411: standard import "from abc 
 ************* Module ats_utilities.project_setup.project_setup_registry
 ats_utilities/project_setup/project_setup_registry.py:44:27: E1136: Value 'IRegistry' is unsubscriptable (unsubscriptable-object)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.processor.cfg_processor:[138:188]
+==ats_utilities.config_io.processor.json_processor:[132:182]
 ==ats_utilities.config_io.processor.yaml_processor:[132:182]
         old_data = self._data.copy()
 
@@ -286,100 +281,16 @@ ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines 
     @override
     def __str__(self) -> str:
         '''
-            Returns the YAMLProcessor instance as string representation.
+            Returns the JSONProcessor instance as string representation.
 
-            :return: The YAMLProcessor instance as string representation.
+            :return: The JSONProcessor instance as string representation.
             :rtype: <str>
             :exceptions: None.
         '''
         return to_str(self) (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.info_keys:[28:39]
-==ats_utilities.splasher.splash_keys:[28:39]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
-
-@dataclass(frozen=True, slots=True, kw_only=True) (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.base.base_bundle:[36:47]
-==ats_utilities.generator.tar.tar_process_member_bundle:[32:43]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
-
-@dataclass(slots=True, frozen=True, kw_only=True) (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.context.context_bundle:[32:43]
-==ats_utilities.generator.tar.tar_process_bundle:[31:42]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
-
-@dataclass(slots=True, frozen=True, kw_only=True) (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.checker_bundle:[33:44]
-==ats_utilities.project_setup.project_setup_bundle:[32:43]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
-
-@dataclass(slots=True, frozen=True, kw_only=True) (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.config_io_bundle:[33:44]
-==ats_utilities.option.parser.parser_bundle:[31:42]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
-
-@dataclass(slots=True, frozen=True, kw_only=True) (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.conf_file_bundle:[31:42]
-==ats_utilities.splasher.splash_center_bundle:[29:40]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
-
-@dataclass(slots=True, frozen=True, kw_only=True) (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.generator.generator_bundle:[34:45]
-==ats_utilities.option.strategy.parser_strategy_bundle:[34:45]
+==ats_utilities.generator.tar.tar_process_member_bundle:[32:43]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -406,21 +317,7 @@ __status__ = r'Development'
 
 @dataclass(slots=True, frozen=True, kw_only=True) (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.info_bundle:[41:52]
-==ats_utilities.splasher.splash_bundle:[35:46]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
-
-@dataclass(slots=True, frozen=True, kw_only=True) (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.generator.gen_params_bundle:[32:43]
+==ats_utilities.generator.tar.tar_process_bundle:[31:42]
 ==ats_utilities.logger.logger_bundle:[29:40]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -434,8 +331,8 @@ __status__ = r'Development'
 
 @dataclass(slots=True, frozen=True, kw_only=True) (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.splasher.external.ext_infrastructure:[37:47]
-==ats_utilities.splasher.progressbar.__init__:[23:31]
+==ats_utilities.info.info_keys:[28:39]
+==ats_utilities.splasher.splash_keys:[28:39]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -445,10 +342,95 @@ __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
- (duplicate-code)
+
+@dataclass(frozen=True, slots=True, kw_only=True) (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.conf_file_bundle:[31:42]
+==ats_utilities.option.parser.parser_bundle:[31:42]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(slots=True, frozen=True, kw_only=True) (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.checker_bundle:[33:44]
+==ats_utilities.splasher.splash_center_bundle:[29:40]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(slots=True, frozen=True, kw_only=True) (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.generator_bundle:[34:45]
+==ats_utilities.splasher.splash_bundle:[35:46]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(slots=True, frozen=True, kw_only=True) (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.config_io_bundle:[33:44]
+==ats_utilities.project_setup.project_setup_bundle:[32:43]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(slots=True, frozen=True, kw_only=True) (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.base.base_bundle:[36:47]
+==ats_utilities.option.strategy.parser_strategy_bundle:[34:45]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(slots=True, frozen=True, kw_only=True) (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.gen_params_bundle:[32:43]
+==ats_utilities.info.info_bundle:[41:52]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(slots=True, frozen=True, kw_only=True) (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.generator.tar.engine:[44:54]
-==ats_utilities.splasher.isplasher:[31:41]
+==ats_utilities.splasher.engine:[40:50]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -460,8 +442,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.type.type_validator:[32:42]
-==ats_utilities.project_setup.itemplate_dir:[28:38]
+==ats_utilities.context.context_bundle:[32:42]
+==ats_utilities.project_setup.template_dir:[33:43]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -473,8 +455,32 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.reporter.__init__:[23:31]
-==ats_utilities.checker.reporter.icheck_reporter:[28:38]
+==ats_utilities.checker.context.__init__:[23:31]
+==ats_utilities.checker.format.iformat_validator:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.reporter.checker_reporter_bundle:[31:41]
+==ats_utilities.utils.reflection:[32:55]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+# Type alias for parameter metadata: (parameter name, expected type, actual value) (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.repository.engine:[33:43]
+==ats_utilities.utils.iregistry:[27:37]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -486,8 +492,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.logger.__init__:[23:31]
-==ats_utilities.utils.dicts:[30:52]
+==ats_utilities.info.name.__init__:[23:31]
+==ats_utilities.info.use_github.__init__:[23:31]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -495,24 +501,10 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
-
-def cherry_pick_dict(source: Mapping[Any, Any], keys: frozenset[str]) -> dict[Any, Any]:
-    '''
-        Cherry picks keys from a source dictionary.
-
-        :param source: Source dictionary from which to pick keys.
-        :type source: <Mapping[Any, Any]>
-        :param keys: Set of keys to pick from the source dictionary.
-        :type keys: <frozenset[str]>
-        :return: Dictionary with cherry picked keys.
-        :rtype: <dict[Any, Any]>
-        :exceptions: None.
-    ''' (duplicate-code)
+__status__ = r'Development' (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.option.parser.parser_registry:[32:42]
-==ats_utilities.splasher.splash_registry:[36:46]
+==ats_utilities.option.command.command_option:[30:40]
+==ats_utilities.option.parser.engine:[38:48]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -524,8 +516,110 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.proxy_validator:[38:59]
+==ats_utilities.config_io.processor.ini_processor:[35:45]
 ==ats_utilities.generator.tar.tar_process_member_bundle:[32:42]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.reporter.__init__:[23:31]
+==ats_utilities.reporter.reporter_registry:[33:43]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.processor.factory_processor:[41:51]
+==ats_utilities.generator.tar.itar_processor:[31:41]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.processor.iconfig_processor:[29:39]
+==ats_utilities.option.engine:[41:51]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.exceptions.ats_attribute_error:[26:36]
+==ats_utilities.exceptions.ats_runtime_error:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.exceptions.ats_bad_call_error:[26:36]
+==ats_utilities.exceptions.ats_file_error:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.exceptions.ats_parameter_error:[26:36]
+==ats_utilities.reporter.reporter_bundle:[32:42]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.scheme.__init__:[23:31]
+==ats_utilities.generator.scheme.ischeme_loader:[31:41]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.proxy_validator:[39:60]
+==ats_utilities.generator.tar.__init__:[23:31]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -548,8 +642,8 @@ def proxy_validator_split(exp_type: str) -> tuple[str, str]:
             | ATSValueError: Parameter format validation failed.
     ''' (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.processor.xml_processor:[33:43]
 ==ats_utilities.info.log_file.engine:[33:43]
-==ats_utilities.utils.boolean:[26:54]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -561,8 +655,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.build_date.engine:[33:43]
-==ats_utilities.info.logo.__init__:[23:31]
+==ats_utilities.option.__init__:[23:31]
+==ats_utilities.option.option_bundle:[32:42]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -574,8 +668,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.iinfo_manager:[32:42]
-==ats_utilities.option.strategy.engine:[43:53]
+==ats_utilities.exceptions.ats_generator_error:[26:36]
+==ats_utilities.exceptions.format_error:[25:45]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -587,8 +681,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.generator.tar.itar_processor:[31:41]
-==ats_utilities.reporter.ireporter:[28:38]
+==ats_utilities.reporter.theme.__init__:[23:31]
+==ats_utilities.reporter.theme.engine:[33:43]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -596,11 +690,9 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
+__status__ = r'Development' (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.context.__init__:[23:31]
+==ats_utilities.generator.tar.tar_process_bundle:[31:41]
 ==ats_utilities.project_setup.pro_config:[34:44]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -609,210 +701,12 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.format.__init__:[23:31]
-==ats_utilities.checker.reporter.checker_reporter_bundle:[31:41]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.logo.engine:[33:43]
-==ats_utilities.utils.reflection:[32:55]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
-
-def get_pvt(instance: Any, attr_name: str) -> Any:
-    '''
-        Dynamically retrieves a private attribute from an instance.
-
-        :param instance: The class instance (self) containing the attribute.
-        :type instance: <Any>
-        :param attr_name: The target private attribute name (e.g., '_checker').
-        :type attr_name: <str>
-        :return: The resolved attribute value.
-        :rtype: <Any>
-        :exceptions:
-            | AttributeError: Attribute must start with '_' prefix.
-    ''' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.name.__init__:[23:31]
-==ats_utilities.info.repository.__init__:[23:31]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.build_date.ibuild_date:[28:38]
-==ats_utilities.info.use_github.__init__:[23:31]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.__init__:[23:31]
-==ats_utilities.info.info_keys:[28:38]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.splasher.property.isplash_property:[30:40]
-==ats_utilities.splasher.splash_keys:[28:38]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.option.option_registry:[34:44]
-==ats_utilities.splasher.__init__:[23:31]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.base.base_bundle:[36:46]
-==ats_utilities.generator.tar.tar_process_registry:[29:39]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.generator.tar.__init__:[23:31]
-==ats_utilities.utils.dirs:[29:60]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.info_ok.iinfo_ok:[28:38]
-==ats_utilities.utils.iregistry:[27:37]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.log_file.ilog_file:[28:38]
-==ats_utilities.splasher.terminal.terminal_properties:[37:47]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.loader.engine:[38:48]
-==ats_utilities.splasher.property.__init__:[23:31]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.loader.iloader:[32:42]
-==ats_utilities.config_io.processor.ifactory_processor:[29:39]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.conf_file_registry:[31:41]
-==ats_utilities.reporter.engine:[38:48]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.generator.tar.tar_process_bundle:[31:41]
-==ats_utilities.project_setup.project_setup_registry:[33:43]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.format.iformat_validator:[26:36]
-==ats_utilities.context.context_bundle:[32:42]
+==ats_utilities.checker.__init__:[23:31]
+==ats_utilities.checker.engine:[42:52]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -825,7 +719,7 @@ __status__ = r'Development'
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.info.organization.__init__:[23:31]
-==ats_utilities.logger.logger_registry:[30:40]
+==ats_utilities.logger.logger_bundle:[29:39]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -833,9 +727,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
+__status__ = r'Development' (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.info.repository.irepository:[28:38]
 ==ats_utilities.info.use_github.iuse_github:[28:38]
@@ -850,7 +742,7 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.build_date.__init__:[23:31]
+==ats_utilities.info.iinfo_manager:[32:42]
 ==ats_utilities.info.version.iversion:[28:38]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -863,8 +755,19 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.conf_file:[38:48]
-==ats_utilities.splasher.engine:[40:50]
+==ats_utilities.info.__init__:[23:31]
+==ats_utilities.splasher.terminal.iterminal_properties:[29:39]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.splasher.property.isplash_property:[30:40]
+==ats_utilities.splasher.splash_keys:[28:38]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -876,8 +779,19 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.option.command.ioption_command:[29:39]
-==ats_utilities.validation.check_type:[29:51]
+==ats_utilities.config_io.conf_file_registry:[31:41]
+==ats_utilities.splasher.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.config_io_registry:[32:42]
+==ats_utilities.option.parser.parser_registry:[32:42]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -890,7 +804,7 @@ __status__ = r'Development'
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.generator.template.engine:[33:43]
-==ats_utilities.project_setup.project_setup_bundle:[32:42]
+==ats_utilities.option.parser.iarg_parser:[31:41]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -902,8 +816,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.context.icontext_provider:[26:36]
-==ats_utilities.checker.format.format_validator:[30:40]
+==ats_utilities.project_setup.ipro_config:[30:40]
+==ats_utilities.project_setup.ipro_name:[28:38]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -915,8 +829,30 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.checker_bundle:[33:43]
-==ats_utilities.checker.type.__init__:[23:31]
+==ats_utilities.checker.type.type_validator:[32:42]
+==ats_utilities.context.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.reporter.__init__:[23:31]
+==ats_utilities.checker.reporter.icheck_reporter:[28:38]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.info_ok.engine:[33:43]
+==ats_utilities.utils.component:[31:59]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -928,33 +864,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.info_registry:[44:54]
-==ats_utilities.splasher.terminal.iterminal_properties:[29:39]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.processor.json_processor:[32:41]
 ==ats_utilities.splasher.progressbar.progress_bar:[30:40]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.config_io_bundle:[33:43]
-==ats_utilities.config_io.processor.__init__:[23:31]
+==ats_utilities.splasher.terminal.terminal_properties:[37:47]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -966,7 +877,69 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.option.parser.parser_bundle:[31:41]
+==ats_utilities.config_io.loader.iloader:[32:42]
+==ats_utilities.splasher.splash_center_registry:[28:38]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.processor.ifactory_processor:[29:39]
+==ats_utilities.config_io.storer.istorer:[32:42]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.__init__:[23:31]
+==ats_utilities.config_io.conf_file_bundle:[31:41]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.validation.__init__:[23:31]
+==ats_utilities.validation.check_type:[29:51]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+def _resolve_type(type_to_resolve: Any) -> Any:
+    '''
+        Resolves nested Union types.
+        Handles cases like Union[int, float] by flattening them
+        into a tuple of concrete types (int, float).
+
+        :param type_to_resolve: Type to resolve.
+        :type type_to_resolve: <Any>
+        :return: Resolved type.
+        :rtype: <Any>
+        :exceptions: None.
+    ''' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.template.itemplate_processor:[28:38]
 ==ats_utilities.reporter.proxy_reporter:[34:60]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -979,7 +952,111 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.generator.template.itemplate_processor:[28:38]
+==ats_utilities.info.info_ok.__init__:[23:31]
+==ats_utilities.utils.files:[32:63]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.logo.ilogo:[28:38]
+==ats_utilities.info.version.engine:[33:43]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.storer.engine:[40:50]
+==ats_utilities.info.info_keys:[28:38]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.storer.__init__:[23:31]
+==ats_utilities.option.parser.parser_bundle:[31:41]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.command.ioption_command:[29:39]
+==ats_utilities.option.parser.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.tar.tar_process_member_registry:[30:40]
+==ats_utilities.option.command.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.template.__init__:[23:31]
+==ats_utilities.utils.dirs:[29:60]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+def check_dir_exists(
+    dir_path: str,
+    exc_context: str | None = None,
+    exc_message: str | None = None,
+    exc_class: type[BaseException] = ATSValueError
+) -> None:
+    '''
+        Checks if a directory exists.
+
+        :param dir_path: Path to the directory.
+        :type dir_path: <str>
+        :param exc_context: Context representation in string format.
+        :type exc_context: <str | None>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
+        :param exc_class: The exception class to raise if value is None.
+        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :exceptions:
+            | ATSTypeError: Parameter type validation failed.
+            | Dynamically raises the provided exc_class (e.g., ATSValueError).
+    ''' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.organization.engine:[33:43]
 ==ats_utilities.info.use_github.engine:[33:43]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -992,8 +1069,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.processor.xml_processor:[33:43]
 ==ats_utilities.info.licence.__init__:[23:31]
+==ats_utilities.splasher.property.splash_property:[36:46]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1001,7 +1078,22 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.processor.cfg_processor:[32:42]
+==ats_utilities.splasher.external.iext_infrastructure:[30:40]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.config_io.iconf_file:[32:42]
 ==ats_utilities.validation.check_value:[28:58]
@@ -1036,8 +1128,8 @@ def not_none(
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
     ''' (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.generator.scheme.engine:[39:49]
-==ats_utilities.option.command.command_option:[30:40]
+==ats_utilities.base.engine:[41:51]
+==ats_utilities.reporter.ireporter:[28:38]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1049,19 +1141,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.generator.scheme.__init__:[23:31]
-==ats_utilities.generator.template.__init__:[23:31]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.engine:[41:51]
-==ats_utilities.context.context_registry:[35:45]
+==ats_utilities.checker.context.context_provider:[31:41]
+==ats_utilities.generator.igenerator:[32:42]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1073,8 +1154,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.config_io_registry:[32:42]
-==ats_utilities.config_io.processor.ini_processor:[35:45]
+==ats_utilities.checker.checker_bundle:[33:43]
+==ats_utilities.checker.type.__init__:[23:31]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1086,8 +1167,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.validation.__init__:[23:31]
-==ats_utilities.validation.context_error:[25:58]
+==ats_utilities.info.info_ok.iinfo_ok:[28:38]
+==ats_utilities.utils.boolean:[26:54]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1098,58 +1179,27 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-def raise_error(
-    fallback_context: str,
-    fallback_msg: str,
+def str_bool_to_bool(
+    value: str,
     exc_context: str | None = None,
     exc_message: str | None = None,
     exc_class: type[BaseException] = ATSValueError
-) -> None:
+) -> bool:
     '''
-        Raises a contextual exception using caller context.
+        Converts a string boolean to a boolean.
 
-        :param fallback_context: Fallback prefix to use in the exception message if no message is provided.
-        :type fallback_context: <str>
-        :param fallback_msg: Fallback message to include in the exception message if no message is provided.
-        :type fallback_msg: <str>
+        :param value: String boolean to convert to a boolean.
+        :type value: <str>
         :param exc_context: Context representation in string format.
         :type exc_context: <str | None>
-        :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
-        :param exc_class: The exception class to raise.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :return: Boolean value.
+        :rtype: <bool>
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
     ''' (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.option.option_namespace:[27:37]
-==ats_utilities.option.strategy.iparser_strategy:[34:44]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.exceptions.ats_key_error:[26:36]
-==ats_utilities.reporter.reporter_registry:[33:43]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.generator.igenerator:[32:42]
-==ats_utilities.reporter.__init__:[23:31]
+==ats_utilities.info.licence.engine:[33:43]
+==ats_utilities.info.log_file.__init__:[23:31]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1159,8 +1209,8 @@ __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development' (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.context.context_provider:[31:41]
-==ats_utilities.checker.reporter.check_reporter:[32:42]
+==ats_utilities.info.build_date.ibuild_date:[28:38]
+==ats_utilities.splasher.external.ext_infrastructure:[37:47]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1172,74 +1222,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.utils.__init__:[23:31]
-==ats_utilities.utils.component:[31:59]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
-
-def make_component(
-    passed_obj: Any,
-    default_class: Any,
-    factory_args: Mapping[str, Any] | None = None
-) -> Any:
-    '''
-        Creates a component instance or returns an existing one.
-
-        :param passed_obj: An existing component instance or None.
-        :type passed_obj: <Any>
-        :param default_class: The class to instantiate if passed_obj is None.
-        :type default_class: <Any>
-        :param factory_args: Arguments to pass to the default_class constructor | None.
-        :type factory_args: <Mapping[str, Any] | None>
-        :return: An instance of the component.
-        :rtype: <Any>
-        :exceptions: None.
-    ''' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.logo.ilogo:[28:38]
-==ats_utilities.info.organization.engine:[33:43]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.version.__init__:[23:31]
-==ats_utilities.info.version.engine:[33:43]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.splasher.external.__init__:[23:31]
-==ats_utilities.splasher.external.github_infrastructure:[37:47]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.splasher.isplasher:[31:41]
 ==ats_utilities.splasher.splash_center_bundle:[29:39]
-==ats_utilities.splasher.splash_center_registry:[28:38]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1252,18 +1236,7 @@ __status__ = r'Development'
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.config_io.loader.__init__:[23:31]
-==ats_utilities.config_io.storer.istorer:[32:42]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.processor.iconfig_processor:[29:39]
-==ats_utilities.config_io.storer.__init__:[23:31]
+==ats_utilities.option.option_registry:[34:44]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1275,160 +1248,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.option.__init__:[23:31]
-==ats_utilities.option.engine:[41:51]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.exceptions.ats_attribute_error:[26:36]
-==ats_utilities.exceptions.ats_bad_call_error:[26:36]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.exceptions.ats_file_error:[26:36]
-==ats_utilities.generator.engine:[39:49]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.project_setup.ipro_config:[30:40]
-==ats_utilities.project_setup.template_dir:[33:43]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.reporter.checker_reporter_registry:[29:39]
-==ats_utilities.context.icontext_support:[30:40]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.__init__:[23:31]
-==ats_utilities.checker.ichecker:[28:38]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.info_ok.engine:[33:43]
-==ats_utilities.info.name.engine:[33:43]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.licence.ilicence:[28:38]
-==ats_utilities.splasher.property.splash_property:[36:46]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.splasher.external.iext_infrastructure:[30:40]
-==ats_utilities.splasher.progressbar.iprogress_bar:[26:36]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.conf_file_bundle:[31:41]
-==ats_utilities.config_io.processor.cfg_processor:[32:42]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.__init__:[23:31]
-==ats_utilities.generator.generator_bundle:[34:44]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.base.engine:[44:54]
-==ats_utilities.option.strategy.parser_strategy_bundle:[34:44]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.processor.factory_processor:[41:51]
-==ats_utilities.option.option_bundle:[32:42]
+==ats_utilities.exceptions.ats_lookup_error:[26:36]
+==ats_utilities.option.option_namespace:[27:37]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1441,7 +1262,7 @@ __status__ = r'Development'
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.exceptions.__init__:[35:44]
-==ats_utilities.exceptions.ats_lookup_error:[26:36]
+==ats_utilities.exceptions.ats_error:[24:34]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1453,8 +1274,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.exceptions.ats_parameter_error:[26:36]
-==ats_utilities.generator.generator_registry:[32:42]
+==ats_utilities.context.context_registry:[35:45]
+==ats_utilities.generator.engine:[39:49]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1466,8 +1287,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.log_file.__init__:[23:31]
-==ats_utilities.info.organization.iorganization:[28:38]
+==ats_utilities.info.name.engine:[33:43]
+==ats_utilities.logger.logger_registry:[30:40]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1479,8 +1300,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.base.base_registry:[43:53]
-==ats_utilities.info.licence.engine:[33:43]
+==ats_utilities.info.build_date.engine:[33:43]
+==ats_utilities.splasher.external.github_infrastructure:[37:47]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1492,8 +1313,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.reporter.theme.__init__:[23:31]
-==ats_utilities.reporter.theme.engine:[33:43]
+==ats_utilities.base.base_registry:[48:58]
+==ats_utilities.splasher.splash_bundle:[35:45]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1506,7 +1327,7 @@ __status__ = r'Development'
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.config_io.processor.yaml_processor:[32:41]
-==ats_utilities.generator.gen_params_registry:[29:39]
+==ats_utilities.generator.generator_bundle:[34:44]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1518,86 +1339,12 @@ __status__ = r'Development'
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.option.strategy.__init__:[23:31]
-==ats_utilities.option.strategy.parser_strategy_registry:[34:44]
+==ats_utilities.option.strategy.parser_strategy_registry:[33:43]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.exceptions.ats_runtime_error:[26:36]
-==ats_utilities.option.ioption_manager:[35:45]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.exceptions.ats_type_error:[26:36]
-==ats_utilities.exceptions.ats_value_error:[26:36]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.exceptions.ats_error:[24:34]
-==ats_utilities.exceptions.ats_generator_error:[26:36]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.generator.scheme.ischeme_loader:[31:41]
-==ats_utilities.reporter.reporter_bundle:[32:42]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.generator.__init__:[23:31]
-==ats_utilities.utils.files:[32:63]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.logger.engine:[41:51]
-==ats_utilities.logger.ilogger:[26:36]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'1.0.0'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
@@ -1678,19 +1425,8 @@ ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines 
         '''
         pass (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.info_ok.__init__:[23:31]
-==ats_utilities.info.repository.engine:[33:43]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.info_bundle:[41:51]
-==ats_utilities.info.name.iname:[28:38]
+==ats_utilities.exceptions.ats_key_error:[26:36]
+==ats_utilities.option.ioption_manager:[35:45]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1702,8 +1438,8 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.splasher.splash_bundle:[35:45]
-==ats_utilities.splasher.terminal.__init__:[23:31]
+==ats_utilities.exceptions.ats_type_error:[26:36]
+==ats_utilities.exceptions.ats_value_error:[26:36]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1715,8 +1451,21 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.option.parser.__init__:[23:31]
-==ats_utilities.option.parser.engine:[38:48]
+==ats_utilities.generator.generator_registry:[32:42]
+==ats_utilities.project_setup.pro_name:[33:43]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.context.context_support:[34:44]
+==ats_utilities.project_setup.__init__:[23:31]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1725,9 +1474,123 @@ __version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.format.__init__:[23:31]
+==ats_utilities.checker.type.itype_validator:[27:37]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.reporter.check_reporter:[32:42]
+==ats_utilities.info.info_registry:[44:54]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.processor.__init__:[23:31]
+==ats_utilities.config_io.processor.json_processor:[32:41]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.config_io_bundle:[33:43]
+==ats_utilities.reporter.engine:[38:48]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.gen_params_registry:[29:39]
+==ats_utilities.project_setup.project_setup_bundle:[32:42]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.context.icontext_provider:[26:36]
+==ats_utilities.context.icontext_support:[30:40]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.checker_registry:[32:42]
+==ats_utilities.utils.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.logo.engine:[33:43]
+==ats_utilities.info.repository.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.loader.engine:[38:48]
+==ats_utilities.option.strategy.parser_strategy_bundle:[34:44]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.base.ibase:[33:43]
-==ats_utilities.exceptions.format_error:[25:45]
+==ats_utilities.option.strategy.iparser_strategy:[34:44]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1752,8 +1615,108 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.__init__:[23:31]
+==ats_utilities.generator.tar.tar_process_registry:[29:39]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.project_setup.itemplate_dir:[28:38]
+==ats_utilities.project_setup.project_setup_registry:[33:43]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.format.format_validator:[30:40]
+==ats_utilities.checker.reporter.checker_reporter_registry:[29:39]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.ichecker:[28:38]
+==ats_utilities.utils.dicts:[30:52]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+# Validation resut type: (error message report, error id) (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.log_file.ilog_file:[28:38]
+==ats_utilities.logger.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.licence.ilicence:[28:38]
+==ats_utilities.info.name.iname:[28:38]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.build_date.__init__:[23:31]
+==ats_utilities.info.version.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.base.base_bundle:[36:46]
+==ats_utilities.splasher.splash_registry:[36:46]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.generator.gen_params_bundle:[32:42]
-==ats_utilities.project_setup.pro_name:[33:43]
+==ats_utilities.option.strategy.engine:[43:53]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1765,8 +1728,21 @@ __status__ = r'Development'
 
  (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.context.context_support:[34:44]
-==ats_utilities.project_setup.__init__:[23:31]
+==ats_utilities.logger.engine:[41:51]
+==ats_utilities.logger.ilogger:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'1.0.0'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.logo.__init__:[23:31]
+==ats_utilities.info.organization.iorganization:[28:38]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1776,47 +1752,8 @@ __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development' (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.context.__init__:[23:31]
-==ats_utilities.checker.type.itype_validator:[27:37]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.checker_registry:[32:42]
-==ats_utilities.logger.logger_bundle:[29:39]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.storer.engine:[40:50]
-==ats_utilities.info.engine:[37:47]
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
- (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.option.command.__init__:[23:31]
-==ats_utilities.option.parser.iarg_parser:[31:41]
+==ats_utilities.info.info_bundle:[41:51]
+==ats_utilities.splasher.terminal.__init__:[23:31]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -1826,7 +1763,67 @@ __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development' (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.generator.tar.tar_process_member_registry:[30:40]
+==ats_utilities.splasher.external.__init__:[23:31]
+==ats_utilities.splasher.property.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.splasher.progressbar.__init__:[23:31]
+==ats_utilities.splasher.progressbar.iprogress_bar:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.conf_file:[38:48]
+==ats_utilities.validation.context_error:[25:58]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+def raise_error(
+    fallback_context: str,
+    fallback_msg: str,
+    exc_context: str | None = None,
+    exc_message: str | None = None,
+    exc_class: type[BaseException] = ATSValueError
+) -> None:
+    '''
+        Raises a contextual exception using caller context.
+
+        :param fallback_context: Fallback prefix to use in the exception message if no message is provided.
+        :type fallback_context: <str>
+        :param fallback_msg: Fallback message to include in the exception message if no message is provided.
+        :type fallback_msg: <str>
+        :param exc_context: Context representation in string format.
+        :type exc_context: <str | None>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
+        :param exc_class: The exception class to raise.
+        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :exceptions:
+            | Dynamically raises the provided exc_class (e.g., ATSValueError).
+    ''' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.scheme.engine:[39:49]
 ==ats_utilities:[23:31]
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -1835,157 +1832,9 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.option.ioption_manager:[86:170]
-==ats_utilities.option.strategy.iparser_strategy:[73:147]
-        pass
+__status__ = r'Development'
 
-    @abstractmethod
-    def add_version_operation(self, version: str | None) -> None:
-        '''
-            Adds version option to the parser.
-
-            :param version: The version in string format | None
-            :type version: <str | None>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def parse_input_args(self, arguments: OptArgs) -> OptionNamespace:
-        '''
-            Processes arguments from the start.
-
-            :param arguments: Sequence of arguments | None
-            :type arguments: <OptArgs>
-            :return: Option namespace object
-            :rtype: <OptionNamespace>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def parse_args(self, arguments: OptArgs) -> OptionNamespace:
-        '''
-            Processes arguments from the start.
-
-            :param arguments: Sequence of arguments | None
-            :type arguments: <OptArgs>
-            :return: Option namespace object
-            :rtype: <OptionNamespace>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
-        '''
-            Register a sequence of commands with the parser.
-
-            :param commands: Sequence of commands to register.
-            :type commands: <Sequence[IOptionCommand]>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
-        '''
-            Parses CLI arguments for subcommands and returns command name and parameters.
-
-            :param arguments: Sequence of arguments | None.
-            :type arguments: <OptArgs>
-            :return: Tuple containing command name and parsed parameters (read only data).
-            :rtype: <tuple[str, Mapping[str, Any]]>
-            :exceptions: None.
-        '''
-        pass
-
-
-    @abstractmethod
-    def is_initialized(self) -> bool:
-        '''
-            Checks if option parser component is initialized.
-
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def __str__(self) -> str:
-        '''
-            Returns the option parser as string representation.
-
-            :return: The option parser as string representation.
-            :rtype: <str>
-            :exceptions: None.
-        ''' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.logger.ilogger:[76:136]
-==ats_utilities.option.ioption_manager:[73:159]
-        pass
-
-    @abstractmethod
-    def set_level(self, level: int) -> None:
-        '''
-            Sets log level.
-
-            :param level: Log level.
-            :type level: <int>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def set_log_file(self, log_file: str) -> None:
-        '''
-            Sets log file.
-
-            :param log_file: Log file path.
-            :type log_file: <str>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def set_stdout(self) -> None:
-        '''
-            Sets log output to standard output (stdout).
-
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def set_stderr(self) -> None:
-        '''
-            Sets log output to standard error (stderr).
-
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def stop_buffering(self) -> None:
-        '''
-            Stops log buffering.
-
-            :exceptions: None.
-        '''
-        pass
-
-    def __str__(self) -> str:
-        '''
-            Returns the logger as string representation.
-
-            :return: The logger as string representation.
-            :rtype: <str>
-            :exceptions: None.
-        '''
-        pass (duplicate-code)
+ (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.logger.ilogger:[65:135]
 ==ats_utilities.option.ioption_manager:[97:171]
@@ -2064,22 +1913,106 @@ ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines 
         '''
         pass (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.checker.proxy_validator:[157:186]
-==ats_utilities.reporter.proxy_reporter:[67:78]
-            exc_message=None,
-            exc_class=ATSValueError
-        )
+==ats_utilities.option.ioption_manager:[86:170]
+==ats_utilities.reporter.ireporter:[66:133]
+        pass
 
-    def decorator(func: F) -> F:
-        @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
-            self_instance = args[0] if args else None
+    @abstractmethod
+    def add_version_operation(self, version: str | None) -> None:
+        '''
+            Adds version option to the parser.
 
-            if self_instance is None:
-                raise_error( (duplicate-code)
+            :param version: The version in string format | None
+            :type version: <str | None>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_input_args(self, arguments: OptArgs) -> OptionNamespace:
+        '''
+            Processes arguments from the start.
+
+            :param arguments: Sequence of arguments | None
+            :type arguments: <OptArgs>
+            :return: Option namespace object
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_args(self, arguments: OptArgs) -> OptionNamespace:
+        '''
+            Processes arguments from the start.
+
+            :param arguments: Sequence of arguments | None
+            :type arguments: <OptArgs>
+            :return: Option namespace object
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        '''
+            Register a sequence of commands with the parser.
+
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
+            :exceptions: None.
+        '''
+        pass
+
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if option parser component is initialized.
+
+            :return: <True> if successful, <False> otherwise.
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the option parser as string representation.
+
+            :return: The option parser as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        ''' (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.option.strategy.iparser_strategy:[84:147]
-==ats_utilities.reporter.ireporter:[66:132]
+==ats_utilities.option.ioption_manager:[73:159]
+==ats_utilities.option.strategy.iparser_strategy:[73:147]
+        pass
+
+    @abstractmethod
+    def add_version(self, version: str | None) -> None:
+        '''
+            Adds a version display option to the parser.
+
+            :param version: The ATS version in string format | None.
+            :type version: <str | None>
+            :exceptions: None.
+        '''
         pass
 
     @abstractmethod
@@ -2144,64 +2077,158 @@ ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines 
         '''
         pass (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.splasher.external.ext_infrastructure:[70:126]
-==ats_utilities.splasher.external.github_infrastructure:[67:123]
-    _infrastructure_property: Mapping[str, Any] | None
+==ats_utilities.checker.proxy_validator:[159:189]
+==ats_utilities.reporter.proxy_reporter:[67:78]
+                    exc_message=None,
+                    exc_class=ATSValueError
+                )
 
-    def __init__(self, context_bundle: ContextBundle) -> None:
-        '''
-            Initials GitHubInfrastructure constructor.
 
-            :param context_bundle: Context bundle for GitHub infrastructure.
-            :type context_bundle: <ContextBundle>
-            :exceptions:
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
-        '''
-        ContextSupport.__init__(self, context_bundle)
-        self._infrastructure_property = None
+def mcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F], F]:
+    '''
+        Decorator supporting class methods (instance methods, classmethods).
+        Borrows the checker object dynamically from the class instance
+        to validate method parameters.
+        Mechanism for parameters checking in methods only.
 
-    @property
-    @vreport('getting infrastructure property {infrastructure_property}')
-    @override
-    def infrastructure_property(self) -> Mapping[str, Any]:
-        '''
-            Property method for getting infrastructure property.
-            Note: Splash screen infrastructure comes from info configuration file as read only data.
+        :param specs: Specification for parameters.
+        :type specs: <list[tuple[str, Any]]>
+        :return: Wrapped function.
+        :rtype: <Callable[[F], F]>
+        :exceptions:
+            | ATSTypeError: Parameter type validation failed.
+            | ATSValueError: Parameter format validation failed.
+            | ATSRuntimeError: Decorator used on a non-class method.
+            | ATSAttributeError: Class does not provide a _checker object.
+    '''
+    def decorator(func: F) -> F:
+        @wraps(func)
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
+            # Capturing the class instance (self is always the first argument in args)
+            self_instance = args[0] if args else None
 
-            :return: Formatted infrastructure property in Mapping format (read only data).
-            :rtype: <Mapping[str, Any]>
-            :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @vreport decorator.
-        '''
-        return self._infrastructure_property or {}
+            if self_instance is None:
+                raise_error( (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.processor.iconfig_processor:[79:137]
+==ats_utilities.logger.ilogger:[76:135]
+        pass
 
-    @infrastructure_property.setter
-    @mcheck([('Mapping:setup', None)])
-    @vreport('setting infrastructure property {infrastructure_property}')
-    @override
-    def infrastructure_property(self, setup: Mapping[str, Any]) -> None:
+    @abstractmethod
+    def serialize(self) -> str:
         '''
-            Property method for setting project infrastructure property.
-            Note: Splash screen infrastructure comes from info configuration file as read only data.
+            Converts the internal configuration structure back to a formatted string representation.
 
-            :param setup: Project infrastructure property in Mapping format (read only data).
-            :type setup: <Mapping[str, Any]>
-            :exceptions:
-                | ATSTypeError: infrastructure property setup is not a Mapping.
-                | ATSValueError: infrastructure property setup is missing required keys.
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @vreport decorator.
-                | ATSTypeError: Parameter type validation failed.
-                | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+            :return: Configuration content as string.
+            :rtype: <str>
+            :exceptions: None.
         '''
-        require_keys(
-            setup, self._REQUIRED_KEYS, (duplicate-code)
+        pass
+
+    @abstractmethod
+    def update_data(self, new_data: Mapping[str, str]) -> bool:
+        '''
+            Updates the internal configuration data and validates it against the scheme.
+
+            :param new_data: Mapping containing configuration keys and values.
+            :type new_data: <Mapping[str, str]>
+            :return: <True> if successful, <False> otherwise.
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def to_dict(self) -> dict[str, str]:
+        '''
+            Returns the parsed configuration as a flat or structured dictionary.
+
+            :return: Dictionary with configuration information.
+            :rtype: <dict[str, str]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def validate_by_scheme(self) -> bool:
+        '''
+            Validates the internal parsed data structure against the provided scheme.
+
+            :return: <True> if data matches the scheme, <False> otherwise.
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the configuration processor as string representation.
+
+            :return: The configuration processor as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.logger.ilogger:[65:125]
+==ats_utilities.reporter.ireporter:[77:133]
+        pass
+
+    @abstractmethod
+    def warning(self, message: Sequence[Any]) -> None:
+        '''
+            Reports warning message.
+
+            :param message: Sequence with message.
+            :type message: <Sequence[Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def error(self, message: Sequence[Any]) -> None:
+        '''
+            Reports error message.
+
+            :param message: Sequence with message.
+            :type message: <Sequence[Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def set_level(self, level: int) -> None:
+        '''
+            Sets log level.
+
+            :param level: Log level.
+            :type level: <int>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Returns whether the reporter is initialized.
+
+            :return: <True> if successful, <False> otherwise.
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the reporter as string representation.
+
+            :return: The reporter as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.info.iinfo_manager:[69:123]
 ==ats_utilities.option.ioption_manager:[97:170]
@@ -2260,7 +2287,218 @@ ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines 
         '''
         pass (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.ioption_manager:[86:159]
+==ats_utilities.splasher.external.iext_infrastructure:[67:128]
+        pass
+
+    @abstractmethod
+    def add_version_operation(self, version: str | None) -> None:
+        '''
+            Adds version option to the parser.
+
+            :param version: The version in string format | None
+            :type version: <str | None>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_input_args(self, arguments: OptArgs) -> OptionNamespace:
+        '''
+            Processes arguments from the start.
+
+            :param arguments: Sequence of arguments | None
+            :type arguments: <OptArgs>
+            :return: Option namespace object
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_args(self, arguments: OptArgs) -> OptionNamespace:
+        '''
+            Processes arguments from the start.
+
+            :param arguments: Sequence of arguments | None
+            :type arguments: <OptArgs>
+            :return: Option namespace object
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        '''
+            Register a sequence of commands with the parser.
+
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
+            :exceptions: None.
+        '''
+        pass
+
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if option parser component is initialized.
+
+            :return: <True> if successful, <False> otherwise.
+            :rtype: <bool>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.option.ioption_manager:[110:171]
+==ats_utilities.reporter.ireporter:[66:132]
+        pass
+
+    @abstractmethod
+    def success(self, message: Sequence[Any]) -> None:
+        '''
+            Reports success message.
+
+            :param message: Sequence with message.
+            :type message: <Sequence[Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def warning(self, message: Sequence[Any]) -> None:
+        '''
+            Reports warning message.
+
+            :param message: Sequence with message.
+            :type message: <Sequence[Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def error(self, message: Sequence[Any]) -> None:
+        '''
+            Reports error message.
+
+            :param message: Sequence with message.
+            :type message: <Sequence[Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def set_level(self, level: int) -> None:
+        '''
+            Sets log level.
+
+            :param level: Log level.
+            :type level: <int>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Returns whether the reporter is initialized.
+
+            :return: <True> if successful, <False> otherwise.
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the reporter as string representation.
+
+            :return: The reporter as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.ioption_manager:[73:147]
+==ats_utilities.option.strategy.iparser_strategy:[84:147]
+        pass
+
+    @abstractmethod
+    def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
+        '''
+            Parses the input arguments and returns an OptionNamespace.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :param known_only: Parse only known arguments.
+            :type known_only: <bool>
+            :return: Option namespace object.
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        '''
+            Register a sequence of commands with the parser.
+
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
+            :exceptions: None.
+        '''
+        pass
+
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if parser strategy component is ok.
+
+            :return: <True> if successful, <False> otherwise.
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the ATS parser strategy as string representation.
+
+            :return: The ATS parser strategy as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.base.ibase:[71:133]
 ==ats_utilities.option.strategy.iparser_strategy:[73:146]
         pass
 
@@ -2336,84 +2574,161 @@ ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines 
             :exceptions: None.
         ''' (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.processor.iconfig_processor:[79:137]
-==ats_utilities.option.ioption_manager:[86:159]
+==ats_utilities.config_io.processor.iconfig_processor:[79:136]
+==ats_utilities.info.iinfo_manager:[80:123]
         pass
 
     @abstractmethod
-    def add_version_operation(self, version: str | None) -> None:
+    def get_info(self) -> Mapping[str, Any]:
         '''
-            Adds version option to the parser.
+            Gets the information.
 
-            :param version: The version in string format | None
-            :type version: <str | None>
+            :return: Mapping with information.
+            :rtype: <Mapping[str, Any]>
             :exceptions: None.
         '''
         pass
-
-    @abstractmethod
-    def parse_input_args(self, arguments: OptArgs) -> OptionNamespace:
-        '''
-            Processes arguments from the start.
-
-            :param arguments: Sequence of arguments | None
-            :type arguments: <OptArgs>
-            :return: Option namespace object
-            :rtype: <OptionNamespace>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def parse_args(self, arguments: OptArgs) -> OptionNamespace:
-        '''
-            Processes arguments from the start.
-
-            :param arguments: Sequence of arguments | None
-            :type arguments: <OptArgs>
-            :return: Option namespace object
-            :rtype: <OptionNamespace>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
-        '''
-            Register a sequence of commands with the parser.
-
-            :param commands: Sequence of commands to register.
-            :type commands: <Sequence[IOptionCommand]>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
-        '''
-            Parses CLI arguments for subcommands and returns command name and parameters.
-
-            :param arguments: Sequence of arguments | None.
-            :type arguments: <OptArgs>
-            :return: Tuple containing command name and parsed parameters (read only data).
-            :rtype: <tuple[str, Mapping[str, Any]]>
-            :exceptions: None.
-        '''
-        pass
-
 
     @abstractmethod
     def is_initialized(self) -> bool:
         '''
-            Checks if option parser component is initialized.
+            Checks if info manager is initialized.
 
             :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def refresh_status(self) -> None:
+        '''
+            Refreshes status for information structure.
+
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the info manager as string representation.
+
+            :return: The info manager as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.iinfo_manager:[69:122]
+==ats_utilities.logger.ilogger:[98:136]
+        pass
+
+    @abstractmethod
+    def set_info(self, info: Mapping[str, Any]) -> None:
+        '''
+            Sets the information.
+
+            :param info: Mapping with information.
+            :type info: <Mapping[str, Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def get_info(self) -> Mapping[str, Any]:
+        '''
+            Gets the information.
+
+            :return: Mapping with information.
+            :rtype: <Mapping[str, Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if info manager is initialized.
+
+            :return: <True> if successful, <False> otherwise.
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def refresh_status(self) -> None:
+        '''
+            Refreshes status for information structure.
+
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the info manager as string representation.
+
+            :return: The info manager as string representation.
+            :rtype: <str>
+            :exceptions: None.
         ''' (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.logger.ilogger:[76:135]
-==ats_utilities.splasher.external.iext_infrastructure:[67:128]
+==ats_utilities.logger.ilogger:[65:116]
+==ats_utilities.splasher.external.iext_infrastructure:[80:128]
+        pass
+
+    @abstractmethod
+    def get_info_text(self) -> str:
+        '''
+            Pre-processes info text for splash screen.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
+
+            :return: Hyperlink with info text.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def get_issue_text(self) -> str:
+        '''
+            Pre-processes issue text for splash screen.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
+
+            :return: Hyperlink with issue info.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def get_author_text(self) -> str:
+        '''
+            Pre-processes author text for splash screen.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
+
+            :return: Hyperlink with author info.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the external infrastructure as string representation.
+
+            :return: The external infrastructure as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.reporter.ireporter:[88:133]
+==ats_utilities.splasher.external.iext_infrastructure:[67:127]
         pass
 
     @infrastructure_property.setter
@@ -2473,381 +2788,80 @@ ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines 
             :return: The external infrastructure as string representation.
             :rtype: <str>
             :exceptions: None.
-        '''
-        pass (duplicate-code)
+        ''' (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.logger.ilogger:[87:136]
-==ats_utilities.option.ioption_manager:[73:147]
+==ats_utilities.option.ioption_manager:[86:147]
+==ats_utilities.option.parser.iarg_parser:[64:131]
         pass
 
     @abstractmethod
-    def set_log_file(self, log_file: str) -> None:
+    def add_argument(self, *args: str, **kwargs: Any) -> Any:
         '''
-            Sets log file.
+            Adds an operational argument/flag to the parser.
 
-            :param log_file: Log file path.
-            :type log_file: <str>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def set_stdout(self) -> None:
-        '''
-            Sets log output to standard output (stdout).
-
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def set_stderr(self) -> None:
-        '''
-            Sets log output to standard error (stderr).
-
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def stop_buffering(self) -> None:
-        '''
-            Stops log buffering.
-
-            :exceptions: None.
-        '''
-        pass
-
-    def __str__(self) -> str:
-        '''
-            Returns the logger as string representation.
-
-            :return: The logger as string representation.
-            :rtype: <str>
-            :exceptions: None.
-        '''
-        pass (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.base.ibase:[71:133]
-==ats_utilities.logger.ilogger:[65:125]
-        pass
-
-    @abstractmethod
-    def is_initialized(self) -> bool:
-        '''
-            Checks if App/Tool/Script base engine is initialized.
-
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def add_new_option(self, *args: str, **kwargs: Any) -> None:
-        '''
-            Adds a new option for App/Tool/Script.
-
-            :param args: Arguments in string format.
+            :param args: List of flags for the ATS.
             :type args: <str>
-            :param kwargs: Arguments in Any format.
+            :param kwargs: Arguments in shape of dictionary.
             :type kwargs: <Any>
+            :return: Action/argument instance.
+            :rtype: <Any>
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def parse_args(self, argv: ArgSeq) -> OptionNamespace | None:
+    def parse_args(
+        self,
+        args: OptArgs = None,
+        namespace: OptionNamespace | None = None
+    ) -> OptionNamespace:
         '''
-            Parses App/Tool/Script arguments.
+            Parses the input arguments and returns an OptionNamespace.
 
-            :param argv: Sequence of arguments.
-            :type argv: <ArgSeq>
-            :return: Options and arguments | None
-            :rtype: <OptionNamespace | None>
+            :param args: Sequence of arguments | None.
+            :type args: <OptArgs>
+            :param namespace: Option namespace object | None.
+            :type namespace: <OptionNamespace | None>
+            :return: Option namespace object.
+            :rtype: <OptionNamespace>
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def process(self, verbose: bool = False) -> bool:
+    def parse_known_args(
+        self,
+        args: OptArgs = None,
+        namespace: OptionNamespace | None = None
+    ) -> KnownArgs:
         '''
-            Processes and runs App/Tool/Script (Abstract).
+            Parses the input arguments and returns an OptionNamespace and unknown arguments.
 
-            :param verbose: Enable/Disable verbose option (default False).
-            :type verbose: <bool>
-            :return: <True> if successful else <False>.
-            :rtype: <bool>
+            :param args: Sequence of arguments | None.
+            :type args: <OptArgs>
+            :param namespace: Option namespace object | None.
+            :type namespace: <OptionNamespace | None>
+            :return: Tuple containing option namespace and unknown arguments.
+            :rtype: <KnownArgs>
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def __str__(self) -> str:
+    def add_subparsers(self, **kwargs: Any) -> Any:
         '''
-            Returns the App/Tool/Script base as string representation.
+            Registers subparsers with the parser.
 
-            :return: The App/Tool/Script base as string representation.
-            :rtype: <str>
+            :param kwargs: Arguments in shape of dictionary.
+            :type kwargs: <Any>
+            :return: Action/subparser instance.
+            :rtype: <Any>
             :exceptions: None.
         '''
         pass (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.loader.engine:[102:108]
-==ats_utilities.config_io.storer.engine:[101:107]
-        )
-        self._shared_context = component_bundle.context_bundle
-        ContextSupport.__init__(self, self._shared_context)
-        self._processor = component_bundle.processor
-        self._conf_file = ConfFileRegistry.create_conf_file(
-            file_path=component_bundle.file_path, (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.info.iinfo_manager:[69:122]
-==ats_utilities.reporter.ireporter:[88:133]
-        pass
-
-    @abstractmethod
-    def set_info(self, info: Mapping[str, Any]) -> None:
-        '''
-            Sets the information.
-
-            :param info: Mapping with information.
-            :type info: <Mapping[str, Any]>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def get_info(self) -> Mapping[str, Any]:
-        '''
-            Gets the information.
-
-            :return: Mapping with information.
-            :rtype: <Mapping[str, Any]>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def is_initialized(self) -> bool:
-        '''
-            Checks if info manager is initialized.
-
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def refresh_status(self) -> None:
-        '''
-            Refreshes status for information structure.
-
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def __str__(self) -> str:
-        '''
-            Returns the info manager as string representation.
-
-            :return: The info manager as string representation.
-            :rtype: <str>
-            :exceptions: None.
-        ''' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.option.strategy.iparser_strategy:[99:147]
-==ats_utilities.reporter.ireporter:[66:121]
-        pass
-
-    @abstractmethod
-    def success(self, message: Sequence[Any]) -> None:
-        '''
-            Reports success message.
-
-            :param message: Sequence with message.
-            :type message: <Sequence[Any]>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def warning(self, message: Sequence[Any]) -> None:
-        '''
-            Reports warning message.
-
-            :param message: Sequence with message.
-            :type message: <Sequence[Any]>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def error(self, message: Sequence[Any]) -> None:
-        '''
-            Reports error message.
-
-            :param message: Sequence with message.
-            :type message: <Sequence[Any]>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def set_level(self, level: int) -> None:
-        '''
-            Sets log level.
-
-            :param level: Log level.
-            :type level: <int>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def is_initialized(self) -> bool:
-        '''
-            Returns whether the reporter is initialized.
-
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
-        ''' (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.processor.iconfig_processor:[90:137]
-==ats_utilities.option.strategy.iparser_strategy:[73:135]
-        pass
-
-    @abstractmethod
-    def update_data(self, new_data: Mapping[str, str]) -> bool:
-        '''
-            Updates the internal configuration data and validates it against the scheme.
-
-            :param new_data: Mapping containing configuration keys and values.
-            :type new_data: <Mapping[str, str]>
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def to_dict(self) -> dict[str, str]:
-        '''
-            Returns the parsed configuration as a flat or structured dictionary.
-
-            :return: Dictionary with configuration information.
-            :rtype: <dict[str, str]>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def validate_by_scheme(self) -> bool:
-        '''
-            Validates the internal parsed data structure against the provided scheme.
-
-            :return: <True> if data matches the scheme, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def __str__(self) -> str:
-        '''
-            Returns the configuration processor as string representation.
-
-            :return: The configuration processor as string representation.
-            :rtype: <str>
-            :exceptions: None.
-        '''
-        pass (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.processor.iconfig_processor:[79:136]
-==ats_utilities.splasher.external.iext_infrastructure:[80:128]
-        pass
-
-    @abstractmethod
-    def get_info_text(self) -> str:
-        '''
-            Pre-processes info text for splash screen.
-            Note: Splash screen infrastructure comes from info configuration file as read only data.
-
-            :return: Hyperlink with info text.
-            :rtype: <str>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def get_issue_text(self) -> str:
-        '''
-            Pre-processes issue text for splash screen.
-            Note: Splash screen infrastructure comes from info configuration file as read only data.
-
-            :return: Hyperlink with issue info.
-            :rtype: <str>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def get_author_text(self) -> str:
-        '''
-            Pre-processes author text for splash screen.
-            Note: Splash screen infrastructure comes from info configuration file as read only data.
-
-            :return: Hyperlink with author info.
-            :rtype: <str>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def __str__(self) -> str:
-        '''
-            Returns the external infrastructure as string representation.
-
-            :return: The external infrastructure as string representation.
-            :rtype: <str>
-            :exceptions: None.
-        '''
-        pass (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.config_io.processor.json_processor:[77:103]
-==ats_utilities.config_io.processor.yaml_processor:[77:103]
-    _data: dict[str, str]
-    _scheme: Mapping[str, str] | None
-
-    def __init__(self, scheme: Mapping[str, str] | None = None) -> None:
-        '''
-            Initializes YAMLProcessor constructor.
-
-            :param scheme: Mapping with configuration scheme | None.
-            :type scheme: <Mapping[str, str] | None>
-            :exceptions: None.
-        '''
-        self._data = {}
-        self._scheme = scheme
-
-    @override
-    def deserialize(self, content: Any) -> bool:
-        '''
-            Loads and parses configuration from a raw source (string, stream, or lines).
-
-            :param content: Raw configuration data (str, stream, or sequence).
-            :type content: <Any>
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
-        '''
-        try: (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.option.ioption_manager:[123:171]
-==ats_utilities.splasher.external.iext_infrastructure:[67:127]
+==ats_utilities.reporter.ireporter:[66:121]
         pass
 
     @abstractmethod
@@ -2898,109 +2912,6 @@ ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines 
         pass (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
 ==ats_utilities.generator.igenerator:[66:115]
-==ats_utilities.logger.ilogger:[87:135]
-        pass
-
-    @abstractmethod
-    def prepare_template_values(self, template_values: Mapping[str, str]) -> dict[str, str]:
-        '''
-            Prepares template values.
-
-            :param template_values: Input replacement values.
-            :type template_values: <Mapping[str, str]>
-            :return: The updated template values dictionary.
-            :rtype: <dict[str, str]>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def generate(self, generator_bundle: GenParamsBundle) -> bool:
-        '''
-            Generates project modules/files from a .tgz archive.
-
-            :param generator_bundle: Generator bundle containing template generation parameters.
-            :type generator_bundle: <GenParamsBundle>
-            :return: True if generation was successful, False otherwise.
-            :rtype: <bool>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def is_initialized(self) -> bool:
-        '''
-            Checks if generator component is initialized.
-
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def __str__(self) -> str:
-        '''
-            Returns the generator as string representation.
-
-            :return: The generator as string representation.
-            :rtype: <str>
-            :exceptions: None.
-        '''
-        pass (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.context.icontext_support:[65:113]
-==ats_utilities.logger.ilogger:[76:125]
-        pass
-
-    @property
-    @abstractmethod
-    def logger(self) -> ILogger:
-        '''
-            Property method for getting logger.
-
-            :return: Logger instance.
-            :rtype: <ILogger>
-            :exceptions: None.
-        '''
-        pass
-
-    @property
-    @abstractmethod
-    def reporter(self) -> IReporter:
-        '''
-            Property method for getting reporter.
-
-            :return: Reporter instance.
-            :rtype: <IReporter>
-            :exceptions: None.
-        '''
-        pass
-
-    @property
-    @abstractmethod
-    def verbose(self) -> bool:
-        '''
-            Property method for checking if verbose option is enabled.
-
-            :return: <True> if enabled, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def __str__(self) -> str:
-        '''
-            Returns context support as string representation.
-
-            :return: Context support as string representation.
-            :rtype: <str>
-            :exceptions: None.
-        '''
-        pass (duplicate-code)
-ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.logger.ilogger:[98:136]
 ==ats_utilities.option.ioption_manager:[73:134]
         pass
 
@@ -3064,109 +2975,78 @@ ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines 
             :exceptions: None.
         ''' (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.base.ibase:[82:133]
-==ats_utilities.logger.ilogger:[65:116]
-        pass
+==ats_utilities.config_io.processor.json_processor:[77:103]
+==ats_utilities.config_io.processor.yaml_processor:[77:103]
+    _data: dict[str, str]
+    _scheme: Mapping[str, str] | None
 
-    @abstractmethod
-    def is_initialized(self) -> bool:
+    def __init__(self, scheme: Mapping[str, str] | None = None) -> None:
         '''
-            Checks if logger is initialized.
+            Initializes YAMLProcessor constructor.
 
+            :param scheme: Mapping with configuration scheme | None.
+            :type scheme: <Mapping[str, str] | None>
+            :exceptions: None.
+        '''
+        self._data = {}
+        self._scheme = scheme
+
+    @override
+    def deserialize(self, content: Any) -> bool:
+        '''
+            Loads and parses configuration from a raw source (string, stream, or lines).
+
+            :param content: Raw configuration data (str, stream, or sequence).
+            :type content: <Any>
             :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''
-        pass
-
-    @abstractmethod
-    def set_level(self, level: int) -> None:
-        '''
-            Sets log level.
-
-            :param level: Log level.
-            :type level: <int>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def set_log_file(self, log_file: str) -> None:
-        '''
-            Sets log file.
-
-            :param log_file: Log file path.
-            :type log_file: <str>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def set_stdout(self) -> None:
-        '''
-            Sets log output to standard output (stdout).
-
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def set_stderr(self) -> None:
-        '''
-            Sets log output to standard error (stderr).
-
-            :exceptions: None.
-        ''' (duplicate-code)
+        try: (duplicate-code)
 ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
-==ats_utilities.base.ibase:[71:132]
-==ats_utilities.option.parser.iarg_parser:[64:131]
+==ats_utilities.config_io.loader.engine:[97:102]
+==ats_utilities.config_io.storer.engine:[95:100]
+        self._shared_context = component_bundle.context_bundle
+        ContextSupport.__init__(self, self._shared_context)
+        self._processor = component_bundle.processor
+        self._conf_file = ConfFileRegistry.create_conf_file(
+            file_path=component_bundle.file_path, (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.context.icontext_support:[65:113]
+==ats_utilities.option.strategy.iparser_strategy:[84:146]
         pass
 
+    @property
     @abstractmethod
-    def is_initialized(self) -> bool:
+    def logger(self) -> ILogger:
         '''
-            Checks if App/Tool/Script base engine is initialized.
+            Property method for getting logger.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: Logger instance.
+            :rtype: <ILogger>
             :exceptions: None.
         '''
         pass
 
+    @property
     @abstractmethod
-    def add_new_option(self, *args: str, **kwargs: Any) -> None:
+    def reporter(self) -> IReporter:
         '''
-            Adds a new option for App/Tool/Script.
+            Property method for getting reporter.
 
-            :param args: Arguments in string format.
-            :type args: <str>
-            :param kwargs: Arguments in Any format.
-            :type kwargs: <Any>
+            :return: Reporter instance.
+            :rtype: <IReporter>
             :exceptions: None.
         '''
         pass
 
+    @property
     @abstractmethod
-    def parse_args(self, argv: ArgSeq) -> OptionNamespace | None:
+    def verbose(self) -> bool:
         '''
-            Parses App/Tool/Script arguments.
+            Property method for checking if verbose option is enabled.
 
-            :param argv: Sequence of arguments.
-            :type argv: <ArgSeq>
-            :return: Options and arguments | None
-            :rtype: <OptionNamespace | None>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def process(self, verbose: bool = False) -> bool:
-        '''
-            Processes and runs App/Tool/Script (Abstract).
-
-            :param verbose: Enable/Disable verbose option (default False).
-            :type verbose: <bool>
-            :return: <True> if successful else <False>.
+            :return: <True> if enabled, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -3175,13 +3055,130 @@ ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the App/Tool/Script base as string representation.
+            Returns context support as string representation.
 
-            :return: The App/Tool/Script base as string representation.
+            :return: Context support as string representation.
             :rtype: <str>
             :exceptions: None.
+        '''
+        pass (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.base.ibase:[82:133]
+==ats_utilities.option.strategy.iparser_strategy:[73:135]
+        pass
+
+    @abstractmethod
+    def add_version(self, version: str | None) -> None:
+        '''
+            Adds a version display option to the parser.
+
+            :param version: The ATS version in string format | None.
+            :type version: <str | None>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
+        '''
+            Parses the input arguments and returns an OptionNamespace.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :param known_only: Parse only known arguments.
+            :type known_only: <bool>
+            :return: Option namespace object.
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        '''
+            Register a sequence of commands with the parser.
+
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
+            :exceptions: None.
+        '''
+        pass
+
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if parser strategy component is ok.
+
+            :return: <True> if successful, <False> otherwise.
+            :rtype: <bool>
+            :exceptions: None.
         ''' (duplicate-code)
+ats_utilities/project_setup/project_setup_registry.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.base.ibase:[71:132]
+==ats_utilities.option.strategy.iparser_strategy:[99:147]
+        pass
+
+    @abstractmethod
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        '''
+            Register a sequence of commands with the parser.
+
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
+            :exceptions: None.
+        '''
+        pass
+
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if parser strategy component is ok.
+
+            :return: <True> if successful, <False> otherwise.
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the ATS parser strategy as string representation.
+
+            :return: The ATS parser strategy as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
 
 ------------------------------------------------------------------
-Your code has been rated at 9.12/10 (previous run: 9.12/10, +0.00)
+Your code has been rated at 9.14/10 (previous run: 9.14/10, +0.00)
 

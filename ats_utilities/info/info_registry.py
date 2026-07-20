@@ -120,26 +120,11 @@ class InfoRegistry(IRegistry[InfoBundle]):
             :rtype: <InfoBundle>
             :exceptions: None.
         '''
-        not_none(
-            context_bundle,
-            r'info_registry::create_info_bundle_from_dict(...)',
-            r'context_bundle must be provided'
-        )
-        not_none(
-            info,
-            r'info_registry::create_info_bundle_from_dict(...)',
-            r'info must be provided'
-        )
-        istype(
-            context_bundle, ContextBundle,
-            r'info_registry::create_info_bundle_from_dict(...)',
-            r'context_bundle must be ContextBundle instance'
-        )
-        istype(
-            info, Mapping,
-            r'info_registry::create_info_bundle_from_dict(...)',
-            r'info must be Mapping instance'
-        )
+        context: str = r'info_registry::create_info_bundle_from_dict(...)'
+        not_none(context_bundle, context, r'context_bundle must be provided')
+        not_none(info, context, r'info must be provided')
+        istype(context_bundle, ContextBundle, context, r'context_bundle must be ContextBundle instance')
+        istype(info, Mapping, context, r'info must be Mapping instance')
         key_to_attr: MappingProxyType[str, str] = InfoKeys.get_key_to_attr()
         bundle_kwargs: dict[str, Any] = {}
 

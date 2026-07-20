@@ -27,15 +27,12 @@ from typing import Any, override
 
 from ats_utilities.base.base_bundle import BaseBundle
 from ats_utilities.base.ibase import ArgSeq, IBase
-from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
-from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.splasher.isplasher import ISplasher
 from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str, has_attrs
@@ -60,10 +57,6 @@ class Base(ContextSupport, IBase):
         It defines:
 
             :attributes:
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger for logging (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _is_initialized - Indicates if the base is initialized (default False).
                 | _shared_context - Shared context for components.
                 | _config_loader - Manager for configuration loading (default ConfigLoader).
@@ -81,10 +74,6 @@ class Base(ContextSupport, IBase):
                 | __str__ - Returns the Base as string representation.
     '''
 
-    _checker: IChecker
-    _logger: ILogger
-    _reporter: IReporter
-    _verbose: bool
     _is_initialized: bool
     _shared_context: ContextBundle
     _config_loader: ILoader
@@ -118,8 +107,9 @@ class Base(ContextSupport, IBase):
                 | ATSTypeError: Generator must be IGenerator interface or None.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        not_none(component_bundle, 'base::__init__', r'component bundle must be provided')
-        istype(component_bundle, BaseBundle, 'base::__init__', r'component bundle must be an instance of BaseBundle')
+        context: str = r'base::init(...)'
+        not_none(component_bundle, context, r'component bundle must be provided')
+        istype(component_bundle, BaseBundle, context, r'component bundle must be an instance of BaseBundle')
         self._shared_context = component_bundle.context_bundle
         ContextSupport.__init__(self, self._shared_context)
         self._config_loader = component_bundle.config_loader
@@ -169,7 +159,7 @@ class Base(ContextSupport, IBase):
             :param kwargs: Arguments in Any format.
             :type kwargs: <Any>
             :exceptions:
-                | ATSValueError: Missing or empty attribute: '_options_parser'.
+                | ATSValueError: Missing or None attribute: '_options_parser'.
         '''
         if self.is_initialized():
             self._options_parser.add_operation(*args, **kwargs)
@@ -185,7 +175,7 @@ class Base(ContextSupport, IBase):
             :return: Options and arguments.
             :rtype: <OptionNamespace | None>
             :exceptions:
-                | ATSValueError: Missing or empty attribute: '_options_parser'.
+                | ATSValueError: Missing or None attribute: '_options_parser'.
         '''
         if self.is_initialized():
             return self._options_parser.parse_args(argv)
@@ -199,7 +189,7 @@ class Base(ContextSupport, IBase):
 
             :param verbose: Enable/Disable verbose option (default False).
             :type verbose: <bool>
-            :return: <True> if successful else <False>.
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

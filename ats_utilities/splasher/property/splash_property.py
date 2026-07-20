@@ -118,10 +118,10 @@ class SplashProperty(ContextSupport, ISplashProperty):
         is_enabled = bool(setup.get('enabled', True))
 
         if is_enabled:
+            context: str = r'splash_property::splash_keys(...)'
             require_keys(
                 setup, frozenset(SplashKeys.get_all_keys()),
-                r'splash_property::splash_keys(...)',
-                r'splash property setup is missing required keys'
+                context, r'splash property setup is missing required keys'
             )
 
         self._splash_keys = SplashKeys.from_dict(setup)
