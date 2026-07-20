@@ -30,7 +30,7 @@ from typing import Any, cast
 
 from ats_utilities.checker.checker_registry import CheckerRegistry
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.ichecker import ParametersSpecs
+from ats_utilities.checker.ichecker import IChecker, ParametersSpecs
 from ats_utilities.context.icontext_support import IContextSupport
 from ats_utilities.exceptions import (
     ATSRuntimeError, ATSTypeError, ATSValueError
@@ -77,7 +77,7 @@ def validate_args(
     args: tuple[Any, ...],
     kwargs: dict[str, Any],
     specs: list[tuple[str, Any]],
-    checker: Checker,
+    checker: IChecker,
     exc_context: str
 ) -> None:
     '''
@@ -92,7 +92,7 @@ def validate_args(
         :param specs: Parameter specification list.
         :type specs: <list[tuple[str, Any]]>
         :param checker: Checker instance to validate with.
-        :type checker: <Checker>
+        :type checker: <IChecker>
         :param exc_context: Exception context.
         :type exc_context: <str>
         :exceptions:
