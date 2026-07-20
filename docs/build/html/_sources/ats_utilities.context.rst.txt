@@ -8,6 +8,8 @@ Submodules
    :maxdepth: 4
 
    ats_utilities.context.context_bundle
+   ats_utilities.context.context_factory
+   ats_utilities.context.context_params
    ats_utilities.context.context_registry
    ats_utilities.context.context_support
    ats_utilities.context.icontext_support

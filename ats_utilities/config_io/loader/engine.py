@@ -29,7 +29,7 @@ from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
 from ats_utilities.config_io.iconf_file import IConfFile
-from ats_utilities.config_io.conf_file_registry import ConfFileRegistry
+from ats_utilities.config_io.conf_file_factory import ConfFileFactory
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
@@ -46,42 +46,38 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Loader(ContextSupport, ILoader):
+class Loader(ILoader, ContextSupport):
     '''
-        Defines class Loader with attribute(s) and method(s).
         Creates an API for loading configuration from file and deploying as object.
         2nd level of configuration loader implementation.
 
         It defines:
 
             :attributes:
-                | _checker - Injected parameters checker (default Checker).
-                | _logger - Injected logger for logging (default Logger).
-                | _reporter - Injected reporter for messaging (default Reporter).
-                | _verbose - Injected Enable/Disable verbose option (default False).
-                | _shared_context - Injected shared context bundle (default ContextBundle).
-                | _processor - Format-specific file processor (provided/inferred).
-                | _conf_file_bundle - Bundle for file operations.
+                | _shared_context - Shared ContextBundle.
+                | _processor - Processor interface instance.
+                | _conf_file - Configuration file interface instance.
+
             :methods:
-                | __init__ - Initializes Loader constructor.
-                | get_shared_context - Returns the shared context.
-                | load_configuration - Reads configuration from a file.
-                | __str__ - Returns the Loader as string representation.
+                | __init__ - Constructor.
+                | get_shared_context - Gets the shared context.
+                | load_configuration - Loads configuration from file.
     '''
 
     _shared_context: ContextBundle
     _processor: IConfigProcessor
     _conf_file: IConfFile
 
+    @override
     def __init__(self, component_bundle: ConfigIOBundle) -> None:
         '''
-            Initializes Loader constructor.
+            Constructor.
 
-            :param component_bundle: Component bundle for dependency injection.
+            :param component_bundle: ConfigIOBundle instance.
             :type component_bundle: <ConfigIOBundle>
             :exceptions:
-                | ATSTypeError: Component bundle must be an instance of ConfigIOBundle.
-                | ATSValueError: Component bundle must not be None.
+                | ATSValueError: Component bundle must be provided.
+                | ATSTypeError: Component bundle must be ConfigIOBundle instance.
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
                 | ATSValueError: File path must be provided when processor is None.
@@ -98,7 +94,7 @@ class Loader(ContextSupport, ILoader):
         self._shared_context = component_bundle.context_bundle
         ContextSupport.__init__(self, self._shared_context)
         self._processor = component_bundle.processor
-        self._conf_file = ConfFileRegistry.create_conf_file(
+        self._conf_file = ConfFileFactory.create_conf_file(
             file_path=component_bundle.file_path,
             file_mode=component_bundle.READ_MODE,
             context_bundle=self._shared_context

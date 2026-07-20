@@ -25,7 +25,7 @@ import unittest
 from typing import Any
 from unittest.mock import MagicMock
 
-from ats_utilities.checker.checker_registry import CheckerRegistry
+from ats_utilities.checker.checker_factory import CheckerFactory
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ErrorChecker
 from ats_utilities.checker.proxy_validator import mcheck, fcheck
@@ -44,7 +44,7 @@ __status__: str = 'Development'
 class DummyClass:
     def __init__(self, use_checker: bool = True) -> None:
         if use_checker:
-            self._checker = Checker(CheckerRegistry.create_default_checker_bundle())
+            self._checker = Checker(CheckerFactory.create_default_checker_bundle())
 
     @mcheck([('str:name', None), ('int:value', None)])
     def my_method(self, name: str, value: int) -> str:
@@ -121,7 +121,7 @@ class ProxyValidatorTest(unittest.TestCase):
     def test_vcheck_invalid_format(self) -> None:
         class BadSpecClass:
             def __init__(self) -> None:
-                self._checker = Checker(CheckerRegistry.create_default_checker_bundle())
+                self._checker = Checker(CheckerFactory.create_default_checker_bundle())
 
             @mcheck([('invalid_format', None)])
             def bad_method(self, name: str) -> str:

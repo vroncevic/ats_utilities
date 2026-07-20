@@ -16,7 +16,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ats_utilities.splasher package" href="ats_utilities.splasher.html" />
-    <link rel="prev" title="ats_utilities.reporter.reporter_bundle module" href="ats_utilities.reporter.reporter_bundle.html" /> 
+    <link rel="prev" title="ats_utilities.reporter.reporter_params module" href="ats_utilities.reporter.reporter_params.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -31,7 +31,7 @@
           <a href="ats_utilities.splasher.html" title="ats_utilities.splasher package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.reporter.reporter_bundle.html" title="ats_utilities.reporter.reporter_bundle module"
+          <a href="ats_utilities.reporter.reporter_params.html" title="ats_utilities.reporter.reporter_params module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -69,7 +69,7 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.reporter.reporter_registry.ReporterRegistry">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.reporter.reporter_registry.</span></span><span class="sig-name descname"><span class="pre">ReporterRegistry</span></span><a class="reference internal" href="_modules/ats_utilities/reporter/reporter_registry.html#ReporterRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.reporter_registry.ReporterRegistry" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.utils.iregistry.html#ats_utilities.utils.iregistry.IRegistry" title="ats_utilities.utils.iregistry.IRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRegistry</span></code></a>[<a class="reference internal" href="ats_utilities.reporter.reporter_bundle.html#ats_utilities.reporter.reporter_bundle.ReporterBundle" title="ats_utilities.reporter.reporter_bundle.ReporterBundle"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReporterBundle</span></code></a>]</p>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.utils.iregistry.html#ats_utilities.utils.iregistry.IRegistry" title="ats_utilities.utils.iregistry.IRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRegistry</span></code></a>[<a class="reference internal" href="ats_utilities.reporter.reporter_bundle.html#ats_utilities.reporter.reporter_bundle.ReporterBundle" title="ats_utilities.reporter.reporter_bundle.ReporterBundle"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReporterBundle</span></code></a>, <a class="reference internal" href="ats_utilities.reporter.reporter_params.html#ats_utilities.reporter.reporter_params.ReporterParams" title="ats_utilities.reporter.reporter_params.ReporterParams"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReporterParams</span></code></a> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</p>
 <p>Encapsulates core runtime components for simplification of ReporterBundle creation.</p>
 <p>It defines:</p>
 <blockquote>
@@ -77,7 +77,6 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">create_bundle - Creates a ReporterBundle.</div>
-<div class="line">create_default_reporter_bundle - Creates a default ReporterBundle.</div>
 </div>
 </dd>
 </dl>
@@ -89,11 +88,11 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.reporter.reporter_registry.ReporterRegistry.create_bundle">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.reporter.reporter_bundle.html#ats_utilities.reporter.reporter_bundle.ReporterBundle" title="ats_utilities.reporter.reporter_bundle.ReporterBundle"><span class="pre">ReporterBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/reporter_registry.html#ReporterRegistry.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.reporter_registry.ReporterRegistry.create_bundle" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.reporter.reporter_params.html#ats_utilities.reporter.reporter_params.ReporterParams" title="ats_utilities.reporter.reporter_params.ReporterParams"><span class="pre">ReporterParams</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.reporter.reporter_bundle.html#ats_utilities.reporter.reporter_bundle.ReporterBundle" title="ats_utilities.reporter.reporter_bundle.ReporterBundle"><span class="pre">ReporterBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/reporter_registry.html#ReporterRegistry.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.reporter_registry.ReporterRegistry.create_bundle" title="Link to this definition">¶</a></dt>
 <dd><p>Creates a ReporterBundle instance.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kwargs</strong> – Additional registry-specific orchestration parameters.</p>
+<dd class="field-odd"><p><strong>params</strong> (<a class="reference internal" href="ats_utilities.reporter.reporter_params.html#ats_utilities.reporter.reporter_params.ReporterParams" title="ats_utilities.reporter.reporter_params.ReporterParams"><em>ReporterParams</em></a><em> | </em><em>None</em>) – Registry-specific orchestration parameters.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>ReporterBundle instance.</p>
@@ -110,23 +109,6 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <div class="line">ATSTypeError: Theme must be a Theme instance.</div>
 <div class="line">ATSTypeError: Logger bundle must be a LoggerBundle instance.</div>
 </div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.reporter.reporter_registry.ReporterRegistry.create_default_reporter_bundle">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_default_reporter_bundle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.reporter.reporter_bundle.html#ats_utilities.reporter.reporter_bundle.ReporterBundle" title="ats_utilities.reporter.reporter_bundle.ReporterBundle"><span class="pre">ReporterBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/reporter_registry.html#ReporterRegistry.create_default_reporter_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.reporter_registry.ReporterRegistry.create_default_reporter_bundle" title="Link to this definition">¶</a></dt>
-<dd><p>Creates a default ReporterBundle with pre-configured components.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Default ReporterBundle instance.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;ReporterBundle&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -149,7 +131,6 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <li><a class="reference internal" href="#ats_utilities.reporter.reporter_registry.ReporterRegistry"><code class="docutils literal notranslate"><span class="pre">ReporterRegistry</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.reporter.reporter_registry.ReporterRegistry._abc_impl"><code class="docutils literal notranslate"><span class="pre">ReporterRegistry._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.reporter_registry.ReporterRegistry.create_bundle"><code class="docutils literal notranslate"><span class="pre">ReporterRegistry.create_bundle()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.reporter.reporter_registry.ReporterRegistry.create_default_reporter_bundle"><code class="docutils literal notranslate"><span class="pre">ReporterRegistry.create_default_reporter_bundle()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -159,8 +140,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.reporter.reporter_bundle.html"
-                          title="previous chapter">ats_utilities.reporter.reporter_bundle module</a></p>
+    <p class="topless"><a href="ats_utilities.reporter.reporter_params.html"
+                          title="previous chapter">ats_utilities.reporter.reporter_params module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -201,7 +182,7 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
           <a href="ats_utilities.splasher.html" title="ats_utilities.splasher package"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.reporter.reporter_bundle.html" title="ats_utilities.reporter.reporter_bundle module"
+          <a href="ats_utilities.reporter.reporter_params.html" title="ats_utilities.reporter.reporter_params module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

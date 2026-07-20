@@ -21,16 +21,12 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.project_setup.project_setup_bundle import ProjectSetupBundle
 from ats_utilities.project_setup.project_setup_params import ProjectSetupParams
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.project_setup.pro_name import ProName
-from ats_utilities.project_setup.pro_config import ProConfig
-from ats_utilities.project_setup.template_dir import TemplateDir
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -50,7 +46,6 @@ class ProjectSetupRegistry(IRegistry[ProjectSetupBundle, ProjectSetupParams]):
 
             :methods:
                 | create_bundle - Creates a ProjectSetupBundle.
-                | create_default_project_setup_bundle - Creates a default ProjectSetupBundle.
     '''
 
     @classmethod
@@ -69,41 +64,10 @@ class ProjectSetupRegistry(IRegistry[ProjectSetupBundle, ProjectSetupParams]):
                 | ATSTypeError: Setup must be a mapping.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        setup: Mapping[str, Any] = params.get('setup')
-        context_bundle: ContextBundle = params.get('context_bundle')
-
-        return cls.create_default_project_setup_bundle(
-            setup=setup,
-            context_bundle=context_bundle,
-        )
-
-    @classmethod
-    def create_default_project_setup_bundle(
-        cls,
-        setup: Mapping[str, Any],
-        context_bundle: ContextBundle
-    ) -> ProjectSetupBundle:
-        '''
-            Creates a default ProjectSetupBundle with pre-configured components.
-
-            :param setup: The project setup dictionary.
-            :type setup: <Mapping[str, Any]>
-            :param context_bundle: The context bundle.
-            :type context_bundle: <ContextBundle>
-            :return: Default ProjectSetupBundle instance.
-            :rtype: <ProjectSetupBundle>
-            :exceptions: None.
-        '''
-        pro_name: ProName = ProName(context_bundle=context_bundle)
-        pro_name.pro_name = setup.get('pro_name')
-        pro_config: ProConfig = ProConfig(context_bundle=context_bundle)
-        pro_config.config = setup.get('pro_config')
-        template_dir: TemplateDir = TemplateDir(context_bundle=context_bundle)
-        template_dir.template_dir = setup.get('template_dir')
-
         return ProjectSetupBundle(
-            pro_name=pro_name,
-            pro_config=pro_config,
-            template_dir=template_dir,
-            context_bundle=context_bundle
+            pro_name=params.get('pro_name'),
+            pro_config=params.get('pro_config'),
+            template_dir=params.get('template_dir'),
+            context_bundle=params.get('context_bundle')
         )
+

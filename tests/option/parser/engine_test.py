@@ -24,7 +24,7 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.option.parser.engine import ArgParser
 from ats_utilities.option.parser.parser_bundle import ParserBundle
@@ -61,7 +61,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         bundle = ParserBundle(
             prog="myprog",
             epilog="myepilog",
@@ -90,7 +90,7 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         mock_reporter = MagicMock(spec=IReporter)
-        custom_context = ContextRegistry.create_default_context_bundle()
+        custom_context = ContextFactory.create_default_context_bundle()
         custom_context = custom_context.__class__(
             checker=custom_context.checker,
             logger=custom_context.logger,
@@ -118,7 +118,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         bundle = ParserBundle(
             prog="myprog",
             epilog="myepilog",
@@ -134,7 +134,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         parser = ArgParser(prog="testprog", context_bundle=context_bundle)
         self.assertEqual(parser.prog, "testprog")
         self.assertIs(parser._reporter, context_bundle.reporter)

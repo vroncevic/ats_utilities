@@ -63,11 +63,7 @@
 
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.reporter_bundle</span> <span class="kn">import</span> <span class="n">ReporterBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.engine</span> <span class="kn">import</span> <span class="n">Checker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.checker_registry</span> <span class="kn">import</span> <span class="n">CheckerRegistry</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.engine</span> <span class="kn">import</span> <span class="n">ConsoleTheme</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.engine</span> <span class="kn">import</span> <span class="n">Logger</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.logger_registry</span> <span class="kn">import</span> <span class="n">LoggerRegistry</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.reporter_params</span> <span class="kn">import</span> <span class="n">ReporterParams</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -81,7 +77,7 @@
 
 <div class="viewcode-block" id="ReporterRegistry">
 <a class="viewcode-back" href="../../../ats_utilities.reporter.reporter_registry.html#ats_utilities.reporter.reporter_registry.ReporterRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">ReporterRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">ReporterBundle</span><span class="p">]):</span>
+<span class="k">class</span> <span class="nc">ReporterRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">ReporterBundle</span><span class="p">,</span> <span class="n">ReporterParams</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for simplification of ReporterBundle creation.</span>
 
@@ -89,18 +85,18 @@
 
 <span class="sd">            :methods:</span>
 <span class="sd">                | create_bundle - Creates a ReporterBundle.</span>
-<span class="sd">                | create_default_reporter_bundle - Creates a default ReporterBundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
 <div class="viewcode-block" id="ReporterRegistry.create_bundle">
 <a class="viewcode-back" href="../../../ats_utilities.reporter.reporter_registry.html#ats_utilities.reporter.reporter_registry.ReporterRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ReporterBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">ReporterParams</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ReporterBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates a ReporterBundle instance.</span>
 
-<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :param params: Registry-specific orchestration parameters.</span>
+<span class="sd">            :type params: ReporterParams | None</span>
 <span class="sd">            :return: ReporterBundle instance.</span>
 <span class="sd">            :rtype: &lt;ReporterBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
@@ -111,30 +107,13 @@
 <span class="sd">                | ATSTypeError: Theme must be a Theme instance.</span>
 <span class="sd">                | ATSTypeError: Logger bundle must be a LoggerBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_default_reporter_bundle</span><span class="p">()</span></div>
-
-
-<div class="viewcode-block" id="ReporterRegistry.create_default_reporter_bundle">
-<a class="viewcode-back" href="../../../ats_utilities.reporter.reporter_registry.html#ats_utilities.reporter.reporter_registry.ReporterRegistry.create_default_reporter_bundle">[docs]</a>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_default_reporter_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ReporterBundle</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Creates a default ReporterBundle with pre-configured components.</span>
-
-<span class="sd">            :return: Default ReporterBundle instance.</span>
-<span class="sd">            :rtype: &lt;ReporterBundle&gt;</span>
-<span class="sd">            :exceptions: None.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">checker</span><span class="p">:</span> <span class="n">Checker</span> <span class="o">=</span> <span class="n">Checker</span><span class="p">(</span><span class="n">component_bundle</span><span class="o">=</span><span class="n">CheckerRegistry</span><span class="o">.</span><span class="n">create_default_checker_bundle</span><span class="p">())</span>
-        <span class="n">theme</span><span class="p">:</span> <span class="n">ConsoleTheme</span> <span class="o">=</span> <span class="n">ConsoleTheme</span><span class="p">()</span>
-        <span class="n">logger</span><span class="p">:</span> <span class="n">Logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">(</span><span class="n">component_bundle</span><span class="o">=</span><span class="n">LoggerRegistry</span><span class="o">.</span><span class="n">create_default_logger_bundle</span><span class="p">())</span>
-
         <span class="k">return</span> <span class="n">ReporterBundle</span><span class="p">(</span>
-            <span class="n">checker</span><span class="o">=</span><span class="n">checker</span><span class="p">,</span>
-            <span class="n">theme</span><span class="o">=</span><span class="n">theme</span><span class="p">,</span>
-            <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">,</span>
+            <span class="n">checker</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;checker&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">params</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">theme</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;theme&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">params</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">logger</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;logger&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">params</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
         <span class="p">)</span></div>
 </div>
+
 
 </pre></div>
 

@@ -19,6 +19,8 @@ Submodules
    :maxdepth: 4
 
    ats_utilities.checker.checker_bundle
+   ats_utilities.checker.checker_factory
+   ats_utilities.checker.checker_params
    ats_utilities.checker.checker_registry
    ats_utilities.checker.engine
    ats_utilities.checker.ichecker

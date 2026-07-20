@@ -68,6 +68,7 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.option.parser.iarg_parser</span> <span class="kn">import</span> <span class="n">IArgParser</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.parser.engine</span> <span class="kn">import</span> <span class="n">ArgParser</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.strategy.parser_strategy_bundle</span> <span class="kn">import</span> <span class="n">ParserStrategyBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.strategy.parser_strategy_params</span> <span class="kn">import</span> <span class="n">ParserStrategyParams</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -81,7 +82,7 @@
 
 <div class="viewcode-block" id="ParserStrategyRegistry">
 <a class="viewcode-back" href="../../../../ats_utilities.option.strategy.parser_strategy_registry.html#ats_utilities.option.strategy.parser_strategy_registry.ParserStrategyRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">ParserStrategyRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">ParserStrategyBundle</span><span class="p">]):</span>
+<span class="k">class</span> <span class="nc">ParserStrategyRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">ParserStrategyBundle</span><span class="p">,</span> <span class="n">ParserStrategyParams</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core parser components for simplification of ParserStrategyBundle creation.</span>
 
@@ -96,11 +97,12 @@
 <a class="viewcode-back" href="../../../../ats_utilities.option.strategy.parser_strategy_registry.html#ats_utilities.option.strategy.parser_strategy_registry.ParserStrategyRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ParserStrategyBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">ParserStrategyParams</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ParserStrategyBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates a ParserStrategyBundle instance.</span>
 
-<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :param params: Registry-specific orchestration parameters.</span>
+<span class="sd">            :type params: ParserStrategyParams</span>
 <span class="sd">            :return: ParserStrategyBundle instance.</span>
 <span class="sd">            :rtype: &lt;ParserStrategyBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
@@ -109,9 +111,9 @@
 <span class="sd">                | ATSTypeError: Parameters must be a mapping.</span>
 <span class="sd">                | ATSTypeError: Context bundle must be a ContextBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">parameters</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;parameters&#39;</span><span class="p">)</span>
-        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
-        <span class="n">parser_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">IArgParser</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;parser_class&#39;</span><span class="p">,</span> <span class="n">ArgParser</span><span class="p">)</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;parameters&#39;</span><span class="p">)</span>
+        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
+        <span class="n">parser_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">IArgParser</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;parser_class&#39;</span><span class="p">,</span> <span class="n">ArgParser</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_parser_strategy_bundle_from_dict</span><span class="p">(</span>
             <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>

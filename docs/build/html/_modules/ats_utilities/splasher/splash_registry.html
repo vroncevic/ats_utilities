@@ -64,13 +64,8 @@
 
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.splash_bundle</span> <span class="kn">import</span> <span class="n">SplashBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splasher.splash_params</span> <span class="kn">import</span> <span class="n">SplashParams</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.splasher.property.splash_property</span> <span class="kn">import</span> <span class="n">SplashProperty</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.splasher.splash_keys</span> <span class="kn">import</span> <span class="n">SplashKeys</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.splasher.terminal.terminal_properties</span> <span class="kn">import</span> <span class="n">TerminalProperties</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.splasher.external.ext_infrastructure</span> <span class="kn">import</span> <span class="n">ExtInfrastructure</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.splasher.external.github_infrastructure</span> <span class="kn">import</span> <span class="n">GitHubInfrastructure</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.splasher.progressbar.progress_bar</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -84,7 +79,7 @@
 
 <div class="viewcode-block" id="SplashRegistry">
 <a class="viewcode-back" href="../../../ats_utilities.splasher.splash_registry.html#ats_utilities.splasher.splash_registry.SplashRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">SplashRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">SplashBundle</span><span class="p">]):</span>
+<span class="k">class</span> <span class="nc">SplashRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">SplashBundle</span><span class="p">,</span> <span class="n">SplashParams</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates splash screen components for simplification of SplashBundle creation.</span>
 
@@ -92,90 +87,35 @@
 
 <span class="sd">            :methods:</span>
 <span class="sd">                | create_bundle - Creates a SplashBundle.</span>
-<span class="sd">                | create_splash_bundle_from_dict - Creates a SplashBundle from properties.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
 <div class="viewcode-block" id="SplashRegistry.create_bundle">
 <a class="viewcode-back" href="../../../ats_utilities.splasher.splash_registry.html#ats_utilities.splasher.splash_registry.SplashRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SplashBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">SplashParams</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SplashBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates a SplashBundle instance.</span>
 
-<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :param params: Registry-specific orchestration parameters.</span>
+<span class="sd">            :type params: SplashParams</span>
 <span class="sd">            :return: SplashBundle instance.</span>
 <span class="sd">            :rtype: &lt;SplashBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSValueError: Context bundle must not be provided.</span>
 <span class="sd">                | ATSTypeError: Context bundle must be of type ContextBundle.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">prop</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prop&#39;</span><span class="p">)</span>
-        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_splash_bundle_from_dict</span><span class="p">(</span>
-            <span class="n">prop</span><span class="o">=</span><span class="n">prop</span><span class="p">,</span>
-            <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">,</span>
-        <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="SplashRegistry.create_splash_bundle_from_dict">
-<a class="viewcode-back" href="../../../ats_utilities.splasher.splash_registry.html#ats_utilities.splasher.splash_registry.SplashRegistry.create_splash_bundle_from_dict">[docs]</a>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_splash_bundle_from_dict</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">,</span>
-        <span class="n">prop</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SplashBundle</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Creates a SplashBundle from properties.</span>
-
-<span class="sd">            :param prop: Properties.</span>
-<span class="sd">            :type prop: &lt;Mapping[str, Any]&gt;</span>
-<span class="sd">            :param context_bundle: Context bundle.</span>
-<span class="sd">            :type context_bundle: &lt;ContextBundle&gt;</span>
-<span class="sd">            :return: SplashBundle instance.</span>
-<span class="sd">            :rtype: &lt;SplashBundle&gt;</span>
-<span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Context bundle must not be provided.</span>
-<span class="sd">                | ATSTypeError: Context bundle must be of type ContextBundle.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">splash_property</span> <span class="o">=</span> <span class="n">SplashProperty</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">)</span>
-        <span class="n">property_validated</span> <span class="o">=</span> <span class="kc">False</span>
-
-        <span class="k">if</span> <span class="n">prop</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">splash_property</span><span class="o">.</span><span class="n">splash_keys</span> <span class="o">=</span> <span class="n">prop</span>
-            <span class="n">property_validated</span> <span class="o">=</span> <span class="n">splash_property</span><span class="o">.</span><span class="n">validates</span><span class="p">()</span>
-
-        <span class="n">terminal_property</span> <span class="o">=</span> <span class="n">TerminalProperties</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">)</span>
-        <span class="n">github</span> <span class="o">=</span> <span class="n">GitHubInfrastructure</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">)</span>
-        <span class="n">ext</span> <span class="o">=</span> <span class="n">ExtInfrastructure</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">property_validated</span> <span class="ow">and</span> <span class="n">prop</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">is_enabled</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">prop</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;enabled&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
-
-            <span class="k">if</span> <span class="n">is_enabled</span><span class="p">:</span>
-                <span class="n">use_github</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">prop</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_USE_GITHUB_INFRASTRUCTURE</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
-
-                <span class="k">if</span> <span class="n">use_github</span><span class="p">:</span>
-                    <span class="n">github</span><span class="o">.</span><span class="n">infrastructure_property</span> <span class="o">=</span> <span class="n">prop</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">ext</span><span class="o">.</span><span class="n">infrastructure_property</span> <span class="o">=</span> <span class="n">prop</span>
-
-        <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">terminal_property</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
-        <span class="n">pb</span> <span class="o">=</span> <span class="n">ProgressBar</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
-
         <span class="k">return</span> <span class="n">SplashBundle</span><span class="p">(</span>
-            <span class="n">prop</span><span class="o">=</span><span class="n">prop</span> <span class="k">if</span> <span class="n">prop</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{},</span>
-            <span class="n">splash_property</span><span class="o">=</span><span class="n">splash_property</span><span class="p">,</span>
-            <span class="n">property_validated</span><span class="o">=</span><span class="n">property_validated</span><span class="p">,</span>
-            <span class="n">terminal_property</span><span class="o">=</span><span class="n">terminal_property</span><span class="p">,</span>
-            <span class="n">github</span><span class="o">=</span><span class="n">github</span><span class="p">,</span>
-            <span class="n">ext</span><span class="o">=</span><span class="n">ext</span><span class="p">,</span>
-            <span class="n">pb</span><span class="o">=</span><span class="n">pb</span><span class="p">,</span>
-            <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span>
+            <span class="n">prop</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prop&#39;</span><span class="p">),</span>
+            <span class="n">splash_property</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;splash_property&#39;</span><span class="p">),</span>
+            <span class="n">property_validated</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;property_validated&#39;</span><span class="p">),</span>
+            <span class="n">terminal_property</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;terminal_property&#39;</span><span class="p">),</span>
+            <span class="n">ext</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ext&#39;</span><span class="p">),</span>
+            <span class="n">pb</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pb&#39;</span><span class="p">),</span>
+            <span class="n">context_bundle</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
         <span class="p">)</span></div>
 </div>
+
 
 </pre></div>
 

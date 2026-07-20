@@ -24,11 +24,8 @@ from __future__ import annotations
 from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
-from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
 from ats_utilities.config_io.conf_file_params import ConfFileParams
-from ats_utilities.config_io.iconf_file import IConfFile
-from ats_utilities.context.context_bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -47,9 +44,7 @@ class ConfFileRegistry(IRegistry[ConfFileBundle, ConfFileParams]):
         It defines:
 
             :methods:
-                | create_bundle - Creates a ConfFileBundle instance using either file path and file mode.
-                | create_conf_file_bundle - Creates a ConfFileBundle based on file path and file mode.
-                | create_conf_file - Factory method to instantiate an IConfFile implementation.
+                | create_bundle - Creates a ConfFileBundle instance.
     '''
 
     @classmethod
@@ -70,77 +65,9 @@ class ConfFileRegistry(IRegistry[ConfFileBundle, ConfFileParams]):
                 | ATSTypeError: File mode must be a string.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle interface.
         '''
-        file_path: str = params.get('file_path')
-        file_mode: str = params.get('file_mode')
-        context_bundle: ContextBundle = params.get('context_bundle')
-
-        return cls.create_conf_file_bundle(
-            file_path=file_path,
-            file_mode=file_mode,
-            context_bundle=context_bundle
-        )
-
-    @classmethod
-    def create_conf_file_bundle(
-        cls,
-        file_path: str,
-        file_mode: str,
-        context_bundle: ContextBundle
-    ) -> ConfFileBundle:
-        '''
-            Creates a ConfFileBundle with pre-configured components based on file path and file mode.
-
-            :param file_path: Config file path.
-            :type file_path: <str>
-            :param file_mode: Config file mode.
-            :type file_mode: <str>
-            :param context_bundle: Context bundle for dependency injection.
-            :type context_bundle: <ContextBundle>
-            :return: ConfFileBundle instance.
-            :rtype: <ConfFileBundle>
-            :exceptions:
-                | ATSValueError: File path must be provided.
-                | ATSValueError: File mode must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: File path must be a string.
-                | ATSTypeError: File mode must be a string.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
-        '''
         return ConfFileBundle(
-            file_path=file_path,
-            file_mode=file_mode,
-            context_bundle=context_bundle
+            file_path=params.get('file_path'),
+            file_mode=params.get('file_mode'),
+            context_bundle=params.get('context_bundle')
         )
 
-    @classmethod
-    def create_conf_file(
-        cls,
-        file_path: str,
-        file_mode: str,
-        context_bundle: ContextBundle
-    ) -> IConfFile:
-        '''
-            Factory method to instantiate an IConfFile implementation.
-
-            :param file_path: Config file path.
-            :type file_path: <str>
-            :param file_mode: Config file mode.
-            :type file_mode: <str>
-            :param context_bundle: Context bundle for dependency injection.
-            :type context_bundle: <ContextBundle>
-            :return: IConfFile implementation.
-            :rtype: <IConfFile>
-            :exceptions:
-                | ATSValueError: File path must be provided.
-                | ATSValueError: File mode must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: File path must be a string.
-                | ATSTypeError: File mode must be a string.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
-        '''
-        bundle = cls.create_conf_file_bundle(
-            file_path=file_path,
-            file_mode=file_mode,
-            context_bundle=context_bundle
-        )
-        return ConfFile(bundle)

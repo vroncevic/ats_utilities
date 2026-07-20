@@ -75,7 +75,7 @@
 
 <div class="viewcode-block" id="IRegistry">
 <a class="viewcode-back" href="../../../ats_utilities.utils.iregistry.html#ats_utilities.utils.iregistry.IRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">IRegistry</span><span class="p">[</span><span class="n">T</span><span class="p">](</span><span class="n">ABC</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">IRegistry</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">](</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Abstract interface for all component factories and registries.</span>
 <span class="sd">        Encapsulates standard orchestration behavior across dynamic bundles.</span>
@@ -90,17 +90,18 @@
 <a class="viewcode-back" href="../../../ats_utilities.utils.iregistry.html#ats_utilities.utils.iregistry.IRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">P</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Factory method to orchestrate and build a component bundle.</span>
 
-<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
-<span class="sd">            :type kwargs: Mapping[str, Any]</span>
+<span class="sd">            :param params: Registry-specific orchestration parameters.</span>
+<span class="sd">            :type params: P</span>
 <span class="sd">            :return: A fully constructed and validated bundle instance.</span>
 <span class="sd">            :rtype: &lt;T&gt;</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">pass</span></div>
 </div>
+
 
 </pre></div>
 

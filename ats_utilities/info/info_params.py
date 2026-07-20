@@ -22,9 +22,19 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypedDict
+from typing import Any, TypedDict, NotRequired
 
 from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.info.name.engine import Name
+from ats_utilities.info.version.engine import Version
+from ats_utilities.info.licence.engine import Licence
+from ats_utilities.info.build_date.engine import BuildDate
+from ats_utilities.info.repository.engine import Repository
+from ats_utilities.info.organization.engine import Organization
+from ats_utilities.info.use_github.engine import UseGitHub
+from ats_utilities.info.logo.engine import Logo
+from ats_utilities.info.log_file.engine import LogFile
+from ats_utilities.info.info_ok.engine import InfoOk
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,5 +48,16 @@ __status__ = r'Development'
 
 class InfoParams(TypedDict):
     '''TypedDict defining parameter types for InfoRegistry.'''
-    info: Mapping[str, Any]
+    info: NotRequired[Mapping[str, Any]]
     context_bundle: ContextBundle
+    name: NotRequired[Name]
+    version: NotRequired[Version]
+    licence: NotRequired[Licence]
+    build_date: NotRequired[BuildDate]
+    repository: NotRequired[Repository]
+    organization: NotRequired[Organization]
+    use_github: NotRequired[UseGitHub]
+    logo: NotRequired[Logo]
+    log_file: NotRequired[LogFile]
+    info_ok: NotRequired[InfoOk]
+

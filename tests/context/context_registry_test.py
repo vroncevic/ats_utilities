@@ -23,12 +23,9 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.context.context_registry import ContextRegistry
 from ats_utilities.context.context_params import ContextParams
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -43,33 +40,8 @@ __status__: str = 'Development'
 class ContextRegistryTest(unittest.TestCase):
     '''
         Defines class ContextRegistryTest with attribute(s) and method(s).
-        Tests ContextRegistry static factory logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_create_default_context_bundle - Tests create_default_context_bundle.
+        Tests ContextRegistry logic.
     '''
-
-    def test_create_default_context_bundle(self) -> None:
-        '''
-            Tests create_default_context_bundle.
-
-            :exceptions: None.
-        '''
-        # Test with verbose=False
-        bundle = ContextRegistry.create_default_context_bundle(verbose=False)
-        self.assertIsInstance(bundle, ContextBundle)
-        self.assertIsInstance(bundle.checker, IChecker)
-        self.assertIsInstance(bundle.logger, ILogger)
-        self.assertIsInstance(bundle.reporter, IReporter)
-        self.assertFalse(bundle.verbose)
-
-        # Test with verbose=True
-        bundle_verbose = ContextRegistry.create_default_context_bundle(verbose=True)
-        self.assertIsInstance(bundle_verbose, ContextBundle)
-        self.assertTrue(bundle_verbose.verbose)
 
     def test_create_bundle(self) -> None:
         bundle = ContextRegistry.create_bundle(ContextParams(verbose=True))

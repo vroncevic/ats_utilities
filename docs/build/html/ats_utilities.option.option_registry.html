@@ -16,7 +16,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ats_utilities.project_setup package" href="ats_utilities.project_setup.html" />
-    <link rel="prev" title="ats_utilities.option.option_namespace module" href="ats_utilities.option.option_namespace.html" /> 
+    <link rel="prev" title="ats_utilities.option.option_params module" href="ats_utilities.option.option_params.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -31,7 +31,7 @@
           <a href="ats_utilities.project_setup.html" title="ats_utilities.project_setup package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.option.option_namespace.html" title="ats_utilities.option.option_namespace module"
+          <a href="ats_utilities.option.option_params.html" title="ats_utilities.option.option_params module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -69,7 +69,7 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.option.option_registry.OptionRegistry">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.option.option_registry.</span></span><span class="sig-name descname"><span class="pre">OptionRegistry</span></span><a class="reference internal" href="_modules/ats_utilities/option/option_registry.html#OptionRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.option_registry.OptionRegistry" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.utils.iregistry.html#ats_utilities.utils.iregistry.IRegistry" title="ats_utilities.utils.iregistry.IRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRegistry</span></code></a>[<a class="reference internal" href="ats_utilities.option.option_bundle.html#ats_utilities.option.option_bundle.OptionBundle" title="ats_utilities.option.option_bundle.OptionBundle"><code class="xref py py-class docutils literal notranslate"><span class="pre">OptionBundle</span></code></a>]</p>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.utils.iregistry.html#ats_utilities.utils.iregistry.IRegistry" title="ats_utilities.utils.iregistry.IRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRegistry</span></code></a>[<a class="reference internal" href="ats_utilities.option.option_bundle.html#ats_utilities.option.option_bundle.OptionBundle" title="ats_utilities.option.option_bundle.OptionBundle"><code class="xref py py-class docutils literal notranslate"><span class="pre">OptionBundle</span></code></a>, <a class="reference internal" href="ats_utilities.option.option_params.html#ats_utilities.option.option_params.OptionParams" title="ats_utilities.option.option_params.OptionParams"><code class="xref py py-class docutils literal notranslate"><span class="pre">OptionParams</span></code></a>]</p>
 <p>Encapsulates core option components for simplification of OptionBundle creation.</p>
 <p>It defines:</p>
 <blockquote>
@@ -77,7 +77,6 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">create_bundle - Creates an OptionBundle.</div>
-<div class="line">create_option_bundle_from_dict - Creates an OptionBundle.</div>
 </div>
 </dd>
 </dl>
@@ -89,11 +88,11 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.option.option_registry.OptionRegistry.create_bundle">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.option_bundle.html#ats_utilities.option.option_bundle.OptionBundle" title="ats_utilities.option.option_bundle.OptionBundle"><span class="pre">OptionBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/option_registry.html#OptionRegistry.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.option_registry.OptionRegistry.create_bundle" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.option.option_params.html#ats_utilities.option.option_params.OptionParams" title="ats_utilities.option.option_params.OptionParams"><span class="pre">OptionParams</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.option_bundle.html#ats_utilities.option.option_bundle.OptionBundle" title="ats_utilities.option.option_bundle.OptionBundle"><span class="pre">OptionBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/option_registry.html#OptionRegistry.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.option_registry.OptionRegistry.create_bundle" title="Link to this definition">¶</a></dt>
 <dd><p>Creates an OptionBundle.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kwargs</strong> – Additional registry-specific orchestration parameters.</p>
+<dd class="field-odd"><p><strong>params</strong> (<a class="reference internal" href="ats_utilities.option.option_params.html#ats_utilities.option.option_params.OptionParams" title="ats_utilities.option.option_params.OptionParams"><em>OptionParams</em></a>) – Registry-specific orchestration parameters.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>OptionBundle.</p>
@@ -108,30 +107,6 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <div class="line">ATSTypeError: Parameters must be a mapping.</div>
 <div class="line">ATSTypeError: Context bundle must be a ContextBundle instance.</div>
 </div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.option.option_registry.OptionRegistry.create_option_bundle_from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_option_bundle_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">parameters:</span> <span class="pre">~collections.abc.Mapping[str,</span> <span class="pre">str],</span> <span class="pre">context_bundle:</span> <span class="pre">~ats_utilities.context.context_bundle.ContextBundle,</span> <span class="pre">parser_class:</span> <span class="pre">type[~ats_utilities.option.parser.iarg_parser.IArgParser]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.option.parser.engine.ArgParser'&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.option_bundle.html#ats_utilities.option.option_bundle.OptionBundle" title="ats_utilities.option.option_bundle.OptionBundle"><span class="pre">OptionBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/option_registry.html#OptionRegistry.create_option_bundle_from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.option_registry.OptionRegistry.create_option_bundle_from_dict" title="Link to this definition">¶</a></dt>
-<dd><p>Creates an option bundle from parameters in mapping format.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>parameters</strong> (<em>&lt;Mapping</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>&gt;</em>) – Metadata parameters in mapping format (read only data).</p></li>
-<li><p><strong>context_bundle</strong> (<em>&lt;ContextBundle&gt;</em>) – Context bundle for option bundle.</p></li>
-<li><p><strong>parser_class</strong> (<em>&lt;type</em><em>[</em><a class="reference internal" href="ats_utilities.option.parser.iarg_parser.html#ats_utilities.option.parser.iarg_parser.IArgParser" title="ats_utilities.option.parser.iarg_parser.IArgParser"><em>IArgParser</em></a><em>]</em><em>&gt;</em>) – Injected parser class type.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>OptionBundle instance.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;OptionBundle&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -154,7 +129,6 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <li><a class="reference internal" href="#ats_utilities.option.option_registry.OptionRegistry"><code class="docutils literal notranslate"><span class="pre">OptionRegistry</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.option.option_registry.OptionRegistry._abc_impl"><code class="docutils literal notranslate"><span class="pre">OptionRegistry._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.option_registry.OptionRegistry.create_bundle"><code class="docutils literal notranslate"><span class="pre">OptionRegistry.create_bundle()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.option.option_registry.OptionRegistry.create_option_bundle_from_dict"><code class="docutils literal notranslate"><span class="pre">OptionRegistry.create_option_bundle_from_dict()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -164,8 +138,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.option.option_namespace.html"
-                          title="previous chapter">ats_utilities.option.option_namespace module</a></p>
+    <p class="topless"><a href="ats_utilities.option.option_params.html"
+                          title="previous chapter">ats_utilities.option.option_params module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -206,7 +180,7 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
           <a href="ats_utilities.project_setup.html" title="ats_utilities.project_setup package"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.option.option_namespace.html" title="ats_utilities.option.option_namespace module"
+          <a href="ats_utilities.option.option_params.html" title="ats_utilities.option.option_params module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

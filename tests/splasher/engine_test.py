@@ -27,12 +27,12 @@ import unittest
 from typing import Any
 from unittest.mock import patch, MagicMock
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.splash_center_registry import SplashCenterRegistry
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.splasher.splash_registry import SplashRegistry
+from ats_utilities.splasher.splash_factory import SplashFactory
 from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
 
 __author__: str = 'Vladimir Roncevic'
@@ -64,7 +64,7 @@ class EngineTest(unittest.TestCase):
     '''
 
     def setUp(self) -> None:
-        self.context_bundle = ContextRegistry.create_default_context_bundle()
+        self.context_bundle = ContextFactory.create_default_context_bundle()
         # Create a temporary file to act as the logo
         self.temp_logo = tempfile.NamedTemporaryFile(delete=False, mode="w", encoding="utf-8")
         self.temp_logo.write("LOGO LINE 1\n\nLOGO LINE 2\n")
@@ -102,7 +102,7 @@ class EngineTest(unittest.TestCase):
     @patch("sys.stdout.flush")
     def test_splasher_disabled(self, mock_flush: MagicMock, mock_write: MagicMock) -> None:
         prop = {"enabled": False}
-        bundle = SplashRegistry.create_splash_bundle_from_dict(prop, self.context_bundle)
+        bundle = SplashFactory.create_splash_bundle_from_dict(prop, self.context_bundle)
         splasher = Splasher(bundle)
         self.assertTrue(splasher.is_initialized())
         self.assertIs(splasher.get_shared_context(), self.context_bundle)
@@ -113,7 +113,7 @@ class EngineTest(unittest.TestCase):
     @patch("time.sleep")
     def test_splasher_github_valid(self, mock_sleep: MagicMock, mock_flush: MagicMock, mock_write: MagicMock) -> None:
         prop = self._get_valid_prop()
-        bundle = SplashRegistry.create_splash_bundle_from_dict(prop, self.context_bundle)
+        bundle = SplashFactory.create_splash_bundle_from_dict(prop, self.context_bundle)
         splasher = Splasher(bundle)
         self.assertTrue(splasher.is_initialized())
 
@@ -131,7 +131,7 @@ class EngineTest(unittest.TestCase):
     def test_splasher_github_invalid_logo(self, mock_open: MagicMock, mock_sleep: MagicMock, mock_flush: MagicMock, mock_write: MagicMock) -> None:
         mock_open.side_effect = OSError("failed to read logo")
         prop = self._get_valid_prop()
-        bundle = SplashRegistry.create_splash_bundle_from_dict(prop, self.context_bundle)
+        bundle = SplashFactory.create_splash_bundle_from_dict(prop, self.context_bundle)
         with self.assertRaises(ATSValueError):
             Splasher(bundle)
 
@@ -141,7 +141,7 @@ class EngineTest(unittest.TestCase):
     def test_splasher_external_valid(self, mock_sleep: MagicMock, mock_flush: MagicMock, mock_write: MagicMock) -> None:
         prop = self._get_valid_prop()
         prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE] = False
-        bundle = SplashRegistry.create_splash_bundle_from_dict(prop, self.context_bundle)
+        bundle = SplashFactory.create_splash_bundle_from_dict(prop, self.context_bundle)
         splasher = Splasher(bundle)
         self.assertTrue(splasher.is_initialized())
 
@@ -154,20 +154,20 @@ class EngineTest(unittest.TestCase):
     @patch("sys.stdout.write")
     def test_center_disabled_splash(self, mock_write: MagicMock) -> None:
         prop = {"enabled": False}
-        bundle = SplashRegistry.create_splash_bundle_from_dict(prop, self.context_bundle)
+        bundle = SplashFactory.create_splash_bundle_from_dict(prop, self.context_bundle)
         splasher = Splasher(bundle)
         center_bundle = SplashCenterRegistry.create_splash_center_bundle(80, 2)
         splasher.center(center_bundle, "won't show")
         mock_write.assert_not_called()
 
     def test_splasher_property_not_validated(self) -> None:
-        bundle = SplashRegistry.create_splash_bundle_from_dict(None, self.context_bundle)  # type: ignore
+        bundle = SplashFactory.create_splash_bundle_from_dict(None, self.context_bundle)  # type: ignore
         splasher = Splasher(bundle)
         self.assertTrue(splasher.is_initialized())
 
     def test_str(self) -> None:
         prop = {"enabled": False}
-        bundle = SplashRegistry.create_splash_bundle_from_dict(prop, self.context_bundle)
+        bundle = SplashFactory.create_splash_bundle_from_dict(prop, self.context_bundle)
         splasher = Splasher(bundle)
         self.assertIn("Splasher", str(splasher))
 

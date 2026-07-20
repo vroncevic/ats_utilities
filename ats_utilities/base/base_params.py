@@ -24,6 +24,11 @@ from __future__ import annotations
 from typing import TypedDict, NotRequired
 
 from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.config_io.loader.iloader import ILoader
+from ats_utilities.info.iinfo_manager import IInfoManager
+from ats_utilities.option.ioption_manager import IOptionManager
+from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.generator.igenerator import IGenerator
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,3 +45,9 @@ class BaseParams(TypedDict):
     info_file: str
     context_bundle: ContextBundle
     use_generator: NotRequired[bool]
+    config_loader: NotRequired[ILoader]
+    info_manager: NotRequired[IInfoManager]
+    options_parser: NotRequired[IOptionManager]
+    splasher: NotRequired[ISplasher]
+    generator: NotRequired[IGenerator | None]
+

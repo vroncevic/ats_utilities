@@ -64,6 +64,7 @@
 
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.reporter.checker_reporter_bundle</span> <span class="kn">import</span> <span class="n">CheckerReporterBundle</span><span class="p">,</span> <span class="n">ParamMetadata</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.reporter.checker_reporter_params</span> <span class="kn">import</span> <span class="n">CheckerReporterParams</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -77,7 +78,7 @@
 
 <div class="viewcode-block" id="CheckerReporterRegistry">
 <a class="viewcode-back" href="../../../../ats_utilities.checker.reporter.checker_reporter_registry.html#ats_utilities.checker.reporter.checker_reporter_registry.CheckerReporterRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">CheckerReporterRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">CheckerReporterBundle</span><span class="p">]):</span>
+<span class="k">class</span> <span class="nc">CheckerReporterRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">CheckerReporterBundle</span><span class="p">,</span> <span class="n">CheckerReporterParams</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for simplification of CheckerReporterBundle creation.</span>
 
@@ -91,11 +92,12 @@
 <a class="viewcode-back" href="../../../../ats_utilities.checker.reporter.checker_reporter_registry.html#ats_utilities.checker.reporter.checker_reporter_registry.CheckerReporterRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckerReporterBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">CheckerReporterParams</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckerReporterBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates a CheckerReporterBundle instance.</span>
 
-<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :param params: Registry-specific orchestration parameters.</span>
+<span class="sd">            :type params: CheckerReporterParams</span>
 <span class="sd">            :return: CheckerReporterBundle instance.</span>
 <span class="sd">            :rtype: &lt;CheckerReporterBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
@@ -108,10 +110,10 @@
 <span class="sd">                | ATSTypeError: Error indices must be a sequence of integers.</span>
 <span class="sd">                | ATSTypeError: Is format error must be a boolean.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context&#39;</span><span class="p">)</span>
-        <span class="n">parameters_meta</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ParamMetadata</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;parameters_meta&#39;</span><span class="p">)</span>
-        <span class="n">err_indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;err_indices&#39;</span><span class="p">)</span>
-        <span class="n">is_fmt_err</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;is_fmt_err&#39;</span><span class="p">)</span>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context&#39;</span><span class="p">)</span>
+        <span class="n">parameters_meta</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ParamMetadata</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;parameters_meta&#39;</span><span class="p">)</span>
+        <span class="n">err_indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;err_indices&#39;</span><span class="p">)</span>
+        <span class="n">is_fmt_err</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;is_fmt_err&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">CheckerReporterBundle</span><span class="p">(</span>
             <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>

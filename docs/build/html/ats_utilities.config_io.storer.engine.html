@@ -72,26 +72,24 @@ Creates an API for storing the configuration from mapping format to configuratio
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.storer.engine.</span></span><span class="sig-name descname"><span class="pre">Storer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.config_io_bundle.html#ats_utilities.config_io.config_io_bundle.ConfigIOBundle" title="ats_utilities.config_io.config_io_bundle.ConfigIOBundle"><span class="pre">ConfigIOBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/storer/engine.html#Storer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.context.context_support.html#ats_utilities.context.context_support.ContextSupport" title="ats_utilities.context.context_support.ContextSupport"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextSupport</span></code></a>, <a class="reference internal" href="ats_utilities.config_io.storer.istorer.html#ats_utilities.config_io.storer.istorer.IStorer" title="ats_utilities.config_io.storer.istorer.IStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IStorer</span></code></a></p>
-<p>Defines class Storer with attribute(s) and method(s).
-Creates an API for storing the configuration from mapping format to configuration file.
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.storer.istorer.html#ats_utilities.config_io.storer.istorer.IStorer" title="ats_utilities.config_io.storer.istorer.IStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IStorer</span></code></a>, <a class="reference internal" href="ats_utilities.context.context_support.html#ats_utilities.context.context_support.ContextSupport" title="ats_utilities.context.context_support.ContextSupport"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextSupport</span></code></a></p>
+<p>Creates an API for storing the configuration from mapping format to configuration file.
 2nd level of configuration storer implementation.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_shared_context - Shared context bundle.</div>
-<div class="line">_processor - Processor instance.</div>
-<div class="line">_conf_file_bundle - Configuration file bundle parameters.</div>
+<div class="line">_shared_context - Shared ContextBundle.</div>
+<div class="line">_processor - Processor interface instance.</div>
+<div class="line">_conf_file - Configuration file interface instance.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initializes Storer constructor.</div>
-<div class="line">get_shared_context - Returns the shared context.</div>
-<div class="line">store_configuration - Stores configuration content from mapping to configuration file.</div>
-<div class="line">__str__ - Returns the Storer as string representation.</div>
+<div class="line">__init__ - Constructor.</div>
+<div class="line">get_shared_context - Gets the shared context.</div>
+<div class="line">store_configuration - Stores configuration to file.</div>
 </div>
 </dd>
 </dl>

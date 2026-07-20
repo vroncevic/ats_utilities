@@ -13,6 +13,8 @@ Submodules
    ats_utilities.project_setup.pro_config
    ats_utilities.project_setup.pro_name
    ats_utilities.project_setup.project_setup_bundle
+   ats_utilities.project_setup.project_setup_factory
+   ats_utilities.project_setup.project_setup_params
    ats_utilities.project_setup.project_setup_registry
    ats_utilities.project_setup.template_dir
 

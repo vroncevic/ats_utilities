@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.info.log_file.engine import LogFile
 
 __author__: str = 'Vladimir Roncevic'
@@ -52,25 +52,25 @@ class EngineTest(unittest.TestCase):
     '''
 
     def test_init(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = LogFile(context_bundle)
         self.assertEqual(inst.log_file, None)
 
     def test_property_get_set(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = LogFile(context_bundle)
         inst.log_file = '/path/to/run.log'
         self.assertEqual(inst.log_file, '/path/to/run.log')
 
     def test_not_none(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = LogFile(context_bundle)
         self.assertEqual(inst.not_none(), False)
         inst.log_file = '/path/to/run.log'
         self.assertTrue(inst.not_none())
 
     def test_str(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = LogFile(context_bundle)
         self.assertIn("LogFile", str(inst))
 

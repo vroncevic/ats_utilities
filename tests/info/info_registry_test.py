@@ -22,15 +22,12 @@ Info
 from __future__ import annotations
 
 import unittest
-from unittest.mock import MagicMock
 
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_registry import ContextRegistry
-from ats_utilities.exceptions import ATSTypeError, ATSValueError
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.info.info_bundle import InfoBundle
-from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.info.info_registry import InfoRegistry
 from ats_utilities.info.info_params import InfoParams
+from ats_utilities.info.info_factory import InfoFactory
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -46,114 +43,41 @@ class InfoRegistryTest(unittest.TestCase):
     '''
         Defines class InfoRegistryTest with attribute(s) and method(s).
         Tests InfoRegistry logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_create_info_bundle_from_dict - Tests creation from a valid dictionary.
-                | test_create_info_bundle_from_dict_invalid - Tests error cases with None/invalid types.
     '''
 
-    def test_create_info_bundle_from_dict(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
-        info_data = {
-            InfoKeys.ATS_NAME: "ats_utilities",
-            InfoKeys.ATS_VERSION: "3.4.3",
-            InfoKeys.ATS_BUILD_DATE: "2026-07-18",
-            InfoKeys.ATS_LICENCE: "GPLv3",
-            InfoKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
-            InfoKeys.ATS_ORGANIZATION: "vroncevic",
-            InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: "True",  # String "True" gets parsed to bool
-            InfoKeys.ATS_LOGO_PATH: "/path/to/logo.png",
-            InfoKeys.ATS_LOG_FILE: "/path/to/run.log",
-            InfoKeys.ATS_INFO_OK: True
-        }
-        bundle = InfoRegistry.create_info_bundle_from_dict(info_data, context_bundle)
-        self.assertIsInstance(bundle, InfoBundle)
-        self.assertEqual(bundle.name.name, "ats_utilities")
-        self.assertEqual(bundle.version.version, "3.4.3")
-        self.assertEqual(bundle.build_date.build_date, "2026-07-18")
-        self.assertEqual(bundle.licence.licence, "GPLv3")
-        self.assertEqual(bundle.repository.repository, "https://github.com/vroncevic/ats_utilities")
-        self.assertEqual(bundle.organization.organization, "vroncevic")
-        self.assertTrue(bundle.use_github.use_github)
-        self.assertEqual(bundle.logo.logo, "/path/to/logo.png")
-        self.assertEqual(bundle.log_file.log_file, "/path/to/run.log")
-        self.assertTrue(bundle.info_ok.info_ok)
-
-    def test_create_info_bundle_from_dict_invalid(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
-        info_data = {}
-
-        # Context bundle None
-        with self.assertRaises(ATSValueError):
-            InfoRegistry.create_info_bundle_from_dict(info_data, None)  # type: ignore
-
-        # Info dict None
-        with self.assertRaises(ATSValueError):
-            InfoRegistry.create_info_bundle_from_dict(None, context_bundle)  # type: ignore
-
-        # Invalid types
-        with self.assertRaises(ATSTypeError):
-            InfoRegistry.create_info_bundle_from_dict(info_data, object())  # type: ignore
-
-        with self.assertRaises(ATSTypeError):
-            InfoRegistry.create_info_bundle_from_dict("not a dict", context_bundle)  # type: ignore
-
-    def test_create_info_bundle_from_dict_edge_cases(self) -> None:
-        from unittest.mock import patch
-        context_bundle = ContextRegistry.create_default_context_bundle()
-
-        # 1. Use Github infrastructure is boolean False
-        info_data_bool = {
-            InfoKeys.ATS_NAME: "ats_utilities",
-            InfoKeys.ATS_VERSION: "3.4.3",
-            InfoKeys.ATS_BUILD_DATE: "2026-07-18",
-            InfoKeys.ATS_LICENCE: "GPLv3",
-            InfoKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
-            InfoKeys.ATS_ORGANIZATION: "vroncevic",
-            InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: False,  # actual bool
-            InfoKeys.ATS_LOGO_PATH: "/path/to/logo.png",
-            InfoKeys.ATS_LOG_FILE: "/path/to/run.log",
-            InfoKeys.ATS_INFO_OK: True
-        }
-        bundle = InfoRegistry.create_info_bundle_from_dict(info_data_bool, context_bundle)
-        self.assertFalse(bundle.use_github.use_github)
-
-        # 2. Use Github infrastructure is string "False"
-        info_data_str_false = info_data_bool.copy()
-        info_data_str_false[InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE] = "False"
-        bundle_str_false = InfoRegistry.create_info_bundle_from_dict(info_data_str_false, context_bundle)
-        self.assertFalse(bundle_str_false.use_github.use_github)
-
-        # 3. Patch _ATTR_TO_CLASS to return None for a key to hit line 109
-        original_attr_to_class = InfoRegistry._ATTR_TO_CLASS
-        try:
-            InfoRegistry._ATTR_TO_CLASS = dict(original_attr_to_class)
-            InfoRegistry._ATTR_TO_CLASS[InfoKeys.ATS_NAME] = None
-            with self.assertRaises(TypeError):
-                InfoRegistry.create_info_bundle_from_dict(info_data_bool, context_bundle)
-        finally:
-            InfoRegistry._ATTR_TO_CLASS = original_attr_to_class
-
     def test_create_bundle(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         info_data = {
-            InfoKeys.ATS_NAME: "ats_utilities",
-            InfoKeys.ATS_VERSION: "3.4.3",
-            InfoKeys.ATS_BUILD_DATE: "2026-07-18",
-            InfoKeys.ATS_LICENCE: "GPLv3",
-            InfoKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
-            InfoKeys.ATS_ORGANIZATION: "vroncevic",
-            InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: "True",
-            InfoKeys.ATS_LOGO_PATH: "/path/to/logo.png",
-            InfoKeys.ATS_LOG_FILE: "/path/to/run.log",
-            InfoKeys.ATS_INFO_OK: True
+            'ats_name': 'ats_utilities',
+            'ats_version': '3.4.3',
+            'ats_licence': 'GPLv3',
+            'ats_build_date': '2026-07-18',
+            'ats_repository': 'https://github.com/vroncevic/ats_utilities',
+            'ats_organization': 'vroncevic',
+            'ats_use_github_infrastructure': 'True',
+            'ats_logo_path': '/path/to/logo.png',
+            'ats_log_file': '/path/to/run.log',
+            'ats_info_ok': True
         }
-        bundle = InfoRegistry.create_bundle(InfoParams(info=info_data, context_bundle=context_bundle))
+        # Build components using Factory
+        factory_bundle = InfoFactory.create_info_bundle_from_dict(info_data, context_bundle)
+
+        params = InfoParams(
+            context_bundle=context_bundle,
+            name=factory_bundle.name,
+            version=factory_bundle.version,
+            licence=factory_bundle.licence,
+            build_date=factory_bundle.build_date,
+            repository=factory_bundle.repository,
+            organization=factory_bundle.organization,
+            use_github=factory_bundle.use_github,
+            logo=factory_bundle.logo,
+            log_file=factory_bundle.log_file,
+            info_ok=factory_bundle.info_ok
+        )
+        bundle = InfoRegistry.create_bundle(params)
         self.assertIsInstance(bundle, InfoBundle)
-        self.assertEqual(bundle.name.name, "ats_utilities")
+        self.assertEqual(bundle.name.name, 'ats_utilities')
 
 
 if __name__ == "__main__":

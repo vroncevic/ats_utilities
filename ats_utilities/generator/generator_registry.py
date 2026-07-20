@@ -26,9 +26,6 @@ from typing import Any, override
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.generator.generator_bundle import GeneratorBundle
 from ats_utilities.generator.generator_params import GeneratorParams
-from ats_utilities.generator.template.engine import TemplateProcessor
-from ats_utilities.generator.scheme.engine import SchemeLoader
-from ats_utilities.generator.tar.engine import TarProcessor
 from ats_utilities.context.context_bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
@@ -49,7 +46,6 @@ class GeneratorRegistry(IRegistry[GeneratorBundle, GeneratorParams]):
 
             :methods:
                 | create_bundle - Creates a GeneratorBundle instance.
-                | create_default_generator_bundle - Creates a default GeneratorBundle.
     '''
 
     @classmethod
@@ -61,37 +57,11 @@ class GeneratorRegistry(IRegistry[GeneratorBundle, GeneratorParams]):
             :param params: Registry-specific orchestration parameters.
             :type params: GeneratorParams
             :return: GeneratorBundle instance.
-            :rtype: <GeneratorBundle>
-            :exceptions:
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be of type ContextBundle.
+            :rtype: <ContextBundle>
         '''
-        context_bundle: ContextBundle = params.get('context_bundle')
-
-        return cls.create_default_generator_bundle(
-            context_bundle=context_bundle
-        )
-
-    @classmethod
-    def create_default_generator_bundle(cls, context_bundle: ContextBundle) -> GeneratorBundle:
-        '''
-            Creates a default GeneratorBundle with pre-configured components.
-
-            :param context_bundle: Context bundle for generator.
-            :type context_bundle: <ContextBundle>
-            :return: Default GeneratorBundle instance.
-            :rtype: <GeneratorBundle>
-            :exceptions:
-                | ATSValueError: Context bundle must not be provided.
-                | ATSTypeError: Context bundle must be of type ContextBundle.
-        '''
-        template_processor: TemplateProcessor = TemplateProcessor(context_bundle=context_bundle)
-        scheme_loader: SchemeLoader = SchemeLoader(context_bundle=context_bundle)
-        tar_processor: TarProcessor = TarProcessor(context_bundle=context_bundle, template_processor=template_processor)
-
         return GeneratorBundle(
-            template_processor=template_processor,
-            scheme_loader=scheme_loader,
-            tar_processor=tar_processor,
-            context_bundle=context_bundle
+            template_processor=params.get('template_processor'),
+            scheme_loader=params.get('scheme_loader'),
+            tar_processor=params.get('tar_processor'),
+            context_bundle=params.get('context_bundle')
         )

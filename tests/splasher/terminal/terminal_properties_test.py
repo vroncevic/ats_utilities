@@ -24,7 +24,7 @@ from __future__ import annotations
 import unittest
 from unittest.mock import patch, MagicMock
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.splasher.terminal.terminal_properties import TerminalProperties
 
@@ -57,7 +57,7 @@ class TerminalPropertiesTest(unittest.TestCase):
     '''
 
     def test_init(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         tp = TerminalProperties(context_bundle)
         self.assertIsNone(tp._window_size)
 
@@ -65,14 +65,14 @@ class TerminalPropertiesTest(unittest.TestCase):
     @patch("ats_utilities.splasher.terminal.terminal_properties.unpack")
     def test_ioctl_get_window_size_valid(self, mock_unpack: MagicMock, mock_ioctl: MagicMock) -> None:
         mock_unpack.return_value = (40, 100, 0, 0)
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         tp = TerminalProperties(context_bundle)
         res = tp.ioctl_get_window_size(1)
         self.assertEqual(res, (40, 100, 0, 0))
         mock_ioctl.assert_called_once()
 
     def test_ioctl_get_window_size_invalid_type(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         tp = TerminalProperties(context_bundle)
         with self.assertRaises(ATSTypeError):
             tp.ioctl_get_window_size("not an int")  # type: ignore
@@ -81,7 +81,7 @@ class TerminalPropertiesTest(unittest.TestCase):
     @patch("ats_utilities.splasher.terminal.terminal_properties.unpack")
     def test_size_standard_descriptors(self, mock_unpack: MagicMock, mock_ioctl: MagicMock) -> None:
         mock_unpack.return_value = (30, 90, 0, 0)
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         tp = TerminalProperties(context_bundle)
         res = tp.size()
         self.assertEqual(res, (30, 90, 0, 0))
@@ -98,7 +98,7 @@ class TerminalPropertiesTest(unittest.TestCase):
         mock_unpack.return_value = (35, 95, 0, 0)
         mock_open.return_value = 10
 
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         tp = TerminalProperties(context_bundle)
         res = tp.size()
         self.assertEqual(res, (35, 95, 0, 0))
@@ -112,7 +112,7 @@ class TerminalPropertiesTest(unittest.TestCase):
         mock_ioctl.side_effect = OSError("ioctl failed")
         mock_open.side_effect = OSError("open failed")
 
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         tp = TerminalProperties(context_bundle)
         res = tp.size()
         self.assertEqual(res, (24, 80, 0, 0))
@@ -121,7 +121,7 @@ class TerminalPropertiesTest(unittest.TestCase):
     @patch("ats_utilities.splasher.terminal.terminal_properties.unpack")
     def test_ioctl_for_all_descriptors_loops(self, mock_unpack: MagicMock, mock_ioctl: MagicMock) -> None:
         mock_unpack.side_effect = [None, (30, 90, 0, 0)]
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         tp = TerminalProperties(context_bundle)
         tp.ioctl_for_all_descriptors()
         self.assertEqual(tp._window_size, (30, 90, 0, 0))
@@ -131,7 +131,7 @@ class TerminalPropertiesTest(unittest.TestCase):
     def test_size_ioctl_all_raises_oserror(self, mock_open: MagicMock, mock_ioctl_all: MagicMock) -> None:
         mock_ioctl_all.side_effect = OSError("mocked oserror")
         mock_open.side_effect = OSError("open failed")
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         tp = TerminalProperties(context_bundle)
         res = tp.size()
         self.assertEqual(res, (24, 80, 0, 0))
@@ -139,7 +139,7 @@ class TerminalPropertiesTest(unittest.TestCase):
     @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.ioctl_for_all_descriptors")
     @patch("ats_utilities.splasher.terminal.terminal_properties.open")
     def test_size_open_ctermid_raises_oserror_with_preexisting_window_size(self, mock_open: MagicMock, mock_ioctl_all: MagicMock) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         tp = TerminalProperties(context_bundle)
         tp._window_size = (30, 90, 0, 0)
         mock_open.side_effect = OSError("open failed")
@@ -147,7 +147,7 @@ class TerminalPropertiesTest(unittest.TestCase):
         self.assertEqual(res, (30, 90, 0, 0))
 
     def test_str(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         tp = TerminalProperties(context_bundle)
         self.assertIn("TerminalProperties", str(tp))
 

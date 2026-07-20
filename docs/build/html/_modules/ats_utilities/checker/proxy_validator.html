@@ -66,7 +66,7 @@
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.checker_registry</span> <span class="kn">import</span> <span class="n">CheckerRegistry</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.checker_factory</span> <span class="kn">import</span> <span class="n">CheckerFactory</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.engine</span> <span class="kn">import</span> <span class="n">Checker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span><span class="p">,</span> <span class="n">ParametersSpecs</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.icontext_support</span> <span class="kn">import</span> <span class="n">IContextSupport</span>
@@ -285,7 +285,7 @@
 <span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
 <span class="sd">            | ATSValueError: Parameter format validation failed.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">checker</span> <span class="o">=</span> <span class="n">Checker</span><span class="p">(</span><span class="n">CheckerRegistry</span><span class="o">.</span><span class="n">create_default_checker_bundle</span><span class="p">())</span>
+    <span class="n">checker</span> <span class="o">=</span> <span class="n">Checker</span><span class="p">(</span><span class="n">CheckerFactory</span><span class="o">.</span><span class="n">create_default_checker_bundle</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">F</span><span class="p">:</span>
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>

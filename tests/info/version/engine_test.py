@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.info.version.engine import Version
 
 __author__: str = 'Vladimir Roncevic'
@@ -52,25 +52,25 @@ class EngineTest(unittest.TestCase):
     '''
 
     def test_init(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = Version(context_bundle)
         self.assertEqual(inst.version, None)
 
     def test_property_get_set(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = Version(context_bundle)
         inst.version = '1.0.0'
         self.assertEqual(inst.version, '1.0.0')
 
     def test_not_none(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = Version(context_bundle)
         self.assertEqual(inst.not_none(), False)
         inst.version = '1.0.0'
         self.assertTrue(inst.not_none())
 
     def test_str(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = Version(context_bundle)
         self.assertIn("Version", str(inst))
 

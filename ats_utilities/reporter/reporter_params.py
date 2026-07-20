@@ -21,7 +21,11 @@ Info
 
 from __future__ import annotations
 
-from typing import TypedDict
+from typing import TypedDict, NotRequired
+
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
+from ats_utilities.logger.ilogger import ILogger
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -35,4 +39,7 @@ __status__ = r'Development'
 
 class ReporterParams(TypedDict):
     '''TypedDict defining parameter types for ReporterRegistry.'''
-    pass
+    checker: NotRequired[IChecker]
+    theme: NotRequired[IConsoleTheme]
+    logger: NotRequired[ILogger]
+

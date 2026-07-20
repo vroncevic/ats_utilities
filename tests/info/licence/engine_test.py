@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.info.licence.engine import Licence
 
 __author__: str = 'Vladimir Roncevic'
@@ -52,25 +52,25 @@ class EngineTest(unittest.TestCase):
     '''
 
     def test_init(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = Licence(context_bundle)
         self.assertEqual(inst.licence, None)
 
     def test_property_get_set(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = Licence(context_bundle)
         inst.licence = 'GPLv3'
         self.assertEqual(inst.licence, 'GPLv3')
 
     def test_not_none(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = Licence(context_bundle)
         self.assertEqual(inst.not_none(), False)
         inst.licence = 'GPLv3'
         self.assertTrue(inst.not_none())
 
     def test_str(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = Licence(context_bundle)
         self.assertIn("Licence", str(inst))
 

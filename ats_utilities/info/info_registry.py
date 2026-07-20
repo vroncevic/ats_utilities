@@ -22,26 +22,12 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from types import MappingProxyType
-from typing import Any, Final, override
+from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.info.info_bundle import InfoBundle
 from ats_utilities.info.info_params import InfoParams
-from ats_utilities.info.info_keys import InfoKeys
-from ats_utilities.info.name.engine import Name
-from ats_utilities.info.version.engine import Version
-from ats_utilities.info.licence.engine import Licence
-from ats_utilities.info.build_date.engine import BuildDate
-from ats_utilities.info.repository.engine import Repository
-from ats_utilities.info.organization.engine import Organization
-from ats_utilities.info.use_github.engine import UseGitHub
-from ats_utilities.info.logo.engine import Logo
-from ats_utilities.info.log_file.engine import LogFile
-from ats_utilities.info.info_ok.engine import InfoOk
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.validation.check_value import not_none
-from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -59,25 +45,9 @@ class InfoRegistry(IRegistry[InfoBundle, InfoParams]):
 
         It defines:
 
-            :attributes:
-                | _ATTR_TO_CLASS - Mapping of attribute names to engine classes.
             :methods:
                 | create_bundle - Creates an InfoBundle.
-                | create_info_bundle_from_dict - Creates an InfoBundle from a dictionary.
     '''
-
-    _ATTR_TO_CLASS: Final[Mapping[str, Any]] = MappingProxyType({
-        InfoKeys.ATS_NAME: Name,
-        InfoKeys.ATS_VERSION: Version,
-        InfoKeys.ATS_LICENCE: Licence,
-        InfoKeys.ATS_BUILD_DATE: BuildDate,
-        InfoKeys.ATS_REPOSITORY: Repository,
-        InfoKeys.ATS_ORGANIZATION: Organization,
-        InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: UseGitHub,
-        InfoKeys.ATS_LOGO_PATH: Logo,
-        InfoKeys.ATS_LOG_FILE: LogFile,
-        InfoKeys.ATS_INFO_OK: InfoOk
-    })
 
     @classmethod
     @override
@@ -95,59 +65,17 @@ class InfoRegistry(IRegistry[InfoBundle, InfoParams]):
                 | ATSTypeError: Info must be a mapping.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        info: Mapping[str, Any] = params.get('info')
-        context_bundle: ContextBundle = params.get('context_bundle')
-
-        return cls.create_info_bundle_from_dict(
-            info=info,
-            context_bundle=context_bundle,
+        return InfoBundle(
+            name=params.get('name'),
+            version=params.get('version'),
+            licence=params.get('licence'),
+            build_date=params.get('build_date'),
+            repository=params.get('repository'),
+            organization=params.get('organization'),
+            use_github=params.get('use_github'),
+            logo=params.get('logo'),
+            log_file=params.get('log_file'),
+            info_ok=params.get('info_ok'),
+            context_bundle=params.get('context_bundle')
         )
 
-    @classmethod
-    def create_info_bundle_from_dict(
-        cls,
-        info: Mapping[str, Any],
-        context_bundle: ContextBundle
-    ) -> InfoBundle:
-        '''
-            Creates a default InfoBundle with pre-configured components.
-
-            :param info: Dictionary containing info components.
-            :type info: <Mapping[str, Any]>
-            :param context_bundle: ContextBundle instance.
-            :type context_bundle: <ContextBundle>
-            :param verbose: Enables verbose output (default False).
-            :type verbose: <bool>
-            :return: Default InfoBundle instance.
-            :rtype: <InfoBundle>
-            :exceptions: None.
-        '''
-        context: str = r'info_registry::create_info_bundle_from_dict(...)'
-        not_none(context_bundle, context, r'context_bundle must be provided')
-        not_none(info, context, r'info must be provided')
-        istype(context_bundle, ContextBundle, context, r'context_bundle must be ContextBundle instance')
-        istype(info, Mapping, context, r'info must be Mapping instance')
-        key_to_attr: MappingProxyType[str, str] = InfoKeys.get_key_to_attr()
-        bundle_kwargs: dict[str, Any] = {}
-
-        for raw_key, attr_name in key_to_attr.items():
-            engine_class: type[Any] = cls._ATTR_TO_CLASS.get(raw_key)
-
-            if engine_class is None:
-                continue
-
-            engine_instance: Any = engine_class(context_bundle=context_bundle)
-            val: Any = info.get(raw_key)
-
-            if raw_key == InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE and val is not None:
-                if isinstance(val, str):
-                    val = True if val == 'True' else False
-
-            if val is not None:
-                setattr(engine_instance, attr_name, val)
-
-            bundle_kwargs[attr_name] = engine_instance
-
-        bundle_kwargs['context_bundle'] = context_bundle
-
-        return InfoBundle(**bundle_kwargs)

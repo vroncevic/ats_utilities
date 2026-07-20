@@ -3,287 +3,47 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-# Adjust imports according to your project structure
 from ats_utilities.base.base_registry import BaseRegistry
 from ats_utilities.base.base_bundle import BaseBundle
 from ats_utilities.base.base_params import BaseParams
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.config_io.loader.engine import Loader
-from ats_utilities.info.engine import InfoManager
-from ats_utilities.option.engine import OptionManager
-from ats_utilities.splasher.engine import Splasher
-from ats_utilities.generator.engine import Generator
 
 
 class TestBaseRegistry(unittest.TestCase):
-    """Unit tests for the BaseRegistry factory coordinator."""
+    """Unit tests for the BaseRegistry class."""
 
-    def setUp(self) -> None:
-        """Set up standard dependencies and mock components for factory testing."""
-        self.info_file = "/opt/ats/config/info.json"
-        
-        # Setup Logger mock that satisfies optional method interfaces
-        self.mock_logger = MagicMock()
-        self.mock_logger.set_log_file = MagicMock()
-        self.mock_logger.stop_buffering = MagicMock()
+    def test_create_bundle(self) -> None:
+        """Test create_bundle delegates correctly."""
+        info_file = "/opt/ats/config/info.json"
+        mock_context_bundle = MagicMock(spec=ContextBundle)
 
-        self.mock_context_bundle = MagicMock(spec=ContextBundle)
-        self.mock_context_bundle.logger = self.mock_logger
+        config_loader = MagicMock()
+        info_manager = MagicMock()
+        options_parser = MagicMock()
+        splasher = MagicMock()
+        generator = MagicMock()
 
-        self.config_data = {
-            "ats_log_path": "/var/log/ats.log",
-            "project_name": "ats_utilities"
-        }
-
-    def test_validation_missing_or_none_fields(self) -> None:
-        """Test that passing None for required parameters triggers validation errors."""
-        with self.assertRaises(Exception):
-            BaseRegistry.create_default_base_bundle(
-                info_file=None,  # type: ignore
-                context_bundle=self.mock_context_bundle
-            )
-
-        with self.assertRaises(Exception):
-            BaseRegistry.create_default_base_bundle(
-                info_file=self.info_file,
-                context_bundle=None,  # type: ignore
-            )
-
-    def test_validation_type_mismatches(self) -> None:
-        """Test that incorrect types passed into parameters fail validation constraints."""
-        with self.assertRaises(Exception):
-            BaseRegistry.create_default_base_bundle(
-                info_file=12345,  # type: ignore
-                context_bundle=self.mock_context_bundle
-            )
-
-        with self.assertRaises(Exception):
-            BaseRegistry.create_default_base_bundle(
-                info_file=self.info_file,
-                context_bundle=MagicMock()  # type: ignore
-            )
-
-        with self.assertRaises(Exception):
-            BaseRegistry.create_default_base_bundle(
-                info_file=self.info_file,
-                context_bundle=self.mock_context_bundle,
-                use_generator="True"  # type: ignore
-            )
-
-    @patch("ats_utilities.base.base_registry.BaseBundle")
-    @patch("ats_utilities.base.base_registry.Generator")
-    @patch("ats_utilities.base.base_registry.GeneratorRegistry")
-    @patch("ats_utilities.base.base_registry.OptionManager")
-    @patch("ats_utilities.base.base_registry.OptionRegistry")
-    @patch("ats_utilities.base.base_registry.Splasher")
-    @patch("ats_utilities.base.base_registry.SplashRegistry")
-    @patch("ats_utilities.base.base_registry.InfoManager")
-    @patch("ats_utilities.base.base_registry.InfoRegistry")
-    @patch("ats_utilities.base.base_registry.get_first_available")
-    @patch("ats_utilities.base.base_registry.Loader")
-    @patch("ats_utilities.base.base_registry.ConfigIORegistry")
-    def test_create_default_base_bundle_orchestration_without_generator(
-        self, mock_cfg_reg: MagicMock, mock_loader_cls: MagicMock,
-        mock_get_first: MagicMock, mock_info_reg: MagicMock,
-        mock_info_cls: MagicMock, mock_splash_reg: MagicMock,
-        mock_splash_cls: MagicMock, mock_opt_reg: MagicMock,
-        mock_opt_cls: MagicMock, mock_gen_reg: MagicMock,
-        mock_gen_cls: MagicMock, mock_bundle_cls: MagicMock
-    ) -> None:
-        """Test complete orchestration of external pipelines when use_generator is False."""
-        # Arrange Mocks and Instances
-        mock_config_bundle = MagicMock()
-        mock_cfg_reg.create_config_io_bundle_by_file_path_and_scheme.return_value = mock_config_bundle
-        
-        mock_loader_inst = MagicMock(spec=Loader)
-        mock_loader_inst.load_configuration.return_value = self.config_data
-        mock_loader_cls.return_value = mock_loader_inst
-
-        mock_get_first.return_value = "/var/log/ats.log"
-
-        mock_info_bundle = MagicMock()
-        mock_info_reg.create_info_bundle_from_dict.return_value = mock_info_bundle
-        
-        mock_info_inst = MagicMock(spec=InfoManager)
-        mock_info_inst.logo = "assets/logo.png"
-        mock_info_inst.get_info.return_value = {"meta": "data"}
-        mock_info_cls.return_value = mock_info_inst
-
-        mock_splash_bundle = MagicMock()
-        mock_splash_reg.create_splash_bundle_from_dict.return_value = mock_splash_bundle
-        mock_splash_inst = MagicMock(spec=Splasher)
-        mock_splash_cls.return_value = mock_splash_inst
-
-        mock_opt_bundle = MagicMock()
-        mock_opt_reg.create_option_bundle_from_dict.return_value = mock_opt_bundle
-        mock_opt_inst = MagicMock(spec=OptionManager)
-        mock_opt_cls.return_value = mock_opt_inst
-
-        mock_bundle_inst = MagicMock(spec=BaseBundle)
-        mock_bundle_cls.return_value = mock_bundle_inst
-
-        # Act
-        result = BaseRegistry.create_default_base_bundle(
-            info_file=self.info_file,
-            context_bundle=self.mock_context_bundle,
-            use_generator=False
-        )
-
-        # Assert Registry Chain Actions
-        mock_cfg_reg.create_config_io_bundle_by_file_path_and_scheme.assert_called_once_with(
-            file_path=self.info_file, scheme={}, context_bundle=self.mock_context_bundle
-        )
-        mock_loader_cls.assert_called_once_with(component_bundle=mock_config_bundle)
-        mock_loader_inst.load_configuration.assert_called_once()
-        mock_get_first.assert_called_once_with(self.config_data, ('ats_log_path', 'ats_log_file'))
-        
-        # Verify Context Modifications
-        self.mock_logger.set_log_file.assert_called_once_with("/var/log/ats.log")
-        
-        mock_info_reg.create_info_bundle_from_dict.assert_called_once_with(
-            info=self.config_data, context_bundle=self.mock_context_bundle
-        )
-        mock_info_cls.assert_called_once_with(component_bundle=mock_info_bundle)
-        
-        # Verify Path normalizations for asset directory context shifts
-        self.assertEqual(mock_info_inst.logo, "/opt/ats/config/assets/logo.png")
-
-        mock_splash_reg.create_splash_bundle_from_dict.assert_called_once_with(
-            prop={"meta": "data"}, context_bundle=self.mock_context_bundle
-        )
-        mock_splash_cls.assert_called_once_with(component_bundle=mock_splash_bundle)
-
-        mock_opt_reg.create_option_bundle_from_dict.assert_called_once_with(
-            parameters={"meta": "data"}, context_bundle=self.mock_context_bundle
-        )
-        mock_opt_cls.assert_called_once_with(component_bundle=mock_opt_bundle)
-
-        # Generator boundary configurations
-        mock_gen_reg.create_default_generator_bundle.assert_not_called()
-        mock_gen_cls.assert_not_called()
-        self.mock_logger.stop_buffering.assert_called_once()
-
-        mock_bundle_cls.assert_called_once_with(
-            info_file=self.info_file,
-            config_loader=mock_loader_inst,
-            info_manager=mock_info_inst,
-            options_parser=mock_opt_inst,
-            splasher=mock_splash_inst,
-            generator=None,
-            use_generator=False,
-            context_bundle=self.mock_context_bundle
-        )
-        self.assertEqual(result, mock_bundle_inst)
-
-    @patch("ats_utilities.base.base_registry.BaseBundle")
-    @patch("ats_utilities.base.base_registry.Generator")
-    @patch("ats_utilities.base.base_registry.GeneratorRegistry")
-    @patch("ats_utilities.base.base_registry.OptionManager")
-    @patch("ats_utilities.base.base_registry.OptionRegistry")
-    @patch("ats_utilities.base.base_registry.Splasher")
-    @patch("ats_utilities.base.base_registry.SplashRegistry")
-    @patch("ats_utilities.base.base_registry.InfoManager")
-    @patch("ats_utilities.base.base_registry.InfoRegistry")
-    @patch("ats_utilities.base.base_registry.get_first_available")
-    @patch("ats_utilities.base.base_registry.Loader")
-    @patch("ats_utilities.base.base_registry.ConfigIORegistry")
-    def test_create_default_base_bundle_with_generator_activated(
-        self, mock_cfg_reg: MagicMock, mock_loader_cls: MagicMock,
-        mock_get_first: MagicMock, mock_info_reg: MagicMock,
-        mock_info_cls: MagicMock, mock_splash_reg: MagicMock,
-        mock_splash_cls: MagicMock, mock_opt_reg: MagicMock,
-        mock_opt_cls: MagicMock, mock_gen_reg: MagicMock,
-        mock_gen_cls: MagicMock, mock_bundle_cls: MagicMock
-    ) -> None:
-        """Test orchestration instantiation pathways when use_generator evaluates to True."""
-        # Setup Minimal context maps to bypass prior pipeline validations
-        mock_loader_inst = MagicMock(spec=Loader)
-        mock_loader_inst.load_configuration.return_value = self.config_data
-        mock_loader_cls.return_value = mock_loader_inst
-
-        mock_info_inst = MagicMock(spec=InfoManager)
-        mock_info_inst.logo = "assets/logo.png"
-        mock_info_cls.return_value = mock_info_inst
-
-        mock_gen_bundle = MagicMock()
-        mock_gen_reg.create_default_generator_bundle.return_value = mock_gen_bundle
-        mock_gen_inst = MagicMock(spec=Generator)
-        mock_gen_cls.return_value = mock_gen_inst
-
-        # Act
-        BaseRegistry.create_default_base_bundle(
-            info_file=self.info_file,
-            context_bundle=self.mock_context_bundle,
-            use_generator=True
-        )
-
-        # Assert Generator bindings are called cleanly
-        mock_gen_reg.create_default_generator_bundle.assert_called_once_with(
-            context_bundle=self.mock_context_bundle
-        )
-        mock_gen_cls.assert_called_once_with(component_bundle=mock_gen_bundle)
-
-        mock_bundle_cls.assert_called_once_with(
-            info_file=self.info_file,
-            config_loader=mock_loader_inst,
-            info_manager=mock_info_inst,
-            options_parser=mock_opt_cls.return_value,
-            splasher=mock_splash_cls.return_value,
-            generator=mock_gen_inst,
-            use_generator=True,
-            context_bundle=self.mock_context_bundle
-        )
-
-    @patch("ats_utilities.base.base_registry.BaseRegistry.create_default_base_bundle")
-    def test_create_bundle(self, mock_create_default: MagicMock) -> None:
-        """Test create_bundle delegates correctly to create_default_base_bundle."""
-        BaseRegistry.create_bundle(
+        bundle = BaseRegistry.create_bundle(
             BaseParams(
-                info_file=self.info_file,
-                context_bundle=self.mock_context_bundle,
-                use_generator=True
+                info_file=info_file,
+                context_bundle=mock_context_bundle,
+                use_generator=True,
+                config_loader=config_loader,
+                info_manager=info_manager,
+                options_parser=options_parser,
+                splasher=splasher,
+                generator=generator
             )
         )
-        mock_create_default.assert_called_once_with(
-            info_file=self.info_file,
-            context_bundle=self.mock_context_bundle,
-            use_generator=True
-        )
-
-    @patch("ats_utilities.base.base_registry.Loader")
-    @patch("ats_utilities.base.base_registry.ConfigIORegistry")
-    @patch("ats_utilities.base.base_registry.InfoRegistry")
-    @patch("ats_utilities.base.base_registry.InfoManager")
-    @patch("ats_utilities.base.base_registry.SplashRegistry")
-    @patch("ats_utilities.base.base_registry.Splasher")
-    @patch("ats_utilities.base.base_registry.OptionRegistry")
-    @patch("ats_utilities.base.base_registry.OptionManager")
-    @patch("ats_utilities.base.base_registry.BaseBundle")
-    def test_create_default_base_bundle_logger_without_optional_methods(
-        self, mock_bundle_cls: MagicMock, mock_opt_cls: MagicMock,
-        mock_opt_reg: MagicMock, mock_splash_cls: MagicMock,
-        mock_splash_reg: MagicMock, mock_info_cls: MagicMock,
-        mock_info_reg: MagicMock, mock_cfg_reg: MagicMock,
-        mock_loader_cls: MagicMock
-    ) -> None:
-        """Test BaseRegistry orchestration when logger lacks set_log_file or stop_buffering."""
-        mock_loader_inst = MagicMock(spec=Loader)
-        mock_loader_inst.load_configuration.return_value = {}
-        mock_loader_cls.return_value = mock_loader_inst
-        
-        minimal_logger = object() 
-        context_bundle = MagicMock(spec=ContextBundle)
-        context_bundle.logger = minimal_logger
-
-        mock_info_inst = MagicMock(spec=InfoManager)
-        mock_info_inst.logo = "logo.png"
-        mock_info_cls.return_value = mock_info_inst
-        
-        BaseRegistry.create_default_base_bundle(
-            info_file=self.info_file,
-            context_bundle=context_bundle,
-            use_generator=False
-        )
+        self.assertIsInstance(bundle, BaseBundle)
+        self.assertEqual(bundle.info_file, info_file)
+        self.assertIs(bundle.context_bundle, mock_context_bundle)
+        self.assertIs(bundle.config_loader, config_loader)
+        self.assertIs(bundle.info_manager, info_manager)
+        self.assertIs(bundle.options_parser, options_parser)
+        self.assertIs(bundle.splasher, splasher)
+        self.assertIs(bundle.generator, generator)
+        self.assertTrue(bundle.use_generator)
 
 
 if __name__ == '__main__':

@@ -27,7 +27,7 @@ class TestStorer(unittest.TestCase):
 
         self.valid_config = {"hostname": "127.0.0.1", "port": "80"}
 
-    @patch("ats_utilities.config_io.storer.engine.ConfFileRegistry.create_conf_file")
+    @patch("ats_utilities.config_io.storer.engine.ConfFileFactory.create_conf_file")
     def test_initialization(self, mock_create_conf_file: MagicMock) -> None:
         """Test successful initialization and configuration assembly."""
         mock_conf_file = MagicMock()
@@ -62,7 +62,7 @@ class TestStorer(unittest.TestCase):
         storer = Storer(self.mock_component_bundle)
         self.assertEqual(storer.get_shared_context(), self.mock_context_bundle)
 
-    @patch("ats_utilities.config_io.storer.engine.ConfFileRegistry.create_conf_file")
+    @patch("ats_utilities.config_io.storer.engine.ConfFileFactory.create_conf_file")
     def test_store_configuration_success(self, mock_create_conf_file: MagicMock) -> None:
         """Test a perfectly valid workflow returning True when file writes succeed."""
         # Arrange
@@ -110,7 +110,7 @@ class TestStorer(unittest.TestCase):
         self.mock_processor.update_data.assert_called_once_with(self.valid_config)
         self.mock_processor.serialize.assert_not_called()
 
-    @patch("ats_utilities.config_io.storer.engine.ConfFileRegistry.create_conf_file")
+    @patch("ats_utilities.config_io.storer.engine.ConfFileFactory.create_conf_file")
     def test_store_configuration_handles_file_io_exceptions(
         self, mock_create_conf_file: MagicMock
     ) -> None:
@@ -130,7 +130,7 @@ class TestStorer(unittest.TestCase):
 
         self.assertFalse(result)
 
-    @patch("ats_utilities.config_io.storer.engine.ConfFileRegistry.create_conf_file")
+    @patch("ats_utilities.config_io.storer.engine.ConfFileFactory.create_conf_file")
     def test_store_configuration_returns_false_when_file_is_none(
         self, mock_create_conf_file: MagicMock
     ) -> None:

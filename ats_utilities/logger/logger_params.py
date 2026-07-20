@@ -21,7 +21,8 @@ Info
 
 from __future__ import annotations
 
-from typing import TypedDict
+from typing import TypedDict, NotRequired
+from logging import Logger
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,3 +38,5 @@ class LoggerParams(TypedDict):
     '''TypedDict defining parameter types for LoggerRegistry.'''
     log_file: str
     log_level: int
+    logger: NotRequired[Logger]
+

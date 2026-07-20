@@ -23,10 +23,11 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.project_setup.project_setup_bundle import ProjectSetupBundle
 from ats_utilities.project_setup.project_setup_registry import ProjectSetupRegistry
 from ats_utilities.project_setup.project_setup_params import ProjectSetupParams
+from ats_utilities.project_setup.project_setup_factory import ProjectSetupFactory
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -41,38 +42,8 @@ __status__: str = 'Development'
 class ProjectSetupRegistryTest(unittest.TestCase):
     '''
         Defines class ProjectSetupRegistryTest with attribute(s) and method(s).
-        Tests ProjectSetupRegistry static factory logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_create_default_project_setup_bundle - Tests create_default_project_setup_bundle.
+        Tests ProjectSetupRegistry logic.
     '''
-
-    def test_create_default_project_setup_bundle(self) -> None:
-        '''
-            Tests create_default_project_setup_bundle.
-
-            :exceptions: None.
-        '''
-        setup = {
-            "pro_name": "my_test_project",
-            "pro_config": {"key": "val"},
-            "template_dir": "/tmp/templates"
-        }
-        context_bundle = ContextRegistry.create_default_context_bundle()
-
-        bundle = ProjectSetupRegistry.create_default_project_setup_bundle(
-            setup=setup,
-            context_bundle=context_bundle
-        )
-
-        self.assertIsInstance(bundle, ProjectSetupBundle)
-        self.assertEqual(bundle.pro_name.pro_name, "my_test_project")
-        self.assertEqual(bundle.pro_config.config, {"key": "val"})
-        self.assertEqual(bundle.template_dir.template_dir, "/tmp/templates")
-        self.assertIs(bundle.context_bundle, context_bundle)
 
     def test_create_bundle(self) -> None:
         """Tests create_bundle on ProjectSetupRegistry."""
@@ -81,12 +52,18 @@ class ProjectSetupRegistryTest(unittest.TestCase):
             "pro_config": {"key": "val"},
             "template_dir": "/tmp/templates"
         }
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
+        factory_bundle = ProjectSetupFactory.create_default_project_setup_bundle(
+            setup=setup,
+            context_bundle=context_bundle
+        )
 
         bundle = ProjectSetupRegistry.create_bundle(
             ProjectSetupParams(
-                setup=setup,
-                context_bundle=context_bundle
+                context_bundle=context_bundle,
+                pro_name=factory_bundle.pro_name,
+                pro_config=factory_bundle.pro_config,
+                template_dir=factory_bundle.template_dir
             )
         )
 

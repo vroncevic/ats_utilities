@@ -26,10 +26,6 @@ from typing import Any, override
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.checker.checker_bundle import CheckerBundle
 from ats_utilities.checker.checker_params import CheckerParams
-from ats_utilities.checker.format.format_validator import FormatValidator
-from ats_utilities.checker.type.type_validator import TypeValidator
-from ats_utilities.checker.context.context_provider import ContextProvider
-from ats_utilities.checker.reporter.check_reporter import CheckReporter
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -48,15 +44,14 @@ class CheckerRegistry(IRegistry[CheckerBundle, CheckerParams | None]):
         It defines:
 
             :methods:
-                | create_bundle - Creates a CheckerBundle instance using provided components or default ones if not provided.
-                | create_default_checker_bundle - Creates a default CheckerBundle with pre-configured components.
+                | create_bundle - Creates a CheckerBundle instance using provided components.
     '''
 
     @classmethod
     @override
     def create_bundle(cls, params: CheckerParams | None = None) -> CheckerBundle:
         '''
-            Creates a CheckerBundle instance using provided components or default ones if not provided.
+            Creates a CheckerBundle instance using provided components.
 
             :param params: Registry-specific orchestration parameters.
             :type params: CheckerParams | None
@@ -72,36 +67,9 @@ class CheckerRegistry(IRegistry[CheckerBundle, CheckerParams | None]):
                 | ATSTypeError: Format validator must be an instance of IFormatValidator.
                 | ATSTypeError: Type validator must be an instance of ITypeValidator.
         '''
-        if not params:
-            return cls.create_default_checker_bundle()
-
         return CheckerBundle(
-            format_validator=params.get('format_validator'),
-            type_validator=params.get('type_validator'),
-            context_provider=params.get('context_provider'),
-            check_reporter=params.get('check_reporter')
-        )
-
-    @classmethod
-    def create_default_checker_bundle(cls) -> CheckerBundle:
-        '''
-            Creates a default CheckerBundle with pre-configured components.
-
-            :return: Default CheckerBundle instance.
-            :rtype: <CheckerBundle>
-            :exceptions:
-                | ATSValueError: Context provider must be provided.
-                | ATSValueError: Check reporter must be provided.
-                | ATSValueError: Format validator must be provided.
-                | ATSValueError: Type validator must be provided.
-                | ATSTypeError: Context provider must be an instance of IContextProvider.
-                | ATSTypeError: Check reporter must be an instance of ICheckReporter.
-                | ATSTypeError: Format validator must be an instance of IFormatValidator.
-                | ATSTypeError: Type validator must be an instance of ITypeValidator.
-        '''
-        return CheckerBundle(
-            format_validator=FormatValidator(),
-            type_validator=TypeValidator(),
-            context_provider=ContextProvider(),
-            check_reporter=CheckReporter()
+            format_validator=params.get('format_validator') if params else None,
+            type_validator=params.get('type_validator') if params else None,
+            context_provider=params.get('context_provider') if params else None,
+            check_reporter=params.get('check_reporter') if params else None
         )

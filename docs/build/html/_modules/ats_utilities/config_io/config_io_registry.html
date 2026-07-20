@@ -64,6 +64,7 @@
 
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.config_io_bundle</span> <span class="kn">import</span> <span class="n">ConfigIOBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.config_io_params</span> <span class="kn">import</span> <span class="n">ConfigIOParams</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.factory_processor</span> <span class="kn">import</span> <span class="n">ConfigProcessorFactory</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.iconfig_processor</span> <span class="kn">import</span> <span class="n">IConfigProcessor</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
@@ -80,7 +81,7 @@
 
 <div class="viewcode-block" id="ConfigIORegistry">
 <a class="viewcode-back" href="../../../ats_utilities.config_io.config_io_registry.html#ats_utilities.config_io.config_io_registry.ConfigIORegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">ConfigIORegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">ConfigIOBundle</span><span class="p">]):</span>
+<span class="k">class</span> <span class="nc">ConfigIORegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">ConfigIOBundle</span><span class="p">,</span> <span class="n">ConfigIOParams</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core config I/O components for simplification of ConfigIOBundle creation.</span>
 
@@ -96,11 +97,12 @@
 <a class="viewcode-back" href="../../../ats_utilities.config_io.config_io_registry.html#ats_utilities.config_io.config_io_registry.ConfigIORegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfigIOBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">ConfigIOParams</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfigIOBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates a ConfigIOBundle instance using either file path and scheme or injected processor.</span>
 
-<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :param params: Registry-specific orchestration parameters.</span>
+<span class="sd">            :type params: ConfigIOParams</span>
 <span class="sd">            :return: ConfigIOBundle instance.</span>
 <span class="sd">            :rtype: &lt;ConfigIOBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
@@ -111,10 +113,10 @@
 <span class="sd">                | ATSTypeError: Scheme must be an instance of Mapping interface.</span>
 <span class="sd">                | ATSTypeError: Context bundle must be an instance of ContextBundle interface.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;file_path&#39;</span><span class="p">)</span>
-        <span class="n">scheme</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;scheme&#39;</span><span class="p">)</span>
-        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
-        <span class="n">processor</span><span class="p">:</span> <span class="n">IConfigProcessor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;processor&#39;</span><span class="p">)</span>
+        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;file_path&#39;</span><span class="p">)</span>
+        <span class="n">scheme</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;scheme&#39;</span><span class="p">)</span>
+        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
+        <span class="n">processor</span><span class="p">:</span> <span class="n">IConfigProcessor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;processor&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_config_io_bundle_by_file_path_and_scheme</span><span class="p">(</span>
             <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>

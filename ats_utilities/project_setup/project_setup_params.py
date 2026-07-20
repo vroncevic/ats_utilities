@@ -21,10 +21,12 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
-from typing import Any, TypedDict
+from typing import Any, TypedDict, NotRequired
 
 from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.project_setup.ipro_name import IProName
+from ats_utilities.project_setup.ipro_config import IProConfig
+from ats_utilities.project_setup.itemplate_dir import ITemplateDir
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,5 +40,9 @@ __status__ = r'Development'
 
 class ProjectSetupParams(TypedDict):
     '''TypedDict defining parameter types for ProjectSetupRegistry.'''
-    setup: Mapping[str, Any]
+    setup: NotRequired[Mapping[str, Any]]
     context_bundle: ContextBundle
+    pro_name: NotRequired[IProName]
+    pro_config: NotRequired[IProConfig]
+    template_dir: NotRequired[ITemplateDir]
+

@@ -24,13 +24,6 @@ from __future__ import annotations
 from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
-from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.checker_registry import CheckerRegistry
-from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.logger_registry import LoggerRegistry
-from ats_utilities.reporter.engine import Reporter
-from ats_utilities.reporter.reporter_bundle import ReporterBundle
-from ats_utilities.reporter.theme.engine import ConsoleTheme
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.context.context_params import ContextParams
 
@@ -52,7 +45,6 @@ class ContextRegistry(IRegistry[ContextBundle, ContextParams | None]):
 
             :methods:
                 | create_bundle - Creates a ContextBundle instance.
-                | create_default_context_bundle - Creates a default ContextBundle.
     '''
 
     @classmethod
@@ -70,31 +62,10 @@ class ContextRegistry(IRegistry[ContextBundle, ContextParams | None]):
                 | ATSTypeError: Verbose must be a boolean.
         '''
         verbose: bool = params.get('verbose', False) if params else False
-
-        return cls.create_default_context_bundle(
-            verbose=verbose
-        )
-
-    @classmethod
-    def create_default_context_bundle(cls, verbose: bool = False) -> ContextBundle:
-        '''
-            Creates a default ContextBundle with pre-configured components.
-
-            :param verbose: Enables verbose output (default False).
-            :type verbose: <bool>
-            :return: Default ContextBundle instance.
-            :rtype: <ContextBundle>
-            :exceptions: None.
-        '''
-        checker: Checker = Checker(component_bundle=CheckerRegistry.create_default_checker_bundle())
-        theme: ConsoleTheme = ConsoleTheme()
-        logger: Logger = Logger(component_bundle=LoggerRegistry.create_default_logger_bundle())
-        reporter_bundle: ReporterBundle = ReporterBundle(checker=checker, theme=theme, logger=logger)
-        reporter: Reporter = Reporter(component_bundle=reporter_bundle)
-
         return ContextBundle(
-            checker=checker,
-            logger=logger,
-            reporter=reporter,
+            checker=params.get('checker') if params else None,
+            logger=params.get('logger') if params else None,
+            reporter=params.get('reporter') if params else None,
             verbose=verbose
         )
+

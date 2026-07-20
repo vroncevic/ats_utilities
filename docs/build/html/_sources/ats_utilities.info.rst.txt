@@ -27,7 +27,9 @@ Submodules
    ats_utilities.info.engine
    ats_utilities.info.iinfo_manager
    ats_utilities.info.info_bundle
+   ats_utilities.info.info_factory
    ats_utilities.info.info_keys
+   ats_utilities.info.info_params
    ats_utilities.info.info_registry
 
 Module contents

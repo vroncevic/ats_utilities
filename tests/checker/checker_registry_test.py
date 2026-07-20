@@ -44,30 +44,8 @@ __status__: str = 'Development'
 class CheckerRegistryTest(unittest.TestCase):
     '''
         Defines class CheckerRegistryTest with attribute(s) and method(s).
-        Tests CheckerRegistry static factory logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_create_default_checker_bundle - Tests default CheckerBundle creation.
+        Tests CheckerRegistry logic.
     '''
-
-    def test_create_default_checker_bundle(self) -> None:
-        bundle = CheckerRegistry.create_default_checker_bundle()
-        self.assertIsInstance(bundle, CheckerBundle)
-        self.assertIsInstance(bundle.format_validator, FormatValidator)
-        self.assertIsInstance(bundle.type_validator, TypeValidator)
-        self.assertIsInstance(bundle.context_provider, ContextProvider)
-        self.assertIsInstance(bundle.check_reporter, CheckReporter)
-
-    def test_create_bundle(self) -> None:
-        bundle = CheckerRegistry.create_bundle()
-        self.assertIsInstance(bundle, CheckerBundle)
-        self.assertIsInstance(bundle.format_validator, FormatValidator)
-        self.assertIsInstance(bundle.type_validator, TypeValidator)
-        self.assertIsInstance(bundle.context_provider, ContextProvider)
-        self.assertIsInstance(bundle.check_reporter, CheckReporter)
 
     def test_create_bundle_with_args(self) -> None:
         format_validator = FormatValidator()

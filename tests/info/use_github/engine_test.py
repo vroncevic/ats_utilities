@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.info.use_github.engine import UseGitHub
 
 __author__: str = 'Vladimir Roncevic'
@@ -52,25 +52,25 @@ class EngineTest(unittest.TestCase):
     '''
 
     def test_init(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = UseGitHub(context_bundle)
         self.assertEqual(inst.use_github, False)
 
     def test_property_get_set(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = UseGitHub(context_bundle)
         inst.use_github = True
         self.assertEqual(inst.use_github, True)
 
     def test_not_none(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = UseGitHub(context_bundle)
         self.assertEqual(inst.not_none(), True)
         inst.use_github = True
         self.assertTrue(inst.not_none())
 
     def test_str(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         inst = UseGitHub(context_bundle)
         self.assertIn("UseGitHub", str(inst))
 

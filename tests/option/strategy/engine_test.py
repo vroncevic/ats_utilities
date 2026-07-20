@@ -26,7 +26,7 @@ import unittest
 from collections.abc import Sequence
 from unittest.mock import MagicMock
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.option.command.command_option import CommandOption
@@ -96,7 +96,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
@@ -129,7 +129,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
@@ -153,7 +153,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
@@ -177,7 +177,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
@@ -205,7 +205,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
@@ -243,7 +243,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
@@ -274,7 +274,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
@@ -294,7 +294,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",

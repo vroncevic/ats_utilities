@@ -22,8 +22,11 @@ Submodules
    ats_utilities.splasher.isplasher
    ats_utilities.splasher.splash_bundle
    ats_utilities.splasher.splash_center_bundle
+   ats_utilities.splasher.splash_center_params
    ats_utilities.splasher.splash_center_registry
+   ats_utilities.splasher.splash_factory
    ats_utilities.splasher.splash_keys
+   ats_utilities.splasher.splash_params
    ats_utilities.splasher.splash_registry
 
 Module contents

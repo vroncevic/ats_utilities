@@ -64,11 +64,8 @@
 
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_bundle</span> <span class="kn">import</span> <span class="n">OptionBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option.strategy.engine</span> <span class="kn">import</span> <span class="n">ParserStrategy</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option.strategy.parser_strategy_registry</span> <span class="kn">import</span> <span class="n">ParserStrategyRegistry</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.option_params</span> <span class="kn">import</span> <span class="n">OptionParams</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option.parser.engine</span> <span class="kn">import</span> <span class="n">ArgParser</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option.parser.iarg_parser</span> <span class="kn">import</span> <span class="n">IArgParser</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -82,7 +79,7 @@
 
 <div class="viewcode-block" id="OptionRegistry">
 <a class="viewcode-back" href="../../../ats_utilities.option.option_registry.html#ats_utilities.option.option_registry.OptionRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">OptionRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">OptionBundle</span><span class="p">]):</span>
+<span class="k">class</span> <span class="nc">OptionRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">OptionBundle</span><span class="p">,</span> <span class="n">OptionParams</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core option components for simplification of OptionBundle creation.</span>
 
@@ -90,18 +87,18 @@
 
 <span class="sd">            :methods:</span>
 <span class="sd">                | create_bundle - Creates an OptionBundle.</span>
-<span class="sd">                | create_option_bundle_from_dict - Creates an OptionBundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
 <div class="viewcode-block" id="OptionRegistry.create_bundle">
 <a class="viewcode-back" href="../../../ats_utilities.option.option_registry.html#ats_utilities.option.option_registry.OptionRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OptionBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">OptionParams</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OptionBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates an OptionBundle.</span>
 
-<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :param params: Registry-specific orchestration parameters.</span>
+<span class="sd">            :type params: OptionParams</span>
 <span class="sd">            :return: OptionBundle.</span>
 <span class="sd">            :rtype: &lt;OptionBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
@@ -110,52 +107,13 @@
 <span class="sd">                | ATSTypeError: Parameters must be a mapping.</span>
 <span class="sd">                | ATSTypeError: Context bundle must be a ContextBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">parameters</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;parameters&#39;</span><span class="p">)</span>
-        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
-        <span class="n">parser_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">IArgParser</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;parser_class&#39;</span><span class="p">,</span> <span class="n">ArgParser</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_option_bundle_from_dict</span><span class="p">(</span>
-            <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
-            <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">,</span>
-            <span class="n">parser_class</span><span class="o">=</span><span class="n">parser_class</span>
-        <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="OptionRegistry.create_option_bundle_from_dict">
-<a class="viewcode-back" href="../../../ats_utilities.option.option_registry.html#ats_utilities.option.option_registry.OptionRegistry.create_option_bundle_from_dict">[docs]</a>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_option_bundle_from_dict</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">,</span>
-        <span class="n">parameters</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
-        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span><span class="p">,</span>
-        <span class="n">parser_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">IArgParser</span><span class="p">]</span> <span class="o">=</span> <span class="n">ArgParser</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OptionBundle</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Creates an option bundle from parameters in mapping format.</span>
-
-<span class="sd">            :param parameters: Metadata parameters in mapping format (read only data).</span>
-<span class="sd">            :type parameters: &lt;Mapping[str, str]&gt;</span>
-<span class="sd">            :param context_bundle: Context bundle for option bundle.</span>
-<span class="sd">            :type context_bundle: &lt;ContextBundle&gt;</span>
-<span class="sd">            :param parser_class: Injected parser class type.</span>
-<span class="sd">            :type parser_class: &lt;type[IArgParser]&gt;</span>
-<span class="sd">            :return: OptionBundle instance.</span>
-<span class="sd">            :rtype: &lt;OptionBundle&gt;</span>
-<span class="sd">            :exceptions: None.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">parser_strategy_bundle</span> <span class="o">=</span> <span class="n">ParserStrategyRegistry</span><span class="o">.</span><span class="n">create_parser_strategy_bundle_from_dict</span><span class="p">(</span>
-            <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
-            <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">,</span>
-            <span class="n">parser_class</span><span class="o">=</span><span class="n">parser_class</span>
-        <span class="p">)</span>
-        <span class="n">strategy</span><span class="p">:</span> <span class="n">ParserStrategy</span> <span class="o">=</span> <span class="n">ParserStrategy</span><span class="p">(</span><span class="n">component_bundle</span><span class="o">=</span><span class="n">parser_strategy_bundle</span><span class="p">)</span>
-
         <span class="k">return</span> <span class="n">OptionBundle</span><span class="p">(</span>
-            <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
-            <span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">,</span>
-            <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span>
+            <span class="n">parameters</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;parameters&#39;</span><span class="p">),</span>
+            <span class="n">strategy</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;strategy&#39;</span><span class="p">),</span>
+            <span class="n">context_bundle</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
         <span class="p">)</span></div>
 </div>
+
 
 </pre></div>
 

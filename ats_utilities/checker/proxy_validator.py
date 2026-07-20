@@ -28,7 +28,7 @@ import inspect
 from functools import wraps
 from typing import Any, cast
 
-from ats_utilities.checker.checker_registry import CheckerRegistry
+from ats_utilities.checker.checker_factory import CheckerFactory
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import IChecker, ParametersSpecs
 from ats_utilities.context.icontext_support import IContextSupport
@@ -236,7 +236,7 @@ def fcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
             | ATSTypeError: Parameter type validation failed.
             | ATSValueError: Parameter format validation failed.
     '''
-    checker = Checker(CheckerRegistry.create_default_checker_bundle())
+    checker = Checker(CheckerFactory.create_default_checker_bundle())
 
     def decorator(func: F) -> F:
         @wraps(func)

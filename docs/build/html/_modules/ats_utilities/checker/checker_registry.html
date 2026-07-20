@@ -63,10 +63,7 @@
 
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.checker_bundle</span> <span class="kn">import</span> <span class="n">CheckerBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.format.format_validator</span> <span class="kn">import</span> <span class="n">FormatValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.type.type_validator</span> <span class="kn">import</span> <span class="n">TypeValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.context.context_provider</span> <span class="kn">import</span> <span class="n">ContextProvider</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.reporter.check_reporter</span> <span class="kn">import</span> <span class="n">CheckReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.checker_params</span> <span class="kn">import</span> <span class="n">CheckerParams</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -80,26 +77,26 @@
 
 <div class="viewcode-block" id="CheckerRegistry">
 <a class="viewcode-back" href="../../../ats_utilities.checker.checker_registry.html#ats_utilities.checker.checker_registry.CheckerRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">CheckerRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">CheckerBundle</span><span class="p">]):</span>
+<span class="k">class</span> <span class="nc">CheckerRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">CheckerBundle</span><span class="p">,</span> <span class="n">CheckerParams</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for simplification of CheckerBundle creation.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :methods:</span>
-<span class="sd">                | create_bundle - Creates a CheckerBundle instance using provided components or default ones if not provided.</span>
-<span class="sd">                | create_default_checker_bundle - Creates a default CheckerBundle with pre-configured components.</span>
+<span class="sd">                | create_bundle - Creates a CheckerBundle instance using provided components.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
 <div class="viewcode-block" id="CheckerRegistry.create_bundle">
 <a class="viewcode-back" href="../../../ats_utilities.checker.checker_registry.html#ats_utilities.checker.checker_registry.CheckerRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckerBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">CheckerParams</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckerBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Creates a CheckerBundle instance using provided components or default ones if not provided.</span>
+<span class="sd">            Creates a CheckerBundle instance using provided components.</span>
 
-<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :param params: Registry-specific orchestration parameters.</span>
+<span class="sd">            :type params: CheckerParams | None</span>
 <span class="sd">            :return: CheckerBundle instance.</span>
 <span class="sd">            :rtype: &lt;CheckerBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
@@ -112,41 +109,11 @@
 <span class="sd">                | ATSTypeError: Format validator must be an instance of IFormatValidator.</span>
 <span class="sd">                | ATSTypeError: Type validator must be an instance of ITypeValidator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_default_checker_bundle</span><span class="p">()</span>
-
         <span class="k">return</span> <span class="n">CheckerBundle</span><span class="p">(</span>
-            <span class="n">format_validator</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;format_validator&#39;</span><span class="p">),</span>
-            <span class="n">type_validator</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type_validator&#39;</span><span class="p">),</span>
-            <span class="n">context_provider</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_provider&#39;</span><span class="p">),</span>
-            <span class="n">check_reporter</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;check_reporter&#39;</span><span class="p">)</span>
-        <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="CheckerRegistry.create_default_checker_bundle">
-<a class="viewcode-back" href="../../../ats_utilities.checker.checker_registry.html#ats_utilities.checker.checker_registry.CheckerRegistry.create_default_checker_bundle">[docs]</a>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_default_checker_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckerBundle</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Creates a default CheckerBundle with pre-configured components.</span>
-
-<span class="sd">            :return: Default CheckerBundle instance.</span>
-<span class="sd">            :rtype: &lt;CheckerBundle&gt;</span>
-<span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Context provider must be provided.</span>
-<span class="sd">                | ATSValueError: Check reporter must be provided.</span>
-<span class="sd">                | ATSValueError: Format validator must be provided.</span>
-<span class="sd">                | ATSValueError: Type validator must be provided.</span>
-<span class="sd">                | ATSTypeError: Context provider must be an instance of IContextProvider.</span>
-<span class="sd">                | ATSTypeError: Check reporter must be an instance of ICheckReporter.</span>
-<span class="sd">                | ATSTypeError: Format validator must be an instance of IFormatValidator.</span>
-<span class="sd">                | ATSTypeError: Type validator must be an instance of ITypeValidator.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="n">CheckerBundle</span><span class="p">(</span>
-            <span class="n">format_validator</span><span class="o">=</span><span class="n">FormatValidator</span><span class="p">(),</span>
-            <span class="n">type_validator</span><span class="o">=</span><span class="n">TypeValidator</span><span class="p">(),</span>
-            <span class="n">context_provider</span><span class="o">=</span><span class="n">ContextProvider</span><span class="p">(),</span>
-            <span class="n">check_reporter</span><span class="o">=</span><span class="n">CheckReporter</span><span class="p">()</span>
+            <span class="n">format_validator</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;format_validator&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">params</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">type_validator</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type_validator&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">params</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">context_provider</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_provider&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">params</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">check_reporter</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;check_reporter&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">params</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="p">)</span></div>
 </div>
 

@@ -20,7 +20,9 @@ Submodules
    ats_utilities.option.engine
    ats_utilities.option.ioption_manager
    ats_utilities.option.option_bundle
+   ats_utilities.option.option_factory
    ats_utilities.option.option_namespace
+   ats_utilities.option.option_params
    ats_utilities.option.option_registry
 
 Module contents

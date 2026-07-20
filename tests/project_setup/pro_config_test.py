@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.project_setup.pro_config import ProConfig
 
@@ -58,7 +58,7 @@ class ProConfigTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         pro_config_obj = ProConfig(context_bundle)
         self.assertIsNone(pro_config_obj.config)
         self.assertFalse(pro_config_obj.not_none())
@@ -69,7 +69,7 @@ class ProConfigTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         pro_config_obj = ProConfig(context_bundle)
         config_data = {
             "key1": "value1",
@@ -85,7 +85,7 @@ class ProConfigTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         pro_config_obj = ProConfig(context_bundle)
         with self.assertRaises(ATSTypeError):
             pro_config_obj.config = 123  # type: ignore
@@ -96,7 +96,7 @@ class ProConfigTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         pro_config_obj = ProConfig(context_bundle)
         self.assertIn("ProConfig", str(pro_config_obj))
 

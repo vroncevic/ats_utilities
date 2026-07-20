@@ -65,6 +65,7 @@
 
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generator.tar.tar_process_member_bundle</span> <span class="kn">import</span> <span class="n">TarProcessMemberBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.tar.tar_process_member_params</span> <span class="kn">import</span> <span class="n">TarProcessMemberParams</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -78,7 +79,7 @@
 
 <div class="viewcode-block" id="TarProcessRegistry">
 <a class="viewcode-back" href="../../../../ats_utilities.generator.tar.tar_process_member_registry.html#ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">TarProcessRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">TarProcessMemberBundle</span><span class="p">]):</span>
+<span class="k">class</span> <span class="nc">TarProcessRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">TarProcessMemberBundle</span><span class="p">,</span> <span class="n">TarProcessMemberParams</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for creation of tar process member bundle.</span>
 
@@ -93,11 +94,12 @@
 <a class="viewcode-back" href="../../../../ats_utilities.generator.tar.tar_process_member_registry.html#ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TarProcessMemberBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">TarProcessMemberParams</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TarProcessMemberBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates a TarProcessMemberBundle instance.</span>
 
-<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :param params: Registry-specific orchestration parameters.</span>
+<span class="sd">            :type params: TarProcessMemberParams</span>
 <span class="sd">            :return: TarProcessMemberBundle instance.</span>
 <span class="sd">            :rtype: &lt;TarProcessMemberBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
@@ -110,10 +112,10 @@
 <span class="sd">                | ATSTypeError: Dest full path must be a string.</span>
 <span class="sd">                | ATSTypeError: Vals must be a mapping.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">tar</span><span class="p">:</span> <span class="n">TarFile</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tar&#39;</span><span class="p">)</span>
-        <span class="n">member</span><span class="p">:</span> <span class="n">TarInfo</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;member&#39;</span><span class="p">)</span>
-        <span class="n">dest_full_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dest_full_path&#39;</span><span class="p">)</span>
-        <span class="n">vals</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vals&#39;</span><span class="p">)</span>
+        <span class="n">tar</span><span class="p">:</span> <span class="n">TarFile</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tar&#39;</span><span class="p">)</span>
+        <span class="n">member</span><span class="p">:</span> <span class="n">TarInfo</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;member&#39;</span><span class="p">)</span>
+        <span class="n">dest_full_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dest_full_path&#39;</span><span class="p">)</span>
+        <span class="n">vals</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vals&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_tar_process_member_bundle</span><span class="p">(</span>
             <span class="n">tar</span><span class="o">=</span><span class="n">tar</span><span class="p">,</span>

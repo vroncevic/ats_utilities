@@ -21,9 +21,8 @@ Info
 
 from __future__ import annotations
 
-from sys import stdout
-from logging import Logger, getLogger, basicConfig, INFO
-from typing import Any, override
+from logging import Logger
+from typing import override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.logger.logger_bundle import LoggerBundle
@@ -47,7 +46,6 @@ class LoggerRegistry(IRegistry[LoggerBundle, LoggerParams]):
 
             :methods:
                 | create_bundle - Creates a LoggerBundle.
-                | create_default_logger_bundle - Creates a default LoggerBundle.
     '''
 
     @classmethod
@@ -66,49 +64,9 @@ class LoggerRegistry(IRegistry[LoggerBundle, LoggerParams]):
                 | ATSTypeError: Log file must be a string.
                 | ATSTypeError: Log level must be an integer.
         '''
-        log_file: str = params.get('log_file')
-        log_level: int = params.get('log_level')
-
-        return cls.create_default_logger_bundle(
-            log_file=log_file,
-            log_level=log_level,
-        )
-
-    @classmethod
-    def create_default_logger_bundle(
-        cls,
-        log_file: str | None = None,
-        log_level: int = INFO
-    ) -> LoggerBundle:
-        '''
-            Creates a default LoggerBundle with pre-configured components.
-
-            :param log_file: Path to the log file (default None).
-            :type log_file: <str | None>
-            :param log_level: Log level (default 20 - INFO).
-            :type log_level: <int>
-            :return: Default LoggerBundle instance.
-            :rtype: <LoggerBundle>
-            :exceptions: None.
-        '''
-        if not getLogger().hasHandlers():
-            log_config: dict[str, Any] = {
-                'format': '%(asctime)s - %(levelname)s - %(message)s',
-                'datefmt': '%m/%d/%Y %I:%M:%S %p',
-                'level': log_level
-            }
-
-            if log_file:
-                log_config['filename'] = log_file
-            else:
-                log_config['stream'] = stdout
-
-            basicConfig(**log_config)
-
-        logger: Logger = getLogger()
-
         return LoggerBundle(
-            logger=logger,
-            log_file=log_file or '',
-            log_level=log_level
+            logger=params.get('logger'),
+            log_file=params.get('log_file', ''),
+            log_level=params.get('log_level', 20)
         )
+

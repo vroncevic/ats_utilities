@@ -67,7 +67,7 @@
             <a id="nextFileLink" class="nav" href="z_a2bbc18738a3100e_iarg_parser_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2026-07-19 17:03 +0200
+            created at 2026-07-20 19:56 +0200
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -113,7 +113,7 @@
     <p class="run"><span class="n"><a id="t29" href="#t29">29</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">option</span><span class="op">.</span><span class="nam">parser</span><span class="op">.</span><span class="nam">iarg_parser</span> <span class="key">import</span> <span class="nam">IArgParser</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t30" href="#t30">30</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">option</span><span class="op">.</span><span class="nam">parser</span><span class="op">.</span><span class="nam">parser_bundle</span> <span class="key">import</span> <span class="nam">ParserBundle</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t31" href="#t31">31</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">context</span><span class="op">.</span><span class="nam">context_support</span> <span class="key">import</span> <span class="nam">ContextSupport</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t32" href="#t32">32</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">context</span><span class="op">.</span><span class="nam">context_registry</span> <span class="key">import</span> <span class="nam">ContextRegistry</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t32" href="#t32">32</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">context</span><span class="op">.</span><span class="nam">context_factory</span> <span class="key">import</span> <span class="nam">ContextFactory</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t33" href="#t33">33</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">utils</span><span class="op">.</span><span class="nam">reflection</span> <span class="key">import</span> <span class="nam">to_str</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t34" href="#t34">34</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">checker</span><span class="op">.</span><span class="nam">proxy_validator</span> <span class="key">import</span> <span class="nam">mcheck</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t35" href="#t35">35</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">reporter</span><span class="op">.</span><span class="nam">proxy_reporter</span> <span class="key">import</span> <span class="nam">vreport</span>&nbsp;</span><span class="r"></span></p>
@@ -167,7 +167,7 @@
     <p class="run"><span class="n"><a id="t83" href="#t83">83</a></span><span class="t">            <span class="nam">ctx_bundle</span> <span class="op">=</span> <span class="nam">kwargs</span><span class="op">.</span><span class="nam">pop</span><span class="op">(</span><span class="str">'context_bundle'</span><span class="op">,</span> <span class="key">None</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t84" href="#t84">84</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t85" href="#t85">85</a></span><span class="t">            <span class="key">if</span> <span class="nam">ctx_bundle</span> <span class="key">is</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t86" href="#t86">86</a></span><span class="t">                <span class="nam">ctx_bundle</span> <span class="op">=</span> <span class="nam">ContextRegistry</span><span class="op">.</span><span class="nam">create_default_context_bundle</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t86" href="#t86">86</a></span><span class="t">                <span class="nam">ctx_bundle</span> <span class="op">=</span> <span class="nam">ContextFactory</span><span class="op">.</span><span class="nam">create_default_context_bundle</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t87" href="#t87">87</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t88" href="#t88">88</a></span><span class="t">            <span class="nam">component_bundle</span> <span class="op">=</span> <span class="nam">ParserBundle</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t89" href="#t89">89</a></span><span class="t">                <span class="nam">prog</span><span class="op">=</span><span class="nam">kwargs</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">'prog'</span><span class="op">,</span> <span class="str">''</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -224,7 +224,7 @@
             <a class="nav" href="z_a2bbc18738a3100e_iarg_parser_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2026-07-19 17:03 +0200
+            created at 2026-07-20 19:56 +0200
         </p>
     </div>
 </footer>

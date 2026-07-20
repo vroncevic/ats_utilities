@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.project_setup.pro_name import ProName
 
@@ -58,7 +58,7 @@ class ProNameTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         pro_name_obj = ProName(context_bundle)
         self.assertIsNone(pro_name_obj.pro_name)
         self.assertFalse(pro_name_obj.not_none())
@@ -69,7 +69,7 @@ class ProNameTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         pro_name_obj = ProName(context_bundle)
         pro_name_obj.pro_name = "test_project"
         self.assertEqual(pro_name_obj.pro_name, "test_project")
@@ -81,7 +81,7 @@ class ProNameTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         pro_name_obj = ProName(context_bundle)
         with self.assertRaises(ATSTypeError):
             pro_name_obj.pro_name = 123  # type: ignore
@@ -92,7 +92,7 @@ class ProNameTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         pro_name_obj = ProName(context_bundle)
         self.assertIn("ProName", str(pro_name_obj))
 

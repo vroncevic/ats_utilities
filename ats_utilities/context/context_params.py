@@ -23,6 +23,10 @@ from __future__ import annotations
 
 from typing import TypedDict, NotRequired
 
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.ireporter import IReporter
+
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -36,3 +40,7 @@ __status__ = r'Development'
 class ContextParams(TypedDict):
     '''TypedDict defining parameter types for ContextRegistry.'''
     verbose: NotRequired[bool]
+    checker: NotRequired[IChecker]
+    logger: NotRequired[ILogger]
+    reporter: NotRequired[IReporter]
+

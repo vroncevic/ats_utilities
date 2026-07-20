@@ -19,6 +19,8 @@ Submodules
    ats_utilities.reporter.ireporter
    ats_utilities.reporter.proxy_reporter
    ats_utilities.reporter.reporter_bundle
+   ats_utilities.reporter.reporter_factory
+   ats_utilities.reporter.reporter_params
    ats_utilities.reporter.reporter_registry
 
 Module contents

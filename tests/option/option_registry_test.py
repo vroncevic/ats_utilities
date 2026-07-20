@@ -24,11 +24,13 @@ from __future__ import annotations
 import unittest
 from typing import Any
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
+from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.option.option_bundle import OptionBundle
 from ats_utilities.option.option_registry import OptionRegistry
 from ats_utilities.option.option_params import OptionParams
 from ats_utilities.option.parser.iarg_parser import IArgParser
+from ats_utilities.option.option_factory import OptionFactory
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,9 +42,6 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
 
 
-from ats_utilities.context.context_support import ContextSupport
-
-
 class DummyParser(IArgParser, ContextSupport):
     '''
         Dummy parser class for registry tests.
@@ -51,8 +50,7 @@ class DummyParser(IArgParser, ContextSupport):
         if component_bundle and hasattr(component_bundle, 'context_bundle'):
             ContextSupport.__init__(self, component_bundle.context_bundle)
         else:
-            from ats_utilities.context.context_registry import ContextRegistry
-            ContextSupport.__init__(self, ContextRegistry.create_default_context_bundle())
+            ContextSupport.__init__(self, ContextFactory.create_default_context_bundle())
 
     def error(self, message: str) -> Any:
         pass
@@ -76,38 +74,8 @@ class DummyParser(IArgParser, ContextSupport):
 class OptionRegistryTest(unittest.TestCase):
     '''
         Defines class OptionRegistryTest with attribute(s) and method(s).
-        Tests OptionRegistry static factory logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_create_option_bundle_from_dict - Tests create_option_bundle_from_dict.
+        Tests OptionRegistry logic.
     '''
-
-    def test_create_option_bundle_from_dict(self) -> None:
-        '''
-            Tests create_option_bundle_from_dict.
-
-            :exceptions: None.
-        '''
-        parameters = {
-            "name": "mytool",
-            "version": "1.0.0",
-            "description": "desc",
-            "epilog": "epi"
-        }
-        context_bundle = ContextRegistry.create_default_context_bundle()
-
-        bundle = OptionRegistry.create_option_bundle_from_dict(
-            parameters=parameters,
-            context_bundle=context_bundle,
-            parser_class=DummyParser
-        )
-
-        self.assertIsInstance(bundle, OptionBundle)
-        self.assertEqual(bundle.parameters, parameters)
-        self.assertIs(bundle.context_bundle, context_bundle)
 
     def test_create_bundle(self) -> None:
         """Tests create_bundle on OptionRegistry."""
@@ -117,13 +85,18 @@ class OptionRegistryTest(unittest.TestCase):
             "description": "desc",
             "epilog": "epi"
         }
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
+        factory_bundle = OptionFactory.create_option_bundle_from_dict(
+            parameters=parameters,
+            context_bundle=context_bundle,
+            parser_class=DummyParser
+        )
 
         bundle = OptionRegistry.create_bundle(
             OptionParams(
                 parameters=parameters,
                 context_bundle=context_bundle,
-                parser_class=DummyParser
+                strategy=factory_bundle.strategy
             )
         )
 

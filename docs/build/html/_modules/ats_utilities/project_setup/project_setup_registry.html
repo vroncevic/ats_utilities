@@ -59,15 +59,12 @@
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.project_setup.project_setup_bundle</span> <span class="kn">import</span> <span class="n">ProjectSetupBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.project_setup.project_setup_params</span> <span class="kn">import</span> <span class="n">ProjectSetupParams</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.project_setup.pro_name</span> <span class="kn">import</span> <span class="n">ProName</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.project_setup.pro_config</span> <span class="kn">import</span> <span class="n">ProConfig</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.project_setup.template_dir</span> <span class="kn">import</span> <span class="n">TemplateDir</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -81,7 +78,7 @@
 
 <div class="viewcode-block" id="ProjectSetupRegistry">
 <a class="viewcode-back" href="../../../ats_utilities.project_setup.project_setup_registry.html#ats_utilities.project_setup.project_setup_registry.ProjectSetupRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">ProjectSetupRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">ProjectSetupBundle</span><span class="p">]):</span>
+<span class="k">class</span> <span class="nc">ProjectSetupRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">ProjectSetupBundle</span><span class="p">,</span> <span class="n">ProjectSetupParams</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for simplification of ProjectSetupBundle creation.</span>
 
@@ -89,18 +86,18 @@
 
 <span class="sd">            :methods:</span>
 <span class="sd">                | create_bundle - Creates a ProjectSetupBundle.</span>
-<span class="sd">                | create_default_project_setup_bundle - Creates a default ProjectSetupBundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
 <div class="viewcode-block" id="ProjectSetupRegistry.create_bundle">
 <a class="viewcode-back" href="../../../ats_utilities.project_setup.project_setup_registry.html#ats_utilities.project_setup.project_setup_registry.ProjectSetupRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProjectSetupBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">ProjectSetupParams</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProjectSetupBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates a ProjectSetupBundle instance.</span>
 
-<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :param params: Registry-specific orchestration parameters.</span>
+<span class="sd">            :type params: ProjectSetupParams</span>
 <span class="sd">            :return: ProjectSetupBundle instance.</span>
 <span class="sd">            :rtype: &lt;ProjectSetupBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
@@ -109,48 +106,14 @@
 <span class="sd">                | ATSTypeError: Setup must be a mapping.</span>
 <span class="sd">                | ATSTypeError: Context bundle must be a ContextBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">setup</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;setup&#39;</span><span class="p">)</span>
-        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_default_project_setup_bundle</span><span class="p">(</span>
-            <span class="n">setup</span><span class="o">=</span><span class="n">setup</span><span class="p">,</span>
-            <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">,</span>
-        <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="ProjectSetupRegistry.create_default_project_setup_bundle">
-<a class="viewcode-back" href="../../../ats_utilities.project_setup.project_setup_registry.html#ats_utilities.project_setup.project_setup_registry.ProjectSetupRegistry.create_default_project_setup_bundle">[docs]</a>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_default_project_setup_bundle</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">,</span>
-        <span class="n">setup</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProjectSetupBundle</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Creates a default ProjectSetupBundle with pre-configured components.</span>
-
-<span class="sd">            :param setup: The project setup dictionary.</span>
-<span class="sd">            :type setup: &lt;Mapping[str, Any]&gt;</span>
-<span class="sd">            :param context_bundle: The context bundle.</span>
-<span class="sd">            :type context_bundle: &lt;ContextBundle&gt;</span>
-<span class="sd">            :return: Default ProjectSetupBundle instance.</span>
-<span class="sd">            :rtype: &lt;ProjectSetupBundle&gt;</span>
-<span class="sd">            :exceptions: None.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">pro_name</span><span class="p">:</span> <span class="n">ProName</span> <span class="o">=</span> <span class="n">ProName</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
-        <span class="n">pro_name</span><span class="o">.</span><span class="n">pro_name</span> <span class="o">=</span> <span class="n">setup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pro_name&#39;</span><span class="p">)</span>
-        <span class="n">pro_config</span><span class="p">:</span> <span class="n">ProConfig</span> <span class="o">=</span> <span class="n">ProConfig</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
-        <span class="n">pro_config</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">setup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pro_config&#39;</span><span class="p">)</span>
-        <span class="n">template_dir</span><span class="p">:</span> <span class="n">TemplateDir</span> <span class="o">=</span> <span class="n">TemplateDir</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
-        <span class="n">template_dir</span><span class="o">.</span><span class="n">template_dir</span> <span class="o">=</span> <span class="n">setup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;template_dir&#39;</span><span class="p">)</span>
-
         <span class="k">return</span> <span class="n">ProjectSetupBundle</span><span class="p">(</span>
-            <span class="n">pro_name</span><span class="o">=</span><span class="n">pro_name</span><span class="p">,</span>
-            <span class="n">pro_config</span><span class="o">=</span><span class="n">pro_config</span><span class="p">,</span>
-            <span class="n">template_dir</span><span class="o">=</span><span class="n">template_dir</span><span class="p">,</span>
-            <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span>
+            <span class="n">pro_name</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pro_name&#39;</span><span class="p">),</span>
+            <span class="n">pro_config</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pro_config&#39;</span><span class="p">),</span>
+            <span class="n">template_dir</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;template_dir&#39;</span><span class="p">),</span>
+            <span class="n">context_bundle</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
         <span class="p">)</span></div>
 </div>
+
 
 </pre></div>
 

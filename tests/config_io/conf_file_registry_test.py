@@ -3,7 +3,6 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-# Adjust imports according to your project structure
 from ats_utilities.config_io.conf_file_registry import ConfFileRegistry
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
 from ats_utilities.config_io.conf_file_params import ConfFileParams
@@ -11,7 +10,7 @@ from ats_utilities.context.context_bundle import ContextBundle
 
 
 class TestConfFileRegistry(unittest.TestCase):
-    """Unit tests for the ConfFileRegistry factory methods."""
+    """Unit tests for the ConfFileRegistry class."""
 
     def setUp(self) -> None:
         """Set up standard mocked dependencies for registry creation."""
@@ -20,33 +19,8 @@ class TestConfFileRegistry(unittest.TestCase):
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
 
     @patch("ats_utilities.config_io.conf_file_registry.ConfFileBundle")
-    def test_create_conf_file_bundle(self, mock_bundle_cls: MagicMock) -> None:
-        """Test successful creation of ConfFileBundle through the registry factory."""
-        # Arrange
-        mock_expected_bundle = MagicMock(spec=ConfFileBundle)
-        mock_bundle_cls.return_value = mock_expected_bundle
-
-        # Act
-        result = ConfFileRegistry.create_conf_file_bundle(
-            file_path=self.mock_file_path,
-            file_mode=self.mock_file_mode,
-            context_bundle=self.mock_context_bundle
-        )
-
-        # Assert
-        # Check if ConfFileBundle was initialized with the exact passed parameters
-        mock_bundle_cls.assert_called_once_with(
-            file_path=self.mock_file_path,
-            file_mode=self.mock_file_mode,
-            context_bundle=self.mock_context_bundle
-        )
-
-        # Ensure the factory returns the constructed ConfFileBundle instance
-        self.assertEqual(result, mock_expected_bundle)
-
-    @patch("ats_utilities.config_io.conf_file_registry.ConfFileBundle")
     def test_create_bundle(self, mock_bundle_cls: MagicMock) -> None:
-        """Test create_bundle delegates correctly to create_conf_file_bundle."""
+        """Test create_bundle delegates correctly."""
         mock_expected_bundle = MagicMock(spec=ConfFileBundle)
         mock_bundle_cls.return_value = mock_expected_bundle
 
@@ -64,20 +38,6 @@ class TestConfFileRegistry(unittest.TestCase):
             context_bundle=self.mock_context_bundle
         )
         self.assertEqual(result, mock_expected_bundle)
-
-    @patch("ats_utilities.config_io.conf_file_registry.ConfFile")
-    def test_create_conf_file(self, mock_conf_file_cls: MagicMock) -> None:
-        """Test create_conf_file instantiates ConfFile properly."""
-        mock_conf_file = MagicMock()
-        mock_conf_file_cls.return_value = mock_conf_file
-
-        result = ConfFileRegistry.create_conf_file(
-            file_path=self.mock_file_path,
-            file_mode=self.mock_file_mode,
-            context_bundle=self.mock_context_bundle
-        )
-
-        self.assertEqual(result, mock_conf_file)
 
 
 if __name__ == '__main__':

@@ -26,6 +26,7 @@ from typing import TypedDict, NotRequired
 
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.option.parser.iarg_parser import IArgParser
+from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -42,3 +43,5 @@ class OptionParams(TypedDict):
     parameters: Mapping[str, str]
     context_bundle: ContextBundle
     parser_class: NotRequired[type[IArgParser]]
+    strategy: NotRequired[IParserStrategy]
+

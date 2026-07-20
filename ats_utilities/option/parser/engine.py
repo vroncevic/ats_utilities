@@ -29,7 +29,7 @@ from typing import Any, NoReturn, override
 from ats_utilities.option.parser.iarg_parser import IArgParser
 from ats_utilities.option.parser.parser_bundle import ParserBundle
 from ats_utilities.context.context_support import ContextSupport
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -83,7 +83,7 @@ class ArgParser(ContextSupport, ArgumentParser, IArgParser):
             ctx_bundle = kwargs.pop('context_bundle', None)
 
             if ctx_bundle is None:
-                ctx_bundle = ContextRegistry.create_default_context_bundle()
+                ctx_bundle = ContextFactory.create_default_context_bundle()
 
             component_bundle = ParserBundle(
                 prog=kwargs.get('prog', ''),

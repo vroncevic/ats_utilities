@@ -94,7 +94,6 @@
 <span class="sd">                | prop - Splash screen properties in dict format.</span>
 <span class="sd">                | splash_property - Splash screen property instance.</span>
 <span class="sd">                | terminal_property - Terminal properties instance.</span>
-<span class="sd">                | github - GitHub infrastructure instance.</span>
 <span class="sd">                | ext - Generic external infrastructure instance.</span>
 <span class="sd">                | pb - Progress bar component instance.</span>
 <span class="sd">                | context_bundle - Context bundle instance.</span>
@@ -108,7 +107,6 @@
     <span class="n">splash_property</span><span class="p">:</span> <span class="n">ISplashProperty</span>
     <span class="n">property_validated</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">terminal_property</span><span class="p">:</span> <span class="n">ITerminalProperties</span>
-    <span class="n">github</span><span class="p">:</span> <span class="n">IExtInfrastructure</span>
     <span class="n">ext</span><span class="p">:</span> <span class="n">IExtInfrastructure</span>
     <span class="n">pb</span><span class="p">:</span> <span class="n">IProgressBar</span>
     <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span>
@@ -121,14 +119,12 @@
 <span class="sd">                | ATSValueError: Properties dictionary &#39;prop&#39; must be provided.</span>
 <span class="sd">                | ATSValueError: Splash property &#39;splash_property&#39; must be provided.</span>
 <span class="sd">                | ATSValueError: Terminal properties &#39;terminal_property&#39; must be provided.</span>
-<span class="sd">                | ATSValueError: GitHub infrastructure &#39;github&#39; must be provided.</span>
 <span class="sd">                | ATSValueError: External infrastructure &#39;ext&#39; must be provided.</span>
 <span class="sd">                | ATSValueError: Progress bar &#39;pb&#39; must be provided.</span>
 <span class="sd">                | ATSValueError: Context bundle &#39;context_bundle&#39; must be provided.</span>
 <span class="sd">                | ATSTypeError: Property &#39;prop&#39; must be a Mapping[str, Any] instance.</span>
 <span class="sd">                | ATSTypeError: Splash property &#39;splash_property&#39; must be an ISplashProperty instance.</span>
 <span class="sd">                | ATSTypeError: Terminal properties &#39;terminal_property&#39; must be an ITerminalProperties instance.</span>
-<span class="sd">                | ATSTypeError: GitHub infrastructure &#39;github&#39; must be an IExtInfrastructure instance.</span>
 <span class="sd">                | ATSTypeError: External infrastructure &#39;ext&#39; must be an IExtInfrastructure instance.</span>
 <span class="sd">                | ATSTypeError: Progress bar &#39;pb&#39; must be an IProgressBar instance.</span>
 <span class="sd">                | ATSTypeError: Context bundle &#39;context_bundle&#39; must be a ContextBundle instance.</span>
@@ -147,14 +143,12 @@
 <span class="sd">                | ATSValueError: Properties dictionary &#39;prop&#39; must be provided.</span>
 <span class="sd">                | ATSValueError: Splash property &#39;splash_property&#39; must be provided.</span>
 <span class="sd">                | ATSValueError: Terminal properties &#39;terminal_property&#39; must be provided.</span>
-<span class="sd">                | ATSValueError: GitHub infrastructure &#39;github&#39; must be provided.</span>
 <span class="sd">                | ATSValueError: External infrastructure &#39;ext&#39; must be provided.</span>
 <span class="sd">                | ATSValueError: Progress bar &#39;pb&#39; must be provided.</span>
 <span class="sd">                | ATSValueError: Context bundle &#39;context_bundle&#39; must be provided.</span>
 <span class="sd">                | ATSTypeError: Property &#39;prop&#39; must be a Mapping[str, Any] instance.</span>
 <span class="sd">                | ATSTypeError: Splash property &#39;splash_property&#39; must be an ISplashProperty instance.</span>
 <span class="sd">                | ATSTypeError: Terminal properties &#39;terminal_property&#39; must be an ITerminalProperties instance.</span>
-<span class="sd">                | ATSTypeError: GitHub infrastructure &#39;github&#39; must be an IExtInfrastructure instance.</span>
 <span class="sd">                | ATSTypeError: External infrastructure &#39;ext&#39; must be an IExtInfrastructure instance.</span>
 <span class="sd">                | ATSTypeError: Progress bar &#39;pb&#39; must be an IProgressBar instance.</span>
 <span class="sd">                | ATSTypeError: Context bundle &#39;context_bundle&#39; must be a ContextBundle instance.</span>
@@ -163,14 +157,12 @@
         <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prop</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;properties dictionary must be provided&#39;</span><span class="p">)</span>
         <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splash_property</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;splash property must be provided&#39;</span><span class="p">)</span>
         <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">terminal_property</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;terminal properties must be provided&#39;</span><span class="p">)</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">github</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;gitHub infrastructure must be provided&#39;</span><span class="p">)</span>
         <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ext</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;external infrastructure must be provided&#39;</span><span class="p">)</span>
         <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pb</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;progress bar must be provided&#39;</span><span class="p">)</span>
         <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be provided&#39;</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prop</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;properties dictionary must be a Mapping[str, Any] instance&#39;</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splash_property</span><span class="p">,</span> <span class="n">ISplashProperty</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;splash property must be an ISplashProperty instance&#39;</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">terminal_property</span><span class="p">,</span> <span class="n">ITerminalProperties</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;terminal properties must be an ITerminalProperties instance&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">github</span><span class="p">,</span> <span class="n">IExtInfrastructure</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;gitHub infrastructure must be an IExtInfrastructure instance&#39;</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ext</span><span class="p">,</span> <span class="n">IExtInfrastructure</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;external infrastructure must be an IExtInfrastructure instance&#39;</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pb</span><span class="p">,</span> <span class="n">IProgressBar</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;progress bar must be an IProgressBar instance&#39;</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle must be a ContextBundle instance&#39;</span><span class="p">)</span></div>

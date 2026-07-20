@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.project_setup.template_dir import TemplateDir
 
@@ -58,7 +58,7 @@ class TemplateDirTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         template_dir_obj = TemplateDir(context_bundle)
         self.assertIsNone(template_dir_obj.template_dir)
         self.assertFalse(template_dir_obj.not_none())
@@ -69,7 +69,7 @@ class TemplateDirTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         template_dir_obj = TemplateDir(context_bundle)
         dir_path = "/tmp/templates"
         template_dir_obj.template_dir = dir_path
@@ -82,7 +82,7 @@ class TemplateDirTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         template_dir_obj = TemplateDir(context_bundle)
         with self.assertRaises(ATSTypeError):
             template_dir_obj.template_dir = 123  # type: ignore
@@ -93,7 +93,7 @@ class TemplateDirTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         template_dir_obj = TemplateDir(context_bundle)
         self.assertIn("TemplateDir", str(template_dir_obj))
 

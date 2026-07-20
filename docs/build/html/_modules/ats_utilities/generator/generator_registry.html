@@ -63,9 +63,7 @@
 
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generator.generator_bundle</span> <span class="kn">import</span> <span class="n">GeneratorBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generator.template.engine</span> <span class="kn">import</span> <span class="n">TemplateProcessor</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generator.scheme.engine</span> <span class="kn">import</span> <span class="n">SchemeLoader</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generator.tar.engine</span> <span class="kn">import</span> <span class="n">TarProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.generator_params</span> <span class="kn">import</span> <span class="n">GeneratorParams</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -80,7 +78,7 @@
 
 <div class="viewcode-block" id="GeneratorRegistry">
 <a class="viewcode-back" href="../../../ats_utilities.generator.generator_registry.html#ats_utilities.generator.generator_registry.GeneratorRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">GeneratorRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">GeneratorBundle</span><span class="p">]):</span>
+<span class="k">class</span> <span class="nc">GeneratorRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">GeneratorBundle</span><span class="p">,</span> <span class="n">GeneratorParams</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for simplification of GeneratorBundle creation.</span>
 
@@ -88,55 +86,26 @@
 
 <span class="sd">            :methods:</span>
 <span class="sd">                | create_bundle - Creates a GeneratorBundle instance.</span>
-<span class="sd">                | create_default_generator_bundle - Creates a default GeneratorBundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
 <div class="viewcode-block" id="GeneratorRegistry.create_bundle">
 <a class="viewcode-back" href="../../../ats_utilities.generator.generator_registry.html#ats_utilities.generator.generator_registry.GeneratorRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GeneratorBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">GeneratorParams</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GeneratorBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates a GeneratorBundle instance.</span>
 
-<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :param params: Registry-specific orchestration parameters.</span>
+<span class="sd">            :type params: GeneratorParams</span>
 <span class="sd">            :return: GeneratorBundle instance.</span>
-<span class="sd">            :rtype: &lt;GeneratorBundle&gt;</span>
-<span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Context bundle must be provided.</span>
-<span class="sd">                | ATSTypeError: Context bundle must be of type ContextBundle.</span>
+<span class="sd">            :rtype: &lt;ContextBundle&gt;</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_default_generator_bundle</span><span class="p">(</span>
-            <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span>
-        <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="GeneratorRegistry.create_default_generator_bundle">
-<a class="viewcode-back" href="../../../ats_utilities.generator.generator_registry.html#ats_utilities.generator.generator_registry.GeneratorRegistry.create_default_generator_bundle">[docs]</a>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_default_generator_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GeneratorBundle</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Creates a default GeneratorBundle with pre-configured components.</span>
-
-<span class="sd">            :param context_bundle: Context bundle for generator.</span>
-<span class="sd">            :type context_bundle: &lt;ContextBundle&gt;</span>
-<span class="sd">            :return: Default GeneratorBundle instance.</span>
-<span class="sd">            :rtype: &lt;GeneratorBundle&gt;</span>
-<span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Context bundle must not be provided.</span>
-<span class="sd">                | ATSTypeError: Context bundle must be of type ContextBundle.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">template_processor</span><span class="p">:</span> <span class="n">TemplateProcessor</span> <span class="o">=</span> <span class="n">TemplateProcessor</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
-        <span class="n">scheme_loader</span><span class="p">:</span> <span class="n">SchemeLoader</span> <span class="o">=</span> <span class="n">SchemeLoader</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
-        <span class="n">tar_processor</span><span class="p">:</span> <span class="n">TarProcessor</span> <span class="o">=</span> <span class="n">TarProcessor</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">template_processor</span><span class="o">=</span><span class="n">template_processor</span><span class="p">)</span>
-
         <span class="k">return</span> <span class="n">GeneratorBundle</span><span class="p">(</span>
-            <span class="n">template_processor</span><span class="o">=</span><span class="n">template_processor</span><span class="p">,</span>
-            <span class="n">scheme_loader</span><span class="o">=</span><span class="n">scheme_loader</span><span class="p">,</span>
-            <span class="n">tar_processor</span><span class="o">=</span><span class="n">tar_processor</span><span class="p">,</span>
-            <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span>
+            <span class="n">template_processor</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;template_processor&#39;</span><span class="p">),</span>
+            <span class="n">scheme_loader</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;scheme_loader&#39;</span><span class="p">),</span>
+            <span class="n">tar_processor</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tar_processor&#39;</span><span class="p">),</span>
+            <span class="n">context_bundle</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
         <span class="p">)</span></div>
 </div>
 

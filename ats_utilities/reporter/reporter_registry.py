@@ -26,11 +26,6 @@ from typing import Any, override
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.reporter.reporter_bundle import ReporterBundle
 from ats_utilities.reporter.reporter_params import ReporterParams
-from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.checker_registry import CheckerRegistry
-from ats_utilities.reporter.theme.engine import ConsoleTheme
-from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.logger_registry import LoggerRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -50,7 +45,6 @@ class ReporterRegistry(IRegistry[ReporterBundle, ReporterParams | None]):
 
             :methods:
                 | create_bundle - Creates a ReporterBundle.
-                | create_default_reporter_bundle - Creates a default ReporterBundle.
     '''
 
     @classmethod
@@ -71,23 +65,9 @@ class ReporterRegistry(IRegistry[ReporterBundle, ReporterParams | None]):
                 | ATSTypeError: Theme must be a Theme instance.
                 | ATSTypeError: Logger bundle must be a LoggerBundle instance.
         '''
-        return cls.create_default_reporter_bundle()
-
-    @classmethod
-    def create_default_reporter_bundle(cls) -> ReporterBundle:
-        '''
-            Creates a default ReporterBundle with pre-configured components.
-
-            :return: Default ReporterBundle instance.
-            :rtype: <ReporterBundle>
-            :exceptions: None.
-        '''
-        checker: Checker = Checker(component_bundle=CheckerRegistry.create_default_checker_bundle())
-        theme: ConsoleTheme = ConsoleTheme()
-        logger: Logger = Logger(component_bundle=LoggerRegistry.create_default_logger_bundle())
-
         return ReporterBundle(
-            checker=checker,
-            theme=theme,
-            logger=logger,
+            checker=params.get('checker') if params else None,
+            theme=params.get('theme') if params else None,
+            logger=params.get('logger') if params else None,
         )
+

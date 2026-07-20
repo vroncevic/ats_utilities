@@ -16,7 +16,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ats_utilities.project_setup.template_dir module" href="ats_utilities.project_setup.template_dir.html" />
-    <link rel="prev" title="ats_utilities.project_setup.project_setup_bundle module" href="ats_utilities.project_setup.project_setup_bundle.html" /> 
+    <link rel="prev" title="ats_utilities.project_setup.project_setup_params module" href="ats_utilities.project_setup.project_setup_params.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -31,7 +31,7 @@
           <a href="ats_utilities.project_setup.template_dir.html" title="ats_utilities.project_setup.template_dir module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.project_setup.project_setup_bundle.html" title="ats_utilities.project_setup.project_setup_bundle module"
+          <a href="ats_utilities.project_setup.project_setup_params.html" title="ats_utilities.project_setup.project_setup_params module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -69,7 +69,7 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.project_setup.project_setup_registry.ProjectSetupRegistry">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.project_setup.project_setup_registry.</span></span><span class="sig-name descname"><span class="pre">ProjectSetupRegistry</span></span><a class="reference internal" href="_modules/ats_utilities/project_setup/project_setup_registry.html#ProjectSetupRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.project_setup.project_setup_registry.ProjectSetupRegistry" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.utils.iregistry.html#ats_utilities.utils.iregistry.IRegistry" title="ats_utilities.utils.iregistry.IRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRegistry</span></code></a>[<a class="reference internal" href="ats_utilities.project_setup.project_setup_bundle.html#ats_utilities.project_setup.project_setup_bundle.ProjectSetupBundle" title="ats_utilities.project_setup.project_setup_bundle.ProjectSetupBundle"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProjectSetupBundle</span></code></a>]</p>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.utils.iregistry.html#ats_utilities.utils.iregistry.IRegistry" title="ats_utilities.utils.iregistry.IRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRegistry</span></code></a>[<a class="reference internal" href="ats_utilities.project_setup.project_setup_bundle.html#ats_utilities.project_setup.project_setup_bundle.ProjectSetupBundle" title="ats_utilities.project_setup.project_setup_bundle.ProjectSetupBundle"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProjectSetupBundle</span></code></a>, <a class="reference internal" href="ats_utilities.project_setup.project_setup_params.html#ats_utilities.project_setup.project_setup_params.ProjectSetupParams" title="ats_utilities.project_setup.project_setup_params.ProjectSetupParams"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProjectSetupParams</span></code></a>]</p>
 <p>Encapsulates core runtime components for simplification of ProjectSetupBundle creation.</p>
 <p>It defines:</p>
 <blockquote>
@@ -77,7 +77,6 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">create_bundle - Creates a ProjectSetupBundle.</div>
-<div class="line">create_default_project_setup_bundle - Creates a default ProjectSetupBundle.</div>
 </div>
 </dd>
 </dl>
@@ -89,11 +88,11 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.project_setup.project_setup_registry.ProjectSetupRegistry.create_bundle">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.project_setup.project_setup_bundle.html#ats_utilities.project_setup.project_setup_bundle.ProjectSetupBundle" title="ats_utilities.project_setup.project_setup_bundle.ProjectSetupBundle"><span class="pre">ProjectSetupBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/project_setup/project_setup_registry.html#ProjectSetupRegistry.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.project_setup.project_setup_registry.ProjectSetupRegistry.create_bundle" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.project_setup.project_setup_params.html#ats_utilities.project_setup.project_setup_params.ProjectSetupParams" title="ats_utilities.project_setup.project_setup_params.ProjectSetupParams"><span class="pre">ProjectSetupParams</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.project_setup.project_setup_bundle.html#ats_utilities.project_setup.project_setup_bundle.ProjectSetupBundle" title="ats_utilities.project_setup.project_setup_bundle.ProjectSetupBundle"><span class="pre">ProjectSetupBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/project_setup/project_setup_registry.html#ProjectSetupRegistry.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.project_setup.project_setup_registry.ProjectSetupRegistry.create_bundle" title="Link to this definition">¶</a></dt>
 <dd><p>Creates a ProjectSetupBundle instance.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kwargs</strong> – Additional registry-specific orchestration parameters.</p>
+<dd class="field-odd"><p><strong>params</strong> (<a class="reference internal" href="ats_utilities.project_setup.project_setup_params.html#ats_utilities.project_setup.project_setup_params.ProjectSetupParams" title="ats_utilities.project_setup.project_setup_params.ProjectSetupParams"><em>ProjectSetupParams</em></a>) – Registry-specific orchestration parameters.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>ProjectSetupBundle instance.</p>
@@ -108,29 +107,6 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <div class="line">ATSTypeError: Setup must be a mapping.</div>
 <div class="line">ATSTypeError: Context bundle must be a ContextBundle instance.</div>
 </div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.project_setup.project_setup_registry.ProjectSetupRegistry.create_default_project_setup_bundle">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_default_project_setup_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">setup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.project_setup.project_setup_bundle.html#ats_utilities.project_setup.project_setup_bundle.ProjectSetupBundle" title="ats_utilities.project_setup.project_setup_bundle.ProjectSetupBundle"><span class="pre">ProjectSetupBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/project_setup/project_setup_registry.html#ProjectSetupRegistry.create_default_project_setup_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.project_setup.project_setup_registry.ProjectSetupRegistry.create_default_project_setup_bundle" title="Link to this definition">¶</a></dt>
-<dd><p>Creates a default ProjectSetupBundle with pre-configured components.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>setup</strong> (<em>&lt;Mapping</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – The project setup dictionary.</p></li>
-<li><p><strong>context_bundle</strong> (<em>&lt;ContextBundle&gt;</em>) – The context bundle.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Default ProjectSetupBundle instance.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;ProjectSetupBundle&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -153,7 +129,6 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <li><a class="reference internal" href="#ats_utilities.project_setup.project_setup_registry.ProjectSetupRegistry"><code class="docutils literal notranslate"><span class="pre">ProjectSetupRegistry</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.project_setup.project_setup_registry.ProjectSetupRegistry._abc_impl"><code class="docutils literal notranslate"><span class="pre">ProjectSetupRegistry._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.project_setup.project_setup_registry.ProjectSetupRegistry.create_bundle"><code class="docutils literal notranslate"><span class="pre">ProjectSetupRegistry.create_bundle()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.project_setup.project_setup_registry.ProjectSetupRegistry.create_default_project_setup_bundle"><code class="docutils literal notranslate"><span class="pre">ProjectSetupRegistry.create_default_project_setup_bundle()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -163,8 +138,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.project_setup.project_setup_bundle.html"
-                          title="previous chapter">ats_utilities.project_setup.project_setup_bundle module</a></p>
+    <p class="topless"><a href="ats_utilities.project_setup.project_setup_params.html"
+                          title="previous chapter">ats_utilities.project_setup.project_setup_params module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -205,7 +180,7 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
           <a href="ats_utilities.project_setup.template_dir.html" title="ats_utilities.project_setup.template_dir module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.project_setup.project_setup_bundle.html" title="ats_utilities.project_setup.project_setup_bundle module"
+          <a href="ats_utilities.project_setup.project_setup_params.html" title="ats_utilities.project_setup.project_setup_params module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

@@ -10,6 +10,8 @@ Submodules
    ats_utilities.logger.engine
    ats_utilities.logger.ilogger
    ats_utilities.logger.logger_bundle
+   ats_utilities.logger.logger_factory
+   ats_utilities.logger.logger_params
    ats_utilities.logger.logger_registry
 
 Module contents

@@ -10,6 +10,7 @@ Submodules
    ats_utilities.option.strategy.engine
    ats_utilities.option.strategy.iparser_strategy
    ats_utilities.option.strategy.parser_strategy_bundle
+   ats_utilities.option.strategy.parser_strategy_params
    ats_utilities.option.strategy.parser_strategy_registry
 
 Module contents

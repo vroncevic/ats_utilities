@@ -24,7 +24,7 @@ from __future__ import annotations
 import unittest
 from typing import Any
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.splasher.property.splash_property import SplashProperty
 from ats_utilities.splasher.splash_keys import SplashKeys
@@ -66,12 +66,12 @@ class SplashPropertyTest(unittest.TestCase):
         }
 
     def test_init(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         sp = SplashProperty(context_bundle)
         self.assertEqual(sp.splash_keys, {})
 
     def test_getter_setter(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         sp = SplashProperty(context_bundle)
         prop = self._get_valid_prop()
         sp.splash_keys = prop
@@ -80,7 +80,7 @@ class SplashPropertyTest(unittest.TestCase):
         self.assertEqual(sp.splash_keys, expected)
 
     def test_setter_invalid(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         sp = SplashProperty(context_bundle)
 
         # Invalid type
@@ -94,7 +94,7 @@ class SplashPropertyTest(unittest.TestCase):
             sp.splash_keys = invalid_prop
 
     def test_validates(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         sp = SplashProperty(context_bundle)
 
         # Uninitialized validation exception (decorator @has_attrs)
@@ -110,7 +110,7 @@ class SplashPropertyTest(unittest.TestCase):
         self.assertTrue(sp.validates())
 
     def test_str(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_context_bundle()
         sp = SplashProperty(context_bundle)
         self.assertIn("SplashProperty", str(sp))
 

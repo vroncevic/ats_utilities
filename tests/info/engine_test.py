@@ -25,12 +25,12 @@ import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_factory import ContextFactory
 from ats_utilities.exceptions import ATSAttributeError, ATSTypeError, ATSValueError
 from ats_utilities.info.engine import InfoManager
 from ats_utilities.info.info_bundle import InfoBundle
 from ats_utilities.info.info_keys import InfoKeys
-from ats_utilities.info.info_registry import InfoRegistry
+from ats_utilities.info.info_factory import InfoFactory
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -77,8 +77,8 @@ class EngineTest(unittest.TestCase):
         }
 
     def test_init(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
-        bundle = InfoRegistry.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
+        context_bundle = ContextFactory.create_default_context_bundle()
+        bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
         self.assertIsInstance(manager, InfoManager)
         self.assertTrue(manager.is_initialized())
@@ -91,14 +91,14 @@ class EngineTest(unittest.TestCase):
             InfoManager(object())  # type: ignore
 
     def test_get_shared_context(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
-        bundle = InfoRegistry.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
+        context_bundle = ContextFactory.create_default_context_bundle()
+        bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
         self.assertIs(manager.get_shared_context(), context_bundle)
 
     def test_set_and_get_info(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
-        bundle = InfoRegistry.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
+        context_bundle = ContextFactory.create_default_context_bundle()
+        bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
 
         new_info = {
@@ -138,14 +138,14 @@ class EngineTest(unittest.TestCase):
         # Test retrieving when log_file is None
         info_data_no_log = self._get_valid_info_data().copy()
         info_data_no_log[InfoKeys.ATS_LOG_FILE] = None  # type: ignore
-        bundle_no_log = InfoRegistry.create_info_bundle_from_dict(info_data_no_log, context_bundle)
+        bundle_no_log = InfoFactory.create_info_bundle_from_dict(info_data_no_log, context_bundle)
         manager_no_log = InfoManager(bundle_no_log)
         retrieved_no_log = manager_no_log.get_info()
         self.assertNotIn(InfoKeys.ATS_LOG_FILE, retrieved_no_log)
 
     def test_set_info_invalid(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
-        bundle = InfoRegistry.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
+        context_bundle = ContextFactory.create_default_context_bundle()
+        bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
 
         # Missing key
@@ -161,8 +161,8 @@ class EngineTest(unittest.TestCase):
             manager.set_info(invalid_info_2)
 
     def test_dynamic_attributes(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
-        bundle = InfoRegistry.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
+        context_bundle = ContextFactory.create_default_context_bundle()
+        bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
 
         # Get managed attribute
@@ -175,8 +175,8 @@ class EngineTest(unittest.TestCase):
         self.assertEqual(bundle.name.name, "changed_name")
 
     def test_dynamic_attributes_invalid(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
-        bundle = InfoRegistry.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
+        context_bundle = ContextFactory.create_default_context_bundle()
+        bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
 
         # Get invalid attribute
@@ -184,8 +184,8 @@ class EngineTest(unittest.TestCase):
             _ = manager.invalid_attr
 
     def test_is_initialized(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
-        bundle = InfoRegistry.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
+        context_bundle = ContextFactory.create_default_context_bundle()
+        bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
         self.assertTrue(manager.is_initialized())
 
@@ -195,14 +195,14 @@ class EngineTest(unittest.TestCase):
         self.assertFalse(manager.is_initialized())
 
     def test_str(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
-        bundle = InfoRegistry.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
+        context_bundle = ContextFactory.create_default_context_bundle()
+        bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
         self.assertIn("InfoManager", str(manager))
 
     def test_setattr_edge_cases(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
-        bundle = InfoRegistry.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
+        context_bundle = ContextFactory.create_default_context_bundle()
+        bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
 
         # Set a regular attribute on manager itself

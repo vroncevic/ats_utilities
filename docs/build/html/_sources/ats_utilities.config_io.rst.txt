@@ -19,8 +19,11 @@ Submodules
 
    ats_utilities.config_io.conf_file
    ats_utilities.config_io.conf_file_bundle
+   ats_utilities.config_io.conf_file_factory
+   ats_utilities.config_io.conf_file_params
    ats_utilities.config_io.conf_file_registry
    ats_utilities.config_io.config_io_bundle
+   ats_utilities.config_io.config_io_params
    ats_utilities.config_io.config_io_registry
    ats_utilities.config_io.iconf_file
 

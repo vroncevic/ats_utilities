@@ -28,6 +28,8 @@ from ats_utilities.logger.engine import Logger
 from ats_utilities.reporter.reporter_bundle import ReporterBundle
 from ats_utilities.reporter.reporter_registry import ReporterRegistry
 from ats_utilities.reporter.theme.engine import ConsoleTheme
+from ats_utilities.reporter.reporter_params import ReporterParams
+from ats_utilities.reporter.reporter_factory import ReporterFactory
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -42,24 +44,18 @@ __status__: str = 'Development'
 class ReporterRegistryTest(unittest.TestCase):
     '''
         Defines class ReporterRegistryTest with attribute(s) and method(s).
-        Tests ReporterRegistry static factory logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_create_default_reporter_bundle - Tests default ReporterBundle creation.
+        Tests ReporterRegistry logic.
     '''
 
-    def test_create_default_reporter_bundle(self) -> None:
-        bundle = ReporterRegistry.create_default_reporter_bundle()
-        self.assertIsInstance(bundle, ReporterBundle)
-        self.assertIsInstance(bundle.checker, Checker)
-        self.assertIsInstance(bundle.theme, ConsoleTheme)
-        self.assertIsInstance(bundle.logger, Logger)
-
     def test_create_bundle(self) -> None:
-        bundle = ReporterRegistry.create_bundle()
+        factory_bundle = ReporterFactory.create_default_reporter_bundle()
+        bundle = ReporterRegistry.create_bundle(
+            ReporterParams(
+                checker=factory_bundle.checker,
+                theme=factory_bundle.theme,
+                logger=factory_bundle.logger
+            )
+        )
         self.assertIsInstance(bundle, ReporterBundle)
         self.assertIsInstance(bundle.checker, Checker)
         self.assertIsInstance(bundle.theme, ConsoleTheme)

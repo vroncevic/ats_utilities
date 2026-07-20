@@ -11,7 +11,9 @@ Submodules
    ats_utilities.generator.tar.itar_processor
    ats_utilities.generator.tar.tar_process_bundle
    ats_utilities.generator.tar.tar_process_member_bundle
+   ats_utilities.generator.tar.tar_process_member_params
    ats_utilities.generator.tar.tar_process_member_registry
+   ats_utilities.generator.tar.tar_process_params
    ats_utilities.generator.tar.tar_process_registry
 
 Module contents
