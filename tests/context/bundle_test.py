@@ -25,7 +25,7 @@ import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter

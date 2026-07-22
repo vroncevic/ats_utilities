@@ -24,7 +24,7 @@ from __future__ import annotations
 import unittest
 from typing import Any
 
-from ats_utilities.context.context_factory import ContextFactory
+from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.splasher.external.github_infrastructure import GitHubInfrastructure
 from ats_utilities.splasher.splash_keys import SplashKeys

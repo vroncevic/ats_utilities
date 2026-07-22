@@ -26,7 +26,7 @@ from collections.abc import Mapping
 from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.parser.parser_bundle import ParserBundle
 from ats_utilities.option.parser.parser_params import ParserParams
 from ats_utilities.info.info_keys import InfoKeys

@@ -35,7 +35,7 @@ from ats_utilities.info.use_github.iuse_github import IUseGitHub
 from ats_utilities.info.logo.ilogo import ILogo
 from ats_utilities.info.log_file.ilog_file import ILogFile
 from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.validation.check_value import not_empty, not_none
 from ats_utilities.validation.check_type import istype
 

@@ -30,7 +30,7 @@ from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.splasher.isplasher import ISplasher
 from ats_utilities.generator.igenerator import IGenerator
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 

@@ -25,8 +25,7 @@ from __future__ import annotations
 from typing import override
 
 from ats_utilities.project_setup.itemplate_dir import ITemplateDir
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -41,7 +40,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class TemplateDir(ContextSupport, ITemplateDir):
+class TemplateDir(ITemplateDir):
     '''
         Defines class TemplateDir with attribute(s) and method(s).
         Defines project template directory container.
@@ -59,6 +58,7 @@ class TemplateDir(ContextSupport, ITemplateDir):
     '''
 
     _template_dir: str | None
+    _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
@@ -70,7 +70,7 @@ class TemplateDir(ContextSupport, ITemplateDir):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        ContextSupport.__init__(self, context_bundle)
+        self._context = context_bundle
         self._template_dir = None
 
     @property

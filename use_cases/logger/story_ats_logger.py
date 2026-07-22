@@ -20,7 +20,7 @@ from ats_utilities.logger.engine import Logger
 # default logging [logging]
 # ==========================
 #
-logger_default: Logger = Logger(component_bundle=LoggerRegistry.create_default_logger_bundle())
+logger_default: Logger = Logger(own=LoggerRegistry.create_default_logger_bundle())
 logger_default.write_log("debug test", DEBUG)
 logger_default.write_log("info test", INFO)
 logger_default.write_log("warning test", WARNING)
@@ -69,7 +69,7 @@ class LoguruATSAdapter(ILogger):
 
 custom_logger = LoguruATSAdapter()
 bundle: LoggerBundle = LoggerBundle(logger=custom_logger, log_file='run.log', log_level=DEBUG)
-logger_custom: Logger = Logger(component_bundle=bundle)
+logger_custom: Logger = Logger(own=bundle)
 logger_custom.write_log("debug test", DEBUG)
 logger_custom.write_log("info test", INFO)
 logger_custom.write_log("warning test", WARNING)

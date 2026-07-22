@@ -24,7 +24,7 @@ from __future__ import annotations
 import unittest
 from unittest.mock import patch, MagicMock
 
-from ats_utilities.context.context_factory import ContextFactory
+from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.splasher.terminal.terminal_properties import TerminalProperties
 

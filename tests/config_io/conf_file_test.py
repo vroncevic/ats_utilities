@@ -9,7 +9,7 @@ from typing import Any
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 
 
 class TestConfFile(unittest.TestCase):

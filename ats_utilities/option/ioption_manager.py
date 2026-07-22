@@ -22,8 +22,6 @@ Info
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
-
 from abc import ABC, abstractmethod
 from collections.abc import Sequence, Mapping
 from typing import Any
@@ -31,7 +29,7 @@ from typing import Any
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -43,7 +41,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IOptionManager(IContextSupport, ABC):
+class IOptionManager(ABC):
     '''
         Defines abstract class IOptionManager with method(s).
         Creates an interface for option parsing.
@@ -51,7 +49,7 @@ class IOptionManager(IContextSupport, ABC):
         It defines:
 
             :methods:
-                | get_shared_context - Returns the shared context.
+                | get_context - Returns the context.
                 | add_operation - Adds an option to the parser.
                 | add_version_operation - Adds version option to the parser.
                 | parse_input_args - Processes arguments from the start.
@@ -63,11 +61,11 @@ class IOptionManager(IContextSupport, ABC):
     '''
 
     @abstractmethod
-    def get_shared_context(self) -> ContextBundle:
+    def get_context(self) -> ContextBundle:
         '''
-            Returns the shared context.
+            Returns the context.
 
-            :return: Shared context
+            :return: Context
             :rtype: <ContextBundle>
             :exceptions: None.
         '''

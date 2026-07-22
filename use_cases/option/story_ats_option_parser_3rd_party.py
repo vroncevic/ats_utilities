@@ -27,7 +27,7 @@ from typing import Any
 
 from fire import Fire  # type: ignore
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.registry import ContextRegistry
 from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.utils.reflection import to_str
@@ -65,15 +65,15 @@ class MyAppFireStrategy(IParserStrategy, ContextSupport):
                 | is_initialized - check if the parser is initialized.
                 | __str__ - return string representation of the parser.
     '''
-    def __init__(self, component_bundle: ParserStrategyBundle) -> None:
+    def __init__(self, own: ParserStrategyBundle) -> None:
         '''
             Initializes MyAppFireStrategy.
 
-            :param component_bundle: Bundle with components for strategy.
-            :type component_bundle: <ParserStrategyBundle>
+            :param own: Bundle with components for strategy.
+            :type own: <ParserStrategyBundle>
             :exceptions: None.
         '''
-        ContextSupport.__init__(self, component_bundle.context_bundle)
+        ContextSupport.__init__(self, own.context_bundle)
         self._target = types.SimpleNamespace()
 
     def add_argument(self, *args: str, **kwargs: Any) -> None:
@@ -128,13 +128,13 @@ strategy_bundle = ParserStrategyBundle(
     parameters=opt_parser,
     context_bundle=context_bundle
 )
-fire_strategy = MyAppFireStrategy(component_bundle=strategy_bundle)
+fire_strategy = MyAppFireStrategy(own=strategy_bundle)
 bundle: OptionBundle = OptionBundle(
     parameters=opt_parser,
     strategy=fire_strategy,
     context_bundle=context_bundle
 )
-parser2 = OptionManager(component_bundle=bundle)
+parser2 = OptionManager(own=bundle)
 parser2.add_version_operation('1.2.5')
 parser2.add_operation(OPS[0], OPS[1], dest='name', help='generate project (provide name)')
 parser2.add_operation('--db-name', default='test_db')

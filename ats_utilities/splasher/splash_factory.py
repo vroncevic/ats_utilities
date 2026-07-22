@@ -35,7 +35,7 @@ from ats_utilities.splasher.external.github_infrastructure import GitHubInfrastr
 from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
 from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

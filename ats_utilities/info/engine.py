@@ -26,11 +26,10 @@ from collections.abc import Mapping
 from typing import Any, override
 
 from ats_utilities.info.iinfo_manager import IInfoManager
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.info_bundle import InfoBundle
 from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.exceptions import ATSAttributeError
-from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_satisfied, not_none
 from ats_utilities.validation.check_type import istype
@@ -45,7 +44,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class InfoManager(ContextSupport, IInfoManager):
+class InfoManager(IInfoManager):
     '''
         Defines class InfoManager with attribute(s) and method(s).
         Creates an API for the information in one container object.
@@ -57,11 +56,11 @@ class InfoManager(ContextSupport, IInfoManager):
 
             :attributes:
                 | _components - The info components (default InfoBundle).
-                | _shared_context - Context bundle with shared context.
+                | _context - Context bundle with context.
                 | _is_initialized - Indicates if the info manager component is initialized (default False).
             :methods:
                 | __init__ - Initializes InfoManager constructor.
-                | get_shared_context - Returns the shared context.
+                | get_context - Returns the context.
                 | set_info - Sets the information.
                 | get_info - Gets the information.
                 | is_initialized - Checks if info manager is initialized.
@@ -71,14 +70,14 @@ class InfoManager(ContextSupport, IInfoManager):
 
     _is_initialized: bool
     _components: InfoBundle
-    _shared_context: ContextBundle
+    _context: ContextBundle
 
-    def __init__(self, component_bundle: InfoBundle) -> None:
+    def __init__(self, own: InfoBundle) -> None:
         '''
             Initializes InfoManager constructor.
 
-            :param component_bundle: Bundle with components.
-            :type component_bundle: <InfoBundle>
+            :param own: Bundle with components.
+            :type own: <InfoBundle>
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSValueError: Context bundle must be provided.
@@ -86,24 +85,23 @@ class InfoManager(ContextSupport, IInfoManager):
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
         context: str = r'info_manager::init(...)'
-        not_none(component_bundle, context, r'component_bundle must be provided')
-        istype(component_bundle, InfoBundle, context, r'component_bundle must be an instance of InfoBundle')
-        self._components = component_bundle
-        self._shared_context = self._components.context_bundle
-        ContextSupport.__init__(self, self._shared_context)
+        not_none(own, context, r'own must be provided')
+        istype(own, InfoBundle, context, r'own must be an instance of InfoBundle')
+        self._components = own
+        self._context = self._components.context_bundle
         self.refresh_status()
         self._is_initialized = True
 
     @override
-    def get_shared_context(self) -> ContextBundle:
+    def get_context(self) -> ContextBundle:
         '''
-            Returns the shared context.
+            Returns the context.
 
-            :return: Shared context.
+            :return: Context.
             :rtype: <ContextBundle>
             :exceptions: None.
         '''
-        return self._shared_context
+        return self._context
 
     @override
     def set_info(self, info: Mapping[str, Any]) -> None:

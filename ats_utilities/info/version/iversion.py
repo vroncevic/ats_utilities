@@ -22,8 +22,6 @@ Info
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
-
 from abc import ABC, abstractmethod
 
 __author__ = r'Vladimir Roncevic'
@@ -36,7 +34,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IVersion(IContextSupport, ABC):
+class IVersion(ABC):
     '''
         Defines abstract class IVersion with method(s).
         Interface for the version mechanism.

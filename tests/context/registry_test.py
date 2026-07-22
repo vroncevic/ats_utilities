@@ -2,7 +2,7 @@
 
 '''
 Module
-    context_factory_test.py
+    context_registry_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,18 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ContextFactory class.
+    Unit tests for ContextRegistry class.
 '''
 
 from __future__ import annotations
 
 import unittest
 
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_factory import ContextFactory
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.registry import ContextRegistry
+from ats_utilities.context.params import ContextDependencies
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -39,30 +37,16 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
 
 
-class ContextFactoryTest(unittest.TestCase):
+class ContextRegistryTest(unittest.TestCase):
     '''
-        Defines class ContextFactoryTest with attribute(s) and method(s).
-        Tests ContextFactory static factory logic.
+        Defines class ContextRegistryTest with attribute(s) and method(s).
+        Tests ContextRegistry logic.
     '''
 
-    def test_create_default_context_bundle(self) -> None:
-        '''
-            Tests create_default_context_bundle.
-
-            :exceptions: None.
-        '''
-        # Test with verbose=False
-        bundle = ContextFactory.create_default_context_bundle(verbose=False)
+    def test_create_bundle(self) -> None:
+        bundle = ContextRegistry.create_bundle(ContextDependencies(verbose=True))
         self.assertIsInstance(bundle, ContextBundle)
-        self.assertIsInstance(bundle.checker, IChecker)
-        self.assertIsInstance(bundle.logger, ILogger)
-        self.assertIsInstance(bundle.reporter, IReporter)
-        self.assertFalse(bundle.verbose)
-
-        # Test with verbose=True
-        bundle_verbose = ContextFactory.create_default_context_bundle(verbose=True)
-        self.assertIsInstance(bundle_verbose, ContextBundle)
-        self.assertTrue(bundle_verbose.verbose)
+        self.assertTrue(bundle.verbose)
 
 
 if __name__ == "__main__":

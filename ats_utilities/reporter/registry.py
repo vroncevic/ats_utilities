@@ -24,8 +24,8 @@ from __future__ import annotations
 from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
-from ats_utilities.reporter.reporter_bundle import ReporterBundle
-from ats_utilities.reporter.reporter_params import ReporterParams
+from ats_utilities.reporter.bundle import ReporterBundle
+from ats_utilities.reporter.params import ReporterParams
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

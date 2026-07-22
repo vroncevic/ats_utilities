@@ -31,8 +31,7 @@ from ats_utilities.generator.tar.itar_processor import ITarProcessor
 from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
 from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.utils.files import (
     normalize_path, resolve_relative_path, is_excluded_path, apply_path_replacements, write_content
@@ -52,7 +51,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class TarProcessor(ContextSupport, ITarProcessor):
+class TarProcessor(ITarProcessor):
     '''
         Defines class TarProcessor with method(s).
         Handles tar archive extraction and template rendering.
@@ -89,7 +88,7 @@ class TarProcessor(ContextSupport, ITarProcessor):
                 | ATSValueError: Template processor must be provided.
                 | ATSTypeError: Template processor must be an instance of ITemplateProcessor.   
         '''
-        ContextSupport.__init__(self, context_bundle)
+        self._context = context_bundle
         not_none(
             template_processor,
             r'tar_processor::init(...)',
@@ -222,7 +221,7 @@ class TarProcessor(ContextSupport, ITarProcessor):
                     )
 
         except Exception as exc:
-            msg: str = format_error_raw(self, exc)
+            msg: str = format_error_raw(exc, self._context.verbose)
             not_satisfied(
                 True,
                 r'tar_processor::process(...)',

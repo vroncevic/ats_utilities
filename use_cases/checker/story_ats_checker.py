@@ -31,5 +31,5 @@ __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
-ats_checker = Checker(component_bundle=CheckerRegistry.create_default_checker_bundle())
+ats_checker = Checker(own=CheckerRegistry.create_default_checker_bundle())
 print(ats_checker)

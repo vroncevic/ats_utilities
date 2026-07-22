@@ -24,8 +24,8 @@ from __future__ import annotations
 from typing import Any, override
 
 from ats_utilities.utils.iregistry import IRegistry
-from ats_utilities.checker.checker_bundle import CheckerBundle
-from ats_utilities.checker.checker_params import CheckerParams
+from ats_utilities.checker.bundle import CheckerBundle
+from ats_utilities.checker.params import CheckerParams
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

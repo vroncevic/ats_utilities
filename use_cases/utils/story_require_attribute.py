@@ -58,12 +58,12 @@ class TestComponent:
         :exceptions: None.
         '''
         checker_bundle = CheckerRegistry.create_default_checker_bundle()
-        self._checker: IChecker = make_component(None, Checker, {'component_bundle': checker_bundle})
+        self._checker: IChecker = make_component(None, Checker, {'own': checker_bundle})
         self._theme: IConsoleTheme = make_component(None, ConsoleTheme, None)
         logger_bundle = LoggerRegistry.create_default_logger_bundle()
-        logger_instance = make_component(None, Logger, {'component_bundle': logger_bundle})
+        logger_instance = make_component(None, Logger, {'own': logger_bundle})
         reporter_bundle = ReporterBundle(theme=self._theme, checker=self._checker, logger=logger_instance)
-        self._reporter: IReporter = make_component(None, Reporter, {'component_bundle': reporter_bundle})
+        self._reporter: IReporter = make_component(None, Reporter, {'own': reporter_bundle})
         validate_component(self._checker, IChecker, 'testcomponent::__init__', 'checker should be of type IChecker')
         validate_component(self._theme, IConsoleTheme, 'testcomponent::__init__', 'theme should be of type IConsoleTheme')
         validate_component(self._reporter, IReporter, 'testcomponent::__init__', 'reporter should be of type IReporter')

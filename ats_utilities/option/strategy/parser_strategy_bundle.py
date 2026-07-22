@@ -26,7 +26,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.parser.iarg_parser import IArgParser
 from ats_utilities.option.parser.engine import ArgParser
 from ats_utilities.validation.check_type import istype

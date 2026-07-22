@@ -29,8 +29,7 @@ from termios import TIOCGWINSZ
 from struct import unpack, pack
 
 from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -45,7 +44,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class TerminalProperties(ContextSupport, ITerminalProperties):
+class TerminalProperties(ITerminalProperties):
     '''
         Defines class TerminalProperties with attribute(s) and method(s).
         Creates an API for getting terminal properties.
@@ -63,6 +62,7 @@ class TerminalProperties(ContextSupport, ITerminalProperties):
     '''
 
     _window_size: tuple[Any, ...] | None
+    _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
@@ -74,7 +74,7 @@ class TerminalProperties(ContextSupport, ITerminalProperties):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        ContextSupport.__init__(self, context_bundle)
+        self._context = context_bundle
         self._window_size = None
 
     @mcheck([('int:file_descriptor', None)])

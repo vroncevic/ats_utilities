@@ -27,8 +27,7 @@ from string import Template
 from typing import override
 
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
@@ -41,7 +40,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class TemplateProcessor(ContextSupport, ITemplateProcessor):
+class TemplateProcessor(ITemplateProcessor):
     '''
         Defines class TemplateProcessor with method(s).
         Handles string rendering and template substitutions.
@@ -58,6 +57,7 @@ class TemplateProcessor(ContextSupport, ITemplateProcessor):
     '''
 
     _initialized: bool
+    _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
@@ -69,7 +69,7 @@ class TemplateProcessor(ContextSupport, ITemplateProcessor):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        ContextSupport.__init__(self, context_bundle)
+        self._context = context_bundle
         self._initialized = True
 
     @override

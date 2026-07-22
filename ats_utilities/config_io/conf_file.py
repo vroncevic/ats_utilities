@@ -30,7 +30,7 @@ from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
 from ats_utilities.config_io.iconf_file import File
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.utils.files import check_file_exists
 from ats_utilities.validation.check_value import not_none
@@ -46,7 +46,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ConfFile(ContextSupport, IConfFile):
+class ConfFile(IConfFile):
     '''
         Defines class ConfFile with attribute(s) and method(s).
         Creates an API for configuration file context manager.
@@ -68,6 +68,7 @@ class ConfFile(ContextSupport, IConfFile):
     _file: File | None
     _file_path: str
     _file_mode: str
+    _context: ContextBundle
 
     def __init__(self, file_bundle: ConfFileBundle) -> None:
         '''
@@ -84,7 +85,7 @@ class ConfFile(ContextSupport, IConfFile):
         context: str = r'conf_file::init(...)'
         not_none(file_bundle, context, r'file bundle must be provided')
         istype(file_bundle, ConfFileBundle, context, r'file bundle must be an instance of ConfFileBundle')
-        ContextSupport.__init__(self, file_bundle.context_bundle)
+        self._context = file_bundle.context_bundle
         self._file = None
         self._file_path = file_bundle.file_path
         self._file_mode = file_bundle.file_mode

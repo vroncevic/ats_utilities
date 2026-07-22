@@ -25,8 +25,7 @@ from __future__ import annotations
 from typing import override
 
 from ats_utilities.info.log_file.ilog_file import ILogFile
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -41,7 +40,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class LogFile(ContextSupport, ILogFile):
+class LogFile(ILogFile):
     '''
         Defines class LogFile with attribute(s) and method(s).
         Creates an API for the log file path in one property object.
@@ -59,6 +58,7 @@ class LogFile(ContextSupport, ILogFile):
     '''
 
     _log_file: str | None
+    _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
@@ -70,7 +70,7 @@ class LogFile(ContextSupport, ILogFile):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        ContextSupport.__init__(self, context_bundle)
+        self._context = context_bundle
         self._log_file = None
 
     @property

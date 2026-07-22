@@ -2,7 +2,7 @@
 
 '''
 Module
-    context_factory.py
+    reporter_factory.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,19 +16,17 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory for creating ContextBundle components.
+    Factory for creating ReporterBundle components.
 '''
 
 from __future__ import annotations
 
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.checker_factory import CheckerFactory
+from ats_utilities.reporter.theme.engine import ConsoleTheme
 from ats_utilities.logger.engine import Logger
 from ats_utilities.logger.logger_factory import LoggerFactory
-from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.reporter_bundle import ReporterBundle
-from ats_utilities.reporter.theme.engine import ConsoleTheme
-from ats_utilities.context.context_bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,31 +38,26 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ContextFactory:
+class ReporterFactory:
     '''
-        Factory for creating ContextBundle components.
+        Factory for creating ReporterBundle components.
     '''
 
     @classmethod
-    def create_default_context_bundle(cls, verbose: bool = False) -> ContextBundle:
+    def create_default_reporter_bundle(cls) -> ReporterBundle:
         '''
-            Creates a default ContextBundle with pre-configured components.
+            Creates a default ReporterBundle with pre-configured components.
 
-            :param verbose: Enables verbose output (default False).
-            :type verbose: <bool>
-            :return: Default ContextBundle instance.
-            :rtype: <ContextBundle>
+            :return: Default ReporterBundle instance.
+            :rtype: <ReporterBundle>
             :exceptions: None.
         '''
-        checker: Checker = Checker(component_bundle=CheckerFactory.create_default_checker_bundle())
+        checker: Checker = Checker(own=CheckerFactory.create_default_checker_bundle())
         theme: ConsoleTheme = ConsoleTheme()
-        logger: Logger = Logger(component_bundle=LoggerFactory.create_default_logger_bundle())
-        reporter_bundle: ReporterBundle = ReporterBundle(checker=checker, theme=theme, logger=logger)
-        reporter: Reporter = Reporter(component_bundle=reporter_bundle)
+        logger: Logger = Logger(own=LoggerFactory.create_default_logger_bundle())
 
-        return ContextBundle(
+        return ReporterBundle(
             checker=checker,
+            theme=theme,
             logger=logger,
-            reporter=reporter,
-            verbose=verbose
         )

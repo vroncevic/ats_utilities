@@ -24,7 +24,7 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.strategy.parser_strategy_bundle import ParserStrategyBundle
 from ats_utilities.option.strategy.parser_strategy_registry import ParserStrategyRegistry
 from ats_utilities.option.strategy.parser_strategy_params import ParserStrategyParams

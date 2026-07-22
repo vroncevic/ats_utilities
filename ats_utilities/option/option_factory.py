@@ -27,7 +27,7 @@ from typing import Any
 from ats_utilities.option.option_bundle import OptionBundle
 from ats_utilities.option.strategy.engine import ParserStrategy
 from ats_utilities.option.strategy.parser_strategy_registry import ParserStrategyRegistry
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.parser.iarg_parser import IArgParser
 from ats_utilities.option.parser.engine import ArgParser
 
@@ -71,7 +71,7 @@ class OptionFactory:
             context_bundle=context_bundle,
             parser_class=parser_class
         )
-        strategy: ParserStrategy = ParserStrategy(component_bundle=parser_strategy_bundle)
+        strategy: ParserStrategy = ParserStrategy(own=parser_strategy_bundle)
 
         return OptionBundle(
             parameters=parameters,

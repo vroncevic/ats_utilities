@@ -32,7 +32,7 @@ from ats_utilities.checker.type.itype_validator import ITypeValidator
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
-from ats_utilities.checker.checker_bundle import CheckerBundle
+from ats_utilities.checker.bundle import CheckerBundle
 from ats_utilities.checker.reporter.checker_reporter_bundle import (
     CheckerReporterBundle, ParamMetadata
 )
@@ -79,23 +79,23 @@ class Checker(IChecker):
     _context_provider: IContextProvider
     _check_reporter: ICheckReporter
 
-    def __init__(self, component_bundle: CheckerBundle) -> None:
+    def __init__(self, own: CheckerBundle) -> None:
         '''
             Initializes Checker constructor.
 
-            :param component_bundle: Bundle with components.
-            :type component_bundle: <CheckerBundle>
+            :param own: Bundle with components.
+            :type own: <CheckerBundle>
             :exceptions:
                 | ATSValueError - Component bundle must be provided.
                 | ATSTypeError - Component bundle must be a CheckerBundle instance.
         '''
         context: str = r'checker::init(...)'
-        not_none(component_bundle, context, r'component bundle must be provided')
-        istype(component_bundle, CheckerBundle, context, r'component bundle must be a CheckerBundle instance')
-        self._format_validator = component_bundle.format_validator
-        self._type_validator = component_bundle.type_validator
-        self._context_provider = component_bundle.context_provider
-        self._check_reporter = component_bundle.check_reporter
+        not_none(own, context, r'component bundle must be provided')
+        istype(own, CheckerBundle, context, r'component bundle must be a CheckerBundle instance')
+        self._format_validator = own.format_validator
+        self._type_validator = own.type_validator
+        self._context_provider = own.context_provider
+        self._check_reporter = own.check_reporter
         self._is_initialized = True
 
     @override

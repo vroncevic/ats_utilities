@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, patch
 
 from ats_utilities.base.base_factory import BaseFactory
 from ats_utilities.base.base_bundle import BaseBundle
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.info.engine import InfoManager
 from ats_utilities.option.engine import OptionManager
@@ -131,7 +131,7 @@ class TestBaseFactory(unittest.TestCase):
         mock_cfg_reg.create_config_io_bundle_by_file_path_and_scheme.assert_called_once_with(
             file_path=self.info_file, scheme={}, context_bundle=self.mock_context_bundle
         )
-        mock_loader_cls.assert_called_once_with(component_bundle=mock_config_bundle)
+        mock_loader_cls.assert_called_once_with(own=mock_config_bundle)
         mock_loader_inst.load_configuration.assert_called_once()
         mock_get_first.assert_called_once_with(self.config_data, ('ats_log_path', 'ats_log_file'))
         
@@ -141,7 +141,7 @@ class TestBaseFactory(unittest.TestCase):
         mock_info_reg.create_info_bundle_from_dict.assert_called_once_with(
             info=self.config_data, context_bundle=self.mock_context_bundle
         )
-        mock_info_cls.assert_called_once_with(component_bundle=mock_info_bundle)
+        mock_info_cls.assert_called_once_with(own=mock_info_bundle)
         
         # Verify Path normalizations for asset directory context shifts
         self.assertEqual(mock_info_inst.logo, "/opt/ats/config/assets/logo.png")
@@ -149,12 +149,12 @@ class TestBaseFactory(unittest.TestCase):
         mock_splash_reg.create_splash_bundle_from_dict.assert_called_once_with(
             prop={"meta": "data"}, context_bundle=self.mock_context_bundle
         )
-        mock_splash_cls.assert_called_once_with(component_bundle=mock_splash_bundle)
+        mock_splash_cls.assert_called_once_with(own=mock_splash_bundle)
 
         mock_opt_reg.create_option_bundle_from_dict.assert_called_once_with(
             parameters={"meta": "data"}, context_bundle=self.mock_context_bundle
         )
-        mock_opt_cls.assert_called_once_with(component_bundle=mock_opt_bundle)
+        mock_opt_cls.assert_called_once_with(own=mock_opt_bundle)
 
         # Generator boundary configurations
         mock_gen_reg.create_default_generator_bundle.assert_not_called()
@@ -219,7 +219,7 @@ class TestBaseFactory(unittest.TestCase):
         mock_gen_reg.create_default_generator_bundle.assert_called_once_with(
             context_bundle=self.mock_context_bundle
         )
-        mock_gen_cls.assert_called_once_with(component_bundle=mock_gen_bundle)
+        mock_gen_cls.assert_called_once_with(own=mock_gen_bundle)
 
         mock_bundle_cls.assert_called_once_with(
             info_file=self.info_file,

@@ -2,7 +2,7 @@
 
 '''
 Module
-    context_registry.py
+    registry.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -21,11 +21,12 @@ Info
 
 from __future__ import annotations
 
-from typing import Any, override
+from typing import override
 
 from ats_utilities.utils.iregistry import IRegistry
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_params import ContextParams
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.dependencies import ContextDependencies
+from ats_utilities.context.validator import ContextValidator
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,7 +38,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ContextRegistry(IRegistry[ContextBundle, ContextParams | None]):
+class ContextRegistry(IRegistry[ContextBundle, ContextDependencies | None]):
     '''
         Encapsulates core runtime components for simplification of ContextBundle creation.
 
@@ -49,23 +50,34 @@ class ContextRegistry(IRegistry[ContextBundle, ContextParams | None]):
 
     @classmethod
     @override
-    def create_bundle(cls, params: ContextParams | None = None) -> ContextBundle:
+    def create_bundle(cls, dependencies: ContextDependencies | None) -> ContextBundle:
         '''
-            Creates a ContextBundle instance using optional verbose parameter.
+            Orchestrates dependency injection and creates a context bundle instance.
 
-            :param params: Registry-specific orchestration parameters.
-            :type params: ContextParams | None
-            :return: ContextBundle instance.
-            :rtype: <ContextBundle>
+            :param dependencies: Dependencies required to construct the context bundle.
+            :type dependencies: ContextDependencies
+            :return: Context bundle instance.
+            :rtype: ContextBundle
             :exceptions:
+                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Checker must be provided.
+                | ATSValueError: Logger must be provided.
+                | ATSValueError: Reporter must be provided.
                 | ATSValueError: Verbose must be provided.
+                | ATSTypeError: Bundle must be an instance of ContextBundle.
+                | ATSTypeError: Checker must be an instance of IChecker.
+                | ATSTypeError: Logger must be an instance of ILogger.
+                | ATSTypeError: Reporter must be an instance of IReporter.
                 | ATSTypeError: Verbose must be a boolean.
         '''
-        verbose: bool = params.get('verbose', False) if params else False
-        return ContextBundle(
-            checker=params.get('checker') if params else None,
-            logger=params.get('logger') if params else None,
-            reporter=params.get('reporter') if params else None,
-            verbose=verbose
+        bundle: ContextBundle = ContextBundle(
+            checker=dependencies.get('checker') if dependencies else None,
+            logger=dependencies.get('logger') if dependencies else None,
+            reporter=dependencies.get('reporter') if dependencies else None,
+            verbose=dependencies.get('verbose') if dependencies else False
         )
+
+        ContextValidator.validate(bundle)
+
+        return bundle
 

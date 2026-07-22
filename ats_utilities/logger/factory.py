@@ -25,7 +25,7 @@ from sys import stdout
 from logging import Logger, getLogger, basicConfig, INFO
 from typing import Any
 
-from ats_utilities.logger.logger_bundle import LoggerBundle
+from ats_utilities.logger.bundle import LoggerBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

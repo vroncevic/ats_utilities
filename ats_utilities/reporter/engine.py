@@ -27,7 +27,7 @@ from logging import DEBUG, INFO, WARNING, ERROR
 from typing import Any, override
 
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.reporter_bundle import ReporterBundle
+from ats_utilities.reporter.bundle import ReporterBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.logger.ilogger import ILogger
@@ -75,30 +75,30 @@ class Reporter(IReporter):
     _logger: ILogger
     _is_initialized: bool
 
-    def __init__(self, component_bundle: ReporterBundle) -> None:
+    def __init__(self, own: ReporterBundle) -> None:
         '''
             Initializes Reporter.
 
-            :param component_bundle: Reporter component bundle.
-            :type component_bundle: <ReporterBundle>
+            :param own: Reporter component bundle.
+            :type own: <ReporterBundle>
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSTypeError: Component bundle must be a ReporterBundle instance.
         '''
         not_none(
-            component_bundle,
+            own,
             r'reporter::init',
             r'component bundle must be provided'
         )
         istype(
-            component_bundle,
+            own,
             ReporterBundle,
             r'reporter::init',
             r'component bundle must be a ReporterBundle instance'
         )
-        self._checker = component_bundle.checker
-        self._theme = component_bundle.theme
-        self._logger = component_bundle.logger
+        self._checker = own.checker
+        self._theme = own.theme
+        self._logger = own.logger
         self._is_initialized = True
 
     def _report(self, message: Sequence[Any], color: str, ctrl: int) -> None:

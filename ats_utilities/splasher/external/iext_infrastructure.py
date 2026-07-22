@@ -22,8 +22,6 @@ Info
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
-
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
 from typing import Any
@@ -38,7 +36,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IExtInfrastructure(IContextSupport, ABC):
+class IExtInfrastructure(ABC):
     '''
         Defines abstract class IExtInfrastructure with method(s).
         Interface for processing hyperlinks for splash screen.

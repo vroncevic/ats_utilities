@@ -6,7 +6,7 @@ from collections.abc import Mapping
 
 # Adjust imports according to your project structure
 from ats_utilities.generator.template.engine import TemplateProcessor
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 
 
 class TestTemplateProcessor(unittest.TestCase):

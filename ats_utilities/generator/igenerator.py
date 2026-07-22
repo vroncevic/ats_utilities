@@ -22,12 +22,10 @@ Info
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
-
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.gen_params_bundle import GenParamsBundle
 
 __author__ = r'Vladimir Roncevic'
@@ -40,7 +38,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IGenerator(IContextSupport, ABC):
+class IGenerator(ABC):
     '''
         Defines abstract class IGenerator with method(s).
         Creates an interface for template-based file generation from .tgz archives.
@@ -48,7 +46,7 @@ class IGenerator(IContextSupport, ABC):
         It defines:
 
             :methods:
-                | get_shared_context - Returns the shared context.
+                | get_context - Returns the context.
                 | prepare_template_values - Prepares template values.
                 | generate - Generates project modules/files from a .tgz archive.
                 | is_initialized - Checks if the generator component is initialized.
@@ -56,11 +54,11 @@ class IGenerator(IContextSupport, ABC):
     '''
 
     @abstractmethod
-    def get_shared_context(self) -> ContextBundle:
+    def get_context(self) -> ContextBundle:
         '''
-            Returns the shared context.
+            Returns the context.
 
-            :return: Shared context.
+            :return: Context.
             :rtype: <ContextBundle>
             :exceptions: None.
         '''

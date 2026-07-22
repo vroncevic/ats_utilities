@@ -2,7 +2,7 @@
 
 '''
 Module
-    reporter_factory.py
+    ifactory.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,17 +16,13 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory for creating ReporterBundle components.
+    Abstract interface for all bundle factories.
+    Encapsulates standard creation behavior across default bundle instances.
 '''
 
 from __future__ import annotations
 
-from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.checker_factory import CheckerFactory
-from ats_utilities.reporter.theme.engine import ConsoleTheme
-from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.logger_factory import LoggerFactory
-from ats_utilities.reporter.reporter_bundle import ReporterBundle
+from abc import ABC, abstractmethod
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,26 +34,26 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ReporterFactory:
+class IFactory[BundleType, OptionsType](ABC):
     '''
-        Factory for creating ReporterBundle components.
+        Abstract interface for all bundle factories.
+        Encapsulates standard creation behavior across default bundle instances.
+
+        It defines:
+
+            :methods:
+                | create_default_bundle - Creates a default bundle with pre-configured options.
     '''
 
     @classmethod
-    def create_default_reporter_bundle(cls) -> ReporterBundle:
+    @abstractmethod
+    def create_default_bundle(cls, options: OptionsType) -> BundleType:
         '''
-            Creates a default ReporterBundle with pre-configured components.
+            Creates a default bundle with pre-configured options.
 
-            :return: Default ReporterBundle instance.
-            :rtype: <ReporterBundle>
-            :exceptions: None.
+            :param options: Creation options/parameters for the bundle.
+            :type options: OptionsType
+            :return: Default bundle instance.
+            :rtype: BundleType
         '''
-        checker: Checker = Checker(component_bundle=CheckerFactory.create_default_checker_bundle())
-        theme: ConsoleTheme = ConsoleTheme()
-        logger: Logger = Logger(component_bundle=LoggerFactory.create_default_logger_bundle())
-
-        return ReporterBundle(
-            checker=checker,
-            theme=theme,
-            logger=logger,
-        )
+        pass

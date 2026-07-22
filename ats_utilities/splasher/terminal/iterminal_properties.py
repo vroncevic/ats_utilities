@@ -22,8 +22,6 @@ Info
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
-
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -37,7 +35,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ITerminalProperties(IContextSupport, ABC):
+class ITerminalProperties(ABC):
     '''
         Defines abstract class ITerminalProperties with method(s).
         Interface for getting terminal properties.

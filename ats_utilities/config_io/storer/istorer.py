@@ -23,12 +23,10 @@ Info
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
-
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,7 +38,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IStorer(IContextSupport, ABC):
+class IStorer(ABC):
     '''
         Defines abstract class IStorer with method(s).
         Creates an interface for storing the configuration to writer.
@@ -49,17 +47,17 @@ class IStorer(IContextSupport, ABC):
         It defines:
 
             :methods:
-                | get_shared_context - Returns the shared context.
+                | get_context - Returns the context.
                 | store_configuration - Stores configuration content from mapping to configuration file.
                 | __str__ - Returns the storer instance as string representation.
     '''
 
     @abstractmethod
-    def get_shared_context(self) -> ContextBundle:
+    def get_context(self) -> ContextBundle:
         '''
-            Returns the shared context.
+            Returns the context.
 
-            :return: Shared context.
+            :return: Context.
             :rtype: <ContextBundle>
             :exceptions: None.
         '''

@@ -4,7 +4,7 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 from ats_utilities.generator.generator_factory import GeneratorFactory
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.generator_bundle import GeneratorBundle
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader

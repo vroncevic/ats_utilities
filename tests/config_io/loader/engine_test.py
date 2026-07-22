@@ -6,7 +6,7 @@ from typing import Any
 
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 
 
@@ -47,12 +47,12 @@ class TestLoader(unittest.TestCase):
         self.assertEqual(loader._conf_file, mock_conf_file)
 
     def test_initialization_fails_when_bundle_is_none(self) -> None:
-        """Test initialization failure when component_bundle is None."""
+        """Test initialization failure when own is None."""
         with self.assertRaises(Exception):
             Loader(None)  # type: ignore
 
     def test_initialization_fails_with_invalid_bundle_type(self) -> None:
-        """Test initialization failure when component_bundle is of an unexpected type."""
+        """Test initialization failure when own is of an unexpected type."""
         with self.assertRaises(Exception):
             Loader(MagicMock())  # type: ignore
 

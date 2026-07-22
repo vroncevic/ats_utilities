@@ -19,8 +19,8 @@ Info
     Use cases for ATS context bundle.
 '''
 
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.registry import ContextRegistry
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 

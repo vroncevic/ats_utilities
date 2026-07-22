@@ -21,7 +21,7 @@ Info
 
 import sys
 from typing import Any
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.registry import ContextRegistry
 from ats_utilities.option.option_registry import OptionRegistry
 from ats_utilities.option.engine import OptionManager
 
@@ -48,11 +48,11 @@ opt_parser = {
 
 OPS: list[str] = ['-n', '--name', '-v', '--verbose']
 context_bundle = ContextRegistry.create_default_context_bundle()
-component_bundle = OptionRegistry.create_option_bundle_from_dict(
+own = OptionRegistry.create_option_bundle_from_dict(
     parameters=opt_parser,
     context_bundle=context_bundle
 )
-parser: OptionManager = OptionManager(component_bundle=component_bundle)
+parser: OptionManager = OptionManager(own=own)
 parser.add_version_operation('1.2.4')
 parser.add_operation(OPS[0], OPS[1], dest='name', help='generate project (provide name)')
 

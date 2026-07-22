@@ -26,9 +26,8 @@ from collections.abc import Sequence, Mapping
 from typing import Any, override
 
 from ats_utilities.checker.proxy_validator import mcheck
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str, has_attrs
-from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.option.option_bundle import OptionBundle
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.ioption_manager import IOptionManager
@@ -49,7 +48,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class OptionManager(ContextSupport, IOptionManager):
+class OptionManager(IOptionManager):
     '''
         Defines class OptionManager with attribute(s) and method(s).
         Creates an option parser based on the argparse argument processor.
@@ -57,12 +56,12 @@ class OptionManager(ContextSupport, IOptionManager):
         It defines:
 
             :attributes:
-                | _shared_context - Context bundle with shared context.
+                | _context - Context bundle with context.
                 | _is_initialized - Indicates if the option manager component is initialized (default False).
                 | _strategy - Strategy for argument parsing (default ParserStrategy).
             :methods:
                 | __init__ - Initials OptionManager constructor.
-                | get_shared_context - Returns the shared context.
+                | get_context - Returns the context.
                 | add_operation - Adds an option to the parser.
                 | add_version_operation - Adds version option to the parser.
                 | parse_input_args - Processes arguments from the start.
@@ -74,37 +73,36 @@ class OptionManager(ContextSupport, IOptionManager):
     '''
 
     _is_initialized: bool
-    _shared_context: ContextBundle
+    _context: ContextBundle
     _strategy: IParserStrategy
 
-    def __init__(self, component_bundle: OptionBundle) -> None:
+    def __init__(self, own: OptionBundle) -> None:
         '''
             Initializes OptionManager constructor.
 
-            :param component_bundle: Bundle with components for option manager.
-            :type component_bundle: <OptionBundle>
+            :param own: Bundle with components for option manager.
+            :type own: <OptionBundle>
             :exceptions:
                 | ATSValueError - Component bundle must be provided.
                 | ATSTypeError - Component bundle must be an OptionBundle instance.
         '''
         context: str = r'option_manager::init(...)'
-        not_none(component_bundle, context, r'component bundle must be provided')
-        istype(component_bundle, OptionBundle, context, r'component bundle must be an OptionBundle instance')
-        self._shared_context = component_bundle.context_bundle
-        ContextSupport.__init__(self, self._shared_context)
-        self._strategy = component_bundle.strategy
+        not_none(own, context, r'component bundle must be provided')
+        istype(own, OptionBundle, context, r'component bundle must be an OptionBundle instance')
+        self._context = own.context_bundle
+        self._strategy = own.strategy
         self._is_initialized = True
 
     @override
-    def get_shared_context(self) -> ContextBundle:
+    def get_context(self) -> ContextBundle:
         '''
-            Returns the shared context.
+            Returns the context.
 
-            :return: Shared context.
+            :return: Context.
             :rtype: <ContextBundle>
             :exceptions: None.
         '''
-        return self._shared_context
+        return self._context
 
     @has_attrs('_strategy')
     @override

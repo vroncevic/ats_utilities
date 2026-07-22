@@ -26,7 +26,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any, ClassVar
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype

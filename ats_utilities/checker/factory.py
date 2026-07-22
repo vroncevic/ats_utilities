@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from ats_utilities.checker.checker_bundle import CheckerBundle
+from ats_utilities.checker.bundle import CheckerBundle
 from ats_utilities.checker.format.format_validator import FormatValidator
 from ats_utilities.checker.type.type_validator import TypeValidator
 from ats_utilities.checker.context.context_provider import ContextProvider

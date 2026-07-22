@@ -32,7 +32,7 @@ __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
-reporter: Reporter = Reporter(component_bundle=ReporterRegistry.create_default_reporter_bundle())
+reporter: Reporter = Reporter(own=ReporterRegistry.create_default_reporter_bundle())
 reporter.set_level(DEBUG)
 
 reporter.warning(['Warning'])

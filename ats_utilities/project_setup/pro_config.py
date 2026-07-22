@@ -26,8 +26,7 @@ from collections.abc import Mapping
 from typing import Any, override
 
 from ats_utilities.project_setup.ipro_config import IProConfig
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -42,7 +41,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ProConfig(ContextSupport, IProConfig):
+class ProConfig(IProConfig):
     '''
         Defines class ProConfig with attribute(s) and method(s).
         Defines project configuration container.
@@ -66,6 +65,7 @@ class ProConfig(ContextSupport, IProConfig):
     MODULES: str = 'modules'
     FORMAT: str = 'template'
     _config: Mapping[str, Any] | None
+    _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
@@ -77,7 +77,7 @@ class ProConfig(ContextSupport, IProConfig):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        ContextSupport.__init__(self, context_bundle)
+        self._context = context_bundle
         self._config = None
 
     @property

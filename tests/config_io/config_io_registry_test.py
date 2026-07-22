@@ -9,7 +9,7 @@ from ats_utilities.config_io.config_io_registry import ConfigIORegistry
 from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
 from ats_utilities.config_io.config_io_params import ConfigIOParams
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 
 
 class TestConfigIORegistry(unittest.TestCase):

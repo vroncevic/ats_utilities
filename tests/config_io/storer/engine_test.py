@@ -6,7 +6,7 @@ from collections.abc import Mapping
 
 from ats_utilities.config_io.storer.engine import Storer
 from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 
 
@@ -48,12 +48,12 @@ class TestStorer(unittest.TestCase):
         self.assertEqual(storer._conf_file, mock_conf_file)
 
     def test_initialization_fails_when_bundle_is_none(self) -> None:
-        """Test initialization failure when component_bundle is missing."""
+        """Test initialization failure when own is missing."""
         with self.assertRaises(Exception):
             Storer(None)  # type: ignore
 
     def test_initialization_fails_with_invalid_bundle_type(self) -> None:
-        """Test initialization failure when component_bundle type is incorrect."""
+        """Test initialization failure when own type is incorrect."""
         with self.assertRaises(Exception):
             Storer(MagicMock())  # type: ignore
 

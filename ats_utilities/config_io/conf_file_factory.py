@@ -24,7 +24,7 @@ from __future__ import annotations
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
 from ats_utilities.config_io.iconf_file import IConfFile
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

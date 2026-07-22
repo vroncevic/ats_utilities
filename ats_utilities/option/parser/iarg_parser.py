@@ -25,7 +25,6 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Any
 
-from ats_utilities.context.icontext_support import IContextSupport
 from ats_utilities.option.parser.parser_bundle import ParserBundle
 from ats_utilities.option.option_namespace import OptionNamespace, OptArgs, KnownArgs
 
@@ -39,7 +38,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IArgParser(IContextSupport, ABC):
+class IArgParser(ABC):
     '''
         Defines abstract class IArgParser with method(s).
         Interface for custom argument parser.
@@ -54,12 +53,12 @@ class IArgParser(IContextSupport, ABC):
     '''
 
     @abstractmethod
-    def __init__(self, component_bundle: ParserBundle | None = None) -> None:
+    def __init__(self, own: ParserBundle | None = None) -> None:
         '''
             Initializes IArgParser.
 
-            :param component_bundle: Bundle with components for argument parser | None.
-            :type component_bundle: <ParserBundle | None>
+            :param own: Bundle with components for argument parser | None.
+            :type own: <ParserBundle | None>
             :exceptions: None.
         '''
         pass

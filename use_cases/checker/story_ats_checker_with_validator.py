@@ -61,7 +61,7 @@ class TestData:
 
             :exceptions: None.
         '''
-        self._checker = Checker(component_bundle=CheckerRegistry.create_default_checker_bundle())
+        self._checker = Checker(own=CheckerRegistry.create_default_checker_bundle())
         self._data: dict[str, int] = {}
 
     @property

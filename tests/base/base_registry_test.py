@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 from ats_utilities.base.base_registry import BaseRegistry
 from ats_utilities.base.base_bundle import BaseBundle
 from ats_utilities.base.base_params import BaseParams
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 
 
 class TestBaseRegistry(unittest.TestCase):

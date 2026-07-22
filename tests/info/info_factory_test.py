@@ -23,8 +23,8 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_factory import ContextFactory
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.info.info_bundle import InfoBundle
 from ats_utilities.info.info_keys import InfoKeys

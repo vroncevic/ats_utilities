@@ -28,7 +28,6 @@ from re import findall
 from functools import wraps
 from typing import Any, cast
 
-from ats_utilities.context.icontext_support import IContextSupport
 from ats_utilities.validation.context_error import raise_error
 from ats_utilities.exceptions import ATSRuntimeError, ATSValueError
 
@@ -86,9 +85,13 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
             class_name = self_instance.__class__.__name__
             context = f'{class_name.lower()}::{func.__name__}'
 
-            if isinstance(self_instance, IContextSupport):
-                reporter = self_instance.reporter
-                is_verbose = self_instance.verbose
+            context_bundle = getattr(self_instance, '_context', None)
+            if context_bundle is None and hasattr(self_instance, 'get_context'):
+                context_bundle = self_instance.get_context()
+
+            if context_bundle is not None:
+                reporter = context_bundle.reporter
+                is_verbose = context_bundle.verbose
             else:
                 reporter = getattr(
                     self_instance, '_reporter',

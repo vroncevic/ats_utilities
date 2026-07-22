@@ -24,7 +24,7 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.option.option_bundle import OptionBundle
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy

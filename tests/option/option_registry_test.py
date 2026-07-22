@@ -24,8 +24,8 @@ from __future__ import annotations
 import unittest
 from typing import Any
 
-from ats_utilities.context.context_factory import ContextFactory
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.factory import ContextFactory
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.option_bundle import OptionBundle
 from ats_utilities.option.option_registry import OptionRegistry
 from ats_utilities.option.option_params import OptionParams
@@ -42,15 +42,20 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
 
 
-class DummyParser(IArgParser, ContextSupport):
+class DummyParser(IArgParser):
     '''
         Dummy parser class for registry tests.
     '''
-    def __init__(self, component_bundle: Any) -> None:
-        if component_bundle and hasattr(component_bundle, 'context_bundle'):
-            ContextSupport.__init__(self, component_bundle.context_bundle)
+    _context: ContextBundle
+
+    def __init__(self, own: Any) -> None:
+        if own and hasattr(own, 'context_bundle'):
+            self._context = own.context_bundle
         else:
-            ContextSupport.__init__(self, ContextFactory.create_default_context_bundle())
+            self._context = ContextFactory.create_default_context_bundle()
+
+    def get_context(self) -> ContextBundle:
+        return self._context
 
     def error(self, message: str) -> Any:
         pass

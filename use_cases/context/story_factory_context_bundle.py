@@ -21,8 +21,8 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.registry import ContextRegistry
 from ats_utilities.context.icontext_support import IContextSupport
 from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str

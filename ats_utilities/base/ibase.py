@@ -22,13 +22,11 @@ Info
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
-
 from abc import ABC, abstractmethod
 from collections.abc import Sequence
 from typing import Any
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.option_namespace import OptionNamespace
 
 __author__ = r'Vladimir Roncevic'
@@ -44,7 +42,7 @@ __status__ = r'Development'
 type ArgSeq = Sequence[str] | None
 
 
-class IBase(IContextSupport, ABC):
+class IBase(ABC):
     '''
         Defines abstract class IBase with method(s).
         Interface for ATS base setup.
@@ -52,7 +50,7 @@ class IBase(IContextSupport, ABC):
         It defines:
 
             :methods:
-                | get_shared_context - Returns the shared context.
+                | get_context - Returns the context.
                 | is_initialized - Checks if App/Tool/Script base engine is initialized.
                 | add_new_option - Adds a new option for App/Tool/Script.
                 | parse_args - Parses App/Tool/Script arguments.
@@ -61,11 +59,11 @@ class IBase(IContextSupport, ABC):
     '''
 
     @abstractmethod
-    def get_shared_context(self) -> ContextBundle:
+    def get_context(self) -> ContextBundle:
         '''
-            Returns the shared context.
+            Returns the context.
 
-            :return: Shared context.
+            :return: Context.
             :rtype: <ContextBundle>
             :exceptions: None.
         '''

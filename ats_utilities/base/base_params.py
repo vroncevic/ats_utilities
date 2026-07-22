@@ -23,7 +23,7 @@ from __future__ import annotations
 
 from typing import TypedDict, NotRequired
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager

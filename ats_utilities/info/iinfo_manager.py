@@ -22,13 +22,11 @@ Info
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
-
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
 from typing import Any
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,7 +38,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IInfoManager(IContextSupport, ABC):
+class IInfoManager(ABC):
     '''
         Defines abstract class IInfoManager with method(s).
         Interface for the info manager mechanism.
@@ -50,7 +48,7 @@ class IInfoManager(IContextSupport, ABC):
         It defines:
 
             :methods:
-                | get_shared_context - Returns the shared context.
+                | get_context - Returns the context.
                 | set_info - Sets the information.
                 | get_info - Gets the information.
                 | is_initialized - Checks if info manager is initialized.
@@ -59,11 +57,11 @@ class IInfoManager(IContextSupport, ABC):
     '''
 
     @abstractmethod
-    def get_shared_context(self) -> ContextBundle:
+    def get_context(self) -> ContextBundle:
         '''
-            Returns the shared context.
+            Returns the context.
 
-            :return: Shared context.
+            :return: Context.
             :rtype: <ContextBundle>
             :exceptions: None.
         '''

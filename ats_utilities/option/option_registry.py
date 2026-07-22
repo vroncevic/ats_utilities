@@ -27,7 +27,7 @@ from typing import Any, override
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.option.option_bundle import OptionBundle
 from ats_utilities.option.option_params import OptionParams
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

@@ -4,7 +4,7 @@ import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.generator.generator_registry import GeneratorRegistry
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.generator_bundle import GeneratorBundle
 from ats_utilities.generator.generator_params import GeneratorParams
 

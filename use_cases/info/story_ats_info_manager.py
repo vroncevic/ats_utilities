@@ -19,7 +19,7 @@ Info
     Use cases for ATS info manager.
 '''
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.registry import ContextRegistry
 from ats_utilities.info.info_registry import InfoRegistry
 from ats_utilities.info.engine import InfoManager
 
@@ -40,7 +40,7 @@ VERBOSE: bool = False
 #
 context_bundle = ContextRegistry.create_default_context_bundle()
 default_bundle = InfoRegistry.create_info_bundle_from_dict({}, context_bundle)
-ats_info_manager_without_di = InfoManager(component_bundle=default_bundle)
+ats_info_manager_without_di = InfoManager(own=default_bundle)
 print(ats_info_manager_without_di)
 
 #
@@ -56,7 +56,7 @@ info_dict_overwrite = {
 }
 bundle_overwrite = InfoRegistry.create_info_bundle_from_dict(info_dict_overwrite, context_bundle)
 ats_info_manager_with_di_and_case_overwrite = InfoManager(
-    component_bundle=bundle_overwrite, 
+    own=bundle_overwrite, 
 )
 print(ats_info_manager_with_di_and_case_overwrite)
 
@@ -73,6 +73,6 @@ info_dict_no_overwrite = {
 }
 bundle_no_overwrite = InfoRegistry.create_info_bundle_from_dict(info_dict_no_overwrite, context_bundle)
 ats_info_manager_with_di_and_without_case_overwrite = InfoManager(
-    component_bundle=bundle_no_overwrite, 
+    own=bundle_no_overwrite, 
 )
 print(ats_info_manager_with_di_and_without_case_overwrite)

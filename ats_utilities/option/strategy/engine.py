@@ -29,14 +29,13 @@ from types import MappingProxyType
 
 from ats_utilities.option.strategy.parser_strategy_bundle import ParserStrategyBundle
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.parser.iarg_parser import IArgParser
 from ats_utilities.option.parser.parser_registry import ParserRegistry
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 from ats_utilities.option.option_namespace import KnownArgs
 from ats_utilities.option.command.ioption_command import IOptionCommand
-from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
@@ -51,7 +50,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ParserStrategy(ContextSupport, IParserStrategy):
+class ParserStrategy(IParserStrategy):
     '''
         Defines class ParserStrategy with attribute(s) and method(s).
         Default built-in strategy using Python's standard argparse module.
@@ -62,7 +61,7 @@ class ParserStrategy(ContextSupport, IParserStrategy):
         It defines:
 
             :attributes:
-                | _shared_context - Shared context for components.
+                | _context - Shared context for components.
                 | _parser - Options parser.
                 | _parser_class - Injected parser class.
                 | _subparsers - Subparsers instance.
@@ -77,17 +76,17 @@ class ParserStrategy(ContextSupport, IParserStrategy):
                 | __str__ - Returns the string representation of ParserStrategy.
     '''
 
-    _shared_context: ContextBundle
+    _context: ContextBundle
     _parser: IArgParser
     _parser_class: type[IArgParser]
     _subparsers: Any
 
-    def __init__(self, component_bundle: ParserStrategyBundle) -> None:
+    def __init__(self, own: ParserStrategyBundle) -> None:
         '''
             Initializes ParserStrategy constructor.
 
-            :param component_bundle: Component bundle for parser strategy.
-            :type component_bundle: <ParserStrategyBundle>
+            :param own: Component bundle for parser strategy.
+            :type own: <ParserStrategyBundle>
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSTypeError: Component bundle must be a ParserStrategyBundle instance.
@@ -97,14 +96,13 @@ class ParserStrategy(ContextSupport, IParserStrategy):
                 | ATSTypeError: Parser must be an IArgParser instance.
         '''
         context: str = r'parser_strategy::init(...)'
-        not_none(component_bundle, context, r'component bundle must be provided')
-        istype(component_bundle, ParserStrategyBundle, context, r'component_bundle must be a ParserStrategyBundle instance')
-        istype(component_bundle.parser_class, type[IArgParser], context, r'parser_class must be a type[IArgParser]')
-        self._shared_context = component_bundle.context_bundle
-        ContextSupport.__init__(self, self._shared_context)
-        self._parser_class = component_bundle.parser_class
-        parser_bundle = ParserRegistry.create_parser_bundle_from_dict(component_bundle.parameters, self._shared_context)
-        self._parser = self._parser_class(component_bundle=parser_bundle)
+        not_none(own, context, r'component bundle must be provided')
+        istype(own, ParserStrategyBundle, context, r'own must be a ParserStrategyBundle instance')
+        istype(own.parser_class, type[IArgParser], context, r'parser_class must be a type[IArgParser]')
+        self._context = own.context_bundle
+        self._parser_class = own.parser_class
+        parser_bundle = ParserRegistry.create_parser_bundle_from_dict(own.parameters, self._context)
+        self._parser = self._parser_class(own=parser_bundle)
         istype(self._parser, IArgParser, context, r'parser must be an IArgParser instance')
 
     @has_attrs('_parser')

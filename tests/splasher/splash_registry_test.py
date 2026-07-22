@@ -25,7 +25,7 @@ import unittest
 from typing import Any
 from unittest.mock import patch, MagicMock
 
-from ats_utilities.context.context_factory import ContextFactory
+from ats_utilities.context.factory import ContextFactory
 from ats_utilities.splasher.splash_bundle import SplashBundle
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.splasher.splash_registry import SplashRegistry

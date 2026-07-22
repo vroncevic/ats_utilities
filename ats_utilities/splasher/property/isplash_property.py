@@ -22,8 +22,6 @@ Info
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
-
 from abc import ABC, abstractmethod
 from typing import Any
 from collections.abc import Mapping
@@ -38,7 +36,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ISplashProperty(IContextSupport, ABC):
+class ISplashProperty(ABC):
     '''
         Defines abstract class ISplashProperty with method(s).
         Interface for checking splash screen property.

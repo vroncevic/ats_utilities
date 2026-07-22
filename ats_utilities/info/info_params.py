@@ -24,7 +24,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any, TypedDict, NotRequired
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.name.engine import Name
 from ats_utilities.info.version.engine import Version
 from ats_utilities.info.licence.engine import Licence

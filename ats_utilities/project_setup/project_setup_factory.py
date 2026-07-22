@@ -28,7 +28,7 @@ from ats_utilities.project_setup.project_setup_bundle import ProjectSetupBundle
 from ats_utilities.project_setup.pro_name import ProName
 from ats_utilities.project_setup.pro_config import ProConfig
 from ats_utilities.project_setup.template_dir import TemplateDir
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

@@ -24,7 +24,7 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.context.context_factory import ContextFactory
+from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.engine import OptionManager

@@ -28,12 +28,11 @@ from typing import override
 from sys import stderr
 
 from ats_utilities.config_io.storer.istorer import IStorer
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
 from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.config_io.conf_file_factory import ConfFileFactory
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
-from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
@@ -48,7 +47,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Storer(IStorer, ContextSupport):
+class Storer(IStorer):
     '''
         Creates an API for storing the configuration from mapping format to configuration file.
         2nd level of configuration storer implementation.
@@ -56,27 +55,27 @@ class Storer(IStorer, ContextSupport):
         It defines:
 
             :attributes:
-                | _shared_context - Shared ContextBundle.
+                | _context - ContextBundle.
                 | _processor - Processor interface instance.
                 | _conf_file - Configuration file interface instance.
 
             :methods:
                 | __init__ - Constructor.
-                | get_shared_context - Gets the shared context.
+                | get_context - Gets the context.
                 | store_configuration - Stores configuration to file.
     '''
 
-    _shared_context: ContextBundle
+    _context: ContextBundle
     _processor: IConfigProcessor
     _conf_file: IConfFile
 
     @override
-    def __init__(self, component_bundle: ConfigIOBundle) -> None:
+    def __init__(self, own: ConfigIOBundle) -> None:
         '''
             Constructor.
 
-            :param component_bundle: ConfigIOBundle instance.
-            :type component_bundle: <ConfigIOBundle>
+            :param own: ConfigIOBundle instance.
+            :type own: <ConfigIOBundle>
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSTypeError: Component bundle must be ConfigIOBundle instance.
@@ -91,27 +90,26 @@ class Storer(IStorer, ContextSupport):
                 | ATSTypeError: Validation of processor instance failed.
         '''
         context: str = r'storer::init(...)'
-        not_none(component_bundle, context, r'component bundle must be provided')
-        istype(component_bundle, ConfigIOBundle, context, r'component bundle must be of type ConfigIOBundle')
-        self._shared_context = component_bundle.context_bundle
-        ContextSupport.__init__(self, self._shared_context)
-        self._processor = component_bundle.processor
+        not_none(own, context, r'component bundle must be provided')
+        istype(own, ConfigIOBundle, context, r'component bundle must be of type ConfigIOBundle')
+        self._context = own.context_bundle
+        self._processor = own.processor
         self._conf_file = ConfFileFactory.create_conf_file(
-            file_path=component_bundle.file_path,
-            file_mode=component_bundle.WRITE_MODE,
-            context_bundle=self._shared_context
+            file_path=own.file_path,
+            file_mode=own.WRITE_MODE,
+            context_bundle=self._context
         )
 
     @override
-    def get_shared_context(self) -> ContextBundle:
+    def get_context(self) -> ContextBundle:
         '''
-            Returns the shared context.
+            Returns the context.
 
-            :return: Shared context.
+            :return: Context.
             :rtype: <ContextBundle>
             :exceptions: None.
         '''
-        return self._shared_context
+        return self._context
 
     @override
     def store_configuration(self, config: Mapping[str, str]) -> bool:

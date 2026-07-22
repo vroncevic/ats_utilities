@@ -34,7 +34,7 @@ from types import MappingProxyType
 from typing import Any, override
 
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.logger.logger_bundle import LoggerBundle
+from ats_utilities.logger.bundle import LoggerBundle
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
@@ -79,22 +79,22 @@ class Logger(ILogger):
     _early_logs_buffer: list[tuple[str, int]]
     _has_file_handler: bool
 
-    def __init__(self, component_bundle: LoggerBundle) -> None:
+    def __init__(self, own: LoggerBundle) -> None:
         '''
             Initializes Logger constructor.
 
-            :param component_bundle: Component bundle with logger and log file.
-            :type component_bundle: <LoggerBundle>
+            :param own: Component bundle with logger and log file.
+            :type own: <LoggerBundle>
             :exceptions:
                 | ATSValueError - Component bundle must be provided.
                 | ATSTypeError - Component bundle must be a LoggerBundle instance.
         '''
         context: str = r'logger::init(...)'
-        not_none(component_bundle, context, r'component_bundle must be provided')
-        istype(component_bundle, LoggerBundle, context, r'component_bundle must be a LoggerBundle instance')
-        self._logger = component_bundle.logger
+        not_none(own, context, r'own must be provided')
+        istype(own, LoggerBundle, context, r'own must be a LoggerBundle instance')
+        self._logger = own.logger
         self._early_logs_buffer = []
-        self._has_file_handler = bool(component_bundle.log_file)
+        self._has_file_handler = bool(own.log_file)
 
         if hasattr(self._logger, 'info'):
             self._log_methods = MappingProxyType({

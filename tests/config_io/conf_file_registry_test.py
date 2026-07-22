@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 from ats_utilities.config_io.conf_file_registry import ConfFileRegistry
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
 from ats_utilities.config_io.conf_file_params import ConfFileParams
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 
 
 class TestConfFileRegistry(unittest.TestCase):

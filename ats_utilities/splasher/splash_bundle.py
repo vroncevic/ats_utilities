@@ -29,7 +29,7 @@ from ats_utilities.splasher.property.isplash_property import ISplashProperty
 from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
 from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 

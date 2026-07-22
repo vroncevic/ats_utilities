@@ -22,11 +22,9 @@ Info
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
-
 from abc import ABC, abstractmethod
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 
 __author__ = r'Vladimir Roncevic'
@@ -39,7 +37,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ISplasher(IContextSupport, ABC):
+class ISplasher(ABC):
     '''
         Defines abstract class ISplasher with method(s).
         Interface for splash screen.
@@ -47,18 +45,18 @@ class ISplasher(IContextSupport, ABC):
         It defines:
 
             :methods:
-                | get_shared_context - Returns the shared context.
+                | get_context - Returns the context.
                 | center - Centers console line.
                 | is_initialized - Checks if splasher is initialized.
                 | __str__ - Returns the splash screen as string representation.
     '''
 
     @abstractmethod
-    def get_shared_context(self) -> ContextBundle:
+    def get_context(self) -> ContextBundle:
         '''
-            Returns the shared context.
+            Returns the context.
 
-            :return: Shared context.
+            :return: Context.
             :rtype: <ContextBundle>
             :exceptions: None.
         '''

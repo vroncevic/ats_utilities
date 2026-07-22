@@ -7,7 +7,7 @@ from typing import Any
 
 # Adjust imports according to your project structure
 from ats_utilities.generator.generator_bundle import GeneratorBundle
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.itar_processor import ITarProcessor
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor

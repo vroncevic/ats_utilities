@@ -28,10 +28,9 @@ import inspect
 from functools import wraps
 from typing import Any, cast
 
-from ats_utilities.checker.checker_factory import CheckerFactory
+from ats_utilities.checker.factory import CheckerFactory
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import IChecker, ParametersSpecs
-from ats_utilities.context.icontext_support import IContextSupport
 from ats_utilities.exceptions import (
     ATSRuntimeError, ATSTypeError, ATSValueError
 )
@@ -194,8 +193,12 @@ def mcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
                     exc_class=ATSRuntimeError
                 )
 
-            if isinstance(self_instance, IContextSupport):
-                checker = self_instance.checker
+            context_bundle = getattr(self_instance, '_context', None)
+            if context_bundle is None and hasattr(self_instance, 'get_context'):
+                context_bundle = self_instance.get_context()
+
+            if context_bundle is not None:
+                checker = context_bundle.checker
             else:
                 cls_name = self_instance.__class__.__name__
                 checker = getattr(

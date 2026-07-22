@@ -25,7 +25,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.itar_processor import ITarProcessor
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor

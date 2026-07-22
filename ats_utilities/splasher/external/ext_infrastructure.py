@@ -27,8 +27,7 @@ from typing import Any, override
 
 from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -45,7 +44,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ExtInfrastructure(ContextSupport, IExtInfrastructure):
+class ExtInfrastructure(IExtInfrastructure):
     '''
         Defines class ExtInfrastructure with attribute(s) and method(s).
         Creates an API for processing hyperlinks for splash screen.
@@ -69,6 +68,7 @@ class ExtInfrastructure(ContextSupport, IExtInfrastructure):
         SplashKeys.ATS_NAME, SplashKeys.ATS_ORGANIZATION, SplashKeys.ATS_REPOSITORY
     ])
     _infrastructure_property: Mapping[str, Any] | None
+    _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
@@ -80,7 +80,7 @@ class ExtInfrastructure(ContextSupport, IExtInfrastructure):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        ContextSupport.__init__(self, context_bundle)
+        self._context = context_bundle
         self._infrastructure_property = None
 
     @property

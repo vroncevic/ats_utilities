@@ -25,9 +25,8 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import override
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.generator.generator_bundle import GeneratorBundle
 from ats_utilities.generator.gen_params_bundle import GenParamsBundle
 from ats_utilities.generator.igenerator import IGenerator
@@ -47,7 +46,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Generator(ContextSupport, IGenerator):
+class Generator(IGenerator):
     '''
         Defines class Generator with attribute(s) and method(s).
         Template-based file generation from .tgz archives.
@@ -55,29 +54,29 @@ class Generator(ContextSupport, IGenerator):
         It defines:
 
             :attributes:
-                | _shared_context - Bundle of shared context.
+                | _context - Bundle of context.
                 | _scheme_loader - Loader/resolver for scheme configuration.
                 | _tar_processor - Processor for archive extraction and template rendering.
                 | _is_initialized - Flag indicating if the generator is initialized.
             :methods:
                 | __init__ - Initializes Generator constructor.
-                | get_shared_context - Returns the shared context.
+                | get_context - Returns the context.
                 | generate - Generates project modules/files from a .tgz archive.
                 | is_initialized - Checks if the generator component is initialized.
                 | __str__ - Returns the string representation of Generator.
     '''
 
-    _shared_context: ContextBundle
+    _context: ContextBundle
     _scheme_loader: ISchemeLoader
     _tar_processor: ITarProcessor
     _is_initialized: bool
 
-    def __init__(self, component_bundle: GeneratorBundle) -> None:
+    def __init__(self, own: GeneratorBundle) -> None:
         '''
             Initializes Generator constructor.
 
-            :param component_bundle: Generator component bundle for generator.
-            :type component_bundle: <GeneratorBundle>
+            :param own: Generator component bundle for generator.
+            :type own: <GeneratorBundle>
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSValueError: Component bundle must not be provided.
@@ -93,24 +92,23 @@ class Generator(ContextSupport, IGenerator):
                 | ATSTypeError: Context bundle must be of type ContextBundle.
         '''
         context: str = r'generator::init(...)'
-        not_none(component_bundle, context, r'component bundle must not be provided')
-        istype(component_bundle, GeneratorBundle, context, r'component bundle must be of type GeneratorBundle')
-        self._shared_context = component_bundle.context_bundle
-        ContextSupport.__init__(self, self._shared_context)
-        self._scheme_loader = component_bundle.scheme_loader
-        self._tar_processor = component_bundle.tar_processor
+        not_none(own, context, r'component bundle must not be provided')
+        istype(own, GeneratorBundle, context, r'component bundle must be of type GeneratorBundle')
+        self._context = own.context_bundle
+        self._scheme_loader = own.scheme_loader
+        self._tar_processor = own.tar_processor
         self._is_initialized = True
 
     @override
-    def get_shared_context(self) -> ContextBundle:
+    def get_context(self) -> ContextBundle:
         '''
-            Returns the shared context.
+            Returns the context.
 
-            :return: Shared context.
+            :return: Context.
             :rtype: <ContextBundle>
             :exceptions: None.
         '''
-        return self._shared_context
+        return self._context
 
     @override
     def prepare_template_values(self, template_values: Mapping[str, str]) -> dict[str, str]:

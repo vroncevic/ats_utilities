@@ -6,7 +6,7 @@ from dataclasses import FrozenInstanceError
 
 # Adjust imports according to your project structure
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 
 
 class TestConfFileBundle(unittest.TestCase):

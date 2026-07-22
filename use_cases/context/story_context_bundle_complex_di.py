@@ -19,7 +19,7 @@ Info
     Use cases for ATS context bundle.
 '''
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.checker_registry import CheckerRegistry
 from ats_utilities.logger.engine import Logger
@@ -41,16 +41,16 @@ __status__ = r'Development'
 # [with complex DI]
 # ==================
 #
-mychecker: Checker = Checker(component_bundle=CheckerRegistry.create_default_checker_bundle())
+mychecker: Checker = Checker(own=CheckerRegistry.create_default_checker_bundle())
 mytheme: ConsoleTheme = ConsoleTheme()
-mylogger: Logger = Logger(component_bundle=LoggerRegistry.create_default_logger_bundle())
-component_bundle: ReporterBundle = ReporterBundle(
+mylogger: Logger = Logger(own=LoggerRegistry.create_default_logger_bundle())
+own: ReporterBundle = ReporterBundle(
     checker=mychecker,
     theme=mytheme,
     logger=mylogger
 )
 
-myreporter: Reporter = Reporter(component_bundle=component_bundle)
+myreporter: Reporter = Reporter(own=own)
 
 ats_context_bundle_di: ContextBundle = ContextBundle(
     checker=mychecker,

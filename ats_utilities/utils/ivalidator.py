@@ -2,7 +2,7 @@
 
 '''
 Module
-    context_params.py
+    ivalidator.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,16 +16,13 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    TypedDict for ContextRegistry parameters.
+    Abstract interface for all bundle validators.
+    Encapsulates standard validation behavior across bundle instances.
 '''
 
 from __future__ import annotations
 
-from typing import TypedDict, NotRequired
-
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
+from abc import ABC, abstractmethod
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,10 +34,24 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ContextParams(TypedDict):
-    '''TypedDict defining parameter types for ContextRegistry.'''
-    verbose: NotRequired[bool]
-    checker: NotRequired[IChecker]
-    logger: NotRequired[ILogger]
-    reporter: NotRequired[IReporter]
+class IValidator[BundleType](ABC):
+    '''
+        Abstract interface for all bundle validators.
+        Encapsulates standard validation behavior across bundle instances.
 
+        It defines:
+
+            :methods:
+                | validate - Validates a bundle instance.
+    '''
+
+    @classmethod
+    @abstractmethod
+    def validate(cls, bundle: BundleType) -> None:
+        '''
+            Validates a bundle instance.
+
+            :param bundle: Bundle instance to be validated.
+            :type bundle: BundleType
+        '''
+        pass

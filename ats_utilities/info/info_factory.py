@@ -37,7 +37,7 @@ from ats_utilities.info.use_github.engine import UseGitHub
 from ats_utilities.info.logo.engine import Logo
 from ats_utilities.info.log_file.engine import LogFile
 from ats_utilities.info.info_ok.engine import InfoOk
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 

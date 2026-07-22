@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.context_factory import ContextFactory
+from ats_utilities.context.factory import ContextFactory
 from ats_utilities.info.organization.engine import Organization
 
 __author__: str = 'Vladimir Roncevic'

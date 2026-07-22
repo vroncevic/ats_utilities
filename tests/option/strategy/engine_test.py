@@ -26,7 +26,7 @@ import unittest
 from collections.abc import Sequence
 from unittest.mock import MagicMock
 
-from ats_utilities.context.context_factory import ContextFactory
+from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.option.command.command_option import CommandOption

@@ -7,7 +7,7 @@ from typing import Any
 
 # Adjust imports according to your project structure
 from ats_utilities.generator.tar.engine import TarProcessor
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
 from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
 from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle

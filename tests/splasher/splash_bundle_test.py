@@ -25,7 +25,7 @@ import unittest
 from typing import Any
 from unittest.mock import MagicMock
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar

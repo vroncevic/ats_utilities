@@ -22,8 +22,6 @@ Info
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
-
 from abc import ABC, abstractmethod
 
 from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
@@ -39,7 +37,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ITarProcessor(IContextSupport, ABC):
+class ITarProcessor(ABC):
     '''
         Defines abstract class ITarProcessor with method(s).
         Interface for tar archive extraction and template rendering.

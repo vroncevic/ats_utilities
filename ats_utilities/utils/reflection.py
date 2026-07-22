@@ -27,7 +27,9 @@ from __future__ import annotations
 from typing import Any
 from collections.abc import Callable
 from functools import wraps
+from dataclasses import is_dataclass
 
+from ats_utilities.validation.check_value import not_none, not_satisfied
 from ats_utilities.validation.context_error import raise_error
 
 __author__ = r'Vladimir Roncevic'
@@ -141,3 +143,22 @@ def to_str(instance: Any) -> str:
         return f'{class_name} at 0x{id(instance):x}'
 
     return f'{class_name}(\n{formatted_attrs}\n) at 0x{id(instance):x}'
+
+
+def instance_to_dict(instance: Any) -> dict[str, Any]:
+    '''
+        Converts a dataclass instance to a dictionary representation.
+
+        :param instance: The dataclass instance.
+        :type instance: Any
+        :return: Dictionary representation of the dataclass.
+        :rtype: dict[str, Any]
+        :exceptions:
+            | ATSValueError: Instance must be provided.
+            | ATSValueError: Instance must be a dataclass instance.
+    '''
+    ctx: str = r'reflection::instance_to_dict(...)'
+    not_none(instance, ctx, r'instance must be provided')
+    not_satisfied(not is_dataclass(instance), ctx, r'instance must be a dataclass instance')
+
+    return {field: getattr(instance, field) for field in instance.__dataclass_fields__}

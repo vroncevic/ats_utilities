@@ -25,7 +25,7 @@ import unittest
 from typing import Any
 from unittest.mock import MagicMock
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.option.parser.iarg_parser import IArgParser
 from ats_utilities.option.strategy.parser_strategy_bundle import ParserStrategyBundle
@@ -44,7 +44,7 @@ class DummyParser(IArgParser):
     '''
         Dummy parser class for strategy bundle tests.
     '''
-    def __init__(self, component_bundle: Any) -> None:
+    def __init__(self, own: Any) -> None:
         pass
 
     def error(self, message: str) -> Any:

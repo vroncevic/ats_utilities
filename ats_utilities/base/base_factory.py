@@ -25,7 +25,7 @@ from os.path import dirname
 from typing import Any
 
 from ats_utilities.base.base_bundle import BaseBundle
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.info.engine import InfoManager
@@ -93,7 +93,7 @@ class BaseFactory:
         istype(use_generator, bool, context, r'use generator must be a boolean')
 
         config_loader: ILoader = Loader(
-            component_bundle=ConfigIORegistry.create_config_io_bundle_by_file_path_and_scheme(
+            own=ConfigIORegistry.create_config_io_bundle_by_file_path_and_scheme(
                 file_path=info_file,
                 scheme={},
                 context_bundle=context_bundle
@@ -106,7 +106,7 @@ class BaseFactory:
             context_bundle.logger.set_log_file(log_file)
 
         info_manager: IInfoManager = InfoManager(
-            component_bundle=InfoFactory.create_info_bundle_from_dict(
+            own=InfoFactory.create_info_bundle_from_dict(
                 info=config_data,
                 context_bundle=context_bundle
             )
@@ -115,19 +115,19 @@ class BaseFactory:
         info_manager.logo = f'{dirname(info_file)}/{logo_path}'
 
         splasher: ISplasher = Splasher(
-            component_bundle=SplashFactory.create_splash_bundle_from_dict(
+            own=SplashFactory.create_splash_bundle_from_dict(
                 prop=info_manager.get_info(),
                 context_bundle=context_bundle
             )
         )
         options_parser: IOptionManager = OptionManager(
-            component_bundle=OptionFactory.create_option_bundle_from_dict(
+            own=OptionFactory.create_option_bundle_from_dict(
                 parameters=info_manager.get_info(),
                 context_bundle=context_bundle
             )
         )
         generator: IGenerator | None = Generator(
-            component_bundle=GeneratorFactory.create_default_generator_bundle(
+            own=GeneratorFactory.create_default_generator_bundle(
                 context_bundle=context_bundle
             )
         ) if use_generator else None

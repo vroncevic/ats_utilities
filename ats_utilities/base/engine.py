@@ -28,13 +28,12 @@ from typing import Any, override
 from ats_utilities.base.base_bundle import BaseBundle
 from ats_utilities.base.ibase import ArgSeq, IBase
 from ats_utilities.config_io.loader.iloader import ILoader
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.splasher.isplasher import ISplasher
-from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str, has_attrs
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
@@ -49,7 +48,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Base(ContextSupport, IBase):
+class Base(IBase):
     '''
         Defines class Base with attribute(s) and method(s).
         Creates an API for setup (App/Tool/Script).
@@ -58,7 +57,7 @@ class Base(ContextSupport, IBase):
 
             :attributes:
                 | _is_initialized - Indicates if the base is initialized (default False).
-                | _shared_context - Shared context for components.
+                | _context - Context for components.
                 | _config_loader - Manager for configuration loading (default ConfigLoader).
                 | _info_manager - Manager for info property (default InfoManager).
                 | _splasher - Manager for splash screen (default Splasher).
@@ -66,7 +65,7 @@ class Base(ContextSupport, IBase):
                 | _generator - Generator manager (default Generator).
             :methods:
                 | __init__ - Initializes Base constructor.
-                | get_shared_context - Returns the shared context.
+                | get_context - Returns the context.
                 | is_initialized - Checks if App/Tool/Script base engine is initialized.
                 | add_new_option - Adds a new option for App/Tool/Script.
                 | parse_args - Parses App/Tool/Script arguments.
@@ -75,19 +74,19 @@ class Base(ContextSupport, IBase):
     '''
 
     _is_initialized: bool
-    _shared_context: ContextBundle
+    _context: ContextBundle
     _config_loader: ILoader
     _info_manager: IInfoManager
     _splasher: ISplasher
     _options_parser: IOptionManager
     _generator: IGenerator
 
-    def __init__(self, component_bundle: BaseBundle) -> None:
+    def __init__(self, own: BaseBundle) -> None:
         '''
             Initializes Base constructor.
 
-            :param component_bundle: Component bundle for base package.
-            :type component_bundle: <BaseBundle>
+            :param own: Component bundle for base package.
+            :type own: <BaseBundle>
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSValueError: Context bundle must be provided.
@@ -108,18 +107,17 @@ class Base(ContextSupport, IBase):
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
         context: str = r'base::init(...)'
-        not_none(component_bundle, context, r'component bundle must be provided')
-        istype(component_bundle, BaseBundle, context, r'component bundle must be an instance of BaseBundle')
-        self._shared_context = component_bundle.context_bundle
-        ContextSupport.__init__(self, self._shared_context)
-        self._config_loader = component_bundle.config_loader
-        self._info_manager = component_bundle.info_manager
-        self._splasher = component_bundle.splasher
-        self._options_parser = component_bundle.options_parser
+        not_none(own, context, r'component bundle must be provided')
+        istype(own, BaseBundle, context, r'component bundle must be an instance of BaseBundle')
+        self._context = own.context_bundle
+        self._config_loader = own.config_loader
+        self._info_manager = own.info_manager
+        self._splasher = own.splasher
+        self._options_parser = own.options_parser
         components: list[Any] = [self._info_manager, self._splasher, self._options_parser]
 
-        if component_bundle.use_generator:
-            self._generator = component_bundle.generator
+        if own.use_generator:
+            self._generator = own.generator
             components.append(self._generator)
 
         self._is_initialized = all(
@@ -127,15 +125,15 @@ class Base(ContextSupport, IBase):
         )
 
     @override
-    def get_shared_context(self) -> ContextBundle:
+    def get_context(self) -> ContextBundle:
         '''
-            Returns the shared context.
+            Returns the context.
 
-            :return: Shared context.
+            :return: Context.
             :rtype: <ContextBundle>
             :exceptions: None.
         '''
-        return self._shared_context
+        return self._context
 
     @override
     def is_initialized(self) -> bool:

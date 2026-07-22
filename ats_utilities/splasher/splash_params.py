@@ -28,7 +28,7 @@ from ats_utilities.splasher.property.isplash_property import ISplashProperty
 from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
 from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

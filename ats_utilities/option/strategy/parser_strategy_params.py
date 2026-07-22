@@ -24,7 +24,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import TypedDict, NotRequired
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.parser.iarg_parser import IArgParser
 
 __author__ = r'Vladimir Roncevic'

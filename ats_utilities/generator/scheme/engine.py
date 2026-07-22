@@ -27,11 +27,10 @@ from typing import Any, override
 from collections.abc import Mapping
 
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.config_io.config_io_registry import ConfigIORegistry
 from ats_utilities.exceptions import ATSGeneratorError
-from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_satisfied
@@ -47,7 +46,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class SchemeLoader(ContextSupport, ISchemeLoader):
+class SchemeLoader(ISchemeLoader):
     '''
         Defines class SchemeLoader with method(s).
         Resolves generation scheme from dict or file path using config_io.
@@ -55,7 +54,8 @@ class SchemeLoader(ContextSupport, ISchemeLoader):
         It defines:
 
             :attributes:
-                | _initialized - Flag indicating if the loader is initialized.
+                | _initialized - Indicates if loader is initialized.
+                | _context - Context bundle for loader.
             :methods:
                 | __init__ - Initializes SchemeLoader constructor.
                 | load - Loads and resolves the scheme from file path.
@@ -64,7 +64,7 @@ class SchemeLoader(ContextSupport, ISchemeLoader):
     '''
 
     _initialized: bool
-    _shared_context: ContextBundle
+    _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
@@ -76,8 +76,7 @@ class SchemeLoader(ContextSupport, ISchemeLoader):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        self._shared_context = context_bundle
-        ContextSupport.__init__(self, self._shared_context)
+        self._context = context_bundle
         self._initialized = True
 
     @override
@@ -112,7 +111,7 @@ class SchemeLoader(ContextSupport, ISchemeLoader):
                     ConfigIORegistry.create_config_io_bundle_by_file_path_and_scheme(
                         file_path=scheme,
                         scheme={},
-                        context_bundle=self._shared_context
+                        context_bundle=self._context
                     )
                 )
                 not_satisfied(config_loader is None, context, f'failed to setup config loader for: {scheme}')
@@ -120,7 +119,7 @@ class SchemeLoader(ContextSupport, ISchemeLoader):
                 return config_loader.load_configuration()
 
             except Exception as exc:
-                msg: str = format_error_raw(self, exc)
+                msg: str = format_error_raw(exc, self._context.verbose)
                 not_satisfied(True, context, f'failed to load scheme file {scheme}: {msg}', ATSGeneratorError)
 
         return dict(scheme)

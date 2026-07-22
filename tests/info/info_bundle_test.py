@@ -24,7 +24,7 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.info.build_date.ibuild_date import IBuildDate
 from ats_utilities.info.info_bundle import InfoBundle

@@ -25,8 +25,8 @@ from logging import Logger
 from typing import override
 
 from ats_utilities.utils.iregistry import IRegistry
-from ats_utilities.logger.logger_bundle import LoggerBundle
-from ats_utilities.logger.logger_params import LoggerParams
+from ats_utilities.logger.bundle import LoggerBundle
+from ats_utilities.logger.params import LoggerParams
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

@@ -25,7 +25,7 @@ from typing import override
 
 from ats_utilities.base.engine import Base
 from ats_utilities.base.base_registry import BaseRegistry
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.registry import ContextRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

@@ -7,7 +7,7 @@ from typing import Any
 
 # Adjust imports according to your project structure
 from ats_utilities.generator.scheme.engine import SchemeLoader
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.exceptions import ATSGeneratorError
 

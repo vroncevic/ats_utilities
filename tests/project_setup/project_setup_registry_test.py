@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.context_factory import ContextFactory
+from ats_utilities.context.factory import ContextFactory
 from ats_utilities.project_setup.project_setup_bundle import ProjectSetupBundle
 from ats_utilities.project_setup.project_setup_registry import ProjectSetupRegistry
 from ats_utilities.project_setup.project_setup_params import ProjectSetupParams

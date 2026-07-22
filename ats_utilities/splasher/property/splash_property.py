@@ -27,8 +27,7 @@ from collections.abc import Mapping
 
 from ats_utilities.splasher.property.isplash_property import ISplashProperty
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -44,7 +43,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class SplashProperty(ContextSupport, ISplashProperty):
+class SplashProperty(ISplashProperty):
     '''
         Defines class SplashProperty with attribute(s) and method(s).
         Creates an API for checking splash screen property.
@@ -62,6 +61,7 @@ class SplashProperty(ContextSupport, ISplashProperty):
     '''
 
     _splash_keys: SplashKeys | None
+    _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
@@ -73,7 +73,7 @@ class SplashProperty(ContextSupport, ISplashProperty):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        ContextSupport.__init__(self, context_bundle)
+        self._context = context_bundle
         self._splash_keys = None
 
     @property
