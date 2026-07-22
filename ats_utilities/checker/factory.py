@@ -2,7 +2,7 @@
 
 '''
 Module
-    checker_factory.py
+    factory.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,12 +16,14 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory for creating CheckerBundle components.
+    Factory for creating checker bundle instance.
 '''
 
-from __future__ import annotations
+from typing import override
 
+from ats_utilities.utils.ifactory import IFactory
 from ats_utilities.checker.bundle import CheckerBundle
+from ats_utilities.checker.validator import CheckerValidator
 from ats_utilities.checker.format.format_validator import FormatValidator
 from ats_utilities.checker.type.type_validator import TypeValidator
 from ats_utilities.checker.context.context_provider import ContextProvider
@@ -37,28 +39,50 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class CheckerFactory:
+class CheckerFactory(IFactory[CheckerBundle, None]):
     '''
-        Factory for creating CheckerBundle components.
+        Factory for creating checker bundle instance.
+
+        It defines:
+
+            :methods:
+                | create_default_bundle - Creates a default checker bundle with pre-configured options.
     '''
 
     @classmethod
-    def create_default_checker_bundle(cls) -> CheckerBundle:
+    @override
+    def create_default_bundle(cls, options: None = None) -> CheckerBundle:
         '''
-            Creates a default CheckerBundle with pre-configured components.
+            Creates a default checker bundle with pre-configured options.
 
-            :return: Default CheckerBundle instance.
-            :rtype: <CheckerBundle>
-            :exceptions: None.
+            :param options: Creation options/parameters for the bundle (default None).
+            :type options: None
+            :return: Default checker bundle instance.
+            :rtype: CheckerBundle
+            :exceptions:
+                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Context provider must be provided.
+                | ATSValueError: Check reporter must be provided.
+                | ATSValueError: Format validator must be provided.
+                | ATSValueError: Type validator must be provided.
+                | ATSTypeError: Bundle must be an instance of CheckerBundle.
+                | ATSTypeError: Context provider must be an instance of IContextProvider.
+                | ATSTypeError: Check reporter must be an instance of ICheckReporter.
+                | ATSTypeError: Format validator must be an instance of IFormatValidator.
+                | ATSTypeError: Type validator must be an instance of ITypeValidator.
         '''
         format_validator: FormatValidator = FormatValidator()
         type_validator: TypeValidator = TypeValidator()
         context_provider: ContextProvider = ContextProvider()
         check_reporter: CheckReporter = CheckReporter()
 
-        return CheckerBundle(
+        bundle: CheckerBundle = CheckerBundle(
             format_validator=format_validator,
             type_validator=type_validator,
             context_provider=context_provider,
             check_reporter=check_reporter
         )
+
+        CheckerValidator.validate(bundle)
+
+        return bundle

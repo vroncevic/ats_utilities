@@ -12,15 +12,15 @@ Info
 from logging import DEBUG, INFO, WARNING, ERROR, CRITICAL
 from loguru import logger as loguru_native
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.logger.logger_bundle import LoggerBundle
-from ats_utilities.logger.logger_registry import LoggerRegistry
+from ats_utilities.logger.bundle import LoggerBundle
+from ats_utilities.logger.factory import LoggerFactory
 from ats_utilities.logger.engine import Logger
 
 #
 # default logging [logging]
 # ==========================
 #
-logger_default: Logger = Logger(own=LoggerRegistry.create_default_logger_bundle())
+logger_default: Logger = Logger(own=LoggerFactory.create_default_bundle())
 logger_default.write_log("debug test", DEBUG)
 logger_default.write_log("info test", INFO)
 logger_default.write_log("warning test", WARNING)

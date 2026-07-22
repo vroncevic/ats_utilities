@@ -2,7 +2,7 @@
 
 '''
 Module
-    reporter_registry.py
+    registry.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,16 +16,17 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of ReporterBundle creation.
+    Encapsulates core runtime components for simplification of reporter bundle creation.
 '''
 
 from __future__ import annotations
 
-from typing import Any, override
+from typing import override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.reporter.bundle import ReporterBundle
-from ats_utilities.reporter.params import ReporterParams
+from ats_utilities.reporter.dependencies import ReporterDependencies
+from ats_utilities.reporter.validator import ReporterValidator
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,37 +38,42 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ReporterRegistry(IRegistry[ReporterBundle, ReporterParams | None]):
+class ReporterRegistry(IRegistry[ReporterBundle, ReporterDependencies | None]):
     '''
-        Encapsulates core runtime components for simplification of ReporterBundle creation.
+        Encapsulates core runtime components for simplification of reporter bundle creation.
 
         It defines:
 
             :methods:
-                | create_bundle - Creates a ReporterBundle.
+                | create_bundle - Orchestrates dependency injection and creates a reporter bundle instance.
     '''
 
     @classmethod
     @override
-    def create_bundle(cls, params: ReporterParams | None = None) -> ReporterBundle:
+    def create_bundle(cls, dependencies: ReporterDependencies | None = None) -> ReporterBundle:
         '''
-            Creates a ReporterBundle instance.
+            Orchestrates dependency injection and creates a reporter bundle instance.
 
-            :param params: Registry-specific orchestration parameters.
-            :type params: ReporterParams | None
+            :param dependencies: Registry-specific orchestration dependencies (default None).
+            :type dependencies: ReporterDependencies | None
             :return: ReporterBundle instance.
-            :rtype: <ReporterBundle>
+            :rtype: ReporterBundle
             :exceptions:
-                | ATSValueError: Checker bundle must be provided.
+                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Checker must be provided.
                 | ATSValueError: Theme must be provided.
-                | ATSValueError: Logger bundle must be provided.
-                | ATSTypeError: Checker bundle must be a CheckerBundle instance.
-                | ATSTypeError: Theme must be a Theme instance.
-                | ATSTypeError: Logger bundle must be a LoggerBundle instance.
+                | ATSValueError: Logger must be provided.
+                | ATSTypeError: Bundle must be an instance of ReporterBundle.
+                | ATSTypeError: Checker must be an instance of IChecker interface.
+                | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
+                | ATSTypeError: Logger must be an instance of ILogger interface.
         '''
-        return ReporterBundle(
-            checker=params.get('checker') if params else None,
-            theme=params.get('theme') if params else None,
-            logger=params.get('logger') if params else None,
+        bundle: ReporterBundle = ReporterBundle(
+            checker=dependencies.get('checker') if dependencies else None,
+            theme=dependencies.get('theme') if dependencies else None,
+            logger=dependencies.get('logger') if dependencies else None,
         )
 
+        ReporterValidator.validate(bundle)
+
+        return bundle

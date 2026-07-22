@@ -21,11 +21,12 @@ Info
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.checker_registry import CheckerRegistry
+from ats_utilities.checker.registry import CheckerRegistry
+from ats_utilities.checker.factory import CheckerFactory
 from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.logger_registry import LoggerRegistry
+from ats_utilities.logger.factory import LoggerFactory
 from ats_utilities.reporter.engine import Reporter
-from ats_utilities.reporter.reporter_registry import ReporterRegistry
+from ats_utilities.reporter.factory import ReporterFactory
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,9 +41,9 @@ __status__ = r'Development'
 # [with simple  DI]
 # ==================
 #
-mychecker: Checker = Checker(own=CheckerRegistry.create_default_checker_bundle())
-mylogger: Logger = Logger(own=LoggerRegistry.create_default_logger_bundle())
-myreporter: Reporter = Reporter(own=ReporterRegistry.create_default_reporter_bundle())
+mychecker: Checker = Checker(own=CheckerFactory.create_default_bundle())
+mylogger: Logger = Logger(own=LoggerFactory.create_default_bundle())
+myreporter: Reporter = Reporter(own=ReporterFactory.create_default_reporter_bundle())
 
 ats_context_bundle_di: ContextBundle = ContextBundle(
     checker=mychecker,

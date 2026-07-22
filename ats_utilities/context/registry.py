@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of ContextBundle creation.
+    Encapsulates core runtime components for simplification of context bundle creation.
 '''
 
 from __future__ import annotations
@@ -40,12 +40,12 @@ __status__ = r'Development'
 
 class ContextRegistry(IRegistry[ContextBundle, ContextDependencies | None]):
     '''
-        Encapsulates core runtime components for simplification of ContextBundle creation.
+        Encapsulates core runtime components for simplification of context bundle creation.
 
         It defines:
 
             :methods:
-                | create_bundle - Creates a ContextBundle instance.
+                | create_bundle - Orchestrates dependency injection and creates a context bundle instance.
     '''
 
     @classmethod

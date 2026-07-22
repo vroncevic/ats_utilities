@@ -21,9 +21,10 @@ Info
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.checker_registry import CheckerRegistry
+from ats_utilities.checker.registry import CheckerRegistry
+from ats_utilities.checker.factory import CheckerFactory
 from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.logger_registry import LoggerRegistry
+from ats_utilities.logger.factory import LoggerFactory
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.theme.engine import ConsoleTheme 
 from ats_utilities.reporter.reporter_bundle import ReporterBundle
@@ -41,9 +42,9 @@ __status__ = r'Development'
 # [with complex DI]
 # ==================
 #
-mychecker: Checker = Checker(own=CheckerRegistry.create_default_checker_bundle())
+mychecker: Checker = Checker(own=CheckerFactory.create_default_bundle())
 mytheme: ConsoleTheme = ConsoleTheme()
-mylogger: Logger = Logger(own=LoggerRegistry.create_default_logger_bundle())
+mylogger: Logger = Logger(own=LoggerFactory.create_default_bundle())
 own: ReporterBundle = ReporterBundle(
     checker=mychecker,
     theme=mytheme,

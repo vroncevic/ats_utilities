@@ -15,13 +15,14 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   ats_utilities.reporter.bundle
+   ats_utilities.reporter.dependencies
    ats_utilities.reporter.engine
+   ats_utilities.reporter.factory
    ats_utilities.reporter.ireporter
    ats_utilities.reporter.proxy_reporter
-   ats_utilities.reporter.reporter_bundle
-   ats_utilities.reporter.reporter_factory
-   ats_utilities.reporter.reporter_params
-   ats_utilities.reporter.reporter_registry
+   ats_utilities.reporter.registry
+   ats_utilities.reporter.validator
 
 Module contents
 ---------------

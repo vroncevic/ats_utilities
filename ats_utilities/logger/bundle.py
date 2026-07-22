@@ -2,7 +2,7 @@
 
 '''
 Module
-    logger_bundle.py
+    bundle.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates logger runtime components for simplification of LoggerBundle creation.
+    Encapsulates logger runtime components for simplification of logger bundle creation.
 '''
 
 from __future__ import annotations
@@ -24,8 +24,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from ats_utilities.validation.check_value import not_none, not_satisfied
-from ats_utilities.validation.check_type import istype
+from ats_utilities.utils.reflection import instance_to_dict
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,7 +39,7 @@ __status__ = r'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class LoggerBundle:
     '''
-        Encapsulates logger runtime components for simplification of LoggerBundle creation.
+        Encapsulates logger runtime components for simplification of logger bundle creation.
 
         It defines:
 
@@ -49,63 +48,21 @@ class LoggerBundle:
                 | log_file - Log file path.
                 | log_level - Log level.
             :methods:
-                | __post_init__ - Post-initialization hook to validate logger bundle.
-                | validate - Validates logger bundle.
-                | to_dict - Converts logger bundle instance to dictionary.
+                | to_dict - Converts logger bundle to a dictionary.
     '''
 
     logger: Any
     log_file: str
     log_level: int
 
-    def __post_init__(self) -> None:
-        '''
-            Post-initialization hook to validate logger bundle.
-
-            :exceptions:
-                | ATSValueError: Logger must be provided.
-                | ATSValueError: Log file must be provided.
-                | ATSValueError: Log level must be provided.
-                | ATSTypeError: Logger must be an ILogger or standard logging.Logger instance.
-                | ATSTypeError: Log file must be a str instance.
-                | ATSTypeError: Log level must be an int instance.
-        '''
-        self.validate()
-
-    def validate(self) -> None:
-        '''
-            Validates logger bundle.
-            Performs validation of all bundle attributes.
-            All attributes must be non-None and instances of their respective interfaces.
-
-            :exceptions:
-                | ATSValueError: Logger must be provided.
-                | ATSValueError: Log file must be provided.
-                | ATSValueError: Log level must be provided.
-                | ATSTypeError: Logger must be an ILogger or standard logging.Logger instance.
-                | ATSTypeError: Log file must be a str instance.
-                | ATSTypeError: Log level must be an int instance.
-        '''
-        context: str = r'logger_bundle::validate(...)'
-        not_none(self.logger, context, r'logger must be provided')
-        not_none(self.log_file, context, r'log file must be provided')
-        not_none(self.log_level, context, r'log level must be provided')
-        istype(self.log_file, str, context, r'log file must be a str instance')
-        istype(self.log_level, int, context, r'log level must be an int instance')
-        not_satisfied(
-            not (hasattr(self.logger, 'info') or hasattr(self.logger, 'write_log')), context,
-            r'logger must be an ILogger instance or a standard logging.Logger instance'
-        )
-
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts logger bundle instance to dictionary.
+            Converts logger bundle to a dictionary.
 
-            :return: Dictionary representation of the logger bundle instance.
-            :rtype: <dict[str, Any]>
-            :exceptions: None.
+            :return: Dictionary representation of the logger bundle.
+            :rtype: dict[str, Any]
+            :exceptions:
+                | ATSValueError: Instance must be provided.
+                | ATSValueError: Instance must be a dataclass instance.
         '''
-        return {
-            field: getattr(self, field)
-            for field in self.__dataclass_fields__
-        }
+        return instance_to_dict(self)

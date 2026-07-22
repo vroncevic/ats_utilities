@@ -2,7 +2,7 @@
 
 '''
 Module
-    logger_registry.py
+    registry.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,17 +16,17 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of LoggerBundle creation.
+    Encapsulates core runtime components for simplification of logger bundle creation.
 '''
 
 from __future__ import annotations
 
-from logging import Logger
 from typing import override
 
 from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.logger.bundle import LoggerBundle
-from ats_utilities.logger.params import LoggerParams
+from ats_utilities.logger.dependencies import LoggerDependencies
+from ats_utilities.logger.validator import LoggerValidator
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,35 +38,42 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class LoggerRegistry(IRegistry[LoggerBundle, LoggerParams]):
+class LoggerRegistry(IRegistry[LoggerBundle, LoggerDependencies]):
     '''
-        Encapsulates core runtime components for simplification of LoggerBundle creation.
+        Encapsulates core runtime components for simplification of logger bundle creation.
 
         It defines:
 
             :methods:
-                | create_bundle - Creates a LoggerBundle.
+                | create_bundle - Orchestrates dependency injection and creates a logger bundle instance.
     '''
 
     @classmethod
     @override
-    def create_bundle(cls, params: LoggerParams) -> LoggerBundle:
+    def create_bundle(cls, dependencies: LoggerDependencies) -> LoggerBundle:
         '''
-            Creates a LoggerBundle instance.
+            Orchestrates dependency injection and creates a logger bundle instance.
 
-            :param params: Registry-specific orchestration parameters.
-            :type params: LoggerParams
+            :param dependencies: Registry-specific orchestration dependencies.
+            :type dependencies: LoggerDependencies
             :return: LoggerBundle instance.
-            :rtype: <LoggerBundle>
+            :rtype: LoggerBundle
             :exceptions:
+                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Logger must be provided.
                 | ATSValueError: Log file must be provided.
                 | ATSValueError: Log level must be provided.
-                | ATSTypeError: Log file must be a string.
-                | ATSTypeError: Log level must be an integer.
+                | ATSTypeError: Bundle must be an instance of LoggerBundle.
+                | ATSTypeError: Log file must be a str instance.
+                | ATSTypeError: Log level must be an int instance.
+                | ATSTypeError: Logger must be an ILogger or standard logging.Logger instance.
         '''
-        return LoggerBundle(
-            logger=params.get('logger'),
-            log_file=params.get('log_file', ''),
-            log_level=params.get('log_level', 20)
+        bundle: LoggerBundle = LoggerBundle(
+            logger=dependencies.get('logger'),
+            log_file=dependencies.get('log_file'),
+            log_level=dependencies.get('log_level')
         )
 
+        LoggerValidator.validate(bundle)
+
+        return bundle

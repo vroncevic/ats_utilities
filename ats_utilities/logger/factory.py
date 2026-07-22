@@ -2,7 +2,7 @@
 
 '''
 Module
-    logger_factory.py
+    factory.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,16 +16,19 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory for creating Logger components.
+    Factory for creating logger bundle instance.
 '''
 
 from __future__ import annotations
 
 from sys import stdout
 from logging import Logger, getLogger, basicConfig, INFO
-from typing import Any
+from typing import override, Any
 
+from ats_utilities.utils.ifactory import IFactory
 from ats_utilities.logger.bundle import LoggerBundle
+from ats_utilities.logger.dependencies import LoggerOptions
+from ats_utilities.logger.validator import LoggerValidator
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,28 +40,43 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class LoggerFactory:
+class LoggerFactory(IFactory[LoggerBundle, LoggerOptions | None]):
     '''
-        Factory for creating Logger components.
+        Factory for creating logger bundle instance.
+
+        It defines:
+
+            :methods:
+                | create_default_bundle - Creates a default logger bundle with pre-configured options.
     '''
 
     @classmethod
-    def create_default_logger_bundle(
-        cls,
-        log_file: str | None = None,
-        log_level: int = INFO
-    ) -> LoggerBundle:
+    @override
+    def create_default_bundle(cls, options: LoggerOptions | None = None) -> LoggerBundle:
         '''
-            Creates a default LoggerBundle with pre-configured components.
+            Creates a default logger bundle with pre-configured options.
 
-            :param log_file: Path to the log file (default None).
-            :type log_file: <str | None>
-            :param log_level: Log level (default 20 - INFO).
-            :type log_level: <int>
-            :return: Default LoggerBundle instance.
-            :rtype: <LoggerBundle>
-            :exceptions: None.
+            :param options: Pre-configured options for the bundle (default None).
+            :type options: LoggerOptions | None
+            :return: Default logger bundle instance.
+            :rtype: LoggerBundle
+            :exceptions:
+                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Logger must be provided.
+                | ATSValueError: Log file must be provided.
+                | ATSValueError: Log level must be provided.
+                | ATSTypeError: Bundle must be an instance of LoggerBundle.
+                | ATSTypeError: Log file must be a str instance.
+                | ATSTypeError: Log level must be an int instance.
+                | ATSTypeError: Logger must be an ILogger or standard logging.Logger instance.
         '''
+        log_file: str | None = None
+        log_level: int = INFO
+
+        if options:
+            log_file = options.get('log_file')
+            log_level = options.get('log_level', INFO)
+
         if not getLogger().hasHandlers():
             log_config: dict[str, Any] = {
                 'format': '%(asctime)s - %(levelname)s - %(message)s',
@@ -75,8 +93,12 @@ class LoggerFactory:
 
         logger: Logger = getLogger()
 
-        return LoggerBundle(
+        bundle: LoggerBundle = LoggerBundle(
             logger=logger,
             log_file=log_file or '',
             log_level=log_level
         )
+
+        LoggerValidator.validate(bundle)
+
+        return bundle

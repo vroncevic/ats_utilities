@@ -7,12 +7,13 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   ats_utilities.logger.bundle
+   ats_utilities.logger.dependencies
    ats_utilities.logger.engine
+   ats_utilities.logger.factory
    ats_utilities.logger.ilogger
-   ats_utilities.logger.logger_bundle
-   ats_utilities.logger.logger_factory
-   ats_utilities.logger.logger_params
-   ats_utilities.logger.logger_registry
+   ats_utilities.logger.registry
+   ats_utilities.logger.validator
 
 Module contents
 ---------------

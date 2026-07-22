@@ -76,14 +76,12 @@ class ContextFactory(IFactory[ContextBundle, bool]):
                 | ATSTypeError: Reporter must be an instance of IReporter.
                 | ATSTypeError: Verbose must be a boolean.
         '''
-        checker: Checker = Checker(own=CheckerFactory.create_default_checker_bundle())
-        logger: Logger = Logger(own=LoggerFactory.create_default_logger_bundle())
+        checker: Checker = Checker(own=CheckerFactory.create_default_bundle())
+        logger: Logger = Logger(own=LoggerFactory.create_default_bundle())
         theme: ConsoleTheme = ConsoleTheme()
         reporter: Reporter = Reporter(
             own=ReporterRegistry.create_bundle({
-                'checker': checker,
-                'theme': theme,
-                'logger': logger
+                'checker': checker, 'theme': theme, 'logger': logger
             })
         )
 

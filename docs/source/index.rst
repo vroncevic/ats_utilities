@@ -270,11 +270,14 @@ Framework structure
          │       └── iversion.py
          ├── __init__.py
          ├── logger/
+         │   ├── bundle.py
+         │   ├── dependencies.py
          │   ├── engine.py
+         │   ├── factory.py
          │   ├── ilogger.py
          │   ├── __init__.py
-         │   ├── logger_bundle.py
-         │   └── logger_registry.py
+         │   ├── registry.py
+         │   └── validator.py
          ├── option/
          │   ├── command/
          │   │   ├── command_option.py
@@ -310,12 +313,15 @@ Framework structure
          │   └── template_dir.py
          ├── py.typed
          ├── reporter/
+         │   ├── bundle.py
+         │   ├── dependencies.py
          │   ├── engine.py
+         │   ├── factory.py
          │   ├── __init__.py
          │   ├── ireporter.py
          │   ├── proxy_reporter.py
-         │   ├── reporter_bundle.py
-         │   ├── reporter_registry.py
+         │   ├── registry.py
+         │   ├── validator.py
          │   └── theme/
          │       ├── engine.py
          │       ├── iconsole_theme.py

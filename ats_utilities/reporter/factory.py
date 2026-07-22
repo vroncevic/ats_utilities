@@ -2,7 +2,7 @@
 
 '''
 Module
-    reporter_factory.py
+    factory.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,17 +16,21 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory for creating ReporterBundle components.
+    Factory for creating reporter bundle instance.
 '''
 
 from __future__ import annotations
 
+from typing import override
+
+from ats_utilities.utils.ifactory import IFactory
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.checker_factory import CheckerFactory
+from ats_utilities.checker.factory import CheckerFactory
 from ats_utilities.reporter.theme.engine import ConsoleTheme
 from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.logger_factory import LoggerFactory
-from ats_utilities.reporter.reporter_bundle import ReporterBundle
+from ats_utilities.logger.factory import LoggerFactory
+from ats_utilities.reporter.bundle import ReporterBundle
+from ats_utilities.reporter.validator import ReporterValidator
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,26 +42,46 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ReporterFactory:
+class ReporterFactory(IFactory[ReporterBundle, None]):
     '''
-        Factory for creating ReporterBundle components.
+        Factory for creating reporter bundle instance.
+
+        It defines:
+
+            :methods:
+                | create_default_bundle - Creates a default reporter bundle with pre-configured options.
     '''
 
     @classmethod
-    def create_default_reporter_bundle(cls) -> ReporterBundle:
+    @override
+    def create_default_bundle(cls, options: None = None) -> ReporterBundle:
         '''
-            Creates a default ReporterBundle with pre-configured components.
+            Creates a default reporter bundle with pre-configured options.
 
-            :return: Default ReporterBundle instance.
-            :rtype: <ReporterBundle>
-            :exceptions: None.
+            :param options: Pre-configured options for the bundle (default None).
+            :type options: None
+            :return: Default reporter bundle instance.
+            :rtype: ReporterBundle
+            :exceptions:
+                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Checker must be provided.
+                | ATSValueError: Theme must be provided.
+                | ATSValueError: Logger must be provided.
+                | ATSTypeError: Bundle must be an instance of ReporterBundle.
+                | ATSTypeError: Checker must be an instance of IChecker interface.
+                | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
+                | ATSTypeError: Logger must be an instance of ILogger interface.
         '''
-        checker: Checker = Checker(own=CheckerFactory.create_default_checker_bundle())
+        checker: Checker = Checker(own=CheckerFactory.create_default_bundle())
         theme: ConsoleTheme = ConsoleTheme()
-        logger: Logger = Logger(own=LoggerFactory.create_default_logger_bundle())
+        logger: Logger = Logger(own=LoggerFactory.create_default_bundle())
 
-        return ReporterBundle(
+        bundle: ReporterBundle = ReporterBundle(
             checker=checker,
             theme=theme,
             logger=logger,
         )
+
+        ReporterValidator.validate(bundle)
+
+        return bundle
