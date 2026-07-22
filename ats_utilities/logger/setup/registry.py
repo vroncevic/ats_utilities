@@ -56,7 +56,7 @@ class LoggerRegistry(IRegistry[LoggerBundle, LoggerDependencies]):
 
             :param dependencies: Registry-specific orchestration dependencies.
             :type dependencies: LoggerDependencies
-            :return: LoggerBundle instance.
+            :return: Logger bundle instance.
             :rtype: LoggerBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.

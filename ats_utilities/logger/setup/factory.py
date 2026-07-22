@@ -58,7 +58,7 @@ class LoggerFactory(IFactory[LoggerBundle, LoggerOptions | None]):
 
             :param options: Pre-configured options for the bundle (default None).
             :type options: LoggerOptions | None
-            :return: Default logger bundle instance.
+            :return: Logger bundle instance.
             :rtype: LoggerBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
