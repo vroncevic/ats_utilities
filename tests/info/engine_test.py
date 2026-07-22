@@ -28,9 +28,9 @@ from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSAttributeError, ATSTypeError, ATSValueError
 from ats_utilities.info.engine import InfoManager
-from ats_utilities.info.info_bundle import InfoBundle
+from ats_utilities.info.setup.bundle import InfoBundle
 from ats_utilities.info.info_keys import InfoKeys
-from ats_utilities.info.info_factory import InfoFactory
+from ats_utilities.info.setup.factory import InfoFactory
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

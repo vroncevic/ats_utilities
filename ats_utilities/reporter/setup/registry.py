@@ -56,7 +56,7 @@ class ReporterRegistry(IRegistry[ReporterBundle, ReporterDependencies | None]):
 
             :param dependencies: Registry-specific orchestration dependencies (default None).
             :type dependencies: ReporterDependencies | None
-            :return: ReporterBundle instance.
+            :return: Reporter bundle instance.
             :rtype: ReporterBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.

@@ -56,7 +56,7 @@ class CheckerRegistry(IRegistry[CheckerBundle, CheckerDependencies | None]):
 
             :param dependencies: Registry-specific orchestration dependencies.
             :type dependencies: CheckerDependencies | None
-            :return: CheckerBundle instance.
+            :return: Checker bundle instance.
             :rtype: CheckerBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.

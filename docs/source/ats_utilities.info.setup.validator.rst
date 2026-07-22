@@ -1,7 +1,7 @@
-ats\_utilities.info.info\_registry module
+ats\_utilities.info.setup.validator module
 =========================================
 
-.. automodule:: ats_utilities.info.info_registry
+.. automodule:: ats_utilities.info.setup.validator
    :members:
    :undoc-members:
    :show-inheritance:

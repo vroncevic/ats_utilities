@@ -2,7 +2,7 @@
 
 '''
 Module
-    info_bundle_test.py
+    validator_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for InfoBundle class.
+    Unit tests for InfoValidator class.
 '''
 
 from __future__ import annotations
@@ -27,7 +27,8 @@ from unittest.mock import MagicMock
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.info.build_date.ibuild_date import IBuildDate
-from ats_utilities.info.info_bundle import InfoBundle
+from ats_utilities.info.setup.bundle import InfoBundle
+from ats_utilities.info.setup.validator import InfoValidator
 from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
 from ats_utilities.info.licence.ilicence import ILicence
 from ats_utilities.info.log_file.ilog_file import ILogFile
@@ -48,19 +49,10 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
 
 
-class InfoBundleTest(unittest.TestCase):
+class ValidatorTest(unittest.TestCase):
     '''
-        Defines class InfoBundleTest with attribute(s) and method(s).
-        Tests InfoBundle dataclass logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_init_valid - Tests successful InfoBundle creation.
-                | test_init_invalid_none - Tests creation with None/empty arguments.
-                | test_init_invalid_type - Tests creation with wrong types.
-                | test_to_dict - Tests to_dict representation.
+        Defines class ValidatorTest with attribute(s) and method(s).
+        Tests InfoValidator logic.
     '''
 
     def _get_mocks(self) -> dict[str, MagicMock]:
@@ -78,30 +70,27 @@ class InfoBundleTest(unittest.TestCase):
             "context_bundle": MagicMock(spec=ContextBundle),
         }
 
-    def test_init_valid(self) -> None:
+    def test_validate_valid(self) -> None:
         mocks = self._get_mocks()
         bundle = InfoBundle(**mocks)
-        for key, val in mocks.items():
-            self.assertIs(getattr(bundle, key), val)
+        # Should not raise any exception
+        InfoValidator.validate(bundle)
 
-    def test_init_invalid_none(self) -> None:
+    def test_validate_invalid_none(self) -> None:
         for key in self._get_mocks().keys():
             mocks = self._get_mocks()
             mocks[key] = None  # type: ignore
+            bundle = InfoBundle(**mocks)
             with self.assertRaises(ATSValueError):
-                InfoBundle(**mocks)
+                InfoValidator.validate(bundle)
 
-    def test_init_invalid_type(self) -> None:
+    def test_validate_invalid_type(self) -> None:
         for key in self._get_mocks().keys():
             mocks = self._get_mocks()
             mocks[key] = object()  # type: ignore
+            bundle = InfoBundle(**mocks)
             with self.assertRaises(ATSTypeError):
-                InfoBundle(**mocks)
-
-    def test_to_dict(self) -> None:
-        mocks = self._get_mocks()
-        bundle = InfoBundle(**mocks)
-        self.assertEqual(bundle.to_dict(), mocks)
+                InfoValidator.validate(bundle)
 
 
 if __name__ == "__main__":

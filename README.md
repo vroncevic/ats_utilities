@@ -249,15 +249,11 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   │   └── __init__.py
          │   ├── engine.py
          │   ├── iinfo_manager.py
-         │   ├── info_bundle.py
-         │   ├── info_factory.py
          │   ├── info_keys.py
          │   ├── info_ok/
          │   │   ├── engine.py
          │   │   ├── iinfo_ok.py
          │   │   └── __init__.py
-         │   ├── info_params.py
-         │   ├── info_registry.py
          │   ├── __init__.py
          │   ├── licence/
          │   │   ├── engine.py
@@ -283,6 +279,13 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   │   ├── engine.py
          │   │   ├── __init__.py
          │   │   └── irepository.py
+         │   ├── setup/
+         │   │   ├── bundle.py
+         │   │   ├── dependencies.py
+         │   │   ├── factory.py
+         │   │   ├── __init__.py
+         │   │   ├── registry.py
+         │   │   └── validator.py
          │   ├── use_github/
          │   │   ├── engine.py
          │   │   ├── __init__.py
@@ -405,7 +408,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
              ├── context_error.py
              └── __init__.py
 
-     46 directories, 235 files
+     47 directories, 237 files
 ```
 </details>
 
@@ -433,7 +436,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/checker/format/format_validator.py` | 29 | 0 | 100%|
 | `ats_utilities/checker/format/iformat_validator.py` | 11 | 0 | 100%|
 | `ats_utilities/checker/ichecker.py` | 20 | 0 | 100%|
-| `ats_utilities/checker/proxy_validator.py` | 80 | 19 | 70%|
+| `ats_utilities/checker/proxy_validator.py` | 80 | 18 | 72%|
 | `ats_utilities/checker/reporter/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/reporter/check_reporter.py` | 33 | 0 | 100%|
 | `ats_utilities/checker/reporter/checker_reporter_bundle.py` | 35 | 0 | 100%|
@@ -477,9 +480,9 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/context/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/context/bundle.py` | 23 | 0 | 100%|
 | `ats_utilities/context/dependencies.py` | 18 | 0 | 100%|
-| `ats_utilities/context/factory.py` | 31 | 7 | 77%|
+| `ats_utilities/context/factory.py` | 31 | 0 | 100%|
 | `ats_utilities/context/registry.py` | 21 | 3 | 86%|
-| `ats_utilities/context/validator.py` | 32 | 11 | 66%|
+| `ats_utilities/context/validator.py` | 32 | 0 | 100%|
 | `ats_utilities/exceptions/__init__.py` | 21 | 0 | 100%|
 | `ats_utilities/exceptions/ats_attribute_error.py` | 11 | 0 | 100%|
 | `ats_utilities/exceptions/ats_bad_call_error.py` | 11 | 0 | 100%|
@@ -520,41 +523,43 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/generator/template/itemplate_processor.py` | 11 | 0 | 100%|
 | `ats_utilities/info/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/build_date/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/info/build_date/engine.py` | 39 | 6 | 85%|
+| `ats_utilities/info/build_date/engine.py` | 39 | 2 | 95%|
 | `ats_utilities/info/build_date/ibuild_date.py` | 11 | 0 | 100%|
 | `ats_utilities/info/engine.py` | 79 | 38 | 41%|
 | `ats_utilities/info/iinfo_manager.py` | 14 | 0 | 100%|
-| `ats_utilities/info/info_bundle.py` | 65 | 0 | 100%|
-| `ats_utilities/info/info_factory.py` | 52 | 21 | 50%|
-| `ats_utilities/info/info_keys.py` | 30 | 2 | 93%|
+| `ats_utilities/info/info_keys.py` | 30 | 1 | 97%|
 | `ats_utilities/info/info_ok/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/info/info_ok/engine.py` | 39 | 6 | 85%|
+| `ats_utilities/info/info_ok/engine.py` | 39 | 2 | 95%|
 | `ats_utilities/info/info_ok/iinfo_ok.py` | 11 | 0 | 100%|
-| `ats_utilities/info/info_params.py` | 35 | 0 | 100%|
-| `ats_utilities/info/info_registry.py` | 20 | 1 | 95%|
 | `ats_utilities/info/licence/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/info/licence/engine.py` | 39 | 6 | 85%|
+| `ats_utilities/info/licence/engine.py` | 39 | 2 | 95%|
 | `ats_utilities/info/licence/ilicence.py` | 11 | 0 | 100%|
 | `ats_utilities/info/log_file/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/info/log_file/engine.py` | 39 | 6 | 85%|
+| `ats_utilities/info/log_file/engine.py` | 39 | 2 | 95%|
 | `ats_utilities/info/log_file/ilog_file.py` | 11 | 0 | 100%|
 | `ats_utilities/info/logo/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/info/logo/engine.py` | 39 | 6 | 85%|
+| `ats_utilities/info/logo/engine.py` | 39 | 2 | 95%|
 | `ats_utilities/info/logo/ilogo.py` | 11 | 0 | 100%|
 | `ats_utilities/info/name/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/info/name/engine.py` | 39 | 6 | 85%|
+| `ats_utilities/info/name/engine.py` | 39 | 2 | 95%|
 | `ats_utilities/info/name/iname.py` | 11 | 0 | 100%|
 | `ats_utilities/info/organization/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/info/organization/engine.py` | 39 | 6 | 85%|
+| `ats_utilities/info/organization/engine.py` | 39 | 2 | 95%|
 | `ats_utilities/info/organization/iorganization.py` | 11 | 0 | 100%|
 | `ats_utilities/info/repository/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/info/repository/engine.py` | 39 | 6 | 85%|
+| `ats_utilities/info/repository/engine.py` | 39 | 2 | 95%|
 | `ats_utilities/info/repository/irepository.py` | 11 | 0 | 100%|
+| `ats_utilities/info/setup/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/info/setup/bundle.py` | 38 | 0 | 100%|
+| `ats_utilities/info/setup/dependencies.py` | 37 | 0 | 100%|
+| `ats_utilities/info/setup/factory.py` | 63 | 0 | 99%|
+| `ats_utilities/info/setup/registry.py` | 21 | 0 | 100%|
+| `ats_utilities/info/setup/validator.py` | 52 | 0 | 100%|
 | `ats_utilities/info/use_github/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/info/use_github/engine.py` | 39 | 6 | 85%|
+| `ats_utilities/info/use_github/engine.py` | 39 | 2 | 95%|
 | `ats_utilities/info/use_github/iuse_github.py` | 11 | 0 | 100%|
 | `ats_utilities/info/version/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/info/version/engine.py` | 39 | 6 | 85%|
+| `ats_utilities/info/version/engine.py` | 39 | 2 | 95%|
 | `ats_utilities/info/version/iversion.py` | 11 | 0 | 100%|
 | `ats_utilities/logger/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/logger/engine.py` | 142 | 0 | 100%|
@@ -650,7 +655,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/validation/check_type.py` | 37 | 0 | 100%|
 | `ats_utilities/validation/check_value.py` | 26 | 0 | 100%|
 | `ats_utilities/validation/context_error.py` | 14 | 0 | 100%|
-| **Total** | 6204 | 412 | 92% |
+| **Total** | 6252 | 330 | 94% |
 
 </details>
 

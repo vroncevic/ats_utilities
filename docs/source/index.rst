@@ -231,16 +231,21 @@ Framework structure
          │   │   ├── engine.py
          │   │   ├── ibuild_date.py
          │   │   └── __init__.py
-         │   ├── engine.py
-         │   ├── iinfo_manager.py
-         │   ├── info_bundle.py
-         │   ├── info_keys.py
-         │   ├── info_ok/
-         │   │   ├── engine.py
-         │   │   ├── iinfo_ok.py
-         │   │   └── __init__.py
-         │   ├── info_registry.py
-         │   ├── __init__.py
+          │   ├── engine.py
+          │   ├── iinfo_manager.py
+          │   ├── info_keys.py
+          │   ├── info_ok/
+          │   │   ├── engine.py
+          │   │   ├── iinfo_ok.py
+          │   │   └── __init__.py
+          │   ├── __init__.py
+          │   ├── setup/
+          │   │   ├── bundle.py
+          │   │   ├── dependencies.py
+          │   │   ├── factory.py
+          │   │   ├── __init__.py
+          │   │   ├── registry.py
+          │   │   └── validator.py
          │   ├── licence/
          │   │   ├── engine.py
          │   │   ├── ilicence.py

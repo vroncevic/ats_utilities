@@ -1,7 +1,7 @@
-ats\_utilities.info.info\_factory module
+ats\_utilities.info.setup.registry module
 ========================================
 
-.. automodule:: ats_utilities.info.info_factory
+.. automodule:: ats_utilities.info.setup.registry
    :members:
    :undoc-members:
    :show-inheritance:

@@ -27,7 +27,7 @@ from typing import Any, override
 
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.info.info_bundle import InfoBundle
+from ats_utilities.info.setup.bundle import InfoBundle
 from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.exceptions import ATSAttributeError
 from ats_utilities.utils.reflection import to_str

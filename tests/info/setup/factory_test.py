@@ -2,7 +2,7 @@
 
 '''
 Module
-    info_factory_test.py
+    factory_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -26,9 +26,9 @@ import unittest
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
-from ats_utilities.info.info_bundle import InfoBundle
+from ats_utilities.info.setup.bundle import InfoBundle
 from ats_utilities.info.info_keys import InfoKeys
-from ats_utilities.info.info_factory import InfoFactory
+from ats_utilities.info.setup.factory import InfoFactory
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -47,7 +47,7 @@ class InfoFactoryTest(unittest.TestCase):
     '''
 
     def test_create_info_bundle_from_dict(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_bundle()
         info_data = {
             InfoKeys.ATS_NAME: "ats_utilities",
             InfoKeys.ATS_VERSION: "3.4.3",
@@ -60,7 +60,10 @@ class InfoFactoryTest(unittest.TestCase):
             InfoKeys.ATS_LOG_FILE: "/path/to/run.log",
             InfoKeys.ATS_INFO_OK: True
         }
-        bundle = InfoFactory.create_info_bundle_from_dict(info_data, context_bundle)
+        bundle = InfoFactory.create_default_bundle({
+            'info': info_data,
+            'context_bundle': context_bundle
+        })
         self.assertIsInstance(bundle, InfoBundle)
         self.assertEqual(bundle.name.name, "ats_utilities")
         self.assertEqual(bundle.version.version, "3.4.3")
@@ -73,27 +76,43 @@ class InfoFactoryTest(unittest.TestCase):
         self.assertEqual(bundle.log_file.log_file, "/path/to/run.log")
         self.assertTrue(bundle.info_ok.info_ok)
 
+        # test backward compatibility method
+        bundle_compat = InfoFactory.create_info_bundle_from_dict(info_data, context_bundle)
+        self.assertIsInstance(bundle_compat, InfoBundle)
+
     def test_create_info_bundle_from_dict_invalid(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_bundle()
         info_data = {}
 
         # Context bundle None
         with self.assertRaises(ATSValueError):
-            InfoFactory.create_info_bundle_from_dict(info_data, None)  # type: ignore
+            InfoFactory.create_default_bundle({
+                'info': info_data,
+                'context_bundle': None  # type: ignore
+            })
 
         # Info dict None
         with self.assertRaises(ATSValueError):
-            InfoFactory.create_info_bundle_from_dict(None, context_bundle)  # type: ignore
+            InfoFactory.create_default_bundle({
+                'info': None,  # type: ignore
+                'context_bundle': context_bundle
+            })
 
         # Invalid types
         with self.assertRaises(ATSTypeError):
-            InfoFactory.create_info_bundle_from_dict(info_data, object())  # type: ignore
+            InfoFactory.create_default_bundle({
+                'info': info_data,
+                'context_bundle': object()  # type: ignore
+            })
 
         with self.assertRaises(ATSTypeError):
-            InfoFactory.create_info_bundle_from_dict("not a dict", context_bundle)  # type: ignore
+            InfoFactory.create_default_bundle({
+                'info': "not a dict",  # type: ignore
+                'context_bundle': context_bundle
+            })
 
     def test_create_info_bundle_from_dict_edge_cases(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_bundle()
 
         # 1. Use Github infrastructure is boolean False
         info_data_bool = {

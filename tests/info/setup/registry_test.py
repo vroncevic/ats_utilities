@@ -2,7 +2,7 @@
 
 '''
 Module
-    info_registry_test.py
+    registry_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -24,10 +24,10 @@ from __future__ import annotations
 import unittest
 
 from ats_utilities.context.factory import ContextFactory
-from ats_utilities.info.info_bundle import InfoBundle
-from ats_utilities.info.info_registry import InfoRegistry
-from ats_utilities.info.info_params import InfoParams
-from ats_utilities.info.info_factory import InfoFactory
+from ats_utilities.info.setup.bundle import InfoBundle
+from ats_utilities.info.setup.registry import InfoRegistry
+from ats_utilities.info.setup.dependencies import InfoDependencies
+from ats_utilities.info.setup.factory import InfoFactory
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -46,7 +46,7 @@ class InfoRegistryTest(unittest.TestCase):
     '''
 
     def test_create_bundle(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_bundle()
         info_data = {
             'ats_name': 'ats_utilities',
             'ats_version': '3.4.3',
@@ -62,7 +62,7 @@ class InfoRegistryTest(unittest.TestCase):
         # Build components using Factory
         factory_bundle = InfoFactory.create_info_bundle_from_dict(info_data, context_bundle)
 
-        params = InfoParams(
+        params = InfoDependencies(
             context_bundle=context_bundle,
             name=factory_bundle.name,
             version=factory_bundle.version,
