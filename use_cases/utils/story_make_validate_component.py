@@ -23,10 +23,10 @@ from collections.abc import Sequence
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.factory import CheckerFactory
+from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.factory import LoggerFactory
+from ats_utilities.logger.setup.factory import LoggerFactory
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme

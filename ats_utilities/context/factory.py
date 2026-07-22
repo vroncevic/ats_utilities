@@ -25,11 +25,11 @@ from typing import override
 
 from ats_utilities.utils.ifactory import IFactory
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.factory import CheckerFactory
+from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.factory import LoggerFactory
+from ats_utilities.logger.setup.factory import LoggerFactory
 from ats_utilities.reporter.engine import Reporter
-from ats_utilities.reporter.registry import ReporterRegistry
+from ats_utilities.reporter.setup.registry import ReporterRegistry
 from ats_utilities.reporter.theme.engine import ConsoleTheme
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator

@@ -34,7 +34,7 @@ from types import MappingProxyType
 from typing import Any, override
 
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.logger.bundle import LoggerBundle
+from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype

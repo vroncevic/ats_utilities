@@ -133,14 +133,11 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   ├── ibase.py
          │   └── __init__.py
          ├── checker/
-         │   ├── bundle.py
          │   ├── context/
          │   │   ├── context_provider.py
          │   │   ├── icontext_provider.py
          │   │   └── __init__.py
-         │   ├── dependencies.py
          │   ├── engine.py
-         │   ├── factory.py
          │   ├── format/
          │   │   ├── format_validator.py
          │   │   ├── iformat_validator.py
@@ -148,7 +145,6 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   ├── ichecker.py
          │   ├── __init__.py
          │   ├── proxy_validator.py
-         │   ├── registry.py
          │   ├── reporter/
          │   │   ├── check_reporter.py
          │   │   ├── checker_reporter_bundle.py
@@ -156,11 +152,17 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   │   ├── checker_reporter_registry.py
          │   │   ├── icheck_reporter.py
          │   │   └── __init__.py
-         │   ├── type/
+         │   ├── setup/
+         │   │   ├── bundle.py
+         │   │   ├── dependencies.py
+         │   │   ├── factory.py
          │   │   ├── __init__.py
-         │   │   ├── itype_validator.py
-         │   │   └── type_validator.py
-         │   └── validator.py
+         │   │   ├── registry.py
+         │   │   └── validator.py
+         │   └── type/
+         │       ├── __init__.py
+         │       ├── itype_validator.py
+         │       └── type_validator.py
          ├── config_io/
          │   ├── conf_file.py
          │   ├── conf_file_bundle.py
@@ -291,14 +293,16 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │       └── iversion.py
          ├── __init__.py
          ├── logger/
-         │   ├── bundle.py
-         │   ├── dependencies.py
          │   ├── engine.py
-         │   ├── factory.py
          │   ├── ilogger.py
          │   ├── __init__.py
-         │   ├── registry.py
-         │   └── validator.py
+         │   └── setup/
+         │       ├── bundle.py
+         │       ├── dependencies.py
+         │       ├── factory.py
+         │       ├── __init__.py
+         │       ├── registry.py
+         │       └── validator.py
          ├── option/
          │   ├── command/
          │   │   ├── command_option.py
@@ -340,19 +344,21 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   └── template_dir.py
          ├── py.typed
          ├── reporter/
-         │   ├── bundle.py
-         │   ├── dependencies.py
          │   ├── engine.py
-         │   ├── factory.py
          │   ├── __init__.py
          │   ├── ireporter.py
          │   ├── proxy_reporter.py
-         │   ├── registry.py
-         │   ├── theme/
-         │   │   ├── engine.py
-         │   │   ├── iconsole_theme.py
-         │   │   └── __init__.py
-         │   └── validator.py
+         │   ├── setup/
+         │   │   ├── bundle.py
+         │   │   ├── dependencies.py
+         │   │   ├── factory.py
+         │   │   ├── __init__.py
+         │   │   ├── registry.py
+         │   │   └── validator.py
+         │   └── theme/
+         │       ├── engine.py
+         │       ├── iconsole_theme.py
+         │       └── __init__.py
          ├── splasher/
          │   ├── engine.py
          │   ├── external/
@@ -399,7 +405,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
              ├── context_error.py
              └── __init__.py
 
-     43 directories, 232 files
+     46 directories, 235 files
 ```
 </details>
 
@@ -419,29 +425,30 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/base/engine.py` | 65 | 1 | 99%|
 | `ats_utilities/base/ibase.py` | 16 | 0 | 100%|
 | `ats_utilities/checker/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/checker/bundle.py` | 24 | 0 | 100%|
 | `ats_utilities/checker/context/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/context/context_provider.py` | 39 | 0 | 100%|
 | `ats_utilities/checker/context/icontext_provider.py` | 11 | 0 | 100%|
-| `ats_utilities/checker/dependencies.py` | 19 | 0 | 100%|
 | `ats_utilities/checker/engine.py` | 65 | 0 | 100%|
-| `ats_utilities/checker/factory.py` | 27 | 0 | 100%|
 | `ats_utilities/checker/format/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/format/format_validator.py` | 29 | 0 | 100%|
 | `ats_utilities/checker/format/iformat_validator.py` | 11 | 0 | 100%|
 | `ats_utilities/checker/ichecker.py` | 20 | 0 | 100%|
 | `ats_utilities/checker/proxy_validator.py` | 80 | 19 | 70%|
-| `ats_utilities/checker/registry.py` | 21 | 0 | 100%|
 | `ats_utilities/checker/reporter/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/reporter/check_reporter.py` | 33 | 0 | 100%|
 | `ats_utilities/checker/reporter/checker_reporter_bundle.py` | 35 | 0 | 100%|
 | `ats_utilities/checker/reporter/checker_reporter_params.py` | 17 | 0 | 100%|
 | `ats_utilities/checker/reporter/checker_reporter_registry.py` | 23 | 0 | 100%|
 | `ats_utilities/checker/reporter/icheck_reporter.py` | 12 | 0 | 100%|
+| `ats_utilities/checker/setup/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/checker/setup/bundle.py` | 24 | 0 | 100%|
+| `ats_utilities/checker/setup/dependencies.py` | 19 | 0 | 100%|
+| `ats_utilities/checker/setup/factory.py` | 27 | 0 | 100%|
+| `ats_utilities/checker/setup/registry.py` | 21 | 0 | 100%|
+| `ats_utilities/checker/setup/validator.py` | 33 | 0 | 100%|
 | `ats_utilities/checker/type/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/type/itype_validator.py` | 12 | 0 | 100%|
 | `ats_utilities/checker/type/type_validator.py` | 46 | 0 | 100%|
-| `ats_utilities/checker/validator.py` | 33 | 0 | 100%|
 | `ats_utilities/config_io/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/config_io/conf_file.py` | 56 | 0 | 100%|
 | `ats_utilities/config_io/conf_file_bundle.py` | 31 | 0 | 100%|
@@ -550,13 +557,14 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/info/version/engine.py` | 39 | 6 | 85%|
 | `ats_utilities/info/version/iversion.py` | 11 | 0 | 100%|
 | `ats_utilities/logger/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/logger/bundle.py` | 19 | 0 | 100%|
-| `ats_utilities/logger/dependencies.py` | 17 | 0 | 100%|
 | `ats_utilities/logger/engine.py` | 142 | 0 | 100%|
-| `ats_utilities/logger/factory.py` | 35 | 0 | 100%|
 | `ats_utilities/logger/ilogger.py` | 12 | 0 | 100%|
-| `ats_utilities/logger/registry.py` | 21 | 0 | 100%|
-| `ats_utilities/logger/validator.py` | 27 | 0 | 100%|
+| `ats_utilities/logger/setup/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/logger/setup/bundle.py` | 19 | 0 | 100%|
+| `ats_utilities/logger/setup/dependencies.py` | 17 | 0 | 100%|
+| `ats_utilities/logger/setup/factory.py` | 35 | 0 | 100%|
+| `ats_utilities/logger/setup/registry.py` | 21 | 0 | 100%|
+| `ats_utilities/logger/setup/validator.py` | 27 | 0 | 100%|
 | `ats_utilities/option/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/command/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/command/command_option.py` | 51 | 0 | 100%|
@@ -592,17 +600,18 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/project_setup/project_setup_registry.py` | 19 | 1 | 95%|
 | `ats_utilities/project_setup/template_dir.py` | 39 | 6 | 85%|
 | `ats_utilities/reporter/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/reporter/bundle.py` | 22 | 0 | 100%|
-| `ats_utilities/reporter/dependencies.py` | 17 | 0 | 100%|
 | `ats_utilities/reporter/engine.py` | 68 | 0 | 100%|
-| `ats_utilities/reporter/factory.py` | 28 | 0 | 100%|
 | `ats_utilities/reporter/ireporter.py` | 13 | 0 | 100%|
 | `ats_utilities/reporter/proxy_reporter.py` | 64 | 1 | 98%|
-| `ats_utilities/reporter/registry.py` | 21 | 0 | 100%|
+| `ats_utilities/reporter/setup/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/reporter/setup/bundle.py` | 22 | 0 | 100%|
+| `ats_utilities/reporter/setup/dependencies.py` | 17 | 0 | 100%|
+| `ats_utilities/reporter/setup/factory.py` | 28 | 0 | 100%|
+| `ats_utilities/reporter/setup/registry.py` | 21 | 0 | 100%|
+| `ats_utilities/reporter/setup/validator.py` | 30 | 0 | 100%|
 | `ats_utilities/reporter/theme/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/reporter/theme/engine.py` | 33 | 0 | 100%|
 | `ats_utilities/reporter/theme/iconsole_theme.py` | 11 | 0 | 100%|
-| `ats_utilities/reporter/validator.py` | 30 | 0 | 100%|
 | `ats_utilities/splasher/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/engine.py` | 78 | 42 | 40%|
 | `ats_utilities/splasher/external/__init__.py` | 9 | 0 | 100%|
@@ -641,7 +650,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/validation/check_type.py` | 37 | 0 | 100%|
 | `ats_utilities/validation/check_value.py` | 26 | 0 | 100%|
 | `ats_utilities/validation/context_error.py` | 14 | 0 | 100%|
-| **Total** | 6177 | 412 | 92% |
+| **Total** | 6204 | 412 | 92% |
 
 </details>
 

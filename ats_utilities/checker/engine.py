@@ -32,7 +32,7 @@ from ats_utilities.checker.type.itype_validator import ITypeValidator
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
-from ats_utilities.checker.bundle import CheckerBundle
+from ats_utilities.checker.setup.bundle import CheckerBundle
 from ats_utilities.checker.reporter.checker_reporter_bundle import (
     CheckerReporterBundle, ParamMetadata
 )

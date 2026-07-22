@@ -24,8 +24,8 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.checker.bundle import CheckerBundle
-from ats_utilities.checker.factory import CheckerFactory
+from ats_utilities.checker.setup.bundle import CheckerBundle
+from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ErrorChecker
 from ats_utilities.exceptions import ATSTypeError, ATSValueError

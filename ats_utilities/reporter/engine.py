@@ -27,7 +27,7 @@ from logging import DEBUG, INFO, WARNING, ERROR
 from typing import Any, override
 
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.bundle import ReporterBundle
+from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.logger.ilogger import ILogger

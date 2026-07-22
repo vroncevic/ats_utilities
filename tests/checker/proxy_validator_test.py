@@ -25,7 +25,7 @@ import unittest
 from typing import Any
 from unittest.mock import MagicMock
 
-from ats_utilities.checker.factory import CheckerFactory
+from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ErrorChecker
 from ats_utilities.checker.proxy_validator import mcheck, fcheck

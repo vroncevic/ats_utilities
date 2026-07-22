@@ -29,7 +29,7 @@ from ats_utilities.checker.ichecker import IChecker, ErrorChecker
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.engine import Reporter
-from ats_utilities.reporter.bundle import ReporterBundle
+from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 
 __author__: str = 'Vladimir Roncevic'

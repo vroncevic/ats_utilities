@@ -12,8 +12,8 @@ Info
 from logging import DEBUG, INFO, WARNING, ERROR, CRITICAL
 from loguru import logger as loguru_native
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.logger.bundle import LoggerBundle
-from ats_utilities.logger.factory import LoggerFactory
+from ats_utilities.logger.setup.bundle import LoggerBundle
+from ats_utilities.logger.setup.factory import LoggerFactory
 from ats_utilities.logger.engine import Logger
 
 #

@@ -30,7 +30,7 @@ from unittest.mock import MagicMock, patch
 
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.bundle import LoggerBundle
+from ats_utilities.logger.setup.bundle import LoggerBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

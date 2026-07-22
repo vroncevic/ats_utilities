@@ -21,7 +21,7 @@ Info
 
 from logging import DEBUG
 from ats_utilities.reporter.engine import Reporter
-from ats_utilities.reporter.factory import ReporterFactory
+from ats_utilities.reporter.setup.factory import ReporterFactory
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

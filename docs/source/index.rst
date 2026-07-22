@@ -126,10 +126,8 @@ Framework structure
          │   ├── engine.py
          │   ├── ibase.py
          │   └── __init__.py
-         ├── checker/
-         │   ├── checker_bundle.py
-         │   ├── checker_registry.py
-         │   ├── context/
+          ├── checker/
+          │   ├── context/
          │   │   ├── context_provider.py
          │   │   ├── icontext_provider.py
          │   │   └── __init__.py
@@ -147,7 +145,14 @@ Framework structure
          │   │   ├── checker_reporter_registry.py
          │   │   ├── icheck_reporter.py
          │   │   └── __init__.py
-         │   └── type/
+          │   ├── setup/
+          │   │   ├── bundle.py
+          │   │   ├── dependencies.py
+          │   │   ├── factory.py
+          │   │   ├── __init__.py
+          │   │   ├── registry.py
+          │   │   └── validator.py
+          │   └── type/
          │       ├── __init__.py
          │       ├── itype_validator.py
          │       └── type_validator.py
@@ -269,15 +274,17 @@ Framework structure
          │       ├── __init__.py
          │       └── iversion.py
          ├── __init__.py
-         ├── logger/
-         │   ├── bundle.py
-         │   ├── dependencies.py
-         │   ├── engine.py
-         │   ├── factory.py
-         │   ├── ilogger.py
-         │   ├── __init__.py
-         │   ├── registry.py
-         │   └── validator.py
+          ├── logger/
+          │   ├── engine.py
+          │   ├── ilogger.py
+          │   ├── __init__.py
+          │   └── setup/
+          │       ├── bundle.py
+          │       ├── dependencies.py
+          │       ├── factory.py
+          │       ├── __init__.py
+          │       ├── registry.py
+          │       └── validator.py
          ├── option/
          │   ├── command/
          │   │   ├── command_option.py
@@ -312,17 +319,19 @@ Framework structure
          │   ├── project_setup_registry.py
          │   └── template_dir.py
          ├── py.typed
-         ├── reporter/
-         │   ├── bundle.py
-         │   ├── dependencies.py
-         │   ├── engine.py
-         │   ├── factory.py
-         │   ├── __init__.py
-         │   ├── ireporter.py
-         │   ├── proxy_reporter.py
-         │   ├── registry.py
-         │   ├── validator.py
-         │   └── theme/
+          ├── reporter/
+          │   ├── engine.py
+          │   ├── __init__.py
+          │   ├── ireporter.py
+          │   ├── proxy_reporter.py
+          │   ├── setup/
+          │   │   ├── bundle.py
+          │   │   ├── dependencies.py
+          │   │   ├── factory.py
+          │   │   ├── __init__.py
+          │   │   ├── registry.py
+          │   │   └── validator.py
+          │   └── theme/
          │       ├── engine.py
          │       ├── iconsole_theme.py
          │       └── __init__.py

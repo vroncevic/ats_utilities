@@ -28,7 +28,7 @@ import inspect
 from functools import wraps
 from typing import Any, cast
 
-from ats_utilities.checker.factory import CheckerFactory
+from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import IChecker, ParametersSpecs
 from ats_utilities.exceptions import (

@@ -21,12 +21,12 @@ Info
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.registry import CheckerRegistry
-from ats_utilities.checker.factory import CheckerFactory
+from ats_utilities.checker.setup.registry import CheckerRegistry
+from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.factory import LoggerFactory
+from ats_utilities.logger.setup.factory import LoggerFactory
 from ats_utilities.reporter.engine import Reporter
-from ats_utilities.reporter.factory import ReporterFactory
+from ats_utilities.reporter.setup.factory import ReporterFactory
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

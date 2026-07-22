@@ -20,7 +20,7 @@ Info
 '''
 
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.registry import CheckerRegistry
+from ats_utilities.checker.setup.registry import CheckerRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
