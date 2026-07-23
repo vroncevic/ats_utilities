@@ -1,6 +1,28 @@
 {
     "files.exclude": {
         "**/*.pyc": true,
-        "**/__pycache__": true
+        "**/__pycache__": true,
+        "htmlcov": true,
+        ".coverage": true,
+        "*.report": true,
+        "*.xml": true,
+        "*.json": true
+    },
+    "files.watcherExclude": {
+        "**/*.pyc": true,
+        "**/__pycache__": true,
+        "htmlcov": true,
+        ".coverage": true,
+        "*.report": true,
+        "*.xml": true,
+        "*.json": true
+    },
+    "search.exclude": {
+        "**/__pycache__": true,
+        "htmlcov": true,
+        ".coverage": true,
+        "*.report": true,
+        "*.xml": true,
+        "*.json": true
     }
 }

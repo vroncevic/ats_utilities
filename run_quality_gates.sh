@@ -7,7 +7,9 @@
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 
-python3 ats_coverage.py -n ats_utilities
-pylint ats_utilities > ats_utilities.report
+python3 .github/scripts/check_interfaces.py
+python3 .github/scripts/check_isp.py
+python3 .github/scripts/check_module_limits.py
+python3 .github/scripts/check_srp.py
 
 echo "Done"
