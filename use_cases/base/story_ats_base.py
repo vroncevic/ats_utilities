@@ -24,8 +24,8 @@ from os.path import dirname, realpath
 from typing import override
 
 from ats_utilities.base.engine import Base
-from ats_utilities.base.base_registry import BaseRegistry
-from ats_utilities.context.registry import ContextRegistry
+from ats_utilities.base.setup.factory import BaseFactory
+from ats_utilities.context.factory import ContextFactory
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -44,9 +44,9 @@ class MyTool(Base):
     def __init__(self):
         current_dir: str = dirname(realpath(__file__))
         super().__init__(
-            BaseRegistry.create_default_base_bundle(
+            BaseFactory.create_default_base_bundle(
                 info_file=f'{current_dir}/{self._INFO_FILE}',
-                context_bundle=ContextRegistry.create_default_context_bundle()
+                context_bundle=ContextFactory.create_default_bundle()
             )
         )
 

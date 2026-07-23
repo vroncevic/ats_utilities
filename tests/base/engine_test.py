@@ -6,7 +6,7 @@ from typing import Any, override
 
 # Adjust imports according to your project structure
 from ats_utilities.base.engine import Base
-from ats_utilities.base.base_bundle import BaseBundle
+from ats_utilities.base.setup.bundle import BaseBundle
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.info.iinfo_manager import IInfoManager
@@ -60,7 +60,7 @@ class TestBaseEngine(unittest.TestCase):
         
         base_instance = ConcreteBase(self.mock_bundle)
 
-        self.assertEqual(base_instance.get_shared_context(), self.mock_context)
+        self.assertEqual(base_instance.get_context(), self.mock_context)
         self.assertTrue(base_instance.is_initialized())
         
         # Verify generator was not checked or bound

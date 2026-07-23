@@ -32,7 +32,7 @@ from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.splash_center_registry import SplashCenterRegistry
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.splasher.splash_factory import SplashFactory
+from ats_utilities.splasher.setup.factory import SplashFactory
 from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
 
 __author__: str = 'Vladimir Roncevic'
@@ -64,7 +64,7 @@ class EngineTest(unittest.TestCase):
     '''
 
     def setUp(self) -> None:
-        self.context_bundle = ContextFactory.create_default_context_bundle()
+        self.context_bundle = ContextFactory.create_default_bundle()
         # Create a temporary file to act as the logo
         self.temp_logo = tempfile.NamedTemporaryFile(delete=False, mode="w", encoding="utf-8")
         self.temp_logo.write("LOGO LINE 1\n\nLOGO LINE 2\n")
@@ -105,7 +105,7 @@ class EngineTest(unittest.TestCase):
         bundle = SplashFactory.create_splash_bundle_from_dict(prop, self.context_bundle)
         splasher = Splasher(bundle)
         self.assertTrue(splasher.is_initialized())
-        self.assertIs(splasher.get_shared_context(), self.context_bundle)
+        self.assertIs(splasher.get_context(), self.context_bundle)
         mock_write.assert_not_called()
 
     @patch("sys.stdout.write")

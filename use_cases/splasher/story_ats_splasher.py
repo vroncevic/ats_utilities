@@ -23,9 +23,9 @@ from typing import Any
 from os.path import dirname, realpath
 from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.splasher.splash_registry import SplashRegistry
+from ats_utilities.splasher.setup.factory import SplashFactory
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.registry import ContextRegistry
+from ats_utilities.context.factory import ContextFactory
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,7 +38,7 @@ __status__ = r'Development'
 
 current_dir: str = dirname(realpath(__file__))
 logo_path: str = f'{current_dir}/../../tests/assets/config/read_only/app.logo'
-context_bundle: ContextBundle = ContextRegistry.create_default_context_bundle()
+context_bundle: ContextBundle = ContextFactory.create_default_bundle()
 
 #
 # default [with GitHub]
@@ -52,7 +52,7 @@ mytool_property_github: dict[Any, Any] = {
     SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
 }
 ats_splash_with_github: Splasher = Splasher(
-    own=SplashRegistry.create_splash_bundle_from_dict(
+    own=SplashFactory.create_splash_bundle_from_dict(
         mytool_property_github, context_bundle=context_bundle
     )
 )
@@ -71,7 +71,7 @@ mytool_property_no_github: dict[Any, Any] = {
     SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: False
 }
 ats_splash_without_github = Splasher(
-    own=SplashRegistry.create_splash_bundle_from_dict(
+    own=SplashFactory.create_splash_bundle_from_dict(
         mytool_property_no_github, context_bundle=context_bundle
     )
 )

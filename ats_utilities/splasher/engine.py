@@ -28,7 +28,7 @@ from sys import stdout
 
 from ats_utilities.splasher.isplasher import ISplasher
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.splasher.splash_bundle import SplashBundle
+from ats_utilities.splasher.setup.bundle import SplashBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 from ats_utilities.splasher.splash_center_registry import SplashCenterRegistry
 from ats_utilities.splasher.splash_center_params import SplashCenterParams

@@ -125,13 +125,16 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 ```bash
     ats_utilities/
          ├── base/
-         │   ├── base_bundle.py
-         │   ├── base_factory.py
-         │   ├── base_params.py
-         │   ├── base_registry.py
          │   ├── engine.py
          │   ├── ibase.py
-         │   └── __init__.py
+         │   ├── __init__.py
+         │   └── setup/
+         │       ├── bundle.py
+         │       ├── dependencies.py
+         │       ├── factory.py
+         │       ├── __init__.py
+         │       ├── registry.py
+         │       └── validator.py
          ├── checker/
          │   ├── context/
          │   │   ├── context_provider.py
@@ -220,6 +223,21 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   ├── gen_params_registry.py
          │   ├── igenerator.py
          │   ├── __init__.py
+         │   ├── project/
+         │   │   ├── __init__.py
+         │   │   ├── ipro_config.py
+         │   │   ├── ipro_name.py
+         │   │   ├── itemplate_dir.py
+         │   │   ├── pro_config.py
+         │   │   ├── pro_name.py
+         │   │   ├── setup/
+         │   │   │   ├── bundle.py
+         │   │   │   ├── dependencies.py
+         │   │   │   ├── factory.py
+         │   │   │   ├── __init__.py
+         │   │   │   ├── registry.py
+         │   │   │   └── validator.py
+         │   │   └── template_dir.py
          │   ├── scheme/
          │   │   ├── engine.py
          │   │   ├── __init__.py
@@ -339,18 +357,6 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │       ├── parser_strategy_bundle.py
          │       ├── parser_strategy_params.py
          │       └── parser_strategy_registry.py
-         ├── project_setup/
-         │   ├── __init__.py
-         │   ├── ipro_config.py
-         │   ├── ipro_name.py
-         │   ├── itemplate_dir.py
-         │   ├── pro_config.py
-         │   ├── pro_name.py
-         │   ├── project_setup_bundle.py
-         │   ├── project_setup_factory.py
-         │   ├── project_setup_params.py
-         │   ├── project_setup_registry.py
-         │   └── template_dir.py
          ├── py.typed
          ├── reporter/
          │   ├── engine.py
@@ -385,14 +391,17 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   │   ├── __init__.py
          │   │   ├── isplash_property.py
          │   │   └── splash_property.py
-         │   ├── splash_bundle.py
+         │   ├── setup/
+         │   │   ├── bundle.py
+         │   │   ├── dependencies.py
+         │   │   ├── factory.py
+         │   │   ├── __init__.py
+         │   │   ├── registry.py
+         │   │   └── validator.py
          │   ├── splash_center_bundle.py
          │   ├── splash_center_params.py
          │   ├── splash_center_registry.py
-         │   ├── splash_factory.py
          │   ├── splash_keys.py
-         │   ├── splash_params.py
-         │   ├── splash_registry.py
          │   └── terminal/
          │       ├── __init__.py
          │       ├── iterminal_properties.py
@@ -414,7 +423,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
              ├── context_error.py
              └── __init__.py
 
-     49 directories, 241 files
+     52 directories, 247 files
 ```
 </details>
 
@@ -427,12 +436,14 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 |------|-------|------|-------|
 | `ats_utilities/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/base/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/base/base_bundle.py` | 50 | 0 | 100%|
-| `ats_utilities/base/base_factory.py` | 54 | 0 | 100%|
-| `ats_utilities/base/base_params.py` | 25 | 0 | 100%|
-| `ats_utilities/base/base_registry.py` | 18 | 0 | 100%|
-| `ats_utilities/base/engine.py` | 65 | 1 | 99%|
+| `ats_utilities/base/engine.py` | 65 | 0 | 100%|
 | `ats_utilities/base/ibase.py` | 16 | 0 | 100%|
+| `ats_utilities/base/setup/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/base/setup/bundle.py` | 30 | 0 | 100%|
+| `ats_utilities/base/setup/dependencies.py` | 29 | 0 | 100%|
+| `ats_utilities/base/setup/factory.py` | 66 | 0 | 100%|
+| `ats_utilities/base/setup/registry.py` | 21 | 0 | 100%|
+| `ats_utilities/base/setup/validator.py` | 42 | 0 | 100%|
 | `ats_utilities/checker/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/context/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/context/context_provider.py` | 39 | 0 | 100%|
@@ -442,7 +453,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/checker/format/format_validator.py` | 29 | 0 | 100%|
 | `ats_utilities/checker/format/iformat_validator.py` | 11 | 0 | 100%|
 | `ats_utilities/checker/ichecker.py` | 20 | 0 | 100%|
-| `ats_utilities/checker/proxy_validator.py` | 80 | 18 | 72%|
+| `ats_utilities/checker/proxy_validator.py` | 80 | 15 | 77%|
 | `ats_utilities/checker/reporter/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/reporter/check_reporter.py` | 33 | 0 | 100%|
 | `ats_utilities/checker/reporter/checker_reporter_bundle.py` | 35 | 0 | 100%|
@@ -508,13 +519,26 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/generator/gen_params_params.py` | 17 | 0 | 100%|
 | `ats_utilities/generator/gen_params_registry.py` | 27 | 0 | 100%|
 | `ats_utilities/generator/igenerator.py` | 14 | 0 | 100%|
+| `ats_utilities/generator/project/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/generator/project/ipro_config.py` | 13 | 0 | 100%|
+| `ats_utilities/generator/project/ipro_name.py` | 11 | 0 | 100%|
+| `ats_utilities/generator/project/itemplate_dir.py` | 11 | 0 | 100%|
+| `ats_utilities/generator/project/pro_config.py` | 43 | 0 | 100%|
+| `ats_utilities/generator/project/pro_name.py` | 39 | 0 | 100%|
+| `ats_utilities/generator/project/setup/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/generator/project/setup/bundle.py` | 24 | 0 | 100%|
+| `ats_utilities/generator/project/setup/dependencies.py` | 23 | 0 | 100%|
+| `ats_utilities/generator/project/setup/factory.py` | 44 | 0 | 100%|
+| `ats_utilities/generator/project/setup/registry.py` | 21 | 0 | 100%|
+| `ats_utilities/generator/project/setup/validator.py` | 33 | 0 | 100%|
+| `ats_utilities/generator/project/template_dir.py` | 39 | 0 | 100%|
 | `ats_utilities/generator/scheme/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/generator/scheme/engine.py` | 48 | 0 | 100%|
 | `ats_utilities/generator/scheme/ischeme_loader.py` | 13 | 0 | 100%|
 | `ats_utilities/generator/setup/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/generator/setup/bundle.py` | 24 | 0 | 100%|
-| `ats_utilities/generator/setup/dependencies.py` | 24 | 0 | 100%|
-| `ats_utilities/generator/setup/factory.py` | 41 | 0 | 100%|
+| `ats_utilities/generator/setup/dependencies.py` | 21 | 0 | 100%|
+| `ats_utilities/generator/setup/factory.py` | 40 | 0 | 100%|
 | `ats_utilities/generator/setup/registry.py` | 28 | 1 | 96%|
 | `ats_utilities/generator/setup/validator.py` | 33 | 0 | 100%|
 | `ats_utilities/generator/tar/__init__.py` | 9 | 0 | 100%|
@@ -603,17 +627,6 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/option/strategy/parser_strategy_bundle.py` | 38 | 0 | 100%|
 | `ats_utilities/option/strategy/parser_strategy_params.py` | 17 | 0 | 100%|
 | `ats_utilities/option/strategy/parser_strategy_registry.py` | 28 | 0 | 100%|
-| `ats_utilities/project_setup/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/project_setup/ipro_config.py` | 13 | 0 | 100%|
-| `ats_utilities/project_setup/ipro_name.py` | 11 | 0 | 100%|
-| `ats_utilities/project_setup/itemplate_dir.py` | 11 | 0 | 100%|
-| `ats_utilities/project_setup/pro_config.py` | 43 | 6 | 86%|
-| `ats_utilities/project_setup/pro_name.py` | 39 | 6 | 85%|
-| `ats_utilities/project_setup/project_setup_bundle.py` | 36 | 0 | 100%|
-| `ats_utilities/project_setup/project_setup_factory.py` | 26 | 7 | 73%|
-| `ats_utilities/project_setup/project_setup_params.py` | 20 | 0 | 100%|
-| `ats_utilities/project_setup/project_setup_registry.py` | 19 | 1 | 95%|
-| `ats_utilities/project_setup/template_dir.py` | 39 | 6 | 85%|
 | `ats_utilities/reporter/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/reporter/engine.py` | 68 | 0 | 100%|
 | `ats_utilities/reporter/ireporter.py` | 13 | 0 | 100%|
@@ -628,10 +641,10 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/reporter/theme/engine.py` | 33 | 0 | 100%|
 | `ats_utilities/reporter/theme/iconsole_theme.py` | 11 | 0 | 100%|
 | `ats_utilities/splasher/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/splasher/engine.py` | 78 | 42 | 40%|
+| `ats_utilities/splasher/engine.py` | 78 | 0 | 100%|
 | `ats_utilities/splasher/external/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/splasher/external/ext_infrastructure.py` | 66 | 19 | 71%|
-| `ats_utilities/splasher/external/github_infrastructure.py` | 75 | 28 | 63%|
+| `ats_utilities/splasher/external/ext_infrastructure.py` | 66 | 1 | 98%|
+| `ats_utilities/splasher/external/github_infrastructure.py` | 75 | 1 | 99%|
 | `ats_utilities/splasher/external/iext_infrastructure.py` | 13 | 0 | 100%|
 | `ats_utilities/splasher/isplasher.py` | 13 | 0 | 100%|
 | `ats_utilities/splasher/progressbar/__init__.py` | 9 | 0 | 100%|
@@ -639,18 +652,20 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/splasher/progressbar/progress_bar.py` | 60 | 0 | 100%|
 | `ats_utilities/splasher/property/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/property/isplash_property.py` | 13 | 0 | 100%|
-| `ats_utilities/splasher/property/splash_property.py` | 49 | 10 | 74%|
-| `ats_utilities/splasher/splash_bundle.py` | 46 | 15 | 67%|
+| `ats_utilities/splasher/property/splash_property.py` | 49 | 1 | 98%|
+| `ats_utilities/splasher/setup/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/splasher/setup/bundle.py` | 29 | 0 | 100%|
+| `ats_utilities/splasher/setup/dependencies.py` | 27 | 0 | 100%|
+| `ats_utilities/splasher/setup/factory.py` | 59 | 0 | 100%|
+| `ats_utilities/splasher/setup/registry.py` | 21 | 0 | 100%|
+| `ats_utilities/splasher/setup/validator.py` | 41 | 0 | 100%|
 | `ats_utilities/splasher/splash_center_bundle.py` | 29 | 0 | 100%|
 | `ats_utilities/splasher/splash_center_params.py` | 13 | 0 | 100%|
 | `ats_utilities/splasher/splash_center_registry.py` | 21 | 0 | 100%|
-| `ats_utilities/splasher/splash_factory.py` | 41 | 11 | 63%|
 | `ats_utilities/splasher/splash_keys.py` | 59 | 0 | 100%|
-| `ats_utilities/splasher/splash_params.py` | 24 | 0 | 100%|
-| `ats_utilities/splasher/splash_registry.py` | 20 | 1 | 95%|
 | `ats_utilities/splasher/terminal/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/terminal/iterminal_properties.py` | 12 | 0 | 100%|
-| `ats_utilities/splasher/terminal/terminal_properties.py` | 59 | 24 | 54%|
+| `ats_utilities/splasher/terminal/terminal_properties.py` | 59 | 8 | 83%|
 | `ats_utilities/utils/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/utils/boolean.py` | 19 | 0 | 100%|
 | `ats_utilities/utils/component.py` | 16 | 0 | 100%|
@@ -665,7 +680,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/validation/check_type.py` | 37 | 0 | 100%|
 | `ats_utilities/validation/check_value.py` | 26 | 0 | 100%|
 | `ats_utilities/validation/context_error.py` | 14 | 0 | 100%|
-| **Total** | 6365 | 321 | 94% |
+| **Total** | 6519 | 152 | 97% |
 
 </details>
 

@@ -25,7 +25,7 @@ from __future__ import annotations
 from abc import abstractmethod
 from typing import Any, override
 
-from ats_utilities.base.base_bundle import BaseBundle
+from ats_utilities.base.setup.bundle import BaseBundle
 from ats_utilities.base.ibase import ArgSeq, IBase
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.context.bundle import ContextBundle
