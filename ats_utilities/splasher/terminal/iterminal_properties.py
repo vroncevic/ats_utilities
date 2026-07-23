@@ -55,9 +55,9 @@ class ITerminalProperties(ABC):
             Gets size for file descriptor.
 
             :param file_descriptor: File descriptor.
-            :type file_descriptor: <int>
+            :type file_descriptor: int
             :return: Window size of terminal.
-            :rtype: <tuple[Any, ...]>
+            :rtype: tuple[Any, ...]
             :exceptions: None.
         '''
         pass
@@ -77,7 +77,7 @@ class ITerminalProperties(ABC):
             Gets terminal window size.
 
             :return: Terminal window size.
-            :rtype: <tuple[Any, ...]>
+            :rtype: tuple[Any, ...]
             :exceptions: None.
         '''
         pass
@@ -88,7 +88,7 @@ class ITerminalProperties(ABC):
             Returns the terminal properties as string representation.
 
             :return: The terminal properties as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

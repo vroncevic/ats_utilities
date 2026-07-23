@@ -66,7 +66,7 @@ class ArgParser(ArgumentParser, IArgParser):
             :param own: Data with components for argument parser.
             :type own: <ParserData | None>
             :param kwargs: Additional keyword arguments.
-            :type kwargs: <Any>
+            :type kwargs: Any
             :exceptions: None.
         '''
         if own is None:
@@ -103,8 +103,8 @@ class ArgParser(ArgumentParser, IArgParser):
             Overrides default error handling to use IReporter.
 
             :param message: Error message to report.
-            :type message: <str>
-            :rtype: <NoReturn>
+            :type message: str
+            :rtype: NoReturn
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -123,7 +123,7 @@ class ArgParser(ArgumentParser, IArgParser):
             Returns the string representation of ArgParser.
 
             :return: The ArgParser as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

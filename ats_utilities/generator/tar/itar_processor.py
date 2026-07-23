@@ -78,8 +78,8 @@ class ITarProcessor(ABC):
         '''
             Checks if component is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -90,7 +90,7 @@ class ITarProcessor(ABC):
             Returns the component as string representation.
 
             :return: String representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

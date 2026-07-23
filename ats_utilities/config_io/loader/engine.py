@@ -74,7 +74,7 @@ class Loader(ILoader):
             Constructor.
 
             :param own: ConfigIOBundle instance.
-            :type own: <ConfigIOBundle>
+            :type own: ConfigIOBundle
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSTypeError: Component bundle must be ConfigIOBundle instance.
@@ -107,7 +107,7 @@ class Loader(ILoader):
             Returns the context.
 
             :return: Context.
-            :rtype: <ContextBundle>
+            :rtype: ContextBundle
             :exceptions: None.
         '''
         return self._context
@@ -118,7 +118,7 @@ class Loader(ILoader):
             Loads configuration from file and returns dictionary with configuration content.
 
             :return: Configuration dictionary.
-            :rtype: <dict[str, Any]>
+            :rtype: dict[str, Any]
             :exceptions: None.
         '''
         content: str | None = None
@@ -145,7 +145,7 @@ class Loader(ILoader):
             Returns the Loader as string representation.
 
             :return: The Loader as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

@@ -48,13 +48,13 @@ def make_component(
         Creates a component instance or returns an existing one.
 
         :param passed_obj: An existing component instance or None.
-        :type passed_obj: <Any>
+        :type passed_obj: Any
         :param default_class: The class to instantiate if passed_obj is None.
-        :type default_class: <Any>
+        :type default_class: Any
         :param factory_args: Arguments to pass to the default_class constructor | None.
-        :type factory_args: <Mapping[str, Any] | None>
+        :type factory_args: Mapping[str, Any] | None
         :return: An instance of the component.
-        :rtype: <Any>
+        :rtype: Any
         :exceptions: None.
     '''
     if passed_obj is not None:
@@ -77,15 +77,15 @@ def validate_component(
         Validates if a component instance is of the expected class type.
 
         :param instance: The resolved component instance to check.
-        :type instance: <Any>
+        :type instance: Any
         :param expected_class: The expected concrete class type.
-        :type expected_class: <type[Any]>
+        :type expected_class: type[Any]
         :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
+        :type exc_context: str | None
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :param exc_class: The exception class to raise if value is None.
-        :type exc_class: <type[Exception]> (default ATSTypeError)
+        :type exc_class: type[Exception] (default ATSTypeError)
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSTypeError).
     '''

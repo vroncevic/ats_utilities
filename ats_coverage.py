@@ -45,9 +45,9 @@ def check_exists(item_path: str, is_dir: bool = False) -> None:
         Checks if the item exists.
 
         :param item_path: Item path.
-        :type item_path: <str>
+        :type item_path: str
         :param is_dir: Flag indicating if the path is a directory.
-        :type is_dir: <bool>
+        :type is_dir: bool
         :exceptions:
             | TypeError: Parameter dir_path type validation failed.
             | ValueError: Parameter dir_path format validation failed.
@@ -72,7 +72,7 @@ def run_coverage(pro_name: str) -> None:
         Runs coverage for project and generates reports in JSON and XML formats.
 
         :param pro_name: Project name (is equal to directory name).
-        :type pro_name: <str>
+        :type pro_name: str
         :exceptions:
             | TypeError: Parameter pro_name type validation failed.
             | ValueError: Parameter pro_name format validation failed.
@@ -110,9 +110,9 @@ def load_report(file_path: str) -> dict[str, Any]:
         Loads coverage report from file (JSON format).
 
         :param file_path: Coverage report file path.
-        :type file_path: <str>
+        :type file_path: str
         :return: Coverage data report in dict format.
-        :rtype: <dict[str, Any]>
+        :rtype: dict[str, Any]
         :exceptions:
             | ATSTypeError: Parameter file_path type validation failed.
             | ATSValueError: Parameter file_path format validation failed.
@@ -139,7 +139,7 @@ def find_root_package(module_path: str) -> Path | None:
         Finds root package for project structure.
 
         :param module_path: Absolute path for project package.
-        :type module_path: <str>
+        :type module_path: str
         :return: Root package path.
         :rtype: <Path | None>
         :exceptions:
@@ -163,9 +163,9 @@ def update_readme(coverage: dict[str, Any], readme_path: str = 'README.md') -> N
         Updates README.md file with code coverage report table.
 
         :param coverage: Coverage data report in dict format.
-        :type coverage: <dict[str, Any]>
+        :type coverage: dict[str, Any]
         :param readme_path: Path to README.md file.
-        :type readme_path: <str>
+        :type readme_path: str
         :exceptions:
             | ATSTypeError: Parameter coverage type validation failed.
             | ATSValueError: Parameter coverage format validation failed.
@@ -266,7 +266,7 @@ def _build_tree(dir_path: Path, prefix: str = '') -> tuple[list[str], int, int]:
         :param dir_path: Directory path.
         :type dir_path: <Path>
         :param prefix: Current indentation prefix.
-        :type prefix: <str>
+        :type prefix: str
         :return: Tuple containing tree lines list, directory count, and file count.
         :rtype: <tuple[list[str], int, int]>
         :exceptions: None.
@@ -308,7 +308,7 @@ def generate_tree_lines(pro_name: str) -> tuple[list[str], int, int]:
         Generates tree structure representation of package.
 
         :param pro_name: Project name.
-        :type pro_name: <str>
+        :type pro_name: str
         :return: Tuple containing tree lines list, directory count, and file count.
         :rtype: <tuple[list[str], int, int]>
         :exceptions:
@@ -331,11 +331,11 @@ def update_structure(pro_name: str, section: str, readme_path: str = 'README.md'
         Updates README.md file with package directory structure.
 
         :param pro_name: Project name.
-        :type pro_name: <str>
+        :type pro_name: str
         :param section: Section name.
-        :type section: <str>
+        :type section: str
         :param readme_path: Path to README.md file.
-        :type readme_path: <str>
+        :type readme_path: str
         :exceptions:
             | ATSTypeError: Parameter pro_name type validation failed.
             | ATSTypeError: Parameter section type validation failed.

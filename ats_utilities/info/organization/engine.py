@@ -65,7 +65,7 @@ class Organization(IOrganization):
             Initializes Organization constructor.
 
             :param context_bundle: Context bundle for organization.
-            :type context_bundle: <ContextBundle>
+            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
@@ -82,7 +82,7 @@ class Organization(IOrganization):
             Note: Organization is only prepared when it is set by user (not None).
 
             :return: The organization in string format | None.
-            :rtype: <str | None>
+            :rtype: str | None
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -100,7 +100,7 @@ class Organization(IOrganization):
             Note: Organization is only prepared when it is set by user (not None).
 
             :param organization: The organization in string format.
-            :type organization: <str>
+            :type organization: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -119,8 +119,8 @@ class Organization(IOrganization):
             Checks is organization not None.
             Note: Organization is only prepared when it is set by user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -134,7 +134,7 @@ class Organization(IOrganization):
             Returns the Organization as string representation.
 
             :return: The Organization as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

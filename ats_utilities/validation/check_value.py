@@ -46,13 +46,13 @@ def not_none(
         Requires a value to be not None.
 
         :param value: Value to check.
-        :type value: <Any>
+        :type value: Any
         :param exc_context: Context representation in string format.
-        :type exc_context: <str>
+        :type exc_context: str
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :param exc_class: The exception class to raise if value is None.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :type exc_class: type[BaseException] (default ATSValueError)
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
     '''
@@ -79,17 +79,17 @@ def not_empty(
         Requires a value to be not empty (not None, not empty sequence/mapping).
 
         :param value: Value to check for emptiness.
-        :type value: <Any>
+        :type value: Any
         :param exc_context: Context representation in string format.
-        :type exc_context: <str>
+        :type exc_context: str
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :param exc_class: The exception class to raise if value is empty.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :type exc_class: type[BaseException] (default ATSValueError)
         :param allow_zero: If False, treat 0 and 0.0 as empty/invalid values.
-        :type allow_zero: <bool>
+        :type allow_zero: bool
         :param allow_false: If False, treat False as an empty/invalid value.
-        :type allow_false: <bool>
+        :type allow_false: bool
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
 
@@ -146,13 +146,13 @@ def not_satisfied(
         Raises an exception if status is True (unhappy flow detected).
 
         :param status: Status which indicates unhappy flow (True = unhappy flow).
-        :type status: <bool>
+        :type status: bool
         :param exc_context: Context representation in string format.
-        :type exc_context: <str>
+        :type exc_context: str
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :param exc_class: The exception class to raise if status is not True.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :type exc_class: type[BaseException] (default ATSValueError)
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
     '''

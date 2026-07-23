@@ -58,7 +58,7 @@ class IStorer(ABC):
             Returns the context.
 
             :return: Context.
-            :rtype: <ContextBundle>
+            :rtype: ContextBundle
             :exceptions: None.
         '''
         pass
@@ -69,9 +69,9 @@ class IStorer(ABC):
             Stores configuration content from mapping to configuration file.
 
             :param config: Mapping with configuration information (read only data).
-            :type config: <Mapping[str, str]>
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :type config: Mapping[str, str]
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -82,7 +82,7 @@ class IStorer(ABC):
             Returns the storer instance as string representation.
 
             :return: The storer instance as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

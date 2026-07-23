@@ -65,7 +65,7 @@ class BuildDate(IBuildDate):
             Initializes BuildDate constructor.
 
             :param context_bundle: Context bundle for build date.
-            :type context_bundle: <ContextBundle>
+            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
@@ -82,7 +82,7 @@ class BuildDate(IBuildDate):
             Note: Build date is only prepared when it is set by user (not None).
 
             :return: The build date in string format | None.
-            :rtype: <str | None>
+            :rtype: str | None
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -100,7 +100,7 @@ class BuildDate(IBuildDate):
             Note: Build date is only prepared when it is set by user (not None).
 
             :param build_date: The build date in string format.
-            :type build_date: <str>
+            :type build_date: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -119,8 +119,8 @@ class BuildDate(IBuildDate):
             Checks is build date not None.
             Note: Build date is only prepared when it is set by user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -134,7 +134,7 @@ class BuildDate(IBuildDate):
             Returns the BuildDate as string representation.
 
             :return: The BuildDate as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

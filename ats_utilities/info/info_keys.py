@@ -75,7 +75,7 @@ class InfoKeys:
             Returns a tuple of all information keys.
 
             :return: Tuple of all keys.
-            :rtype: <tuple[str, ...]>
+            :rtype: tuple[str, ...]
             :exceptions: None.
         '''
         return (

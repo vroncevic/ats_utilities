@@ -58,7 +58,7 @@ class IConfigProcessorFactory(ABC):
             Returns the processor class for a specific file extension.
 
             :param extension: File extension.
-            :type extension: <str>
+            :type extension: str
             :return: Processor class.
             :rtype: <type[IConfigProcessor]>
         '''
@@ -76,9 +76,9 @@ class IConfigProcessorFactory(ABC):
             Creates a processor instance based on a raw extension string.
 
             :param extension: File extension | None.
-            :type extension: <str | None>
+            :type extension: str | None
             :param scheme: Scheme for the processor | None.
-            :type scheme: <Mapping[str, str] | None>
+            :type scheme: Mapping[str, str] | None
             :param processor: Instance to be used as the processor | None.
             :type processor: <IConfigProcessor | None>
             :return: Processor instance.
@@ -98,9 +98,9 @@ class IConfigProcessorFactory(ABC):
             Creates a processor instance based on a file path.
 
             :param file_path: Path to the configuration file | None.
-            :type file_path: <str | None>
+            :type file_path: str | None
             :param scheme: Scheme for the processor | None.
-            :type scheme: <Mapping[str, str] | None>
+            :type scheme: Mapping[str, str] | None
             :param processor: Instance to be used as the processor | None.
             :type processor: <IConfigProcessor | None>
             :return: Processor instance.

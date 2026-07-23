@@ -50,13 +50,13 @@ def check_file_exists(
         Checks if a file exists.
 
         :param file_path: Path to the file.
-        :type file_path: <str>
+        :type file_path: str
         :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
+        :type exc_context: str | None
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :param exc_class: The exception class to raise if value is None.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :type exc_class: type[BaseException] (default ATSValueError)
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
@@ -92,15 +92,15 @@ def normalize_path(
         Normalizes file paths and strips leading directory prefixes.
 
         :param file_path: The original path to clean up.
-        :type file_path: <str>
+        :type file_path: str
         :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
+        :type exc_context: str | None
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :param exc_class: The exception class to raise if file_path is None.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :type exc_class: type[BaseException] (default ATSValueError)
         :return: The cleaned up relative path.
-        :rtype: <str>
+        :rtype: str
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
@@ -140,17 +140,17 @@ def resolve_relative_path(
         Calculates relative path to the specified source directory.
 
         :param normalized_name: The cleaned name of the archive member.
-        :type normalized_name: <str>
+        :type normalized_name: str
         :param source_dir_clean: Cleaned source directory name.
-        :type source_dir_clean: <str>
+        :type source_dir_clean: str
         :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
+        :type exc_context: str | None
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :param exc_class: The exception class to raise if value is None.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :type exc_class: type[BaseException] (default ATSValueError)
         :return: The relative path inside the source dir, or None if not matching.
-        :rtype: <str | None>
+        :rtype: str | None
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
@@ -200,17 +200,17 @@ def is_excluded_path(
         Checks if a relative path matches any exclusion patterns.
 
         :param rel_path: The relative path to inspect.
-        :type rel_path: <str>
+        :type rel_path: str
         :param exclude_patterns: Sequence of glob patterns to exclude.
-        :type exclude_patterns: <Sequence[str]>
+        :type exclude_patterns: Sequence[str]
         :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
+        :type exc_context: str | None
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :param exc_class: The exception class to raise if value is None.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :type exc_class: type[BaseException] (default ATSValueError)
         :return: True if the path should be excluded, False otherwise.
-        :rtype: <bool>
+        :rtype: bool
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
@@ -262,23 +262,23 @@ def format_casing_by_match(
         Formats a replacement value according to the casing style matched in clean_str.
 
         :param clean_str: Cleaned matched substring to analyze.
-        :type clean_str: <str>
+        :type clean_str: str
         :param default_val: Default replacement value.
-        :type default_val: <str>
+        :type default_val: str
         :param upper_val: Value in UPPER_CASE.
-        :type upper_val: <str>
+        :type upper_val: str
         :param camel_val: Value in CamelCase/PascalCase.
-        :type camel_val: <str>
+        :type camel_val: str
         :param dashed_val: Value in dashed-case.
-        :type dashed_val: <str>
+        :type dashed_val: str
         :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
+        :type exc_context: str | None
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :param exc_class: The exception class to raise if value is None.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :type exc_class: type[BaseException] (default ATSValueError)
         :return: The replacement formatted in matching casing style.
-        :rtype: <str>
+        :rtype: str
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
@@ -355,15 +355,15 @@ def write_content(
         Writes string or bytes content to a file.
 
         :param file_path: Path to the target file.
-        :type file_path: <str>
+        :type file_path: str
         :param content: Text string or raw bytes to write.
         :type content: <str | bytes>
         :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
+        :type exc_context: str | None
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :param exc_class: The exception class to raise if value is None.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :type exc_class: type[BaseException] (default ATSValueError)
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
@@ -410,19 +410,19 @@ def apply_path_replacements(
         Applies path replacements to a relative path using casing heuristics.
 
         :param rel_path: The original relative path.
-        :type rel_path: <str>
+        :type rel_path: str
         :param path_replacements: String replacements mapping.
-        :type path_replacements: <Mapping[str, str]>
+        :type path_replacements: Mapping[str, str]
         :param vals: Computed template values.
-        :type vals: <Mapping[str, str]>
+        :type vals: Mapping[str, str]
         :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
+        :type exc_context: str | None
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :param exc_class: The exception class to raise if value is None.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :type exc_class: type[BaseException] (default ATSValueError)
         :return: The replaced relative path.
-        :rtype: <str>
+        :rtype: str
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).

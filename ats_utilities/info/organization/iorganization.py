@@ -56,7 +56,7 @@ class IOrganization(ABC):
             Note: Organization is only prepared when it is set by user (not None).
 
             :return: The organization in string format | None.
-            :rtype: <str | None>
+            :rtype: str | None
             :exceptions: None.
         '''
         pass
@@ -69,7 +69,7 @@ class IOrganization(ABC):
             Note: Organization is only prepared when it is set by user (not None).
 
             :param organization: The organization in string format.
-            :type organization: <str>
+            :type organization: str
             :exceptions: None.
         '''
         pass
@@ -80,8 +80,8 @@ class IOrganization(ABC):
             Checks if organization is not None.
             Note: Organization is only prepared when it is set by user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -92,7 +92,7 @@ class IOrganization(ABC):
             Returns the organization as string representation.
 
             :return: The organization as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

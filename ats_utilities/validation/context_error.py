@@ -44,15 +44,15 @@ def raise_error(
         Raises a contextual exception using caller context.
 
         :param fallback_context: Fallback prefix to use in the exception message if no message is provided.
-        :type fallback_context: <str>
+        :type fallback_context: str
         :param fallback_msg: Fallback message to include in the exception message if no message is provided.
-        :type fallback_msg: <str>
+        :type fallback_msg: str
         :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
+        :type exc_context: str | None
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :param exc_class: The exception class to raise.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :type exc_class: type[BaseException] (default ATSValueError)
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
     '''

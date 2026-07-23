@@ -88,7 +88,7 @@ class ParserStrategy(IParserStrategy):
             Initializes ParserStrategy constructor.
 
             :param strategy_data: Strategy data for parser strategy.
-            :type strategy_data: <StrategyData>
+            :type strategy_data: StrategyData
             :exceptions:
                 | ATSValueError: Strategy data must be provided.
                 | ATSTypeError: Strategy data must be a StrategyData instance.
@@ -116,10 +116,10 @@ class ParserStrategy(IParserStrategy):
         '''
             Adds an operational argument/flag to the parser.
 
-            :param args: List of flags for the ATS.
-            :type args: <str>
+            :param args: Sequence of flags for the ATS.
+            :type args: Sequence[str]
             :param kwargs: Arguments in shape of dictionary.
-            :type kwargs: <Any>
+            :type kwargs: Mapping[str, Any]
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -132,7 +132,7 @@ class ParserStrategy(IParserStrategy):
             Adds a version display option to the parser.
 
             :param version: The ATS version | None.
-            :type version: <str | None>
+            :type version: str | None
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -145,11 +145,11 @@ class ParserStrategy(IParserStrategy):
             Parses the input arguments and returns an OptionNamespace.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: <OptArgs>
+            :type arguments: OptArgs
             :param known_only: Parse only known arguments (default False).
-            :type known_only: <bool>
+            :type known_only: bool
             :return: Option namespace object.
-            :rtype: <OptionNamespace>
+            :rtype: OptionNamespace
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -166,7 +166,7 @@ class ParserStrategy(IParserStrategy):
             Registers the list of commands with the parser.
 
             :param commands: Sequence of commands to register (read only data).
-            :type commands: <Sequence[IOptionCommand]>
+            :type commands: Sequence[IOptionCommand]
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -206,9 +206,9 @@ class ParserStrategy(IParserStrategy):
             Parses the input arguments and returns command name and parameters.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: <OptArgs>
+            :type arguments: OptArgs
             :return: Tuple containing command name and parsed parameters (read only data).
-            :rtype: <tuple[str, Mapping[str, Any]]>
+            :rtype: tuple[str, Mapping[str, Any]]
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -226,8 +226,8 @@ class ParserStrategy(IParserStrategy):
         '''
             Checks if the parser strategy is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         return True
@@ -238,7 +238,7 @@ class ParserStrategy(IParserStrategy):
             Returns the string representation of ParserStrategy.
 
             :return: The ParserStrategy as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

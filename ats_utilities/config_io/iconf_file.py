@@ -72,9 +72,9 @@ class IConfFile(ABC):
             Closes configuration context manager and closes the file.
 
             :param args: Tuple of arguments.
-            :type args: <tuple[Any, ...]>  
+            :type args: tuple[Any, ...]  
             :param kwargs: Mapping of arguments.
-            :type kwargs: <Mapping[Any, Any]>
+            :type kwargs: Mapping[Any, Any]
             :exceptions: None.
         '''
         pass
@@ -85,7 +85,7 @@ class IConfFile(ABC):
             Returns the IConfFile as string representation.
 
             :return: The IConfFile as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

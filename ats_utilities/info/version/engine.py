@@ -65,7 +65,7 @@ class Version(IVersion):
             Initializes Version constructor.
 
             :param context_bundle: Context bundle for version.
-            :type context_bundle: <ContextBundle>
+            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
@@ -82,7 +82,7 @@ class Version(IVersion):
             Note: Version is only prepared when it is set by user (not None).
 
             :return: The version in string format | None.
-            :rtype: <str | None>
+            :rtype: str | None
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -100,7 +100,7 @@ class Version(IVersion):
             Note: Version is only prepared when it is set by user (not None).
 
             :param version: The version in string format.
-            :type version: <str>
+            :type version: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -119,8 +119,8 @@ class Version(IVersion):
             Checks is version not None.
             Note: Version is only prepared when it is set by user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -134,7 +134,7 @@ class Version(IVersion):
             Returns the Version as string representation.
 
             :return: The Version as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

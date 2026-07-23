@@ -61,7 +61,7 @@ class FileData:
             Converts the file data instance to a dictionary.
 
             :return: Dictionary representation of the file data.
-            :rtype: <dict[str, Any]>
+            :rtype: dict[str, Any]
             :exceptions: None.
         '''
         return instance_to_dict(self)

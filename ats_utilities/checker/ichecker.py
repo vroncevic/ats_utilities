@@ -83,9 +83,9 @@ class IChecker(ABC):
             Validates parameters for a method(s) or function(s).
 
             :param parameters: Specification for parameters.
-            :type parameters: <ParametersSpecs>
+            :type parameters: ParametersSpecs
             :return: Tuple of error message report and error id.
-            :rtype: <ValidationResult>
+            :rtype: ValidationResult
             :exceptions: None.
         '''
         pass
@@ -95,8 +95,8 @@ class IChecker(ABC):
         '''
             Checks if checker component is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -107,7 +107,7 @@ class IChecker(ABC):
             Returns the checker as string representation.
 
             :return: The checker as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

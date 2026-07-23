@@ -60,7 +60,7 @@ class IExtInfrastructure(ABC):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Formatted infrastructure property in Mapping format (read only data).
-            :rtype: <Mapping[str, Any]>
+            :rtype: Mapping[str, Any] 
             :exceptions: None.
         '''
         pass
@@ -73,7 +73,7 @@ class IExtInfrastructure(ABC):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :param setup: Project infrastructure property in Mapping format (read only data).
-            :type setup: <Mapping[str, Any]>
+            :type setup: Mapping[str, Any] 
             :exceptions: None.
         '''
         pass
@@ -85,7 +85,7 @@ class IExtInfrastructure(ABC):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with info text.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass
@@ -97,7 +97,7 @@ class IExtInfrastructure(ABC):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with issue info.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass
@@ -109,7 +109,7 @@ class IExtInfrastructure(ABC):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with author info.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass
@@ -120,7 +120,7 @@ class IExtInfrastructure(ABC):
             Returns the external infrastructure as string representation.
 
             :return: The external infrastructure as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

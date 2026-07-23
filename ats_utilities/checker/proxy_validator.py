@@ -51,7 +51,7 @@ def proxy_validator_split(exp_type: str) -> tuple[str, str]:
         Splits the format string into type and name parts.
 
         :param exp_type: The format string to split.
-        :type exp_type: <str>
+        :type exp_type: str
         :return: A tuple containing the split components.
         :rtype: <tuple[str, str]>
         :exceptions:
@@ -83,17 +83,17 @@ def validate_args(
         Validates argument values against parameter specification.
 
         :param func: Decorated function.
-        :type func: <Callable[..., Any]>
+        :type func: Callable[..., Any]
         :param args: Position arguments passed.
-        :type args: <tuple[Any, ...]>
+        :type args: tuple[Any, ...]
         :param kwargs: Keyword arguments passed.
-        :type kwargs: <dict[str, Any]>
+        :type kwargs: dict[str, Any]
         :param specs: Parameter specification list.
         :type specs: <list[tuple[str, Any]]>
         :param checker: Checker instance to validate with.
         :type checker: <IChecker>
         :param exc_context: Exception context.
-        :type exc_context: <str>
+        :type exc_context: str
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | ATSValueError: Parameter format validation failed.

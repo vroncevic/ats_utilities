@@ -58,7 +58,7 @@ class IOptionCommand(ABC):
             Returns the name of the command.
 
             :return: Name of the command.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass
@@ -70,7 +70,7 @@ class IOptionCommand(ABC):
             Returns the help text of the command.
 
             :return: Help text of the command.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass
@@ -93,7 +93,7 @@ class IOptionCommand(ABC):
             Returns the string representation of option command.
 
             :return: String representation of option command.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

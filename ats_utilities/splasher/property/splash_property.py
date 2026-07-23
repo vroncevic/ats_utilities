@@ -68,7 +68,7 @@ class SplashProperty(ISplashProperty):
             Initials SplashProperty constructor.
 
             :param context_bundle: Context bundle for splash screen property.
-            :type context_bundle: <ContextBundle>
+            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
@@ -85,7 +85,7 @@ class SplashProperty(ISplashProperty):
             Note: Splash screen property comes from info configuration file as read only data.
 
             :return: Formatted splash screen property in Mapping format (read only data).
-            :rtype: <Mapping[str, Any]>
+            :rtype: Mapping[str, Any] 
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -103,7 +103,7 @@ class SplashProperty(ISplashProperty):
             Note: Splash screen property comes from info configuration file as read only data.
 
             :param setup: Project splash property in Mapping format (read only data).
-            :type setup: <Mapping[str, Any]>
+            :type setup: Mapping[str, Any] 
             :exceptions:
                 | ATSTypeError: splash property setup is not a Mapping.
                 | ATSValueError: splash property setup is missing required keys.
@@ -135,7 +135,7 @@ class SplashProperty(ISplashProperty):
             Note: Splash screen property comes from info configuration file as read only data.
 
             :return: True (success) else False (fail).
-            :rtype: <bool>
+            :rtype: bool
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_splash_keys'.
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
@@ -153,7 +153,7 @@ class SplashProperty(ISplashProperty):
             Returns the string representation of SplashProperty.
 
             :return: The SplashProperty as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

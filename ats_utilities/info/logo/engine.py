@@ -65,7 +65,7 @@ class Logo(ILogo):
             Initializes Logo constructor.
 
             :param context_bundle: Context bundle for logo.
-            :type context_bundle: <ContextBundle>
+            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
@@ -82,7 +82,7 @@ class Logo(ILogo):
             Note: Logo path is only prepared when it is set by user (not None).
 
             :return: The logo path in string format | None.
-            :rtype: <str | None>
+            :rtype: str | None
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -100,7 +100,7 @@ class Logo(ILogo):
             Note: Logo path is only prepared when it is set by user (not None).
 
             :param logo: The logo path in string format.
-            :type logo: <str>
+            :type logo: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -119,8 +119,8 @@ class Logo(ILogo):
             Checks is logo path not None.
             Note: Logo path is only prepared when it is set by user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -134,7 +134,7 @@ class Logo(ILogo):
             Returns the Logo as string representation.
 
             :return: The Logo as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

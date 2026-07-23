@@ -77,7 +77,7 @@ class InfoManager(IInfoManager):
             Initializes InfoManager constructor.
 
             :param own: Bundle with components.
-            :type own: <InfoBundle>
+            :type own: InfoBundle
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSValueError: Context bundle must be provided.
@@ -98,7 +98,7 @@ class InfoManager(IInfoManager):
             Returns the context.
 
             :return: Context.
-            :rtype: <ContextBundle>
+            :rtype: ContextBundle
             :exceptions: None.
         '''
         return self._context
@@ -109,7 +109,7 @@ class InfoManager(IInfoManager):
             Sets the information (read only data).
 
             :param info: Mapping with information.
-            :type info: <Mapping[str, Any]>
+            :type info: Mapping[str, Any] 
             :exceptions: None.
         '''
         for key in InfoKeys.get_keys():
@@ -141,7 +141,7 @@ class InfoManager(IInfoManager):
             Gets the information (read only data).
 
             :return: Mapping with information.
-            :rtype: <Mapping[str, Any]>
+            :rtype: Mapping[str, Any] 
             :exceptions: None.
         '''
         return {
@@ -155,7 +155,7 @@ class InfoManager(IInfoManager):
             Gets attribute from instance components dynamically.
 
             :param name: Name of the attribute to look up.
-            :type name: <str>
+            :type name: str
             :return: The value of the component attribute if found, otherwise None.
             :rtype: <str | bool | None>
             :exceptions:
@@ -174,7 +174,7 @@ class InfoManager(IInfoManager):
             Sets attribute to instance components dynamically and refreshes status.
 
             :param name: Name of the attribute to set.
-            :type name: <str>
+            :type name: str
             :param value: Value to assign to the component attribute.
             :type value: <str | bool | None>
             :exceptions: None.
@@ -195,8 +195,8 @@ class InfoManager(IInfoManager):
         '''
             Checks if info manager is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         component = getattr(self._components, 'info_ok', None) if self._is_initialized else None
@@ -223,7 +223,7 @@ class InfoManager(IInfoManager):
             Returns the InfoManager as string representation.
 
             :return: The InfoManager as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

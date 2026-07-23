@@ -54,7 +54,7 @@ class IProgressBar(ABC):
             Sets level of progress.
 
             :param level: Level of progress.
-            :type level: <int>
+            :type level: int
             :exceptions: None.
         '''
         pass
@@ -65,7 +65,7 @@ class IProgressBar(ABC):
             Plots progress.
 
             :param columns: Columns for open console session.
-            :type columns: <int>
+            :type columns: int
             :exceptions: None.
         '''
         pass
@@ -76,9 +76,9 @@ class IProgressBar(ABC):
             Sets and plots progress.
 
             :param level: Level of progress.
-            :type level: <int>
+            :type level: int
             :param columns: Columns for open console session.
-            :type columns: <int>
+            :type columns: int
             :exceptions: None.
         '''
         pass
@@ -89,7 +89,7 @@ class IProgressBar(ABC):
             Returns the progress bar as string representation.
 
             :return: The progress bar as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

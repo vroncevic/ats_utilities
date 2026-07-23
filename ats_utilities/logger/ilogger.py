@@ -58,9 +58,9 @@ class ILogger(ABC):
             Writes message to log output.
 
             :param message: Log message.
-            :type message: <str>
+            :type message: str
             :param ctrl: Log control flag.
-            :type ctrl: <int>
+            :type ctrl: int
             :exceptions: None.
         '''
         pass
@@ -70,8 +70,8 @@ class ILogger(ABC):
         '''
             Checks if logger is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -82,7 +82,7 @@ class ILogger(ABC):
             Sets log level.
 
             :param level: Log level.
-            :type level: <int>
+            :type level: int
             :exceptions: None.
         '''
         pass
@@ -93,7 +93,7 @@ class ILogger(ABC):
             Sets log file.
 
             :param log_file: Log file path.
-            :type log_file: <str>
+            :type log_file: str
             :exceptions: None.
         '''
         pass
@@ -130,7 +130,7 @@ class ILogger(ABC):
             Returns the logger as string representation.
 
             :return: The logger as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

@@ -72,7 +72,7 @@ class ProConfig(IProConfig):
             Initializes ProConfig constructor.
 
             :param context_bundle: Context bundle for project configuration.
-            :type context_bundle: <ContextBundle>
+            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
@@ -88,7 +88,7 @@ class ProConfig(IProConfig):
             Property method for getting project configuration.
 
             :return: Formatted project configuration in dict format.
-            :rtype: <Mapping[str, Any]>
+            :rtype: Mapping[str, Any] 
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -105,7 +105,7 @@ class ProConfig(IProConfig):
             Property method for setting project configuration.
 
             :param pro_config: Project configuration in Mapping format.
-            :type pro_config: <Mapping[str, Any]>
+            :type pro_config: Mapping[str, Any] 
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -123,8 +123,8 @@ class ProConfig(IProConfig):
         '''
             Checks project configuration is not None.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -138,7 +138,7 @@ class ProConfig(IProConfig):
             Returns the ATS project configuration as string representation.
 
             :return: The ATS project configuration as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

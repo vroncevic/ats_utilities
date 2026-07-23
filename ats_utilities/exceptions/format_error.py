@@ -40,7 +40,7 @@ def get_debug_info(exc: BaseException) -> str:
         :param exc: Exception to format.
         :type exc: <BaseException>
         :return: String with debug information.
-        :rtype: <str>
+        :rtype: str
         :exceptions: None.
     '''
     summary = extract_tb(exc.__traceback__)[-1]
@@ -55,9 +55,9 @@ def format_error_raw(exc: BaseException, debug: bool = False) -> str:
         :param exc: Exception to format.
         :type exc: <BaseException>
         :param debug: Whether to include debug information (location of the error in the code).
-        :type debug: <bool> (default False)
+        :type debug: bool (default False)
         :return: Formatted error message.
-        :rtype: <str>
+        :rtype: str
         :exceptions: None.
     '''
     if debug:
@@ -73,11 +73,11 @@ def format_error(exc: BaseException, prefix: str = '', debug: bool = False) -> s
         :param exc: Exception to format.
         :type exc: <BaseException>
         :param prefix: Prefix to add to the error message (unexpected exception).
-        :type prefix: <str>
+        :type prefix: str
         :param debug: Whether to include debug information (location of the error in the code).
-        :type debug: <bool> (default False)
+        :type debug: bool (default False)
         :return: Formatted error message.
-        :rtype: <str>
+        :rtype: str
         :exceptions: None.
     '''
     msg = f'{prefix} {exc}' if prefix else str(exc)

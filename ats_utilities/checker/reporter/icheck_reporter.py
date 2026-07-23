@@ -68,7 +68,7 @@ class ICheckReporter(ABC):
             Returns the check reporter as string representation.
 
             :return: The check reporter as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

@@ -57,7 +57,7 @@ class ISplasher(ABC):
             Returns the context.
 
             :return: Context.
-            :rtype: <ContextBundle>
+            :rtype: ContextBundle
             :exceptions: None.
         '''
         pass
@@ -70,7 +70,7 @@ class ISplasher(ABC):
             :param center_data: Center data for centering console output.
             :type center_data: <CenterData>
             :param text: Text to center.
-            :type text: <str>
+            :type text: str
             :exceptions: None.
         '''
         pass
@@ -80,8 +80,8 @@ class ISplasher(ABC):
         '''
             Checks if splasher is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -92,7 +92,7 @@ class ISplasher(ABC):
             Returns the splash screen as string representation.
 
             :return: The splash screen as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

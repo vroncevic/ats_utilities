@@ -64,7 +64,7 @@ class TemplateProcessor(ITemplateProcessor):
             Initializes TemplateProcessor constructor.
 
             :param context_bundle: Context bundle for template processor | None.
-            :type context_bundle: <ContextBundle | None>
+            :type context_bundle: ContextBundle 
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
@@ -80,7 +80,7 @@ class TemplateProcessor(ITemplateProcessor):
             :param raw_content: The raw byte content of the file.
             :type raw_content: <bytes>
             :param vals: String replacement values.
-            :type vals: <Mapping[str, str]>
+            :type vals: Mapping[str, str]
             :return: Rendered text content, or raw bytes if binary format.
             :rtype: <str | bytes>
             :exceptions: None.
@@ -99,8 +99,8 @@ class TemplateProcessor(ITemplateProcessor):
         '''
             Checks if template processor component is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         return self._initialized
@@ -111,7 +111,7 @@ class TemplateProcessor(ITemplateProcessor):
             Returns the TemplateProcessor as string representation.
 
             :return: The TemplateProcessor as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

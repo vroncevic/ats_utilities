@@ -81,7 +81,7 @@ class OptionManager(IOptionManager):
             Initializes OptionManager constructor.
 
             :param own: Bundle with components for option manager.
-            :type own: <OptionBundle>
+            :type own: OptionBundle
             :exceptions:
                 | ATSValueError - Component bundle must be provided.
                 | ATSTypeError - Component bundle must be an OptionBundle instance.
@@ -99,7 +99,7 @@ class OptionManager(IOptionManager):
             Returns the context.
 
             :return: Context.
-            :rtype: <ContextBundle>
+            :rtype: ContextBundle
             :exceptions: None.
         '''
         return self._context
@@ -111,9 +111,9 @@ class OptionManager(IOptionManager):
             Adds an option to the parser.
 
             :param args: List of flags for the ATS.
-            :type args: <str>
+            :type args: str
             :param kwargs: Arguments in shape of dictionary.
-            :type kwargs: <Any>
+            :type kwargs: Any
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
@@ -127,7 +127,7 @@ class OptionManager(IOptionManager):
             Adds version option to the parser.
 
             :param version: The version in string format | None.
-            :type version: <str | None>
+            :type version: str | None
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -148,9 +148,9 @@ class OptionManager(IOptionManager):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: <OptArgs>
+            :type arguments: OptArgs
             :return: Option namespace object.
-            :rtype: <OptionNamespace>
+            :rtype: OptionNamespace
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
@@ -167,9 +167,9 @@ class OptionManager(IOptionManager):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: <OptArgs>
+            :type arguments: OptArgs
             :return: Option namespace object.
-            :rtype: <OptionNamespace>
+            :rtype: OptionNamespace
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
@@ -185,7 +185,7 @@ class OptionManager(IOptionManager):
             Registers a sequence of commands with the parser.
 
             :param commands: Sequence of commands to register (read only data).
-            :type commands: <Sequence[IOptionCommand]>
+            :type commands: Sequence[IOptionCommand]
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
@@ -198,9 +198,9 @@ class OptionManager(IOptionManager):
             Parses arguments as a command.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: <OptArgs>
+            :type arguments: OptArgs
             :return: Tuple of (command name, command arguments) (read only data).
-            :rtype: <tuple[str, Mapping[str, Any]]>
+            :rtype: tuple[str, Mapping[str, Any]]
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
@@ -212,8 +212,8 @@ class OptionManager(IOptionManager):
         '''
             Checks if option parser component is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
@@ -225,7 +225,7 @@ class OptionManager(IOptionManager):
             Returns the string representation of OptionManager.
 
             :return: The option parser as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

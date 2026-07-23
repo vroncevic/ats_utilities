@@ -86,7 +86,7 @@ class Base(IBase):
             Initializes Base constructor.
 
             :param own: Component bundle for base package.
-            :type own: <BaseBundle>
+            :type own: BaseBundle
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSValueError: Context bundle must be provided.
@@ -130,7 +130,7 @@ class Base(IBase):
             Returns the context.
 
             :return: Context.
-            :rtype: <ContextBundle>
+            :rtype: ContextBundle
             :exceptions: None.
         '''
         return self._context
@@ -140,8 +140,8 @@ class Base(IBase):
         '''
             Checks if App/Tool/Script base engine is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         return self._is_initialized
@@ -153,9 +153,9 @@ class Base(IBase):
             Adds a new option for App/Tool/Script.
 
             :param args: Arguments in string format.
-            :type args: <str>
+            :type args: str
             :param kwargs: Arguments in Any format.
-            :type kwargs: <Any>
+            :type kwargs: Any
             :exceptions:
                 | ATSValueError: Missing or None attribute: '_options_parser'.
         '''
@@ -169,9 +169,9 @@ class Base(IBase):
             Parses App/Tool/Script arguments.
 
             :param argv: Sequence of arguments | None.
-            :type argv: <ArgSeq>
+            :type argv: ArgSeq
             :return: Options and arguments.
-            :rtype: <OptionNamespace | None>
+            :rtype: OptionNamespace | None
             :exceptions:
                 | ATSValueError: Missing or None attribute: '_options_parser'.
         '''
@@ -186,9 +186,9 @@ class Base(IBase):
             Processes and runs App/Tool/Script (Abstract).
 
             :param verbose: Enable/Disable verbose option (default False).
-            :type verbose: <bool>
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :type verbose: bool
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -199,7 +199,7 @@ class Base(IBase):
             Returns the Base as string representation.
 
             :return: The Base as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

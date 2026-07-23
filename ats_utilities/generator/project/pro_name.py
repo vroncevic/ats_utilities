@@ -65,7 +65,7 @@ class ProName(IProName):
             Initializes ProName constructor.
 
             :param context_bundle: Contex bundle for project name.
-            :type context_bundle: <ContextBundle>
+            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
@@ -81,7 +81,7 @@ class ProName(IProName):
             Property method for getting project name in string format.
 
             :return: Formatted project name in string format.
-            :rtype: <str>
+            :rtype: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -98,7 +98,7 @@ class ProName(IProName):
             Property method for setting project name.
 
             :param name: Project name in string format.
-            :type name: <str>
+            :type name: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -116,8 +116,8 @@ class ProName(IProName):
         '''
             Checks project name is not None.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -131,7 +131,7 @@ class ProName(IProName):
             Returns the ATS project name as string representation.
 
             :return: The ATS project name as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

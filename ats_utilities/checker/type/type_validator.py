@@ -89,11 +89,11 @@ class TypeValidator(ITypeValidator):
             Compares the __name__ of the instance type with expected string.
 
             :param instance: The instance to check.
-            :type instance: <Any>
+            :type instance: Any
             :param expected_type_name: The expected type name.
-            :type expected_type_name: <str>
+            :type expected_type_name: str
             :return: <True> successfully, <False> otherwise.
-            :rtype: <bool>
+            :rtype: bool
             :exceptions:
                 | ATSTypeError: Expected type name must be a string.
         '''
@@ -113,11 +113,11 @@ class TypeValidator(ITypeValidator):
             Traverses the Method Resolution Order (MRO) to find a match.
 
             :param instance: The instance to check.
-            :type instance: <Any>
+            :type instance: Any
             :param expected_type_name: The expected parent type name.
-            :type expected_type_name: <str>
+            :type expected_type_name: str
             :return: <True> successfully, <False> otherwise.
-            :rtype: <bool>
+            :rtype: bool
             :exceptions:
                 | ATSTypeError: Expected type name must be a string.
         '''
@@ -136,9 +136,9 @@ class TypeValidator(ITypeValidator):
             Returns the string representation of an instance type.
 
             :param instance: The instance to inspect.
-            :type instance: <Any>
+            :type instance: Any
             :return: String name of the type.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return type(instance).__name__
@@ -149,7 +149,7 @@ class TypeValidator(ITypeValidator):
             Returns the ATS type mcheck as string representation.
 
             :return: The ATS type mcheck as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

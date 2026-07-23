@@ -28,11 +28,12 @@ from typing import override
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.generator.setup.bundle import GeneratorBundle
-from ats_utilities.generator.gen_params_bundle import GenParamsBundle
+from ats_utilities.generator.data import GeneratorData
+from ats_utilities.generator.data_validator import GeneratorDataValidator
 from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.itar_processor import ITarProcessor
-from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
+from ats_utilities.generator.tar.data import TarData
 from ats_utilities.validation.check_value import not_satisfied, not_empty, not_none
 from ats_utilities.validation.check_type import istype
 
@@ -105,7 +106,7 @@ class Generator(IGenerator):
             Returns the context.
 
             :return: Context.
-            :rtype: <ContextBundle>
+            :rtype: ContextBundle
             :exceptions: None.
         '''
         return self._context
@@ -116,9 +117,9 @@ class Generator(IGenerator):
             Validates and computes name case variations from template values.
 
             :param template_values: Input replacement values.
-            :type template_values: <Mapping[str, str]>
+            :type template_values: Mapping[str, str]
             :return: The updated template values dictionary.
-            :rtype: <dict[str, str]>
+            :rtype: dict[str, str]
             :exceptions:
                 | ATSValueError: Template values must be provided.
                 | ATSTypeError: Template values must be a mapping.
@@ -143,52 +144,55 @@ class Generator(IGenerator):
         return values
 
     @override
-    def generate(self, generator_bundle: GenParamsBundle) -> bool:
+    def generate(self, data: GeneratorData) -> bool:
         '''
             Generates project modules/files from a .tgz archive.
 
-            :param generator_bundle: Generator bundle containing template generation parameters.
-            :type generator_bundle: <GenParamsBundle>
-            :return: True if generation was successful, False otherwise.
-            :rtype: <bool>
+            :param data: Generator data containing template generation parameters.
+            :type data: GeneratorData
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions:
+                | ATSValueError: Generator data must be provided.
+                | ATSTypeError: Generator data must be an instance of GeneratorData.
                 | ATSValueError: Archive path must be provided.
-                | ATSValueError: Target dir must be provided.
+                | ATSValueError: Target directory must be provided.
                 | ATSValueError: Template key must be provided.
                 | ATSValueError: Scheme must be provided.
                 | ATSValueError: Template values must be provided.
                 | ATSTypeError: Archive path must be a string.
-                | ATSTypeError: Target dir must be a string.
+                | ATSTypeError: Target directory must be a string.
                 | ATSTypeError: Template key must be a string.
                 | ATSTypeError: Scheme must be a string or a mapping.
                 | ATSTypeError: Template values must be a mapping.
                 | ATSValueError: Archive file does not exist.
                 | ATSValueError: Scheme file does not exist.
-                | ATSTypeError: Parameters are of invalid type.
-                | ATSValueError: Parameter constraints are violated.
+                | ATSValueError: Template key not found in scheme.
+                | ATSValueError: Source directory not specified for template key.
                 | ATSGeneratorError: Archive parsing or template rendering fails.
         '''
-        resolved_scheme = self._scheme_loader.load(generator_bundle.scheme)
-        project_scheme = resolved_scheme.get(generator_bundle.template_key)
-        context: str = r'generator::generate(...)'
+        GeneratorDataValidator.validate(data)
+        resolved_scheme = self._scheme_loader.load(data.scheme)
+        project_scheme = resolved_scheme.get(data.template_key)
+        ctx: str = r'generator::generate(...)'
         not_satisfied(
-            not project_scheme, context,
-            f'template_key {generator_bundle.template_key} not found in scheme configuration'
+            not project_scheme, ctx,
+            f'template_key {data.template_key} not found in scheme configuration'
         )
         source_dir = project_scheme.get('source_dir')
         not_satisfied(
-            not source_dir, context,
-            f'source_dir not specified for template_key {generator_bundle.template_key}'
+            not source_dir, ctx,
+            f'source_dir not specified for template_key {data.template_key}'
         )
         path_replacements: dict[str, str] = project_scheme.get('path_replacements', {})
         exclude_patterns: list[str] = project_scheme.get('exclude', [])
-        vals = self.prepare_template_values(generator_bundle.template_values)
+        vals = self.prepare_template_values(data.template_values)
 
         try:
             self._tar_processor.process(
-                TarProcessBundle(
-                    archive_path=generator_bundle.archive_path,
-                    target_dir=generator_bundle.target_dir,
+                TarData(
+                    archive_path=data.archive_path,
+                    target_dir=data.target_dir,
                     source_dir=source_dir,
                     path_replacements=path_replacements,
                     exclude_patterns=exclude_patterns,
@@ -199,15 +203,15 @@ class Generator(IGenerator):
             return True
 
         except Exception as exc:
-            not_satisfied(True, context, f'generation failed {exc}')
+            not_satisfied(True, ctx, f'generation failed {exc}')
 
     @override
     def is_initialized(self) -> bool:
         '''
             Checks if generator component is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         return all([
@@ -222,7 +226,7 @@ class Generator(IGenerator):
             Returns the string representation of Generator.
 
             :return: The Generator as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

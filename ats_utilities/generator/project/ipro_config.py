@@ -78,8 +78,8 @@ class IProConfig(ABC):
         '''
             Checks if project configuration is not None.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -90,7 +90,7 @@ class IProConfig(ABC):
             Returns the ATS project configuration as string representation.
 
             :return: The ATS project configuration as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

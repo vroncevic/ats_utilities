@@ -64,9 +64,9 @@ class IParserStrategy(ABC):
             Adds an operational argument/flag to the parser.
 
             :param args: Arguments in string format.
-            :type args: <str>
+            :type args: str
             :param kwargs: Arguments in Any form
-            :type kwargs: <Any>
+            :type kwargs: Any
             :exceptions: None.
         '''
         pass
@@ -77,7 +77,7 @@ class IParserStrategy(ABC):
             Adds a version display option to the parser.
 
             :param version: The ATS version in string format | None.
-            :type version: <str | None>
+            :type version: str | None
             :exceptions: None.
         '''
         pass
@@ -88,11 +88,11 @@ class IParserStrategy(ABC):
             Parses the input arguments and returns an OptionNamespace.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: <OptArgs>
+            :type arguments: OptArgs
             :param known_only: Parse only known arguments.
-            :type known_only: <bool>
+            :type known_only: bool
             :return: Option namespace object.
-            :rtype: <OptionNamespace>
+            :rtype: OptionNamespace
             :exceptions: None.
         '''
         pass
@@ -103,7 +103,7 @@ class IParserStrategy(ABC):
             Register a sequence of commands with the parser.
 
             :param commands: Sequence of commands to register.
-            :type commands: <Sequence[IOptionCommand]>
+            :type commands: Sequence[IOptionCommand]
             :exceptions: None.
         '''
         pass
@@ -114,9 +114,9 @@ class IParserStrategy(ABC):
             Parses CLI arguments for subcommands and returns command name and parameters.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: <OptArgs>
+            :type arguments: OptArgs
             :return: Tuple containing command name and parsed parameters (read only data).
-            :rtype: <tuple[str, Mapping[str, Any]]>
+            :rtype: tuple[str, Mapping[str, Any]]
             :exceptions: None.
         '''
         pass
@@ -127,8 +127,8 @@ class IParserStrategy(ABC):
         '''
             Checks if parser strategy component is ok.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -139,7 +139,7 @@ class IParserStrategy(ABC):
             Returns the ATS parser strategy as string representation.
 
             :return: The ATS parser strategy as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

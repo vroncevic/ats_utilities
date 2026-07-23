@@ -26,7 +26,7 @@ from abc import ABC, abstractmethod
 from collections.abc import Mapping
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.generator.gen_params_bundle import GenParamsBundle
+from ats_utilities.generator.data import GeneratorData
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -59,7 +59,7 @@ class IGenerator(ABC):
             Returns the context.
 
             :return: Context.
-            :rtype: <ContextBundle>
+            :rtype: ContextBundle
             :exceptions: None.
         '''
         pass
@@ -70,22 +70,22 @@ class IGenerator(ABC):
             Prepares template values.
 
             :param template_values: Input replacement values.
-            :type template_values: <Mapping[str, str]>
+            :type template_values: Mapping[str, str]
             :return: The updated template values dictionary.
-            :rtype: <dict[str, str]>
+            :rtype: dict[str, str]
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def generate(self, generator_bundle: GenParamsBundle) -> bool:
+    def generate(self, data: GeneratorData) -> bool:
         '''
             Generates project modules/files from a .tgz archive.
 
-            :param generator_bundle: Generator bundle containing template generation parameters.
-            :type generator_bundle: <GenParamsBundle>
-            :return: True if generation was successful, False otherwise.
-            :rtype: <bool>
+            :param data: Generator data containing template generation parameters.
+            :type data: GeneratorData
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -95,8 +95,8 @@ class IGenerator(ABC):
         '''
             Checks if generator component is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -107,7 +107,7 @@ class IGenerator(ABC):
             Returns the generator as string representation.
 
             :return: The generator as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

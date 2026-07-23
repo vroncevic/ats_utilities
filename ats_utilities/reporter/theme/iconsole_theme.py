@@ -52,9 +52,9 @@ class IConsoleTheme(ABC):
             Returns color code based on type.
 
             :param color_type: Type of the message (error, success, etc.).
-            :type color_type: <str>
+            :type color_type: str
             :return: Color code.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass
@@ -65,7 +65,7 @@ class IConsoleTheme(ABC):
             Returns the console theme as string representation.
 
             :return: The console theme as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

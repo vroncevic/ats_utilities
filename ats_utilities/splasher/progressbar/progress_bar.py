@@ -80,9 +80,9 @@ class ProgressBar(IProgressBar):
             Initials ProgressBar constructor.
 
             :param end: End level of progress.
-            :type end: <int>
+            :type end: int
             :param start: Start level of progress (default 0).
-            :type start: <int>
+            :type start: int
             :exceptions: None.
         '''
         self._end = end
@@ -100,7 +100,7 @@ class ProgressBar(IProgressBar):
             Sets level for progress bar.
 
             :param level: Level of progress.
-            :type level: <int>
+            :type level: int
             :exceptions: None.
         '''
         self._level = level
@@ -120,7 +120,7 @@ class ProgressBar(IProgressBar):
             Plots progress bar.
 
             :param columns: Columns for open console session.
-            :type columns: <int>
+            :type columns: int
             :exceptions: None.
         '''
         start_position: float = (columns / 2) - (columns / 10)
@@ -143,9 +143,9 @@ class ProgressBar(IProgressBar):
             Sets and plots progress bar.
 
             :param level: Level of progress.
-            :type level: <int>
+            :type level: int
             :param columns: Columns for open console session.
-            :type columns: <int>
+            :type columns: int
             :exceptions: None.
         '''
         old_chars: int = self._level_chars
@@ -167,7 +167,7 @@ class ProgressBar(IProgressBar):
             Returns the string representation of ProgressBar.
 
             :return: The ProgressBar as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

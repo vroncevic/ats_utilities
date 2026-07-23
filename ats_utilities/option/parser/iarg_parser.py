@@ -69,11 +69,11 @@ class IArgParser(ABC):
             Adds an operational argument/flag to the parser.
 
             :param args: List of flags for the ATS.
-            :type args: <str>
+            :type args: str
             :param kwargs: Arguments in shape of dictionary.
-            :type kwargs: <Any>
+            :type kwargs: Any
             :return: Action/argument instance.
-            :rtype: <Any>
+            :rtype: Any
             :exceptions: None.
         '''
         pass
@@ -88,11 +88,11 @@ class IArgParser(ABC):
             Parses the input arguments and returns an OptionNamespace.
 
             :param args: Sequence of arguments | None.
-            :type args: <OptArgs>
+            :type args: OptArgs
             :param namespace: Option namespace object | None.
-            :type namespace: <OptionNamespace | None>
+            :type namespace: OptionNamespace | None
             :return: Option namespace object.
-            :rtype: <OptionNamespace>
+            :rtype: OptionNamespace
             :exceptions: None.
         '''
         pass
@@ -107,9 +107,9 @@ class IArgParser(ABC):
             Parses the input arguments and returns an OptionNamespace and unknown arguments.
 
             :param args: Sequence of arguments | None.
-            :type args: <OptArgs>
+            :type args: OptArgs
             :param namespace: Option namespace object | None.
-            :type namespace: <OptionNamespace | None>
+            :type namespace: OptionNamespace | None
             :return: Tuple containing option namespace and unknown arguments.
             :rtype: <KnownArgs>
             :exceptions: None.
@@ -122,9 +122,9 @@ class IArgParser(ABC):
             Registers subparsers with the parser.
 
             :param kwargs: Arguments in shape of dictionary.
-            :type kwargs: <Any>
+            :type kwargs: Any
             :return: Action/subparser instance.
-            :rtype: <Any>
+            :rtype: Any
             :exceptions: None.
         '''
         pass

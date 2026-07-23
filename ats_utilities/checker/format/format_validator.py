@@ -63,9 +63,9 @@ class FormatValidator(IFormatValidator):
             Checks if the string follows the type:name format.
 
             :param exp_type: The expected format string to validate.
-            :type exp_type: <str>
+            :type exp_type: str
             :return: <True> if successfully, otherwise <False>.
-            :rtype: <bool>
+            :rtype: bool
             :exceptions:
                 | ATSTypeError: exp_type must be a string.
         '''
@@ -80,7 +80,7 @@ class FormatValidator(IFormatValidator):
             Splits the format string into type and name parts.
 
             :param exp_type: The format string to split.
-            :type exp_type: <str>
+            :type exp_type: str
             :return: A tuple containing the split components.
             :rtype: <tuple[str, str]>
             :exceptions:
@@ -98,7 +98,7 @@ class FormatValidator(IFormatValidator):
             Returns the format mcheck as string representation.
 
             :return: The format mcheck as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

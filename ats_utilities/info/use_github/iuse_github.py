@@ -56,7 +56,7 @@ class IUseGitHub(ABC):
             Note: Use GitHub is only prepared when it is set by user (not None).
 
             :return: The use GitHub infrastructure status.
-            :rtype: <bool>
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -69,7 +69,7 @@ class IUseGitHub(ABC):
             Note: Use GitHub is only prepared when it is set by user (not None).
 
             :param use_github: The use GitHub infrastructure status.
-            :type use_github: <bool>
+            :type use_github: bool
             :exceptions: None.
         '''
         pass
@@ -80,8 +80,8 @@ class IUseGitHub(ABC):
             Checks if use GitHub infrastructure status is not None.
             Note: Use GitHub is only prepared when it is set by user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -92,7 +92,7 @@ class IUseGitHub(ABC):
             Returns the use GitHub infrastructure as string representation.
 
             :return: The use GitHub infrastructure as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

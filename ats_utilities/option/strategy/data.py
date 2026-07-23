@@ -64,7 +64,7 @@ class StrategyData:
             Converts StrategyData instance to dictionary.
 
             :return: Dictionary representation of StrategyData.
-            :rtype: <dict[str, Any]>
+            :rtype: dict[str, Any]
             :exceptions: None.
         '''
         return instance_to_dict(self)

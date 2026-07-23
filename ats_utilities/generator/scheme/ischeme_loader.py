@@ -58,7 +58,7 @@ class ISchemeLoader(ABC):
             :param scheme: Generation scheme file path or preloaded scheme.
             :type scheme: <str | Mapping[str, Any]>
             :return: The resolved scheme dictionary.
-            :rtype: <dict[str, Any]>
+            :rtype: dict[str, Any]
             :exceptions: None.
         '''
         pass
@@ -68,8 +68,8 @@ class ISchemeLoader(ABC):
         '''
             Checks if component is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -80,7 +80,7 @@ class ISchemeLoader(ABC):
             Returns the component as string representation.
 
             :return: String representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

@@ -117,7 +117,7 @@ class TestData:
             Returns the TestData as string representation.
 
             :return: The TestData as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

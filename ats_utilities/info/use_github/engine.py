@@ -65,7 +65,7 @@ class UseGitHub(IUseGitHub):
             Initializes UseGitHub constructor.
 
             :param context_bundle: Context bundle for use_github.
-            :type context_bundle: <ContextBundle>
+            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
@@ -82,7 +82,7 @@ class UseGitHub(IUseGitHub):
             Note: Use GitHub is only prepared when it is set by user (not None).
 
             :return: The use GitHub infrastructure.
-            :rtype: <bool>
+            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -100,7 +100,7 @@ class UseGitHub(IUseGitHub):
             Note: Use GitHub is only prepared when it is set by user (not None).
 
             :param use_github: The use GitHub infrastructure.
-            :type use_github: <bool>
+            :type use_github: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -119,8 +119,8 @@ class UseGitHub(IUseGitHub):
             Checks is use GitHub infrastructure not None.
             Note: Use GitHub is only prepared when it is set by user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -134,7 +134,7 @@ class UseGitHub(IUseGitHub):
             Returns the UseGitHub infrastructure as string representation.
 
             :return: The UseGitHub infrastructure as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

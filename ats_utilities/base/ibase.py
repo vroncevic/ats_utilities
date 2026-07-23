@@ -64,7 +64,7 @@ class IBase(ABC):
             Returns the context.
 
             :return: Context.
-            :rtype: <ContextBundle>
+            :rtype: ContextBundle
             :exceptions: None.
         '''
         pass
@@ -74,8 +74,8 @@ class IBase(ABC):
         '''
             Checks if App/Tool/Script base engine is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -86,9 +86,9 @@ class IBase(ABC):
             Adds a new option for App/Tool/Script.
 
             :param args: Arguments in string format.
-            :type args: <str>
+            :type args: str
             :param kwargs: Arguments in Any format.
-            :type kwargs: <Any>
+            :type kwargs: Any
             :exceptions: None.
         '''
         pass
@@ -99,9 +99,9 @@ class IBase(ABC):
             Parses App/Tool/Script arguments.
 
             :param argv: Sequence of arguments.
-            :type argv: <ArgSeq>
+            :type argv: ArgSeq
             :return: Options and arguments | None
-            :rtype: <OptionNamespace | None>
+            :rtype: OptionNamespace | None
             :exceptions: None.
         '''
         pass
@@ -112,9 +112,9 @@ class IBase(ABC):
             Processes and runs App/Tool/Script (Abstract).
 
             :param verbose: Enable/Disable verbose option (default False).
-            :type verbose: <bool>
+            :type verbose: bool
             :return: <True> if successful else <False>.
-            :rtype: <bool>
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -125,7 +125,7 @@ class IBase(ABC):
             Returns the App/Tool/Script base as string representation.
 
             :return: The App/Tool/Script base as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

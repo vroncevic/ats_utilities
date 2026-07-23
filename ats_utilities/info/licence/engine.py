@@ -65,7 +65,7 @@ class Licence(ILicence):
             Initializes Licence constructor.
 
             :param context_bundle: Context bundle for licence.
-            :type context_bundle: <ContextBundle>
+            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
@@ -82,7 +82,7 @@ class Licence(ILicence):
             Note: Info licence is only prepared when it is set by user (not None).
 
             :return: The licence in string format.
-            :rtype: <str>
+            :rtype: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -100,7 +100,7 @@ class Licence(ILicence):
             Note: Info licence is only prepared when it is set by user (not None).
 
             :param licence: The licence in string format.
-            :type licence: <str>
+            :type licence: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -119,8 +119,8 @@ class Licence(ILicence):
             Checks is licence not None.
             Note: Info licence is only prepared when it is set by user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -134,7 +134,7 @@ class Licence(ILicence):
             Returns the Licence as string representation.
 
             :return: The Licence as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

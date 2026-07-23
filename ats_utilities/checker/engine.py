@@ -84,7 +84,7 @@ class Checker(IChecker):
             Initializes Checker constructor.
 
             :param own: Bundle with components.
-            :type own: <CheckerBundle>
+            :type own: CheckerBundle
             :exceptions:
                 | ATSValueError - Component bundle must be provided.
                 | ATSTypeError - Component bundle must be a CheckerBundle instance.
@@ -104,9 +104,9 @@ class Checker(IChecker):
             Validates parameters for method(s) or function(s).
 
             :param parameters: Specification for parameters.
-            :type parameters: <ParametersSpecs>
+            :type parameters: ParametersSpecs
             :return: Tuple of error message report and error id.
-            :rtype: <ValidationResult>
+            :rtype: ValidationResult
             :exceptions: None.
         '''
         context: str = self._context_provider.get_context()
@@ -161,8 +161,8 @@ class Checker(IChecker):
         '''
             Checks if checker component is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         return self._is_initialized
@@ -173,7 +173,7 @@ class Checker(IChecker):
             Returns the Checker as string representation.
 
             :return: The Checker as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

@@ -66,7 +66,7 @@ class IOptionManager(ABC):
             Returns the context.
 
             :return: Context
-            :rtype: <ContextBundle>
+            :rtype: ContextBundle
             :exceptions: None.
         '''
         pass
@@ -77,9 +77,9 @@ class IOptionManager(ABC):
             Adds an option to the parser.
 
             :param args: Arguments in string form
-            :type args: <str>
+            :type args: str
             :param kwargs: Arguments in Any form
-            :type kwargs: <Any>
+            :type kwargs: Any
             :exceptions: None.
         '''
         pass
@@ -90,7 +90,7 @@ class IOptionManager(ABC):
             Adds version option to the parser.
 
             :param version: The version in string format | None
-            :type version: <str | None>
+            :type version: str | None
             :exceptions: None.
         '''
         pass
@@ -101,9 +101,9 @@ class IOptionManager(ABC):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
-            :type arguments: <OptArgs>
+            :type arguments: OptArgs
             :return: Option namespace object
-            :rtype: <OptionNamespace>
+            :rtype: OptionNamespace
             :exceptions: None.
         '''
         pass
@@ -114,9 +114,9 @@ class IOptionManager(ABC):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
-            :type arguments: <OptArgs>
+            :type arguments: OptArgs
             :return: Option namespace object
-            :rtype: <OptionNamespace>
+            :rtype: OptionNamespace
             :exceptions: None.
         '''
         pass
@@ -127,7 +127,7 @@ class IOptionManager(ABC):
             Register a sequence of commands with the parser.
 
             :param commands: Sequence of commands to register.
-            :type commands: <Sequence[IOptionCommand]>
+            :type commands: Sequence[IOptionCommand]
             :exceptions: None.
         '''
         pass
@@ -138,9 +138,9 @@ class IOptionManager(ABC):
             Parses CLI arguments for subcommands and returns command name and parameters.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: <OptArgs>
+            :type arguments: OptArgs
             :return: Tuple containing command name and parsed parameters (read only data).
-            :rtype: <tuple[str, Mapping[str, Any]]>
+            :rtype: tuple[str, Mapping[str, Any]]
             :exceptions: None.
         '''
         pass
@@ -151,8 +151,8 @@ class IOptionManager(ABC):
         '''
             Checks if option parser component is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -163,7 +163,7 @@ class IOptionManager(ABC):
             Returns the option parser as string representation.
 
             :return: The option parser as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

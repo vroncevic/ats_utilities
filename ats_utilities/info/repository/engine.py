@@ -65,7 +65,7 @@ class Repository(IRepository):
             Initializes Repository constructor.
 
             :param context_bundle: Context bundle for repository.
-            :type context_bundle: <ContextBundle>
+            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
@@ -82,7 +82,7 @@ class Repository(IRepository):
             Note: Repository is only prepared when it is set by user (not None).
 
             :return: The repository in string format | None.
-            :rtype: <str | None>
+            :rtype: str | None
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -100,7 +100,7 @@ class Repository(IRepository):
             Note: Repository is only prepared when it is set by user (not None).
 
             :param repository: The repository in string format.
-            :type repository: <str>
+            :type repository: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -119,8 +119,8 @@ class Repository(IRepository):
             Checks is repository not None.
             Note: Repository is only prepared when it is set by user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -134,7 +134,7 @@ class Repository(IRepository):
             Returns the Repository as string representation.
 
             :return: The Repository as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

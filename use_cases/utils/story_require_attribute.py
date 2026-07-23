@@ -82,7 +82,7 @@ class TestComponent:
         Run the message.
 
         :param message: Messages to run.
-        :type message: <Sequence[str]>
+        :type message: Sequence[str]
         :exceptions: None.
         """
         self._reporter.success(message)

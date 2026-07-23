@@ -59,9 +59,9 @@ class IReporter(ABC):
             Reports verbose message.
 
             :param is_verbose: Enable/Disable verbose option.
-            :type is_verbose: <bool>
+            :type is_verbose: bool
             :param message: Sequence with message.
-            :type message: <Sequence[Any]>
+            :type message: Sequence[Any]
             :exceptions: None.
         '''
         pass
@@ -72,7 +72,7 @@ class IReporter(ABC):
             Reports success message.
 
             :param message: Sequence with message.
-            :type message: <Sequence[Any]>
+            :type message: Sequence[Any]
             :exceptions: None.
         '''
         pass
@@ -83,7 +83,7 @@ class IReporter(ABC):
             Reports warning message.
 
             :param message: Sequence with message.
-            :type message: <Sequence[Any]>
+            :type message: Sequence[Any]
             :exceptions: None.
         '''
         pass
@@ -94,7 +94,7 @@ class IReporter(ABC):
             Reports error message.
 
             :param message: Sequence with message.
-            :type message: <Sequence[Any]>
+            :type message: Sequence[Any]
             :exceptions: None.
         '''
         pass
@@ -105,7 +105,7 @@ class IReporter(ABC):
             Sets log level.
 
             :param level: Log level.
-            :type level: <int>
+            :type level: int
             :exceptions: None.
         '''
         pass
@@ -115,8 +115,8 @@ class IReporter(ABC):
         '''
             Returns whether the reporter is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -127,7 +127,7 @@ class IReporter(ABC):
             Returns the reporter as string representation.
 
             :return: The reporter as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

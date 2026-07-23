@@ -55,11 +55,11 @@ class ITypeValidator(ABC):
             Compares instance type with expected type name.
 
             :param instance: The instance to check.
-            :type instance: <Any>
+            :type instance: Any
             :param expected_type_name: The expected type name.
-            :type expected_type_name: <str>
+            :type expected_type_name: str
             :return: <True> successfully, <False> otherwise.
-            :rtype: <bool>
+            :rtype: bool
             :exceptions:
                 | ATSTypeError: Expected type name must be a string.
         '''
@@ -71,11 +71,11 @@ class ITypeValidator(ABC):
             Checks if instance is a subtype of expected type name.
 
             :param instance: The instance to check.
-            :type instance: <Any>
+            :type instance: Any
             :param expected_type_name: The expected parent type name.
-            :type expected_type_name: <str>
+            :type expected_type_name: str
             :return: <True> successfully, <False> otherwise.
-            :rtype: <bool>
+            :rtype: bool
             :exceptions:
                 | ATSTypeError: Expected type name must be a string.
         '''
@@ -87,9 +87,9 @@ class ITypeValidator(ABC):
             Returns the string representation of an instance type.
 
             :param instance: The instance to inspect.
-            :type instance: <Any>
+            :type instance: Any
             :return: String name of the type.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass
@@ -100,7 +100,7 @@ class ITypeValidator(ABC):
             Returns the mcheck as string representation.
 
             :return: The mcheck as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

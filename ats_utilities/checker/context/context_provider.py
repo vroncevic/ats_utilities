@@ -63,7 +63,7 @@ class ContextProvider(IContextProvider):
             Initializes ContextProvider constructor.
 
             :param stack_index_caller: Index in the call stack to identify the caller (default 2).
-            :type stack_index_caller: <int>
+            :type stack_index_caller: int
             :exceptions: None.
         '''
         self._stack_index_caller = stack_index_caller
@@ -74,7 +74,7 @@ class ContextProvider(IContextProvider):
             Sets the index in the call stack to identify the caller.
 
             :param stack_index_caller: Index in the call stack to identify the caller.
-            :type stack_index_caller: <int>
+            :type stack_index_caller: int
             :exceptions:
                 | ATSTypeError: Stack index caller must be an integer.
         '''
@@ -90,7 +90,7 @@ class ContextProvider(IContextProvider):
             frame in the call stack.
 
             :return: Context information in string format.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         current_stack = stack()
@@ -116,7 +116,7 @@ class ContextProvider(IContextProvider):
             Returns the context provider as string representation.
 
             :return: The context provider as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

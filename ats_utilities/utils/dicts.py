@@ -43,11 +43,11 @@ def cherry_pick_dict(source: Mapping[Any, Any], keys: frozenset[str]) -> dict[An
         Cherry picks keys from a source dictionary.
 
         :param source: Source dictionary from which to pick keys.
-        :type source: <Mapping[Any, Any]>
+        :type source: Mapping[Any, Any]
         :param keys: Set of keys to pick from the source dictionary.
-        :type keys: <frozenset[str]>
+        :type keys: frozenset[str]
         :return: Dictionary with cherry picked keys.
-        :rtype: <dict[Any, Any]>
+        :rtype: dict[Any, Any]
         :exceptions: None.
     '''
     if not source or not keys:
@@ -61,11 +61,11 @@ def has_required_keys(source: Mapping[Any, Any], keys: frozenset[str]) -> bool:
         Checks if all required keys are present in the source dictionary.
 
         :param source: Source dictionary to check.
-        :type source: <dict[Any, Any]>
+        :type source: dict[Any, Any]
         :param keys: Set of mandatory keys.
-        :type keys: <frozenset[str]>
+        :type keys: frozenset[str]
         :return: True (passed), False (failed).
-        :rtype: <bool>
+        :rtype: bool
         :exceptions: None.
     '''
     return keys.issubset(source or {})
@@ -82,15 +82,15 @@ def require_keys(
         Requires all keys to be present in the source dictionary.
 
         :param source: Source dictionary to check.
-        :type source: <Mapping[Any, Any]>
+        :type source: Mapping[Any, Any]
         :param keys: Set of mandatory keys.
-        :type keys: <frozenset[str]>
+        :type keys: frozenset[str]
         :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
+        :type exc_context: str | None
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :param exc_class: The exception class to raise if value is None.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :type exc_class: type[BaseException] (default ATSValueError)
         :exceptions:
             | ATSTypeError: Parameters (source and keys) types validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
@@ -121,15 +121,15 @@ def get_first_available(
         Simulates the logic of: source.get(key1) or source.get(key2) ...
 
         :param source: Source dictionary/mapping to search.
-        :type source: <Mapping[Any, Any]>
+        :type source: Mapping[Any, Any]
         :param keys: Sequence of keys to check in order of priority.
-        :type keys: <Sequence[Any]>
+        :type keys: Sequence[Any]
         :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
+        :type exc_context: str | None
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :return: The first non-empty value found, or None if none of the keys exist/have value.
-        :rtype: <Any | None>
+        :rtype: Any | None
         :exceptions:
             | ATSTypeError: Parameters (source and keys) types validation failed.
     '''

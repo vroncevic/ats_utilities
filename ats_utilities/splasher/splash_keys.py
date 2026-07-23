@@ -120,7 +120,7 @@ class SplashKeys:
             Factory method to safely parse a dictionary into a SplashKeys instance.
 
             :param config: Configuration mapping.
-            :type config: <Mapping[str, Any]>
+            :type config: Mapping[str, Any] 
             :return: Fully initialized SplashKeys instance.
             :rtype: <Self>
             :exceptions: None.
@@ -141,7 +141,7 @@ class SplashKeys:
             Returns an immutable tuple of all defined ClassVar keys for the splash screen.
 
             :return: Immutable tuple of all defined ClassVar keys for the splash screen.
-            :rtype: <tuple[str, ...]>
+            :rtype: tuple[str, ...]
             :exceptions: None.
         '''
         return tuple(cls.get_key_to_attr().keys())
@@ -151,7 +151,7 @@ class SplashKeys:
             Converts the SplashKeys instance to a dictionary.
 
             :return: SplashKeys instance in dict format.
-            :rtype: <dict[str, Any]>
+            :rtype: dict[str, Any]
             :exceptions: None.
         '''
         if not self.enabled:

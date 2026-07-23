@@ -71,7 +71,7 @@ class ConsoleTheme(IConsoleTheme):
             Initializes ConsoleTheme constructor.
 
             :param palette: Dictionary with color codes | None.
-            :type palette: <dict[str, str] | None>
+            :type palette: dict[str, str] | None
             :exceptions:
                 | ATSTypeError: Palette must be a dictionary.
         '''
@@ -93,9 +93,9 @@ class ConsoleTheme(IConsoleTheme):
             Returns color code from palette.
 
             :param color_type: Type of the message (key in palette).
-            :type color_type: <str>
+            :type color_type: str
             :return: Color code in string format.
-            :rtype: <str>
+            :rtype: str
             :exceptions:
                 | ATSValueError: Color palette is not defined.
                 | ATSValueError: Color type must be provided.
@@ -126,7 +126,7 @@ class ConsoleTheme(IConsoleTheme):
             Returns the string representation of ConsoleTheme.
 
             :return: The ConsoleTheme as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

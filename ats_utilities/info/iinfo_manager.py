@@ -62,7 +62,7 @@ class IInfoManager(ABC):
             Returns the context.
 
             :return: Context.
-            :rtype: <ContextBundle>
+            :rtype: ContextBundle
             :exceptions: None.
         '''
         pass
@@ -73,7 +73,7 @@ class IInfoManager(ABC):
             Sets the information.
 
             :param info: Mapping with information.
-            :type info: <Mapping[str, Any]>
+            :type info: Mapping[str, Any] 
             :exceptions: None.
         '''
         pass
@@ -84,7 +84,7 @@ class IInfoManager(ABC):
             Gets the information.
  
             :return: Mapping with information.
-            :rtype: <Mapping[str, Any]>
+            :rtype: Mapping[str, Any] 
             :exceptions: None.
         '''
         pass
@@ -94,8 +94,8 @@ class IInfoManager(ABC):
         '''
             Checks if info manager is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -115,7 +115,7 @@ class IInfoManager(ABC):
             Returns the info manager as string representation.
 
             :return: The info manager as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

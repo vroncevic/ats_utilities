@@ -65,7 +65,7 @@ class InfoOk(IInfoOk):
             Initializes InfoOk constructor.
 
             :param context_bundle: Context bundle for info ok status.
-            :type context_bundle: <ContextBundle>
+            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
@@ -82,7 +82,7 @@ class InfoOk(IInfoOk):
             Note: Info status is only prepared when it is set by user (not None).
 
             :return: The information status in bool format.
-            :rtype: <bool>
+            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -100,7 +100,7 @@ class InfoOk(IInfoOk):
             Note: Info status is only prepared when it is set by user (not None).
 
             :param info_ok: The information status in bool format.
-            :type info_ok: <bool>
+            :type info_ok: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -119,8 +119,8 @@ class InfoOk(IInfoOk):
             Checks if info status is not None.
             Note: Info status is only prepared when it is set by user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -134,7 +134,7 @@ class InfoOk(IInfoOk):
             Returns the InfoOk as string representation.
 
             :return: The InfoOk as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

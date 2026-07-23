@@ -83,7 +83,7 @@ class YAMLProcessor(IConfigProcessor):
             Initializes YAMLProcessor constructor.
 
             :param scheme: Mapping with configuration scheme | None.
-            :type scheme: <Mapping[str, str] | None>
+            :type scheme: Mapping[str, str] | None
             :exceptions: None.
         '''
         self._data = {}
@@ -95,9 +95,9 @@ class YAMLProcessor(IConfigProcessor):
             Loads and parses configuration from a raw source (string, stream, or lines).
 
             :param content: Raw configuration data (str, stream, or sequence).
-            :type content: <Any>
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :type content: Any
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         try:
@@ -114,7 +114,7 @@ class YAMLProcessor(IConfigProcessor):
             Converts the internal configuration structure back to a formatted string representation.
 
             :return: Configuration content as string.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return yaml.safe_dump(self._data, default_flow_style=False)
@@ -125,9 +125,9 @@ class YAMLProcessor(IConfigProcessor):
             Updates the internal configuration data and validates it against the scheme.
 
             :param new_data: Mapping containing configuration keys and values.
-            :type new_data: <Mapping[str, str]>
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :type new_data: Mapping[str, str]
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         old_data = self._data.copy()
@@ -147,7 +147,7 @@ class YAMLProcessor(IConfigProcessor):
             Returns the parsed configuration as a flat or structured dictionary.
 
             :return: Dictionary with configuration information.
-            :rtype: <dict[str, str]>
+            :rtype: dict[str, str]
             :exceptions: None.
         '''
         return self._data
@@ -157,8 +157,8 @@ class YAMLProcessor(IConfigProcessor):
         '''
             Validates the internal parsed data structure against the provided scheme.
 
-            :return: <True> if data matches the scheme, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         if self._scheme is None:
@@ -176,7 +176,7 @@ class YAMLProcessor(IConfigProcessor):
             Returns the YAMLProcessor instance as string representation.
 
             :return: The YAMLProcessor instance as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

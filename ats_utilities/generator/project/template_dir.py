@@ -65,7 +65,7 @@ class TemplateDir(ITemplateDir):
             Initializes TemplateDir constructor.
 
             :param context_bundle: Context bundle for template dir.
-            :type context_bundle: <ContextBundle>
+            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
@@ -81,7 +81,7 @@ class TemplateDir(ITemplateDir):
             Property method for getting template dir.
 
             :return: Formatted template dir in string format.
-            :rtype: <str>
+            :rtype: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -98,7 +98,7 @@ class TemplateDir(ITemplateDir):
             Property method for setting project template dir.
 
             :param dir_path: Project template dir path in string format.
-            :type dir_path: <str>
+            :type dir_path: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -116,8 +116,8 @@ class TemplateDir(ITemplateDir):
         '''
             Checks project template dir is not None.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -131,7 +131,7 @@ class TemplateDir(ITemplateDir):
             Returns the ATS project template directory as string representation.
 
             :return: The ATS project template directory as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

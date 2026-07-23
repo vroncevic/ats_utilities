@@ -117,7 +117,7 @@ class CommandOption:
             Merges non-None values from another CommandOption into this one.
 
             :param other: Another CommandOption to merge into this one.
-            :type other: <CommandOption>
+            :type other: CommandOption
             :exceptions:
                 | ATSValueError: Other CommandOption must be provided.
                 | ATSTypeError: Other must be a CommandOption instance.
@@ -141,7 +141,7 @@ class CommandOption:
             Converts the CommandOption instance to a dictionary.
 
             :return: Dictionary representation of the CommandOption instance.
-            :rtype: <dict[str, Any]>
+            :rtype: dict[str, Any]
             :exceptions: None.
         '''
         return {

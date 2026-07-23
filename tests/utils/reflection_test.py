@@ -56,9 +56,9 @@ class DummyClass:
             Initializes DummyClass constructor.
 
             :param attr1: First attribute value | None.
-            :type attr1: <Any>
+            :type attr1: Any
             :param attr2: Second attribute value | None.
-            :type attr2: <Any>
+            :type attr2: Any
             :exceptions: None.
         '''
         self._attr1 = attr1
@@ -70,7 +70,7 @@ class DummyClass:
             Method decorated with has_attrs.
 
             :return: Static string indicating successful execution.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return "success"

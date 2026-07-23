@@ -55,7 +55,7 @@ class ITemplateProcessor(ABC):
             :param raw_content: The raw byte content of the file.
             :type raw_content: <bytes>
             :param vals: String replacement values.
-            :type vals: <dict[str, str]>
+            :type vals: dict[str, str]
             :return: Rendered text content string, or raw bytes if binary format.
             :rtype: <str | bytes>
             :exceptions: None.
@@ -67,8 +67,8 @@ class ITemplateProcessor(ABC):
         '''
             Checks if component is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -79,7 +79,7 @@ class ITemplateProcessor(ABC):
             Returns the component as string representation.
 
             :return: String representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

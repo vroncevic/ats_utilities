@@ -58,7 +58,7 @@ class ILoader(ABC):
             Returns the context.
 
             :return: Context.
-            :rtype: <ContextBundle>
+            :rtype: ContextBundle
             :exceptions: None.
         '''
         pass
@@ -69,7 +69,7 @@ class ILoader(ABC):
             Loads configuration from file and returns dictionary with configuration content.
 
             :return: Dictionary with configuration content.
-            :rtype: <dict[str, Any]>
+            :rtype: dict[str, Any]
             :exceptions: None.
         '''
         pass
@@ -80,7 +80,7 @@ class ILoader(ABC):
             Returns the loader instance as string representation.
 
             :return: The loader instance as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass

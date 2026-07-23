@@ -44,9 +44,9 @@ def _resolve_type(type_to_resolve: Any) -> Any:
         into a tuple of concrete types (int, float).
 
         :param type_to_resolve: Type to resolve.
-        :type type_to_resolve: <Any>
+        :type type_to_resolve: Any
         :return: Resolved type.
-        :rtype: <Any>
+        :rtype: Any
         :exceptions: None.
     '''
     origin = get_origin(type_to_resolve)
@@ -79,15 +79,15 @@ def istype(
         Checks if an instance is of a specified type.
 
         :param instance: Instance to check.
-        :type instance: <any>
+        :type instance: Any
         :param class_or_tuple: Type or tuple of types to check against.
-        :type class_or_tuple: <type | tuple[type, ...]>
+        :type class_or_tuple: type[Any] | tuple[type[Any], ...]
         :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
+        :type exc_context: str | None
         :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :type exc_message: str | None
         :param exc_class: The exception class to raise if instance is not of the specified type.
-        :type exc_class: <type[BaseException]> (default ATSTypeError)
+        :type exc_class: type[BaseException] (default ATSTypeError)
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSTypeError).
     '''

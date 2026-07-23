@@ -68,8 +68,8 @@ class TerminalProperties(ITerminalProperties):
         '''
             Initials TerminalProperties constructor.
 
-            :param context_bundle: Context bundle for terminal properties | None
-            :type context_bundle: <ContextBundle | None>
+            :param context_bundle: Context bundle for terminal properties.
+            :type context_bundle: ContextBundle 
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
@@ -85,9 +85,9 @@ class TerminalProperties(ITerminalProperties):
             Gets size for file descriptor.
 
             :param file_descriptor: File descriptor.
-            :type file_descriptor: <int>
+            :type file_descriptor: int
             :return: Window size of terminal.
-            :rtype: <tuple[Any, ...]>
+            :rtype: tuple[Any, ...]
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -130,7 +130,7 @@ class TerminalProperties(ITerminalProperties):
             Gets terminal window size.
 
             :return: Terminal window size.
-            :rtype: <tuple[Any, ...]>
+            :rtype: tuple[Any, ...]
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -162,7 +162,7 @@ class TerminalProperties(ITerminalProperties):
             Returns the string representation of TerminalProperties.
 
             :return: The TerminalProperties as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

@@ -75,7 +75,7 @@ class ExtInfrastructure(IExtInfrastructure):
             Initials ExtInfrastructure constructor.
 
             :param context_bundle: Context bundle for external infrastructure.
-            :type context_bundle: <ContextBundle>
+            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
@@ -92,7 +92,7 @@ class ExtInfrastructure(IExtInfrastructure):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Formatted infrastructure property in Mapping format (read only data).
-            :rtype: <Mapping[str, Any]>
+            :rtype: Mapping[str, Any] 
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -110,7 +110,7 @@ class ExtInfrastructure(IExtInfrastructure):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :param setup: Project infrastructure property in Mapping format (read only data).
-            :type setup: <Mapping[str, Any]>
+            :type setup: Mapping[str, Any] 
             :exceptions:
                 | ATSTypeError: infrastructure property setup is not a Mapping.
                 | ATSValueError: infrastructure property setup is missing required keys.
@@ -137,7 +137,7 @@ class ExtInfrastructure(IExtInfrastructure):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with info text.
-            :rtype: <str>
+            :rtype: str
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
                 | ATSValueError: Target property name value is missing or empty.
@@ -160,7 +160,7 @@ class ExtInfrastructure(IExtInfrastructure):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with issue info.
-            :rtype: <str>
+            :rtype: str
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
                 | ATSValueError: Target property name value is missing or empty.
@@ -183,7 +183,7 @@ class ExtInfrastructure(IExtInfrastructure):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with author info.
-            :rtype: <str>
+            :rtype: str
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
                 | ATSValueError: Target property name value is missing or empty.
@@ -203,7 +203,7 @@ class ExtInfrastructure(IExtInfrastructure):
             Returns the string representation of ExtInfrastructure.
 
             :return: The ExtInfrastructure as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

@@ -84,7 +84,7 @@ class Logger(ILogger):
             Initializes Logger constructor.
 
             :param own: Component bundle with logger and log file.
-            :type own: <LoggerBundle>
+            :type own: LoggerBundle
             :exceptions:
                 | ATSValueError - Component bundle must be provided.
                 | ATSTypeError - Component bundle must be a LoggerBundle instance.
@@ -119,9 +119,9 @@ class Logger(ILogger):
             Stripping ANSI color codes and emojis if output is redirected or disabled.
 
             :param message: The original log message.
-            :type message: <str>
+            :type message: str
             :return: The processed (clean or untouched) log message.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         no_color: bool = 'NO_COLOR' in environ
@@ -140,9 +140,9 @@ class Logger(ILogger):
             Writes message to log.
 
             :param message: Log message in string format for log.
-            :type message: <str>
+            :type message: str
             :param ctrl: Control flag (debug, warning, critical, errors, info).
-            :type ctrl: <int>
+            :type ctrl: int
             :exceptions: None.
         '''
         if bool(message) and isinstance(message, str):
@@ -159,8 +159,8 @@ class Logger(ILogger):
         '''
             Checks if logger is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         if hasattr(self._logger, 'hasHandlers'):
@@ -176,7 +176,7 @@ class Logger(ILogger):
             Sets log level.
 
             :param level: Log level.
-            :type level: <int>
+            :type level: int
             :exceptions: None.
         '''
         if hasattr(self._logger, 'setLevel'):
@@ -190,7 +190,7 @@ class Logger(ILogger):
             Sets log file.
 
             :param log_file: Log file path.
-            :type log_file: <str>
+            :type log_file: str
             :exceptions: None.
         '''
         if hasattr(self._logger, 'set_log_file'):
@@ -321,7 +321,7 @@ class Logger(ILogger):
             Returns the logger as string representation.
 
             :return: The logger as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

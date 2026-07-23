@@ -47,11 +47,11 @@ def get_pvt(instance: Any, attr_name: str) -> Any:
         Dynamically retrieves a private attribute from an instance.
 
         :param instance: The class instance (self) containing the attribute.
-        :type instance: <Any>
+        :type instance: Any
         :param attr_name: The target private attribute name (e.g., '_checker').
-        :type attr_name: <str>
+        :type attr_name: str
         :return: The resolved attribute value.
-        :rtype: <Any>
+        :rtype: Any
         :exceptions:
             | AttributeError: Attribute must start with '_' prefix.
     '''
@@ -67,9 +67,9 @@ def has_attrs(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., 
         In case attribute value is not defined and not empty, raise ATSValueError exception.
 
         :param attr_names: Tuple of attribute names to check.
-        :type attr_names: <tuple[str, ...]>
+        :type attr_names: tuple[str, ...]
         :return: Decorated function.
-        :rtype: <Callable[..., Any]>
+        :rtype: Callable[..., Any]
         :exceptions:
             | ATSValueError: Missing or empty attribute: '{attr}'.
     '''
@@ -101,9 +101,9 @@ def cls_name(instance: Any) -> str:
         Returns the class name of an instance.
 
         :param instance: The class instance.
-        :type instance: <Any>
+        :type instance: Any
         :return: The class name in string format.
-        :rtype: <str>
+        :rtype: str
         :exceptions: None.
     '''
     return instance.__class__.__name__
@@ -115,9 +115,9 @@ def to_str(instance: Any) -> str:
         Cleans private attributes and appends memory addresses in hex.
 
         :param instance: The class instance to format.
-        :type instance: <Any>
+        :type instance: Any
         :return: String representation of the instance.
-        :rtype: <str>
+        :rtype: str
         :exceptions: None.
     '''
     class_name: str = instance.__class__.__name__

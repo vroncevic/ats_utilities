@@ -75,7 +75,7 @@ class Splasher(ISplasher):
             Initials Splasher constructor.
 
             :param own: Splash screen component bundle.
-            :type own: <SplashBundle>
+            :type own: SplashBundle
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSTypeError: Component bundle must be a SplashBundle instance.
@@ -146,7 +146,7 @@ class Splasher(ISplasher):
             Returns the context.
 
             :return: Context.
-            :rtype: <ContextBundle>
+            :rtype: ContextBundle
             :exceptions: None.
         '''
         return self._context
@@ -159,7 +159,7 @@ class Splasher(ISplasher):
             :param center_data: Center data for centering console output.
             :type center_data: <CenterData>
             :param text: Text to center.
-            :type text: <str>
+            :type text: str
             :exceptions:
                 | ATSValueError: Columns count must be provided.
                 | ATSTypeError: Columns count is not an integer.
@@ -181,8 +181,8 @@ class Splasher(ISplasher):
         '''
             Checks if splasher component is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
+            :rtype: bool
             :exceptions: None.
         '''
         return self._is_initialized
@@ -193,7 +193,7 @@ class Splasher(ISplasher):
             Returns the string representation of Splasher.
 
             :return: The Splasher as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

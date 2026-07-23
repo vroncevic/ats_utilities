@@ -54,7 +54,7 @@ class DummyComponent:
             Initializes DummyComponent constructor.
 
             :param arg1: First test argument | None.
-            :type arg1: <str | None>
+            :type arg1: str | None
             :param arg2: Second test argument | None.
             :type arg2: <int | None>
             :exceptions: None.

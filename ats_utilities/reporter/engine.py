@@ -80,7 +80,7 @@ class Reporter(IReporter):
             Initializes Reporter.
 
             :param own: Reporter component bundle.
-            :type own: <ReporterBundle>
+            :type own: ReporterBundle 
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSTypeError: Component bundle must be a ReporterBundle instance.
@@ -106,11 +106,11 @@ class Reporter(IReporter):
             Utility method for reporting message to log/console.
 
             :param message: Sequence with message components.
-            :type message: <Sequence[Any]>
+            :type message: Sequence[Any]
             :param color: Theme color for the message.
-            :type color: <str>
+            :type color: str
             :param ctrl: Log control flag.
-            :type ctrl: <int>
+            :type ctrl: int
             :exceptions: None.
         '''
         message_out: str = ' '.join([str(item) for item in message])
@@ -126,9 +126,9 @@ class Reporter(IReporter):
             Reports verbose message to console.
 
             :param is_verbose: Enable/Disable verbose option.
-            :type is_verbose: <bool>
+            :type is_verbose: bool
             :param message: Sequence with message components.
-            :type message: <Sequence[Any]>
+            :type message: Sequence[Any]
             :exceptions:
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
@@ -145,7 +145,7 @@ class Reporter(IReporter):
             Reports success message to console.
 
             :param message: Sequence with message components.
-            :type message: <Sequence[Any]>
+            :type message: Sequence[Any]
             :exceptions:
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
@@ -161,7 +161,7 @@ class Reporter(IReporter):
             Reports warning message to console.
 
             :param message: Sequence with message components.
-            :type message: <Sequence[Any]>
+            :type message: Sequence[Any]
             :exceptions:
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
@@ -177,7 +177,7 @@ class Reporter(IReporter):
             Reports error message to console.
 
             :param message: Sequence with message components.
-            :type message: <Sequence[Any]>
+            :type message: Sequence[Any]
             :exceptions:
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
@@ -193,7 +193,7 @@ class Reporter(IReporter):
             Sets log level.
 
             :param level: Log level.
-            :type level: <int>
+            :type level: int
             :exceptions:
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
@@ -211,7 +211,7 @@ class Reporter(IReporter):
             Checks if reporter is initialized.
 
             :return: <True> if successful else <False>.
-            :rtype: <bool>
+            :rtype: bool
             :exceptions: None.
         '''
         return self._is_initialized
@@ -222,7 +222,7 @@ class Reporter(IReporter):
             Returns the string representation of Reporter.
 
             :return: The Reporter as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

@@ -76,7 +76,7 @@ class ConfFile(IConfFile):
             Initializes ConfFile constructor.
 
             :param file_data: File data.
-            :type file_data: <FileData>
+            :type file_data: FileData
             :exceptions:
                 | ATSValueError: File data must be provided.
                 | ATSValueError: Context bundle must be provided.
@@ -96,7 +96,7 @@ class ConfFile(IConfFile):
             Opens configuration file in mode.
 
             :return: File IO object.
-            :rtype: <File>
+            :rtype: File
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -125,9 +125,9 @@ class ConfFile(IConfFile):
             Closes configuration file.
 
             :param args: List of arguments.
-            :type args: <tuple[Any, ...]>
+            :type args: tuple[Any, ...]
             :param kwargs: Dictionary of mapped arguments.
-            :type kwargs: <Mapping[Any, Any]>
+            :type kwargs: Mapping[Any, Any]
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -148,7 +148,7 @@ class ConfFile(IConfFile):
             Returns the ConfFile as string representation.
 
             :return: The ConfFile as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

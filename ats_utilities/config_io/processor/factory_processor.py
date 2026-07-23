@@ -81,7 +81,7 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
             Returns the processor class for a specific file extension.
 
             :param extension: File extension (e.g., '.json', '.cfg', '.xml', '.ini', '.yml', '.yaml').
-            :type extension: <str>
+            :type extension: str
             :return: Processor class.
             :rtype: <type[IConfigProcessor]>
             :exceptions:
@@ -118,9 +118,9 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
             Uses make_component and validate_component utilities.
 
             :param extension: File extension (e.g., '.json', '.cfg', '.xml', '.ini', '.yml', '.yaml') | None.
-            :type extension: <str | None>
+            :type extension: str | None
             :param scheme: Scheme for the processor | None.
-            :type scheme: <Mapping[str, str] | None>
+            :type scheme: Mapping[str, str] | None
             :param processor: Instance to be used as the processor | None.
             :type processor: <IConfigProcessor | None>
             :return: Processor instance.
@@ -175,9 +175,9 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
             If processor is not provided, creation is done from the file path extension.
 
             :param file_path: Path to the configuration file | None.
-            :type file_path: <str | None>
+            :type file_path: str | None
             :param scheme: Scheme for the processor | None.
-            :type scheme: <Mapping[str, str] | None>
+            :type scheme: Mapping[str, str] | None
             :param processor: Instance to be used as the processor | None.
             :type processor: <IConfigProcessor | None>
             :return: Processor instance.

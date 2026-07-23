@@ -53,7 +53,7 @@ class IContextProvider(ABC):
             Sets the index in the call stack to identify the caller.
 
             :param stack_index_caller: Index in the call stack to identify the caller.
-            :type stack_index_caller: <int>
+            :type stack_index_caller: int
             :exceptions:
                 | ATSTypeError: Stack index caller must be an integer.
         '''
@@ -65,7 +65,7 @@ class IContextProvider(ABC):
             Returns a string representing the calling context.
 
             :return: Context information string
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass
@@ -76,7 +76,7 @@ class IContextProvider(ABC):
             Returns the context provider as string representation.
 
             :return: The context provider as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         pass
