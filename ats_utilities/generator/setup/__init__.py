@@ -2,7 +2,7 @@
 
 '''
 Module
-    generator_params.py
+    __init__.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,17 +16,10 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    TypedDict for GeneratorRegistry parameters.
+    Initialize ats_utilities.generator.setup package.
 '''
 
 from __future__ import annotations
-
-from typing import TypedDict, NotRequired
-
-from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
-from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
-from ats_utilities.generator.tar.itar_processor import ITarProcessor
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,12 +29,3 @@ __version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
-
-
-class GeneratorParams(TypedDict):
-    '''TypedDict defining parameter types for GeneratorRegistry.'''
-    context_bundle: ContextBundle
-    template_processor: NotRequired[ITemplateProcessor]
-    scheme_loader: NotRequired[ISchemeLoader]
-    tar_processor: NotRequired[ITarProcessor]
-

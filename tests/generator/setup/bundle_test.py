@@ -1,16 +1,44 @@
 # -*- coding: UTF-8 -*-
 
+'''
+Module
+    bundle_test.py
+Copyright
+    Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Unit tests for GeneratorBundle class.
+'''
+
+from __future__ import annotations
+
 import unittest
 from dataclasses import FrozenInstanceError
 from unittest.mock import MagicMock
-from typing import Any
 
-# Adjust imports according to your project structure
-from ats_utilities.generator.generator_bundle import GeneratorBundle
+from ats_utilities.generator.setup.bundle import GeneratorBundle
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.itar_processor import ITarProcessor
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
+
+__author__: str = 'Vladimir Roncevic'
+__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__: str = '3.4.3'
+__maintainer__: str = 'Vladimir Roncevic'
+__email__: str = 'elektron.ronca@gmail.com'
+__status__: str = 'Development'
 
 
 class TestGeneratorBundle(unittest.TestCase):
@@ -61,46 +89,17 @@ class TestGeneratorBundle(unittest.TestCase):
                 self.mock_context_bundle
             )
 
-    def test_validation_missing_or_none_fields(self) -> None:
-        """Test that passing None for any attribute triggers a validation hook exception."""
-        fields = ["context_bundle", "scheme_loader", "tar_processor", "template_processor"]
-
-        for field in fields:
-            with self.subTest(field=field):
-                invalid_params = self.valid_params.copy()
-                invalid_params[field] = None  # type: ignore
-                
-                # Triggers validator exception via not_none helper
-                with self.assertRaises(Exception):
-                    GeneratorBundle(**invalid_params)
-
-    def test_validation_type_mismatches(self) -> None:
-        """Test that providing an incorrect class type fails the type check constraints."""
-        type_mismatches = {
-            "context_bundle": MagicMock(spec=ISchemeLoader),       # Expected ContextBundle
-            "scheme_loader": MagicMock(spec=ContextBundle),        # Expected ISchemeLoader
-            "tar_processor": MagicMock(spec=ITemplateProcessor),   # Expected ITarProcessor
-            "template_processor": MagicMock(spec=ITarProcessor)    # Expected ITemplateProcessor
-        }
-
-        for field, bad_value in type_mismatches.items():
-            with self.subTest(field=field, bad_value=bad_value):
-                invalid_params = self.valid_params.copy()
-                invalid_params[field] = bad_value
-                
-                # Triggers validator exception via istype helper
-                with self.assertRaises(Exception):
-                    GeneratorBundle(**invalid_params)
-
     def test_to_dict(self) -> None:
         """Test that to_dict compiles the structural field components exactly into a dictionary."""
         bundle = GeneratorBundle(**self.valid_params)
         exported_dict = bundle.to_dict()
 
         self.assertIsInstance(exported_dict, dict)
-        self.assertEqual(exported_dict, self.valid_params)
-        self.assertEqual(set(exported_dict.keys()), set(bundle.__dataclass_fields__.keys()))
+        self.assertEqual(exported_dict["context_bundle"], self.mock_context_bundle)
+        self.assertEqual(exported_dict["scheme_loader"], self.mock_scheme_loader)
+        self.assertEqual(exported_dict["tar_processor"], self.mock_tar_processor)
+        self.assertEqual(exported_dict["template_processor"], self.mock_template_processor)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

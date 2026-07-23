@@ -7,7 +7,7 @@ from collections.abc import Mapping
 # Adjust imports according to your project structure
 from ats_utilities.generator.engine import Generator
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.generator.generator_bundle import GeneratorBundle
+from ats_utilities.generator.setup.bundle import GeneratorBundle
 from ats_utilities.generator.gen_params_bundle import GenParamsBundle
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.itar_processor import ITarProcessor

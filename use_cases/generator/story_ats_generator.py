@@ -23,11 +23,11 @@ import os
 import tempfile
 
 from ats_utilities.generator.engine import Generator
-from ats_utilities.generator.generator_bundle import GeneratorBundle
-from ats_utilities.generator.generator_registry import GeneratorRegistry
+from ats_utilities.generator.setup.bundle import GeneratorBundle
+from ats_utilities.generator.setup.factory import GeneratorFactory
 from ats_utilities.generator.gen_params_registry import GenParamsRegistry
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.registry import ContextRegistry
+from ats_utilities.context.factory import ContextFactory
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,14 +40,14 @@ __status__ = r'Development'
 
 # Paths to the generated archive and scheme
 dir_path = os.path.dirname(os.path.abspath(__file__))
-context_bundle: ContextBundle = ContextRegistry.create_default_context_bundle()
+context_bundle: ContextBundle = ContextFactory.create_default_bundle()
 
 #
 # Use Case 1: High-level generation using Generator orchestrator
 # ==============================================================
 #
 print("Use Case 1: High-level generation using Generator orchestrator:")
-generator_bundle: GeneratorBundle = GeneratorRegistry.create_default_generator_bundle(context_bundle)
+generator_bundle: GeneratorBundle = GeneratorFactory.create_default_generator_bundle(context_bundle)
 generator = Generator(own=generator_bundle)
 status: bool = False
 

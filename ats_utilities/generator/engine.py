@@ -27,7 +27,7 @@ from typing import override
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.generator.generator_bundle import GeneratorBundle
+from ats_utilities.generator.setup.bundle import GeneratorBundle
 from ats_utilities.generator.gen_params_bundle import GenParamsBundle
 from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader

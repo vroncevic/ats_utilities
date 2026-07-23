@@ -2,7 +2,7 @@
 
 '''
 Module
-    generator_registry.py
+    dependencies.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,17 +16,17 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of GeneratorBundle creation.
+    Generator dependencies and options for generator bundle creation.
 '''
 
 from __future__ import annotations
 
-from typing import Any, override
+from typing import TypedDict
 
-from ats_utilities.utils.iregistry import IRegistry
-from ats_utilities.generator.generator_bundle import GeneratorBundle
-from ats_utilities.generator.generator_params import GeneratorParams
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
+from ats_utilities.generator.tar.itar_processor import ITarProcessor
+from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,30 +38,31 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class GeneratorRegistry(IRegistry[GeneratorBundle, GeneratorParams]):
+class GeneratorDependencies(TypedDict):
     '''
-        Encapsulates core runtime components for simplification of GeneratorBundle creation.
+        Generator dependencies for generator bundle creation.
 
         It defines:
 
-            :methods:
-                | create_bundle - Creates a GeneratorBundle instance.
+            :attributes:
+                | scheme_loader: Loader/resolver for scheme configuration.
+                | tar_processor: Processor for archive extraction and template rendering.
+                | template_processor: Processor for template rendering.
+                | context_bundle: Context bundle for generator.
     '''
+    scheme_loader: ISchemeLoader
+    tar_processor: ITarProcessor
+    template_processor: ITemplateProcessor
+    context_bundle: ContextBundle
 
-    @classmethod
-    @override
-    def create_bundle(cls, params: GeneratorParams) -> GeneratorBundle:
-        '''
-            Creates a GeneratorBundle instance.
 
-            :param params: Registry-specific orchestration parameters.
-            :type params: GeneratorParams
-            :return: GeneratorBundle instance.
-            :rtype: <ContextBundle>
-        '''
-        return GeneratorBundle(
-            template_processor=params.get('template_processor'),
-            scheme_loader=params.get('scheme_loader'),
-            tar_processor=params.get('tar_processor'),
-            context_bundle=params.get('context_bundle')
-        )
+class GeneratorOptions(TypedDict):
+    '''
+        Generator options for generator bundle creation.
+
+        It defines:
+
+            :attributes:
+                | context_bundle: Context bundle for generator.
+    '''
+    context_bundle: ContextBundle

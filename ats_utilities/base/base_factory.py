@@ -40,7 +40,7 @@ from ats_utilities.config_io.config_io_registry import ConfigIORegistry
 from ats_utilities.info.setup.factory import InfoFactory
 from ats_utilities.option.setup.factory import OptionFactory
 from ats_utilities.splasher.splash_factory import SplashFactory
-from ats_utilities.generator.generator_factory import GeneratorFactory
+from ats_utilities.generator.setup.factory import GeneratorFactory
 from ats_utilities.utils.dicts import get_first_available
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype

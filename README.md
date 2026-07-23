@@ -218,16 +218,19 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   ├── gen_params_bundle.py
          │   ├── gen_params_params.py
          │   ├── gen_params_registry.py
-         │   ├── generator_bundle.py
-         │   ├── generator_factory.py
-         │   ├── generator_params.py
-         │   ├── generator_registry.py
          │   ├── igenerator.py
          │   ├── __init__.py
          │   ├── scheme/
          │   │   ├── engine.py
          │   │   ├── __init__.py
          │   │   └── ischeme_loader.py
+         │   ├── setup/
+         │   │   ├── bundle.py
+         │   │   ├── dependencies.py
+         │   │   ├── factory.py
+         │   │   ├── __init__.py
+         │   │   ├── registry.py
+         │   │   └── validator.py
          │   ├── tar/
          │   │   ├── engine.py
          │   │   ├── __init__.py
@@ -411,7 +414,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
              ├── context_error.py
              └── __init__.py
 
-     48 directories, 239 files
+     49 directories, 241 files
 ```
 </details>
 
@@ -504,14 +507,16 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/generator/gen_params_bundle.py` | 41 | 0 | 100%|
 | `ats_utilities/generator/gen_params_params.py` | 17 | 0 | 100%|
 | `ats_utilities/generator/gen_params_registry.py` | 27 | 0 | 100%|
-| `ats_utilities/generator/generator_bundle.py` | 37 | 0 | 100%|
-| `ats_utilities/generator/generator_factory.py` | 21 | 0 | 100%|
-| `ats_utilities/generator/generator_params.py` | 19 | 0 | 100%|
-| `ats_utilities/generator/generator_registry.py` | 19 | 0 | 100%|
 | `ats_utilities/generator/igenerator.py` | 14 | 0 | 100%|
 | `ats_utilities/generator/scheme/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/generator/scheme/engine.py` | 48 | 0 | 100%|
 | `ats_utilities/generator/scheme/ischeme_loader.py` | 13 | 0 | 100%|
+| `ats_utilities/generator/setup/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/generator/setup/bundle.py` | 24 | 0 | 100%|
+| `ats_utilities/generator/setup/dependencies.py` | 24 | 0 | 100%|
+| `ats_utilities/generator/setup/factory.py` | 41 | 0 | 100%|
+| `ats_utilities/generator/setup/registry.py` | 28 | 1 | 96%|
+| `ats_utilities/generator/setup/validator.py` | 33 | 0 | 100%|
 | `ats_utilities/generator/tar/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/generator/tar/engine.py` | 71 | 0 | 100%|
 | `ats_utilities/generator/tar/itar_processor.py` | 13 | 0 | 100%|
@@ -660,7 +665,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/validation/check_type.py` | 37 | 0 | 100%|
 | `ats_utilities/validation/check_value.py` | 26 | 0 | 100%|
 | `ats_utilities/validation/context_error.py` | 14 | 0 | 100%|
-| **Total** | 6302 | 320 | 94% |
+| **Total** | 6365 | 321 | 94% |
 
 </details>
 
