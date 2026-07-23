@@ -2,7 +2,7 @@
 
 '''
 Module
-    option_registry.py
+    registry.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,18 +16,17 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core option components for simplification of OptionBundle creation.
+    Encapsulates core runtime components for simplification of option bundle creation.
 '''
 
 from __future__ import annotations
 
-from collections.abc import Mapping
-from typing import Any, override
+from typing import override
 
 from ats_utilities.utils.iregistry import IRegistry
-from ats_utilities.option.option_bundle import OptionBundle
-from ats_utilities.option.option_params import OptionParams
-from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.option.setup.bundle import OptionBundle
+from ats_utilities.option.setup.dependencies import OptionDependencies
+from ats_utilities.option.setup.validator import OptionValidator
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -39,35 +38,42 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class OptionRegistry(IRegistry[OptionBundle, OptionParams]):
+class OptionRegistry(IRegistry[OptionBundle, OptionDependencies]):
     '''
-        Encapsulates core option components for simplification of OptionBundle creation.
+        Encapsulates core runtime components for simplification of option bundle creation.
 
         It defines:
 
             :methods:
-                | create_bundle - Creates an OptionBundle.
+                | create_bundle - Orchestrates dependency injection and creates an option bundle instance.
     '''
 
     @classmethod
     @override
-    def create_bundle(cls, params: OptionParams) -> OptionBundle:
+    def create_bundle(cls, dependencies: OptionDependencies) -> OptionBundle:
         '''
-            Creates an OptionBundle.
+            Orchestrates dependency injection and creates an option bundle instance.
 
-            :param params: Registry-specific orchestration parameters.
-            :type params: OptionParams
-            :return: OptionBundle.
-            :rtype: <OptionBundle>
+            :param dependencies: Registry-specific orchestration dependencies.
+            :type dependencies: OptionDependencies
+            :return: Option bundle instance.
+            :rtype: OptionBundle
             :exceptions:
+                | ATSValueError: Bundle must be provided.
                 | ATSValueError: Parameters must be provided.
+                | ATSValueError: Strategy must be provided.
                 | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Parameters must be a mapping.
+                | ATSTypeError: Bundle must be an instance of OptionBundle.
+                | ATSTypeError: Parameters must be a Mapping[str, str] instance.
+                | ATSTypeError: Strategy must be an IParserStrategy instance.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        return OptionBundle(
-            parameters=params.get('parameters'),
-            strategy=params.get('strategy'),
-            context_bundle=params.get('context_bundle')
+        bundle: OptionBundle = OptionBundle(
+            parameters=dependencies.get('parameters'),
+            strategy=dependencies.get('strategy'),
+            context_bundle=dependencies.get('context_bundle')
         )
 
+        OptionValidator.validate(bundle)
+
+        return bundle

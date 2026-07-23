@@ -28,7 +28,7 @@ from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.engine import OptionManager
-from ats_utilities.option.option_bundle import OptionBundle
+from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 

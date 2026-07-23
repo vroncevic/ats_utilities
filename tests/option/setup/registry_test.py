@@ -2,7 +2,7 @@
 
 '''
 Module
-    option_registry_test.py
+    registry_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -26,11 +26,11 @@ from typing import Any
 
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.option_bundle import OptionBundle
-from ats_utilities.option.option_registry import OptionRegistry
-from ats_utilities.option.option_params import OptionParams
+from ats_utilities.option.setup.bundle import OptionBundle
+from ats_utilities.option.setup.registry import OptionRegistry
+from ats_utilities.option.setup.dependencies import OptionDependencies
 from ats_utilities.option.parser.iarg_parser import IArgParser
-from ats_utilities.option.option_factory import OptionFactory
+from ats_utilities.option.setup.factory import OptionFactory
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,7 +52,7 @@ class DummyParser(IArgParser):
         if own and hasattr(own, 'context_bundle'):
             self._context = own.context_bundle
         else:
-            self._context = ContextFactory.create_default_context_bundle()
+            self._context = ContextFactory.create_default_bundle()
 
     def get_context(self) -> ContextBundle:
         return self._context
@@ -90,7 +90,7 @@ class OptionRegistryTest(unittest.TestCase):
             "description": "desc",
             "epilog": "epi"
         }
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_bundle()
         factory_bundle = OptionFactory.create_option_bundle_from_dict(
             parameters=parameters,
             context_bundle=context_bundle,
@@ -98,7 +98,7 @@ class OptionRegistryTest(unittest.TestCase):
         )
 
         bundle = OptionRegistry.create_bundle(
-            OptionParams(
+            OptionDependencies(
                 parameters=parameters,
                 context_bundle=context_bundle,
                 strategy=factory_bundle.strategy

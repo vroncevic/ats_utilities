@@ -314,11 +314,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   ├── engine.py
          │   ├── __init__.py
          │   ├── ioption_manager.py
-         │   ├── option_bundle.py
-         │   ├── option_factory.py
          │   ├── option_namespace.py
-         │   ├── option_params.py
-         │   ├── option_registry.py
          │   ├── parser/
          │   │   ├── engine.py
          │   │   ├── iarg_parser.py
@@ -326,6 +322,13 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   │   ├── parser_bundle.py
          │   │   ├── parser_params.py
          │   │   └── parser_registry.py
+         │   ├── setup/
+         │   │   ├── bundle.py
+         │   │   ├── dependencies.py
+         │   │   ├── factory.py
+         │   │   ├── __init__.py
+         │   │   ├── registry.py
+         │   │   └── validator.py
          │   └── strategy/
          │       ├── engine.py
          │       ├── __init__.py
@@ -408,7 +411,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
              ├── context_error.py
              └── __init__.py
 
-     47 directories, 237 files
+     48 directories, 239 files
 ```
 </details>
 
@@ -552,9 +555,9 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/info/setup/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/setup/bundle.py` | 38 | 0 | 100%|
 | `ats_utilities/info/setup/dependencies.py` | 37 | 0 | 100%|
-| `ats_utilities/info/setup/factory.py` | 63 | 0 | 99%|
+| `ats_utilities/info/setup/factory.py` | 64 | 0 | 99%|
 | `ats_utilities/info/setup/registry.py` | 21 | 0 | 100%|
-| `ats_utilities/info/setup/validator.py` | 52 | 0 | 100%|
+| `ats_utilities/info/setup/validator.py` | 54 | 0 | 100%|
 | `ats_utilities/info/use_github/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/use_github/engine.py` | 39 | 2 | 95%|
 | `ats_utilities/info/use_github/iuse_github.py` | 11 | 0 | 100%|
@@ -576,19 +579,21 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/option/command/ioption_command.py` | 13 | 0 | 100%|
 | `ats_utilities/option/engine.py` | 71 | 13 | 79%|
 | `ats_utilities/option/ioption_manager.py` | 17 | 0 | 100%|
-| `ats_utilities/option/option_bundle.py` | 33 | 0 | 100%|
-| `ats_utilities/option/option_factory.py` | 23 | 3 | 87%|
 | `ats_utilities/option/option_namespace.py` | 15 | 0 | 100%|
-| `ats_utilities/option/option_params.py` | 19 | 0 | 100%|
-| `ats_utilities/option/option_registry.py` | 20 | 1 | 95%|
 | `ats_utilities/option/parser/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/parser/engine.py` | 45 | 14 | 58%|
 | `ats_utilities/option/parser/iarg_parser.py` | 14 | 0 | 100%|
 | `ats_utilities/option/parser/parser_bundle.py` | 34 | 0 | 100%|
 | `ats_utilities/option/parser/parser_params.py` | 15 | 0 | 100%|
 | `ats_utilities/option/parser/parser_registry.py` | 26 | 0 | 100%|
+| `ats_utilities/option/setup/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/option/setup/bundle.py` | 22 | 0 | 100%|
+| `ats_utilities/option/setup/dependencies.py` | 22 | 0 | 100%|
+| `ats_utilities/option/setup/factory.py` | 38 | 0 | 100%|
+| `ats_utilities/option/setup/registry.py` | 21 | 0 | 100%|
+| `ats_utilities/option/setup/validator.py` | 30 | 0 | 100%|
 | `ats_utilities/option/strategy/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/option/strategy/engine.py` | 91 | 38 | 48%|
+| `ats_utilities/option/strategy/engine.py` | 91 | 32 | 53%|
 | `ats_utilities/option/strategy/iparser_strategy.py` | 16 | 0 | 100%|
 | `ats_utilities/option/strategy/parser_strategy_bundle.py` | 38 | 0 | 100%|
 | `ats_utilities/option/strategy/parser_strategy_params.py` | 17 | 0 | 100%|
@@ -655,7 +660,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/validation/check_type.py` | 37 | 0 | 100%|
 | `ats_utilities/validation/check_value.py` | 26 | 0 | 100%|
 | `ats_utilities/validation/context_error.py` | 14 | 0 | 100%|
-| **Total** | 6252 | 330 | 94% |
+| **Total** | 6302 | 320 | 94% |
 
 </details>
 

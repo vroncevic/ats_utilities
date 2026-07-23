@@ -55,10 +55,11 @@ class InfoRegistry(IRegistry[InfoBundle, InfoDependencies]):
             Orchestrates dependency injection and creates an info bundle instance.
 
             :param dependencies: Registry-specific orchestration dependencies.
-            :type dependencies: InfoDependencies 
-            :return: InfoBundle instance.
-            :rtype: Info bundle instance.
+            :type dependencies: InfoDependencies
+            :return: Info bundle instance.
+            :rtype: InfoBundle
             :exceptions:
+                | ATSValueError: Bundle must be provided.
                 | ATSValueError: Name must be provided.
                 | ATSValueError: Version must be provided.
                 | ATSValueError: Licence must be provided.
@@ -66,9 +67,11 @@ class InfoRegistry(IRegistry[InfoBundle, InfoDependencies]):
                 | ATSValueError: Repository must be provided.
                 | ATSValueError: Organization must be provided.
                 | ATSValueError: Use GitHub must be provided.
-                | ATSValueError: Logo path must be provided.
+                | ATSValueError: Logo must be provided.
+                | ATSValueError: Log file must be provided.
                 | ATSValueError: Info ok must be provided.
                 | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Bundle must be an instance of InfoBundle.
                 | ATSTypeError: Name must be an instance of IName interface.
                 | ATSTypeError: Version must be an instance of IVersion interface.
                 | ATSTypeError: Licence must be an instance of ILicence interface.
@@ -76,7 +79,8 @@ class InfoRegistry(IRegistry[InfoBundle, InfoDependencies]):
                 | ATSTypeError: Repository must be an instance of IRepository interface.
                 | ATSTypeError: Organization must be an instance of IOrganization interface.
                 | ATSTypeError: Use GitHub must be an instance of IUseGitHub interface.
-                | ATSTypeError: Logo path must be an instance of ILogo interface.
+                | ATSTypeError: Logo must be an instance of ILogo interface.
+                | ATSTypeError: Log file must be an instance of ILogFile interface.
                 | ATSTypeError: Info ok must be an instance of IInfoOk interface.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle class.
         '''

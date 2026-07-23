@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
 
 '''
 Module
-    story_ats_option_parser.py
+    __init__.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,14 +16,10 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Use cases for ATS option parser.
+    Initialize ats_utilities.option.setup package.
 '''
 
-import sys
-from typing import Any
-from ats_utilities.context.factory import ContextFactory
-from ats_utilities.option.setup.factory import OptionFactory
-from ats_utilities.option.engine import OptionManager
+from __future__ import annotations
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -33,28 +29,3 @@ __version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
-
-
-#
-# default [based on argparse]
-# =============================
-#
-opt_parser: dict[str, str] = {
-    'name': 'mytool',
-    'epilog': 'mytool is simple',
-    'description': 'mytool is simple cli tool',
-    'version': '1.2.4'
-}
-OPS: list[str] = ['-n', '--name', '-v', '--verbose']
-own = OptionFactory.create_option_bundle_from_dict(
-    parameters=opt_parser,
-    context_bundle=ContextFactory.create_default_bundle()
-)
-parser: OptionManager = OptionManager(own=own)
-parser.add_version_operation('1.2.4')
-parser.add_operation(OPS[0], OPS[1], dest='name', help='generate project (provide name)')
-
-args: Any = parser.parse_args(sys.argv)
-
-if bool(getattr(args, "name")):
-    print(f'option name: {getattr(args, "name")}')

@@ -28,7 +28,7 @@ from typing import Any, override
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str, has_attrs
-from ats_utilities.option.option_bundle import OptionBundle
+from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy

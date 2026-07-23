@@ -20,14 +20,14 @@ Info
 '''
 
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.registry import ContextRegistry
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.setup.registry import CheckerRegistry
 from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.logger.engine import Logger
 from ats_utilities.logger.setup.factory import LoggerFactory
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.theme.engine import ConsoleTheme 
-from ats_utilities.reporter.reporter_bundle import ReporterBundle
+from ats_utilities.reporter.setup.registry import ReporterRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -43,24 +43,19 @@ __status__ = r'Development'
 # ==================
 #
 mychecker: Checker = Checker(own=CheckerFactory.create_default_bundle())
-mytheme: ConsoleTheme = ConsoleTheme()
 mylogger: Logger = Logger(own=LoggerFactory.create_default_bundle())
-own: ReporterBundle = ReporterBundle(
-    checker=mychecker,
-    theme=mytheme,
-    logger=mylogger
+mytheme: ConsoleTheme = ConsoleTheme()
+myreporter: Reporter = Reporter(
+    own=ReporterRegistry.create_bundle({
+        'checker': mychecker, 'theme': mytheme, 'logger': mylogger
+    })
 )
+ats_context_bundle_di: ContextBundle = ContextRegistry.create_bundle({
+    'checker': mychecker, 'logger': mylogger, 'reporter': myreporter, 'verbose': True
+})
 
-myreporter: Reporter = Reporter(own=own)
-
-ats_context_bundle_di: ContextBundle = ContextBundle(
-    checker=mychecker,
-    logger=mylogger,
-    reporter=myreporter,
-    verbose=True
-)
 print(ats_context_bundle_di)
 print(ats_context_bundle_di.checker)
 print(ats_context_bundle_di.reporter)
 print(ats_context_bundle_di.verbose)
-print(50 * '=')
+print(100 * '=')

@@ -2,7 +2,7 @@
 
 '''
 Module
-    option_factory_test.py
+    factory_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -26,8 +26,8 @@ from typing import Any
 
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.option_bundle import OptionBundle
-from ats_utilities.option.option_factory import OptionFactory
+from ats_utilities.option.setup.bundle import OptionBundle
+from ats_utilities.option.setup.factory import OptionFactory
 from ats_utilities.option.parser.iarg_parser import IArgParser
 
 __author__: str = 'Vladimir Roncevic'
@@ -50,7 +50,7 @@ class DummyParser(IArgParser):
         if own and hasattr(own, 'context_bundle'):
             self._context = own.context_bundle
         else:
-            self._context = ContextFactory.create_default_context_bundle()
+            self._context = ContextFactory.create_default_bundle()
 
     def get_context(self) -> ContextBundle:
         return self._context
@@ -81,28 +81,31 @@ class OptionFactoryTest(unittest.TestCase):
     '''
 
     def test_create_option_bundle_from_dict(self) -> None:
-        '''
-            Tests create_option_bundle_from_dict.
-
-            :exceptions: None.
-        '''
         parameters = {
             "name": "mytool",
             "version": "1.0.0",
             "description": "desc",
             "epilog": "epi"
         }
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_bundle()
 
-        bundle = OptionFactory.create_option_bundle_from_dict(
-            parameters=parameters,
-            context_bundle=context_bundle,
-            parser_class=DummyParser
-        )
+        bundle = OptionFactory.create_default_bundle({
+            "parameters": parameters,
+            "context_bundle": context_bundle,
+            "parser_class": DummyParser
+        })
 
         self.assertIsInstance(bundle, OptionBundle)
         self.assertEqual(bundle.parameters, parameters)
         self.assertIs(bundle.context_bundle, context_bundle)
+
+        # test compat
+        bundle_compat = OptionFactory.create_option_bundle_from_dict(
+            parameters=parameters,
+            context_bundle=context_bundle,
+            parser_class=DummyParser
+        )
+        self.assertIsInstance(bundle_compat, OptionBundle)
 
 
 if __name__ == "__main__":

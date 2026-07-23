@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validates InfoBundle instance.
+    Validator for info bundle instance.
 '''
 
 from __future__ import annotations
@@ -51,10 +51,10 @@ __status__ = r'Development'
 
 class InfoValidator(IValidator[InfoBundle]):
     '''
-        Validates InfoBundle instance.
+        Validator for info bundle instance.
 
         It defines:
-            
+
             :methods:
                 | validate - Validates info bundle instance.
     '''
@@ -65,9 +65,10 @@ class InfoValidator(IValidator[InfoBundle]):
         '''
             Validates info bundle instance.
 
-            :param bundle: InfoBundle instance to be validated.
+            :param bundle: Info bundle instance to be validated.
             :type bundle: InfoBundle
             :exceptions:
+                | ATSValueError: Bundle must be provided.
                 | ATSValueError: Name must be provided.
                 | ATSValueError: Version must be provided.
                 | ATSValueError: Licence must be provided.
@@ -75,9 +76,11 @@ class InfoValidator(IValidator[InfoBundle]):
                 | ATSValueError: Repository must be provided.
                 | ATSValueError: Organization must be provided.
                 | ATSValueError: Use GitHub must be provided.
-                | ATSValueError: Logo path must be provided.
+                | ATSValueError: Logo must be provided.
+                | ATSValueError: Log file must be provided.
                 | ATSValueError: Info ok must be provided.
                 | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Bundle must be an instance of InfoBundle.
                 | ATSTypeError: Name must be an instance of IName interface.
                 | ATSTypeError: Version must be an instance of IVersion interface.
                 | ATSTypeError: Licence must be an instance of ILicence interface.
@@ -85,11 +88,14 @@ class InfoValidator(IValidator[InfoBundle]):
                 | ATSTypeError: Repository must be an instance of IRepository interface.
                 | ATSTypeError: Organization must be an instance of IOrganization interface.
                 | ATSTypeError: Use GitHub must be an instance of IUseGitHub interface.
-                | ATSTypeError: Logo path must be an instance of ILogo interface.
+                | ATSTypeError: Logo must be an instance of ILogo interface.
+                | ATSTypeError: Log file must be an instance of ILogFile interface.
                 | ATSTypeError: Info ok must be an instance of IInfoOk interface.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle class.
         '''
-        ctx: str = r'info_bundle::validate(...)'
+        ctx: str = r'info_validator::validate(...)'
+        not_none(bundle, ctx, r'bundle must be provided')
+        istype(bundle, InfoBundle, ctx, r'bundle must be an instance of InfoBundle')
 
         not_empty(bundle.name, ctx, r'name must be provided')
         not_empty(bundle.version, ctx, r'version must be provided')

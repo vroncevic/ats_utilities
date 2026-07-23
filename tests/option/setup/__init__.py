@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
 
 '''
 Module
-    story_context_bundle_simple_di.py
+    __init__.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,17 +16,10 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Use cases for ATS context bundle.
+    Initialize tests.option.setup package.
 '''
 
-from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.setup.registry import CheckerRegistry
-from ats_utilities.checker.setup.factory import CheckerFactory
-from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.setup.factory import LoggerFactory
-from ats_utilities.reporter.engine import Reporter
-from ats_utilities.reporter.setup.factory import ReporterFactory
+from __future__ import annotations
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,23 +29,3 @@ __version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
-
-#
-# [with simple  DI]
-# ==================
-#
-mychecker: Checker = Checker(own=CheckerFactory.create_default_bundle())
-mylogger: Logger = Logger(own=LoggerFactory.create_default_bundle())
-myreporter: Reporter = Reporter(own=ReporterFactory.create_default_reporter_bundle())
-
-ats_context_bundle_di: ContextBundle = ContextBundle(
-    checker=mychecker,
-    logger=mylogger,
-    reporter=myreporter,
-    verbose=True
-)
-print(ats_context_bundle_di)
-print(ats_context_bundle_di.checker)
-print(ats_context_bundle_di.reporter)
-print(ats_context_bundle_di.verbose)
-print(50 * '=')

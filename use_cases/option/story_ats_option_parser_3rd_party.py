@@ -27,15 +27,14 @@ from typing import Any
 
 from fire import Fire  # type: ignore
 
-from ats_utilities.context.registry import ContextRegistry
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.factory import ContextFactory
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.option_namespace import OptionNamespace, OptArgs
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.option.strategy.parser_strategy_bundle import ParserStrategyBundle
-from ats_utilities.option.option_bundle import OptionBundle
+from ats_utilities.option.setup.bundle import OptionBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -47,7 +46,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class MyAppFireStrategy(IParserStrategy, ContextSupport):
+class MyAppFireStrategy(IParserStrategy):
     '''
         Define class MyAppFireStrategy with attribute(s) and method(s).
         3rd party option parser based on Fire.
@@ -73,7 +72,6 @@ class MyAppFireStrategy(IParserStrategy, ContextSupport):
             :type own: <ParserStrategyBundle>
             :exceptions: None.
         '''
-        ContextSupport.__init__(self, own.context_bundle)
         self._target = types.SimpleNamespace()
 
     def add_argument(self, *args: str, **kwargs: Any) -> None:
@@ -123,7 +121,7 @@ opt_parser = {
     'name': 'mytool'
 }
 OPS: list[str] = ['-n', '--name', '-v', '--verbose']
-context_bundle = ContextRegistry.create_default_context_bundle()
+context_bundle = ContextFactory.create_default_bundle()
 strategy_bundle = ParserStrategyBundle(
     parameters=opt_parser,
     context_bundle=context_bundle
