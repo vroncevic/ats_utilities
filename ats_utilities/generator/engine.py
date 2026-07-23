@@ -150,7 +150,7 @@ class Generator(IGenerator):
 
             :param data: Generator data containing template generation parameters.
             :type data: GeneratorData
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions:
                 | ATSValueError: Generator data must be provided.
@@ -210,7 +210,7 @@ class Generator(IGenerator):
         '''
             Checks if generator component is initialized.
 
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''

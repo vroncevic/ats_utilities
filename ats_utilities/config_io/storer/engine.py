@@ -121,7 +121,7 @@ class Storer(IStorer):
 
             :param config: Configuration object.
             :type config: Mapping[str, str]
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''

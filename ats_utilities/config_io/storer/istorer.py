@@ -70,7 +70,7 @@ class IStorer(ABC):
 
             :param config: Mapping with configuration information (read only data).
             :type config: Mapping[str, str]
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''

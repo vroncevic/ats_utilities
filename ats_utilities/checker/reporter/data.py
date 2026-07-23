@@ -53,7 +53,6 @@ class CheckReporterData:
                 | err_indices - Sequence of error indices.
                 | is_fmt_err - Flag indicating if format error type has been found.
             :methods:
-                | __post_init__ - Post-initialization hook to validate check reporter data.
                 | to_dict - Converts the checker reporter data instance to a dictionary.
     '''
 

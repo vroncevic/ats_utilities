@@ -23,6 +23,7 @@ Info
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from collections.abc import Sequence
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -44,7 +45,7 @@ class IFormatValidator(ABC):
             :methods:
                 | is_valid - Checks if the string follows the expected format.
                 | split - Splits the format string into components.
-                | __str__ - Returns the mcheck as string representation.
+                | __str__ - Returns the format validator as string representation.
     '''
 
     @abstractmethod
@@ -54,32 +55,29 @@ class IFormatValidator(ABC):
 
             :param exp_type: The expected format string to validate.
             :type exp_type: str
-            :return: <True> if successfully, otherwise <False>.
+            :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def split(self, exp_type: str) -> tuple[str, str]:
+    def split(self, exp_type: str) -> Sequence[str]:
         '''
-            Splits the format string into components.
+            Splits the format string into parts.
 
             :param exp_type: The format string to split.
             :type exp_type: str
-            :return: A tuple containing the split components.
-            :rtype: <tuple[str, str]>
-            :exceptions: None.
+            :return: A Sequence containing the split components.
+            :rtype: Sequence[str]
         '''
         pass
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the mcheck as string representation.
+            Returns the format validator as string representation.
 
-            :return: The mcheck as string representation.
+            :return: The format validator as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

@@ -22,11 +22,13 @@ Info
 
 from __future__ import annotations
 
-from inspect import stack
+from collections.abc import Sequence
+from inspect import FrameInfo, stack
 from typing import override
 
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.utils.reflection import to_str
+from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
@@ -43,14 +45,13 @@ class ContextProvider(IContextProvider):
     '''
         Defines class ContextProvider with attribute(s) and method(s).
         Retrieves context using the call stack.
-        Mechanism for getting context for function or method parameters.
 
         It defines:
 
             :attributes:
-                | _stack_index_caller - Index in the call stack to identify the caller (instance attribute).
+                | _stack_index_caller - Index in the call stack to identify the caller.
             :methods:
-                | __init__ - Initializes ContextProvider constructor.
+                | __init__ - Initializes context provider.
                 | set_stack_index_caller - Sets the index in the call stack to identify the caller.
                 | get_context - Returns a string representing the calling context.
                 | __str__ - Returns the context provider as string representation.
@@ -60,7 +61,7 @@ class ContextProvider(IContextProvider):
 
     def __init__(self, stack_index_caller: int = 2) -> None:
         '''
-            Initializes ContextProvider constructor.
+            Initializes context provider.
 
             :param stack_index_caller: Index in the call stack to identify the caller (default 2).
             :type stack_index_caller: int
@@ -76,10 +77,12 @@ class ContextProvider(IContextProvider):
             :param stack_index_caller: Index in the call stack to identify the caller.
             :type stack_index_caller: int
             :exceptions:
+                | ATSValueError: Stack index caller must be provided.
                 | ATSTypeError: Stack index caller must be an integer.
         '''
-        context: str = r'context_provider::set_stack_index_caller(...)'
-        istype(stack_index_caller, int, context, r'stack index caller must be an integer')
+        ctx: str = r'context_provider::set_stack_index_caller(...)'
+        not_none(stack_index_caller, ctx, r'stack index caller must be provided')
+        istype(stack_index_caller, int, ctx, r'stack index caller must be an integer')
         self._stack_index_caller = stack_index_caller
 
     @override
@@ -89,21 +92,21 @@ class ContextProvider(IContextProvider):
             It uses the instance's STACK_INDEX_CALLER to determine the correct
             frame in the call stack.
 
-            :return: Context information in string format.
+            :return: Context information in form of a string.
             :rtype: str
             :exceptions: None.
         '''
-        current_stack = stack()
-        target_index = self._stack_index_caller
+        current_stack: Sequence[FrameInfo] = stack()
+        target_index: int = self._stack_index_caller
 
         if target_index >= len(current_stack):
             target_index = len(current_stack) - 1
 
-        caller = current_stack[target_index]
-        func_name = caller.function
+        caller: FrameInfo = current_stack[target_index]
+        func_name: str = caller.function
 
         if func_name == 'wrapper' and 'func' in caller.frame.f_locals:
-            func_obj = caller.frame.f_locals['func']
+            func_obj: object = caller.frame.f_locals['func']
 
             if hasattr(func_obj, '__name__'):
                 func_name = func_obj.__name__

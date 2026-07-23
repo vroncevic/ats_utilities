@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class TypeValidator with attribute(s) and method(s).
-    Creates an API for handling type validation parameters for method(s) and function(s).
+    Creates an API for handling type validation parameters of method(s) and function(s).
 '''
 
 from __future__ import annotations
@@ -29,6 +29,7 @@ from typing import Any, Final, override
 from ats_utilities.checker.type.itype_validator import ITypeValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_type import istype
+from ats_utilities.validation.check_value import not_none
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -43,8 +44,7 @@ __status__ = r'Development'
 class TypeValidator(ITypeValidator):
     '''
         Defines class TypeValidator with attribute(s) and method(s).
-        Creates an API for type validation between instances and type names.
-        Mechanism for validating function or method parameters (type).
+        Creates an API for handling type validation parameters of method(s) and function(s).
 
         It defines:
 
@@ -56,7 +56,7 @@ class TypeValidator(ITypeValidator):
                 | is_match - Compares instance type with expected type name.
                 | is_subtype - Checks if instance is a subtype of expected type name.
                 | get_type_name - Returns the string representation of an instance type.
-                | __str__ - Returns the ATS type mcheck as string representation.
+                | __str__ - Returns the type validator as string representation.
     '''
 
     _ABSTRACT_TYPES: Final[Mapping[str, type]] = MappingProxyType({
@@ -76,8 +76,8 @@ class TypeValidator(ITypeValidator):
                 | ATSTypeError: Abstract types must be a Mapping.
         '''
         if abstract_types is not None:
-            context: str = r'type_validator::init(...)'
-            istype(abstract_types, Mapping, context, r'abstract types must be a Mapping')
+            ctx: str = r'type_validator::init(...)'
+            istype(abstract_types, Mapping, ctx, r'abstract types must be a Mapping[str, Any]')
             self._abstract_types = MappingProxyType(abstract_types)
         else:
             self._abstract_types = self._ABSTRACT_TYPES
@@ -88,17 +88,21 @@ class TypeValidator(ITypeValidator):
             Compares instance type with expected type name.
             Compares the __name__ of the instance type with expected string.
 
-            :param instance: The instance to check.
+            :param instance: The instance to be checked.
             :type instance: Any
             :param expected_type_name: The expected type name.
             :type expected_type_name: str
-            :return: <True> successfully, <False> otherwise.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions:
+                | ATSValueError: Instance must be provided.
+                | ATSValueError: Expected type name must be provided.
                 | ATSTypeError: Expected type name must be a string.
         '''
-        context: str = r'type_validator::is_match(...)'
-        istype(expected_type_name, str, context, r'expected type name must be a string')
+        ctx: str = r'type_validator::is_match(...)'
+        not_none(instance, ctx, r'instance must be provided')
+        not_none(expected_type_name, ctx, r'expected type name must be provided')
+        istype(expected_type_name, str, ctx, r'expected type name must be a string')
         base_type_name = expected_type_name.split('[')[0]
 
         if base_type_name in self._abstract_types:
@@ -112,17 +116,21 @@ class TypeValidator(ITypeValidator):
             Checks if instance is a subtype of expected type name.
             Traverses the Method Resolution Order (MRO) to find a match.
 
-            :param instance: The instance to check.
+            :param instance: The instance to be checked.
             :type instance: Any
             :param expected_type_name: The expected parent type name.
             :type expected_type_name: str
-            :return: <True> successfully, <False> otherwise.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions:
+                | ATSValueError: Instance must be provided.
+                | ATSValueError: Expected type name must be provided.
                 | ATSTypeError: Expected type name must be a string.
         '''
-        context: str = r'type_validator::is_subtype(...)'
-        istype(expected_type_name, str, context, r'expected type name must be a string')
+        ctx: str = r'type_validator::is_subtype(...)'
+        not_none(instance, ctx, r'instance must be provided')
+        not_none(expected_type_name, ctx, r'expected type name must be provided')
+        istype(expected_type_name, str, ctx, r'expected type name must be a string')
         base_type_name = expected_type_name.split('[')[0]
 
         if base_type_name in self._abstract_types:
@@ -135,20 +143,24 @@ class TypeValidator(ITypeValidator):
         '''
             Returns the string representation of an instance type.
 
-            :param instance: The instance to inspect.
+            :param instance: The instance to be inspected.
             :type instance: Any
             :return: String name of the type.
             :rtype: str
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Instance must be provided.
         '''
+        ctx: str = r'type_validator::get_type_name(...)'
+        not_none(instance, ctx, r'instance must be provided')
+
         return type(instance).__name__
 
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS type mcheck as string representation.
+            Returns the type validator as string representation.
 
-            :return: The ATS type mcheck as string representation.
+            :return: The type validator as string representation.
             :rtype: str
             :exceptions: None.
         '''

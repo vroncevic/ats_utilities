@@ -140,7 +140,7 @@ class Base(IBase):
         '''
             Checks if App/Tool/Script base engine is initialized.
 
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''
@@ -187,7 +187,7 @@ class Base(IBase):
 
             :param verbose: Enable/Disable verbose option (default False).
             :type verbose: bool
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''

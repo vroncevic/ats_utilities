@@ -76,7 +76,7 @@ class ITemplateDir(ABC):
         '''
             Checks if project template directory is not None.
 
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''

@@ -23,7 +23,7 @@ from typing import override
 
 from ats_utilities.utils.ifactory import IFactory
 from ats_utilities.checker.setup.bundle import CheckerBundle
-from ats_utilities.checker.setup.validator import CheckerValidator
+from ats_utilities.checker.setup.registry import CheckerRegistry
 from ats_utilities.checker.format.format_validator import FormatValidator
 from ats_utilities.checker.type.type_validator import TypeValidator
 from ats_utilities.checker.context.context_provider import ContextProvider
@@ -76,13 +76,11 @@ class CheckerFactory(IFactory[CheckerBundle, None]):
         context_provider: ContextProvider = ContextProvider()
         check_reporter: CheckReporter = CheckReporter()
 
-        bundle: CheckerBundle = CheckerBundle(
-            format_validator=format_validator,
-            type_validator=type_validator,
-            context_provider=context_provider,
-            check_reporter=check_reporter
-        )
-
-        CheckerValidator.validate(bundle)
+        bundle: CheckerBundle = CheckerRegistry.create_bundle({
+            'format_validator': format_validator,
+            'type_validator': type_validator,
+            'context_provider': context_provider,
+            'check_reporter': check_reporter
+        })
 
         return bundle

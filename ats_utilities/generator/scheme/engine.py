@@ -129,7 +129,7 @@ class SchemeLoader(ISchemeLoader):
         '''
             Checks if scheme loader component is initialized.
 
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''

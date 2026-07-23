@@ -116,7 +116,7 @@ class TemplateDir(ITemplateDir):
         '''
             Checks project template dir is not None.
 
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.

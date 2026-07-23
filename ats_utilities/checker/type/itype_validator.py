@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class ITypeValidator with method(s).
-    Creates an interface for validating parameters for method(s) and function(s).
+    Creates an interface for validating parameters of method(s) and function(s).
 '''
 
 from __future__ import annotations
@@ -38,7 +38,7 @@ __status__ = r'Development'
 class ITypeValidator(ABC):
     '''
         Defines abstract class ITypeValidator with method(s).
-        Creates an interface for validating parameters for method(s) and function(s).
+        Creates an interface for validating parameters of method(s) and function(s).
 
         It defines:
 
@@ -46,7 +46,7 @@ class ITypeValidator(ABC):
                 | is_match - Compares instance type with expected type name.
                 | is_subtype - Checks if instance is a subtype of expected type name.
                 | get_type_name - Returns the string representation of an instance type.
-                | __str__ - Returns the mcheck as string representation.
+                | __str__ - Returns the type validator as string representation.
     '''
 
     @abstractmethod
@@ -58,10 +58,8 @@ class ITypeValidator(ABC):
             :type instance: Any
             :param expected_type_name: The expected type name.
             :type expected_type_name: str
-            :return: <True> successfully, <False> otherwise.
+            :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions:
-                | ATSTypeError: Expected type name must be a string.
         '''
         pass
 
@@ -74,10 +72,8 @@ class ITypeValidator(ABC):
             :type instance: Any
             :param expected_type_name: The expected parent type name.
             :type expected_type_name: str
-            :return: <True> successfully, <False> otherwise.
+            :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions:
-                | ATSTypeError: Expected type name must be a string.
         '''
         pass
 
@@ -90,17 +86,15 @@ class ITypeValidator(ABC):
             :type instance: Any
             :return: String name of the type.
             :rtype: str
-            :exceptions: None.
         '''
         pass
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the mcheck as string representation.
+            Returns the type validator as string representation.
 
-            :return: The mcheck as string representation.
+            :return: The type validator as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

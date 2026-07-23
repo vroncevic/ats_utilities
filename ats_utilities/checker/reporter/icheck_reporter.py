@@ -24,8 +24,6 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from ats_utilities.checker.reporter.data import CheckReporterData
-
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -36,7 +34,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ICheckReporter(ABC):
+class ICheckReporter[T](ABC):
     '''
         Defines abstract class ICheckReporter with method(s).
         Creates an interface for formating message report in context of checker.
@@ -47,18 +45,16 @@ class ICheckReporter(ABC):
                 | build_message_format - Builds the final message report.
                 | __str__ - Returns the check reporter as string representation.
     '''
+
     @abstractmethod
-    def build_message_format(self, data: CheckReporterData) -> str:
+    def build_message_format(self, data: T) -> str:
         '''
             Builds the final message report.
 
             :param data: Data to be formatted.
-            :type data: CheckReporterData
+            :type data: T
             :return: Formatted message report.
             :rtype: str
-            :exceptions:
-                | ATSValueError: Data must be provided.
-                | ATSTypeError: Data must be a CheckReporterData instance.
         '''
         pass
 
@@ -69,6 +65,5 @@ class ICheckReporter(ABC):
 
             :return: The check reporter as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

@@ -26,9 +26,8 @@ from typing import override
 
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.reporter.data import CheckReporterData
+from ats_utilities.checker.reporter.data_validator import CheckReporterValidator
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.validation.check_value import not_none
-from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,7 +39,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class CheckReporter(ICheckReporter):
+class CheckReporter(ICheckReporter[CheckReporterData]):
     '''
         Defines class CheckReporter with attribute(s) and method(s).
         Creates an API report formatter for checker.
@@ -62,13 +61,18 @@ class CheckReporter(ICheckReporter):
             :return: Formatted message report.
             :rtype: str
             :exceptions:
-                | ATSValueError: Data must be provided.
-                | ATSTypeError: Data must be a CheckReporterData instance.
+                | ATSValueError: Check reporter data must be provided.
+                | ATSTypeError: Check reporter data must be an instance of CheckReporterData.
+                | ATSValueError: Context must be provided.
+                | ATSValueError: Parameters metadata must be provided.
+                | ATSValueError: Error indices must be provided.
+                | ATSValueError: Is format error must be provided.
+                | ATSTypeError: Context must be a string.
+                | ATSTypeError: Parameters metadata must be a sequence of ParamMetadata.
+                | ATSTypeError: Error indices must be a sequence of integers.
+                | ATSTypeError: Is format error must be a boolean.
         '''
-        ctx: str = r'check_reporter::build_message_format(...)'
-        not_none(data, ctx, r'data must be provided')
-        istype(data, CheckReporterData, ctx, r'data must be a CheckReporterData instance')
-
+        CheckReporterValidator.validate(data)
         message: str = data.context
         err_set: set[int] = set(data.err_indices)
 

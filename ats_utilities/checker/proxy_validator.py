@@ -35,6 +35,8 @@ from ats_utilities.exceptions import (
     ATSRuntimeError, ATSTypeError, ATSValueError
 )
 from ats_utilities.validation.context_error import raise_error
+from ats_utilities.validation.check_value import not_satisfied, not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -53,20 +55,18 @@ def proxy_validator_split(exp_type: str) -> tuple[str, str]:
         :param exp_type: The format string to split.
         :type exp_type: str
         :return: A tuple containing the split components.
-        :rtype: <tuple[str, str]>
+        :rtype: tuple[str, str]
         :exceptions:
-            | ATSValueError: Parameter format validation failed.
+            | ATSValueError: Expected type must be provided.
+            | ATSTypeError: Expected type must be a string.
+            | ATSValueError: Invalid format: {exp_type}, expected type:name.
     '''
+    ctx: str = r'proxy_validator_split(...)'
+    not_none(exp_type, ctx, r'expected type must be provided')
+    istype(exp_type, ctx, r'expected type must be a string')
+    not_satisfied(':' not in exp_type, ctx, f'invalid format: {exp_type}, expected type:name')
     parts = exp_type.split(sep=':')
-
-    if len(parts) != 2:
-        raise_error(
-            fallback_context=r'proxy_validator_split(...)',
-            fallback_msg=f'Invalid parameter format: {exp_type}',
-            exc_context=r'proxy_validator_split(...)',
-            exc_message=None,
-            exc_class=ATSValueError
-        )
+    not_satisfied(len(parts) != 2, ctx, f'invalid format: {exp_type}, expected type:name')
 
     return parts[0], parts[1]
 
@@ -89,9 +89,9 @@ def validate_args(
         :param kwargs: Keyword arguments passed.
         :type kwargs: dict[str, Any]
         :param specs: Parameter specification list.
-        :type specs: <list[tuple[str, Any]]>
+        :type specs: list[tuple[str, Any]]
         :param checker: Checker instance to validate with.
-        :type checker: <IChecker>
+        :type checker: IChecker
         :param exc_context: Exception context.
         :type exc_context: str
         :exceptions:
@@ -169,9 +169,9 @@ def mcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
         Mechanism for parameters checking in methods only.
 
         :param specs: Specification for parameters.
-        :type specs: <list[tuple[str, Any]]>
+        :type specs: list[tuple[str, Any]]
         :return: Wrapped function.
-        :rtype: <Callable[[F], F]>
+        :rtype: Callable[[F], F]
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | ATSValueError: Parameter format validation failed.
@@ -179,6 +179,7 @@ def mcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
             | ATSAttributeError: Class does not provide a _checker object.
     '''
     def decorator(func: F) -> F:
+
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             # Capturing the class instance (self is always the first argument in args)
@@ -194,6 +195,7 @@ def mcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
                 )
 
             context_bundle = getattr(self_instance, '_context', None)
+
             if context_bundle is None and hasattr(self_instance, 'get_context'):
                 context_bundle = self_instance.get_context()
 
@@ -232,19 +234,21 @@ def fcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
         Mechanism for parameters checking in functions only.
 
         :param specs: Specification for parameters.
-        :type specs: <list[tuple[str, Any]]>
+        :type specs: list[tuple[str, Any]]
         :return: Wrapped function.
-        :rtype: <Callable[[F], F]>
+        :rtype: Callable[[F], F]
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | ATSValueError: Parameter format validation failed.
     '''
-    checker = Checker(CheckerFactory.create_default_checker_bundle())
+    checker: Checker = Checker(CheckerFactory.create_default_bundle())
 
     def decorator(func: F) -> F:
+
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             validate_args(func, args, kwargs, specs, checker, func.__name__)
+
             return func(*args, **kwargs)
 
         return cast(F, wrapper)

@@ -127,7 +127,7 @@ class IParserStrategy(ABC):
         '''
             Checks if parser strategy component is ok.
 
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''

@@ -33,12 +33,11 @@ from ats_utilities.checker.format.iformat_validator import IFormatValidator
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.setup.bundle import CheckerBundle
+from ats_utilities.checker.setup.validator import CheckerValidator
 from ats_utilities.checker.reporter.data import (
     CheckReporterData, ParamMetadata
 )
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.validation.check_value import not_none
-from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -86,12 +85,18 @@ class Checker(IChecker):
             :param own: Bundle with components.
             :type own: CheckerBundle
             :exceptions:
-                | ATSValueError - Component bundle must be provided.
-                | ATSTypeError - Component bundle must be a CheckerBundle instance.
+                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Context provider must be provided.
+                | ATSValueError: Check reporter must be provided.
+                | ATSValueError: Format validator must be provided.
+                | ATSValueError: Type validator must be provided.
+                | ATSTypeError: Bundle must be an instance of CheckerBundle.
+                | ATSTypeError: Context provider must be an instance of IContextProvider.
+                | ATSTypeError: Check reporter must be an instance of ICheckReporter.
+                | ATSTypeError: Format validator must be an instance of IFormatValidator.
+                | ATSTypeError: Type validator must be an instance of ITypeValidator.
         '''
-        context: str = r'checker::init(...)'
-        not_none(own, context, r'component bundle must be provided')
-        istype(own, CheckerBundle, context, r'component bundle must be a CheckerBundle instance')
+        CheckerValidator.validate(own)
         self._format_validator = own.format_validator
         self._type_validator = own.type_validator
         self._context_provider = own.context_provider
@@ -107,7 +112,17 @@ class Checker(IChecker):
             :type parameters: ParametersSpecs
             :return: Tuple of error message report and error id.
             :rtype: ValidationResult
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Check reporter data must be provided.
+                | ATSTypeError: Check reporter data must be an instance of CheckReporterData.
+                | ATSValueError: Context must be provided.
+                | ATSValueError: Parameters metadata must be provided.
+                | ATSValueError: Error indices must be provided.
+                | ATSValueError: Is format error must be provided.
+                | ATSTypeError: Context must be a string.
+                | ATSTypeError: Parameters metadata must be a sequence of ParamMetadata.
+                | ATSTypeError: Error indices must be a sequence of integers.
+                | ATSTypeError: Is format error must be a boolean.
         '''
         context: str = self._context_provider.get_context()
         params_meta: list[ParamMetadata] = []
@@ -161,7 +176,7 @@ class Checker(IChecker):
         '''
             Checks if checker component is initialized.
 
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''

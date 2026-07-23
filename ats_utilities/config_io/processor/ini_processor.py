@@ -99,7 +99,7 @@ class INIProcessor(IConfigProcessor):
 
             :param content: Raw configuration data (str, stream, or sequence).
             :type content: Any
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''
@@ -139,7 +139,7 @@ class INIProcessor(IConfigProcessor):
 
             :param new_data: Mapping containing configuration keys and values.
             :type new_data: Mapping[str, str]
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''
@@ -211,7 +211,7 @@ class INIProcessor(IConfigProcessor):
         '''
             Validates the internal parsed data structure against the provided scheme.
 
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''

@@ -78,7 +78,7 @@ class ITarProcessor(ABC):
         '''
             Checks if component is initialized.
 
-            :return: True if successful, otherwise False.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''
