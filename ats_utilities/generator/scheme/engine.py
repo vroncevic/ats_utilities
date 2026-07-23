@@ -29,7 +29,7 @@ from collections.abc import Mapping
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
-from ats_utilities.config_io.config_io_registry import ConfigIORegistry
+from ats_utilities.config_io.setup.registry import ConfigIORegistry
 from ats_utilities.exceptions import ATSGeneratorError
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_type import istype

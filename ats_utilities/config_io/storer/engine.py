@@ -29,9 +29,10 @@ from sys import stderr
 
 from ats_utilities.config_io.storer.istorer import IStorer
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
+from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.config_io.iconf_file import IConfFile
-from ats_utilities.config_io.conf_file_factory import ConfFileFactory
+from ats_utilities.config_io.data import FileData
+from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_none
@@ -94,10 +95,12 @@ class Storer(IStorer):
         istype(own, ConfigIOBundle, context, r'component bundle must be of type ConfigIOBundle')
         self._context = own.context_bundle
         self._processor = own.processor
-        self._conf_file = ConfFileFactory.create_conf_file(
-            file_path=own.file_path,
-            file_mode=own.WRITE_MODE,
-            context_bundle=self._context
+        self._conf_file = ConfFile(
+            FileData(
+                file_path=own.file_path,
+                file_mode=own.WRITE_MODE,
+                context_bundle=self._context
+            )
         )
 
     @override

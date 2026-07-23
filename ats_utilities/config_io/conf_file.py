@@ -27,7 +27,8 @@ from collections.abc import Mapping
 from typing import Any, override
 
 from ats_utilities.config_io.iconf_file import IConfFile
-from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
+from ats_utilities.config_io.data import FileData
+from ats_utilities.config_io.data_validator import FileDataValidator
 from ats_utilities.config_io.iconf_file import File
 from ats_utilities.reporter.proxy_reporter import vreport
 from ats_utilities.context.bundle import ContextBundle
@@ -70,25 +71,23 @@ class ConfFile(IConfFile):
     _file_mode: str
     _context: ContextBundle
 
-    def __init__(self, file_bundle: ConfFileBundle) -> None:
+    def __init__(self, file_data: FileData) -> None:
         '''
             Initializes ConfFile constructor.
 
-            :param file_bundle: File configuration bundle.
-            :type file_bundle: <ConfFileBundle>
+            :param file_data: File data.
+            :type file_data: <FileData>
             :exceptions:
-                | ATSValueErro: File bundle must be provided.
+                | ATSValueError: File data must be provided.
                 | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: File bundle must be an instance of ConfFileBundle.
+                | ATSTypeError: File data must be an instance of FileData.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        context: str = r'conf_file::init(...)'
-        not_none(file_bundle, context, r'file bundle must be provided')
-        istype(file_bundle, ConfFileBundle, context, r'file bundle must be an instance of ConfFileBundle')
-        self._context = file_bundle.context_bundle
+        FileDataValidator.validate(file_data)
+        self._context = file_data.context_bundle
         self._file = None
-        self._file_path = file_bundle.file_path
-        self._file_mode = file_bundle.file_mode
+        self._file_path = file_data.file_path
+        self._file_mode = file_data.file_mode
 
     @vreport('open file {file_path} with mode {file_mode}')
     @override

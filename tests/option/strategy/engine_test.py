@@ -33,7 +33,7 @@ from ats_utilities.option.command.command_option import CommandOption
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.parser.iarg_parser import IArgParser
 from ats_utilities.option.strategy.engine import ParserStrategy
-from ats_utilities.option.strategy.parser_strategy_bundle import ParserStrategyBundle
+from ats_utilities.option.strategy.data import StrategyData
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -96,19 +96,19 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
             InfoKeys.ATS_LICENCE: "MIT",
             InfoKeys.ATS_BUILD_DATE: "2026-01-01"
         }
-        bundle = ParserStrategyBundle(
+        bundle = StrategyData(
             parameters=parameters,
             context_bundle=context_bundle
         )
         strategy = ParserStrategy(bundle)
-        self.assertIs(strategy._shared_context, context_bundle)
+        self.assertIs(strategy._context, context_bundle)
         self.assertEqual(strategy._parser.prog, "mytool 1.0.0")
 
     def test_init_invalid(self) -> None:
@@ -129,14 +129,14 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
             InfoKeys.ATS_LICENCE: "MIT",
             InfoKeys.ATS_BUILD_DATE: "2026-01-01"
         }
-        bundle = ParserStrategyBundle(
+        bundle = StrategyData(
             parameters=parameters,
             context_bundle=context_bundle
         )
@@ -153,14 +153,14 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
             InfoKeys.ATS_LICENCE: "MIT",
             InfoKeys.ATS_BUILD_DATE: "2026-01-01"
         }
-        bundle = ParserStrategyBundle(
+        bundle = StrategyData(
             parameters=parameters,
             context_bundle=context_bundle
         )
@@ -177,14 +177,14 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
             InfoKeys.ATS_LICENCE: "MIT",
             InfoKeys.ATS_BUILD_DATE: "2026-01-01"
         }
-        bundle = ParserStrategyBundle(
+        bundle = StrategyData(
             parameters=parameters,
             context_bundle=context_bundle
         )
@@ -205,14 +205,14 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
             InfoKeys.ATS_LICENCE: "MIT",
             InfoKeys.ATS_BUILD_DATE: "2026-01-01"
         }
-        bundle = ParserStrategyBundle(
+        bundle = StrategyData(
             parameters=parameters,
             context_bundle=context_bundle
         )
@@ -243,14 +243,14 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
             InfoKeys.ATS_LICENCE: "MIT",
             InfoKeys.ATS_BUILD_DATE: "2026-01-01"
         }
-        bundle = ParserStrategyBundle(
+        bundle = StrategyData(
             parameters=parameters,
             context_bundle=context_bundle
         )
@@ -274,14 +274,14 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
             InfoKeys.ATS_LICENCE: "MIT",
             InfoKeys.ATS_BUILD_DATE: "2026-01-01"
         }
-        bundle = ParserStrategyBundle(
+        bundle = StrategyData(
             parameters=parameters,
             context_bundle=context_bundle
         )
@@ -294,14 +294,14 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_default_bundle()
         parameters = {
             InfoKeys.ATS_NAME: "mytool",
             InfoKeys.ATS_VERSION: "1.0.0",
             InfoKeys.ATS_LICENCE: "MIT",
             InfoKeys.ATS_BUILD_DATE: "2026-01-01"
         }
-        bundle = ParserStrategyBundle(
+        bundle = StrategyData(
             parameters=parameters,
             context_bundle=context_bundle
         )

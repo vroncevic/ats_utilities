@@ -25,7 +25,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
+from ats_utilities.splasher.data import CenterData
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -63,16 +63,12 @@ class ISplasher(ABC):
         pass
 
     @abstractmethod
-    def center(
-        self,
-        splash_center_bundle: SplashCenterBundle,
-        text: str
-    ) -> None:
+    def center(self, center_data: CenterData, text: str) -> None:
         '''
             Centers console line with given text.
 
-            :param splash_center_bundle: Splash center bundle for centering console output.
-            :type splash_center_bundle: <SplashCenterBundle>
+            :param center_data: Center data for centering console output.
+            :type center_data: <CenterData>
             :param text: Text to center.
             :type text: <str>
             :exceptions: None.

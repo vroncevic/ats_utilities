@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, patch
 from collections.abc import Mapping
 
 from ats_utilities.config_io.storer.engine import Storer
-from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
+from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 
@@ -27,24 +27,24 @@ class TestStorer(unittest.TestCase):
 
         self.valid_config = {"hostname": "127.0.0.1", "port": "80"}
 
-    @patch("ats_utilities.config_io.storer.engine.ConfFileFactory.create_conf_file")
-    def test_initialization(self, mock_create_conf_file: MagicMock) -> None:
+    @patch("ats_utilities.config_io.storer.engine.ConfFile")
+    def test_initialization(self, mock_conf_file_cls: MagicMock) -> None:
         """Test successful initialization and configuration assembly."""
         mock_conf_file = MagicMock()
-        mock_create_conf_file.return_value = mock_conf_file
+        mock_conf_file_cls.return_value = mock_conf_file
 
         # Act
         storer = Storer(self.mock_component_bundle)
 
         # Assert
-        self.assertEqual(storer._shared_context, self.mock_context_bundle)
+        self.assertEqual(storer._context, self.mock_context_bundle)
         self.assertEqual(storer._processor, self.mock_processor)
         
-        mock_create_conf_file.assert_called_once_with(
-            file_path="/path/to/output.json",
-            file_mode="w",
-            context_bundle=self.mock_context_bundle
-        )
+        mock_conf_file_cls.assert_called_once()
+        called_args = mock_conf_file_cls.call_args[0][0]
+        self.assertEqual(called_args.file_path, "/path/to/output.json")
+        self.assertEqual(called_args.file_mode, "w")
+        self.assertEqual(called_args.context_bundle, self.mock_context_bundle)
         self.assertEqual(storer._conf_file, mock_conf_file)
 
     def test_initialization_fails_when_bundle_is_none(self) -> None:
@@ -57,17 +57,17 @@ class TestStorer(unittest.TestCase):
         with self.assertRaises(Exception):
             Storer(MagicMock())  # type: ignore
 
-    def test_get_shared_context(self) -> None:
-        """Test that get_shared_context correctly exposes the shared context instance."""
+    def test_get_context(self) -> None:
+        """Test that get_context correctly exposes the shared context instance."""
         storer = Storer(self.mock_component_bundle)
-        self.assertEqual(storer.get_shared_context(), self.mock_context_bundle)
+        self.assertEqual(storer.get_context(), self.mock_context_bundle)
 
-    @patch("ats_utilities.config_io.storer.engine.ConfFileFactory.create_conf_file")
-    def test_store_configuration_success(self, mock_create_conf_file: MagicMock) -> None:
+    @patch("ats_utilities.config_io.storer.engine.ConfFile")
+    def test_store_configuration_success(self, mock_conf_file_cls: MagicMock) -> None:
         """Test a perfectly valid workflow returning True when file writes succeed."""
         # Arrange
         mock_conf_file = MagicMock()
-        mock_create_conf_file.return_value = mock_conf_file
+        mock_conf_file_cls.return_value = mock_conf_file
         
         storer = Storer(self.mock_component_bundle)
         self.mock_processor.update_data.return_value = True
@@ -84,11 +84,11 @@ class TestStorer(unittest.TestCase):
         self.assertTrue(result)
         self.mock_processor.update_data.assert_called_once_with(self.valid_config)
         self.mock_processor.serialize.assert_called_once()
-        mock_create_conf_file.assert_called_once_with(
-            file_path="/path/to/output.json",
-            file_mode="w",
-            context_bundle=self.mock_context_bundle
-        )
+        mock_conf_file_cls.assert_called_once()
+        called_args = mock_conf_file_cls.call_args[0][0]
+        self.assertEqual(called_args.file_path, "/path/to/output.json")
+        self.assertEqual(called_args.file_mode, "w")
+        self.assertEqual(called_args.context_bundle, self.mock_context_bundle)
         mock_file_io.write.assert_called_once_with('{"serialized": "data"}')
 
     def test_store_configuration_empty_input_returns_false(self) -> None:
@@ -110,14 +110,14 @@ class TestStorer(unittest.TestCase):
         self.mock_processor.update_data.assert_called_once_with(self.valid_config)
         self.mock_processor.serialize.assert_not_called()
 
-    @patch("ats_utilities.config_io.storer.engine.ConfFileFactory.create_conf_file")
+    @patch("ats_utilities.config_io.storer.engine.ConfFile")
     def test_store_configuration_handles_file_io_exceptions(
-        self, mock_create_conf_file: MagicMock
+        self, mock_conf_file_cls: MagicMock
     ) -> None:
         """Test that file context manager exceptions are caught gracefully, returning False."""
         # Arrange
         mock_conf_file = MagicMock()
-        mock_create_conf_file.return_value = mock_conf_file
+        mock_conf_file_cls.return_value = mock_conf_file
         
         storer = Storer(self.mock_component_bundle)
         self.mock_processor.update_data.return_value = True
@@ -130,13 +130,13 @@ class TestStorer(unittest.TestCase):
 
         self.assertFalse(result)
 
-    @patch("ats_utilities.config_io.storer.engine.ConfFileFactory.create_conf_file")
+    @patch("ats_utilities.config_io.storer.engine.ConfFile")
     def test_store_configuration_returns_false_when_file_is_none(
-        self, mock_create_conf_file: MagicMock
+        self, mock_conf_file_cls: MagicMock
     ) -> None:
         """Test that store_configuration returns False when config_file is None."""
         mock_conf_file = MagicMock()
-        mock_create_conf_file.return_value = mock_conf_file
+        mock_conf_file_cls.return_value = mock_conf_file
 
         storer = Storer(self.mock_component_bundle)
         self.mock_processor.update_data.return_value = True

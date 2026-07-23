@@ -39,7 +39,7 @@ from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.isplasher import ISplasher
 from ats_utilities.generator.engine import Generator
 from ats_utilities.generator.igenerator import IGenerator
-from ats_utilities.config_io.config_io_registry import ConfigIORegistry
+from ats_utilities.config_io.setup.registry import ConfigIORegistry
 from ats_utilities.info.setup.factory import InfoFactory
 from ats_utilities.option.setup.factory import OptionFactory
 from ats_utilities.splasher.setup.factory import SplashFactory

@@ -62,12 +62,12 @@
             <button type="button" class="par run show_par button_toggle_par" value="par" data-shortcut="p" title="Toggle lines partially run">0<span class="text"> partial</span></button>
         </h2>
         <p class="text">
-            <a id="prevFileLink" class="nav" href="z_2ec8ed6d54fe5a48_checker_reporter_registry_py.html">&#xab; prev</a> &nbsp; &nbsp;
+            <a id="prevFileLink" class="nav" href="z_2ec8ed6d54fe5a48_data_validator_py.html">&#xab; prev</a> &nbsp; &nbsp;
             <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
-            <a id="nextFileLink" class="nav" href="z_e9eda97a358e6629___init___py.html">&#xbb; next</a>
+            <a id="nextFileLink" class="nav" href="z_124cef0c486454bc___init___py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2026-07-20 15:23 +0200
+            created at 2026-07-23 14:50 +0200
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -108,7 +108,7 @@
     <p class="pln"><span class="n"><a id="t24" href="#t24">24</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t25" href="#t25">25</a></span><span class="t"><span class="key">from</span> <span class="nam">abc</span> <span class="key">import</span> <span class="nam">ABC</span><span class="op">,</span> <span class="nam">abstractmethod</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t26" href="#t26">26</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t27" href="#t27">27</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">checker</span><span class="op">.</span><span class="nam">reporter</span><span class="op">.</span><span class="nam">checker_reporter_bundle</span> <span class="key">import</span> <span class="nam">CheckerReporterBundle</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t27" href="#t27">27</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">checker</span><span class="op">.</span><span class="nam">reporter</span><span class="op">.</span><span class="nam">data</span> <span class="key">import</span> <span class="nam">CheckReporterData</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t28" href="#t28">28</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t29" href="#t29">29</a></span><span class="t"><span class="nam">__author__</span> <span class="op">=</span> <span class="str">r'Vladimir Roncevic'</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t30" href="#t30">30</a></span><span class="t"><span class="nam">__copyright__</span> <span class="op">=</span> <span class="str">r'(C) 2026, https://vroncevic.github.io/ats_utilities'</span>&nbsp;</span><span class="r"></span></p>
@@ -128,30 +128,30 @@
     <p class="pln"><span class="n"><a id="t44" href="#t44">44</a></span><span class="t"><span class="str">        It defines:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t45" href="#t45">45</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t46" href="#t46">46</a></span><span class="t"><span class="str">            :methods:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t47" href="#t47">47</a></span><span class="t"><span class="str">                | build_message_format - Builds the final message report for checker.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t48" href="#t48">48</a></span><span class="t"><span class="str">                | __str__ - Returns the reporter as string representation.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t47" href="#t47">47</a></span><span class="t"><span class="str">                | build_message_format - Builds the final message report.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t48" href="#t48">48</a></span><span class="t"><span class="str">                | __str__ - Returns the check reporter as string representation.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t49" href="#t49">49</a></span><span class="t"><span class="str">    '''</span>&nbsp;</span><span class="r"></span></p>
     <p class="exc show_exc"><span class="n"><a id="t50" href="#t50">50</a></span><span class="t">    <span class="op">@</span><span class="nam">abstractmethod</span>&nbsp;</span><span class="r"></span></p>
-    <p class="exc show_exc"><span class="n"><a id="t51" href="#t51">51</a></span><span class="t">    <span class="key">def</span> <span class="nam">build_message_format</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">report_bundle</span><span class="op">:</span> <span class="nam">CheckerReporterBundle</span><span class="op">)</span> <span class="op">-></span> <span class="nam">str</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="exc show_exc"><span class="n"><a id="t51" href="#t51">51</a></span><span class="t">    <span class="key">def</span> <span class="nam">build_message_format</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">data</span><span class="op">:</span> <span class="nam">CheckReporterData</span><span class="op">)</span> <span class="op">-></span> <span class="nam">str</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="exc show_exc"><span class="n"><a id="t52" href="#t52">52</a></span><span class="t">        <span class="str">'''</span>&nbsp;</span><span class="r"></span></p>
-    <p class="exc show_exc"><span class="n"><a id="t53" href="#t53">53</a></span><span class="t"><span class="str">            Builds the final message report for checker.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="exc show_exc"><span class="n"><a id="t53" href="#t53">53</a></span><span class="t"><span class="str">            Builds the final message report.</span>&nbsp;</span><span class="r"></span></p>
     <p class="exc show_exc"><span class="n"><a id="t54" href="#t54">54</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="exc show_exc"><span class="n"><a id="t55" href="#t55">55</a></span><span class="t"><span class="str">            :param report_bundle: Bundle with parameters.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="exc show_exc"><span class="n"><a id="t56" href="#t56">56</a></span><span class="t"><span class="str">            :type report_bundle: &lt;CheckerReporterBundle></span>&nbsp;</span><span class="r"></span></p>
-    <p class="exc show_exc"><span class="n"><a id="t57" href="#t57">57</a></span><span class="t"><span class="str">            :return: Formatted message report</span>&nbsp;</span><span class="r"></span></p>
-    <p class="exc show_exc"><span class="n"><a id="t58" href="#t58">58</a></span><span class="t"><span class="str">            :rtype: &lt;str></span>&nbsp;</span><span class="r"></span></p>
+    <p class="exc show_exc"><span class="n"><a id="t55" href="#t55">55</a></span><span class="t"><span class="str">            :param data: Data to be formatted.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="exc show_exc"><span class="n"><a id="t56" href="#t56">56</a></span><span class="t"><span class="str">            :type data: CheckReporterData</span>&nbsp;</span><span class="r"></span></p>
+    <p class="exc show_exc"><span class="n"><a id="t57" href="#t57">57</a></span><span class="t"><span class="str">            :return: Formatted message report.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="exc show_exc"><span class="n"><a id="t58" href="#t58">58</a></span><span class="t"><span class="str">            :rtype: str</span>&nbsp;</span><span class="r"></span></p>
     <p class="exc show_exc"><span class="n"><a id="t59" href="#t59">59</a></span><span class="t"><span class="str">            :exceptions:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="exc show_exc"><span class="n"><a id="t60" href="#t60">60</a></span><span class="t"><span class="str">                | ATSValueError: Report bundle must be provided.</span>&nbsp;</span><span class="r"></span></p>
-    <p class="exc show_exc"><span class="n"><a id="t61" href="#t61">61</a></span><span class="t"><span class="str">                | ATSTypeError: Report bundle must be a CheckerReporterBundle instance.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="exc show_exc"><span class="n"><a id="t60" href="#t60">60</a></span><span class="t"><span class="str">                | ATSValueError: Data must be provided.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="exc show_exc"><span class="n"><a id="t61" href="#t61">61</a></span><span class="t"><span class="str">                | ATSTypeError: Data must be a CheckReporterData instance.</span>&nbsp;</span><span class="r"></span></p>
     <p class="exc show_exc"><span class="n"><a id="t62" href="#t62">62</a></span><span class="t"><span class="str">        '''</span>&nbsp;</span><span class="r"></span></p>
     <p class="exc show_exc"><span class="n"><a id="t63" href="#t63">63</a></span><span class="t">        <span class="key">pass</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t64" href="#t64">64</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="exc show_exc"><span class="n"><a id="t65" href="#t65">65</a></span><span class="t">    <span class="op">@</span><span class="nam">abstractmethod</span>&nbsp;</span><span class="r"></span></p>
     <p class="exc show_exc"><span class="n"><a id="t66" href="#t66">66</a></span><span class="t">    <span class="key">def</span> <span class="nam">__str__</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="op">-></span> <span class="nam">str</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="exc show_exc"><span class="n"><a id="t67" href="#t67">67</a></span><span class="t">        <span class="str">'''</span>&nbsp;</span><span class="r"></span></p>
-    <p class="exc show_exc"><span class="n"><a id="t68" href="#t68">68</a></span><span class="t"><span class="str">            Returns the reporter as string representation.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="exc show_exc"><span class="n"><a id="t68" href="#t68">68</a></span><span class="t"><span class="str">            Returns the check reporter as string representation.</span>&nbsp;</span><span class="r"></span></p>
     <p class="exc show_exc"><span class="n"><a id="t69" href="#t69">69</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="exc show_exc"><span class="n"><a id="t70" href="#t70">70</a></span><span class="t"><span class="str">            :return: The reporter as string representation.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="exc show_exc"><span class="n"><a id="t70" href="#t70">70</a></span><span class="t"><span class="str">            :return: The check reporter as string representation.</span>&nbsp;</span><span class="r"></span></p>
     <p class="exc show_exc"><span class="n"><a id="t71" href="#t71">71</a></span><span class="t"><span class="str">            :rtype: &lt;str></span>&nbsp;</span><span class="r"></span></p>
     <p class="exc show_exc"><span class="n"><a id="t72" href="#t72">72</a></span><span class="t"><span class="str">            :exceptions: None.</span>&nbsp;</span><span class="r"></span></p>
     <p class="exc show_exc"><span class="n"><a id="t73" href="#t73">73</a></span><span class="t"><span class="str">        '''</span>&nbsp;</span><span class="r"></span></p>
@@ -160,12 +160,12 @@
 <footer>
     <div class="content">
         <p>
-            <a class="nav" href="z_2ec8ed6d54fe5a48_checker_reporter_registry_py.html">&#xab; prev</a> &nbsp; &nbsp;
+            <a class="nav" href="z_2ec8ed6d54fe5a48_data_validator_py.html">&#xab; prev</a> &nbsp; &nbsp;
             <a class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
-            <a class="nav" href="z_e9eda97a358e6629___init___py.html">&#xbb; next</a>
+            <a class="nav" href="z_124cef0c486454bc___init___py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2026-07-20 15:23 +0200
+            created at 2026-07-23 14:50 +0200
         </p>
     </div>
 </footer>

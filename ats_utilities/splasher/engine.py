@@ -29,9 +29,8 @@ from sys import stdout
 from ats_utilities.splasher.isplasher import ISplasher
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.splasher.setup.bundle import SplashBundle
-from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
-from ats_utilities.splasher.splash_center_registry import SplashCenterRegistry
-from ats_utilities.splasher.splash_center_params import SplashCenterParams
+from ats_utilities.splasher.data import CenterData
+from ats_utilities.splasher.data_validator import CenterDataValidator
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.utils.files import check_file_exists
@@ -115,22 +114,22 @@ class Splasher(ISplasher):
                         processed_line: str = line.rstrip()
 
                         if bool(processed_line):
-                            splash_center_bundle: SplashCenterBundle = SplashCenterRegistry.create_bundle(
-                                SplashCenterParams(columns=int(size[1]), additional_shifter=0)
+                            center_data = CenterData(
+                                columns=int(size[1]), additional_shifter=0
                             )
 
-                            self.center(splash_center_bundle, processed_line)
+                            self.center(center_data, processed_line)
 
             except (OSError, UnicodeDecodeError) as exc:
                 not_satisfied(True, context, f'logo file content is invalid {exc}')
 
-            splash_center_bundle: SplashCenterBundle = SplashCenterRegistry.create_bundle(
-                SplashCenterParams(columns=int(size[1]), additional_shifter=2)
+            center_data = CenterData(
+                columns=int(size[1]), additional_shifter=2
             )
 
-            self.center(splash_center_bundle, own.ext.get_info_text())
-            self.center(splash_center_bundle, own.ext.get_issue_text())
-            self.center(splash_center_bundle, own.ext.get_author_text())
+            self.center(center_data, own.ext.get_info_text())
+            self.center(center_data, own.ext.get_issue_text())
+            self.center(center_data, own.ext.get_author_text())
             stdout.write('\n\n')
 
             for i in range(0, int(size[1]) - int(int(size[1]) / 2)):
@@ -153,21 +152,28 @@ class Splasher(ISplasher):
         return self._context
 
     @override
-    def center(self, splash_center_bundle: SplashCenterBundle, text: str = '') -> None:
+    def center(self, center_data: CenterData, text: str = '') -> None:
         '''
             Centers console line with given text.
 
-            :param splash_center_bundle: Splash center bundle for centering console output.
-            :type splash_center_bundle: <SplashCenterBundle>
+            :param center_data: Center data for centering console output.
+            :type center_data: <CenterData>
             :param text: Text to center.
             :type text: <str>
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Columns count must be provided.
+                | ATSTypeError: Columns count is not an integer.
+                | ATSValueError: Columns count cannot be negative.
+                | ATSValueError: Additional shifter must be provided.
+                | ATSTypeError: Additional shifter is not an integer.
+                | ATSValueError: Additional shifter cannot be negative.
         '''
+        CenterDataValidator.validate(center_data)
         if not self._show_splash:
             return
 
-        start_position: float = (splash_center_bundle.columns / 2) - 30
-        number_of_tabs = int((start_position / 8) - 1 + splash_center_bundle.additional_shifter)
+        start_position: float = (center_data.columns / 2) - 30
+        number_of_tabs = int((start_position / 8) - 1 + center_data.additional_shifter)
         stdout.write('{0}{1}\n'.format('\011' * number_of_tabs, text))
 
     @override

@@ -27,7 +27,8 @@ from argparse import ArgumentParser
 from typing import Any, NoReturn, override
 
 from ats_utilities.option.parser.iarg_parser import IArgParser
-from ats_utilities.option.parser.parser_bundle import ParserBundle
+from ats_utilities.option.parser.data import ParserData
+from ats_utilities.option.parser.data_validator import ParserDataValidator
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
@@ -58,12 +59,12 @@ class ArgParser(ArgumentParser, IArgParser):
                 | __str__ - Returns the string representation of ArgParser.
     '''
 
-    def __init__(self, own: ParserBundle | None = None, **kwargs: Any) -> None:
+    def __init__(self, own: ParserData | None = None, **kwargs: Any) -> None:
         '''
             Initializes ArgParser constructor.
 
-            :param own: Bundle with components for argument parser.
-            :type own: <ParserBundle | None>
+            :param own: Data with components for argument parser.
+            :type own: <ParserData | None>
             :param kwargs: Additional keyword arguments.
             :type kwargs: <Any>
             :exceptions: None.
@@ -72,19 +73,15 @@ class ArgParser(ArgumentParser, IArgParser):
             own = kwargs.pop('own', None)
 
         if own is not None:
-            istype(
-                own, ParserBundle,
-                r'argparser::init(...)',
-                r'component bundle must be a ParserBundle instance'
-            )
+            ParserDataValidator.validate(own)
 
         if own is None:
             ctx_bundle = kwargs.pop('context_bundle', None)
 
             if ctx_bundle is None:
-                ctx_bundle = ContextFactory.create_default_context_bundle()
+                ctx_bundle = ContextFactory.create_default_bundle()
 
-            own = ParserBundle(
+            own = ParserData(
                 prog=kwargs.get('prog', ''),
                 epilog=kwargs.get('epilog', ''),
                 description=kwargs.get('description', ''),

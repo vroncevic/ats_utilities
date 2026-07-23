@@ -25,7 +25,6 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Any
 
-from ats_utilities.checker.reporter.data_validator import CheckReporterValidator
 from ats_utilities.utils.reflection import instance_to_dict
 
 __author__ = r'Vladimir Roncevic'
@@ -62,24 +61,6 @@ class CheckReporterData:
     parameters_meta: Sequence[ParamMetadata]
     err_indices: Sequence[int]
     is_fmt_err: bool
-
-    def __post_init__(self) -> None:
-        '''
-            Post-initialization hook to validate check reporter data.
-
-            :exceptions:
-                | ATSValueError: Check reporter data must be provided.
-                | ATSTypeError: Check reporter data must be an instance of CheckReporterData.
-                | ATSValueError: Context must be provided.
-                | ATSValueError: Parameters metadata must be provided.
-                | ATSValueError: Error indices must be provided.
-                | ATSValueError: Is format error must be provided.
-                | ATSTypeError: Context must be a string.
-                | ATSTypeError: Parameters metadata must be a sequence of ParamMetadata.
-                | ATSTypeError: Error indices must be a sequence of integers.
-                | ATSTypeError: Is format error must be a boolean.
-        '''
-        CheckReporterValidator.validate(self)
 
     def to_dict(self) -> dict[str, Any]:
         '''

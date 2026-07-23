@@ -27,11 +27,13 @@ from collections.abc import Sequence, Mapping
 from typing import Any, override
 from types import MappingProxyType
 
-from ats_utilities.option.strategy.parser_strategy_bundle import ParserStrategyBundle
+from ats_utilities.option.strategy.data import StrategyData
+from ats_utilities.option.strategy.data_validator import StrategyDataValidator
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.parser.iarg_parser import IArgParser
-from ats_utilities.option.parser.parser_registry import ParserRegistry
+from ats_utilities.option.parser.data import ParserData
+from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 from ats_utilities.option.option_namespace import KnownArgs
@@ -81,28 +83,31 @@ class ParserStrategy(IParserStrategy):
     _parser_class: type[IArgParser]
     _subparsers: Any
 
-    def __init__(self, own: ParserStrategyBundle) -> None:
+    def __init__(self, strategy_data: StrategyData) -> None:
         '''
             Initializes ParserStrategy constructor.
 
-            :param own: Component bundle for parser strategy.
-            :type own: <ParserStrategyBundle>
+            :param strategy_data: Strategy data for parser strategy.
+            :type strategy_data: <StrategyData>
             :exceptions:
-                | ATSValueError: Component bundle must be provided.
-                | ATSTypeError: Component bundle must be a ParserStrategyBundle instance.
+                | ATSValueError: Strategy data must be provided.
+                | ATSTypeError: Strategy data must be a StrategyData instance.
                 | ATSTypeError: Parser class must be an IArgParser subclass.
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
                 | ATSTypeError: Parser must be an IArgParser instance.
         '''
         context: str = r'parser_strategy::init(...)'
-        not_none(own, context, r'component bundle must be provided')
-        istype(own, ParserStrategyBundle, context, r'own must be a ParserStrategyBundle instance')
-        istype(own.parser_class, type[IArgParser], context, r'parser_class must be a type[IArgParser]')
-        self._context = own.context_bundle
-        self._parser_class = own.parser_class
-        parser_bundle = ParserRegistry.create_parser_bundle_from_dict(own.parameters, self._context)
-        self._parser = self._parser_class(own=parser_bundle)
+        StrategyDataValidator.validate(strategy_data)
+        self._context = strategy_data.context_bundle
+        self._parser_class = strategy_data.parser_class
+        parser_data = ParserData(
+            context_bundle=self._context,
+            prog=f"{strategy_data.parameters.get(InfoKeys.ATS_NAME, '')} {strategy_data.parameters.get(InfoKeys.ATS_VERSION, '')}",
+            epilog=f"{strategy_data.parameters.get(InfoKeys.ATS_NAME, '')} copyright (c) {strategy_data.parameters.get(InfoKeys.ATS_LICENCE, '')}",
+            description=f"{strategy_data.parameters.get(InfoKeys.ATS_NAME, '')} build date {strategy_data.parameters.get(InfoKeys.ATS_BUILD_DATE, '')}"
+        )
+        self._parser = self._parser_class(own=parser_data)
         istype(self._parser, IArgParser, context, r'parser must be an IArgParser instance')
 
     @has_attrs('_parser')

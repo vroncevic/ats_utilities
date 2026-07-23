@@ -25,7 +25,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Any
 
-from ats_utilities.option.parser.parser_bundle import ParserBundle
+from ats_utilities.option.parser.data import ParserData
 from ats_utilities.option.option_namespace import OptionNamespace, OptArgs, KnownArgs
 
 __author__ = r'Vladimir Roncevic'
@@ -53,12 +53,12 @@ class IArgParser(ABC):
     '''
 
     @abstractmethod
-    def __init__(self, own: ParserBundle | None = None) -> None:
+    def __init__(self, own: ParserData | None = None) -> None:
         '''
             Initializes IArgParser.
 
-            :param own: Bundle with components for argument parser | None.
-            :type own: <ParserBundle | None>
+            :param own: Data with components for argument parser | None.
+            :type own: <ParserData | None>
             :exceptions: None.
         '''
         pass

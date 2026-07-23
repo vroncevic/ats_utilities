@@ -7,7 +7,7 @@ from typing import Any
 
 # Adjust imports according to your project structure
 from ats_utilities.config_io.conf_file import ConfFile
-from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
+from ats_utilities.config_io.data import FileData
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context.bundle import ContextBundle
 
@@ -22,10 +22,11 @@ class TestConfFile(unittest.TestCase):
         
         # Build mock bundle dependencies
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
-        self.mock_bundle = MagicMock(spec=ConfFileBundle)
-        self.mock_bundle.file_path = self.mock_file_path
-        self.mock_bundle.file_mode = self.mock_file_mode
-        self.mock_bundle.context_bundle = self.mock_context_bundle
+        self.mock_bundle = FileData(
+            file_path=self.mock_file_path,
+            file_mode=self.mock_file_mode,
+            context_bundle=self.mock_context_bundle
+        )
 
         # Setup mock reporter to satisfy the @vreport decorator requirements
         self.mock_reporter = MagicMock(spec=IReporter)
@@ -77,9 +78,12 @@ class TestConfFile(unittest.TestCase):
         self, mock_check_exists: MagicMock, mock_file_open: MagicMock
     ) -> None:
         """Test __enter__ execution flow when opening a file in write ('w') mode."""
-        # Arrange
-        self.mock_bundle.file_mode = "w"
-        conf_file = ConfFile(self.mock_bundle)
+        bundle = FileData(
+            file_path=self.mock_file_path,
+            file_mode="w",
+            context_bundle=self.mock_context_bundle
+        )
+        conf_file = ConfFile(bundle)
         conf_file._reporter = self.mock_reporter
 
         # Act

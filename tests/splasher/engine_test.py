@@ -30,7 +30,7 @@ from unittest.mock import patch, MagicMock
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.splasher.engine import Splasher
-from ats_utilities.splasher.splash_center_registry import SplashCenterRegistry
+from ats_utilities.splasher.data import CenterData
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.splasher.setup.factory import SplashFactory
 from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
@@ -156,8 +156,8 @@ class EngineTest(unittest.TestCase):
         prop = {"enabled": False}
         bundle = SplashFactory.create_splash_bundle_from_dict(prop, self.context_bundle)
         splasher = Splasher(bundle)
-        center_bundle = SplashCenterRegistry.create_splash_center_bundle(80, 2)
-        splasher.center(center_bundle, "won't show")
+        center_data = CenterData(columns=80, additional_shifter=2)
+        splasher.center(center_data, "won't show")
         mock_write.assert_not_called()
 
     def test_splasher_property_not_validated(self) -> None:
