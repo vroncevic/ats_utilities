@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class CheckReporter with attribute(s) and method(s).
-    Creates an API for checking parameters for methods and functions.
+    Creates an API report formatter for checker.
 '''
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ from __future__ import annotations
 from typing import override
 
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
-from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle
+from ats_utilities.checker.reporter.data import CheckReporterData
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
@@ -43,8 +43,7 @@ __status__ = r'Development'
 class CheckReporter(ICheckReporter):
     '''
         Defines class CheckReporter with attribute(s) and method(s).
-        Standard human-readable report formatter.
-        Mechanism for checking function or method parameters (report).
+        Creates an API report formatter for checker.
 
         It defines:
 
@@ -54,32 +53,32 @@ class CheckReporter(ICheckReporter):
     '''
 
     @override
-    def build_message_format(self, report_bundle: CheckerReporterBundle) -> str:
+    def build_message_format(self, data: CheckReporterData) -> str:
         '''
-            Builds the final message report for checker.
+            Builds the final message report.
 
-            :param report_bundle: Bundle with parameters.
-            :type report_bundle: <CheckerReporterBundle>
+            :param data: Data to be formatted.
+            :type data: CheckReporterData
             :return: Formatted message report.
-            :rtype: <str>
+            :rtype: str
             :exceptions:
-                | ATSValueError: Report bundle must be provided.
-                | ATSTypeError: Report bundle must be a CheckerReporterBundle instance.
+                | ATSValueError: Data must be provided.
+                | ATSTypeError: Data must be a CheckReporterData instance.
         '''
-        context = r'check_reporter::build_message_format(...)'
-        not_none(report_bundle, context, r'report bundle must be provided')
-        istype(report_bundle, CheckerReporterBundle, context, r'report bundle must be a CheckerReporterBundle instance')
+        ctx: str = r'check_reporter::build_message_format(...)'
+        not_none(data, ctx, r'data must be provided')
+        istype(data, CheckReporterData, ctx, r'data must be a CheckReporterData instance')
 
-        message = report_bundle.context
-        err_set = set(report_bundle.err_indices)
+        message: str = data.context
+        err_set: set[int] = set(data.err_indices)
 
-        for i, (pname, ptype, inst) in enumerate(report_bundle.parameters_meta):
+        for i, (pname, ptype, inst) in enumerate(data.parameters_meta):
             message += f'\n    expected {pname} <{ptype}> object at {hex(id(inst))}'
 
             if i in err_set:
                 message += ' wrong type'
 
-        if report_bundle.is_fmt_err:
+        if data.is_fmt_err:
             message += ' format wrong during checking parameters_meta'
 
         return message
@@ -90,7 +89,7 @@ class CheckReporter(ICheckReporter):
             Returns the check reporter as string representation.
 
             :return: The check reporter as string representation.
-            :rtype: <str>
+            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

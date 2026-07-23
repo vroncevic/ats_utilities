@@ -16,14 +16,14 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for CheckerReporterBundle class.
+    Unit tests for CheckReporterData class.
 '''
 
 from __future__ import annotations
 
 import unittest
 
-from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle
+from ats_utilities.checker.reporter.checker_reporter_bundle import CheckReporterData
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
@@ -39,20 +39,20 @@ __status__: str = 'Development'
 class CheckerReporterBundleTest(unittest.TestCase):
     '''
         Defines class CheckerReporterBundleTest with attribute(s) and method(s).
-        Tests CheckerReporterBundle dataclass logic.
+        Tests CheckReporterData dataclass logic.
 
         It defines:
 
             :attributes: None.
             :methods:
-                | test_init_valid - Tests successful CheckerReporterBundle initialization.
-                | test_init_invalid_none - Tests CheckerReporterBundle initialization with None values.
-                | test_init_invalid_type - Tests CheckerReporterBundle initialization with wrong types.
-                | test_to_dict - Tests CheckerReporterBundle to_dict method.
+                | test_init_valid - Tests successful CheckReporterData initialization.
+                | test_init_invalid_none - Tests CheckReporterData initialization with None values.
+                | test_init_invalid_type - Tests CheckReporterData initialization with wrong types.
+                | test_to_dict - Tests CheckReporterData to_dict method.
     '''
 
     def test_init_valid(self) -> None:
-        bundle = CheckerReporterBundle(
+        bundle = CheckReporterData(
             context="my_context",
             parameters_meta=[("param1", "str", "val")],
             err_indices=[0],
@@ -65,7 +65,7 @@ class CheckerReporterBundleTest(unittest.TestCase):
 
     def test_init_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            CheckerReporterBundle(
+            CheckReporterData(
                 context=None,  # type: ignore
                 parameters_meta=[("p", "t", "v")],
                 err_indices=[0],
@@ -73,7 +73,7 @@ class CheckerReporterBundleTest(unittest.TestCase):
             )
 
         with self.assertRaises(ATSValueError):
-            CheckerReporterBundle(
+            CheckReporterData(
                 context="ctx",
                 parameters_meta=None,  # type: ignore
                 err_indices=[0],
@@ -81,7 +81,7 @@ class CheckerReporterBundleTest(unittest.TestCase):
             )
 
         with self.assertRaises(ATSValueError):
-            CheckerReporterBundle(
+            CheckReporterData(
                 context="ctx",
                 parameters_meta=[("p", "t", "v")],
                 err_indices=None,  # type: ignore
@@ -89,7 +89,7 @@ class CheckerReporterBundleTest(unittest.TestCase):
             )
 
         with self.assertRaises(ATSValueError):
-            CheckerReporterBundle(
+            CheckReporterData(
                 context="ctx",
                 parameters_meta=[("p", "t", "v")],
                 err_indices=[0],
@@ -98,7 +98,7 @@ class CheckerReporterBundleTest(unittest.TestCase):
 
     def test_init_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            CheckerReporterBundle(
+            CheckReporterData(
                 context=123,  # type: ignore
                 parameters_meta=[("p", "t", "v")],
                 err_indices=[0],
@@ -106,7 +106,7 @@ class CheckerReporterBundleTest(unittest.TestCase):
             )
 
         with self.assertRaises(ATSTypeError):
-            CheckerReporterBundle(
+            CheckReporterData(
                 context="ctx",
                 parameters_meta=123,  # type: ignore
                 err_indices=[0],
@@ -114,7 +114,7 @@ class CheckerReporterBundleTest(unittest.TestCase):
             )
 
         with self.assertRaises(ATSTypeError):
-            CheckerReporterBundle(
+            CheckReporterData(
                 context="ctx",
                 parameters_meta=[("p", "t", "v")],
                 err_indices=123,  # type: ignore
@@ -122,7 +122,7 @@ class CheckerReporterBundleTest(unittest.TestCase):
             )
 
         with self.assertRaises(ATSTypeError):
-            CheckerReporterBundle(
+            CheckReporterData(
                 context="ctx",
                 parameters_meta=[("p", "t", "v")],
                 err_indices=[0],
@@ -130,7 +130,7 @@ class CheckerReporterBundleTest(unittest.TestCase):
             )
 
     def test_to_dict(self) -> None:
-        bundle = CheckerReporterBundle(
+        bundle = CheckReporterData(
             context="ctx",
             parameters_meta=[("p", "t", "v")],
             err_indices=[0],

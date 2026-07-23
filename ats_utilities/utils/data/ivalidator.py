@@ -2,7 +2,7 @@
 
 '''
 Module
-    checker_reporter_params.py
+    ivalidator.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,15 +16,13 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    TypedDict for CheckerReporterRegistry parameters.
+    Abstract interface for all data validators.
+    Encapsulates standard validation behavior across data instances.
 '''
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from typing import TypedDict, NotRequired
-
-from ats_utilities.checker.reporter.checker_reporter_bundle import ParamMetadata
+from abc import ABC, abstractmethod
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,9 +34,24 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class CheckerReporterParams(TypedDict):
-    '''TypedDict defining parameter types for CheckerReporterRegistry.'''
-    context: NotRequired[str | None]
-    parameters_meta: NotRequired[Sequence[ParamMetadata] | None]
-    err_indices: NotRequired[Sequence[int] | None]
-    is_fmt_err: NotRequired[bool | None]
+class IDataValidator[DataType](ABC):
+    '''
+        Abstract interface for all data validators.
+        Encapsulates standard validation behavior across data instances.
+
+        It defines:
+
+            :methods:
+                | validate - Validates a data instance.
+    '''
+
+    @classmethod
+    @abstractmethod
+    def validate(cls, data: DataType) -> None:
+        '''
+            Validates a data instance.
+
+            :param data: Data instance to be validated.
+            :type data: DataType
+        '''
+        pass

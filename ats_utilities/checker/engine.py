@@ -33,8 +33,8 @@ from ats_utilities.checker.format.iformat_validator import IFormatValidator
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.setup.bundle import CheckerBundle
-from ats_utilities.checker.reporter.checker_reporter_bundle import (
-    CheckerReporterBundle, ParamMetadata
+from ats_utilities.checker.reporter.data import (
+    CheckReporterData, ParamMetadata
 )
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_none
@@ -117,7 +117,7 @@ class Checker(IChecker):
         if parameters is None:
             return (
                 self._check_reporter.build_message_format(
-                    CheckerReporterBundle(
+                    CheckReporterData(
                         context=context,
                         parameters_meta=(),
                         err_indices=(),
@@ -148,7 +148,7 @@ class Checker(IChecker):
                     error_id = self.ERRORS.TYPE_ERROR
 
         return self._check_reporter.build_message_format(
-            CheckerReporterBundle(
+            CheckReporterData(
                 context=context,
                 parameters_meta=params_meta,
                 err_indices=err_indices,

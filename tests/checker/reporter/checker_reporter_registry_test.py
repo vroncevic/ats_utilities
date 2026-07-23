@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle
+from ats_utilities.checker.reporter.checker_reporter_bundle import CheckReporterData
 from ats_utilities.checker.reporter.checker_reporter_registry import CheckerReporterRegistry
 from ats_utilities.checker.reporter.checker_reporter_params import CheckerReporterParams
 
@@ -46,7 +46,7 @@ class CheckerReporterRegistryTest(unittest.TestCase):
 
             :attributes: None.
             :methods:
-                | test_create_bundle - Tests CheckerReporterBundle creation.
+                | test_create_bundle - Tests CheckReporterData creation.
     '''
 
     def test_create_bundle(self) -> None:
@@ -58,7 +58,7 @@ class CheckerReporterRegistryTest(unittest.TestCase):
                 is_fmt_err=False
             )
         )
-        self.assertIsInstance(bundle, CheckerReporterBundle)
+        self.assertIsInstance(bundle, CheckReporterData)
         self.assertEqual(bundle.context, "my_context")
         self.assertEqual(bundle.parameters_meta, [("p", "t", "v")])
         self.assertEqual(bundle.err_indices, [0])

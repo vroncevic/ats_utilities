@@ -665,7 +665,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/splasher/splash_keys.py` | 59 | 0 | 100%|
 | `ats_utilities/splasher/terminal/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/terminal/iterminal_properties.py` | 12 | 0 | 100%|
-| `ats_utilities/splasher/terminal/terminal_properties.py` | 59 | 8 | 83%|
+| `ats_utilities/splasher/terminal/terminal_properties.py` | 59 | 7 | 83%|
 | `ats_utilities/utils/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/utils/boolean.py` | 19 | 0 | 100%|
 | `ats_utilities/utils/component.py` | 16 | 0 | 100%|
@@ -680,7 +680,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/validation/check_type.py` | 37 | 0 | 100%|
 | `ats_utilities/validation/check_value.py` | 26 | 0 | 100%|
 | `ats_utilities/validation/context_error.py` | 14 | 0 | 100%|
-| **Total** | 6519 | 152 | 97% |
+| **Total** | 6519 | 151 | 97% |
 
 </details>
 

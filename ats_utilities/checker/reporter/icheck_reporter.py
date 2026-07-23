@@ -24,7 +24,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle
+from ats_utilities.checker.reporter.data import CheckReporterData
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -44,30 +44,30 @@ class ICheckReporter(ABC):
         It defines:
 
             :methods:
-                | build_message_format - Builds the final message report for checker.
-                | __str__ - Returns the reporter as string representation.
+                | build_message_format - Builds the final message report.
+                | __str__ - Returns the check reporter as string representation.
     '''
     @abstractmethod
-    def build_message_format(self, report_bundle: CheckerReporterBundle) -> str:
+    def build_message_format(self, data: CheckReporterData) -> str:
         '''
-            Builds the final message report for checker.
+            Builds the final message report.
 
-            :param report_bundle: Bundle with parameters.
-            :type report_bundle: <CheckerReporterBundle>
-            :return: Formatted message report
-            :rtype: <str>
+            :param data: Data to be formatted.
+            :type data: CheckReporterData
+            :return: Formatted message report.
+            :rtype: str
             :exceptions:
-                | ATSValueError: Report bundle must be provided.
-                | ATSTypeError: Report bundle must be a CheckerReporterBundle instance.
+                | ATSValueError: Data must be provided.
+                | ATSTypeError: Data must be a CheckReporterData instance.
         '''
         pass
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the reporter as string representation.
+            Returns the check reporter as string representation.
 
-            :return: The reporter as string representation.
+            :return: The check reporter as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

@@ -25,7 +25,7 @@ import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.checker.reporter.check_reporter import CheckReporter
-from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle
+from ats_utilities.checker.reporter.checker_reporter_bundle import CheckReporterData
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
@@ -56,7 +56,7 @@ class CheckReporterTest(unittest.TestCase):
 
     def test_build_message_format_valid(self) -> None:
         reporter = CheckReporter()
-        bundle = CheckerReporterBundle(
+        bundle = CheckReporterData(
             context="my_context",
             parameters_meta=[("param1", "str", "val")],
             err_indices=[],
@@ -70,7 +70,7 @@ class CheckReporterTest(unittest.TestCase):
 
     def test_build_message_format_with_errors(self) -> None:
         reporter = CheckReporter()
-        bundle = CheckerReporterBundle(
+        bundle = CheckReporterData(
             context="my_context",
             parameters_meta=[("param1", "str", "val"), ("param2", "int", "not_int")],
             err_indices=[1],
