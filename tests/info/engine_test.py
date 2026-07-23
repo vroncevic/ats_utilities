@@ -36,7 +36,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.3'
+__version__: str = '3.4.4'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
@@ -65,7 +65,7 @@ class EngineTest(unittest.TestCase):
     def _get_valid_info_data(self) -> dict[str, str]:
         return {
             InfoKeys.ATS_NAME: "ats_utilities",
-            InfoKeys.ATS_VERSION: "3.4.3",
+            InfoKeys.ATS_VERSION: "3.4.4",
             InfoKeys.ATS_BUILD_DATE: "2026-07-18",
             InfoKeys.ATS_LICENCE: "GPLv3",
             InfoKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
@@ -167,7 +167,7 @@ class EngineTest(unittest.TestCase):
 
         # Get managed attribute
         self.assertEqual(manager.name, "ats_utilities")
-        self.assertEqual(manager.version, "3.4.3")
+        self.assertEqual(manager.version, "3.4.4")
 
         # Set managed attribute
         manager.name = "changed_name"

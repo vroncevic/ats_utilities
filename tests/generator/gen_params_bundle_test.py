@@ -20,7 +20,7 @@ class TestGenParamsBundle(unittest.TestCase):
         self.template_key = "python_library"
         self.scheme_dict = {"author": "Vladimir", "license": "GPL"}
         self.scheme_path = "/path/to/scheme.json"
-        self.template_values = {"NAME": "ats_utilities", "VERSION": "3.4.3"}
+        self.template_values = {"NAME": "ats_utilities", "VERSION": "3.4.4"}
 
         self.valid_params_with_dict_scheme = {
             "archive_path": self.archive_path,

@@ -20,7 +20,7 @@ class TestTarProcessRegistry(unittest.TestCase):
         self.source_dir = "templates/base"
         self.path_replacements = {"__project__": "my_app"}
         self.exclude_patterns = ["*.log", ".git"]
-        self.vals = {"version": "3.4.3", "debug": "false"}
+        self.vals = {"version": "3.4.4", "debug": "false"}
 
     @patch("ats_utilities.generator.tar.tar_process_registry.TarProcessBundle")
     def test_create_tar_process_bundle_delegation(self, mock_bundle_cls: MagicMock) -> None:

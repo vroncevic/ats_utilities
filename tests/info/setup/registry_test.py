@@ -33,7 +33,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.3'
+__version__: str = '3.4.4'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
@@ -49,7 +49,7 @@ class InfoRegistryTest(unittest.TestCase):
         context_bundle = ContextFactory.create_default_bundle()
         info_data = {
             'ats_name': 'ats_utilities',
-            'ats_version': '3.4.3',
+            'ats_version': '3.4.4',
             'ats_licence': 'GPLv3',
             'ats_build_date': '2026-07-18',
             'ats_repository': 'https://github.com/vroncevic/ats_utilities',

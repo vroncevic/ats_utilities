@@ -19,7 +19,7 @@ class TestTarProcessMemberRegistry(unittest.TestCase):
         self.mock_tar = MagicMock(spec=TarFile)
         self.mock_member = MagicMock(spec=TarInfo)
         self.dest_full_path = "/absolute/target/path/extracted_file.py"
-        self.vals = {"project_name": "ats_system", "version": "3.4.3"}
+        self.vals = {"project_name": "ats_system", "version": "3.4.4"}
 
     @patch("ats_utilities.generator.tar.tar_process_member_registry.TarProcessMemberBundle")
     def test_create_tar_process_member_bundle_delegation(self, mock_bundle_cls: MagicMock) -> None:
