@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IReporter with method(s).
-    Creates an interface for reporting message.
+    Creates an interface for reporting messages.
 '''
 
 from __future__ import annotations
@@ -39,7 +39,7 @@ __status__ = r'Development'
 class IReporter(ABC):
     '''
         Defines abstract class IReporter with method(s).
-        Creates an interface for reporting message.
+        Creates an interface for reporting messages.
 
         It defines:
 
@@ -48,7 +48,7 @@ class IReporter(ABC):
                 | success - Reports success message.
                 | warning - Reports warning message.
                 | error - Reports error message.
-                | set_level - Sets log level.
+                | set_level - Sets message reporting level.
                 | is_initialized - Checks if the reporter component is initialized.
                 | __str__ - Returns the reporter as string representation.
     '''
@@ -62,7 +62,6 @@ class IReporter(ABC):
             :type is_verbose: bool
             :param message: Sequence with message.
             :type message: Sequence[Any]
-            :exceptions: None.
         '''
         pass
 
@@ -73,7 +72,6 @@ class IReporter(ABC):
 
             :param message: Sequence with message.
             :type message: Sequence[Any]
-            :exceptions: None.
         '''
         pass
 
@@ -84,7 +82,6 @@ class IReporter(ABC):
 
             :param message: Sequence with message.
             :type message: Sequence[Any]
-            :exceptions: None.
         '''
         pass
 
@@ -95,18 +92,16 @@ class IReporter(ABC):
 
             :param message: Sequence with message.
             :type message: Sequence[Any]
-            :exceptions: None.
         '''
         pass
 
     @abstractmethod
     def set_level(self, level: int) -> None:
         '''
-            Sets log level.
+            Sets message reporting level.
 
-            :param level: Log level.
+            :param level: Message reporting level.
             :type level: int
-            :exceptions: None.
         '''
         pass
 
@@ -117,7 +112,6 @@ class IReporter(ABC):
 
             :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -128,6 +122,5 @@ class IReporter(ABC):
 
             :return: The reporter as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

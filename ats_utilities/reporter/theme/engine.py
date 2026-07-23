@@ -54,7 +54,7 @@ class ConsoleTheme(IConsoleTheme):
             :methods:
                 | __init__ - Initializes ConsoleTheme constructor.
                 | get_color - Returns color code from palette.
-                | __str__ - Returns the string representation of ConsoleTheme.
+                | __str__ - Returns the console theme as string representation.
     '''
 
     _DEFAULT_PALETTE_COLORS: Final[Mapping[str, str]] = MappingProxyType({
@@ -76,12 +76,8 @@ class ConsoleTheme(IConsoleTheme):
                 | ATSTypeError: Palette must be a dictionary.
         '''
         if palette is not None:
-            istype(
-                palette,
-                dict,
-                r'console_theme::init(...)',
-                r'palette must be a dictionary'
-            )
+            ctx: str = r'console_theme::init(...)',
+            istype(palette, dict, ctx, r'palette must be a dictionary')
 
         # No dependency injection then use default ones.
         self._palette = MappingProxyType(palette) if palette is not None else self._DEFAULT_PALETTE_COLORS
@@ -97,24 +93,15 @@ class ConsoleTheme(IConsoleTheme):
             :return: Color code in string format.
             :rtype: str
             :exceptions:
-                | ATSValueError: Color palette is not defined.
                 | ATSValueError: Color type must be provided.
                 | ATSTypeError: Color type must be a string.
                 | ATSValueError: Color type not found in palette.
         '''
-        not_none(
-            color_type,
-            r'console_theme::get_color(...)',
-            r'color type must be provided'
-        )
-        istype(
-            color_type, str,
-            r'console_theme::get_color(...)',
-            r'color type must be a string'
-        )
+        ctx: str = r'console_theme::get_color(...)'
+        not_none(color_type, ctx, r'color type must be provided')
+        istype(color_type, str, ctx, r'color type must be a string')
         not_satisfied(
-            color_type not in self._palette,
-            r'console_theme::get_color(...)',
+            color_type not in self._palette, ctx,
             f'color type {color_type} not found in palette'
         )
 
@@ -123,9 +110,9 @@ class ConsoleTheme(IConsoleTheme):
     @override
     def __str__(self) -> str:
         '''
-            Returns the string representation of ConsoleTheme.
+            Returns the console theme as string representation.
 
-            :return: The ConsoleTheme as string representation.
+            :return: The console theme as string representation.
             :rtype: str
             :exceptions: None.
         '''

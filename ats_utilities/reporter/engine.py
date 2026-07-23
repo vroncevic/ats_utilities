@@ -28,13 +28,12 @@ from typing import Any, override
 
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.setup.bundle import ReporterBundle
+from ats_utilities.reporter.setup.validator import ReporterValidator
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.validation.check_value import not_none
-from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -67,7 +66,7 @@ class Reporter(IReporter):
                 | error - Reports error message to console.
                 | set_level - Sets log level.
                 | is_initialized - Checks if reporter is initialized.
-                | __str__ - Returns the string representation of Reporter.
+                | __str__ - Returns the reporter as string representation.
     '''
 
     _checker: IChecker
@@ -79,23 +78,19 @@ class Reporter(IReporter):
         '''
             Initializes Reporter.
 
-            :param own: Reporter component bundle.
+            :param own: Reporter bundle.
             :type own: ReporterBundle 
             :exceptions:
-                | ATSValueError: Component bundle must be provided.
-                | ATSTypeError: Component bundle must be a ReporterBundle instance.
+                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Checker must be provided.
+                | ATSValueError: Theme must be provided.
+                | ATSValueError: Logger must be provided.
+                | ATSTypeError: Bundle must be an instance of ReporterBundle.
+                | ATSTypeError: Checker must be an instance of IChecker interface.
+                | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
+                | ATSTypeError: Logger must be an instance of ILogger interface.
         '''
-        not_none(
-            own,
-            r'reporter::init',
-            r'component bundle must be provided'
-        )
-        istype(
-            own,
-            ReporterBundle,
-            r'reporter::init',
-            r'component bundle must be a ReporterBundle instance'
-        )
+        ReporterValidator.validate(own)
         self._checker = own.checker
         self._theme = own.theme
         self._logger = own.logger
@@ -210,7 +205,7 @@ class Reporter(IReporter):
         '''
             Checks if reporter is initialized.
 
-            :return: <True> if successful else <False>.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''
@@ -219,9 +214,9 @@ class Reporter(IReporter):
     @override
     def __str__(self) -> str:
         '''
-            Returns the string representation of Reporter.
+            Returns the reporter as string representation.
 
-            :return: The Reporter as string representation.
+            :return: The reporter as string representation.
             :rtype: str
             :exceptions: None.
         '''

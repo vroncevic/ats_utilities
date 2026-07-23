@@ -30,7 +30,7 @@ from ats_utilities.reporter.theme.engine import ConsoleTheme
 from ats_utilities.logger.engine import Logger
 from ats_utilities.logger.setup.factory import LoggerFactory
 from ats_utilities.reporter.setup.bundle import ReporterBundle
-from ats_utilities.reporter.setup.validator import ReporterValidator
+from ats_utilities.reporter.setup.registry import ReporterRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -76,12 +76,4 @@ class ReporterFactory(IFactory[ReporterBundle, None]):
         theme: ConsoleTheme = ConsoleTheme()
         logger: Logger = Logger(own=LoggerFactory.create_default_bundle())
 
-        bundle: ReporterBundle = ReporterBundle(
-            checker=checker,
-            theme=theme,
-            logger=logger,
-        )
-
-        ReporterValidator.validate(bundle)
-
-        return bundle
+        return ReporterRegistry.create_bundle({'checker': checker, 'theme': theme, 'logger': logger})

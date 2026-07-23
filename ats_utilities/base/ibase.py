@@ -113,7 +113,7 @@ class IBase(ABC):
 
             :param verbose: Enable/Disable verbose option (default False).
             :type verbose: bool
-            :return: <True> if successful else <False>.
+            :return: True if successfully, otherwise False.
             :rtype: bool
             :exceptions: None.
         '''
