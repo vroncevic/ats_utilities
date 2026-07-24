@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class ILogger with attribute(s) and method(s).
-    Interface for the logger mechanism.
+    Creates an interface for the logger.
 '''
 
 from __future__ import annotations
@@ -37,7 +37,7 @@ __status__ = r'Development'
 class ILogger(ABC):
     '''
         Defines abstract class ILogger with attribute(s) and method(s).
-        Interface for the logger mechanism.
+        Creates an interface for the logger.
 
         It defines:
 
@@ -61,7 +61,6 @@ class ILogger(ABC):
             :type message: str
             :param ctrl: Log control flag.
             :type ctrl: int
-            :exceptions: None.
         '''
         pass
 
@@ -72,7 +71,6 @@ class ILogger(ABC):
 
             :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -83,7 +81,6 @@ class ILogger(ABC):
 
             :param level: Log level.
             :type level: int
-            :exceptions: None.
         '''
         pass
 
@@ -94,7 +91,6 @@ class ILogger(ABC):
 
             :param log_file: Log file path.
             :type log_file: str
-            :exceptions: None.
         '''
         pass
 
@@ -102,8 +98,6 @@ class ILogger(ABC):
     def set_stdout(self) -> None:
         '''
             Sets log output to standard output (stdout).
-
-            :exceptions: None.
         '''
         pass
 
@@ -111,8 +105,6 @@ class ILogger(ABC):
     def set_stderr(self) -> None:
         '''
             Sets log output to standard error (stderr).
-
-            :exceptions: None.
         '''
         pass
 
@@ -120,8 +112,6 @@ class ILogger(ABC):
     def stop_buffering(self) -> None:
         '''
             Stops log buffering.
-
-            :exceptions: None.
         '''
         pass
 
@@ -131,6 +121,5 @@ class ILogger(ABC):
 
             :return: The logger as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

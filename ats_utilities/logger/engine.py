@@ -17,14 +17,15 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Logger with attribute(s) and method(s).
-    Creates an API for the logging mechanism.
+    Creates an API for the logger.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Callable, Mapping
 from logging import (
-    getLogger, DEBUG, INFO, WARNING, ERROR, CRITICAL, FileHandler, Formatter, StreamHandler
+    getLogger, DEBUG, INFO, WARNING, ERROR, CRITICAL,
+    FileHandler, Formatter, StreamHandler
 )
 from os import environ, makedirs
 from os.path import dirname, exists
@@ -35,9 +36,8 @@ from typing import Any, override
 
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.logger.setup.bundle import LoggerBundle
+from ats_utilities.logger.setup.validator import LoggerValidator
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.validation.check_value import not_none
-from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,7 +52,7 @@ __status__ = r'Development'
 class Logger(ILogger):
     '''
         Defines class Logger with attribute(s) and method(s).
-        Creates an API for the logging mechanism.
+        Creates an API for the logger.
 
         It defines:
 
@@ -86,12 +86,16 @@ class Logger(ILogger):
             :param own: Component bundle with logger and log file.
             :type own: LoggerBundle
             :exceptions:
-                | ATSValueError - Component bundle must be provided.
-                | ATSTypeError - Component bundle must be a LoggerBundle instance.
+                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Logger must be provided.
+                | ATSValueError: Log file must be provided.
+                | ATSValueError: Log level must be provided.
+                | ATSTypeError: Bundle must be an instance of LoggerBundle.
+                | ATSTypeError: Log file must be a str instance.
+                | ATSTypeError: Log level must be an int instance.
+                | ATSTypeError: Logger must be an ILogger or standard logging.Logger instance.
         '''
-        context: str = r'logger::init(...)'
-        not_none(own, context, r'own must be provided')
-        istype(own, LoggerBundle, context, r'own must be a LoggerBundle instance')
+        LoggerValidator.validate(own)
         self._logger = own.logger
         self._early_logs_buffer = []
         self._has_file_handler = bool(own.log_file)

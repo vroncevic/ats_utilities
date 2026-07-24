@@ -28,7 +28,9 @@ from typing import override, Any
 from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.setup.registry import LoggerRegistry
-from ats_utilities.logger.setup.dependencies import LoggerDependencies, LoggerOptions
+from ats_utilities.logger.setup.dependencies import LoggerDependencies
+from ats_utilities.logger.setup.options import LoggerOptions
+from ats_utilities.logger.setup.opt_validator import LoggerOptionsValidator
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,27 +42,31 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class LoggerFactory(IFactory[LoggerBundle, LoggerOptions | None]):
+class LoggerFactory(IFactory[LoggerBundle, LoggerOptions]):
     '''
         Factory for creating logger bundle instance.
 
         It defines:
 
             :methods:
-                | create_default_bundle - Creates a default logger bundle with pre-configured options.
+                | create_bundle - Creates a logger bundle with optional pre-configured options.
     '''
 
     @classmethod
     @override
-    def create_default_bundle(cls, options: LoggerOptions | None = None) -> LoggerBundle:
+    def create_bundle(cls, options: LoggerOptions | None = None) -> LoggerBundle:
         '''
-            Creates a default logger bundle with pre-configured options.
+            Creates a logger bundle with optional pre-configured options.
 
             :param options: Pre-configured options for the bundle (default None).
             :type options: LoggerOptions | None
             :return: Logger bundle instance.
             :rtype: LoggerBundle
             :exceptions:
+                | ATSValueError: Options must be provided.
+                | ATSTypeError: Options must be a Mapping.
+                | ATSTypeError: Log file must be a string.
+                | ATSTypeError: Log level must be an integer.
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Logger must be provided.
                 | ATSValueError: Log file must be provided.
@@ -70,6 +76,9 @@ class LoggerFactory(IFactory[LoggerBundle, LoggerOptions | None]):
                 | ATSTypeError: Log level must be an int instance.
                 | ATSTypeError: Logger must be an ILogger or standard logging.Logger instance.
         '''
+        if options is not None:
+            LoggerOptionsValidator.validate(options)
+
         log_file: str | None = None
         log_level: int = INFO
 

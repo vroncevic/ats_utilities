@@ -72,8 +72,8 @@ class ReporterFactory(IFactory[ReporterBundle, None]):
                 | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
                 | ATSTypeError: Logger must be an instance of ILogger interface.
         '''
-        checker: Checker = Checker(own=CheckerFactory.create_default_bundle())
+        checker: Checker = Checker(own=CheckerFactory.create_bundle())
         theme: ConsoleTheme = ConsoleTheme()
-        logger: Logger = Logger(own=LoggerFactory.create_default_bundle())
+        logger: Logger = Logger(own=LoggerFactory.create_bundle())
 
         return ReporterRegistry.create_bundle({'checker': checker, 'theme': theme, 'logger': logger})

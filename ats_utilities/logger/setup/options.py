@@ -2,7 +2,7 @@
 
 '''
 Module
-    dependencies.py
+    options.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,12 +16,12 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Logger dependencies for logger bundle creation.
+    Logger options for logger factory bundle creation.
 '''
 
 from __future__ import annotations
 
-from typing import TypedDict, NotRequired, Any
+from typing import TypedDict, NotRequired
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -33,18 +33,16 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class LoggerDependencies(TypedDict):
+class LoggerOptions(TypedDict):
     '''
-        Logger dependencies for logger bundle creation.
+        Logger options for logger factory bundle creation.
 
         It defines:
 
             :attributes:
-                | logger: Logger instance.
-                | log_file: Log file path.
-                | log_level: Log level.
+                | log_file: Path to the log file (default None).
+                | log_level: Log level (default 20 - INFO).
     '''
 
-    log_file: str
-    log_level: int
-    logger: NotRequired[Any]
+    log_file: NotRequired[str | None]
+    log_level: NotRequired[int]
