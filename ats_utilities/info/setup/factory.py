@@ -26,7 +26,7 @@ from types import MappingProxyType
 from typing import Any, Final, override
 
 from ats_utilities.utils.setup.ifactory import IFactory
-from ats_utilities.info.info_keys import InfoKeys
+from ats_utilities.info.setup.info_keys import InfoKeys
 from ats_utilities.info.name.engine import Name
 from ats_utilities.info.version.engine import Version
 from ats_utilities.info.licence.engine import Licence

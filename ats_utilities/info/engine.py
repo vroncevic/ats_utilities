@@ -29,7 +29,7 @@ from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.setup.bundle import InfoBundle
 from ats_utilities.info.setup.validator import InfoValidator
-from ats_utilities.info.info_keys import InfoKeys
+from ats_utilities.info.setup.info_keys import InfoKeys
 from ats_utilities.exceptions import ATSAttributeError
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_satisfied, not_none
