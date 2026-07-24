@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IInfoManager with method(s).
-    Interface for the info manager mechanism.
+    Provides an interface for the info management.
 '''
 
 from __future__ import annotations
@@ -41,9 +41,9 @@ __status__ = r'Development'
 class IInfoManager(ABC):
     '''
         Defines abstract class IInfoManager with method(s).
-        Interface for the info manager mechanism.
-        Note: The information is read-only data (it is provided by
-        configuraiton file which is loaded by config loader).
+        Provides an interface for the info management.
+        Note: The information is read-only data (it is consumed from
+        configuration file loaded by config loader).
 
         It defines:
 
@@ -63,7 +63,6 @@ class IInfoManager(ABC):
 
             :return: Context.
             :rtype: ContextBundle
-            :exceptions: None.
         '''
         pass
 
@@ -74,7 +73,6 @@ class IInfoManager(ABC):
 
             :param info: Mapping with information.
             :type info: Mapping[str, Any] 
-            :exceptions: None.
         '''
         pass
 
@@ -85,7 +83,6 @@ class IInfoManager(ABC):
  
             :return: Mapping with information.
             :rtype: Mapping[str, Any] 
-            :exceptions: None.
         '''
         pass
 
@@ -96,7 +93,6 @@ class IInfoManager(ABC):
 
             :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -104,8 +100,6 @@ class IInfoManager(ABC):
     def refresh_status(self) -> None:
         '''
             Refreshes status for information structure.
-
-            :exceptions: None.
         '''
         pass
 
@@ -116,6 +110,5 @@ class IInfoManager(ABC):
 
             :return: The info manager as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

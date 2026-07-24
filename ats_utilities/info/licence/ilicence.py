@@ -57,7 +57,6 @@ class ILicence(ABC):
 
             :return: The licence in string format | None.
             :rtype: str | None
-            :exceptions: None.
         '''
         pass
 
@@ -70,7 +69,6 @@ class ILicence(ABC):
 
             :param licence: The licence in string format.
             :type licence: str
-            :exceptions: None.
         '''
         pass
 
@@ -82,7 +80,6 @@ class ILicence(ABC):
 
             :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -93,6 +90,5 @@ class ILicence(ABC):
 
             :return: The licence as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

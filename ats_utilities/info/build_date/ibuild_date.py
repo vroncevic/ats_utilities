@@ -57,7 +57,6 @@ class IBuildDate(ABC):
 
             :return: The build date in string format | None.
             :rtype: str | None
-            :exceptions: None.
         '''
         pass
 
@@ -70,7 +69,6 @@ class IBuildDate(ABC):
 
             :param build_date: The build date in string format.
             :type build_date: str
-            :exceptions: None.
         '''
         pass
 
@@ -82,7 +80,6 @@ class IBuildDate(ABC):
 
             :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -93,6 +90,5 @@ class IBuildDate(ABC):
 
             :return: The build date as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

@@ -57,7 +57,6 @@ class IInfoOk(ABC):
 
             :return: The information status in bool format
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -70,7 +69,6 @@ class IInfoOk(ABC):
 
             :param info_ok: The information status in bool format
             :type info_ok: bool
-            :exceptions: None.
         '''
         pass
 
@@ -82,7 +80,6 @@ class IInfoOk(ABC):
 
             :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -93,6 +90,5 @@ class IInfoOk(ABC):
 
             :return: The info status as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

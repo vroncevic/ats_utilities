@@ -26,6 +26,7 @@ from typing import override
 
 from ats_utilities.info.build_date.ibuild_date import IBuildDate
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -67,9 +68,18 @@ class BuildDate(IBuildDate):
             :param context_bundle: Context bundle for build date.
             :type context_bundle: ContextBundle
             :exceptions:
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Checker must be provided.
+                | ATSValueError: Logger must be provided.
+                | ATSValueError: Reporter must be provided.
+                | ATSValueError: Verbose must be provided.
+                | ATSTypeError: Bundle must be an instance of ContextBundle.
+                | ATSTypeError: Checker must be an instance of IChecker.
+                | ATSTypeError: Logger must be an instance of ILogger.
+                | ATSTypeError: Reporter must be an instance of IReporter.
+                | ATSTypeError: Verbose must be a boolean.
         '''
+        ContextValidator.validate(context_bundle)
         self._context = context_bundle
         self._build_date = None
 

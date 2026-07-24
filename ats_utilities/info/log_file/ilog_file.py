@@ -57,7 +57,6 @@ class ILogFile(ABC):
 
             :return: The log file path in string format | None.
             :rtype: str | None
-            :exceptions: None.
         '''
         pass
 
@@ -70,7 +69,6 @@ class ILogFile(ABC):
 
             :param log_file: The log file path in string format.
             :type log_file: str
-            :exceptions: None.
         '''
         pass
 
@@ -82,7 +80,6 @@ class ILogFile(ABC):
 
             :return: True (Not None) | False (None).
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -93,6 +90,5 @@ class ILogFile(ABC):
 
             :return: The LogFile as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

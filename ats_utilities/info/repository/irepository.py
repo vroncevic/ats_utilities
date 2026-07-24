@@ -57,7 +57,6 @@ class IRepository(ABC):
 
             :return: The repository in string format | None.
             :rtype: str | None
-            :exceptions: None.
         '''
         pass
 
@@ -70,7 +69,6 @@ class IRepository(ABC):
 
             :param repository: The repository in string format.
             :type repository: str
-            :exceptions: None.
         '''
         pass
 
@@ -82,7 +80,6 @@ class IRepository(ABC):
 
             :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -93,6 +90,5 @@ class IRepository(ABC):
 
             :return: The repository as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

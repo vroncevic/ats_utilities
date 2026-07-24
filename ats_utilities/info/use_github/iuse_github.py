@@ -57,7 +57,6 @@ class IUseGitHub(ABC):
 
             :return: The use GitHub infrastructure status.
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -70,7 +69,6 @@ class IUseGitHub(ABC):
 
             :param use_github: The use GitHub infrastructure status.
             :type use_github: bool
-            :exceptions: None.
         '''
         pass
 
@@ -82,7 +80,6 @@ class IUseGitHub(ABC):
 
             :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -93,6 +90,5 @@ class IUseGitHub(ABC):
 
             :return: The use GitHub infrastructure as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

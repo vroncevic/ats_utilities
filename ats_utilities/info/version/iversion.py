@@ -57,7 +57,6 @@ class IVersion(ABC):
 
             :return: The version in string format | None.
             :rtype: str | None
-            :exceptions: None.
         '''
         pass
 
@@ -70,7 +69,6 @@ class IVersion(ABC):
 
             :param version: The version in string format.
             :type version: str
-            :exceptions: None.
         '''
         pass
 
@@ -82,8 +80,7 @@ class IVersion(ABC):
 
             :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions: None.
-        '''
+]        '''
         pass
 
     @abstractmethod
@@ -93,6 +90,5 @@ class IVersion(ABC):
 
             :return: The version as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

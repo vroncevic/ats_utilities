@@ -57,7 +57,6 @@ class IName(ABC):
 
             :return: The name in string format | None
             :rtype: str | None
-            :exceptions: None.
         '''
         pass
 
@@ -70,7 +69,6 @@ class IName(ABC):
 
             :param name: The name in string format | None
             :type name: str | None
-            :exceptions: None.
         '''
         pass
 
@@ -82,7 +80,6 @@ class IName(ABC):
 
             :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -93,6 +90,5 @@ class IName(ABC):
 
             :return: The name as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

@@ -57,7 +57,6 @@ class IOrganization(ABC):
 
             :return: The organization in string format | None.
             :rtype: str | None
-            :exceptions: None.
         '''
         pass
 
@@ -70,7 +69,6 @@ class IOrganization(ABC):
 
             :param organization: The organization in string format.
             :type organization: str
-            :exceptions: None.
         '''
         pass
 
@@ -82,7 +80,6 @@ class IOrganization(ABC):
 
             :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -93,6 +90,5 @@ class IOrganization(ABC):
 
             :return: The organization as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

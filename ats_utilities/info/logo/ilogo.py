@@ -57,7 +57,6 @@ class ILogo(ABC):
 
             :return: The logo path in string format | None.
             :rtype: str | None
-            :exceptions: None.
         '''
         pass
 
@@ -70,7 +69,6 @@ class ILogo(ABC):
 
             :param logo: The logo path in string format.
             :type logo: str
-            :exceptions: None.
         '''
         pass
 
@@ -82,7 +80,6 @@ class ILogo(ABC):
 
             :return: True (Not None) | False (None).
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -93,6 +90,5 @@ class ILogo(ABC):
 
             :return: The Logo as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

@@ -81,17 +81,17 @@ class InfoValidator(IValidator[InfoBundle]):
                 | ATSValueError: Info ok must be provided.
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Bundle must be an instance of InfoBundle.
-                | ATSTypeError: Name must be an instance of IName interface.
-                | ATSTypeError: Version must be an instance of IVersion interface.
-                | ATSTypeError: Licence must be an instance of ILicence interface.
-                | ATSTypeError: Build date must be an instance of IBuildDate interface.
-                | ATSTypeError: Repository must be an instance of IRepository interface.
-                | ATSTypeError: Organization must be an instance of IOrganization interface.
-                | ATSTypeError: Use GitHub must be an instance of IUseGitHub interface.
-                | ATSTypeError: Logo must be an instance of ILogo interface.
-                | ATSTypeError: Log file must be an instance of ILogFile interface.
-                | ATSTypeError: Info ok must be an instance of IInfoOk interface.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle class.
+                | ATSTypeError: Name must be an instance of IName.
+                | ATSTypeError: Version must be an instance of IVersion.
+                | ATSTypeError: Licence must be an instance of ILicence.
+                | ATSTypeError: Build date must be an instance of IBuildDate.
+                | ATSTypeError: Repository must be an instance of IRepository.
+                | ATSTypeError: Organization must be an instance of IOrganization.
+                | ATSTypeError: Use GitHub must be an instance of IUseGitHub.
+                | ATSTypeError: Logo must be an instance of ILogo.
+                | ATSTypeError: Log file must be an instance of ILogFile.
+                | ATSTypeError: Info ok must be an instance of IInfoOk.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
         ctx: str = r'info_validator::validate(...)'
         not_none(bundle, ctx, r'bundle must be provided')
@@ -109,14 +109,14 @@ class InfoValidator(IValidator[InfoBundle]):
         not_empty(bundle.info_ok, ctx, r'info ok must be provided')
         not_none(bundle.context_bundle, ctx, r'context bundle must be provided')
 
-        istype(bundle.name, IName, ctx, r'name must be an instance of IName interface')
-        istype(bundle.version, IVersion, ctx, r'version must be an instance of IVersion interface')
-        istype(bundle.licence, ILicence, ctx, r'licence must be an instance of ILicence interface')
-        istype(bundle.build_date, IBuildDate, ctx, r'build date must be an instance of IBuildDate interface')
-        istype(bundle.repository, IRepository, ctx, r'repository must be an instance of IRepository interface')
-        istype(bundle.organization, IOrganization, ctx, r'organization must be an instance of IOrganization interface')
-        istype(bundle.use_github, IUseGitHub, ctx, r'use github must be an instance of IUseGitHub interface')
-        istype(bundle.logo, ILogo, ctx, r'logo must be an instance of ILogo interface')
-        istype(bundle.log_file, ILogFile, ctx, r'log file must be an instance of ILogFile interface')
-        istype(bundle.info_ok, IInfoOk, ctx, r'info ok must be an instance of IInfoOk interface')
-        istype(bundle.context_bundle, ContextBundle, ctx, r'context bundle must be an instance of ContextBundle class')
+        istype(bundle.name, IName, ctx, r'name must be an instance of IName')
+        istype(bundle.version, IVersion, ctx, r'version must be an instance of IVersion')
+        istype(bundle.licence, ILicence, ctx, r'licence must be an instance of ILicence')
+        istype(bundle.build_date, IBuildDate, ctx, r'build date must be an instance of IBuildDate')
+        istype(bundle.repository, IRepository, ctx, r'repository must be an instance of IRepository')
+        istype(bundle.organization, IOrganization, ctx, r'organization must be an instance of IOrganization')
+        istype(bundle.use_github, IUseGitHub, ctx, r'use github must be an instance of IUseGitHub')
+        istype(bundle.logo, ILogo, ctx, r'logo must be an instance of ILogo')
+        istype(bundle.log_file, ILogFile, ctx, r'log file must be an instance of ILogFile')
+        istype(bundle.info_ok, IInfoOk, ctx, r'info ok must be an instance of IInfoOk')
+        istype(bundle.context_bundle, ContextBundle, ctx, r'context bundle must be an instance of ContextBundle')

@@ -28,11 +28,11 @@ from typing import Any, override
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.setup.bundle import InfoBundle
+from ats_utilities.info.setup.validator import InfoValidator
 from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.exceptions import ATSAttributeError
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_satisfied, not_none
-from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -79,14 +79,32 @@ class InfoManager(IInfoManager):
             :param own: Bundle with components.
             :type own: InfoBundle
             :exceptions:
-                | ATSValueError: Component bundle must be provided.
+                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Name must be provided.
+                | ATSValueError: Version must be provided.
+                | ATSValueError: Licence must be provided.
+                | ATSValueError: Build date must be provided.
+                | ATSValueError: Repository must be provided.
+                | ATSValueError: Organization must be provided.
+                | ATSValueError: Use GitHub must be provided.
+                | ATSValueError: Logo must be provided.
+                | ATSValueError: Log file must be provided.
+                | ATSValueError: Info ok must be provided.
                 | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Component bundle must be an instance of InfoBundle.
+                | ATSTypeError: Bundle must be an instance of InfoBundle.
+                | ATSTypeError: Name must be an instance of IName.
+                | ATSTypeError: Version must be an instance of IVersion.
+                | ATSTypeError: Licence must be an instance of ILicence.
+                | ATSTypeError: Build date must be an instance of IBuildDate.
+                | ATSTypeError: Repository must be an instance of IRepository.
+                | ATSTypeError: Organization must be an instance of IOrganization.
+                | ATSTypeError: Use GitHub must be an instance of IUseGitHub.
+                | ATSTypeError: Logo must be an instance of ILogo.
+                | ATSTypeError: Log file must be an instance of ILogFile.
+                | ATSTypeError: Info ok must be an instance of IInfoOk.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        context: str = r'info_manager::init(...)'
-        not_none(own, context, r'own must be provided')
-        istype(own, InfoBundle, context, r'own must be an instance of InfoBundle')
+        InfoValidator.validate(own)
         self._components = own
         self._context = self._components.context_bundle
         self.refresh_status()
