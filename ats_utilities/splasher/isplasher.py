@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class ISplasher with method(s).
-    Interface for splash screen.
+    Provides an interface for splash screen.
 '''
 
 from __future__ import annotations
@@ -25,7 +25,6 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.splasher.data import CenterData
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,16 +36,16 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ISplasher(ABC):
+class ISplasher[PositionData](ABC):
     '''
         Defines abstract class ISplasher with method(s).
-        Interface for splash screen.
+        Provides an interface for splash screen.
 
         It defines:
 
             :methods:
                 | get_context - Returns the context.
-                | center - Centers console line.
+                | center - Centers console line and places text.
                 | is_initialized - Checks if splasher is initialized.
                 | __str__ - Returns the splash screen as string representation.
     '''
@@ -58,20 +57,18 @@ class ISplasher(ABC):
 
             :return: Context.
             :rtype: ContextBundle
-            :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def center(self, center_data: CenterData, text: str) -> None:
+    def center(self, position: PositionData, text: str) -> None:
         '''
-            Centers console line with given text.
+            Centers console line and places text.
 
-            :param center_data: Center data for centering console output.
-            :type center_data: <CenterData>
-            :param text: Text to center.
+            :param position: Position data for console output.
+            :type position: PositionData
+            :param text: Text to be centered.
             :type text: str
-            :exceptions: None.
         '''
         pass
 
@@ -82,7 +79,6 @@ class ISplasher(ABC):
 
             :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -93,6 +89,5 @@ class ISplasher(ABC):
 
             :return: The splash screen as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

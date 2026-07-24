@@ -26,7 +26,7 @@ from collections.abc import Mapping
 from typing import Any, override
 
 from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
-from ats_utilities.splasher.splash_keys import SplashKeys
+from ats_utilities.splasher.setup.splash_keys import SplashKeys
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import mcheck

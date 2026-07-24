@@ -29,13 +29,12 @@ from sys import stdout
 from ats_utilities.splasher.isplasher import ISplasher
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.splasher.setup.bundle import SplashBundle
+from ats_utilities.splasher.setup.validator import SplashValidator
 from ats_utilities.splasher.data import CenterData
 from ats_utilities.splasher.data_validator import CenterDataValidator
-from ats_utilities.splasher.splash_keys import SplashKeys
+from ats_utilities.splasher.setup.splash_keys import SplashKeys
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.utils.files import check_file_exists
-from ats_utilities.validation.check_value import not_satisfied, not_none
-from ats_utilities.validation.check_type import istype
+from ats_utilities.validation.check_value import not_satisfied
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -47,7 +46,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Splasher(ISplasher):
+class Splasher(ISplasher[CenterData]):
     '''
         Defines class Splasher with attribute(s) and method(s).
         Implements a splash screen with hyperlinks.
@@ -82,11 +81,9 @@ class Splasher(ISplasher):
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
+        SplashValidator.validate(own)
         self._is_initialized = False
         self._show_splash = False
-        context: str = r'splasher::init(...)'
-        not_none(own, context, r'own must be provided')
-        istype(own, SplashBundle, context, r'own must be a SplashBundle instance')
         self._context = own.context_bundle
 
         if own.property_validated:
@@ -101,11 +98,6 @@ class Splasher(ISplasher):
                 self._show_splash = True
 
             size: tuple[Any, ...] = own.terminal_property.size()
-
-            check_file_exists(
-                own.prop[SplashKeys.ATS_LOGO_PATH], context,
-                r'App/Tool/Script logo file path not correct'
-            )
             stdout.write('\n\n')
 
             try:
@@ -114,19 +106,14 @@ class Splasher(ISplasher):
                         processed_line: str = line.rstrip()
 
                         if bool(processed_line):
-                            center_data = CenterData(
-                                columns=int(size[1]), additional_shifter=0
-                            )
-
+                            center_data = CenterData(columns=int(size[1]), additional_shifter=0)
                             self.center(center_data, processed_line)
 
             except (OSError, UnicodeDecodeError) as exc:
-                not_satisfied(True, context, f'logo file content is invalid {exc}')
+                ctx: str = r'splasher::init(...)'
+                not_satisfied(True, ctx, f'logo file content is invalid {exc}')
 
-            center_data = CenterData(
-                columns=int(size[1]), additional_shifter=2
-            )
-
+            center_data = CenterData(columns=int(size[1]), additional_shifter=2)
             self.center(center_data, own.ext.get_info_text())
             self.center(center_data, own.ext.get_issue_text())
             self.center(center_data, own.ext.get_author_text())
@@ -152,13 +139,13 @@ class Splasher(ISplasher):
         return self._context
 
     @override
-    def center(self, center_data: CenterData, text: str = '') -> None:
+    def center(self, position: CenterData, text: str) -> None:
         '''
-            Centers console line with given text.
+            Centers console line and places text.
 
-            :param center_data: Center data for centering console output.
-            :type center_data: <CenterData>
-            :param text: Text to center.
+            :param position: Position data for console output.
+            :type position: CenterData
+            :param text: Text to be centered.
             :type text: str
             :exceptions:
                 | ATSValueError: Columns count must be provided.
@@ -168,12 +155,12 @@ class Splasher(ISplasher):
                 | ATSTypeError: Additional shifter is not an integer.
                 | ATSValueError: Additional shifter cannot be negative.
         '''
-        CenterDataValidator.validate(center_data)
         if not self._show_splash:
             return
 
-        start_position: float = (center_data.columns / 2) - 30
-        number_of_tabs = int((start_position / 8) - 1 + center_data.additional_shifter)
+        CenterDataValidator.validate(position)
+        start_position: float = (position.columns / 2) - 30
+        number_of_tabs = int((start_position / 8) - 1 + position.additional_shifter)
         stdout.write('{0}{1}\n'.format('\011' * number_of_tabs, text))
 
     @override

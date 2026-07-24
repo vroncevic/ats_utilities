@@ -61,7 +61,6 @@ class IExtInfrastructure(ABC):
 
             :return: Formatted infrastructure property in Mapping format (read only data).
             :rtype: Mapping[str, Any] 
-            :exceptions: None.
         '''
         pass
 
@@ -74,7 +73,6 @@ class IExtInfrastructure(ABC):
 
             :param setup: Project infrastructure property in Mapping format (read only data).
             :type setup: Mapping[str, Any] 
-            :exceptions: None.
         '''
         pass
 
@@ -86,7 +84,6 @@ class IExtInfrastructure(ABC):
 
             :return: Hyperlink with info text.
             :rtype: str
-            :exceptions: None.
         '''
         pass
 
@@ -98,7 +95,6 @@ class IExtInfrastructure(ABC):
 
             :return: Hyperlink with issue info.
             :rtype: str
-            :exceptions: None.
         '''
         pass
 
@@ -110,7 +106,6 @@ class IExtInfrastructure(ABC):
 
             :return: Hyperlink with author info.
             :rtype: str
-            :exceptions: None.
         '''
         pass
 
@@ -121,6 +116,5 @@ class IExtInfrastructure(ABC):
 
             :return: The external infrastructure as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

@@ -26,6 +26,7 @@ from collections.abc import Mapping
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.splasher.setup.bundle import SplashBundle
+from ats_utilities.splasher.setup.splash_keys import SplashKeys
 from ats_utilities.splasher.property.isplash_property import ISplashProperty
 from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
 from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
@@ -33,6 +34,7 @@ from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
 from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
+from ats_utilities.utils.files import check_file_exists
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -100,3 +102,5 @@ class SplashValidator(IValidator[SplashBundle]):
         istype(bundle.ext, IExtInfrastructure, ctx, r'external infrastructure must be an IExtInfrastructure instance')
         istype(bundle.pb, IProgressBar, ctx, r'progress bar must be an IProgressBar instance')
         istype(bundle.context_bundle, ContextBundle, ctx, r'context bundle must be a ContextBundle instance')
+
+        check_file_exists(bundle.prop[SplashKeys.ATS_LOGO_PATH], ctx, r'App/Tool/Script logo file path not correct')

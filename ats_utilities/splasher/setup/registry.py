@@ -27,6 +27,7 @@ from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.splasher.setup.bundle import SplashBundle
 from ats_utilities.splasher.setup.dependencies import SplashDependencies
 from ats_utilities.splasher.setup.validator import SplashValidator
+from ats_utilities.splasher.setup.dep_validator import SplashDependenciesValidator
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -59,6 +60,15 @@ class SplashRegistry(IRegistry[SplashBundle, SplashDependencies]):
             :return: Splash bundle instance.
             :rtype: SplashBundle
             :exceptions:
+                | ATSValueError: Dependencies must be provided.
+                | ATSTypeError: Dependencies must be a Mapping.
+                | ATSTypeError: Properties dictionary must be a Mapping.
+                | ATSTypeError: Splash property must be an instance of ISplashProperty.
+                | ATSTypeError: Property validated flag must be a boolean.
+                | ATSTypeError: Terminal properties must be an instance of ITerminalProperties.
+                | ATSTypeError: External infrastructure must be an instance of IExtInfrastructure.
+                | ATSTypeError: Progress bar must be an instance of IProgressBar.
+                | ATSTypeError: Context bundle must be a ContextBundle.
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Properties dictionary must be provided.
                 | ATSValueError: Splash property must be provided.
@@ -76,6 +86,8 @@ class SplashRegistry(IRegistry[SplashBundle, SplashDependencies]):
                 | ATSTypeError: Progress bar must be an instance of IProgressBar.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
+        SplashDependenciesValidator.validate(dependencies)
+
         bundle: SplashBundle = SplashBundle(
             prop=dependencies.get('prop'),
             splash_property=dependencies.get('splash_property'),

@@ -58,7 +58,6 @@ class ITerminalProperties(ABC):
             :type file_descriptor: int
             :return: Window size of terminal.
             :rtype: tuple[Any, ...]
-            :exceptions: None.
         '''
         pass
 
@@ -66,8 +65,6 @@ class ITerminalProperties(ABC):
     def ioctl_for_all_descriptors(self) -> None:
         '''
             Sets size for all file descriptors.
-
-            :exceptions: None.
         '''
         pass
 
@@ -78,7 +75,6 @@ class ITerminalProperties(ABC):
 
             :return: Terminal window size.
             :rtype: tuple[Any, ...]
-            :exceptions: None.
         '''
         pass
 
@@ -89,6 +85,5 @@ class ITerminalProperties(ABC):
 
             :return: The terminal properties as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

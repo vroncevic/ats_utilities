@@ -27,6 +27,7 @@ from typing import Any, override
 from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.splasher.setup.bundle import SplashBundle
 from ats_utilities.splasher.setup.options import SplashOptions
+from ats_utilities.splasher.setup.opt_validator import SplashOptionsValidator
 from ats_utilities.splasher.setup.dependencies import SplashDependencies
 from ats_utilities.splasher.setup.registry import SplashRegistry
 from ats_utilities.splasher.property.isplash_property import ISplashProperty
@@ -38,10 +39,8 @@ from ats_utilities.splasher.external.ext_infrastructure import ExtInfrastructure
 from ats_utilities.splasher.external.github_infrastructure import GitHubInfrastructure
 from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
 from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
-from ats_utilities.splasher.splash_keys import SplashKeys
+from ats_utilities.splasher.setup.splash_keys import SplashKeys
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.validation.check_type import istype
-from ats_utilities.validation.check_value import not_none
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -60,15 +59,15 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
         It defines:
 
             :methods:
-                | create_default_bundle - Creates a default splash bundle using configuration options.
+                | create_bundle - Creates a splash bundle using configuration options.
                 | create_splash_bundle_from_dict - Creates a default splash bundle using configuration options.
     '''
 
     @classmethod
     @override
-    def create_default_bundle(cls, options: SplashOptions) -> SplashBundle:
+    def create_bundle(cls, options: SplashOptions) -> SplashBundle:
         '''
-            Creates a default splash bundle using configuration options.
+            Creates a splash bundle using configuration options.
 
             :param options: Creation options/parameters for the bundle.
             :type options: SplashOptions
@@ -76,11 +75,9 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
             :rtype: SplashBundle
             :exceptions:
                 | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a dictionary.
-                | ATSValueError: Properties dictionary must be provided.
-                | ATSTypeError: Properties dictionary must be a Mapping instance.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSTypeError: Options must be a Mapping.
+                | ATSTypeError: Properties must be a Mapping.
+                | ATSTypeError: Context bundle must be a ContextBundle.
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Splash property must be provided.
                 | ATSValueError: Property validated flag must be provided.
@@ -94,18 +91,10 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
                 | ATSTypeError: External infrastructure must be an instance of IExtInfrastructure.
                 | ATSTypeError: Progress bar must be an instance of IProgressBar.
         '''
-        ctx: str = r'splash_factory::create_default_bundle(...)'
-        not_none(options, ctx, r'options must be provided')
-        istype(options, dict, ctx, r'options must be a dictionary')
+        SplashOptionsValidator.validate(options)
 
         prop: Mapping[str, Any] | None = options.get('prop')
         context_bundle: ContextBundle = options.get('context_bundle')
-
-        if prop is not None:
-            istype(prop, Mapping, ctx, r'properties dictionary must be a Mapping instance')
-
-        not_none(context_bundle, ctx, r'context_bundle must be provided')
-        istype(context_bundle, ContextBundle, ctx, r'context_bundle must be ContextBundle instance')
 
         splash_property: ISplashProperty = SplashProperty(context_bundle)
         property_validated: bool = False
@@ -158,11 +147,9 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
             :rtype: SplashBundle
             :exceptions:
                 | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a dictionary.
-                | ATSValueError: Properties dictionary must be provided.
-                | ATSTypeError: Properties dictionary must be a Mapping instance.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSTypeError: Options must be a Mapping.
+                | ATSTypeError: Properties must be a Mapping.
+                | ATSTypeError: Context bundle must be a ContextBundle.
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Splash property must be provided.
                 | ATSValueError: Property validated flag must be provided.
@@ -176,4 +163,4 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
                 | ATSTypeError: External infrastructure must be an instance of IExtInfrastructure.
                 | ATSTypeError: Progress bar must be an instance of IProgressBar.
         '''
-        return cls.create_default_bundle(options=SplashOptions(prop=prop, context_bundle=context_bundle))
+        return cls.create_bundle(options=SplashOptions(prop=prop, context_bundle=context_bundle))

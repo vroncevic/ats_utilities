@@ -66,7 +66,6 @@ class IProgressBar(ABC):
 
             :param columns: Columns for open console session.
             :type columns: int
-            :exceptions: None.
         '''
         pass
 
@@ -79,7 +78,6 @@ class IProgressBar(ABC):
             :type level: int
             :param columns: Columns for open console session.
             :type columns: int
-            :exceptions: None.
         '''
         pass
 
@@ -90,6 +88,5 @@ class IProgressBar(ABC):
 
             :return: The progress bar as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

@@ -59,7 +59,6 @@ class ISplashProperty(ABC):
 
             :return: Formatted splash screen property in Mapping format (read only data).
             :rtype: Mapping[str, Any] 
-            :exceptions: None.
         '''
         pass
 
@@ -72,7 +71,6 @@ class ISplashProperty(ABC):
 
             :param setup: Project splash keys in Mapping format (read only data).
             :type setup: Mapping[str, Any] 
-            :exceptions: None.
         '''
         pass
 
@@ -84,7 +82,6 @@ class ISplashProperty(ABC):
 
             :return: True (success) else False (fail).
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -95,6 +92,5 @@ class ISplashProperty(ABC):
 
             :return: The splash keys as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

@@ -26,7 +26,7 @@ from typing import Any, override
 from collections.abc import Mapping
 
 from ats_utilities.splasher.property.isplash_property import ISplashProperty
-from ats_utilities.splasher.splash_keys import SplashKeys
+from ats_utilities.splasher.setup.splash_keys import SplashKeys
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import mcheck
@@ -57,7 +57,7 @@ class SplashProperty(ISplashProperty):
                 | __init__ - Initials SplashProperty constructor.
                 | splash_keys - Property method for get/set splash keys.  
                 | validates - Validates splash keys.
-                | __str__ - Returns the string representation of SplashProperty.
+                | __str__ - Returns the splash property as string representation.
     '''
 
     _splash_keys: SplashKeys | None
@@ -150,9 +150,9 @@ class SplashProperty(ISplashProperty):
     @override
     def __str__(self) -> str:
         '''
-            Returns the string representation of SplashProperty.
+            Returns the splash property as string representation.
 
-            :return: The SplashProperty as string representation.
+            :return: The splash property as string representation.
             :rtype: str
             :exceptions: None.
         '''
