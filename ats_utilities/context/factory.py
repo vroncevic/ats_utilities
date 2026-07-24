@@ -30,9 +30,13 @@ from ats_utilities.logger.engine import Logger
 from ats_utilities.logger.setup.factory import LoggerFactory
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.setup.registry import ReporterRegistry
+from ats_utilities.reporter.setup.dependencies import ReporterDependencies
 from ats_utilities.reporter.theme.engine import ConsoleTheme
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.registry import ContextRegistry
+from ats_utilities.context.dependencies import ContextDependencies
+from ats_utilities.context.options import ContextOptions
+from ats_utilities.context.opt_validator import ContextOptionsValidator
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -44,27 +48,33 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ContextFactory(IFactory[ContextBundle, bool]):
+class ContextFactory(IFactory[ContextBundle, ContextOptions]):
     '''
         Factory for creating context bundle instance.
 
         It defines:
 
             :methods:
-                | create_default_bundle - Creates a default context bundle with pre-configured options.
+                | create_bundle - Creates a context bundle with optional pre-configured options.
     '''
 
     @classmethod
     @override
-    def create_default_bundle(cls, options: bool = False) -> ContextBundle:
+    def create_bundle(cls, options: ContextOptions | None = None) -> ContextBundle:
         '''
-            Creates a default context bundle with pre-configured options.
+            Creates a context bundle with optional pre-configured options.
 
-            :param options: Pre-configured options for the bundle (default False).
-            :type options: bool
-            :return: Default context bundle instance.
+            :param options: Pre-configured options for the bundle (default None).
+            :type options: ContextOptions | None
+            :return: Context bundle instance.
             :rtype: ContextBundle
             :exceptions:
+                | ATSValueError: Options must be provided.
+                | ATSTypeError: Options must be a Mapping.
+                | ATSTypeError: Checker options must be a Mapping.
+                | ATSTypeError: Logger options must be a Mapping.
+                | ATSTypeError: Reporter options must be a Mapping.
+                | ATSTypeError: Verbose option must be a boolean.
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Checker must be provided.
                 | ATSValueError: Logger must be provided.
@@ -76,22 +86,31 @@ class ContextFactory(IFactory[ContextBundle, bool]):
                 | ATSTypeError: Reporter must be an instance of IReporter.
                 | ATSTypeError: Verbose must be a boolean.
         '''
-        checker: Checker = Checker(own=CheckerFactory.create_bundle())
-        logger: Logger = Logger(own=LoggerFactory.create_bundle())
+        if options is not None:
+            ContextOptionsValidator.validate(options)
+
+        checker_opts = options.get('checker') if options else None
+        logger_opts = options.get('logger') if options else None
+        verbose = options.get('verbose', False) if options else False
+
+        checker: Checker = Checker(own=CheckerFactory.create_bundle(checker_opts))
+        logger: Logger = Logger(own=LoggerFactory.create_bundle(logger_opts))
         theme: ConsoleTheme = ConsoleTheme()
         reporter: Reporter = Reporter(
-            own=ReporterRegistry.create_bundle({
-                'checker': checker, 'theme': theme, 'logger': logger
-            })
+            own=ReporterRegistry.create_bundle(
+                dependencies=ReporterDependencies(
+                    checker=checker,
+                    theme=theme,
+                    logger=logger
+                )
+            )
         )
 
-        bundle: ContextBundle = ContextBundle(
-            checker=checker,
-            logger=logger,
-            reporter=reporter,
-            verbose=options
+        return ContextRegistry.create_bundle(
+            dependencies=ContextDependencies(
+                checker=checker,
+                logger=logger,
+                reporter=reporter,
+                verbose=verbose
+            )
         )
-
-        ContextValidator.validate(bundle)
-
-        return bundle

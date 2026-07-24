@@ -24,6 +24,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+from ats_utilities.logger.iformatter import ILogFormatter
+from ats_utilities.logger.ibuffer import ILogBuffer
+from ats_utilities.logger.ihandler_manager import ILogHandlerManager
 from ats_utilities.utils.reflection import instance_to_dict
 
 __author__ = r'Vladimir Roncevic'
@@ -47,6 +50,9 @@ class LoggerBundle:
                 | logger - Logger instance.
                 | log_file - Log file path.
                 | log_level - Log level.
+                | formatter - Formatter for log messages.
+                | buffer - Buffer for early logs.
+                | handler_manager - Manager for log output handlers.
             :methods:
                 | to_dict - Converts logger bundle to a dictionary.
     '''
@@ -54,6 +60,9 @@ class LoggerBundle:
     logger: Any
     log_file: str
     log_level: int
+    formatter: ILogFormatter
+    buffer: ILogBuffer
+    handler_manager: ILogHandlerManager
 
     def to_dict(self) -> dict[str, Any]:
         '''

@@ -79,7 +79,10 @@ class LoggerRegistry(IRegistry[LoggerBundle, LoggerDependencies]):
         bundle: LoggerBundle = LoggerBundle(
             logger=dependencies.get('logger'),
             log_file=dependencies.get('log_file'),
-            log_level=dependencies.get('log_level')
+            log_level=dependencies.get('log_level'),
+            formatter=dependencies.get('formatter'),
+            buffer=dependencies.get('buffer'),
+            handler_manager=dependencies.get('handler_manager')
         )
 
         LoggerValidator.validate(bundle)

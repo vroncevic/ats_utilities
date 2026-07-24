@@ -2,7 +2,7 @@
 
 '''
 Module
-    dependencies.py
+    options.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Logger dependencies for logger bundle creation.
+    Context options for context bundle creation.
 '''
 
 from __future__ import annotations
 
-from typing import TypedDict, NotRequired, Any
+from typing import TypedDict, NotRequired
 
-from ats_utilities.logger.iformatter import ILogFormatter
-from ats_utilities.logger.ibuffer import ILogBuffer
-from ats_utilities.logger.ihandler_manager import ILogHandlerManager
+from ats_utilities.checker.setup.options import CheckerOptions
+from ats_utilities.logger.setup.options import LoggerOptions
+from ats_utilities.reporter.setup.options import ReporterOptions
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,24 +37,20 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class LoggerDependencies(TypedDict):
+class ContextOptions(TypedDict):
     '''
-        Logger dependencies for logger bundle creation.
+        Context options for context bundle creation.
 
         It defines:
 
             :attributes:
-                | logger: Logger instance.
-                | log_file: Log file path.
-                | log_level: Log level.
-                | formatter: Formatter for log messages.
-                | buffer: Buffer for early logs.
-                | handler_manager: Manager for log output handlers.
+                | checker: Pre-configured checker options.
+                | logger: Pre-configured logger options.
+                | reporter: Pre-configured reporter options.
+                | verbose: Verbose output flag.
     '''
 
-    log_file: str
-    log_level: int
-    logger: NotRequired[Any]
-    formatter: NotRequired[ILogFormatter]
-    buffer: NotRequired[ILogBuffer]
-    handler_manager: NotRequired[ILogHandlerManager]
+    checker: NotRequired[CheckerOptions]
+    logger: NotRequired[LoggerOptions]
+    reporter: NotRequired[ReporterOptions]
+    verbose: NotRequired[bool]

@@ -77,7 +77,7 @@ class ArgParser(ArgumentParser, IArgParser[ParserData]):
             ctx_bundle = kwargs.pop('context_bundle', None)
 
             if ctx_bundle is None:
-                ctx_bundle = ContextFactory.create_default_bundle()
+                ctx_bundle = ContextFactory.create_bundle()
 
             own = ParserData(
                 prog=kwargs.get('prog', ''),

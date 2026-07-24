@@ -2,7 +2,7 @@
 
 '''
 Module
-    registry.py
+    dep_validator.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,18 +16,21 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of reporter bundle creation.
+    Validator for reporter dependencies.
 '''
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from typing import override
 
-from ats_utilities.utils.setup.iregistry import IRegistry
-from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.reporter.setup.dependencies import ReporterDependencies
-from ats_utilities.reporter.setup.validator import ReporterValidator
-from ats_utilities.reporter.setup.dep_validator import ReporterDependenciesValidator
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.utils.setup.idep_validator import IDependenciesValidator
+from ats_utilities.validation.check_type import istype
+from ats_utilities.validation.check_value import not_none
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -39,49 +42,47 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ReporterRegistry(IRegistry[ReporterBundle, ReporterDependencies]):
+class ReporterDependenciesValidator(IDependenciesValidator[ReporterDependencies]):
     '''
-        Encapsulates core runtime components for simplification of reporter bundle creation.
+        Validator for reporter dependencies.
 
         It defines:
 
             :methods:
-                | create_bundle - Orchestrates dependency injection and creates a reporter bundle instance.
+                | validate - Validates reporter dependencies instance.
     '''
 
     @classmethod
     @override
-    def create_bundle(cls, dependencies: ReporterDependencies) -> ReporterBundle:
+    def validate(cls, dependencies: ReporterDependencies) -> None:
         '''
-            Orchestrates dependency injection and creates a reporter bundle instance.
+            Validates reporter dependencies instance.
 
-            :param dependencies: Registry-specific orchestration dependencies.
+            :param dependencies: Reporter dependencies instance to be validated.
             :type dependencies: ReporterDependencies
-            :return: Reporter bundle instance.
-            :rtype: ReporterBundle
             :exceptions:
                 | ATSValueError: Dependencies must be provided.
                 | ATSTypeError: Dependencies must be a Mapping.
                 | ATSTypeError: Checker must be an instance of IChecker interface.
                 | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
                 | ATSTypeError: Logger must be an instance of ILogger interface.
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Checker must be provided.
-                | ATSValueError: Theme must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSTypeError: Bundle must be an instance of ReporterBundle.
-                | ATSTypeError: Checker must be an instance of IChecker interface.
-                | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
-                | ATSTypeError: Logger must be an instance of ILogger interface.
         '''
-        ReporterDependenciesValidator.validate(dependencies)
+        ctx: str = r'reporter_dependencies_validator::validate(...)'
 
-        bundle: ReporterBundle = ReporterBundle(
-            checker=dependencies.get('checker'),
-            theme=dependencies.get('theme'),
-            logger=dependencies.get('logger'),
-        )
+        not_none(dependencies, ctx, r'dependencies must be provided')
+        istype(dependencies, Mapping, ctx, r'dependencies must be a Mapping')
 
-        ReporterValidator.validate(bundle)
+        checker = dependencies.get('checker')
 
-        return bundle
+        if checker is not None:
+            istype(checker, IChecker, ctx, r'checker must be an IChecker instance')
+
+        theme = dependencies.get('theme')
+
+        if theme is not None:
+            istype(theme, IConsoleTheme, ctx, r'theme must be an IConsoleTheme instance')
+
+        logger = dependencies.get('logger')
+
+        if logger is not None:
+            istype(logger, ILogger, ctx, r'logger must be an ILogger instance')

@@ -27,6 +27,7 @@ from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.dependencies import ContextDependencies
 from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.dep_validator import ContextDependenciesValidator
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,7 +39,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ContextRegistry(IRegistry[ContextBundle, ContextDependencies | None]):
+class ContextRegistry(IRegistry[ContextBundle, ContextDependencies]):
     '''
         Encapsulates core runtime components for simplification of context bundle creation.
 
@@ -50,34 +51,41 @@ class ContextRegistry(IRegistry[ContextBundle, ContextDependencies | None]):
 
     @classmethod
     @override
-    def create_bundle(cls, dependencies: ContextDependencies | None) -> ContextBundle:
+    def create_bundle(cls, dependencies: ContextDependencies) -> ContextBundle:
         '''
             Orchestrates dependency injection and creates a context bundle instance.
 
-            :param dependencies: Dependencies required to construct the context bundle.
+            :param dependencies: Registry-specific orchestration dependencies.
             :type dependencies: ContextDependencies
             :return: Context bundle instance.
             :rtype: ContextBundle
             :exceptions:
+                | ATSValueError: Dependencies must be provided.
+                | ATSTypeError: Dependencies must be a Mapping.
+                | ATSTypeError: Checker must be an instance of IChecker interface.
+                | ATSTypeError: Logger must be an instance of ILogger interface.
+                | ATSTypeError: Reporter must be an instance of IReporter interface.
+                | ATSTypeError: Verbose option must be a boolean.
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Checker must be provided.
                 | ATSValueError: Logger must be provided.
                 | ATSValueError: Reporter must be provided.
                 | ATSValueError: Verbose must be provided.
                 | ATSTypeError: Bundle must be an instance of ContextBundle.
-                | ATSTypeError: Checker must be an instance of IChecker.
-                | ATSTypeError: Logger must be an instance of ILogger.
-                | ATSTypeError: Reporter must be an instance of IReporter.
+                | ATSTypeError: Checker must be an instance of IChecker interface.
+                | ATSTypeError: Logger must be an instance of ILogger interface.
+                | ATSTypeError: Reporter must be an instance of IReporter interface.
                 | ATSTypeError: Verbose must be a boolean.
         '''
+        ContextDependenciesValidator.validate(dependencies)
+
         bundle: ContextBundle = ContextBundle(
-            checker=dependencies.get('checker') if dependencies else None,
-            logger=dependencies.get('logger') if dependencies else None,
-            reporter=dependencies.get('reporter') if dependencies else None,
-            verbose=dependencies.get('verbose') if dependencies else False
+            checker=dependencies.get('checker'),
+            logger=dependencies.get('logger'),
+            reporter=dependencies.get('reporter'),
+            verbose=dependencies.get('verbose', False)
         )
 
         ContextValidator.validate(bundle)
 
         return bundle
-

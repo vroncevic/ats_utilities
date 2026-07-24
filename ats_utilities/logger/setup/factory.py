@@ -31,6 +31,9 @@ from ats_utilities.logger.setup.registry import LoggerRegistry
 from ats_utilities.logger.setup.dependencies import LoggerDependencies
 from ats_utilities.logger.setup.options import LoggerOptions
 from ats_utilities.logger.setup.opt_validator import LoggerOptionsValidator
+from ats_utilities.logger.formatter import LogFormatter
+from ats_utilities.logger.buffer import LogBuffer
+from ats_utilities.logger.handler_manager import LogHandlerManager
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -86,7 +89,9 @@ class LoggerFactory(IFactory[LoggerBundle, LoggerOptions]):
             log_file = options.get('log_file')
             log_level = options.get('log_level', INFO)
 
-        if not getLogger().hasHandlers():
+        logger = getLogger()
+
+        if not logger.hasHandlers():
             log_config: dict[str, Any] = {
                 'format': '%(asctime)s - %(levelname)s - %(message)s',
                 'datefmt': '%m/%d/%Y %I:%M:%S %p',
@@ -100,10 +105,17 @@ class LoggerFactory(IFactory[LoggerBundle, LoggerOptions]):
 
             basicConfig(**log_config)
 
+        formatter: LogFormatter = LogFormatter()
+        buffer: LogBuffer = LogBuffer()
+        handler_manager: LogHandlerManager = LogHandlerManager(logger)
+
         return LoggerRegistry.create_bundle(
             dependencies=LoggerDependencies(
-                logger=getLogger(),
+                logger=logger,
                 log_file=log_file or '',
-                log_level=log_level
+                log_level=log_level,
+                formatter=formatter,
+                buffer=buffer,
+                handler_manager=handler_manager
             )
         )

@@ -24,19 +24,17 @@ from __future__ import annotations
 
 from collections.abc import Callable, Mapping
 from logging import (
-    getLogger, DEBUG, INFO, WARNING, ERROR, CRITICAL,
-    FileHandler, Formatter, StreamHandler
+    getLogger, DEBUG, INFO, WARNING, ERROR, CRITICAL
 )
-from os import environ, makedirs
-from os.path import dirname, exists
-from re import compile, Pattern
-from sys import stdout, stderr
 from types import MappingProxyType
 from typing import Any, override
 
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.setup.validator import LoggerValidator
+from ats_utilities.logger.iformatter import ILogFormatter
+from ats_utilities.logger.ibuffer import ILogBuffer
+from ats_utilities.logger.ihandler_manager import ILogHandlerManager
 from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
@@ -59,11 +57,12 @@ class Logger(ILogger):
             :attributes:
                 | _logger - Logger instance.
                 | _log_methods - Mapping of log levels to log methods.
-                | _early_logs_buffer - Buffer for early logs.
+                | _formatter - Formatter for log messages.
+                | _buffer - Buffer for early logs.
+                | _handler_manager - Manager for log output handlers.
                 | _has_file_handler - Flag indicating if logger has a file handler.
             :methods:
-                | __init__ - Initials Logger constructor.
-                | _process_message - Processes the log message by checking the environment.
+                | __init__ - Initializes Logger constructor.
                 | write_log - Writes message to log.
                 | is_initialized - Checks if logger is initialized.
                 | set_level - Sets log level.
@@ -76,7 +75,9 @@ class Logger(ILogger):
 
     _logger: Any
     _log_methods: Mapping[int, Callable[..., None]]
-    _early_logs_buffer: list[tuple[str, int]]
+    _formatter: ILogFormatter
+    _buffer: ILogBuffer
+    _handler_manager: ILogHandlerManager
     _has_file_handler: bool
 
     def __init__(self, own: LoggerBundle) -> None:
@@ -97,7 +98,9 @@ class Logger(ILogger):
         '''
         LoggerValidator.validate(own)
         self._logger = own.logger
-        self._early_logs_buffer = []
+        self._formatter = own.formatter
+        self._buffer = own.buffer
+        self._handler_manager = own.handler_manager
         self._has_file_handler = bool(own.log_file)
 
         if hasattr(self._logger, 'info'):
@@ -117,27 +120,6 @@ class Logger(ILogger):
                 CRITICAL: lambda msg: self._logger.write_log(msg, CRITICAL),
             })
 
-    def _process_message(self, message: str) -> str:
-        '''
-            Processes the log message by checking the environment.
-            Stripping ANSI color codes and emojis if output is redirected or disabled.
-
-            :param message: The original log message.
-            :type message: str
-            :return: The processed (clean or untouched) log message.
-            :rtype: str
-            :exceptions: None.
-        '''
-        no_color: bool = 'NO_COLOR' in environ
-        force_color: bool = 'FORCE_COLOR' in environ
-        is_terminal: bool = stdout.isatty()
-
-        if no_color or (not is_terminal and not force_color):
-            ansi_escape: Pattern[str] = compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
-            message = ansi_escape.sub('', message)
-
-        return message
-
     @override
     def write_log(self, message: str, ctrl: int) -> None:
         '''
@@ -150,12 +132,12 @@ class Logger(ILogger):
             :exceptions: None.
         '''
         if bool(message) and isinstance(message, str):
-            if ctrl in self._log_methods.keys():
-                processed_message: str = self._process_message(message)
-                
-                if not self._has_file_handler and len(self._early_logs_buffer) < 200:
-                    self._early_logs_buffer.append((processed_message, ctrl))
-                
+            if ctrl in self._log_methods:
+                processed_message: str = self._formatter.format_message(message)
+
+                if not self._has_file_handler and self._buffer.is_enabled:
+                    self._buffer.add(processed_message, ctrl)
+
                 self._log_methods[ctrl](processed_message)
 
     @override
@@ -188,6 +170,13 @@ class Logger(ILogger):
         elif hasattr(self._logger, 'set_level'):
             self._logger.set_level(level)
 
+    def _flush_buffer(self) -> None:
+        if self._has_file_handler and self._buffer.is_enabled:
+            if hasattr(self._logger, 'log'):
+                self._buffer.flush(lambda msg, lvl: self._logger.log(lvl, msg))
+            elif hasattr(self._logger, 'write_log'):
+                self._buffer.flush(lambda msg, lvl: self._logger.write_log(msg, lvl))
+
     @override
     def set_log_file(self, log_file: str) -> None:
         '''
@@ -197,36 +186,9 @@ class Logger(ILogger):
             :type log_file: str
             :exceptions: None.
         '''
-        if hasattr(self._logger, 'set_log_file'):
-            self._logger.set_log_file(log_file)
+        if self._handler_manager.set_log_file(log_file):
             self._has_file_handler = True
-        elif hasattr(self._logger, 'addHandler'):
-            log_dir = dirname(log_file)
-
-            if log_dir and not exists(log_dir):
-                makedirs(log_dir, exist_ok=True)
-
-            for handler in list(self._logger.handlers):
-                if isinstance(handler, FileHandler):
-                    self._logger.removeHandler(handler)
-
-            file_handler = FileHandler(log_file)
-            file_handler.setFormatter(Formatter(
-                '%(asctime)s - %(levelname)s - %(message)s',
-                datefmt='%m/%d/%Y %I:%M:%S %p'
-            ))
-            self._logger.addHandler(file_handler)
-            self._has_file_handler = True
-
-        if self._has_file_handler and self._early_logs_buffer:
-            if hasattr(self._logger, 'log'):
-                for msg, ctrl in self._early_logs_buffer:
-                    self._logger.log(ctrl, msg)
-            elif hasattr(self._logger, 'write_log'):
-                for msg, ctrl in self._early_logs_buffer:
-                    self._logger.write_log(msg, ctrl)
-
-            self._early_logs_buffer.clear()
+            self._flush_buffer()
 
     @override
     def set_stdout(self) -> None:
@@ -235,37 +197,9 @@ class Logger(ILogger):
 
             :exceptions: None.
         '''
-        if hasattr(self._logger, 'addHandler'):
-            for handler in list(self._logger.handlers):
-                if isinstance(handler, FileHandler):
-                    self._logger.removeHandler(handler)
-                elif isinstance(handler, StreamHandler) and getattr(handler, 'stream', None) is not stdout:
-                    self._logger.removeHandler(handler)
-
-            has_stdout = any(
-                isinstance(h, StreamHandler) and getattr(h, 'stream', None) is stdout
-                for h in self._logger.handlers
-            )
-
-            if not has_stdout:
-                stream_handler = StreamHandler(stdout)
-                stream_handler.setFormatter(Formatter(
-                    '%(asctime)s - %(levelname)s - %(message)s',
-                    datefmt='%m/%d/%Y %I:%M:%S %p'
-                ))
-                self._logger.addHandler(stream_handler)
-
-        self._has_file_handler = True
-
-        if self._has_file_handler and self._early_logs_buffer:
-            if hasattr(self._logger, 'log'):
-                for msg, ctrl in self._early_logs_buffer:
-                    self._logger.log(ctrl, msg)
-            elif hasattr(self._logger, 'write_log'):
-                for msg, ctrl in self._early_logs_buffer:
-                    self._logger.write_log(msg, ctrl)
-
-            self._early_logs_buffer.clear()
+        if self._handler_manager.set_stdout():
+            self._has_file_handler = True
+            self._flush_buffer()
 
     @override
     def set_stderr(self) -> None:
@@ -274,37 +208,9 @@ class Logger(ILogger):
 
             :exceptions: None.
         '''
-        if hasattr(self._logger, 'addHandler'):
-            for handler in list(self._logger.handlers):
-                if isinstance(handler, FileHandler):
-                    self._logger.removeHandler(handler)
-                elif isinstance(handler, StreamHandler) and getattr(handler, 'stream', None) is not stderr:
-                    self._logger.removeHandler(handler)
-
-            has_stderr = any(
-                isinstance(h, StreamHandler) and getattr(h, 'stream', None) is stderr
-                for h in self._logger.handlers
-            )
-
-            if not has_stderr:
-                stream_handler = StreamHandler(stderr)
-                stream_handler.setFormatter(Formatter(
-                    '%(asctime)s - %(levelname)s - %(message)s',
-                    datefmt='%m/%d/%Y %I:%M:%S %p'
-                ))
-                self._logger.addHandler(stream_handler)
-
-        self._has_file_handler = True
-
-        if self._has_file_handler and self._early_logs_buffer:
-            if hasattr(self._logger, 'log'):
-                for msg, ctrl in self._early_logs_buffer:
-                    self._logger.log(ctrl, msg)
-            elif hasattr(self._logger, 'write_log'):
-                for msg, ctrl in self._early_logs_buffer:
-                    self._logger.write_log(msg, ctrl)
-
-            self._early_logs_buffer.clear()
+        if self._handler_manager.set_stderr():
+            self._has_file_handler = True
+            self._flush_buffer()
 
     @override
     def stop_buffering(self) -> None:
@@ -316,7 +222,7 @@ class Logger(ILogger):
         if hasattr(self._logger, 'stop_buffering'):
             self._logger.stop_buffering()
 
-        self._early_logs_buffer.clear()
+        self._buffer.clear()
         self._has_file_handler = True
 
     @override

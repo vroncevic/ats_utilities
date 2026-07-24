@@ -2,7 +2,7 @@
 
 '''
 Module
-    dependencies.py
+    ihandler_manager.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,16 +16,12 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Logger dependencies for logger bundle creation.
+    Creates an interface for log handler manager.
 '''
 
 from __future__ import annotations
 
-from typing import TypedDict, NotRequired, Any
-
-from ats_utilities.logger.iformatter import ILogFormatter
-from ats_utilities.logger.ibuffer import ILogBuffer
-from ats_utilities.logger.ihandler_manager import ILogHandlerManager
+from abc import ABC, abstractmethod
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,24 +33,46 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class LoggerDependencies(TypedDict):
+class ILogHandlerManager(ABC):
     '''
-        Logger dependencies for logger bundle creation.
+        Creates an interface for log handler manager.
 
         It defines:
 
-            :attributes:
-                | logger: Logger instance.
-                | log_file: Log file path.
-                | log_level: Log level.
-                | formatter: Formatter for log messages.
-                | buffer: Buffer for early logs.
-                | handler_manager: Manager for log output handlers.
+            :methods:
+                | set_log_file - Configures file output handler.
+                | set_stdout - Configures stdout stream handler.
+                | set_stderr - Configures stderr stream handler.
     '''
 
-    log_file: str
-    log_level: int
-    logger: NotRequired[Any]
-    formatter: NotRequired[ILogFormatter]
-    buffer: NotRequired[ILogBuffer]
-    handler_manager: NotRequired[ILogHandlerManager]
+    @abstractmethod
+    def set_log_file(self, log_file: str) -> bool:
+        '''
+            Configures file output handler.
+
+            :param log_file: Log file path.
+            :type log_file: str
+            :return: True if configured successfully, otherwise False.
+            :rtype: bool
+        '''
+        pass
+
+    @abstractmethod
+    def set_stdout(self) -> bool:
+        '''
+            Configures stdout stream handler.
+
+            :return: True if configured successfully, otherwise False.
+            :rtype: bool
+        '''
+        pass
+
+    @abstractmethod
+    def set_stderr(self) -> bool:
+        '''
+            Configures stderr stream handler.
+
+            :return: True if configured successfully, otherwise False.
+            :rtype: bool
+        '''
+        pass

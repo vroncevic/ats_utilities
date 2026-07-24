@@ -31,6 +31,9 @@ from ats_utilities.logger.engine import Logger
 from ats_utilities.logger.setup.factory import LoggerFactory
 from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.reporter.setup.registry import ReporterRegistry
+from ats_utilities.reporter.setup.dependencies import ReporterDependencies
+from ats_utilities.reporter.setup.options import ReporterOptions
+from ats_utilities.reporter.setup.opt_validator import ReporterOptionsValidator
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -42,27 +45,32 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ReporterFactory(IFactory[ReporterBundle, None]):
+class ReporterFactory(IFactory[ReporterBundle, ReporterOptions]):
     '''
         Factory for creating reporter bundle instance.
 
         It defines:
 
             :methods:
-                | create_default_bundle - Creates a default reporter bundle with pre-configured options.
+                | create_bundle - Creates a reporter bundle with optional pre-configured options.
     '''
 
     @classmethod
     @override
-    def create_default_bundle(cls, options: None = None) -> ReporterBundle:
+    def create_bundle(cls, options: ReporterOptions | None = None) -> ReporterBundle:
         '''
-            Creates a default reporter bundle with pre-configured options.
+            Creates a reporter bundle with optional pre-configured options.
 
             :param options: Pre-configured options for the bundle (default None).
-            :type options: None
-            :return: Default reporter bundle instance.
+            :type options: ReporterOptions | None
+            :return: Reporter bundle instance.
             :rtype: ReporterBundle
             :exceptions:
+                | ATSValueError: Options must be provided.
+                | ATSTypeError: Options must be a Mapping.
+                | ATSTypeError: Checker options must be a Mapping.
+                | ATSTypeError: Theme options must be a Mapping.
+                | ATSTypeError: Logger options must be a Mapping.
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Checker must be provided.
                 | ATSValueError: Theme must be provided.
@@ -72,8 +80,21 @@ class ReporterFactory(IFactory[ReporterBundle, None]):
                 | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
                 | ATSTypeError: Logger must be an instance of ILogger interface.
         '''
-        checker: Checker = Checker(own=CheckerFactory.create_bundle())
-        theme: ConsoleTheme = ConsoleTheme()
-        logger: Logger = Logger(own=LoggerFactory.create_bundle())
+        if options is not None:
+            ReporterOptionsValidator.validate(options)
 
-        return ReporterRegistry.create_bundle({'checker': checker, 'theme': theme, 'logger': logger})
+        checker_opts = options.get('checker') if options else None
+        logger_opts = options.get('logger') if options else None
+        theme_opts = options.get('theme') if options else None
+
+        checker = Checker(own=CheckerFactory.create_bundle(checker_opts))
+        theme = ConsoleTheme(palette=theme_opts)
+        logger = Logger(own=LoggerFactory.create_bundle(logger_opts))
+
+        return ReporterRegistry.create_bundle(
+            dependencies=ReporterDependencies(
+                checker=checker,
+                theme=theme,
+                logger=logger
+            )
+        )
