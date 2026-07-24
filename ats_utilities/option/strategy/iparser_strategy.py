@@ -67,7 +67,6 @@ class IParserStrategy(ABC):
             :type args: str
             :param kwargs: Arguments in Any form
             :type kwargs: Any
-            :exceptions: None.
         '''
         pass
 
@@ -78,7 +77,6 @@ class IParserStrategy(ABC):
 
             :param version: The ATS version in string format | None.
             :type version: str | None
-            :exceptions: None.
         '''
         pass
 
@@ -93,7 +91,6 @@ class IParserStrategy(ABC):
             :type known_only: bool
             :return: Option namespace object.
             :rtype: OptionNamespace
-            :exceptions: None.
         '''
         pass
 
@@ -104,7 +101,6 @@ class IParserStrategy(ABC):
 
             :param commands: Sequence of commands to register.
             :type commands: Sequence[IOptionCommand]
-            :exceptions: None.
         '''
         pass
 
@@ -117,7 +113,6 @@ class IParserStrategy(ABC):
             :type arguments: OptArgs
             :return: Tuple containing command name and parsed parameters (read only data).
             :rtype: tuple[str, Mapping[str, Any]]
-            :exceptions: None.
         '''
         pass
 
@@ -129,7 +124,6 @@ class IParserStrategy(ABC):
 
             :return: True if successfully, otherwise False.
             :rtype: bool
-            :exceptions: None.
         '''
         pass
 
@@ -140,6 +134,5 @@ class IParserStrategy(ABC):
 
             :return: The ATS parser strategy as string representation.
             :rtype: str
-            :exceptions: None.
         '''
         pass

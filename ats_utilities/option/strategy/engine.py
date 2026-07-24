@@ -38,6 +38,7 @@ from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 from ats_utilities.option.option_namespace import KnownArgs
 from ats_utilities.option.command.ioption_command import IOptionCommand
+from ats_utilities.option.command.data_validator import OptionDataValidator
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
@@ -97,7 +98,6 @@ class ParserStrategy(IParserStrategy):
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
                 | ATSTypeError: Parser must be an IArgParser instance.
         '''
-        context: str = r'parser_strategy::init(...)'
         StrategyDataValidator.validate(strategy_data)
         self._context = strategy_data.context_bundle
         self._parser_class = strategy_data.parser_class
@@ -108,6 +108,7 @@ class ParserStrategy(IParserStrategy):
             description=f"{strategy_data.parameters.get(InfoKeys.ATS_NAME, '')} build date {strategy_data.parameters.get(InfoKeys.ATS_BUILD_DATE, '')}"
         )
         self._parser = self._parser_class(own=parser_data)
+        context: str = r'parser_strategy::init(...)'
         istype(self._parser, IArgParser, context, r'parser must be an IArgParser instance')
 
     @has_attrs('_parser')
@@ -179,6 +180,7 @@ class ParserStrategy(IParserStrategy):
             cmd_parser = self._subparsers.add_parser(cmd.name, help=cmd.help_text)
 
             for opt in cmd.options:
+                OptionDataValidator.validate(opt)
                 kwargs: dict[str, Any] = {}
 
                 if getattr(opt, 'action', None) is not None:

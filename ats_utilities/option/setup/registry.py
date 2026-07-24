@@ -27,6 +27,7 @@ from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.setup.dependencies import OptionDependencies
 from ats_utilities.option.setup.validator import OptionValidator
+from ats_utilities.option.setup.dep_validator import OptionDependenciesValidator
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -59,6 +60,11 @@ class OptionRegistry(IRegistry[OptionBundle, OptionDependencies]):
             :return: Option bundle instance.
             :rtype: OptionBundle
             :exceptions:
+                | ATSValueError: Dependencies must be provided.
+                | ATSTypeError: Dependencies must be a Mapping.
+                | ATSTypeError: Parameters must be a Mapping.
+                | ATSTypeError: Strategy must be an instance of IParserStrategy.
+                | ATSTypeError: Context bundle must be a ContextBundle.
                 | ATSValueError: Option bundle must be provided.
                 | ATSValueError: Parameters must be provided.
                 | ATSValueError: Strategy must be provided.
@@ -68,6 +74,8 @@ class OptionRegistry(IRegistry[OptionBundle, OptionDependencies]):
                 | ATSTypeError: Strategy must be an IParserStrategy instance.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
+        OptionDependenciesValidator.validate(dependencies)
+
         bundle: OptionBundle = OptionBundle(
             parameters=dependencies.get('parameters'),
             strategy=dependencies.get('strategy'),

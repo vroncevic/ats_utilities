@@ -25,8 +25,6 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from collections.abc import Sequence
 
-from ats_utilities.option.command.command_option import CommandOption
-
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -37,7 +35,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IOptionCommand(ABC):
+class IOptionCommand[MetaOption](ABC):
     '''
         Defines abstract class IOptionCommand with method(s).
         Creates an interface for command with options.
@@ -45,21 +43,20 @@ class IOptionCommand(ABC):
         It defines:
 
             :methods:
-                | name - Returns the name of the command.
-                | help_text - Returns the help text of the command.
+                | name - Returns the command name.
+                | help_text - Returns the command help text.
                 | options - Returns the sequence of options for the command.
-                | __str__ - Returns the string representation of IOptionCommand.
+                | __str__ - Returns the option command as string representation.
     '''
 
     @property
     @abstractmethod
     def name(self) -> str:
         '''
-            Returns the name of the command.
+            Returns the command name.
 
-            :return: Name of the command.
+            :return: Command name.
             :rtype: str
-            :exceptions: None.
         '''
         pass
 
@@ -67,23 +64,21 @@ class IOptionCommand(ABC):
     @abstractmethod
     def help_text(self) -> str:
         '''
-            Returns the help text of the command.
+            Returns the command help text.
 
-            :return: Help text of the command.
+            :return: Command help text.
             :rtype: str
-            :exceptions: None.
         '''
         pass
 
     @property
     @abstractmethod
-    def options(self) -> Sequence[CommandOption]:
+    def options(self) -> Sequence[MetaOption]:
         '''
             Returns the sequence of options for the command.
 
             :return: Sequence of options for the command.
-            :rtype: <Sequence[CommandOption]>
-            :exceptions: None.
+            :rtype: Sequence[MetaOption]
         '''
         pass
 
@@ -94,6 +89,5 @@ class IOptionCommand(ABC):
 
             :return: String representation of option command.
             :rtype: str
-            :exceptions: None.
         '''
         pass

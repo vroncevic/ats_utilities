@@ -26,15 +26,15 @@ from typing import override
 
 from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.option.setup.bundle import OptionBundle
-from ats_utilities.option.setup.dependencies import OptionOptions, OptionDependencies
+from ats_utilities.option.setup.options import OptionOptions
+from ats_utilities.option.setup.dependencies import OptionDependencies
+from ats_utilities.option.setup.opt_validator import OptionOptionsValidator
 from ats_utilities.option.setup.registry import OptionRegistry
 from ats_utilities.option.strategy.engine import ParserStrategy
 from ats_utilities.option.strategy.data import StrategyData
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.parser.iarg_parser import IArgParser
 from ats_utilities.option.parser.engine import ArgParser
-from ats_utilities.validation.check_value import not_none
-from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -53,20 +53,25 @@ class OptionFactory(IFactory[OptionBundle, OptionOptions]):
         It defines:
 
             :methods:
-                | create_default_bundle - Creates a default option bundle using configuration options.
+                | create_bundle - Creates an option bundle using configuration options.
     '''
 
     @classmethod
     @override
-    def create_default_bundle(cls, options: OptionOptions) -> OptionBundle:
+    def create_bundle(cls, options: OptionOptions) -> OptionBundle:
         '''
-            Creates a default option bundle using configuration options.
+            Creates an option bundle using configuration options.
 
             :param options: Creation options/parameters for the bundle.
             :type options: OptionOptions
             :return: Option bundle instance.
             :rtype: OptionBundle
             :exceptions:
+                | ATSValueError: Options must be provided.
+                | ATSTypeError: Options must be a Mapping.
+                | ATSTypeError: Parameters must be a Mapping.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSTypeError: Parser class must be a class type.
                 | ATSValueError: Option bundle must be provided.
                 | ATSValueError: Parameters must be provided.
                 | ATSValueError: Strategy must be provided.
@@ -76,9 +81,7 @@ class OptionFactory(IFactory[OptionBundle, OptionOptions]):
                 | ATSTypeError: Strategy must be an IParserStrategy instance.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        ctx: str = r'option_factory::create_default_bundle(...)'
-        not_none(options, ctx, r'options must be provided')
-        istype(options, OptionOptions, ctx, r'options must be an OptionOptions instance')
+        OptionOptionsValidator.validate(options)
 
         parameters: Mapping[str, str] = options.get('parameters')
         context_bundle: ContextBundle = options.get('context_bundle')
@@ -128,8 +131,10 @@ class OptionFactory(IFactory[OptionBundle, OptionOptions]):
                 | ATSTypeError: Strategy must be an IParserStrategy instance.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        return cls.create_default_bundle({
-            'parameters': parameters,
-            'context_bundle': context_bundle,
-            'parser_class': parser_class
-        })
+        return cls.create_bundle(
+            OptionOptions(
+                parameters=parameters,
+                context_bundle=context_bundle,
+                parser_class=parser_class
+            )
+        )
