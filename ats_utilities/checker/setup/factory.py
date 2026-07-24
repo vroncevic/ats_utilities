@@ -21,16 +21,19 @@ Info
 
 from typing import override
 
-from ats_utilities.utils.ifactory import IFactory
+from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.checker.setup.bundle import CheckerBundle
+from ats_utilities.checker.setup.options import CheckerOptions
 from ats_utilities.checker.setup.registry import CheckerRegistry
+from ats_utilities.checker.setup.dependencies import CheckerDependencies
+from ats_utilities.checker.setup.opt_validator import CheckerOptionsValidator
 from ats_utilities.checker.format.format_validator import FormatValidator
 from ats_utilities.checker.type.type_validator import TypeValidator
 from ats_utilities.checker.context.context_provider import ContextProvider
 from ats_utilities.checker.reporter.check_reporter import CheckReporter
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -39,27 +42,33 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class CheckerFactory(IFactory[CheckerBundle, None]):
+class CheckerFactory(IFactory[CheckerBundle, CheckerOptions]):
     '''
         Factory for creating checker bundle instance.
 
         It defines:
 
             :methods:
-                | create_default_bundle - Creates a default checker bundle with pre-configured options.
+                | create_bundle - Creates a checker bundle with optional pre-configured options.
     '''
 
     @classmethod
     @override
-    def create_default_bundle(cls, options: None = None) -> CheckerBundle:
+    def create_bundle(cls, options: CheckerOptions | None = None) -> CheckerBundle:
         '''
-            Creates a default checker bundle with pre-configured options.
+            Creates a checker bundle with optional pre-configured options.
 
             :param options: Creation options/parameters for the bundle (default None).
-            :type options: None
-            :return: Default checker bundle instance.
+            :type options: CheckerOptions | None
+            :return: Checker bundle instance.
             :rtype: CheckerBundle
             :exceptions:
+                | ATSValueError: Options must be provided.
+                | ATSTypeError: Options must be a Mapping.
+                | ATSTypeError: Separator must be a string.
+                | ATSTypeError: Abstract types must be a Mapping.
+                | ATSTypeError: Stack index caller must be an integer.
+                | ATSTypeError: Messages provider must be a Mapping.
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Context provider must be provided.
                 | ATSValueError: Check reporter must be provided.
@@ -71,16 +80,24 @@ class CheckerFactory(IFactory[CheckerBundle, None]):
                 | ATSTypeError: Format validator must be an instance of IFormatValidator.
                 | ATSTypeError: Type validator must be an instance of ITypeValidator.
         '''
-        format_validator: FormatValidator = FormatValidator()
-        type_validator: TypeValidator = TypeValidator()
-        context_provider: ContextProvider = ContextProvider()
-        check_reporter: CheckReporter = CheckReporter()
+        if options is not None:
+            CheckerOptionsValidator.validate(options)
 
-        bundle: CheckerBundle = CheckerRegistry.create_bundle({
-            'format_validator': format_validator,
-            'type_validator': type_validator,
-            'context_provider': context_provider,
-            'check_reporter': check_reporter
-        })
+        separator = options.get('separator') if options else None
+        abstract_types = options.get('abstract_types') if options else None
+        stack_index_caller = options.get('stack_index_caller') if options else None
+        messages_provider = options.get('messages_provider') if options else None
 
-        return bundle
+        format_validator: FormatValidator = FormatValidator(separator=separator)
+        type_validator: TypeValidator = TypeValidator(abstract_types=abstract_types)
+        context_provider: ContextProvider = ContextProvider(index_caller=stack_index_caller)
+        check_reporter: CheckReporter = CheckReporter(message_provider=messages_provider)
+
+        return CheckerRegistry.create_bundle(
+            dependencies=CheckerDependencies(
+                format_validator=format_validator,
+                type_validator=type_validator,
+                context_provider=context_provider,
+                check_reporter=check_reporter
+            )
+        )

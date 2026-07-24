@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IContextProvider with method(s).
-    Creates an interface for getting context for method(s) and function(s).
+    Creates an interface for getting context information for method(s) and function(s).
 '''
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -37,7 +37,7 @@ __status__ = r'Development'
 class IContextProvider(ABC):
     '''
         Defines abstract class IContextProvider with method(s).
-        Creates an interface for getting context for method(s) and function(s).
+        Creates an interface for getting context information for method(s) and function(s).
 
         It defines:
 

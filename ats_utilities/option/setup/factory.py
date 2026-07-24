@@ -24,12 +24,12 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import override
 
-from ats_utilities.utils.ifactory import IFactory
+from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.setup.dependencies import OptionOptions, OptionDependencies
 from ats_utilities.option.setup.registry import OptionRegistry
 from ats_utilities.option.strategy.engine import ParserStrategy
-from ats_utilities.option.strategy.parser_strategy_registry import ParserStrategyRegistry
+from ats_utilities.option.strategy.data import StrategyData
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.parser.iarg_parser import IArgParser
 from ats_utilities.option.parser.engine import ArgParser
@@ -37,7 +37,7 @@ from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -67,32 +67,32 @@ class OptionFactory(IFactory[OptionBundle, OptionOptions]):
             :return: Option bundle instance.
             :rtype: OptionBundle
             :exceptions:
-                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Option bundle must be provided.
                 | ATSValueError: Parameters must be provided.
                 | ATSValueError: Strategy must be provided.
                 | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Bundle must be an instance of OptionBundle.
+                | ATSTypeError: Option bundle must be an instance of OptionBundle.
                 | ATSTypeError: Parameters must be a Mapping[str, str] instance.
                 | ATSTypeError: Strategy must be an IParserStrategy instance.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
         ctx: str = r'option_factory::create_default_bundle(...)'
         not_none(options, ctx, r'options must be provided')
-        istype(options, dict, ctx, r'options must be a dictionary')
+        istype(options, OptionOptions, ctx, r'options must be an OptionOptions instance')
 
         parameters: Mapping[str, str] = options.get('parameters')
         context_bundle: ContextBundle = options.get('context_bundle')
         parser_class: type[IArgParser] = options.get('parser_class', ArgParser)
-
-        parser_strategy_bundle = ParserStrategyRegistry.create_parser_strategy_bundle_from_dict(
-            parameters=parameters,
-            context_bundle=context_bundle,
-            parser_class=parser_class
+        strategy: ParserStrategy = ParserStrategy(
+            strategy_data=StrategyData(
+                parameters=parameters,
+                context_bundle=context_bundle,
+                parser_class=parser_class
+            )
         )
-        strategy: ParserStrategy = ParserStrategy(own=parser_strategy_bundle)
 
         return OptionRegistry.create_bundle(
-            OptionDependencies(
+            dependencies=OptionDependencies(
                 parameters=parameters,
                 strategy=strategy,
                 context_bundle=context_bundle

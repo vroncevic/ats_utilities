@@ -29,17 +29,15 @@ from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str, has_attrs
 from ats_utilities.option.setup.bundle import OptionBundle
+from ats_utilities.option.setup.validator import OptionValidator
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.option.option_namespace import OptArgs, OptionNamespace
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.validation.check_value import not_none
-from ats_utilities.validation.check_type import istype
-
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -69,7 +67,7 @@ class OptionManager(IOptionManager):
                 | parse_command - Parses arguments as a command.
                 | register_commands - Registers a list of commands with the parser.
                 | is_initialized - Checks if the option manager component is initialized.
-                | __str__ - Returns the string representation of OptionManager.
+                | __str__ - Returns the option manager as string representation.
     '''
 
     _is_initialized: bool
@@ -83,12 +81,16 @@ class OptionManager(IOptionManager):
             :param own: Bundle with components for option manager.
             :type own: OptionBundle
             :exceptions:
-                | ATSValueError - Component bundle must be provided.
-                | ATSTypeError - Component bundle must be an OptionBundle instance.
+                | ATSValueError: Option bundle must be provided.
+                | ATSValueError: Parameters must be provided.
+                | ATSValueError: Strategy must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Option bundle must be an instance of OptionBundle.
+                | ATSTypeError: Parameters must be a Mapping[str, str] instance.
+                | ATSTypeError: Strategy must be an IParserStrategy instance.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        context: str = r'option_manager::init(...)'
-        not_none(own, context, r'component bundle must be provided')
-        istype(own, OptionBundle, context, r'component bundle must be an OptionBundle instance')
+        OptionValidator.validate(own)
         self._context = own.context_bundle
         self._strategy = own.strategy
         self._is_initialized = True
@@ -222,9 +224,9 @@ class OptionManager(IOptionManager):
     @override
     def __str__(self) -> str:
         '''
-            Returns the string representation of OptionManager.
+            Returns the option manager as string representation.
 
-            :return: The option parser as string representation.
+            :return: The option manager as string representation.
             :rtype: str
             :exceptions: None.
         '''

@@ -58,10 +58,12 @@ class ParserDataValidator(IDataValidator[ParserData]):
             :param data: ParserData instance to be validated.
             :type data: ParserData
             :exceptions:
+                | ATSValueError: Parser data must be provided.
                 | ATSValueError: Context bundle must be provided.
                 | ATSValueError: Prog must be provided.
                 | ATSValueError: Epilog must be provided.
                 | ATSValueError: Description must be provided.
+                | ATSTypeError: Parser data must be an instance of ParserData.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
                 | ATSTypeError: Prog must be a string.
                 | ATSTypeError: Epilog must be a string.

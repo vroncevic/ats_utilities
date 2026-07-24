@@ -27,12 +27,12 @@ from typing import override
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
-from ats_utilities.utils.ivalidator import IValidator
+from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'

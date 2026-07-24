@@ -24,9 +24,10 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any, override
 
-from ats_utilities.utils.ifactory import IFactory
+from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.splasher.setup.bundle import SplashBundle
-from ats_utilities.splasher.setup.dependencies import SplashOptions, SplashDependencies
+from ats_utilities.splasher.setup.options import SplashOptions
+from ats_utilities.splasher.setup.dependencies import SplashDependencies
 from ats_utilities.splasher.setup.registry import SplashRegistry
 from ats_utilities.splasher.property.isplash_property import ISplashProperty
 from ats_utilities.splasher.property.splash_property import SplashProperty
@@ -43,7 +44,7 @@ from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -102,6 +103,7 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
 
         if prop is not None:
             istype(prop, Mapping, ctx, r'properties dictionary must be a Mapping instance')
+
         not_none(context_bundle, ctx, r'context_bundle must be provided')
         istype(context_bundle, ContextBundle, ctx, r'context_bundle must be ContextBundle instance')
 
@@ -127,7 +129,7 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
         pb: IProgressBar = ProgressBar(int(size[1]) - int(int(size[1]) / 2))
 
         return SplashRegistry.create_bundle(
-            SplashDependencies(
+            dependencies=SplashDependencies(
                 prop=prop if prop is not None else {},
                 splash_property=splash_property,
                 property_validated=property_validated,
@@ -174,6 +176,4 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
                 | ATSTypeError: External infrastructure must be an instance of IExtInfrastructure.
                 | ATSTypeError: Progress bar must be an instance of IProgressBar.
         '''
-        return cls.create_default_bundle(
-            SplashOptions(prop=prop, context_bundle=context_bundle)
-        )
+        return cls.create_default_bundle(options=SplashOptions(prop=prop, context_bundle=context_bundle))

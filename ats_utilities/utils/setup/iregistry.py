@@ -2,7 +2,7 @@
 
 '''
 Module
-    ifactory.py
+    iregistry.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Abstract interface for all bundle factories.
-    Encapsulates standard creation behavior across default bundle instances.
+    Abstract interface for all bundle registries.
+    Encapsulates standard orchestration behavior across bundle instances.
 '''
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -34,26 +34,26 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IFactory[BundleType, OptionsType](ABC):
+class IRegistry[BundleType, DependenciesType](ABC):
     '''
-        Abstract interface for all bundle factories.
-        Encapsulates standard creation behavior across default bundle instances.
+        Abstract interface for all bundle registries.
+        Encapsulates standard orchestration behavior across bundle instances.
 
         It defines:
 
             :methods:
-                | create_default_bundle - Creates a default bundle with pre-configured options.
+                | create_bundle - Registers and injects dependencies into a bundle instance.
     '''
 
     @classmethod
     @abstractmethod
-    def create_default_bundle(cls, options: OptionsType) -> BundleType:
+    def create_bundle(cls, dependencies: DependenciesType) -> BundleType:
         '''
-            Creates a default bundle with pre-configured options.
+            Orchestrates dependency injection and creates a bundle instance.
 
-            :param options: Creation options/parameters for the bundle.
-            :type options: OptionsType
-            :return: Default bundle instance.
+            :param dependencies: Dependencies required to create the bundle.
+            :type dependencies: DependenciesType
+            :return: A fully constructed and validated bundle instance.
             :rtype: BundleType
         '''
         pass

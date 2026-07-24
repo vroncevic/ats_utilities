@@ -28,7 +28,7 @@ from typing import Any
 from ats_utilities.utils.reflection import instance_to_dict
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -49,7 +49,7 @@ class CheckReporterData:
 
             :attributes:
                 | context - Message context.
-                | parameters_meta - Sequence of parameter name and parameter type tuples.
+                | parameters_meta - Sequence of parameter metadata.
                 | err_indices - Sequence of error indices.
                 | is_fmt_err - Flag indicating if format error type has been found.
             :methods:

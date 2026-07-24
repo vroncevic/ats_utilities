@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Splash dependencies and options for splash bundle creation.
+    Splash dependencies for splash bundle creation.
 '''
 
 from __future__ import annotations
@@ -31,7 +31,7 @@ from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructu
 from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -55,24 +55,11 @@ class SplashDependencies(TypedDict):
                 | pb: Progress bar component instance.
                 | context_bundle: Context bundle instance.
     '''
+
     prop: Mapping[str, Any]
     splash_property: ISplashProperty
     property_validated: bool
     terminal_property: ITerminalProperties
     ext: IExtInfrastructure
     pb: IProgressBar
-    context_bundle: ContextBundle
-
-
-class SplashOptions(TypedDict):
-    '''
-        Splash options for splash bundle creation.
-
-        It defines:
-
-            :attributes:
-                | prop: Splash screen properties in dict format.
-                | context_bundle: Context bundle instance.
-    '''
-    prop: Mapping[str, Any]
     context_bundle: ContextBundle

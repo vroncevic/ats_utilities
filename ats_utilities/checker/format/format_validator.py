@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class FormatValidator with attribute(s) and method(s).
-    Creates an API for format validation of parameter-description.
+    Creates an API for validating parameters for method(s) and function(s).
 '''
 
 from __future__ import annotations
@@ -31,7 +31,7 @@ from ats_utilities.validation.check_type import istype
 from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -43,7 +43,7 @@ __status__ = r'Development'
 class FormatValidator(IFormatValidator):
     '''
         Defines class FormatValidator with attribute(s) and method(s).
-        Creates an API for format validation of parameter-description.
+        Creates an API for validating parameters for method(s) and function(s).
 
         It defines:
 

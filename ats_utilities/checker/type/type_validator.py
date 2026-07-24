@@ -32,7 +32,7 @@ from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -59,7 +59,7 @@ class TypeValidator(ITypeValidator):
                 | __str__ - Returns the type validator as string representation.
     '''
 
-    _ABSTRACT_TYPES: Final[Mapping[str, type]] = MappingProxyType({
+    _DEFAULT_TYPES: Final[Mapping[str, type]] = MappingProxyType({
         'Mapping': Mapping,
         'Sequence': Sequence,
         'Iterable': Iterable,
@@ -75,12 +75,7 @@ class TypeValidator(ITypeValidator):
             :exceptions:
                 | ATSTypeError: Abstract types must be a Mapping.
         '''
-        if abstract_types is not None:
-            ctx: str = r'type_validator::init(...)'
-            istype(abstract_types, Mapping, ctx, r'abstract types must be a Mapping[str, Any]')
-            self._abstract_types = MappingProxyType(abstract_types)
-        else:
-            self._abstract_types = self._ABSTRACT_TYPES
+        self._abstract_types = MappingProxyType(abstract_types) if abstract_types else self._DEFAULT_TYPES
 
     @override
     def is_match(self, instance: Any, expected_type_name: str) -> bool:
@@ -106,9 +101,9 @@ class TypeValidator(ITypeValidator):
         base_type_name = expected_type_name.split('[')[0]
 
         if base_type_name in self._abstract_types:
-            return isinstance(instance, self._abstract_types[base_type_name])
+            return type(instance) is self._abstract_types[base_type_name]
 
-        return any(cls.__name__ == base_type_name for cls in type(instance).mro())
+        return type(instance).__name__ == base_type_name
 
     @override
     def is_subtype(self, instance: Any, expected_type_name: str) -> bool:

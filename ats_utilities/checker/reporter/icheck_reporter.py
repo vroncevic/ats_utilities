@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class ICheckReporter with method(s).
-    Creates an interface for formating message report in context of checker.
+    Creates an interface for formating message in context of checker.
 '''
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -37,23 +37,23 @@ __status__ = r'Development'
 class ICheckReporter[T](ABC):
     '''
         Defines abstract class ICheckReporter with method(s).
-        Creates an interface for formating message report in context of checker.
+        Creates an interface for formating message in context of checker.
 
         It defines:
 
             :methods:
-                | build_message_format - Builds the final message report.
+                | build_message_format - Builds the final message.
                 | __str__ - Returns the check reporter as string representation.
     '''
 
     @abstractmethod
     def build_message_format(self, data: T) -> str:
         '''
-            Builds the final message report.
+            Builds the final message.
 
             :param data: Data to be formatted.
             :type data: T
-            :return: Formatted message report.
+            :return: Formatted message.
             :rtype: str
         '''
         pass

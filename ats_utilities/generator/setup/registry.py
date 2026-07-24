@@ -23,7 +23,7 @@ from __future__ import annotations
 
 from typing import override
 
-from ats_utilities.utils.iregistry import IRegistry
+from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.generator.setup.bundle import GeneratorBundle
 from ats_utilities.generator.setup.dependencies import GeneratorDependencies
 from ats_utilities.generator.setup.validator import GeneratorValidator
@@ -33,7 +33,7 @@ from ats_utilities.generator.template.itemplate_processor import ITemplateProces
 from ats_utilities.context.bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'

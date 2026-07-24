@@ -23,13 +23,14 @@ from __future__ import annotations
 
 from typing import override
 
-from ats_utilities.utils.iregistry import IRegistry
+from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.checker.setup.bundle import CheckerBundle
 from ats_utilities.checker.setup.dependencies import CheckerDependencies
 from ats_utilities.checker.setup.validator import CheckerValidator
+from ats_utilities.checker.setup.dep_validator import CheckerDependenciesValidator
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -59,6 +60,12 @@ class CheckerRegistry(IRegistry[CheckerBundle, CheckerDependencies | None]):
             :return: Checker bundle instance.
             :rtype: CheckerBundle
             :exceptions:
+                | ATSValueError: Dependencies must be provided.
+                | ATSTypeError: Dependencies must be a Mapping.
+                | ATSTypeError: Format validator must be an instance of IFormatValidator.
+                | ATSTypeError: Type validator must be an instance of ITypeValidator.
+                | ATSTypeError: Context provider must be an instance of IContextProvider.
+                | ATSTypeError: Check reporter must be an instance of ICheckReporter.
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Context provider must be provided.
                 | ATSValueError: Check reporter must be provided.
@@ -70,6 +77,9 @@ class CheckerRegistry(IRegistry[CheckerBundle, CheckerDependencies | None]):
                 | ATSTypeError: Format validator must be an instance of IFormatValidator.
                 | ATSTypeError: Type validator must be an instance of ITypeValidator.
         '''
+        if dependencies is not None:
+            CheckerDependenciesValidator.validate(dependencies)
+
         bundle: CheckerBundle = CheckerBundle(
             format_validator=dependencies.get('format_validator') if dependencies else None,
             type_validator=dependencies.get('type_validator') if dependencies else None,

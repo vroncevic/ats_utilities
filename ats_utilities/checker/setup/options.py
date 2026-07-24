@@ -1,0 +1,53 @@
+# -*- coding: UTF-8 -*-
+
+'''
+Module
+    options.py
+Copyright
+    Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Options for checker bundle creation.
+'''
+
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypedDict, NotRequired
+
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.4'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+class CheckerOptions(TypedDict):
+    '''
+        Options for checker bundle creation.
+
+        It defines:
+
+            :attributes:
+                | separator: Separator used to join parameter names.
+                | abstract_types: Mapping of abstract types to concrete types.
+                | stack_index_caller: Index of the caller in the call stack.
+                | messages_provider: Mapping of messages to be used during checking.
+    '''
+
+    separator: NotRequired[str]
+    abstract_types: NotRequired[Mapping[str, Any]]
+    stack_index_caller: NotRequired[int]
+    messages_provider: NotRequired[Mapping[str, str]]

@@ -33,11 +33,9 @@ from ats_utilities.context.factory import ContextFactory
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.validation.check_type import istype
-from ats_utilities.validation.check_value import not_none
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -46,7 +44,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ArgParser(ArgumentParser, IArgParser):
+class ArgParser(ArgumentParser, IArgParser[ParserData]):
     '''
         Defines class ArgParser with attribute(s) and method(s).
         Custom ArgumentParser to route errors to IReporter.

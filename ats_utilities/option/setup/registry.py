@@ -23,13 +23,13 @@ from __future__ import annotations
 
 from typing import override
 
-from ats_utilities.utils.iregistry import IRegistry
+from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.setup.dependencies import OptionDependencies
 from ats_utilities.option.setup.validator import OptionValidator
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -59,11 +59,11 @@ class OptionRegistry(IRegistry[OptionBundle, OptionDependencies]):
             :return: Option bundle instance.
             :rtype: OptionBundle
             :exceptions:
-                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Option bundle must be provided.
                 | ATSValueError: Parameters must be provided.
                 | ATSValueError: Strategy must be provided.
                 | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Bundle must be an instance of OptionBundle.
+                | ATSTypeError: Option bundle must be an instance of OptionBundle.
                 | ATSTypeError: Parameters must be a Mapping[str, str] instance.
                 | ATSTypeError: Strategy must be an IParserStrategy instance.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.

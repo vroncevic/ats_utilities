@@ -27,12 +27,12 @@ from typing import override
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
-from ats_utilities.utils.ivalidator import IValidator
+from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -60,19 +60,19 @@ class OptionValidator(IValidator[OptionBundle]):
             :param bundle: Option bundle instance to be validated.
             :type bundle: OptionBundle
             :exceptions:
-                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Option bundle must be provided.
                 | ATSValueError: Parameters must be provided.
                 | ATSValueError: Strategy must be provided.
                 | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Bundle must be an instance of OptionBundle.
+                | ATSTypeError: Option bundle must be an instance of OptionBundle.
                 | ATSTypeError: Parameters must be a Mapping[str, str] instance.
                 | ATSTypeError: Strategy must be an IParserStrategy instance.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
         ctx: str = r'option_validator::validate(...)'
 
-        not_none(bundle, ctx, r'bundle must be provided')
-        istype(bundle, OptionBundle, ctx, r'bundle must be an instance of OptionBundle')
+        not_none(bundle, ctx, r'option bundle must be provided')
+        istype(bundle, OptionBundle, ctx, r'option bundle must be an instance of OptionBundle')
 
         not_none(bundle.parameters, ctx, r'parameters must be provided')
         not_none(bundle.strategy, ctx, r'strategy must be provided')

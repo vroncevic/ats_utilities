@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ContextProvider with attribute(s) and method(s).
-    Creates an API for retrieving execution context.
+    Creates an API for getting context information for method(s) and function(s).
 '''
 
 from __future__ import annotations
@@ -32,7 +32,7 @@ from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -44,11 +44,12 @@ __status__ = r'Development'
 class ContextProvider(IContextProvider):
     '''
         Defines class ContextProvider with attribute(s) and method(s).
-        Retrieves context using the call stack.
+        Creates an API for getting context information for method(s) and function(s).
 
         It defines:
 
             :attributes:
+                | _DEFAULT_STACK_INDEX_CALLER - Default index in the call stack to identify the caller.
                 | _stack_index_caller - Index in the call stack to identify the caller.
             :methods:
                 | __init__ - Initializes context provider.
@@ -57,17 +58,18 @@ class ContextProvider(IContextProvider):
                 | __str__ - Returns the context provider as string representation.
     '''
 
-    _stack_index_caller: int
+    _DEFAULT_STACK_INDEX_CALLER: int = 2
+    _stack_index_caller: int | None
 
-    def __init__(self, stack_index_caller: int = 2) -> None:
+    def __init__(self, index_caller: int | None = None) -> None:
         '''
             Initializes context provider.
 
-            :param stack_index_caller: Index in the call stack to identify the caller (default 2).
-            :type stack_index_caller: int
+            :param index_caller: Index in the call stack to identify the caller.
+            :type index_caller: int
             :exceptions: None.
         '''
-        self._stack_index_caller = stack_index_caller
+        self._stack_index_caller = index_caller if index_caller is not None else self._DEFAULT_STACK_INDEX_CALLER
 
     @override
     def set_stack_index_caller(self, stack_index_caller: int) -> None:

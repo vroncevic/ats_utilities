@@ -25,11 +25,10 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Any
 
-from ats_utilities.option.parser.data import ParserData
 from ats_utilities.option.option_namespace import OptionNamespace, OptArgs, KnownArgs
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -38,7 +37,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IArgParser(ABC):
+class IArgParser[T](ABC):
     '''
         Defines abstract class IArgParser with method(s).
         Interface for custom argument parser.
@@ -53,13 +52,12 @@ class IArgParser(ABC):
     '''
 
     @abstractmethod
-    def __init__(self, own: ParserData | None = None) -> None:
+    def __init__(self, own: T | None = None) -> None:
         '''
             Initializes IArgParser.
 
             :param own: Data with components for argument parser | None.
-            :type own: <ParserData | None>
-            :exceptions: None.
+            :type own: T | None
         '''
         pass
 
@@ -74,7 +72,6 @@ class IArgParser(ABC):
             :type kwargs: Any
             :return: Action/argument instance.
             :rtype: Any
-            :exceptions: None.
         '''
         pass
 
@@ -93,7 +90,6 @@ class IArgParser(ABC):
             :type namespace: OptionNamespace | None
             :return: Option namespace object.
             :rtype: OptionNamespace
-            :exceptions: None.
         '''
         pass
 
@@ -111,8 +107,7 @@ class IArgParser(ABC):
             :param namespace: Option namespace object | None.
             :type namespace: OptionNamespace | None
             :return: Tuple containing option namespace and unknown arguments.
-            :rtype: <KnownArgs>
-            :exceptions: None.
+            :rtype: KnownArgs
         '''
         pass
 
@@ -125,6 +120,5 @@ class IArgParser(ABC):
             :type kwargs: Any
             :return: Action/subparser instance.
             :rtype: Any
-            :exceptions: None.
         '''
         pass

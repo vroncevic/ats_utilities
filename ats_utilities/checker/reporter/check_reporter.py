@@ -17,11 +17,13 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class CheckReporter with attribute(s) and method(s).
-    Creates an API report formatter for checker.
+    Creates an API for formating message in context of checker.
 '''
 
 from __future__ import annotations
 
+from collections.abc import Mapping
+from types import MappingProxyType
 from typing import override
 
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
@@ -30,7 +32,7 @@ from ats_utilities.checker.reporter.data_validator import CheckReporterValidator
 from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.4'
@@ -42,19 +44,38 @@ __status__ = r'Development'
 class CheckReporter(ICheckReporter[CheckReporterData]):
     '''
         Defines class CheckReporter with attribute(s) and method(s).
-        Creates an API report formatter for checker.
+        Creates an API for formating message in context of checker.
 
         It defines:
 
+            :attributes:
+                | _message_provider: Messages used to report findings.
             :methods:
-                | build_message_format - Builds the final message report.
+                | build_message_format - Builds the final message.
                 | __str__ - Returns the check reporter as string representation.
     '''
+
+    _DEFAULT_MESSAGES: Mapping[str, str] = MappingProxyType({
+        'param_entry': '\n    expected {pname} <{ptype}> object at {inst}',
+        'wrong_type': ' wrong type',
+        'format_wrong_during_checking_parameters_meta': ' format wrong during checking parameters_meta'
+    })
+    _message_provider: Mapping[str, str]
+
+    def __init__(self, message_provider: Mapping[str, str] | None = None) -> None:
+        '''
+            Initializes the CheckReporter.
+
+            :param message_provider: Messages used to report findings | None (default).
+            :type message_provider: Mapping[str, str] | None
+            :exceptions: None.
+        '''
+        self._message_provider = MappingProxyType(message_provider) if message_provider else self._DEFAULT_MESSAGES
 
     @override
     def build_message_format(self, data: CheckReporterData) -> str:
         '''
-            Builds the final message report.
+            Builds the final message.
 
             :param data: Data to be formatted.
             :type data: CheckReporterData
@@ -76,14 +97,27 @@ class CheckReporter(ICheckReporter[CheckReporterData]):
         message: str = data.context
         err_set: set[int] = set(data.err_indices)
 
+        param_fmt: str = self._message_provider.get(
+            'param_entry',
+            self._DEFAULT_MESSAGES['param_entry']
+        )
+        wrong_type_msg: str = self._message_provider.get(
+            'wrong_type',
+            self._DEFAULT_MESSAGES['wrong_type']
+        )
+        fmt_err_msg: str = self._message_provider.get(
+            'format_wrong_during_checking_parameters_meta',
+            self._DEFAULT_MESSAGES['format_wrong_during_checking_parameters_meta']
+        )
+
         for i, (pname, ptype, inst) in enumerate(data.parameters_meta):
-            message += f'\n    expected {pname} <{ptype}> object at {hex(id(inst))}'
+            message += param_fmt.format(pname=pname, ptype=ptype, inst=hex(id(inst)))
 
             if i in err_set:
-                message += ' wrong type'
+                message += wrong_type_msg
 
         if data.is_fmt_err:
-            message += ' format wrong during checking parameters_meta'
+            message += fmt_err_msg
 
         return message
 
