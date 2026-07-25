@@ -31,6 +31,9 @@ from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.reporter.setup.validator import ReporterValidator
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
+from ats_utilities.reporter.theme.engine import (
+    VERBOSE_KEY, SUCCESS_KEY, WARNING_KEY, ERROR_KEY, RESET_KEY
+)
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.utils.reflection import to_str
@@ -45,7 +48,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Reporter(IReporter):
+class Reporter(IReporter[Sequence[Any]]):
     '''
         Defines class Reporter with attribute(s) and method(s).
         Implements an API for reporting messages to the console.
@@ -81,14 +84,10 @@ class Reporter(IReporter):
             :param own: Reporter bundle.
             :type own: ReporterBundle 
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Checker must be provided.
-                | ATSValueError: Theme must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSTypeError: Bundle must be an instance of ReporterBundle.
-                | ATSTypeError: Checker must be an instance of IChecker interface.
-                | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
-                | ATSTypeError: Logger must be an instance of ILogger interface.
+                | ATSValueError: Reporter bundle must be provided and have proper values.
+                | ATSTypeError:  Reporter bundle must be an instance of ReporterBundle
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         ReporterValidator.validate(own)
         self._checker = own.checker
@@ -101,17 +100,14 @@ class Reporter(IReporter):
             Utility method for reporting message to log/console.
 
             :param message: Sequence with message components.
-            :type message: Sequence[Any]
             :param color: Theme color for the message.
-            :type color: str
             :param ctrl: Log control flag.
-            :type ctrl: int
             :exceptions: None.
         '''
         message_out: str = ' '.join([str(item) for item in message])
 
         if message_out:
-            reset: str = self._theme.get_color('reset')
+            reset: str = self._theme.get_color(RESET_KEY)
             self._logger.write_log(f'{color}{message_out}{reset}', ctrl)
 
     @mcheck([('bool:is_verbose', None), ('Sequence:message', None)])
@@ -121,9 +117,7 @@ class Reporter(IReporter):
             Reports verbose message to console.
 
             :param is_verbose: Enable/Disable verbose option.
-            :type is_verbose: bool
             :param message: Sequence with message components.
-            :type message: Sequence[Any]
             :exceptions:
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
@@ -131,7 +125,7 @@ class Reporter(IReporter):
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         if is_verbose:
-            self._report(message, self._theme.get_color('verbose'), DEBUG)
+            self._report(message, self._theme.get_color(VERBOSE_KEY), DEBUG)
 
     @mcheck([('Sequence:message', None)])
     @override
@@ -140,14 +134,13 @@ class Reporter(IReporter):
             Reports success message to console.
 
             :param message: Sequence with message components.
-            :type message: Sequence[Any]
             :exceptions:
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._report(message, self._theme.get_color('success'), INFO)
+        self._report(message, self._theme.get_color(SUCCESS_KEY), INFO)
 
     @mcheck([('Sequence:message', None)])
     @override
@@ -156,14 +149,13 @@ class Reporter(IReporter):
             Reports warning message to console.
 
             :param message: Sequence with message components.
-            :type message: Sequence[Any]
             :exceptions:
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._report(message, self._theme.get_color('warning'), WARNING)
+        self._report(message, self._theme.get_color(WARNING_KEY), WARNING)
 
     @mcheck([('Sequence:message', None)])
     @override
@@ -172,14 +164,13 @@ class Reporter(IReporter):
             Reports error message to console.
 
             :param message: Sequence with message components.
-            :type message: Sequence[Any]
             :exceptions:
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._report(message, self._theme.get_color('error'), ERROR)
+        self._report(message, self._theme.get_color(ERROR_KEY), ERROR)
 
     @mcheck([('int:level', None)])
     @override
@@ -188,7 +179,6 @@ class Reporter(IReporter):
             Sets log level.
 
             :param level: Log level.
-            :type level: int
             :exceptions:
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
@@ -206,7 +196,6 @@ class Reporter(IReporter):
             Checks if reporter is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         return self._is_initialized
@@ -217,7 +206,6 @@ class Reporter(IReporter):
             Returns the reporter as string representation.
 
             :return: The reporter as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

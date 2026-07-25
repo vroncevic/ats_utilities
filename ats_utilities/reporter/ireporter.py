@@ -22,9 +22,7 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Sequence
 from abc import ABC, abstractmethod
-from typing import Any
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,7 +34,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IReporter(ABC):
+class IReporter[MessageType](ABC):
     '''
         Defines abstract class IReporter with method(s).
         Provides an interface for reporting messages.
@@ -49,49 +47,44 @@ class IReporter(ABC):
                 | warning - Reports warning message.
                 | error - Reports error message.
                 | set_level - Sets message reporting level.
-                | is_initialized - Checks if the reporter component is initialized.
-                | __str__ - Returns the reporter as string representation.
+                | is_initialized - Checks if reporter is initialized.
+                | __str__ - Returns reporter as string representation.
     '''
 
     @abstractmethod
-    def verbose(self, is_verbose: bool, message: Sequence[Any]) -> None:
+    def verbose(self, is_verbose: bool, message: MessageType) -> None:
         '''
             Reports verbose message.
 
             :param is_verbose: Enable/Disable verbose option.
-            :type is_verbose: bool
-            :param message: Sequence with message.
-            :type message: Sequence[Any]
+            :param message: Message content.
         '''
         pass
 
     @abstractmethod
-    def success(self, message: Sequence[Any]) -> None:
+    def success(self, message: MessageType) -> None:
         '''
             Reports success message.
 
-            :param message: Sequence with message.
-            :type message: Sequence[Any]
+            :param message: Message content.
         '''
         pass
 
     @abstractmethod
-    def warning(self, message: Sequence[Any]) -> None:
+    def warning(self, message: MessageType) -> None:
         '''
             Reports warning message.
 
-            :param message: Sequence with message.
-            :type message: Sequence[Any]
+            :param message: Message content.
         '''
         pass
 
     @abstractmethod
-    def error(self, message: Sequence[Any]) -> None:
+    def error(self, message: MessageType) -> None:
         '''
             Reports error message.
 
-            :param message: Sequence with message.
-            :type message: Sequence[Any]
+            :param message: Message content.
         '''
         pass
 
@@ -101,26 +94,23 @@ class IReporter(ABC):
             Sets message reporting level.
 
             :param level: Message reporting level.
-            :type level: int
         '''
         pass
 
     @abstractmethod
     def is_initialized(self) -> bool:
         '''
-            Returns whether the reporter is initialized.
+            Checks if reporter is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the reporter as string representation.
+            Returns reporter as string representation.
 
-            :return: The reporter as string representation.
-            :rtype: str
+            :return: Reporter as string representation.
         '''
         pass

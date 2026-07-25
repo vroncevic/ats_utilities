@@ -43,7 +43,7 @@ class IConsoleTheme(ABC):
 
             :methods:
                 | get_color - Returns color code based on type.
-                | __str__ - Returns the console theme as string representation.
+                | __str__ - Returns console theme as string representation.
     '''
 
     @abstractmethod
@@ -52,18 +52,15 @@ class IConsoleTheme(ABC):
             Returns color code based on type.
 
             :param color_type: Type of the message (error, success, etc.).
-            :type color_type: str
             :return: Color code.
-            :rtype: str
         '''
         pass
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the console theme as string representation.
+            Returns console theme as string representation.
 
-            :return: The console theme as string representation.
-            :rtype: str
+            :return: Console theme as string representation.
         '''
         pass

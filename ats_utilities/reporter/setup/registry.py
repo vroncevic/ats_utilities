@@ -26,6 +26,7 @@ from typing import override
 from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.reporter.setup.dependencies import ReporterDependencies
+from ats_utilities.reporter.setup.keys import ReporterKeys
 from ats_utilities.reporter.setup.validator import ReporterValidator
 from ats_utilities.reporter.setup.dep_validator import ReporterDependenciesValidator
 
@@ -56,30 +57,19 @@ class ReporterRegistry(IRegistry[ReporterBundle, ReporterDependencies]):
             Orchestrates dependency injection and creates a reporter bundle instance.
 
             :param dependencies: Registry-specific orchestration dependencies.
-            :type dependencies: ReporterDependencies
             :return: Reporter bundle instance.
-            :rtype: ReporterBundle
             :exceptions:
-                | ATSValueError: Dependencies must be provided.
-                | ATSTypeError: Dependencies must be a Mapping.
-                | ATSTypeError: Checker must be an instance of IChecker interface.
-                | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
-                | ATSTypeError: Logger must be an instance of ILogger interface.
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Checker must be provided.
-                | ATSValueError: Theme must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSTypeError: Bundle must be an instance of ReporterBundle.
-                | ATSTypeError: Checker must be an instance of IChecker interface.
-                | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
-                | ATSTypeError: Logger must be an instance of ILogger interface.
+                | ATSValueError: Dependencies must be provided and have proper values.
+                | ATSTypeError:  Dependencies must be an instance of ReporterDependencies
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         ReporterDependenciesValidator.validate(dependencies)
 
         bundle: ReporterBundle = ReporterBundle(
-            checker=dependencies.get('checker'),
-            theme=dependencies.get('theme'),
-            logger=dependencies.get('logger'),
+            checker=dependencies.get(ReporterKeys.DEPENDENCY_CHECKER),
+            theme=dependencies.get(ReporterKeys.DEPENDENCY_THEME),
+            logger=dependencies.get(ReporterKeys.DEPENDENCY_LOGGER),
         )
 
         ReporterValidator.validate(bundle)

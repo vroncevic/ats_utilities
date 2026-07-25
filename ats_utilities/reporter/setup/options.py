@@ -21,6 +21,7 @@ Info
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from typing import TypedDict, NotRequired
 
 from ats_utilities.checker.setup.options import CheckerOptions
@@ -44,10 +45,10 @@ class ReporterOptions(TypedDict):
 
             :attributes:
                 | checker: Pre-configured checker options.
-                | logger: Pre-configured logger options.
                 | theme: Pre-configured console theme color codes.
+                | logger: Pre-configured logger options.
     '''
 
     checker: NotRequired[CheckerOptions]
+    theme: NotRequired[Mapping[str, str]]
     logger: NotRequired[LoggerOptions]
-    theme: NotRequired[dict[str, str]]

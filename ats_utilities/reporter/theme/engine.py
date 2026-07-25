@@ -49,35 +49,46 @@ class ConsoleTheme(IConsoleTheme):
         It defines:
 
             :attributes:
+                | VERBOSE_KEY - Final key for verbose color code.
+                | SUCCESS_KEY - Final key for success color code.
+                | WARNING_KEY - Final key for warning color code.
+                | ERROR_KEY - Final key for error color code.
+                | RESET_KEY - Final key for reset color code.
                 | _DEFAULT_PALETTE_COLORS - Final default palette colors for different message types.
                 | _palette - Final mapping with color codes for different message types.
             :methods:
                 | __init__ - Initializes ConsoleTheme constructor.
                 | get_color - Returns color code from palette.
-                | __str__ - Returns the console theme as string representation.
+                | __str__ - Returns console theme as string representation.
     '''
 
+    VERBOSE_KEY: Final[str] = r'verbose'
+    SUCCESS_KEY: Final[str] = r'success'
+    WARNING_KEY: Final[str] = r'warning'
+    ERROR_KEY:   Final[str] = r'error'
+    RESET_KEY:   Final[str] = r'reset'
+
     _DEFAULT_PALETTE_COLORS: Final[Mapping[str, str]] = MappingProxyType({
-        'verbose': '\x1b[34m', # ANSI blue
-        'success': '\x1b[32m', # ANSI green
-        'warning': '\x1b[33m', # ANSI yellow
-        'error':   '\x1b[31m', # ANSI red
-        'reset':   '\x1b[0m'   # ANSI reset
+        VERBOSE_KEY: '\x1b[34m', # ANSI blue
+        SUCCESS_KEY: '\x1b[32m', # ANSI green
+        WARNING_KEY: '\x1b[33m', # ANSI yellow
+        ERROR_KEY:   '\x1b[31m', # ANSI red
+        RESET_KEY:   '\x1b[0m'   # ANSI reset
     })
+
     _palette: Final[Mapping[str, str]]
 
-    def __init__(self, palette: dict[str, str] | None = None) -> None:
+    def __init__(self, palette: Mapping[str, str] | None = None) -> None:
         '''
             Initializes ConsoleTheme constructor.
 
-            :param palette: Dictionary with color codes | None.
-            :type palette: dict[str, str] | None
+            :param palette: Mapping with color codes | None.
             :exceptions:
-                | ATSTypeError: Palette must be a dictionary.
+                | ATSTypeError: Palette must be a mapping.
         '''
         if palette is not None:
             ctx: str = r'console_theme::init(...)',
-            istype(palette, dict, ctx, r'palette must be a dictionary')
+            istype(palette, Mapping, ctx, r'palette must be a mapping')
 
         # No dependency injection then use default ones.
         self._palette = MappingProxyType(palette) if palette is not None else self._DEFAULT_PALETTE_COLORS
@@ -89,9 +100,7 @@ class ConsoleTheme(IConsoleTheme):
             Returns color code from palette.
 
             :param color_type: Type of the message (key in palette).
-            :type color_type: str
             :return: Color code in string format.
-            :rtype: str
             :exceptions:
                 | ATSValueError: Color type must be provided.
                 | ATSTypeError: Color type must be a string.
@@ -110,10 +119,9 @@ class ConsoleTheme(IConsoleTheme):
     @override
     def __str__(self) -> str:
         '''
-            Returns the console theme as string representation.
+            Returns console theme as string representation.
 
-            :return: The console theme as string representation.
-            :rtype: str
+            :return: Console theme as string representation.
             :exceptions: None.
         '''
         return to_str(self)

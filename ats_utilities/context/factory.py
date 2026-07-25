@@ -37,6 +37,7 @@ from ats_utilities.context.registry import ContextRegistry
 from ats_utilities.context.dependencies import ContextDependencies
 from ats_utilities.context.options import ContextOptions
 from ats_utilities.context.opt_validator import ContextOptionsValidator
+from ats_utilities.context.keys import ContextKeys
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -65,33 +66,19 @@ class ContextFactory(IFactory[ContextBundle, ContextOptions]):
             Creates a context bundle with optional pre-configured options.
 
             :param options: Pre-configured options for the bundle (default None).
-            :type options: ContextOptions | None
             :return: Context bundle instance.
-            :rtype: ContextBundle
             :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a Mapping.
-                | ATSTypeError: Checker options must be a Mapping.
-                | ATSTypeError: Logger options must be a Mapping.
-                | ATSTypeError: Reporter options must be a Mapping.
-                | ATSTypeError: Verbose option must be a boolean.
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Checker must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSValueError: Reporter must be provided.
-                | ATSValueError: Verbose must be provided.
-                | ATSTypeError: Bundle must be an instance of ContextBundle.
-                | ATSTypeError: Checker must be an instance of IChecker.
-                | ATSTypeError: Logger must be an instance of ILogger.
-                | ATSTypeError: Reporter must be an instance of IReporter.
-                | ATSTypeError: Verbose must be a boolean.
+                | ATSValueError: Options must be provided and have proper values.
+                | ATSTypeError:  Options must be an instance of ContextOptions
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         if options is not None:
             ContextOptionsValidator.validate(options)
 
-        checker_opts = options.get('checker') if options else None
-        logger_opts = options.get('logger') if options else None
-        verbose = options.get('verbose', False) if options else False
+        checker_opts = options.get(ContextKeys.OPTION_CHECKER) if options else None
+        logger_opts = options.get(ContextKeys.OPTION_LOGGER) if options else None
+        verbose = options.get(ContextKeys.OPTION_VERBOSE, False) if options else False
 
         checker: Checker = Checker(own=CheckerFactory.create_bundle(checker_opts))
         logger: Logger = Logger(own=LoggerFactory.create_bundle(logger_opts))

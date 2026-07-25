@@ -34,6 +34,7 @@ from ats_utilities.reporter.setup.registry import ReporterRegistry
 from ats_utilities.reporter.setup.dependencies import ReporterDependencies
 from ats_utilities.reporter.setup.options import ReporterOptions
 from ats_utilities.reporter.setup.opt_validator import ReporterOptionsValidator
+from ats_utilities.reporter.setup.keys import ReporterKeys
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -62,30 +63,19 @@ class ReporterFactory(IFactory[ReporterBundle, ReporterOptions]):
             Creates a reporter bundle with optional pre-configured options.
 
             :param options: Pre-configured options for the bundle (default None).
-            :type options: ReporterOptions | None
             :return: Reporter bundle instance.
-            :rtype: ReporterBundle
             :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a Mapping.
-                | ATSTypeError: Checker options must be a Mapping.
-                | ATSTypeError: Theme options must be a Mapping.
-                | ATSTypeError: Logger options must be a Mapping.
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Checker must be provided.
-                | ATSValueError: Theme must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSTypeError: Bundle must be an instance of ReporterBundle.
-                | ATSTypeError: Checker must be an instance of IChecker interface.
-                | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
-                | ATSTypeError: Logger must be an instance of ILogger interface.
+                | ATSValueError: Options must be provided and have proper values.
+                | ATSTypeError:  Options must be an instance of ReporterOptions
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         if options is not None:
             ReporterOptionsValidator.validate(options)
 
-        checker_opts = options.get('checker') if options else None
-        logger_opts = options.get('logger') if options else None
-        theme_opts = options.get('theme') if options else None
+        checker_opts = options.get(ReporterKeys.OPTION_CHECKER) if options else None
+        logger_opts = options.get(ReporterKeys.OPTION_LOGGER) if options else None
+        theme_opts = options.get(ReporterKeys.OPTION_THEME) if options else None
 
         checker = Checker(own=CheckerFactory.create_bundle(checker_opts))
         theme = ConsoleTheme(palette=theme_opts)

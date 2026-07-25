@@ -25,6 +25,7 @@ from collections.abc import Mapping
 from typing import override
 
 from ats_utilities.context.options import ContextOptions
+from ats_utilities.context.keys import ContextKeys
 from ats_utilities.utils.setup.iopt_validator import IOptionsValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
@@ -56,36 +57,20 @@ class ContextOptionsValidator(IOptionsValidator[ContextOptions]):
             Validates context options instance.
 
             :param options: Context options instance to be validated.
-            :type options: ContextOptions
             :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a Mapping.
-                | ATSTypeError: Checker options must be a Mapping.
-                | ATSTypeError: Logger options must be a Mapping.
-                | ATSTypeError: Reporter options must be a Mapping.
-                | ATSTypeError: Verbose option must be a boolean.
+                | ATSValueError: Context options must be provided and have proper values.
+                | ATSTypeError:  Context options must be an instance of ContextOptions
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         ctx: str = r'context_options_validator::validate(...)'
 
         not_none(options, ctx, r'options must be provided')
         istype(options, Mapping, ctx, r'options must be a Mapping')
 
-        checker = options.get('checker')
+        for opt_name, expected_type in ContextKeys.get_option_to_type().items():
+            value = options.get(opt_name)
 
-        if checker is not None:
-            istype(checker, Mapping, ctx, r'checker options must be a Mapping')
-
-        logger = options.get('logger')
-
-        if logger is not None:
-            istype(logger, Mapping, ctx, r'logger options must be a Mapping')
-
-        reporter = options.get('reporter')
-
-        if reporter is not None:
-            istype(reporter, Mapping, ctx, r'reporter options must be a Mapping')
-
-        verbose = options.get('verbose')
-
-        if verbose is not None:
-            istype(verbose, bool, ctx, r'verbose option must be a boolean')
+            if value is not None:
+                err_msg = f'{opt_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+                istype(value, expected_type, ctx, err_msg)

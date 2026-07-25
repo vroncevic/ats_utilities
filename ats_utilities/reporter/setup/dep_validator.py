@@ -25,9 +25,7 @@ from collections.abc import Mapping
 from typing import override
 
 from ats_utilities.reporter.setup.dependencies import ReporterDependencies
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
-from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.setup.keys import ReporterKeys
 from ats_utilities.utils.setup.idep_validator import IDependenciesValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
@@ -61,28 +59,19 @@ class ReporterDependenciesValidator(IDependenciesValidator[ReporterDependencies]
             :param dependencies: Reporter dependencies instance to be validated.
             :type dependencies: ReporterDependencies
             :exceptions:
-                | ATSValueError: Dependencies must be provided.
-                | ATSTypeError: Dependencies must be a Mapping.
-                | ATSTypeError: Checker must be an instance of IChecker interface.
-                | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
-                | ATSTypeError: Logger must be an instance of ILogger interface.
+                | ATSValueError: Dependencies must be provided and have proper values.
+                | ATSTypeError:  Dependencies must be an instance of ReporterDependencies
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         ctx: str = r'reporter_dependencies_validator::validate(...)'
 
         not_none(dependencies, ctx, r'dependencies must be provided')
         istype(dependencies, Mapping, ctx, r'dependencies must be a Mapping')
 
-        checker = dependencies.get('checker')
+        for attr_name, expected_type in ReporterKeys.get_dependency_to_type().items():
+            value = dependencies.get(attr_name)
 
-        if checker is not None:
-            istype(checker, IChecker, ctx, r'checker must be an IChecker instance')
-
-        theme = dependencies.get('theme')
-
-        if theme is not None:
-            istype(theme, IConsoleTheme, ctx, r'theme must be an IConsoleTheme instance')
-
-        logger = dependencies.get('logger')
-
-        if logger is not None:
-            istype(logger, ILogger, ctx, r'logger must be an ILogger instance')
+            if value is not None:
+                err_msg = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+                istype(value, expected_type, ctx, err_msg)

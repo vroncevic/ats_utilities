@@ -26,6 +26,7 @@ from typing import override
 
 from ats_utilities.reporter.setup.options import ReporterOptions
 from ats_utilities.utils.setup.iopt_validator import IOptionsValidator
+from ats_utilities.reporter.setup.keys import ReporterKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -58,28 +59,19 @@ class ReporterOptionsValidator(IOptionsValidator[ReporterOptions]):
             :param options: Reporter options instance to be validated.
             :type options: ReporterOptions
             :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a Mapping.
-                | ATSTypeError: Checker options must be a Mapping.
-                | ATSTypeError: Theme options must be a Mapping.
-                | ATSTypeError: Logger options must be a Mapping.
+                | ATSValueError: Options must be provided and have proper values.
+                | ATSTypeError:  Options must be an instance of ReporterOptions
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         ctx: str = r'reporter_options_validator::validate(...)'
 
         not_none(options, ctx, r'options must be provided')
         istype(options, Mapping, ctx, r'options must be a Mapping')
 
-        checker = options.get('checker')
+        for opt_name, expected_type in ReporterKeys.get_option_to_type().items():
+            value = options.get(opt_name)
 
-        if checker is not None:
-            istype(checker, Mapping, ctx, r'checker options must be a Mapping')
-
-        theme = options.get('theme')
-
-        if theme is not None:
-            istype(theme, Mapping, ctx, r'theme options must be a Mapping')
-
-        logger = options.get('logger')
-
-        if logger is not None:
-            istype(logger, Mapping, ctx, r'logger options must be a Mapping')
+            if value is not None:
+                err_msg = f'{opt_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+                istype(value, expected_type, ctx, err_msg)

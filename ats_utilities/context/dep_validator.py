@@ -25,9 +25,7 @@ from collections.abc import Mapping
 from typing import override
 
 from ats_utilities.context.dependencies import ContextDependencies
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.context.keys import ContextKeys
 from ats_utilities.utils.setup.idep_validator import IDependenciesValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
@@ -59,36 +57,20 @@ class ContextDependenciesValidator(IDependenciesValidator[ContextDependencies]):
             Validates context dependencies instance.
 
             :param dependencies: Context dependencies instance to be validated.
-            :type dependencies: ContextDependencies
             :exceptions:
-                | ATSValueError: Dependencies must be provided.
-                | ATSTypeError: Dependencies must be a Mapping.
-                | ATSTypeError: Checker must be an instance of IChecker interface.
-                | ATSTypeError: Logger must be an instance of ILogger interface.
-                | ATSTypeError: Reporter must be an instance of IReporter interface.
-                | ATSTypeError: Verbose option must be a boolean.
+                | ATSValueError: Context dependencies must be provided and have proper values.
+                | ATSTypeError:  Context dependencies must be an instance of ContextDependencies
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         ctx: str = r'context_dependencies_validator::validate(...)'
 
         not_none(dependencies, ctx, r'dependencies must be provided')
         istype(dependencies, Mapping, ctx, r'dependencies must be a Mapping')
 
-        checker = dependencies.get('checker')
+        for attr_name, expected_type in ContextKeys.get_dependency_to_type().items():
+            value = dependencies.get(attr_name)
 
-        if checker is not None:
-            istype(checker, IChecker, ctx, r'checker must be an IChecker instance')
-
-        logger = dependencies.get('logger')
-
-        if logger is not None:
-            istype(logger, ILogger, ctx, r'logger must be an ILogger instance')
-
-        reporter = dependencies.get('reporter')
-
-        if reporter is not None:
-            istype(reporter, IReporter, ctx, r'reporter must be an IReporter instance')
-
-        verbose = dependencies.get('verbose')
-
-        if verbose is not None:
-            istype(verbose, bool, ctx, r'verbose option must be a boolean')
+            if value is not None:
+                err_msg = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+                istype(value, expected_type, ctx, err_msg)
