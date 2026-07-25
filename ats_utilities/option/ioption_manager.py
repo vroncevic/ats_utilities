@@ -75,9 +75,7 @@ class IOptionManager[ContextEnvironment](ABC):
             Adds an option to the parser.
 
             :param args: Arguments in string form
-            :type args: str
             :param kwargs: Arguments in Any form
-            :type kwargs: Any
         '''
         pass
 
@@ -97,7 +95,6 @@ class IOptionManager[ContextEnvironment](ABC):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
-            :type arguments: OptArgs
             :return: Option namespace object
             :rtype: OptionNamespace
         '''
@@ -109,7 +106,6 @@ class IOptionManager[ContextEnvironment](ABC):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
-            :type arguments: OptArgs
             :return: Option namespace object
             :rtype: OptionNamespace
         '''
@@ -121,7 +117,6 @@ class IOptionManager[ContextEnvironment](ABC):
             Register a sequence of commands with the parser.
 
             :param commands: Sequence of commands to register.
-            :type commands: Sequence[IOptionCommand]
         '''
         pass
 
@@ -131,7 +126,6 @@ class IOptionManager[ContextEnvironment](ABC):
             Parses CLI arguments for subcommands and returns command name and parameters.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: OptArgs
             :return: Tuple containing command name and parsed parameters (read only data).
             :rtype: tuple[str, Mapping[str, Any]]
         '''

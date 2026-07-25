@@ -76,7 +76,6 @@ class Storer(IStorer[ContextBundle]):
             Constructor.
 
             :param own: ConfigIOBundle instance.
-            :type own: ConfigIOBundle
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSTypeError: Component bundle must be ConfigIOBundle instance.
@@ -120,7 +119,6 @@ class Storer(IStorer[ContextBundle]):
             Writes configuration to a file.
 
             :param config: Configuration object.
-            :type config: Mapping[str, str]
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''

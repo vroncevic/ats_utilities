@@ -67,7 +67,6 @@ class IInfoOk(ABC):
             Note: Info status is only prepared when it is set by user (not None).
 
             :param info_ok: The information status in bool format
-            :type info_ok: bool
         '''
         pass
 

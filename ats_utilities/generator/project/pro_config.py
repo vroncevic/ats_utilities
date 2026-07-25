@@ -72,7 +72,6 @@ class ProConfig(IProConfig):
             Initializes ProConfig constructor.
 
             :param context_bundle: Context bundle for project configuration.
-            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
@@ -105,7 +104,6 @@ class ProConfig(IProConfig):
             Property method for setting project configuration.
 
             :param pro_config: Project configuration in Mapping format.
-            :type pro_config: Mapping[str, Any] 
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

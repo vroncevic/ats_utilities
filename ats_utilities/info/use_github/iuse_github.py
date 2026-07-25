@@ -67,7 +67,6 @@ class IUseGitHub(ABC):
             Note: Use GitHub is only prepared when it is set by user (not None).
 
             :param use_github: The use GitHub infrastructure status.
-            :type use_github: bool
         '''
         pass
 

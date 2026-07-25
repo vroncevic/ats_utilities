@@ -85,7 +85,6 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
             Initializes Checker constructor.
 
             :param own: Checker bundle with components.
-            :type own: CheckerBundle
             :exceptions:
                 | ATSValueError: Checker bundle must be provided and have proper values.
                 | ATSTypeError:  Checker bundle must be an instance of CheckerBundle

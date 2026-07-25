@@ -120,7 +120,6 @@ class SplashKeys:
             Factory method to safely parse a dictionary into a SplashKeys instance.
 
             :param config: Configuration mapping.
-            :type config: Mapping[str, Any] 
             :return: Fully initialized SplashKeys instance.
             :rtype: <Self>
             :exceptions: None.

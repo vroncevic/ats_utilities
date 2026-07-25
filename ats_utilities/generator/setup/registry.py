@@ -60,7 +60,6 @@ class GeneratorRegistry(IRegistry[GeneratorBundle, GeneratorDependencies]):
             Orchestrates dependency injection and creates a generator bundle instance.
 
             :param dependencies: Registry-specific orchestration dependencies.
-            :type dependencies: GeneratorDependencies
             :return: Generator bundle instance.
             :rtype: GeneratorBundle
             :exceptions:
@@ -99,13 +98,9 @@ class GeneratorRegistry(IRegistry[GeneratorBundle, GeneratorDependencies]):
             Kept for backward compatibility.
 
             :param scheme_loader: Loader/resolver for scheme configuration.
-            :type scheme_loader: ISchemeLoader
             :param tar_processor: Processor for archive extraction and template rendering.
-            :type tar_processor: ITarProcessor
             :param template_processor: Processor for template rendering.
-            :type template_processor: ITemplateProcessor
             :param context_bundle: Context bundle for generator.
-            :type context_bundle: ContextBundle
             :return: Generator bundle instance.
             :rtype: GeneratorBundle
             :exceptions:

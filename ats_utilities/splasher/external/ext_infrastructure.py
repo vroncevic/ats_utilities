@@ -76,7 +76,6 @@ class ExtInfrastructure(IExtInfrastructure):
             Initials ExtInfrastructure constructor.
 
             :param context_bundle: Context bundle for external infrastructure.
-            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Checker must be provided.
@@ -120,7 +119,6 @@ class ExtInfrastructure(IExtInfrastructure):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :param setup: Project infrastructure property in Mapping format (read only data).
-            :type setup: Mapping[str, Any] 
             :exceptions:
                 | ATSTypeError: infrastructure property setup is not a Mapping.
                 | ATSValueError: infrastructure property setup is missing required keys.

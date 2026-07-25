@@ -55,7 +55,6 @@ class InfoRegistry(IRegistry[InfoBundle, InfoDependencies]):
             Orchestrates dependency injection and creates an info bundle instance.
 
             :param dependencies: Registry-specific orchestration dependencies.
-            :type dependencies: InfoDependencies
             :return: Info bundle instance.
             :rtype: InfoBundle
             :exceptions:

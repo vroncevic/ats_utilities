@@ -56,7 +56,6 @@ class OptionDataValidator(IDataValidator[OptionData]):
             Validates an option data instance.
 
             :param data: option data instance to be validated.
-            :type data: OptionData
             :exceptions:
                 | ATSValueError: Data must be provided.
                 | ATSTypeError: Data must be an instance of OptionData.

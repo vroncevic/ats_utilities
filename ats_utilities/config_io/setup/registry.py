@@ -61,7 +61,6 @@ class ConfigIORegistry(IRegistry[ConfigIOBundle, ConfigIODependencies]):
             Orchestrates dependency injection and creates a ConfigIOBundle instance.
 
             :param dependencies: Registry-specific orchestration dependencies.
-            :type dependencies: ConfigIODependencies
             :return: ConfigIOBundle instance.
             :rtype: ConfigIOBundle
             :exceptions:
@@ -99,11 +98,8 @@ class ConfigIORegistry(IRegistry[ConfigIOBundle, ConfigIODependencies]):
             Kept for backward compatibility.
 
             :param file_path: Config file path.
-            :type file_path: str
             :param scheme: Config scheme.
-            :type scheme: Mapping[str, str]
             :param context_bundle: Context bundle for dependency injection.
-            :type context_bundle: ContextBundle
             :return: ConfigIOBundle instance.
             :rtype: ConfigIOBundle
             :exceptions:
@@ -139,9 +135,7 @@ class ConfigIORegistry(IRegistry[ConfigIOBundle, ConfigIODependencies]):
             Kept for backward compatibility.
 
             :param processor: Config processor.
-            :type processor: IConfigProcessor
             :param context_bundle: Context bundle for dependency injection.
-            :type context_bundle: ContextBundle
             :return: ConfigIOBundle instance.
             :rtype: ConfigIOBundle
             :exceptions:

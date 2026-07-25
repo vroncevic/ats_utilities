@@ -70,7 +70,6 @@ class ISplashProperty(ABC):
             Note: Splash screen property comes from info configuration file as read only data.
 
             :param setup: Project splash keys in Mapping format (read only data).
-            :type setup: Mapping[str, Any] 
         '''
         pass
 

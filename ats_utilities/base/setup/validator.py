@@ -61,7 +61,6 @@ class BaseValidator(IValidator[BaseBundle]):
             Validates base bundle instance.
 
             :param bundle: Base bundle instance to be validated.
-            :type bundle: BaseBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Information file must be provided.

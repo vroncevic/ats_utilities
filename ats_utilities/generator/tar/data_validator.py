@@ -60,7 +60,6 @@ class TarDataValidator(IDataValidator[TarData]):
             Validates tar data.
 
             :param data: Tar data to be validated.
-            :type data: TarData
             :exceptions:
                 | ATSValueError: Tar data must be provided.
                 | ATSTypeError: Tar data must be an instance of TarData.
@@ -117,7 +116,6 @@ class TarMemberDataValidator(IDataValidator[TarMemberData]):
             Validates tar member data.
 
             :param data: Tar member data to be validated.
-            :type data: TarMemberData
             :exceptions:
                 | ATSValueError: data must be provided.
                 | ATSTypeError: data must be an instance of TarMemberData.

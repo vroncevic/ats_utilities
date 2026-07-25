@@ -67,7 +67,6 @@ class IRepository(ABC):
             Note: Repository is only prepared when it is set by user (not None).
 
             :param repository: The repository in string format.
-            :type repository: str
         '''
         pass
 

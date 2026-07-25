@@ -58,7 +58,6 @@ class ContextValidator(IValidator[ContextBundle]):
             Validates context bundle instance.
 
             :param bundle: Context bundle instance to be validated.
-            :type bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Checker must be provided.

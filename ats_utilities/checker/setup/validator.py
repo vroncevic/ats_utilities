@@ -59,7 +59,6 @@ class CheckerValidator(IValidator[CheckerBundle]):
             Validates checker bundle instance.
 
             :param bundle: Checker bundle instance to be validated.
-            :type bundle: CheckerBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Context provider must be provided.

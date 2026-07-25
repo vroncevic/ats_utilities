@@ -52,6 +52,5 @@ class IOptionsValidator[OptionsType](ABC):
             Validates a options instance.
 
             :param options: Options instance to be validated.
-            :type options: OptionsType
         '''
         pass

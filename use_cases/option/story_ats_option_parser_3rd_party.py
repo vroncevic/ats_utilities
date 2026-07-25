@@ -69,7 +69,6 @@ class MyAppFireStrategy(IParserStrategy):
             Initializes MyAppFireStrategy.
 
             :param own: Bundle with components for strategy.
-            :type own: <ParserStrategyBundle>
             :exceptions: None.
         '''
         self._target = types.SimpleNamespace()

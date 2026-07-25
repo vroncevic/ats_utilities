@@ -56,7 +56,6 @@ class ISchemeLoader(ABC):
             Loads and resolves the scheme.
 
             :param scheme: Generation scheme file path or preloaded scheme.
-            :type scheme: <str | Mapping[str, Any]>
             :return: The resolved scheme dictionary.
             :rtype: dict[str, Any]
             :exceptions: None.

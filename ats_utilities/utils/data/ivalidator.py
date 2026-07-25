@@ -52,6 +52,5 @@ class IDataValidator[DataType](ABC):
             Validates a data instance.
 
             :param data: Data instance to be validated.
-            :type data: DataType
         '''
         pass

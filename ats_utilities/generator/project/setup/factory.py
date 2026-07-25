@@ -65,7 +65,6 @@ class ProjectFactory(IFactory[ProjectBundle, ProjectOptions]):
             Creates a default project bundle using configuration options.
 
             :param options: Creation options/parameters for the bundle.
-            :type options: ProjectOptions
             :return: Project bundle instance.
             :rtype: ProjectBundle
             :exceptions:
@@ -122,9 +121,7 @@ class ProjectFactory(IFactory[ProjectBundle, ProjectOptions]):
             Creates a default project bundle.
 
             :param setup: The project setup dictionary.
-            :type setup: Mapping[str, Any]
             :param context_bundle: The context bundle.
-            :type context_bundle: ContextBundle
             :return: Project bundle instance.
             :rtype: ProjectBundle
             :exceptions:

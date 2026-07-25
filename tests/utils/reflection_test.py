@@ -56,9 +56,7 @@ class DummyClass:
             Initializes DummyClass constructor.
 
             :param attr1: First attribute value | None.
-            :type attr1: Any
             :param attr2: Second attribute value | None.
-            :type attr2: Any
             :exceptions: None.
         '''
         self._attr1 = attr1

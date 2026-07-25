@@ -57,7 +57,6 @@ class OptionOptionsValidator(IOptionsValidator[OptionOptions]):
             Validates option options instance.
 
             :param options: Option options instance to be validated.
-            :type options: OptionOptions
             :exceptions:
                 | ATSValueError: Options must be provided.
                 | ATSTypeError: Options must be a Mapping.

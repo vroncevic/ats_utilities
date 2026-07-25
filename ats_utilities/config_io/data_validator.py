@@ -56,7 +56,6 @@ class FileDataValidator(IDataValidator[FileData]):
             Validates FileData instance.
 
             :param data: FileData instance to be validated.
-            :type data: FileData
             :exceptions:
                 | ATSValueError: File path must be provided.
                 | ATSValueError: File mode must be provided.

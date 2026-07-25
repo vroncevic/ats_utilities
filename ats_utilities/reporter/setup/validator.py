@@ -58,7 +58,6 @@ class ReporterValidator(IValidator[ReporterBundle]):
             Validates reporter bundle instance.
 
             :param bundle: Reporter bundle instance to be validated.
-            :type bundle: ReporterBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Checker must be provided.

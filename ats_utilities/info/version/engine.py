@@ -66,7 +66,6 @@ class Version(IVersion):
             Initializes Version constructor.
 
             :param context_bundle: Context bundle for version.
-            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Checker must be provided.

@@ -67,7 +67,6 @@ class IOrganization(ABC):
             Note: Organization is only prepared when it is set by user (not None).
 
             :param organization: The organization in string format.
-            :type organization: str
         '''
         pass
 

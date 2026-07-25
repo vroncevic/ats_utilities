@@ -67,7 +67,6 @@ class GeneratorFactory(IFactory[GeneratorBundle, GeneratorOptions]):
             Creates a default generator bundle using configuration options.
 
             :param options: Creation options/parameters for the bundle.
-            :type options: GeneratorOptions
             :return: Generator bundle instance.
             :rtype: GeneratorBundle
             :exceptions:
@@ -115,7 +114,6 @@ class GeneratorFactory(IFactory[GeneratorBundle, GeneratorOptions]):
             Kept for backward compatibility.
 
             :param context_bundle: Context bundle for generator.
-            :type context_bundle: ContextBundle
             :return: Generator bundle instance.
             :rtype: GeneratorBundle
             :exceptions:

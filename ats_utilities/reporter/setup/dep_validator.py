@@ -57,7 +57,6 @@ class ReporterDependenciesValidator(IDependenciesValidator[ReporterDependencies]
             Validates reporter dependencies instance.
 
             :param dependencies: Reporter dependencies instance to be validated.
-            :type dependencies: ReporterDependencies
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper values.
                 | ATSTypeError:  Dependencies must be an instance of ReporterDependencies

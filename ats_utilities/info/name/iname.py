@@ -67,7 +67,6 @@ class IName(ABC):
             Note: Name is only prepared when it is set by user (not None).
 
             :param name: The name in string format | None
-            :type name: str | None
         '''
         pass
 

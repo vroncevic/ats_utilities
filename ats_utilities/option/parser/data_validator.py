@@ -56,7 +56,6 @@ class ParserDataValidator(IDataValidator[ParserData]):
             Validates ParserData instance.
 
             :param data: ParserData instance to be validated.
-            :type data: ParserData
             :exceptions:
                 | ATSValueError: Parser data must be provided.
                 | ATSValueError: Context bundle must be provided.

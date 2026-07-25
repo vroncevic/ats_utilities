@@ -64,9 +64,7 @@ class IParserStrategy(ABC):
             Adds an operational argument/flag to the parser.
 
             :param args: Arguments in string format.
-            :type args: str
             :param kwargs: Arguments in Any form
-            :type kwargs: Any
         '''
         pass
 
@@ -86,9 +84,7 @@ class IParserStrategy(ABC):
             Parses the input arguments and returns an OptionNamespace.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: OptArgs
             :param known_only: Parse only known arguments.
-            :type known_only: bool
             :return: Option namespace object.
             :rtype: OptionNamespace
         '''
@@ -100,7 +96,6 @@ class IParserStrategy(ABC):
             Register a sequence of commands with the parser.
 
             :param commands: Sequence of commands to register.
-            :type commands: Sequence[IOptionCommand]
         '''
         pass
 
@@ -110,7 +105,6 @@ class IParserStrategy(ABC):
             Parses CLI arguments for subcommands and returns command name and parameters.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: OptArgs
             :return: Tuple containing command name and parsed parameters (read only data).
             :rtype: tuple[str, Mapping[str, Any]]
         '''

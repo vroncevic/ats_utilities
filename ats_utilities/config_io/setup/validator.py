@@ -58,7 +58,6 @@ class ConfigIOValidator(IValidator[ConfigIOBundle]):
             Validates config I/O bundle instance.
 
             :param bundle: Config I/O bundle instance to be validated.
-            :type bundle: ConfigIOBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: File path must be provided.

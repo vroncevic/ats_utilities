@@ -67,7 +67,6 @@ class IStorer[ContextEnvironment](ABC):
             Stores configuration content from mapping to configuration file.
 
             :param config: Mapping with configuration information (read only data).
-            :type config: Mapping[str, str]
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''

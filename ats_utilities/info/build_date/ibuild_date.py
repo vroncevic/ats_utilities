@@ -67,7 +67,6 @@ class IBuildDate(ABC):
             Note: Build date is only prepared when it is set by user (not None).
 
             :param build_date: The build date in string format.
-            :type build_date: str
         '''
         pass
 

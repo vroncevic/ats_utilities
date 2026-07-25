@@ -64,7 +64,6 @@ class TemplateProcessor(ITemplateProcessor):
             Initializes TemplateProcessor constructor.
 
             :param context_bundle: Context bundle for template processor | None.
-            :type context_bundle: ContextBundle 
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
@@ -78,9 +77,7 @@ class TemplateProcessor(ITemplateProcessor):
             Decodes and renders template placeholders.
 
             :param raw_content: The raw byte content of the file.
-            :type raw_content: <bytes>
             :param vals: String replacement values.
-            :type vals: Mapping[str, str]
             :return: Rendered text content, or raw bytes if binary format.
             :rtype: <str | bytes>
             :exceptions: None.

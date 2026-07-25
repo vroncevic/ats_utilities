@@ -70,7 +70,6 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
             Creates a splash bundle using configuration options.
 
             :param options: Creation options/parameters for the bundle.
-            :type options: SplashOptions
             :return: Splash bundle instance.
             :rtype: SplashBundle
             :exceptions:
@@ -140,9 +139,7 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
             Kept for backward compatibility.
 
             :param prop: Properties.
-            :type prop: Mapping[str, Any]
             :param context_bundle: Context bundle.
-            :type context_bundle: ContextBundle
             :return: Splash bundle instance.
             :rtype: SplashBundle
             :exceptions:

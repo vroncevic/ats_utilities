@@ -61,7 +61,6 @@ class SplashDependenciesValidator(IDependenciesValidator[SplashDependencies]):
             Validates splash dependencies instance.
 
             :param dependencies: Splash dependencies instance to be validated.
-            :type dependencies: SplashDependencies
             :exceptions:
                 | ATSValueError: Dependencies must be provided.
                 | ATSTypeError: Dependencies must be a Mapping.

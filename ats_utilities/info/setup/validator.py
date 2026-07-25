@@ -66,7 +66,6 @@ class InfoValidator(IValidator[InfoBundle]):
             Validates info bundle instance.
 
             :param bundle: Info bundle instance to be validated.
-            :type bundle: InfoBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Name must be provided.

@@ -47,9 +47,7 @@ def get_pvt(instance: Any, attr_name: str) -> Any:
         Dynamically retrieves a private attribute from an instance.
 
         :param instance: The class instance (self) containing the attribute.
-        :type instance: Any
         :param attr_name: The target private attribute name (e.g., '_checker').
-        :type attr_name: str
         :return: The resolved attribute value.
         :rtype: Any
         :exceptions:
@@ -67,7 +65,6 @@ def has_attrs(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., 
         In case attribute value is not defined and not empty, raise ATSValueError exception.
 
         :param attr_names: Tuple of attribute names to check.
-        :type attr_names: tuple[str, ...]
         :return: Decorated function.
         :rtype: Callable[..., Any]
         :exceptions:
@@ -101,7 +98,6 @@ def cls_name(instance: Any) -> str:
         Returns the class name of an instance.
 
         :param instance: The class instance.
-        :type instance: Any
         :return: The class name in string format.
         :exceptions: None.
     '''
@@ -114,7 +110,6 @@ def to_str(instance: Any) -> str:
         Cleans private attributes and appends memory addresses in hex.
 
         :param instance: The class instance to format.
-        :type instance: Any
         :return: String representation of the instance.
         :exceptions: None.
     '''
@@ -148,7 +143,6 @@ def instance_to_dict(instance: Any) -> dict[str, Any]:
         Converts a dataclass instance to a dictionary representation.
 
         :param instance: The dataclass instance.
-        :type instance: Any
         :return: Dictionary representation of the dataclass.
         :rtype: dict[str, Any]
         :exceptions:

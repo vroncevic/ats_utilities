@@ -66,7 +66,6 @@ class BuildDate(IBuildDate):
             Initializes BuildDate constructor.
 
             :param context_bundle: Context bundle for build date.
-            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Checker must be provided.
@@ -109,7 +108,6 @@ class BuildDate(IBuildDate):
             Note: Build date is only prepared when it is set by user (not None).
 
             :param build_date: The build date in string format.
-            :type build_date: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

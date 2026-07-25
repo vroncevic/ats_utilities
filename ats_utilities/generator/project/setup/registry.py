@@ -55,7 +55,6 @@ class ProjectRegistry(IRegistry[ProjectBundle, ProjectDependencies]):
             Orchestrates dependency injection and creates a project bundle instance.
 
             :param dependencies: Registry-specific orchestration dependencies.
-            :type dependencies: ProjectDependencies
             :return: Project bundle instance.
             :rtype: ProjectBundle
             :exceptions:

@@ -55,7 +55,6 @@ class ITerminalProperties(ABC):
             Gets size for file descriptor.
 
             :param file_descriptor: File descriptor.
-            :type file_descriptor: int
             :return: Window size of terminal.
             :rtype: tuple[Any, ...]
         '''

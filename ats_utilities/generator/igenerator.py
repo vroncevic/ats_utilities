@@ -69,7 +69,6 @@ class IGenerator[ContextEnvironment](ABC):
             Prepares template values.
 
             :param template_values: Input replacement values.
-            :type template_values: Mapping[str, str]
             :return: The updated template values dictionary.
             :rtype: dict[str, str]
             :exceptions: None.
@@ -82,7 +81,6 @@ class IGenerator[ContextEnvironment](ABC):
             Generates project modules/files from a .tgz archive.
 
             :param data: Generator data containing template generation parameters.
-            :type data: GeneratorData
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''

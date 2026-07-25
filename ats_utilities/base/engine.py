@@ -86,7 +86,6 @@ class Base(IBase[ContextBundle]):
             Initializes Base constructor.
 
             :param own: Component bundle for base package.
-            :type own: BaseBundle
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSValueError: Context bundle must be provided.
@@ -152,9 +151,7 @@ class Base(IBase[ContextBundle]):
             Adds a new option for App/Tool/Script.
 
             :param args: Arguments in string format.
-            :type args: str
             :param kwargs: Arguments in Any format.
-            :type kwargs: Any
             :exceptions:
                 | ATSValueError: Missing or None attribute: '_options_parser'.
         '''
@@ -168,7 +165,6 @@ class Base(IBase[ContextBundle]):
             Parses App/Tool/Script arguments.
 
             :param argv: Sequence of arguments | None.
-            :type argv: ArgSeq
             :return: Options and arguments.
             :rtype: OptionNamespace | None
             :exceptions:
@@ -185,7 +181,6 @@ class Base(IBase[ContextBundle]):
             Processes and runs App/Tool/Script (Abstract).
 
             :param verbose: Enable/Disable verbose option (default False).
-            :type verbose: bool
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''

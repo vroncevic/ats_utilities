@@ -52,7 +52,6 @@ class IRegistry[BundleType, DependenciesType](ABC):
             Orchestrates dependency injection and creates a bundle instance.
 
             :param dependencies: Dependencies required to create the bundle.
-            :type dependencies: DependenciesType
             :return: A fully constructed and validated bundle instance.
             :rtype: BundleType
         '''

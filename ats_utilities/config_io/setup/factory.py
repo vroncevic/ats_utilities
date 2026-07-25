@@ -61,7 +61,6 @@ class ConfigIOFactory(IFactory[ConfigIOBundle, ConfigIOOptions]):
             Creates a default config I/O bundle using configuration options.
 
             :param options: Creation options/parameters for the bundle.
-            :type options: ConfigIOOptions
             :return: Config I/O bundle instance.
             :rtype: ConfigIOBundle
             :exceptions:

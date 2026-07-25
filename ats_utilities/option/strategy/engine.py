@@ -89,7 +89,6 @@ class ParserStrategy(IParserStrategy):
             Initializes ParserStrategy constructor.
 
             :param strategy_data: Strategy data for parser strategy.
-            :type strategy_data: StrategyData
             :exceptions:
                 | ATSValueError: Strategy data must be provided.
                 | ATSTypeError: Strategy data must be a StrategyData instance.
@@ -118,9 +117,7 @@ class ParserStrategy(IParserStrategy):
             Adds an operational argument/flag to the parser.
 
             :param args: Sequence of flags for the ATS.
-            :type args: Sequence[str]
             :param kwargs: Arguments in shape of dictionary.
-            :type kwargs: Mapping[str, Any]
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -146,9 +143,7 @@ class ParserStrategy(IParserStrategy):
             Parses the input arguments and returns an OptionNamespace.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: OptArgs
             :param known_only: Parse only known arguments (default False).
-            :type known_only: bool
             :return: Option namespace object.
             :rtype: OptionNamespace
             :exceptions:
@@ -167,7 +162,6 @@ class ParserStrategy(IParserStrategy):
             Registers the list of commands with the parser.
 
             :param commands: Sequence of commands to register (read only data).
-            :type commands: Sequence[IOptionCommand]
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -208,7 +202,6 @@ class ParserStrategy(IParserStrategy):
             Parses the input arguments and returns command name and parameters.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: OptArgs
             :return: Tuple containing command name and parsed parameters (read only data).
             :rtype: tuple[str, Mapping[str, Any]]
             :exceptions:

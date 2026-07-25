@@ -59,7 +59,6 @@ class ProjectValidator(IValidator[ProjectBundle]):
             Validates project bundle instance.
 
             :param bundle: Project bundle instance to be validated.
-            :type bundle: ProjectBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Project name must be provided.

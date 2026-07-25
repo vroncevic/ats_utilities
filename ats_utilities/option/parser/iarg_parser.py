@@ -57,7 +57,6 @@ class IArgParser[T](ABC):
             Initializes IArgParser.
 
             :param own: Data with components for argument parser | None.
-            :type own: T | None
         '''
         pass
 
@@ -67,9 +66,7 @@ class IArgParser[T](ABC):
             Adds an operational argument/flag to the parser.
 
             :param args: List of flags for the ATS.
-            :type args: str
             :param kwargs: Arguments in shape of dictionary.
-            :type kwargs: Any
             :return: Action/argument instance.
             :rtype: Any
         '''
@@ -85,9 +82,7 @@ class IArgParser[T](ABC):
             Parses the input arguments and returns an OptionNamespace.
 
             :param args: Sequence of arguments | None.
-            :type args: OptArgs
             :param namespace: Option namespace object | None.
-            :type namespace: OptionNamespace | None
             :return: Option namespace object.
             :rtype: OptionNamespace
         '''
@@ -103,9 +98,7 @@ class IArgParser[T](ABC):
             Parses the input arguments and returns an OptionNamespace and unknown arguments.
 
             :param args: Sequence of arguments | None.
-            :type args: OptArgs
             :param namespace: Option namespace object | None.
-            :type namespace: OptionNamespace | None
             :return: Tuple containing option namespace and unknown arguments.
             :rtype: KnownArgs
         '''
@@ -117,7 +110,6 @@ class IArgParser[T](ABC):
             Registers subparsers with the parser.
 
             :param kwargs: Arguments in shape of dictionary.
-            :type kwargs: Any
             :return: Action/subparser instance.
             :rtype: Any
         '''

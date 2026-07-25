@@ -55,7 +55,6 @@ class BaseRegistry(IRegistry[BaseBundle, BaseDependencies]):
             Orchestrates dependency injection and creates a base bundle instance.
 
             :param dependencies: Registry-specific orchestration dependencies.
-            :type dependencies: BaseDependencies
             :return: Base bundle instance.
             :rtype: BaseBundle
             :exceptions:

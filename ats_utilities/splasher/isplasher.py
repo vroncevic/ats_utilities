@@ -64,9 +64,7 @@ class ISplasher[ContextEnvironment, PositionData](ABC):
             Centers console line and places text.
 
             :param position: Position data for console output.
-            :type position: PositionData
             :param text: Text to be centered.
-            :type text: str
         '''
         pass
 

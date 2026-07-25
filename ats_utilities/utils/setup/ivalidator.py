@@ -52,6 +52,5 @@ class IValidator[BundleType](ABC):
             Validates a bundle instance.
 
             :param bundle: Bundle instance to be validated.
-            :type bundle: BundleType
         '''
         pass

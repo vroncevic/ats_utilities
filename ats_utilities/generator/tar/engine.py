@@ -86,9 +86,7 @@ class TarProcessor(ITarProcessor):
             Initializes TarProcessor constructor.
 
             :param context_bundle: Context bundle for tar processor.
-            :type context_bundle: ContextBundle
             :param template_processor: Custom template rendering component.
-            :type template_processor: <ITemplateProcessor>
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
@@ -117,7 +115,6 @@ class TarProcessor(ITarProcessor):
             Extracts and processes a single tar member (creates dirs or renders files).
 
             :param data: Parameters defining what to do with the tar archive member.
-            :type data: TarMemberData
             :exceptions:
                 | ATSValueError: data must be provided.
                 | ATSTypeError: data must be an instance of TarMemberData.
@@ -155,7 +152,6 @@ class TarProcessor(ITarProcessor):
             Processes the tar archive members.
 
             :param data: Parameters defining what to do with the tar archive.
-            :type data: TarData
             :exceptions:
                 | ATSValueError: data must be provided.
                 | ATSTypeError: data must be an instance of TarData.

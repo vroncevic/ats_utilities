@@ -58,7 +58,6 @@ class OptionDependenciesValidator(IDependenciesValidator[OptionDependencies]):
             Validates option dependencies instance.
 
             :param dependencies: Option dependencies instance to be validated.
-            :type dependencies: OptionDependencies
             :exceptions:
                 | ATSValueError: Dependencies must be provided.
                 | ATSTypeError: Dependencies must be a Mapping.

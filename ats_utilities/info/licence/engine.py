@@ -66,7 +66,6 @@ class Licence(ILicence):
             Initializes Licence constructor.
 
             :param context_bundle: Context bundle for licence.
-            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Checker must be provided.
@@ -109,7 +108,6 @@ class Licence(ILicence):
             Note: Info licence is only prepared when it is set by user (not None).
 
             :param licence: The licence in string format.
-            :type licence: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

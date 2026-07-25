@@ -67,7 +67,6 @@ class ILogFile(ABC):
             Note: Log file path is only prepared when it is set by user (not None).
 
             :param log_file: The log file path in string format.
-            :type log_file: str
         '''
         pass
 

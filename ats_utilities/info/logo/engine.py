@@ -66,7 +66,6 @@ class Logo(ILogo):
             Initializes Logo constructor.
 
             :param context_bundle: Context bundle for logo.
-            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Checker must be provided.
@@ -109,7 +108,6 @@ class Logo(ILogo):
             Note: Logo path is only prepared when it is set by user (not None).
 
             :param logo: The logo path in string format.
-            :type logo: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

@@ -38,7 +38,6 @@ def get_debug_info(exc: BaseException) -> str:
         Get debug information about the exception.
 
         :param exc: Exception to format.
-        :type exc: <BaseException>
         :return: String with debug information.
         :exceptions: None.
     '''
@@ -52,9 +51,7 @@ def format_error_raw(exc: BaseException, debug: bool = False) -> str:
         Format exception in a raw format (without prefix and without color codes).
 
         :param exc: Exception to format.
-        :type exc: <BaseException>
         :param debug: Whether to include debug information (location of the error in the code).
-        :type debug: bool (default False)
         :return: Formatted error message.
         :exceptions: None.
     '''
@@ -69,11 +66,8 @@ def format_error(exc: BaseException, prefix: str = '', debug: bool = False) -> s
         Format exception in a human-readable format.
 
         :param exc: Exception to format.
-        :type exc: <BaseException>
         :param prefix: Prefix to add to the error message (unexpected exception).
-        :type prefix: str
         :param debug: Whether to include debug information (location of the error in the code).
-        :type debug: bool (default False)
         :return: Formatted error message.
         :exceptions: None.
     '''

@@ -62,9 +62,7 @@ class ArgParser(ArgumentParser, IArgParser[ParserData]):
             Initializes ArgParser constructor.
 
             :param own: Data with components for argument parser.
-            :type own: <ParserData | None>
             :param kwargs: Additional keyword arguments.
-            :type kwargs: Any
             :exceptions: None.
         '''
         if own is None:
@@ -101,7 +99,6 @@ class ArgParser(ArgumentParser, IArgParser[ParserData]):
             Overrides default error handling to use IReporter.
 
             :param message: Error message to report.
-            :type message: str
             :rtype: NoReturn
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.

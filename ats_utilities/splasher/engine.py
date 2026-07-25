@@ -74,7 +74,6 @@ class Splasher(ISplasher[ContextBundle, CenterData]):
             Initializes Splasher.
 
             :param own: Splash screen component bundle.
-            :type own: SplashBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Properties dictionary must be provided.
@@ -166,9 +165,7 @@ class Splasher(ISplasher[ContextBundle, CenterData]):
             Centers console line and places text.
 
             :param position: Position data for console output.
-            :type position: CenterData
             :param text: Text to be centered.
-            :type text: str
             :exceptions:
                 | ATSValueError: Columns count must be provided.
                 | ATSTypeError: Columns count is not an integer.

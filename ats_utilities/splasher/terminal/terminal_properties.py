@@ -70,7 +70,6 @@ class TerminalProperties(ITerminalProperties):
             Initials TerminalProperties constructor.
 
             :param context_bundle: Context bundle for terminal properties.
-            :type context_bundle: ContextBundle 
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Checker must be provided.
@@ -95,7 +94,6 @@ class TerminalProperties(ITerminalProperties):
             Gets size for file descriptor.
 
             :param file_descriptor: File descriptor.
-            :type file_descriptor: int
             :return: Window size of terminal.
             :rtype: tuple[Any, ...]
             :exceptions:

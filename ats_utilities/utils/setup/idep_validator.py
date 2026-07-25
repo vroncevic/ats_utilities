@@ -52,6 +52,5 @@ class IDependenciesValidator[DependenciesType](ABC):
             Validates a dependencies instance.
 
             :param dependencies: Dependencies instance to be validated.
-            :type dependencies: DependenciesType
         '''
         pass

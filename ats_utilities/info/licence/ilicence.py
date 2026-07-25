@@ -67,7 +67,6 @@ class ILicence(ABC):
             Note: Info licence is only prepared when it is set by user (not None).
 
             :param licence: The licence in string format.
-            :type licence: str
         '''
         pass
 

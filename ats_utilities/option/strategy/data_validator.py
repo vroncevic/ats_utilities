@@ -58,7 +58,6 @@ class StrategyDataValidator(IDataValidator[StrategyData]):
             Validates StrategyData instance.
 
             :param data: StrategyData instance to be validated.
-            :type data: StrategyData
             :exceptions:
                 | ATSValueError: Parameters must be provided.
                 | ATSValueError: Context bundle must be provided.

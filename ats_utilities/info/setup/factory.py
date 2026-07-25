@@ -87,7 +87,6 @@ class InfoFactory(IFactory[InfoBundle, InfoOptions]):
             Creates a default info bundle with pre-configured options.
 
             :param options: Dictionary containing options.
-            :type options: InfoOptions
             :return: Default info bundle instance.
             :rtype: InfoBundle
             :exceptions:
@@ -175,9 +174,7 @@ class InfoFactory(IFactory[InfoBundle, InfoOptions]):
             Creates an info bundle from a dictionary.
 
             :param info: Dictionary containing info.
-            :type info: Mapping[str, Any]
             :param context_bundle: Context bundle.
-            :type context_bundle: ContextBundle
             :return: InfoBundle instance.
             :rtype: InfoBundle
             :exceptions:

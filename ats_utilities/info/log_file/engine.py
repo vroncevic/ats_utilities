@@ -66,7 +66,6 @@ class LogFile(ILogFile):
             Initializes LogFile constructor.
 
             :param context_bundle: Context bundle for log_file.
-            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Checker must be provided.
@@ -109,7 +108,6 @@ class LogFile(ILogFile):
             Note: Log file path is only prepared when it is set by user (not None).
 
             :param log_file: The log file path in string format.
-            :type log_file: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

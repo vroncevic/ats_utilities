@@ -65,7 +65,6 @@ class ProName(IProName):
             Initializes ProName constructor.
 
             :param context_bundle: Contex bundle for project name.
-            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
@@ -97,7 +96,6 @@ class ProName(IProName):
             Property method for setting project name.
 
             :param name: Project name in string format.
-            :type name: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

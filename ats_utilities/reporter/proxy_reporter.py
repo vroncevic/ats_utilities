@@ -48,7 +48,6 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
         Supports single or multiple message templates with multiple variables.
 
         :param templates: Single template string or a list of template strings.
-        :type templates: <str | list[str]>
         :return: Wrapped function.
         :rtype: <Callable[[F], F]>
         :exceptions:

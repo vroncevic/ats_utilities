@@ -82,7 +82,6 @@ class TestData:
             Property method for setting data.
 
             :param data: The data as dictionary representation.
-            :type data: <dict[str, int]>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_checker' object to
@@ -100,7 +99,6 @@ class TestData:
          set_my_data method.
 
         :param data: The data as dictionary representation.
-        :type data: <dict[str, int]>
         :exceptions:
             | ATSRuntimeError: Decorator cannot be used on a standalone function.
             | ATSAttributeError: Class is required to provide a '_checker' object to

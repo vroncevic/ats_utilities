@@ -52,7 +52,6 @@ class IFactory[BundleType, OptionsType](ABC):
             Creates a bundle with pre-configured options.
 
             :param options: Creation options/parameters for the bundle.
-            :type options: OptionsType
             :return: Bundle instance.
             :rtype: BundleType
         '''

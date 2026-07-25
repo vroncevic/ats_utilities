@@ -56,7 +56,6 @@ class OptionRegistry(IRegistry[OptionBundle, OptionDependencies]):
             Orchestrates dependency injection and creates an option bundle instance.
 
             :param dependencies: Registry-specific orchestration dependencies.
-            :type dependencies: OptionDependencies
             :return: Option bundle instance.
             :rtype: OptionBundle
             :exceptions:

@@ -83,7 +83,6 @@ class YAMLProcessor(IConfigProcessor):
             Initializes YAMLProcessor constructor.
 
             :param scheme: Mapping with configuration scheme | None.
-            :type scheme: Mapping[str, str] | None
             :exceptions: None.
         '''
         self._data = {}
@@ -95,7 +94,6 @@ class YAMLProcessor(IConfigProcessor):
             Loads and parses configuration from a raw source (string, stream, or lines).
 
             :param content: Raw configuration data (str, stream, or sequence).
-            :type content: Any
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
@@ -123,7 +121,6 @@ class YAMLProcessor(IConfigProcessor):
             Updates the internal configuration data and validates it against the scheme.
 
             :param new_data: Mapping containing configuration keys and values.
-            :type new_data: Mapping[str, str]
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''

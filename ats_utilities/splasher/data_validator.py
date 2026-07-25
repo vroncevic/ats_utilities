@@ -55,7 +55,6 @@ class CenterDataValidator(IDataValidator[CenterData]):
             Validates CenterData instance.
 
             :param data: CenterData instance to be validated.
-            :type data: CenterData
             :exceptions:
                 | ATSValueError: Columns count must be provided.
                 | ATSTypeError: Columns count is not an integer.

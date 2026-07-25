@@ -57,7 +57,6 @@ class SplashOptionsValidator(IOptionsValidator[SplashOptions]):
             Validates splash options instance.
 
             :param options: Splash options instance to be validated.
-            :type options: SplashOptions
             :exceptions:
                 | ATSValueError: Options must be provided.
                 | ATSTypeError: Options must be a Mapping.

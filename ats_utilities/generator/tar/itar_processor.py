@@ -56,7 +56,6 @@ class ITarProcessor(ABC):
             Extracts and processes a single tar member (creates dirs or renders files).
 
             :param tar_process_member_bundle: Parameters defining what to do with the tar archive member.
-            :type tar_process_member_bundle: <TarMemberData>
             :exceptions: None.
         '''
         pass
@@ -67,7 +66,6 @@ class ITarProcessor(ABC):
             Processes the tar archive members.
 
             :param tar_process_bundle: Parameters defining what to do with the tar archive.
-            :type tar_process_bundle: <TarData>
             :exceptions: None.
         '''
         pass

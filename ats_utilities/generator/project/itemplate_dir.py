@@ -65,7 +65,6 @@ class ITemplateDir(ABC):
             Property method for setting project template dir.
 
             :param dir_path: Project template dir path in string format | None
-            :type dir_path: str
             :exceptions: None.
         '''
         pass

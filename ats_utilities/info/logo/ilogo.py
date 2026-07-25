@@ -67,7 +67,6 @@ class ILogo(ABC):
             Note: Logo path is only prepared when it is set by user (not None).
 
             :param logo: The logo path in string format.
-            :type logo: str
         '''
         pass
 

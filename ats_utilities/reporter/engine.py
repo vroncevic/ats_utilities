@@ -82,7 +82,6 @@ class Reporter(IReporter[Sequence[Any]]):
             Initializes Reporter.
 
             :param own: Reporter bundle.
-            :type own: ReporterBundle 
             :exceptions:
                 | ATSValueError: Reporter bundle must be provided and have proper values.
                 | ATSTypeError:  Reporter bundle must be an instance of ReporterBundle

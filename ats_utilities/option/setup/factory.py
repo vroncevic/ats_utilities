@@ -63,7 +63,6 @@ class OptionFactory(IFactory[OptionBundle, OptionOptions]):
             Creates an option bundle using configuration options.
 
             :param options: Creation options/parameters for the bundle.
-            :type options: OptionOptions
             :return: Option bundle instance.
             :rtype: OptionBundle
             :exceptions:
@@ -114,11 +113,8 @@ class OptionFactory(IFactory[OptionBundle, OptionOptions]):
             Kept for backward compatibility.
 
             :param parameters: Metadata parameters in mapping format (read only data).
-            :type parameters: Mapping[str, str]
             :param context_bundle: Context bundle for option bundle.
-            :type context_bundle: ContextBundle
             :param parser_class: Injected parser class type.
-            :type parser_class: type[IArgParser]
             :return: Option bundle instance.
             :rtype: OptionBundle
             :exceptions:

@@ -57,7 +57,6 @@ class ReporterOptionsValidator(IOptionsValidator[ReporterOptions]):
             Validates reporter options instance.
 
             :param options: Reporter options instance to be validated.
-            :type options: ReporterOptions
             :exceptions:
                 | ATSValueError: Options must be provided and have proper values.
                 | ATSTypeError:  Options must be an instance of ReporterOptions

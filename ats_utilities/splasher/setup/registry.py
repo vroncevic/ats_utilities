@@ -56,7 +56,6 @@ class SplashRegistry(IRegistry[SplashBundle, SplashDependencies]):
             Orchestrates dependency injection and creates a splash bundle instance.
 
             :param dependencies: Registry-specific orchestration dependencies.
-            :type dependencies: SplashDependencies
             :return: Splash bundle instance.
             :rtype: SplashBundle
             :exceptions:

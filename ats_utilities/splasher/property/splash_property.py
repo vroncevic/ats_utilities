@@ -68,7 +68,6 @@ class SplashProperty(ISplashProperty):
             Initials SplashProperty constructor.
 
             :param context_bundle: Context bundle for splash screen property.
-            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
@@ -103,7 +102,6 @@ class SplashProperty(ISplashProperty):
             Note: Splash screen property comes from info configuration file as read only data.
 
             :param setup: Project splash property in Mapping format (read only data).
-            :type setup: Mapping[str, Any] 
             :exceptions:
                 | ATSTypeError: splash property setup is not a Mapping.
                 | ATSValueError: splash property setup is missing required keys.

@@ -72,7 +72,6 @@ class IExtInfrastructure(ABC):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :param setup: Project infrastructure property in Mapping format (read only data).
-            :type setup: Mapping[str, Any] 
         '''
         pass
 

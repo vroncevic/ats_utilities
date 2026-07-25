@@ -65,7 +65,6 @@ class TemplateDir(ITemplateDir):
             Initializes TemplateDir constructor.
 
             :param context_bundle: Context bundle for template dir.
-            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
@@ -97,7 +96,6 @@ class TemplateDir(ITemplateDir):
             Property method for setting project template dir.
 
             :param dir_path: Project template dir path in string format.
-            :type dir_path: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

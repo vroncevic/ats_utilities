@@ -65,7 +65,6 @@ class IProName(ABC):
             Property method for setting project name.
 
             :param name: Project name in string format | None
-            :type name: str
             :exceptions: None.
         '''
         pass

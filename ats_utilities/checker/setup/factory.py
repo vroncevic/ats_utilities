@@ -60,7 +60,6 @@ class CheckerFactory(IFactory[CheckerBundle, CheckerOptions]):
             Creates a checker bundle with optional pre-configured options.
 
             :param options: Creation options/parameters for the bundle (default None).
-            :type options: CheckerOptions | None
             :return: Checker bundle instance.
             :rtype: CheckerBundle
             :exceptions:

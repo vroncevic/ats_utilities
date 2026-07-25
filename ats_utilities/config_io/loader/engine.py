@@ -74,7 +74,6 @@ class Loader(ILoader[ContextBundle]):
             Constructor.
 
             :param own: ConfigIOBundle instance.
-            :type own: ConfigIOBundle
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
                 | ATSTypeError: Component bundle must be ConfigIOBundle instance.

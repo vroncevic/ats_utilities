@@ -58,7 +58,6 @@ class LoggerValidator(IValidator[LoggerBundle]):
             Validates logger bundle instance.
 
             :param bundle: Logger bundle instance to be validated.
-            :type bundle: LoggerBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Logger must be provided.

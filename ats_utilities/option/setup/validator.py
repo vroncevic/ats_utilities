@@ -58,7 +58,6 @@ class OptionValidator(IValidator[OptionBundle]):
             Validates option bundle instance.
 
             :param bundle: Option bundle instance to be validated.
-            :type bundle: OptionBundle
             :exceptions:
                 | ATSValueError: Option bundle must be provided.
                 | ATSValueError: Parameters must be provided.

@@ -64,7 +64,6 @@ class SplashValidator(IValidator[SplashBundle]):
             Validates splash bundle instance.
 
             :param bundle: Splash bundle instance to be validated.
-            :type bundle: SplashBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Properties dictionary must be provided.

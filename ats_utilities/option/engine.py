@@ -79,7 +79,6 @@ class OptionManager(IOptionManager[ContextBundle]):
             Initializes OptionManager constructor.
 
             :param own: Bundle with components for option manager.
-            :type own: OptionBundle
             :exceptions:
                 | ATSValueError: Option bundle must be provided.
                 | ATSValueError: Parameters must be provided.
@@ -113,9 +112,7 @@ class OptionManager(IOptionManager[ContextBundle]):
             Adds an option to the parser.
 
             :param args: List of flags for the ATS.
-            :type args: str
             :param kwargs: Arguments in shape of dictionary.
-            :type kwargs: Any
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
@@ -150,7 +147,6 @@ class OptionManager(IOptionManager[ContextBundle]):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: OptArgs
             :return: Option namespace object.
             :rtype: OptionNamespace
             :exceptions:
@@ -169,7 +165,6 @@ class OptionManager(IOptionManager[ContextBundle]):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: OptArgs
             :return: Option namespace object.
             :rtype: OptionNamespace
             :exceptions:
@@ -187,7 +182,6 @@ class OptionManager(IOptionManager[ContextBundle]):
             Registers a sequence of commands with the parser.
 
             :param commands: Sequence of commands to register (read only data).
-            :type commands: Sequence[IOptionCommand]
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
@@ -200,7 +194,6 @@ class OptionManager(IOptionManager[ContextBundle]):
             Parses arguments as a command.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: OptArgs
             :return: Tuple of (command name, command arguments) (read only data).
             :rtype: tuple[str, Mapping[str, Any]]
             :exceptions:

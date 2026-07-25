@@ -84,9 +84,7 @@ class IBase[ContextEnvironment](ABC):
             Adds a new option for App/Tool/Script.
 
             :param args: Arguments in string format.
-            :type args: str
             :param kwargs: Arguments in Any format.
-            :type kwargs: Any
             :exceptions: None.
         '''
         pass
@@ -97,7 +95,6 @@ class IBase[ContextEnvironment](ABC):
             Parses App/Tool/Script arguments.
 
             :param argv: Sequence of arguments.
-            :type argv: ArgSeq
             :return: Options and arguments | None
             :rtype: OptionNamespace | None
             :exceptions: None.
@@ -110,7 +107,6 @@ class IBase[ContextEnvironment](ABC):
             Processes and runs App/Tool/Script (Abstract).
 
             :param verbose: Enable/Disable verbose option (default False).
-            :type verbose: bool
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''

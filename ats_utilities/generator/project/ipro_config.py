@@ -68,7 +68,6 @@ class IProConfig(ABC):
             Property method for setting project configuration.
 
             :param pro_config: Project configuration in Mapping format | None
-            :type pro_config: <Mapping[str, Any] | None>
             :exceptions: None.
         '''
         pass

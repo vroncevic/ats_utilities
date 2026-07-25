@@ -53,9 +53,7 @@ class ITemplateProcessor(ABC):
             Decodes and renders template placeholders.
 
             :param raw_content: The raw byte content of the file.
-            :type raw_content: <bytes>
             :param vals: String replacement values.
-            :type vals: dict[str, str]
             :return: Rendered text content string, or raw bytes if binary format.
             :rtype: <str | bytes>
             :exceptions: None.

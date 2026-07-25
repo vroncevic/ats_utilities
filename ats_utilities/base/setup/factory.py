@@ -76,7 +76,6 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
             Creates a default base bundle using configuration options.
 
             :param options: Creation options/parameters for the bundle.
-            :type options: BaseOptions
             :return: Base bundle instance.
             :rtype: BaseBundle
             :exceptions:
@@ -183,11 +182,8 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
             Kept for backward compatibility.
 
             :param info_file: Path to the info file.
-            :type info_file: str
             :param context_bundle: ContextBundle instance.
-            :type context_bundle: ContextBundle
             :param use_generator: Whether to use the generator (default False).
-            :type use_generator: bool
             :return: Default base bundle instance.
             :rtype: BaseBundle
             :exceptions:

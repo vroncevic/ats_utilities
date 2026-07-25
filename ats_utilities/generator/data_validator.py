@@ -61,7 +61,6 @@ class GeneratorDataValidator(IDataValidator[GeneratorData]):
             Validates generator data.
 
             :param data: Generator data to be validated.
-            :type data: GeneratorData
             :exceptions:
                 | ATSValueError: Generator data must be provided.
                 | ATSTypeError: Generator data must be an instance of GeneratorData.

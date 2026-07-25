@@ -71,7 +71,6 @@ class SchemeLoader(ISchemeLoader):
             Initializes SchemeLoader constructor.
 
             :param context_bundle: Context bundle for scheme loader.
-            :type context_bundle: ContextBundle
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
@@ -85,7 +84,6 @@ class SchemeLoader(ISchemeLoader):
             Loads and resolves the scheme.
 
             :param scheme: Generation scheme file path or preloaded scheme.
-            :type scheme: <str | Mapping[str, Any]>
             :return: The resolved scheme dictionary.
             :rtype: dict[str, Any]
             :exceptions:

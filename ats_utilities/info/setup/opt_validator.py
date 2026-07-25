@@ -58,7 +58,6 @@ class InfoOptionsValidator(IOptionsValidator[InfoOptions]):
             Validates info options instance.
 
             :param options: Info options instance to be validated.
-            :type options: InfoOptions
             :exceptions:
                 | ATSValueError: Options must be provided.
                 | ATSTypeError: Options must be a Mapping.

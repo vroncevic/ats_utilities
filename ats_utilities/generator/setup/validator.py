@@ -59,7 +59,6 @@ class GeneratorValidator(IValidator[GeneratorBundle]):
             Validates generator bundle instance.
 
             :param bundle: Generator bundle instance to be validated.
-            :type bundle: GeneratorBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Context bundle must be provided.
