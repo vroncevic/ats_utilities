@@ -25,7 +25,8 @@ from collections.abc import Sequence
 from typing import override
 
 from ats_utilities.utils.data.ivalidator import IDataValidator
-from ats_utilities.checker.reporter.data import CheckReporterData, ParamMetadata
+from ats_utilities.checker.setup.types import ParametersMeta
+from ats_utilities.checker.reporter.data import CheckReporterData
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
@@ -67,7 +68,7 @@ class CheckReporterValidator(IDataValidator[CheckReporterData]):
                 | ATSValueError: Error indices must be provided.
                 | ATSValueError: Is format error flag must be provided.
                 | ATSTypeError: Context must be a string.
-                | ATSTypeError: Parameters metadata must be a sequence of ParamMetadata.
+                | ATSTypeError: Parameters metadata must be a sequence of Parameters.
                 | ATSTypeError: Error indices must be a sequence of integers.
                 | ATSTypeError: Is format error flag must be a boolean.
         '''
@@ -82,6 +83,6 @@ class CheckReporterValidator(IDataValidator[CheckReporterData]):
         not_none(data.is_fmt_err, ctx, r'is format error flag must be provided')
 
         istype(data.context, str, ctx, r'context must be a string')
-        istype(data.parameters_meta, Sequence[ParamMetadata], ctx, r'parameters meta must be a sequence of ParamMetadata')
+        istype(data.parameters_meta, Sequence[ParametersMeta], ctx, r'parameters meta must be a sequence of ParametersMeta')
         istype(data.err_indices, Sequence[int], ctx, r'error indices must be a sequence of integers')
         istype(data.is_fmt_err, bool, ctx, r'is format error flag must be a boolean')

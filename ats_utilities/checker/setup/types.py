@@ -2,7 +2,7 @@
 
 '''
 Module
-    data.py
+    types.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,17 +16,14 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates check reporter runtime data.
+    Defines types for Checker.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Sequence
-from dataclasses import dataclass
 from typing import Any
-
-from ats_utilities.checker.setup.types import ParametersMeta
-from ats_utilities.utils.reflection import instance_to_dict
+from enum import Enum
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,33 +34,32 @@ __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
+# Parameters specification: (('expected type:param name', instance), ...)
+type Parameters = Sequence[tuple[str, Any]]
 
-@dataclass(slots=True, frozen=True, kw_only=True)
-class CheckReporterData:
+# Parameters metadata specification: (('expected type', 'param name'), ...)
+type ParametersMeta = Sequence[tuple[str, str, Any]]
+
+# Result type: ((error message report, error id), ...)
+type Result = tuple[str, int]
+
+# Split result: ((expected type, param name), ...)
+type SplitResult = tuple[str, str]
+
+
+class CheckerErrorType(int, Enum):
     '''
-        Encapsulates check reporter runtime data.
+        Defines class CheckerErrorType with attribute(s).
+        Marks error types for the Checker.
 
         It defines:
 
             :attributes:
-                | context - Message context.
-                | parameters_meta - Sequence of parameter metadata.
-                | err_indices - Sequence of error indices.
-                | is_fmt_err - Flag indicating if format error type has been found.
-            :methods:
-                | to_dict - Converts the check reporter data instance to a dictionary.
+                | NO_ERROR - Marks no error report (0).
+                | TYPE_ERROR - Marks type error report (1).
+                | FORMAT_ERROR - Marks wrong format error report (2).
     '''
 
-    context: str
-    parameters_meta: Sequence[ParametersMeta]
-    err_indices: Sequence[int]
-    is_fmt_err: bool
-
-    def to_dict(self) -> dict[str, Any]:
-        '''
-            Converts the check reporter data instance to a dictionary.
-
-            :return: Dictionary representation of the check reporter data instance.
-            :exceptions: None.
-        '''
-        return instance_to_dict(self)
+    NO_ERROR = 0
+    TYPE_ERROR = 1
+    FORMAT_ERROR = 2

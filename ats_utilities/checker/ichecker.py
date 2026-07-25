@@ -16,15 +16,13 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IChecker with attribute(s) and method(s).
+    Defines abstract class IChecker with method(s).
     Provides an interface for checking parameters of method(s) or function(s).
 '''
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any, ClassVar
-from enum import Enum, EnumMeta
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -35,55 +33,46 @@ __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
-# Validation resut type: (error message report, error id)
-type ValidationResult = tuple[str, int]
 
-# Specification for parameters: [(param name, param value), ...]
-type ParametersSpecs = list[tuple[str, Any]]
-
-
-class ErrorChecker(int, Enum):
+class IChecker[ParametersSpecification, ValidationResult, ParameterFormat, SplitParameterResult](ABC):
     '''
-        Defines class ErrorChecker with attribute(s).
-        Marks error types for the Checker.
-
-        It defines:
-
-            :attributes:
-                | NO_ERROR - Marks no param error report (0).
-                | TYPE_ERROR - Marks type param error report (1).
-                | FORMAT_ERROR - Marks wrong format error report (2).
-            :methods: None.
-    '''
-    NO_ERROR = 0
-    TYPE_ERROR = 1
-    FORMAT_ERROR = 2
-
-
-class IChecker(ABC):
-    '''
-        Defines abstract class IChecker with attribute(s) and method(s).
+        Defines abstract class IChecker with method(s).
         Provides an interface for checking parameters of method(s) or function(s).
 
         It defines:
 
-            :attributes:
-                | ERRORS - Marks error types for message reports (0 | 1 | 2).
             :methods:
                 | validates_parameters - Validates parameters for method(s) or function(s).
                 | is_initialized - Checks if checker component is initialized.
-                | __str__ - Returns the checker as string representation.
+                | __str__ - Returns checker as string representation.
     '''
 
-    ERRORS: ClassVar[EnumMeta] = ErrorChecker
-
     @abstractmethod
-    def validates_parameters(self, parameters: ParametersSpecs) -> ValidationResult:
+    def validates_parameters(self, parameters: ParametersSpecification) -> ValidationResult:
         '''
             Validates parameters for a method(s) or function(s).
 
             :param parameters: Specification for parameters.
-            :return: Tuple of error message report and error id.
+            :return: Result of validation.
+        '''
+        pass
+
+    @abstractmethod
+    def split_parameter(self, parameter: ParameterFormat) -> SplitParameterResult:
+        '''
+            Splits a single parameter specification item.
+
+            :param parameter: Parameter specification item to be splitted.
+            :return: Result of splitting parameter specification item.
+        '''
+        pass
+
+    @abstractmethod
+    def get_separator(self) -> str:
+        '''
+            Returns the separator character used in parameter specifications.
+
+            :return: Separator character.
         '''
         pass
 
@@ -99,8 +88,8 @@ class IChecker(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the checker as string representation.
+            Returns checker as string representation.
 
-            :return: The checker as string representation.
+            :return: Checker as string representation.
         '''
         pass

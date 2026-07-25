@@ -43,10 +43,21 @@ class IFormatValidator(ABC):
         It defines:
 
             :methods:
+                | get_separator - Returns the separator character used in parameter specifications.
                 | is_valid - Checks if the string follows the expected format.
                 | split - Splits the format string into components.
                 | __str__ - Returns the format validator as string representation.
     '''
+
+    @abstractmethod
+    def get_separator(self) -> str:
+        '''
+            Returns the separator character used in parameter specifications.
+
+            :return: Separator character.
+            :exceptions: None.
+        '''
+        pass
 
     @abstractmethod
     def is_valid(self, exp_type: str) -> bool:

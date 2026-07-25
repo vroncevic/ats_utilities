@@ -52,6 +52,7 @@ class FormatValidator(IFormatValidator):
                 | EXPECTED_SEPARATOR - Expected separator between type and name.
             :methods:
                 | __init__ - Initializes the FormatValidator.
+                | get_separator - Returns the separator character used in parameter specifications.
                 | is_valid - Checks if the string follows the expected format.
                 | split - Splits the format string into type and name parts.
                 | __str__ - Returns the format validator as string representation.
@@ -90,6 +91,16 @@ class FormatValidator(IFormatValidator):
             self._separator = separator
         else:
             self._separator = self.EXPECTED_SEPARATOR
+
+    @override
+    def get_separator(self) -> str:
+        '''
+            Returns the separator character used in parameter specifications.
+
+            :return: Separator character.
+            :exceptions: None.
+        '''
+        return self._separator
 
     @override
     def is_valid(self, exp_type: str) -> bool:

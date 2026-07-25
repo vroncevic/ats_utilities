@@ -25,8 +25,9 @@ from __future__ import annotations
 
 from typing import ClassVar, override
 
-from ats_utilities.checker.ichecker import (
-    IChecker, ErrorChecker, ValidationResult, ParametersSpecs
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.setup.types import (
+    Parameters, ParametersMeta, Result, SplitResult, CheckerErrorType
 )
 from ats_utilities.checker.type.itype_validator import ITypeValidator
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
@@ -34,9 +35,7 @@ from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.setup.bundle import CheckerBundle
 from ats_utilities.checker.setup.validator import CheckerValidator
-from ats_utilities.checker.reporter.data import (
-    CheckReporterData, ParamMetadata
-)
+from ats_utilities.checker.reporter.data import CheckReporterData
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.exceptions import ATSValueError, ATSTypeError
 
@@ -50,7 +49,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Checker(IChecker):
+class Checker(IChecker[Parameters, Result, str, SplitResult]):
     '''
         Defines class Checker with attribute(s) and method(s).
         Concrete implementation of the parameter(s) checker.
@@ -68,11 +67,13 @@ class Checker(IChecker):
             :methods:
                 | __init__ - Initializes Checker constructor.
                 | validates_parameters - Validates parameter(s) for method(s) or function(s).
+                | split_parameter - Splits a single parameter specification item.
+                | get_separator - Returns the separator character used in parameter specifications.
                 | is_initialized - Checks if checker component is initialized.
                 | __str__ - Returns the checker as string representation.
     '''
 
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
+    ERRORS: ClassVar[type[CheckerErrorType]] = CheckerErrorType
     _is_initialized: bool
     _format_validator: IFormatValidator
     _type_validator: ITypeValidator
@@ -105,7 +106,7 @@ class Checker(IChecker):
         self._is_initialized = True
 
     @override
-    def validates_parameters(self, parameters: ParametersSpecs) -> ValidationResult:
+    def validates_parameters(self, parameters: Parameters) -> Result:
         '''
             Validates parameters for method(s) or function(s).
 
@@ -124,7 +125,7 @@ class Checker(IChecker):
                 | ATSTypeError: Is format error must be a boolean.
         '''
         context: str = self._context_provider.get_context()
-        params_meta: list[ParamMetadata] = []
+        parameters_meta: list[ParametersMeta] = []
         err_indices: list[int] = []
         error_id: int = self.ERRORS.NO_ERROR
 
@@ -154,11 +155,8 @@ class Checker(IChecker):
                 error_id = self.ERRORS.FORMAT_ERROR
                 break
 
-            ptype: str | None = None
-            pname: str | None = None
-
             ptype, pname = self._format_validator.split(exp_type)
-            params_meta.append((pname, ptype, inst))
+            parameters_meta.append((pname, ptype, inst))
 
             try:
                 if not self._type_validator.is_match(inst, ptype):
@@ -175,11 +173,38 @@ class Checker(IChecker):
         return self._check_reporter.build_message_format(
             CheckReporterData(
                 context=context,
-                parameters_meta=params_meta,
+                parameters_meta=parameters_meta,
                 err_indices=err_indices,
                 is_fmt_err=is_fmt_err
             )
         ), error_id
+
+    @override
+    def split_parameter(self, parameter: str) -> SplitResult:
+        '''
+            Splits a single parameter specification item.
+
+            :param parameter: Parameter specification item to be splitted.
+            :return: Result of splitting parameter specification item.
+            :exceptions:
+                | ATSValueError: Format of parameter must be a string.
+                | ATSValueError: Format of parameter must not be empty.
+                | ATSTypeError: Format of parameter must be a string.
+        '''
+        try:
+            return self._format_validator.split(parameter)
+        except (ATSValueError, ATSTypeError) as e:
+            raise ATSValueError(f'format of parameter {parameter} is not valid') from e
+
+    @override
+    def get_separator(self) -> str:
+        '''
+            Returns the separator character used in parameter specifications.
+
+            :return: Separator character.
+            :exceptions: None.
+        '''
+        return self._format_validator.get_separator()
 
     @override
     def is_initialized(self) -> bool:

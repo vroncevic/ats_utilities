@@ -36,9 +36,6 @@ __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
-# Type alias for parameter metadata: (parameter name, expected type, actual value)
-type ParamMetadata = tuple[str, str, Any]
-
 
 @dataclass(slots=True, frozen=True, kw_only=True)
 class GeneratorData:

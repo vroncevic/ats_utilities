@@ -2,7 +2,7 @@
 
 '''
 Module
-    story_ats_checker.py
+    story_ats_checker_with_mcheck.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,14 +16,14 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Use cases for ATS checker.
+    Use cases for ATS checker with @mcheck decorator.
 '''
 
 from __future__ import annotations
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.setup.registry import CheckerRegistry
+from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.utils.reflection import to_str
 
@@ -61,7 +61,7 @@ class TestData:
 
             :exceptions: None.
         '''
-        self._checker = Checker(own=CheckerRegistry.create_default_checker_bundle())
+        self._checker = Checker(own=CheckerFactory.create_bundle())
         self._data: dict[str, int] = {}
 
     @property
