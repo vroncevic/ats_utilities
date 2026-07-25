@@ -84,19 +84,13 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
         '''
             Initializes Checker constructor.
 
-            :param own: Bundle with components.
+            :param own: Checker bundle with components.
             :type own: CheckerBundle
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Context provider must be provided.
-                | ATSValueError: Check reporter must be provided.
-                | ATSValueError: Format validator must be provided.
-                | ATSValueError: Type validator must be provided.
-                | ATSTypeError: Bundle must be an instance of CheckerBundle.
-                | ATSTypeError: Context provider must be an instance of IContextProvider.
-                | ATSTypeError: Check reporter must be an instance of ICheckReporter.
-                | ATSTypeError: Format validator must be an instance of IFormatValidator.
-                | ATSTypeError: Type validator must be an instance of ITypeValidator.
+                | ATSValueError: Checker bundle must be provided and have proper values.
+                | ATSTypeError:  Checker bundle must be an instance of CheckerBundle
+                |                and its attributes must be instances of their
+                |                respective interfaces and types.
         '''
         CheckerValidator.validate(own)
         self._format_validator = own.format_validator
@@ -111,18 +105,12 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
             Validates parameters for method(s) or function(s).
 
             :param parameters: Specification for parameters.
-            :return: Tuple of error message report and error id.
+            :return: Result containing error message report and error id.
             :exceptions:
-                | ATSValueError: Check reporter data must be provided.
-                | ATSTypeError: Check reporter data must be an instance of CheckReporterData.
-                | ATSValueError: Context must be provided.
-                | ATSValueError: Parameters metadata must be provided.
-                | ATSValueError: Error indices must be provided.
-                | ATSValueError: Is format error must be provided.
-                | ATSTypeError: Context must be a string.
-                | ATSTypeError: Parameters metadata must be a sequence of ParamMetadata.
-                | ATSTypeError: Error indices must be a sequence of integers.
-                | ATSTypeError: Is format error must be a boolean.
+                | ATSValueError: Parameters must be provided and have proper values.
+                | ATSTypeError:  Parameters must be an instance of Parameters
+                |                and its elements must be instances of their
+                |                respective types.
         '''
         context: str = self._context_provider.get_context()
         parameters_meta: list[ParametersMeta] = []
@@ -150,6 +138,7 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
                     is_fmt_err = True
                     error_id = self.ERRORS.FORMAT_ERROR
                     break
+
             except (ATSValueError, ATSTypeError):
                 is_fmt_err = True
                 error_id = self.ERRORS.FORMAT_ERROR
@@ -164,6 +153,7 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
 
                     if error_id == self.ERRORS.NO_ERROR:
                         error_id = self.ERRORS.TYPE_ERROR
+
             except (ATSValueError, ATSTypeError):
                 err_indices.append(index)
 
@@ -187,9 +177,7 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
             :param parameter: Parameter specification item to be splitted.
             :return: Result of splitting parameter specification item.
             :exceptions:
-                | ATSValueError: Format of parameter must be a string.
-                | ATSValueError: Format of parameter must not be empty.
-                | ATSTypeError: Format of parameter must be a string.
+                | ATSValueError: Format of parameter is not valid.
         '''
         try:
             return self._format_validator.split(parameter)

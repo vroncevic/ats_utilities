@@ -34,7 +34,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ICheckReporter[T](ABC):
+class ICheckReporter[ReportData](ABC):
     '''
         Defines abstract class ICheckReporter with method(s).
         Provides an interface for formating message in context of checker.
@@ -47,7 +47,7 @@ class ICheckReporter[T](ABC):
     '''
 
     @abstractmethod
-    def build_message_format(self, data: T) -> str:
+    def build_message_format(self, data: ReportData) -> str:
         '''
             Builds the final message.
 

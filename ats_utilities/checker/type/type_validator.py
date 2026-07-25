@@ -29,7 +29,7 @@ from typing import Any, Final, override
 from ats_utilities.checker.type.itype_validator import ITypeValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_type import istype
-from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_value import not_none, not_empty
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -72,11 +72,13 @@ class TypeValidator(ITypeValidator):
 
             :param abstract_types: Mapping of abstract type names to their implementations.
             :exceptions:
-                | ATSTypeError: Abstract types must be a mapping of strings to types.
+                | ATSTypeError:  Abstract types must be a mapping of strings to types.
+                | ATSValueError: Abstract types must not be empty.
         '''
         if abstract_types is not None:
             ctx: str = r'type_validator::init(...)'
             istype(abstract_types, Mapping, ctx, r'abstract types must be a mapping of strings to types')
+            not_empty(abstract_types, ctx, r'abstract types must not be empty (strings to types)')
             self._abstract_types = MappingProxyType(abstract_types)
         else:
             self._abstract_types = self._DEFAULT_TYPES
@@ -93,7 +95,7 @@ class TypeValidator(ITypeValidator):
             :exceptions:
                 | ATSValueError: Instance must be provided.
                 | ATSValueError: Expected type name must be provided.
-                | ATSTypeError: Expected type name must be a string.
+                | ATSTypeError:  Expected type name must be a string.
         '''
         ctx: str = r'type_validator::is_match(...)'
         not_none(instance, ctx, r'instance must be provided')
@@ -118,7 +120,7 @@ class TypeValidator(ITypeValidator):
             :exceptions:
                 | ATSValueError: Instance must be provided.
                 | ATSValueError: Expected type name must be provided.
-                | ATSTypeError: Expected type name must be a string.
+                | ATSTypeError:  Expected type name must be a string.
         '''
         ctx: str = r'type_validator::is_subtype(...)'
         not_none(instance, ctx, r'instance must be provided')

@@ -61,22 +61,10 @@ class CheckerRegistry(IRegistry[CheckerBundle, CheckerDependencies | None]):
             :return: Checker bundle instance.
             :rtype: CheckerBundle
             :exceptions:
-                | ATSValueError: Dependencies must be provided.
-                | ATSTypeError: Dependencies must be a Mapping.
-                | ATSTypeError: Format validator must be an instance of IFormatValidator.
-                | ATSTypeError: Type validator must be an instance of ITypeValidator.
-                | ATSTypeError: Context provider must be an instance of IContextProvider.
-                | ATSTypeError: Check reporter must be an instance of ICheckReporter.
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Context provider must be provided.
-                | ATSValueError: Check reporter must be provided.
-                | ATSValueError: Format validator must be provided.
-                | ATSValueError: Type validator must be provided.
-                | ATSTypeError: Bundle must be an instance of CheckerBundle.
-                | ATSTypeError: Context provider must be an instance of IContextProvider.
-                | ATSTypeError: Check reporter must be an instance of ICheckReporter.
-                | ATSTypeError: Format validator must be an instance of IFormatValidator.
-                | ATSTypeError: Type validator must be an instance of ITypeValidator.
+                | ATSValueError: Dependencies must be provided and have proper values.
+                | ATSTypeError:  Dependencies must be an instance of CheckerDependencies
+                |                and its attributes must be instances of their
+                |                respective interfaces and types.
         '''
         if dependencies is not None:
             CheckerDependenciesValidator.validate(dependencies)

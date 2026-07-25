@@ -84,7 +84,7 @@ class ContextProvider(IContextProvider):
             :param stack_index_caller: Index in the call stack to identify the caller.
             :exceptions:
                 | ATSValueError: Stack index caller must be provided.
-                | ATSTypeError: Stack index caller must be an integer.
+                | ATSTypeError:  Stack index caller must be an integer.
         '''
         ctx: str = r'context_provider::set_stack_index_caller(...)'
         not_none(stack_index_caller, ctx, r'stack index caller must be provided')

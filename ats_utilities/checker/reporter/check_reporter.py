@@ -31,6 +31,7 @@ from ats_utilities.checker.reporter.data import CheckReporterData
 from ats_utilities.checker.reporter.data_validator import CheckReporterValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_type import istype
+from ats_utilities.validation.check_value import not_empty
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -69,11 +70,16 @@ class CheckReporter(ICheckReporter[CheckReporterData]):
 
             :param message_provider: Messages used to report findings | None.
             :exceptions:
-                | ATSTypeError: Message provider must be a mapping of strings to strings.
+                | ATSTypeError:  Message provider must be a mapping.
+                | ATSValueError: Message provider must not be empty (key and value must be strings).
         '''
         if message_provider is not None:
             ctx: str = r'check_reporter::init(...)'
-            istype(message_provider, Mapping, ctx, r'message_provider must be a mapping of strings to strings')
+            istype(message_provider, Mapping, ctx, r'message_provider must be a mapping')
+            not_empty(
+                message_provider, ctx,
+                r'message_provider must not be empty (key and value must be strings)'
+            )
             self._message_provider = MappingProxyType(message_provider)
         else:
             self._message_provider = self._DEFAULT_MESSAGES

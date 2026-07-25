@@ -66,11 +66,11 @@ class CheckerValidator(IValidator[CheckerBundle]):
                 | ATSValueError: Check reporter must be provided.
                 | ATSValueError: Format validator must be provided.
                 | ATSValueError: Type validator must be provided.
-                | ATSTypeError: Bundle must be an instance of CheckerBundle.
-                | ATSTypeError: Context provider must be an instance of IContextProvider.
-                | ATSTypeError: Check reporter must be an instance of ICheckReporter.
-                | ATSTypeError: Format validator must be an instance of IFormatValidator.
-                | ATSTypeError: Type validator must be an instance of ITypeValidator.
+                | ATSTypeError:  Bundle must be an instance of CheckerBundle.
+                | ATSTypeError:  Context provider must be an instance of IContextProvider.
+                | ATSTypeError:  Check reporter must be an instance of ICheckReporter.
+                | ATSTypeError:  Format validator must be an instance of IFormatValidator.
+                | ATSTypeError:  Type validator must be an instance of ITypeValidator.
         '''
         ctx: str = r'checker_validator::validate(...)'
 

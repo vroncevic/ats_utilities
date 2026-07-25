@@ -57,7 +57,7 @@ def validate_specs(specs: Parameters, ctx: str) -> None:
         :param ctx: Context string for error reporting.
         :exceptions:
             | ATSValueError: Specs must be provided.
-            | ATSTypeError: Specs must be a list of (str, Any) tuples.
+            | ATSTypeError:  Specs must be a list of (str, Any) tuples.
     '''
     fmt_msg: str = r"expected format: [('expected_type:param_name', default_value), ...]"
     not_none(specs, ctx, f'specs must be provided, {fmt_msg}')
@@ -96,7 +96,7 @@ def validate_args(
         :param exc_context: Exception context.
         :exceptions:
             | ATSValueError: Specification format is invalid.
-            | ATSTypeError: Parameter type validation failed.
+            | ATSTypeError:  Parameter type validation failed.
             | ATSValueError: Parameter format validation failed.
     '''
     # Safely bind the passed args and kwargs to the function's signature
@@ -183,9 +183,9 @@ def mcheck[F: Callable[..., Any]](specs: Parameters) -> Callable[[F], F]:
         :param specs: Specification for parameters.
         :return: Wrapped function.
         :exceptions:
-            | ATSTypeError: Parameter type validation failed.
-            | ATSValueError: Parameter format validation failed.
-            | ATSRuntimeError: Decorator used on a non-class method.
+            | ATSTypeError:      Parameter type validation failed.
+            | ATSValueError:     Parameter format validation failed.
+            | ATSRuntimeError:   Decorator used on a non-class method.
             | ATSAttributeError: Class does not provide a _checker object.
     '''
     validate_specs(specs, r'mcheck(...)')
@@ -249,7 +249,7 @@ def fcheck[F: Callable[..., Any]](specs: Parameters, checker: IChecker | None = 
         :param checker: Checker instance to validate with.
         :return: Wrapped function.
         :exceptions:
-            | ATSTypeError: Parameter type validation failed.
+            | ATSTypeError:  Parameter type validation failed.
             | ATSValueError: Parameter format validation failed.
     '''
     validate_specs(specs, r'fcheck(...)')

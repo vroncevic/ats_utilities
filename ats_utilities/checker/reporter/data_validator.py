@@ -62,15 +62,15 @@ class CheckReporterValidator(IDataValidator[CheckReporterData]):
             :param data: Check reporter data to be validated.
             :exceptions:
                 | ATSValueError: Check reporter data must be provided.
-                | ATSTypeError: Check reporter data must be an instance of CheckReporterData.
+                | ATSTypeError:  Check reporter data must be an instance of CheckReporterData.
                 | ATSValueError: Context must be provided.
                 | ATSValueError: Parameters metadata must be provided.
                 | ATSValueError: Error indices must be provided.
                 | ATSValueError: Is format error flag must be provided.
-                | ATSTypeError: Context must be a string.
-                | ATSTypeError: Parameters metadata must be a sequence of Parameters.
-                | ATSTypeError: Error indices must be a sequence of integers.
-                | ATSTypeError: Is format error flag must be a boolean.
+                | ATSTypeError:  Context must be a string.
+                | ATSTypeError:  Parameters metadata must be a sequence of Parameters.
+                | ATSTypeError:  Error indices must be a sequence of integers.
+                | ATSTypeError:  Is format error flag must be a boolean.
         '''
         ctx: str = r'data_reporter_validator::validate(...)'
 

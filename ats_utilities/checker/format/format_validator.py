@@ -26,7 +26,7 @@ from collections.abc import Sequence
 from typing import Final, override
 
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
-from ats_utilities.validation.check_value import not_none, not_satisfied
+from ats_utilities.validation.check_value import not_none, not_satisfied, not_empty
 from ats_utilities.validation.check_type import istype
 from ats_utilities.utils.reflection import to_str
 
@@ -83,11 +83,13 @@ class FormatValidator(IFormatValidator):
 
             :param separator: The separator to use for splitting the format string | None.
             :exceptions:
-                | ATSTypeError: Separator must be a string.
+                | ATSTypeError:  Separator must be a string.
+                | ATSValueError: Separator must not be empty.
         '''
         if separator is not None:
             ctx: str = r'format_validator::init(...)'
             istype(separator, str, ctx, r'separator must be a string')
+            not_empty(separator, ctx, r'separator must not be empty')
             self._separator = separator
         else:
             self._separator = self.EXPECTED_SEPARATOR
@@ -111,7 +113,7 @@ class FormatValidator(IFormatValidator):
             :return: True if successfully, otherwise False.
             :exceptions:
                 | ATSValueError: Expected-format string must be provided.
-                | ATSTypeError: Expected-format string must be a string.
+                | ATSTypeError:  Expected-format string must be a string.
                 | ATSValueError: Expected-format string must contain the separator.
         '''
         ctx: str = r'format_validator::is_valid(...)'
@@ -129,7 +131,7 @@ class FormatValidator(IFormatValidator):
             :return: A Sequence containing the split components.
             :exceptions:
                 | ATSValueError: Expected-format string must be provided.
-                | ATSTypeError: Expected-format string must be a string.
+                | ATSTypeError:  Expected-format string must be a string.
                 | ATSValueError: Expected-format string must contain the separator.
         '''
         ctx: str = r'format_validator::split(...)'
