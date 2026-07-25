@@ -68,7 +68,6 @@ class TarData:
             Converts the tar process data to a dictionary.
 
             :return: Dictionary representation of the tar process data.
-            :rtype: dict[str, Any]
             :exceptions: None.
         '''
         return instance_to_dict(self)
@@ -99,7 +98,6 @@ class TarMemberData:
             Converts the tar member data to a dictionary.
 
             :return: Dictionary representation of the tar member data.
-            :rtype: dict[str, Any]
             :exceptions: None.
         '''
         return instance_to_dict(self)

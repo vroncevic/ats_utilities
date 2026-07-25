@@ -56,7 +56,6 @@ class ILoader[ContextEnvironment](ABC):
             Returns the context.
 
             :return: Context.
-            :rtype: ContextEnvironment
             :exceptions: None.
         '''
         pass
@@ -67,7 +66,6 @@ class ILoader[ContextEnvironment](ABC):
             Loads configuration from file and returns dictionary with configuration content.
 
             :return: Dictionary with configuration content.
-            :rtype: dict[str, Any]
             :exceptions: None.
         '''
         pass

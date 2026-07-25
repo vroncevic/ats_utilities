@@ -56,7 +56,6 @@ class InfoRegistry(IRegistry[InfoBundle, InfoDependencies]):
 
             :param dependencies: Registry-specific orchestration dependencies.
             :return: Info bundle instance.
-            :rtype: InfoBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Name must be provided.

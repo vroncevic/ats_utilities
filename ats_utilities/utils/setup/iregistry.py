@@ -53,6 +53,5 @@ class IRegistry[BundleType, DependenciesType](ABC):
 
             :param dependencies: Dependencies required to create the bundle.
             :return: A fully constructed and validated bundle instance.
-            :rtype: BundleType
         '''
         pass

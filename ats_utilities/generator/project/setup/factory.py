@@ -66,7 +66,6 @@ class ProjectFactory(IFactory[ProjectBundle, ProjectOptions]):
 
             :param options: Creation options/parameters for the bundle.
             :return: Project bundle instance.
-            :rtype: ProjectBundle
             :exceptions:
                 | ATSValueError: Options must be provided.
                 | ATSTypeError: Options must be a dictionary.
@@ -123,7 +122,6 @@ class ProjectFactory(IFactory[ProjectBundle, ProjectOptions]):
             :param setup: The project setup dictionary.
             :param context_bundle: The context bundle.
             :return: Project bundle instance.
-            :rtype: ProjectBundle
             :exceptions:
                 | ATSValueError: Options must be provided.
                 | ATSTypeError: Options must be a dictionary.

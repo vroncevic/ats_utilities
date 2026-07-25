@@ -58,7 +58,6 @@ class IGenerator[ContextEnvironment](ABC):
             Returns the context.
 
             :return: Context.
-            :rtype: ContextEnvironment
             :exceptions: None.
         '''
         pass
@@ -70,7 +69,6 @@ class IGenerator[ContextEnvironment](ABC):
 
             :param template_values: Input replacement values.
             :return: The updated template values dictionary.
-            :rtype: dict[str, str]
             :exceptions: None.
         '''
         pass

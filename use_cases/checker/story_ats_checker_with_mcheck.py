@@ -70,7 +70,6 @@ class TestData:
             Property method for getting data.
 
             :return: The data as dictionary representation.
-            :rtype: <dict[str, int]>
             :exceptions: None.
         '''
         return self._data

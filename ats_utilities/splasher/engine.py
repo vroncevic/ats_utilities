@@ -154,7 +154,6 @@ class Splasher(ISplasher[ContextBundle, CenterData]):
             Returns context bundle.
 
             :return: Context bundle.
-            :rtype: ContextBundle
             :exceptions: None.
         '''
         return self._context

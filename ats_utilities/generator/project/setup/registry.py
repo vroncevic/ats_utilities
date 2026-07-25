@@ -56,7 +56,6 @@ class ProjectRegistry(IRegistry[ProjectBundle, ProjectDependencies]):
 
             :param dependencies: Registry-specific orchestration dependencies.
             :return: Project bundle instance.
-            :rtype: ProjectBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Project name must be provided.

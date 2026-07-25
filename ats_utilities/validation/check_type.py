@@ -45,7 +45,6 @@ def _resolve_type(type_to_resolve: Any) -> Any:
 
         :param type_to_resolve: Type to resolve.
         :return: Resolved type.
-        :rtype: Any
         :exceptions: None.
     '''
     origin = get_origin(type_to_resolve)

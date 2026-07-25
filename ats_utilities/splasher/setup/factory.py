@@ -71,7 +71,6 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
 
             :param options: Creation options/parameters for the bundle.
             :return: Splash bundle instance.
-            :rtype: SplashBundle
             :exceptions:
                 | ATSValueError: Options must be provided.
                 | ATSTypeError: Options must be a Mapping.
@@ -141,7 +140,6 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
             :param prop: Properties.
             :param context_bundle: Context bundle.
             :return: Splash bundle instance.
-            :rtype: SplashBundle
             :exceptions:
                 | ATSValueError: Options must be provided.
                 | ATSTypeError: Options must be a Mapping.

@@ -61,7 +61,6 @@ class GeneratorRegistry(IRegistry[GeneratorBundle, GeneratorDependencies]):
 
             :param dependencies: Registry-specific orchestration dependencies.
             :return: Generator bundle instance.
-            :rtype: GeneratorBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Context bundle must be provided.
@@ -102,7 +101,6 @@ class GeneratorRegistry(IRegistry[GeneratorBundle, GeneratorDependencies]):
             :param template_processor: Processor for template rendering.
             :param context_bundle: Context bundle for generator.
             :return: Generator bundle instance.
-            :rtype: GeneratorBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Context bundle must be provided.

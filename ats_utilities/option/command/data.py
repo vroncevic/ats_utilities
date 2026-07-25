@@ -78,6 +78,5 @@ class OptionData:
             Converts the option data instance to a dictionary.
 
             :return: Dictionary representation of the option data instance.
-            :rtype: dict[str, Any]
         '''
         return instance_to_dict(self)

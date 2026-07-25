@@ -87,7 +87,6 @@ class ProConfig(IProConfig):
             Property method for getting project configuration.
 
             :return: Formatted project configuration in dict format.
-            :rtype: Mapping[str, Any] 
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

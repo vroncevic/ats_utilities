@@ -108,7 +108,6 @@ class Storer(IStorer[ContextBundle]):
             Returns the context.
 
             :return: Context.
-            :rtype: ContextBundle
             :exceptions: None.
         '''
         return self._context

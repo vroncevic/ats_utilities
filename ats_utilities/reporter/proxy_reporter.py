@@ -49,7 +49,6 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
 
         :param templates: Single template string or a list of template strings.
         :return: Wrapped function.
-        :rtype: <Callable[[F], F]>
         :exceptions:
             | ATSValueError: Decorator requires at least one argument.
             | ATSRuntimeError: Decorator cannot be used on a standalone function.

@@ -53,6 +53,5 @@ class IFactory[BundleType, OptionsType](ABC):
 
             :param options: Creation options/parameters for the bundle.
             :return: Bundle instance.
-            :rtype: BundleType
         '''
         pass

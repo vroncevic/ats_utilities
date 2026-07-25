@@ -98,7 +98,6 @@ class GitHubInfrastructure(IExtInfrastructure):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Formatted infrastructure property in Mapping format (read only data).
-            :rtype: Mapping[str, Any] 
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

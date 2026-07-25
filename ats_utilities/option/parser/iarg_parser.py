@@ -68,7 +68,6 @@ class IArgParser[T](ABC):
             :param args: List of flags for the ATS.
             :param kwargs: Arguments in shape of dictionary.
             :return: Action/argument instance.
-            :rtype: Any
         '''
         pass
 
@@ -84,7 +83,6 @@ class IArgParser[T](ABC):
             :param args: Sequence of arguments | None.
             :param namespace: Option namespace object | None.
             :return: Option namespace object.
-            :rtype: OptionNamespace
         '''
         pass
 
@@ -100,7 +98,6 @@ class IArgParser[T](ABC):
             :param args: Sequence of arguments | None.
             :param namespace: Option namespace object | None.
             :return: Tuple containing option namespace and unknown arguments.
-            :rtype: KnownArgs
         '''
         pass
 
@@ -111,6 +108,5 @@ class IArgParser[T](ABC):
 
             :param kwargs: Arguments in shape of dictionary.
             :return: Action/subparser instance.
-            :rtype: Any
         '''
         pass

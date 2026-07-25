@@ -105,7 +105,6 @@ class Generator(IGenerator[ContextBundle]):
             Returns the context.
 
             :return: Context.
-            :rtype: ContextBundle
             :exceptions: None.
         '''
         return self._context
@@ -117,7 +116,6 @@ class Generator(IGenerator[ContextBundle]):
 
             :param template_values: Input replacement values.
             :return: The updated template values dictionary.
-            :rtype: dict[str, str]
             :exceptions:
                 | ATSValueError: Template values must be provided.
                 | ATSTypeError: Template values must be a mapping.

@@ -56,7 +56,6 @@ class IProConfig(ABC):
             Property method for getting project configuration.
 
             :return: Formatted project configuration in Mapping format | None
-            :rtype: <Mapping[str, Any] | None>
             :exceptions: None.
         '''
         pass

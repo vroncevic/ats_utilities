@@ -49,7 +49,6 @@ def get_pvt(instance: Any, attr_name: str) -> Any:
         :param instance: The class instance (self) containing the attribute.
         :param attr_name: The target private attribute name (e.g., '_checker').
         :return: The resolved attribute value.
-        :rtype: Any
         :exceptions:
             | AttributeError: Attribute must start with '_' prefix.
     '''
@@ -66,7 +65,6 @@ def has_attrs(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., 
 
         :param attr_names: Tuple of attribute names to check.
         :return: Decorated function.
-        :rtype: Callable[..., Any]
         :exceptions:
             | ATSValueError: Missing or empty attribute: '{attr}'.
     '''
@@ -144,7 +142,6 @@ def instance_to_dict(instance: Any) -> dict[str, Any]:
 
         :param instance: The dataclass instance.
         :return: Dictionary representation of the dataclass.
-        :rtype: dict[str, Any]
         :exceptions:
             | ATSValueError: Instance must be provided.
             | ATSValueError: Instance must be a dataclass instance.

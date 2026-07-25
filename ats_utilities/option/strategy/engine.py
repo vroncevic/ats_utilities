@@ -145,7 +145,6 @@ class ParserStrategy(IParserStrategy):
             :param arguments: Sequence of arguments | None.
             :param known_only: Parse only known arguments (default False).
             :return: Option namespace object.
-            :rtype: OptionNamespace
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -203,7 +202,6 @@ class ParserStrategy(IParserStrategy):
 
             :param arguments: Sequence of arguments | None.
             :return: Tuple containing command name and parsed parameters (read only data).
-            :rtype: tuple[str, Mapping[str, Any]]
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''

@@ -57,7 +57,6 @@ class SplashRegistry(IRegistry[SplashBundle, SplashDependencies]):
 
             :param dependencies: Registry-specific orchestration dependencies.
             :return: Splash bundle instance.
-            :rtype: SplashBundle
             :exceptions:
                 | ATSValueError: Dependencies must be provided.
                 | ATSTypeError: Dependencies must be a Mapping.

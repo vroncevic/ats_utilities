@@ -51,7 +51,6 @@ def make_component(
         :param default_class: The class to instantiate if passed_obj is None.
         :param factory_args: Arguments to pass to the default_class constructor | None.
         :return: An instance of the component.
-        :rtype: Any
         :exceptions: None.
     '''
     if passed_obj is not None:

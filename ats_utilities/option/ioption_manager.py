@@ -65,7 +65,6 @@ class IOptionManager[ContextEnvironment](ABC):
             Returns the context.
 
             :return: Context
-            :rtype: ContextEnvironment
         '''
         pass
 
@@ -96,7 +95,6 @@ class IOptionManager[ContextEnvironment](ABC):
 
             :param arguments: Sequence of arguments | None
             :return: Option namespace object
-            :rtype: OptionNamespace
         '''
         pass
 
@@ -107,7 +105,6 @@ class IOptionManager[ContextEnvironment](ABC):
 
             :param arguments: Sequence of arguments | None
             :return: Option namespace object
-            :rtype: OptionNamespace
         '''
         pass
 
@@ -127,7 +124,6 @@ class IOptionManager[ContextEnvironment](ABC):
 
             :param arguments: Sequence of arguments | None.
             :return: Tuple containing command name and parsed parameters (read only data).
-            :rtype: tuple[str, Mapping[str, Any]]
         '''
         pass
 

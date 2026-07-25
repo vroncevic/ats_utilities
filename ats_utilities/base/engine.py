@@ -129,7 +129,6 @@ class Base(IBase[ContextBundle]):
             Returns the context.
 
             :return: Context.
-            :rtype: ContextBundle
             :exceptions: None.
         '''
         return self._context
@@ -166,7 +165,6 @@ class Base(IBase[ContextBundle]):
 
             :param argv: Sequence of arguments | None.
             :return: Options and arguments.
-            :rtype: OptionNamespace | None
             :exceptions:
                 | ATSValueError: Missing or None attribute: '_options_parser'.
         '''

@@ -45,7 +45,6 @@ def cherry_pick_dict(source: Mapping[Any, Any], keys: frozenset[str]) -> dict[An
         :param source: Source dictionary from which to pick keys.
         :param keys: Set of keys to pick from the source dictionary.
         :return: Dictionary with cherry picked keys.
-        :rtype: dict[Any, Any]
         :exceptions: None.
     '''
     if not source or not keys:
@@ -115,7 +114,6 @@ def get_first_available(
         :param exc_context: Context representation in string format.
         :param exc_message: Message to include in the exception message.
         :return: The first non-empty value found, or None if none of the keys exist/have value.
-        :rtype: Any | None
         :exceptions:
             | ATSTypeError: Parameters (source and keys) types validation failed.
     '''

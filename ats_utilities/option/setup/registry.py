@@ -57,7 +57,6 @@ class OptionRegistry(IRegistry[OptionBundle, OptionDependencies]):
 
             :param dependencies: Registry-specific orchestration dependencies.
             :return: Option bundle instance.
-            :rtype: OptionBundle
             :exceptions:
                 | ATSValueError: Dependencies must be provided.
                 | ATSTypeError: Dependencies must be a Mapping.

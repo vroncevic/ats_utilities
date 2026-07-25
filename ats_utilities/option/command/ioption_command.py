@@ -76,7 +76,6 @@ class IOptionCommand[MetaOption](ABC):
             Returns the sequence of options for the command.
 
             :return: Sequence of options for the command.
-            :rtype: Sequence[MetaOption]
         '''
         pass
 

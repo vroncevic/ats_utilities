@@ -60,7 +60,6 @@ class IExtInfrastructure(ABC):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Formatted infrastructure property in Mapping format (read only data).
-            :rtype: Mapping[str, Any] 
         '''
         pass
 

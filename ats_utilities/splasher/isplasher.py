@@ -54,7 +54,6 @@ class ISplasher[ContextEnvironment, PositionData](ABC):
             Returns the context environment.
 
             :return: Context environment.
-            :rtype: ContextEnvironment
         '''
         pass
 

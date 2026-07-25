@@ -63,7 +63,6 @@ class ParserData:
             Converts ParserData instance to dictionary.
 
             :return: Dictionary representation of ParserData.
-            :rtype: dict[str, Any]
             :exceptions: None.
         '''
         return instance_to_dict(self)

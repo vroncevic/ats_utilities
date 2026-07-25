@@ -95,7 +95,6 @@ class ConfFile(IConfFile):
             Opens configuration file in mode.
 
             :return: File IO object.
-            :rtype: File
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

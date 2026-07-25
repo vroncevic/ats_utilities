@@ -56,7 +56,6 @@ class BaseRegistry(IRegistry[BaseBundle, BaseDependencies]):
 
             :param dependencies: Registry-specific orchestration dependencies.
             :return: Base bundle instance.
-            :rtype: BaseBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Information file must be provided.

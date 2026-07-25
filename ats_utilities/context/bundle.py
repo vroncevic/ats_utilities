@@ -65,7 +65,6 @@ class ContextBundle:
             Converts context bundle to dictionary.
 
             :return: Dictionary representation of context bundle.
-            :rtype: dict[str, Any]
             :exceptions:
                 | ATSValueError: Instance must be provided.
                 | ATSValueError: Instance must be a dataclass instance.

@@ -59,7 +59,6 @@ class IConfigProcessorFactory(ABC):
 
             :param extension: File extension.
             :return: Processor class.
-            :rtype: <type[IConfigProcessor]>
         '''
         pass
 
@@ -78,7 +77,6 @@ class IConfigProcessorFactory(ABC):
             :param scheme: Scheme for the processor | None.
             :param processor: Instance to be used as the processor | None.
             :return: Processor instance.
-            :rtype: <IConfigProcessor>
         '''
         pass
 
@@ -97,6 +95,5 @@ class IConfigProcessorFactory(ABC):
             :param scheme: Scheme for the processor | None.
             :param processor: Instance to be used as the processor | None.
             :return: Processor instance.
-            :rtype: <IConfigProcessor>
         '''
         pass

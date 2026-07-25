@@ -82,7 +82,6 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
 
             :param extension: File extension (e.g., '.json', '.cfg', '.xml', '.ini', '.yml', '.yaml').
             :return: Processor class.
-            :rtype: <type[IConfigProcessor]>
             :exceptions:
                 | ATSValueError: Extension must be provided.
                 | ATSTypeError: Extension must be a string.
@@ -120,7 +119,6 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
             :param scheme: Scheme for the processor | None.
             :param processor: Instance to be used as the processor | None.
             :return: Processor instance.
-            :rtype: <IConfigProcessor>
             :exceptions:
                 | ATSValueError: Extension must be provided.
                 | ATSTypeError: Extension must be a string.
@@ -174,7 +172,6 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
             :param scheme: Scheme for the processor | None.
             :param processor: Instance to be used as the processor | None.
             :return: Processor instance.
-            :rtype: <IConfigProcessor>
             :exceptions:
                 | ATSValueError: File path must be provided when processor is None.
                 | ATSTypeError: File path must be a string.

@@ -61,7 +61,6 @@ class CheckerFactory(IFactory[CheckerBundle, CheckerOptions]):
 
             :param options: Creation options/parameters for the bundle (default None).
             :return: Checker bundle instance.
-            :rtype: CheckerBundle
             :exceptions:
                 | ATSValueError: Options must be provided and have proper values.
                 | ATSTypeError:  Options must be an instance of CheckerOptions

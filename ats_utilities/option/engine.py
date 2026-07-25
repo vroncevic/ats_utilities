@@ -100,7 +100,6 @@ class OptionManager(IOptionManager[ContextBundle]):
             Returns the context.
 
             :return: Context.
-            :rtype: ContextBundle
             :exceptions: None.
         '''
         return self._context
@@ -148,7 +147,6 @@ class OptionManager(IOptionManager[ContextBundle]):
 
             :param arguments: Sequence of arguments | None.
             :return: Option namespace object.
-            :rtype: OptionNamespace
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
@@ -166,7 +164,6 @@ class OptionManager(IOptionManager[ContextBundle]):
 
             :param arguments: Sequence of arguments | None.
             :return: Option namespace object.
-            :rtype: OptionNamespace
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
@@ -195,7 +192,6 @@ class OptionManager(IOptionManager[ContextBundle]):
 
             :param arguments: Sequence of arguments | None.
             :return: Tuple of (command name, command arguments) (read only data).
-            :rtype: tuple[str, Mapping[str, Any]]
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''

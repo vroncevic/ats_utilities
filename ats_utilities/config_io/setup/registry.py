@@ -62,7 +62,6 @@ class ConfigIORegistry(IRegistry[ConfigIOBundle, ConfigIODependencies]):
 
             :param dependencies: Registry-specific orchestration dependencies.
             :return: ConfigIOBundle instance.
-            :rtype: ConfigIOBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: File path must be provided.
@@ -101,7 +100,6 @@ class ConfigIORegistry(IRegistry[ConfigIOBundle, ConfigIODependencies]):
             :param scheme: Config scheme.
             :param context_bundle: Context bundle for dependency injection.
             :return: ConfigIOBundle instance.
-            :rtype: ConfigIOBundle
             :exceptions:
                 | ATSValueError: File path must be provided.
                 | ATSValueError: Scheme must be provided.
@@ -137,7 +135,6 @@ class ConfigIORegistry(IRegistry[ConfigIOBundle, ConfigIODependencies]):
             :param processor: Config processor.
             :param context_bundle: Context bundle for dependency injection.
             :return: ConfigIOBundle instance.
-            :rtype: ConfigIOBundle
             :exceptions:
                 | ATSValueError: File path must be provided.
                 | ATSValueError: Scheme must be provided.

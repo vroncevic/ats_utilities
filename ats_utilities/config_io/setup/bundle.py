@@ -68,7 +68,6 @@ class ConfigIOBundle:
             Converts config I/O bundle to a dictionary.
 
             :return: Dictionary representation of the config I/O bundle.
-            :rtype: dict[str, Any]
             :exceptions: None.
         '''
         return {name: getattr(self, name) for name in self.__slots__}

@@ -106,7 +106,6 @@ class Loader(ILoader[ContextBundle]):
             Returns the context.
 
             :return: Context.
-            :rtype: ContextBundle
             :exceptions: None.
         '''
         return self._context
@@ -117,7 +116,6 @@ class Loader(ILoader[ContextBundle]):
             Loads configuration from file and returns dictionary with configuration content.
 
             :return: Configuration dictionary.
-            :rtype: dict[str, Any]
             :exceptions: None.
         '''
         content: str | None = None

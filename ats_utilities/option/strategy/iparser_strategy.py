@@ -86,7 +86,6 @@ class IParserStrategy(ABC):
             :param arguments: Sequence of arguments | None.
             :param known_only: Parse only known arguments.
             :return: Option namespace object.
-            :rtype: OptionNamespace
         '''
         pass
 
@@ -106,7 +105,6 @@ class IParserStrategy(ABC):
 
             :param arguments: Sequence of arguments | None.
             :return: Tuple containing command name and parsed parameters (read only data).
-            :rtype: tuple[str, Mapping[str, Any]]
         '''
         pass
 

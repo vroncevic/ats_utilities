@@ -55,7 +55,6 @@ def find_package_data(pkg: str) -> list[str]:
 
         :param pkg: Package directory name.
         :return: List of package files relative to the package directory.
-        :rtype: <list[str]>
         :exceptions: None.
     '''
     package_data: list[str] = []

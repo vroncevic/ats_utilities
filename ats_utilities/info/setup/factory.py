@@ -88,7 +88,6 @@ class InfoFactory(IFactory[InfoBundle, InfoOptions]):
 
             :param options: Dictionary containing options.
             :return: Default info bundle instance.
-            :rtype: InfoBundle
             :exceptions:
                 | ATSValueError: Name must be provided.
                 | ATSValueError: Version must be provided.
@@ -176,7 +175,6 @@ class InfoFactory(IFactory[InfoBundle, InfoOptions]):
             :param info: Dictionary containing info.
             :param context_bundle: Context bundle.
             :return: InfoBundle instance.
-            :rtype: InfoBundle
             :exceptions:
                 | ATSValueError: Name must be provided.
                 | ATSValueError: Version must be provided.

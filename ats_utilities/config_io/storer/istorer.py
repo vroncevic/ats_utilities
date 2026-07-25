@@ -56,7 +56,6 @@ class IStorer[ContextEnvironment](ABC):
             Returns the context.
 
             :return: Context.
-            :rtype: ContextEnvironment
             :exceptions: None.
         '''
         pass

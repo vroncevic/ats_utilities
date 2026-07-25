@@ -99,7 +99,6 @@ class ArgParser(ArgumentParser, IArgParser[ParserData]):
             Overrides default error handling to use IReporter.
 
             :param message: Error message to report.
-            :rtype: NoReturn
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

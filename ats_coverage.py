@@ -108,7 +108,6 @@ def load_report(file_path: str) -> dict[str, Any]:
 
         :param file_path: Coverage report file path.
         :return: Coverage data report in dict format.
-        :rtype: dict[str, Any]
         :exceptions:
             | ATSTypeError: Parameter file_path type validation failed.
             | ATSValueError: Parameter file_path format validation failed.
@@ -136,7 +135,6 @@ def find_root_package(module_path: str) -> Path | None:
 
         :param module_path: Absolute path for project package.
         :return: Root package path.
-        :rtype: <Path | None>
         :exceptions:
             | ATSTypeError: Parameter module_path type validation failed.
             | ATSValueError: Parameter module_path format validation failed.
@@ -259,7 +257,6 @@ def _build_tree(dir_path: Path, prefix: str = '') -> tuple[list[str], int, int]:
         :param dir_path: Directory path.
         :param prefix: Current indentation prefix.
         :return: Tuple containing tree lines list, directory count, and file count.
-        :rtype: <tuple[list[str], int, int]>
         :exceptions: None.
     '''
     entries = []
@@ -300,7 +297,6 @@ def generate_tree_lines(pro_name: str) -> tuple[list[str], int, int]:
 
         :param pro_name: Project name.
         :return: Tuple containing tree lines list, directory count, and file count.
-        :rtype: <tuple[list[str], int, int]>
         :exceptions:
             | TypeError: Parameter pro_name type validation failed.
             | ValueError: Parameter pro_name format validation failed.

@@ -68,7 +68,6 @@ class GeneratorFactory(IFactory[GeneratorBundle, GeneratorOptions]):
 
             :param options: Creation options/parameters for the bundle.
             :return: Generator bundle instance.
-            :rtype: GeneratorBundle
             :exceptions:
                 | ATSValueError: Options must be provided.
                 | ATSTypeError: Options must be a dictionary.
@@ -115,7 +114,6 @@ class GeneratorFactory(IFactory[GeneratorBundle, GeneratorOptions]):
 
             :param context_bundle: Context bundle for generator.
             :return: Generator bundle instance.
-            :rtype: GeneratorBundle
             :exceptions:
                 | ATSValueError: Options must be provided.
                 | ATSTypeError: Options must be a dictionary.

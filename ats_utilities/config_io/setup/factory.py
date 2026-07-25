@@ -62,7 +62,6 @@ class ConfigIOFactory(IFactory[ConfigIOBundle, ConfigIOOptions]):
 
             :param options: Creation options/parameters for the bundle.
             :return: Config I/O bundle instance.
-            :rtype: ConfigIOBundle
             :exceptions:
                 | ATSValueError: Options must be provided.
                 | ATSTypeError: Options must be a dictionary.

@@ -87,7 +87,6 @@ class InfoBundle:
             Converts the info bundle to a dictionary.
 
             :return: Dictionary representation of the info bundle instance.
-            :rtype: dict[str, Any]
             :exceptions:
                 | ATSValueError: Instance must be provided.
                 | ATSValueError: Instance must be a dataclass instance.

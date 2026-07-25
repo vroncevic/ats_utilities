@@ -63,7 +63,6 @@ class IBase[ContextEnvironment](ABC):
             Returns the context.
 
             :return: Context.
-            :rtype: ContextEnvironment
             :exceptions: None.
         '''
         pass
@@ -96,7 +95,6 @@ class IBase[ContextEnvironment](ABC):
 
             :param argv: Sequence of arguments.
             :return: Options and arguments | None
-            :rtype: OptionNamespace | None
             :exceptions: None.
         '''
         pass

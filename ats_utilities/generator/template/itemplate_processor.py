@@ -55,7 +55,6 @@ class ITemplateProcessor(ABC):
             :param raw_content: The raw byte content of the file.
             :param vals: String replacement values.
             :return: Rendered text content string, or raw bytes if binary format.
-            :rtype: <str | bytes>
             :exceptions: None.
         '''
         pass

@@ -95,7 +95,6 @@ class TerminalProperties(ITerminalProperties):
 
             :param file_descriptor: File descriptor.
             :return: Window size of terminal.
-            :rtype: tuple[Any, ...]
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -138,7 +137,6 @@ class TerminalProperties(ITerminalProperties):
             Gets terminal window size.
 
             :return: Terminal window size.
-            :rtype: tuple[Any, ...]
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

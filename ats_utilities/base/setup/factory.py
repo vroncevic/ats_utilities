@@ -77,7 +77,6 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
 
             :param options: Creation options/parameters for the bundle.
             :return: Base bundle instance.
-            :rtype: BaseBundle
             :exceptions:
                 | ATSValueError: Options must be provided.
                 | ATSTypeError: Options must be a dictionary.
@@ -185,7 +184,6 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
             :param context_bundle: ContextBundle instance.
             :param use_generator: Whether to use the generator (default False).
             :return: Default base bundle instance.
-            :rtype: BaseBundle
             :exceptions:
                 | ATSValueError: Options must be provided.
                 | ATSTypeError: Options must be a dictionary.

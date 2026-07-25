@@ -180,7 +180,6 @@ class XMLProcessor(IConfigProcessor):
             Returns the parsed configuration as a flat or structured dictionary.
 
             :return: Dictionary with configuration information.
-            :rtype: dict[str, str]
             :exceptions: None.
         '''
         if self._root is None:

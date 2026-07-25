@@ -85,7 +85,6 @@ class SchemeLoader(ISchemeLoader):
 
             :param scheme: Generation scheme file path or preloaded scheme.
             :return: The resolved scheme dictionary.
-            :rtype: dict[str, Any]
             :exceptions:
                 | ATSTypeError: Scheme is not a string or mapping.
                 | ATSValueError: Scheme file path does not exist.

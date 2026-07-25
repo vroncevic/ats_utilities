@@ -64,7 +64,6 @@ class OptionFactory(IFactory[OptionBundle, OptionOptions]):
 
             :param options: Creation options/parameters for the bundle.
             :return: Option bundle instance.
-            :rtype: OptionBundle
             :exceptions:
                 | ATSValueError: Options must be provided.
                 | ATSTypeError: Options must be a Mapping.
@@ -116,7 +115,6 @@ class OptionFactory(IFactory[OptionBundle, OptionOptions]):
             :param context_bundle: Context bundle for option bundle.
             :param parser_class: Injected parser class type.
             :return: Option bundle instance.
-            :rtype: OptionBundle
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Parameters must be provided.

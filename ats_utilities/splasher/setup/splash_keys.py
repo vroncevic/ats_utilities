@@ -97,7 +97,6 @@ class SplashKeys:
             Returns a read-only mapping of constant keys to instance attributes.
 
             :return: Read-only mapping of constant keys to instance attributes.
-            :rtype: <MappingProxyType[str, str]>
             :exceptions: None.
         '''
         if cls._key_to_attr is None:
@@ -121,7 +120,6 @@ class SplashKeys:
 
             :param config: Configuration mapping.
             :return: Fully initialized SplashKeys instance.
-            :rtype: <Self>
             :exceptions: None.
         '''
         is_enabled: bool = bool(config.get('enabled', True))
@@ -140,7 +138,6 @@ class SplashKeys:
             Returns an immutable tuple of all defined ClassVar keys for the splash screen.
 
             :return: Immutable tuple of all defined ClassVar keys for the splash screen.
-            :rtype: tuple[str, ...]
             :exceptions: None.
         '''
         return tuple(cls.get_key_to_attr().keys())
@@ -150,7 +147,6 @@ class SplashKeys:
             Converts the SplashKeys instance to a dictionary.
 
             :return: SplashKeys instance in dict format.
-            :rtype: dict[str, Any]
             :exceptions: None.
         '''
         if not self.enabled:

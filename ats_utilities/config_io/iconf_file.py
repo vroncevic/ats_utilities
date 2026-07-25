@@ -61,7 +61,6 @@ class IConfFile(ABC):
             Opens configuration context manager and opens the file.
 
             :return: File IO object | None.
-            :rtype: <File | None>
             :exceptions: None.
         '''
         pass
