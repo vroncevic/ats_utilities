@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class LogFile with attribute(s) and method(s).
-    Creates an API for the log file path in one property object.
+    Provides an API for the log file path in one property object.
 '''
 
 from __future__ import annotations
@@ -44,7 +44,7 @@ __status__ = r'Development'
 class LogFile(ILogFile):
     '''
         Defines class LogFile with attribute(s) and method(s).
-        Creates an API for the log file path in one property object.
+        Provides an API for the log file path in one property object.
         Note: Log file path is only prepared when it is set by user (not None).
 
         It defines:

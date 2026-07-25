@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IFormatValidator with method(s).
-    Creates an interface for validating parameters for method(s) and function(s).
+    Provides an interface for validating parameters for method(s) and function(s).
 '''
 
 from __future__ import annotations
@@ -38,7 +38,7 @@ __status__ = r'Development'
 class IFormatValidator(ABC):
     '''
         Defines abstract class IFormatValidator with method(s).
-        Creates an interface for validating parameters for method(s) and function(s).
+        Provides an interface for validating parameters for method(s) and function(s).
 
         It defines:
 
@@ -54,9 +54,7 @@ class IFormatValidator(ABC):
             Checks if the string follows the expected format.
 
             :param exp_type: The expected format string to validate.
-            :type exp_type: str
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
@@ -66,9 +64,7 @@ class IFormatValidator(ABC):
             Splits the format string into parts.
 
             :param exp_type: The format string to split.
-            :type exp_type: str
             :return: A Sequence containing the split components.
-            :rtype: Sequence[str]
         '''
         pass
 
@@ -78,6 +74,5 @@ class IFormatValidator(ABC):
             Returns the format validator as string representation.
 
             :return: The format validator as string representation.
-            :rtype: str
         '''
         pass

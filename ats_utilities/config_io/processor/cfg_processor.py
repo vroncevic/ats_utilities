@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class CFGProcessor with attribute(s) and method(s).
-    Creates an API to process configuration in CFG format.
+    Provides an API to process configuration in CFG format.
     1th level of configuration loader/storer implementation.
 '''
 
@@ -43,7 +43,7 @@ __status__ = r'Development'
 class CFGProcessor(IConfigProcessor):
     '''
         Defines class CFGProcessor with attribute(s) and method(s).
-        Creates an API to process configuration in CFG format.
+        Provides an API to process configuration in CFG format.
         1th level of configuration loader/storer implementation.
 
         It defines:

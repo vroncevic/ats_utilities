@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IConsoleTheme with method(s).
-    Creates an interface for console styling.
+    Provides an interface for console styling.
 '''
 
 from __future__ import annotations
@@ -37,7 +37,7 @@ __status__ = r'Development'
 class IConsoleTheme(ABC):
     '''
         Defines abstract class IConsoleTheme with method(s).
-        Creates an interface for console styling.
+        Provides an interface for console styling.
 
         It defines:
 

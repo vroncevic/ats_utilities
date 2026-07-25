@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class ICheckReporter with method(s).
-    Creates an interface for formating message in context of checker.
+    Provides an interface for formating message in context of checker.
 '''
 
 from __future__ import annotations
@@ -37,7 +37,7 @@ __status__ = r'Development'
 class ICheckReporter[T](ABC):
     '''
         Defines abstract class ICheckReporter with method(s).
-        Creates an interface for formating message in context of checker.
+        Provides an interface for formating message in context of checker.
 
         It defines:
 
@@ -52,9 +52,7 @@ class ICheckReporter[T](ABC):
             Builds the final message.
 
             :param data: Data to be formatted.
-            :type data: T
             :return: Formatted message.
-            :rtype: str
         '''
         pass
 
@@ -64,6 +62,5 @@ class ICheckReporter[T](ABC):
             Returns the check reporter as string representation.
 
             :return: The check reporter as string representation.
-            :rtype: str
         '''
         pass

@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class SplashProperty with attribute(s) and method(s).
-    Creates an API for checking splash screen property.
+    Provides an API for checking splash screen property.
 '''
 
 from __future__ import annotations
@@ -46,7 +46,7 @@ __status__ = r'Development'
 class SplashProperty(ISplashProperty):
     '''
         Defines class SplashProperty with attribute(s) and method(s).
-        Creates an API for checking splash screen property.
+        Provides an API for checking splash screen property.
         Note: Splash screen property comes from info configuration file as read only data.
 
         It defines:

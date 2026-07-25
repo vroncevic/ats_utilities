@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IContextProvider with method(s).
-    Creates an interface for getting context information for method(s) and function(s).
+    Provides an interface for getting context information for method(s) and function(s).
 '''
 
 from __future__ import annotations
@@ -37,7 +37,7 @@ __status__ = r'Development'
 class IContextProvider(ABC):
     '''
         Defines abstract class IContextProvider with method(s).
-        Creates an interface for getting context information for method(s) and function(s).
+        Provides an interface for getting context information for method(s) and function(s).
 
         It defines:
 
@@ -53,7 +53,6 @@ class IContextProvider(ABC):
             Sets the index in the call stack to identify the caller.
 
             :param stack_index_caller: Index in the call stack to identify the caller.
-            :type stack_index_caller: int
         '''
         pass
 
@@ -63,7 +62,6 @@ class IContextProvider(ABC):
             Returns a string representing the calling context.
 
             :return: Context information in form of a string.
-            :rtype: str
         '''
         pass
 
@@ -73,7 +71,6 @@ class IContextProvider(ABC):
             Returns the context provider as string representation.
 
             :return: The context provider as string representation.
-            :rtype: str
         '''
         pass
 

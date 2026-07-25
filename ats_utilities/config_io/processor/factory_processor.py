@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ConfigProcessorFactory with attribute(s) and method(s).
-    Creates an API for creating an file processor instance based on the file extension.
+    Provides an API for creating an file processor instance based on the file extension.
     1th level of configuration loader/storer implementation.
 '''
 
@@ -52,7 +52,7 @@ __status__ = r'Development'
 class ConfigProcessorFactory(IConfigProcessorFactory):
     '''
         Defines class ConfigProcessorFactory with attribute(s) and method(s).
-        Creates an API for creating an file processor instance based on the file extension.
+        Provides an API for creating an file processor instance based on the file extension.
         1th level of configuration loader/storer implementation.
 
         It defines:

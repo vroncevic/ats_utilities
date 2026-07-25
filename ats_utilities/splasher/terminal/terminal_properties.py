@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class TerminalProperties with attribute(s) and method(s).
-    Creates an API for getting terminal properties.
+    Provides an API for getting terminal properties.
 '''
 
 from __future__ import annotations
@@ -48,7 +48,7 @@ __status__ = r'Development'
 class TerminalProperties(ITerminalProperties):
     '''
         Defines class TerminalProperties with attribute(s) and method(s).
-        Creates an API for getting terminal properties.
+        Provides an API for getting terminal properties.
 
         It defines:
 

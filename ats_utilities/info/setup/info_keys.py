@@ -26,6 +26,17 @@ from dataclasses import dataclass
 from typing import ClassVar
 from types import MappingProxyType
 
+from ats_utilities.info.name.iname import IName
+from ats_utilities.info.version.iversion import IVersion
+from ats_utilities.info.licence.ilicence import ILicence
+from ats_utilities.info.build_date.ibuild_date import IBuildDate
+from ats_utilities.info.repository.irepository import IRepository
+from ats_utilities.info.organization.iorganization import IOrganization
+from ats_utilities.info.use_github.iuse_github import IUseGitHub
+from ats_utilities.info.logo.ilogo import ILogo
+from ats_utilities.info.log_file.ilog_file import ILogFile
+from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
+
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -56,6 +67,11 @@ class InfoKeys:
                 | ATS_USE_GITHUB_INFRASTRUCTURE - The key for use github infrastructure.
                 | ATS_LOGO_PATH - The key for logo path.
                 | ATS_LOG_FILE - The key for log file path (Optional).
+                | ATS_INFO_OK - The key for info ok.
+            :methods:
+                | get_keys - Returns a tuple of all information keys.
+                | get_key_to_attr - Returns a mapping of information keys to attributes.
+                | get_attr_to_interface - Returns a mapping of attribute names to their expected interfaces.
     '''
 
     ATS_NAME: ClassVar[str] = r'ats_name'
@@ -111,4 +127,28 @@ class InfoKeys:
             cls.ATS_LOGO_PATH: r'logo',
             cls.ATS_LOG_FILE: r'log_file',
             cls.ATS_INFO_OK: r'info_ok'
+        })
+
+    @classmethod
+    def get_attr_to_interface(cls) -> MappingProxyType[str, type]:
+        '''
+            Returns a mapping of attribute names to their expected interfaces.
+
+            :return: Mapping of attribute name to interface/type.
+            :rtype: MappingProxyType[str, type]
+            :exceptions: None.
+        '''
+        attr = cls.get_key_to_attr()
+
+        return MappingProxyType({
+            attr[cls.ATS_NAME]: IName,
+            attr[cls.ATS_VERSION]: IVersion,
+            attr[cls.ATS_BUILD_DATE]: IBuildDate,
+            attr[cls.ATS_LICENCE]: ILicence,
+            attr[cls.ATS_REPOSITORY]: IRepository,
+            attr[cls.ATS_ORGANIZATION]: IOrganization,
+            attr[cls.ATS_USE_GITHUB_INFRASTRUCTURE]: IUseGitHub,
+            attr[cls.ATS_LOGO_PATH]: ILogo,
+            attr[cls.ATS_LOG_FILE]: ILogFile,
+            attr[cls.ATS_INFO_OK]: IInfoOk,
         })

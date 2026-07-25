@@ -26,6 +26,7 @@ from typing import override
 
 from ats_utilities.checker.setup.options import CheckerOptions
 from ats_utilities.utils.setup.iopt_validator import IOptionsValidator
+from ats_utilities.checker.setup.keys import CheckerKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -56,36 +57,20 @@ class CheckerOptionsValidator(IOptionsValidator[CheckerOptions]):
             Validates checker options instance.
 
             :param options: Checker options instance to be validated.
-            :type options: CheckerOptions
             :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a Mapping.
-                | ATSTypeError: Separator must be a string.
-                | ATSTypeError: Abstract types must be a Mapping.
-                | ATSTypeError: Stack index caller must be an integer.
-                | ATSTypeError: Messages provider must be a Mapping.
+                | ATSValueError: Options must be provided and have proper attributes.
+                | ATSTypeError:  Options must be an instance of CheckerOptions
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         ctx: str = r'checker_options_validator::validate(...)'
 
         not_none(options, ctx, r'options must be provided')
         istype(options, Mapping, ctx, r'options must be a Mapping')
 
-        separator = options.get('separator')
+        for opt_name, expected_type in CheckerKeys.get_option_to_type().items():
+            value = options.get(opt_name)
 
-        if separator is not None:
-            istype(separator, str, ctx, r'separator must be a string')
-
-        abstract_types = options.get('abstract_types')
-
-        if abstract_types is not None:
-            istype(abstract_types, Mapping, ctx, r'abstract types must be a Mapping')
-
-        stack_index_caller = options.get('stack_index_caller')
-
-        if stack_index_caller is not None:
-            istype(stack_index_caller, int, ctx, r'stack index caller must be an integer')
-
-        messages_provider = options.get('messages_provider')
-
-        if messages_provider is not None:
-            istype(messages_provider, Mapping, ctx, r'messages provider must be a Mapping')
+            if value is not None:
+                err_msg = f'{opt_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+                istype(value, expected_type, ctx, err_msg)

@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IGenerator with method(s).
-    Creates an interface for template-based file generation from .tgz archives.
+    Provides an interface for template-based file generation from .tgz archives.
 '''
 
 from __future__ import annotations
@@ -40,7 +40,7 @@ __status__ = r'Development'
 class IGenerator[ContextEnvironment](ABC):
     '''
         Defines abstract class IGenerator with method(s).
-        Creates an interface for template-based file generation from .tgz archives.
+        Provides an interface for template-based file generation from .tgz archives.
 
         It defines:
 

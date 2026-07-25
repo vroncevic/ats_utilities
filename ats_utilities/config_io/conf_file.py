@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ConfFile with attribute(s) and method(s).
-    Creates an API for configuration file context manager.
+    Provides an API for configuration file context manager.
     0th level of configuration loader/storer implementation.
 '''
 
@@ -50,7 +50,7 @@ __status__ = r'Development'
 class ConfFile(IConfFile):
     '''
         Defines class ConfFile with attribute(s) and method(s).
-        Creates an API for configuration file context manager.
+        Provides an API for configuration file context manager.
         0th level of configuration loader/storer implementation.
 
         It defines:

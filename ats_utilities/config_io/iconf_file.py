@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IConfFile with method(s).
-    Creates an interface for configuration file context manager.
+    Provides an interface for configuration file context manager.
     0th level of configuration loader/storer interface.
 '''
 
@@ -44,7 +44,7 @@ type File = TextIOBase | None
 class IConfFile(ABC):
     '''
         Defines abstract class IConfFile with method(s).
-        Creates an interface for configuration file context manager.
+        Provides an interface for configuration file context manager.
         0th level of configuration loader/storer interface.
 
         It defines:

@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IChecker with attribute(s) and method(s).
-    Creates an interface for checking parameters of method(s) or function(s).
+    Provides an interface for checking parameters of method(s) or function(s).
 '''
 
 from __future__ import annotations
@@ -63,7 +63,7 @@ class ErrorChecker(int, Enum):
 class IChecker(ABC):
     '''
         Defines abstract class IChecker with attribute(s) and method(s).
-        Creates an interface for checking parameters of method(s) or function(s).
+        Provides an interface for checking parameters of method(s) or function(s).
 
         It defines:
 
@@ -83,9 +83,7 @@ class IChecker(ABC):
             Validates parameters for a method(s) or function(s).
 
             :param parameters: Specification for parameters.
-            :type parameters: ParametersSpecs
             :return: Tuple of error message report and error id.
-            :rtype: ValidationResult
         '''
         pass
 
@@ -95,7 +93,6 @@ class IChecker(ABC):
             Checks if checker component is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
@@ -105,6 +102,5 @@ class IChecker(ABC):
             Returns the checker as string representation.
 
             :return: The checker as string representation.
-            :rtype: str
         '''
         pass

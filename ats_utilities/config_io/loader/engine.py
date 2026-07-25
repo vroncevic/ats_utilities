@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Loader with attribute(s) and method(s).
-    Creates an API for loading configuration from file and deploying as object.
+    Provides an API for loading configuration from file and deploying as object.
     2nd level of configuration loader implementation.
 '''
 
@@ -48,7 +48,7 @@ __status__ = r'Development'
 
 class Loader(ILoader[ContextBundle]):
     '''
-        Creates an API for loading configuration from file and deploying as object.
+        Provides an API for loading configuration from file and deploying as object.
         2nd level of configuration loader implementation.
 
         It defines:

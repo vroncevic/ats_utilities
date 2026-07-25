@@ -24,6 +24,7 @@ from typing import override
 from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.checker.setup.bundle import CheckerBundle
 from ats_utilities.checker.setup.options import CheckerOptions
+from ats_utilities.checker.setup.keys import CheckerKeys
 from ats_utilities.checker.setup.registry import CheckerRegistry
 from ats_utilities.checker.setup.dependencies import CheckerDependencies
 from ats_utilities.checker.setup.opt_validator import CheckerOptionsValidator
@@ -83,14 +84,14 @@ class CheckerFactory(IFactory[CheckerBundle, CheckerOptions]):
         if options is not None:
             CheckerOptionsValidator.validate(options)
 
-        separator = options.get('separator') if options else None
-        abstract_types = options.get('abstract_types') if options else None
-        stack_index_caller = options.get('stack_index_caller') if options else None
-        messages_provider = options.get('messages_provider') if options else None
+        separator = options.get(CheckerKeys.SEPARATOR) if options else None
+        abstract_types = options.get(CheckerKeys.ABSTRACT_TYPES) if options else None
+        stack_index_caller = options.get(CheckerKeys.STACK_INDEX_CALLER) if options else None
+        messages_provider = options.get(CheckerKeys.MESSAGES_PROVIDER) if options else None
 
         format_validator: FormatValidator = FormatValidator(separator=separator)
         type_validator: TypeValidator = TypeValidator(abstract_types=abstract_types)
-        context_provider: ContextProvider = ContextProvider(index_caller=stack_index_caller)
+        context_provider: ContextProvider = ContextProvider(stack_index_caller=stack_index_caller)
         check_reporter: CheckReporter = CheckReporter(message_provider=messages_provider)
 
         return CheckerRegistry.create_bundle(

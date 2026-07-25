@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Storer with attribute(s) and method(s).
-    Creates an API for storing the configuration from mapping format to configuration file.
+    Provides an API for storing the configuration from mapping format to configuration file.
     2nd level of configuration storer implementation.
 '''
 
@@ -50,7 +50,7 @@ __status__ = r'Development'
 
 class Storer(IStorer[ContextBundle]):
     '''
-        Creates an API for storing the configuration from mapping format to configuration file.
+        Provides an API for storing the configuration from mapping format to configuration file.
         2nd level of configuration storer implementation.
 
         It defines:

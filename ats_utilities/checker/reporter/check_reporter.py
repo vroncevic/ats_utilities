@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class CheckReporter with attribute(s) and method(s).
-    Creates an API for formating message in context of checker.
+    Provides an API for formating message in context of checker.
 '''
 
 from __future__ import annotations
@@ -30,6 +30,7 @@ from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.reporter.data import CheckReporterData
 from ats_utilities.checker.reporter.data_validator import CheckReporterValidator
 from ats_utilities.utils.reflection import to_str
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -44,7 +45,7 @@ __status__ = r'Development'
 class CheckReporter(ICheckReporter[CheckReporterData]):
     '''
         Defines class CheckReporter with attribute(s) and method(s).
-        Creates an API for formating message in context of checker.
+        Provides an API for formating message in context of checker.
 
         It defines:
 
@@ -66,11 +67,16 @@ class CheckReporter(ICheckReporter[CheckReporterData]):
         '''
             Initializes the CheckReporter.
 
-            :param message_provider: Messages used to report findings | None (default).
-            :type message_provider: Mapping[str, str] | None
-            :exceptions: None.
+            :param message_provider: Messages used to report findings | None.
+            :exceptions:
+                | ATSTypeError: Message provider must be a mapping of strings to strings.
         '''
-        self._message_provider = MappingProxyType(message_provider) if message_provider else self._DEFAULT_MESSAGES
+        if message_provider is not None:
+            ctx: str = r'check_reporter::init(...)'
+            istype(message_provider, Mapping, ctx, r'message_provider must be a mapping of strings to strings')
+            self._message_provider = MappingProxyType(message_provider)
+        else:
+            self._message_provider = self._DEFAULT_MESSAGES
 
     @override
     def build_message_format(self, data: CheckReporterData) -> str:
@@ -78,20 +84,12 @@ class CheckReporter(ICheckReporter[CheckReporterData]):
             Builds the final message.
 
             :param data: Data to be formatted.
-            :type data: CheckReporterData
             :return: Formatted message report.
-            :rtype: str
             :exceptions:
-                | ATSValueError: Check reporter data must be provided.
-                | ATSTypeError: Check reporter data must be an instance of CheckReporterData.
-                | ATSValueError: Context must be provided.
-                | ATSValueError: Parameters metadata must be provided.
-                | ATSValueError: Error indices must be provided.
-                | ATSValueError: Is format error must be provided.
-                | ATSTypeError: Context must be a string.
-                | ATSTypeError: Parameters metadata must be a sequence of ParamMetadata.
-                | ATSTypeError: Error indices must be a sequence of integers.
-                | ATSTypeError: Is format error must be a boolean.
+                | ATSValueError: Data must be provided and have proper values.
+                | ATSTypeError:  Data must be an instance of CheckReporterData
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         CheckReporterValidator.validate(data)
         message: str = data.context
@@ -127,7 +125,6 @@ class CheckReporter(ICheckReporter[CheckReporterData]):
             Returns the check reporter as string representation.
 
             :return: The check reporter as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

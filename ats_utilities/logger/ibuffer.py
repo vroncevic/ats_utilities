@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Creates an interface for log buffer.
+    Provides an interface for log buffer.
 '''
 
 from __future__ import annotations
@@ -36,7 +36,7 @@ __status__ = r'Development'
 
 class ILogBuffer(ABC):
     '''
-        Creates an interface for log buffer.
+        Provides an interface for log buffer.
 
         It defines:
 

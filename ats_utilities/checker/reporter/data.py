@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates checker reporter runtime data.
+    Encapsulates check reporter runtime data.
 '''
 
 from __future__ import annotations
@@ -43,7 +43,7 @@ type ParamMetadata = tuple[str, str, Any]
 @dataclass(slots=True, frozen=True, kw_only=True)
 class CheckReporterData:
     '''
-        Encapsulates checker reporter runtime data.
+        Encapsulates check reporter runtime data.
 
         It defines:
 
@@ -53,7 +53,7 @@ class CheckReporterData:
                 | err_indices - Sequence of error indices.
                 | is_fmt_err - Flag indicating if format error type has been found.
             :methods:
-                | to_dict - Converts the checker reporter data instance to a dictionary.
+                | to_dict - Converts the check reporter data instance to a dictionary.
     '''
 
     context: str
@@ -63,10 +63,9 @@ class CheckReporterData:
 
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the checker reporter data instance to a dictionary.
+            Converts the check reporter data instance to a dictionary.
 
-            :return: Dictionary representation of the checker reporter data instance.
-            :rtype: dict[str, Any]
+            :return: Dictionary representation of the check reporter data instance.
             :exceptions: None.
         '''
         return instance_to_dict(self)

@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class TypeValidator with attribute(s) and method(s).
-    Creates an API for handling type validation parameters of method(s) and function(s).
+    Provides an API for handling type validation parameters of method(s) and function(s).
 '''
 
 from __future__ import annotations
@@ -44,7 +44,7 @@ __status__ = r'Development'
 class TypeValidator(ITypeValidator):
     '''
         Defines class TypeValidator with attribute(s) and method(s).
-        Creates an API for handling type validation parameters of method(s) and function(s).
+        Provides an API for handling type validation parameters of method(s) and function(s).
 
         It defines:
 
@@ -71,13 +71,12 @@ class TypeValidator(ITypeValidator):
             Initializes TypeValidator constructor.
 
             :param abstract_types: Mapping of abstract type names to their implementations.
-            :type abstract_types: <Mapping[str, type] | None>
             :exceptions:
-                | ATSTypeError: Abstract types must be a Mapping.
+                | ATSTypeError: Abstract types must be a mapping of strings to types.
         '''
         if abstract_types is not None:
             ctx: str = r'type_validator::init(...)'
-            istype(abstract_types, Mapping, ctx, r'abstract types must be a Mapping[str, Any]')
+            istype(abstract_types, Mapping, ctx, r'abstract types must be a mapping of strings to types')
             self._abstract_types = MappingProxyType(abstract_types)
         else:
             self._abstract_types = self._DEFAULT_TYPES
@@ -86,14 +85,11 @@ class TypeValidator(ITypeValidator):
     def is_match(self, instance: Any, expected_type_name: str) -> bool:
         '''
             Compares instance type with expected type name.
-            Compares the __name__ of the instance type with expected string.
+            Compares __name__ of instance type with expected string.
 
-            :param instance: The instance to be checked.
-            :type instance: Any
-            :param expected_type_name: The expected type name.
-            :type expected_type_name: str
+            :param instance: Instance to be checked.
+            :param expected_type_name: Expected type name.
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions:
                 | ATSValueError: Instance must be provided.
                 | ATSValueError: Expected type name must be provided.
@@ -116,12 +112,9 @@ class TypeValidator(ITypeValidator):
             Checks if instance is a subtype of expected type name.
             Traverses the Method Resolution Order (MRO) to find a match.
 
-            :param instance: The instance to be checked.
-            :type instance: Any
-            :param expected_type_name: The expected parent type name.
-            :type expected_type_name: str
+            :param instance: Instance to be checked.
+            :param expected_type_name: Expected parent type name.
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions:
                 | ATSValueError: Instance must be provided.
                 | ATSValueError: Expected type name must be provided.
@@ -141,12 +134,10 @@ class TypeValidator(ITypeValidator):
     @override
     def get_type_name(self, instance: Any) -> str:
         '''
-            Returns the string representation of an instance type.
+            Returns string representation of an instance type.
 
-            :param instance: The instance to be inspected.
-            :type instance: Any
-            :return: String name of the type.
-            :rtype: str
+            :param instance: Instance to be inspected.
+            :return: String name of type.
             :exceptions:
                 | ATSValueError: Instance must be provided.
         '''
@@ -158,10 +149,9 @@ class TypeValidator(ITypeValidator):
     @override
     def __str__(self) -> str:
         '''
-            Returns the type validator as string representation.
+            Returns type validator as string representation.
 
-            :return: The type validator as string representation.
-            :rtype: str
+            :return: Type validator as string representation.
             :exceptions: None.
         '''
         return to_str(self)

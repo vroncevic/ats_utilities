@@ -2,7 +2,7 @@
 
 '''
 Module
-    ihandler_manager.py
+    ikeys.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,12 +16,14 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Provides an interface for log handler manager.
+    Abstract interface for keys used in setup process.
+    Defines standard attribute-to-interface mapping behavior across all setup keys.
 '''
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from types import MappingProxyType
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -33,46 +35,34 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ILogHandlerManager(ABC):
+class IKeys[AttributeType, InterfaceType](ABC):
     '''
-        Provides an interface for log handler manager.
+        Abstract interface for keys used in setup process.
+        Defines standard attribute-to-interface mapping behavior across all setup keys.
 
-        It defines:
-
-            :methods:
-                | set_log_file - Configures file output handler.
-                | set_stdout - Configures stdout stream handler.
-                | set_stderr - Configures stderr stream handler.
+        :methods:
+            | get_attr_to_interface - Returns mapping of bundle component attributes to their expected interfaces.
+            | get_option_to_type - Returns mapping of option attributes to their expected types.
     '''
 
+    @classmethod
     @abstractmethod
-    def set_log_file(self, log_file: str) -> bool:
+    def get_attr_to_interface(cls) -> MappingProxyType[AttributeType, InterfaceType]:
         '''
-            Configures file output handler.
+            Returns mapping of bundle component attributes to their expected interfaces.
 
-            :param log_file: Log file path.
-            :type log_file: str
-            :return: True if configured successfully, otherwise False.
-            :rtype: bool
+            :return: Mapping of bundle component attributes to their expected interfaces.
+            :exceptions: None.
         '''
         pass
 
+    @classmethod
     @abstractmethod
-    def set_stdout(self) -> bool:
+    def get_option_to_type(cls) -> MappingProxyType[AttributeType, InterfaceType]:
         '''
-            Configures stdout stream handler.
+            Returns mapping of option attributes to their expected types.
 
-            :return: True if configured successfully, otherwise False.
-            :rtype: bool
-        '''
-        pass
-
-    @abstractmethod
-    def set_stderr(self) -> bool:
-        '''
-            Configures stderr stream handler.
-
-            :return: True if configured successfully, otherwise False.
-            :rtype: bool
+            :return: Mapping of option attributes to their expected types.
+            :exceptions: None.
         '''
         pass

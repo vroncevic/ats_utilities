@@ -2,7 +2,7 @@
 
 '''
 Module
-    ihandler_manager.py
+    options.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,12 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Provides an interface for log handler manager.
+    Info options for info bundle creation.
 '''
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from collections.abc import Mapping
+from typing import Any, TypedDict
+
+from ats_utilities.context.bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -33,46 +36,16 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ILogHandlerManager(ABC):
+class InfoOptions(TypedDict):
     '''
-        Provides an interface for log handler manager.
+        Info options for info bundle creation.
 
         It defines:
 
-            :methods:
-                | set_log_file - Configures file output handler.
-                | set_stdout - Configures stdout stream handler.
-                | set_stderr - Configures stderr stream handler.
+            :attributes:
+                | info: Dictionary containing info attributes.
+                | context_bundle: Context bundle.
     '''
 
-    @abstractmethod
-    def set_log_file(self, log_file: str) -> bool:
-        '''
-            Configures file output handler.
-
-            :param log_file: Log file path.
-            :type log_file: str
-            :return: True if configured successfully, otherwise False.
-            :rtype: bool
-        '''
-        pass
-
-    @abstractmethod
-    def set_stdout(self) -> bool:
-        '''
-            Configures stdout stream handler.
-
-            :return: True if configured successfully, otherwise False.
-            :rtype: bool
-        '''
-        pass
-
-    @abstractmethod
-    def set_stderr(self) -> bool:
-        '''
-            Configures stderr stream handler.
-
-            :return: True if configured successfully, otherwise False.
-            :rtype: bool
-        '''
-        pass
+    info: Mapping[str, Any]
+    context_bundle: ContextBundle

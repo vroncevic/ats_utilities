@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class JSONProcessor with attribute(s) and method(s).
-    Creates an API to process configuration in JSON format.
+    Provides an API to process configuration in JSON format.
     1th level of configuration loader/storer implementation.
 '''
 
@@ -42,7 +42,7 @@ __status__ = r'Development'
 class JSONProcessor(IConfigProcessor):
     '''
         Defines class JSONProcessor with attribute(s) and method(s).
-        Creates an API to process configuration in JSON format.
+        Provides an API to process configuration in JSON format.
         1th level of configuration loader/storer implementation.
 
         It defines:

@@ -18,7 +18,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class INIProcessor with attribute(s) and method(s).
-    Creates an API to process configuration in INI format.
+    Provides an API to process configuration in INI format.
     1th level of configuration loader/storer implementation.
 '''
 
@@ -46,7 +46,7 @@ __status__ = r'Development'
 class INIProcessor(IConfigProcessor):
     '''
         Defines class INIProcessor with attribute(s) and method(s).
-        Creates an API to process configuration in INI format.
+        Provides an API to process configuration in INI format.
         1th level of configuration loader/storer implementation.
 
         It defines:

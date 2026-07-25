@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class ILoader with method(s).
-    Creates an interface for loading the configuration from reader.
+    Provides an interface for loading the configuration from reader.
     2nd level of configuration loader interface.
 '''
 
@@ -39,7 +39,7 @@ __status__ = r'Development'
 class ILoader[ContextEnvironment](ABC):
     '''
         Defines abstract class ILoader with method(s).
-        Creates an interface for loading the configuration from configuration reader.
+        Provides an interface for loading the configuration from configuration reader.
         2nd level of configuration loader interface.
 
         It defines:

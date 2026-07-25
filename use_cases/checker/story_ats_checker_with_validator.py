@@ -40,7 +40,7 @@ __status__ = r'Development'
 class TestData:
     '''
         Defines class Version with attribute(s) and method(s).
-        Creates an API for the ATS version in one property object.
+        Provides an API for the ATS version in one property object.
 
         It defines:
 

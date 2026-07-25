@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Name with attribute(s) and method(s).
-    Creates an API for the name in one property object.
+    Provides an API for the name in one property object.
 '''
 
 from __future__ import annotations
@@ -44,7 +44,7 @@ __status__ = r'Development'
 class Name(IName):
     '''
         Defines class Name with attribute(s) and method(s).
-        Creates an API for the name in one property object.
+        Provides an API for the name in one property object.
         Note: Name is only prepared when it is set by user (not None).
 
         It defines:

@@ -59,18 +59,17 @@ class CheckReporterValidator(IDataValidator[CheckReporterData]):
             Validates check reporter data.
 
             :param data: Check reporter data to be validated.
-            :type data: CheckReporterData
             :exceptions:
                 | ATSValueError: Check reporter data must be provided.
                 | ATSTypeError: Check reporter data must be an instance of CheckReporterData.
                 | ATSValueError: Context must be provided.
                 | ATSValueError: Parameters metadata must be provided.
                 | ATSValueError: Error indices must be provided.
-                | ATSValueError: Is format error must be provided.
+                | ATSValueError: Is format error flag must be provided.
                 | ATSTypeError: Context must be a string.
                 | ATSTypeError: Parameters metadata must be a sequence of ParamMetadata.
                 | ATSTypeError: Error indices must be a sequence of integers.
-                | ATSTypeError: Is format error must be a boolean.
+                | ATSTypeError: Is format error flag must be a boolean.
         '''
         ctx: str = r'data_reporter_validator::validate(...)'
 
@@ -78,11 +77,11 @@ class CheckReporterValidator(IDataValidator[CheckReporterData]):
         istype(data, CheckReporterData, ctx, r'check reporter data must be an instance of CheckReporterData')
 
         not_none(data.context, ctx, r'context must be provided')
-        not_none(data.parameters_meta, ctx, r'parameters_meta must be provided')
-        not_none(data.err_indices, ctx, r'err_indices must be provided')
-        not_none(data.is_fmt_err, ctx, r'is_fmt_err must be provided')
+        not_none(data.parameters_meta, ctx, r'parameters meta must be provided')
+        not_none(data.err_indices, ctx, r'error indices must be provided')
+        not_none(data.is_fmt_err, ctx, r'is format error flag must be provided')
 
         istype(data.context, str, ctx, r'context must be a string')
-        istype(data.parameters_meta, Sequence[ParamMetadata], ctx, r'parameters_meta must be a sequence of ParamMetadata')
-        istype(data.err_indices, Sequence[int], ctx, r'err_indices must be a sequence of integers')
-        istype(data.is_fmt_err, bool, ctx, r'is_fmt_err must be a boolean')
+        istype(data.parameters_meta, Sequence[ParamMetadata], ctx, r'parameters meta must be a sequence of ParamMetadata')
+        istype(data.err_indices, Sequence[int], ctx, r'error indices must be a sequence of integers')
+        istype(data.is_fmt_err, bool, ctx, r'is format error flag must be a boolean')

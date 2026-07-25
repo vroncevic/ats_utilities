@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class FormatValidator with attribute(s) and method(s).
-    Creates an API for validating parameters for method(s) and function(s).
+    Provides an API for validating parameters for method(s) and function(s).
 '''
 
 from __future__ import annotations
@@ -43,7 +43,7 @@ __status__ = r'Development'
 class FormatValidator(IFormatValidator):
     '''
         Defines class FormatValidator with attribute(s) and method(s).
-        Creates an API for validating parameters for method(s) and function(s).
+        Provides an API for validating parameters for method(s) and function(s).
 
         It defines:
 
@@ -81,10 +81,15 @@ class FormatValidator(IFormatValidator):
             Initializes the FormatValidator.
 
             :param separator: The separator to use for splitting the format string | None.
-            :type separator: str | None
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Separator must be a string.
         '''
-        self._separator = self.EXPECTED_SEPARATOR if separator is None else separator
+        if separator is not None:
+            ctx: str = r'format_validator::init(...)'
+            istype(separator, str, ctx, r'separator must be a string')
+            self._separator = separator
+        else:
+            self._separator = self.EXPECTED_SEPARATOR
 
     @override
     def is_valid(self, exp_type: str) -> bool:
@@ -92,9 +97,7 @@ class FormatValidator(IFormatValidator):
             Checks if the string follows the expected format.
 
             :param exp_type: The expected-format string to be validated.
-            :type exp_type: str
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions:
                 | ATSValueError: Expected-format string must be provided.
                 | ATSTypeError: Expected-format string must be a string.
@@ -112,9 +115,7 @@ class FormatValidator(IFormatValidator):
             Splits the format string into parts.
 
             :param exp_type: The format string to split.
-            :type exp_type: str
             :return: A Sequence containing the split components.
-            :rtype: Sequence[str]
             :exceptions:
                 | ATSValueError: Expected-format string must be provided.
                 | ATSTypeError: Expected-format string must be a string.
@@ -136,7 +137,6 @@ class FormatValidator(IFormatValidator):
             Returns the format validator as string representation.
 
             :return: The format validator as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

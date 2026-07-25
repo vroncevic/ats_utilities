@@ -110,9 +110,7 @@ class Checker(IChecker):
             Validates parameters for method(s) or function(s).
 
             :param parameters: Specification for parameters.
-            :type parameters: ParametersSpecs
             :return: Tuple of error message report and error id.
-            :rtype: ValidationResult
             :exceptions:
                 | ATSValueError: Check reporter data must be provided.
                 | ATSTypeError: Check reporter data must be an instance of CheckReporterData.
@@ -189,7 +187,6 @@ class Checker(IChecker):
             Checks if checker component is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         return self._is_initialized
@@ -200,7 +197,6 @@ class Checker(IChecker):
             Returns the Checker as string representation.
 
             :return: The Checker as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

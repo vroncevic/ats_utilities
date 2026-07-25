@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ExtInfrastructure with attribute(s) and method(s).
-    Creates an API for processing hyperlinks for splash screen.
+    Provides an API for processing hyperlinks for splash screen.
 '''
 
 from __future__ import annotations
@@ -48,7 +48,7 @@ __status__ = r'Development'
 class ExtInfrastructure(IExtInfrastructure):
     '''
         Defines class ExtInfrastructure with attribute(s) and method(s).
-        Creates an API for processing hyperlinks for splash screen.
+        Provides an API for processing hyperlinks for splash screen.
         Note: Splash screen infrastructure comes from info configuration file as read only data.
 
         It defines:

@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IConfigProcessor with method(s).
-    Creates an interface for processing configuration content.
+    Provides an interface for processing configuration content.
     1th level of configuration loader/storer interface.
 '''
 
@@ -40,7 +40,7 @@ __status__ = r'Development'
 class IConfigProcessor(ABC):
     '''
         Defines abstract class IConfigProcessor with method(s).
-        Creates an interface for processing configuration content.
+        Provides an interface for processing configuration content.
         1th level of configuration loader/storer interface.
 
         It defines:

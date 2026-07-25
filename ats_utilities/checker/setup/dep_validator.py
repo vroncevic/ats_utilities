@@ -25,10 +25,7 @@ from collections.abc import Mapping
 from typing import override
 
 from ats_utilities.checker.setup.dependencies import CheckerDependencies
-from ats_utilities.checker.format.iformat_validator import IFormatValidator
-from ats_utilities.checker.type.itype_validator import ITypeValidator
-from ats_utilities.checker.context.icontext_provider import IContextProvider
-from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
+from ats_utilities.checker.setup.keys import CheckerKeys
 from ats_utilities.utils.setup.idep_validator import IDependenciesValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
@@ -60,36 +57,20 @@ class CheckerDependenciesValidator(IDependenciesValidator[CheckerDependencies]):
             Validates checker dependencies instance.
 
             :param dependencies: Checker dependencies instance to be validated.
-            :type dependencies: CheckerDependencies
             :exceptions:
-                | ATSValueError: Dependencies must be provided.
-                | ATSTypeError: Dependencies must be a Mapping.
-                | ATSTypeError: Format validator must be an instance of IFormatValidator.
-                | ATSTypeError: Type validator must be an instance of ITypeValidator.
-                | ATSTypeError: Context provider must be an instance of IContextProvider.
-                | ATSTypeError: Check reporter must be an instance of ICheckReporter.
+                | ATSValueError: Dependencies must be provided and have proper attributes.
+                | ATSTypeError:  Dependencies must be an instance of CheckerDependencies
+                |                and its attributes must be instances of their
+                |                respective interfaces.
         '''
         ctx: str = r'checker_dependencies_validator::validate(...)'
 
         not_none(dependencies, ctx, r'dependencies must be provided')
         istype(dependencies, Mapping, ctx, r'dependencies must be a Mapping')
 
-        format_validator = dependencies.get('format_validator')
+        for attr_name, expected_interface in CheckerKeys.get_attr_to_interface().items():
+            value = dependencies.get(attr_name)
 
-        if format_validator is not None:
-            istype(format_validator, IFormatValidator, ctx, r'format validator must be an instance of IFormatValidator')
-
-        type_validator = dependencies.get('type_validator')
-
-        if type_validator is not None:
-            istype(type_validator, ITypeValidator, ctx, r'type validator must be an instance of ITypeValidator')
-
-        context_provider = dependencies.get('context_provider')
-
-        if context_provider is not None:
-            istype(context_provider, IContextProvider, ctx, r'context provider must be an instance of IContextProvider')
-
-        check_reporter = dependencies.get('check_reporter')
-
-        if check_reporter is not None:
-            istype(check_reporter, ICheckReporter, ctx, r'check reporter must be an instance of ICheckReporter')
+            if value is not None:
+                err_msg = f'{attr_name.replace("_", " ")} must be an instance of {expected_interface.__name__}'
+                istype(value, expected_interface, ctx, err_msg)

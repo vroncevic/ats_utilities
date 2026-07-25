@@ -21,8 +21,7 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
-from typing import Any, TypedDict
+from typing import TypedDict
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.name.iname import IName
@@ -65,6 +64,7 @@ class InfoDependencies(TypedDict):
                 | info_ok: The ATS information status.
                 | context_bundle: The context bundle.
     '''
+
     name: IName
     version: IVersion
     licence: ILicence
@@ -75,18 +75,4 @@ class InfoDependencies(TypedDict):
     logo: ILogo
     log_file: ILogFile
     info_ok: IInfoOk
-    context_bundle: ContextBundle
-
-
-class InfoOptions(TypedDict):
-    '''
-        Info options for info bundle creation.
-
-        It defines:
-
-            :attributes:
-                | info: Dictionary containing info attributes.
-                | context_bundle: Context bundle.
-    '''
-    info: Mapping[str, Any]
     context_bundle: ContextBundle

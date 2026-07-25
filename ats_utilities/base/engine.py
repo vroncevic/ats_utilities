@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Base with attribute(s) and method(s).
-    Creates an API for setup (application, tool, script).
+    Provides an API for setup (application, tool, script).
 '''
 
 from __future__ import annotations
@@ -51,7 +51,7 @@ __status__ = r'Development'
 class Base(IBase[ContextBundle]):
     '''
         Defines class Base with attribute(s) and method(s).
-        Creates an API for setup (App/Tool/Script).
+        Provides an API for setup (App/Tool/Script).
 
         It defines:
 

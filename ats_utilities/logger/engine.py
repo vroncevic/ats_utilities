@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Logger with attribute(s) and method(s).
-    Creates an API for the logger.
+    Provides an API for the logger.
 '''
 
 from __future__ import annotations
@@ -50,7 +50,7 @@ __status__ = r'Development'
 class Logger(ILogger):
     '''
         Defines class Logger with attribute(s) and method(s).
-        Creates an API for the logger.
+        Provides an API for the logger.
 
         It defines:
 

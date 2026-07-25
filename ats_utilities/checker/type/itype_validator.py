@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class ITypeValidator with method(s).
-    Creates an interface for validating parameters of method(s) and function(s).
+    Provides an interface for validating parameters of method(s) and function(s).
 '''
 
 from __future__ import annotations
@@ -38,15 +38,15 @@ __status__ = r'Development'
 class ITypeValidator(ABC):
     '''
         Defines abstract class ITypeValidator with method(s).
-        Creates an interface for validating parameters of method(s) and function(s).
+        Provides an interface for validating parameters of method(s) and function(s).
 
         It defines:
 
             :methods:
                 | is_match - Compares instance type with expected type name.
                 | is_subtype - Checks if instance is a subtype of expected type name.
-                | get_type_name - Returns the string representation of an instance type.
-                | __str__ - Returns the type validator as string representation.
+                | get_type_name - Returns string representation of an instance type.
+                | __str__ - Returns type validator as string representation.
     '''
 
     @abstractmethod
@@ -55,11 +55,8 @@ class ITypeValidator(ABC):
             Compares instance type with expected type name.
 
             :param instance: The instance to check.
-            :type instance: Any
             :param expected_type_name: The expected type name.
-            :type expected_type_name: str
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
@@ -69,32 +66,26 @@ class ITypeValidator(ABC):
             Checks if instance is a subtype of expected type name.
 
             :param instance: The instance to check.
-            :type instance: Any
             :param expected_type_name: The expected parent type name.
-            :type expected_type_name: str
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
     @abstractmethod
     def get_type_name(self, instance: Any) -> str:
         '''
-            Returns the string representation of an instance type.
+            Returns string representation of an instance type.
 
             :param instance: The instance to inspect.
-            :type instance: Any
-            :return: String name of the type.
-            :rtype: str
+            :return: String name of type.
         '''
         pass
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the type validator as string representation.
+            Returns type validator as string representation.
 
-            :return: The type validator as string representation.
-            :rtype: str
+            :return: Type validator as string representation.
         '''
         pass

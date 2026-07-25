@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IReporter with method(s).
-    Creates an interface for reporting messages.
+    Provides an interface for reporting messages.
 '''
 
 from __future__ import annotations
@@ -39,7 +39,7 @@ __status__ = r'Development'
 class IReporter(ABC):
     '''
         Defines abstract class IReporter with method(s).
-        Creates an interface for reporting messages.
+        Provides an interface for reporting messages.
 
         It defines:
 

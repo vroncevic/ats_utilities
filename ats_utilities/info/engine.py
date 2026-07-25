@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class InfoManager with attribute(s) and method(s).
-    Creates an API for the information in one container object.
+    Provides an API for the information in one container object.
 '''
 
 from __future__ import annotations
@@ -47,7 +47,7 @@ __status__ = r'Development'
 class InfoManager(IInfoManager[ContextBundle]):
     '''
         Defines class InfoManager with attribute(s) and method(s).
-        Creates an API for the information in one container object.
+        Provides an API for the information in one container object.
         The information container for App/Tool/Script.
         Note: The information is read-only data (it is provided by
         configuraiton file which is loaded by config loader).
