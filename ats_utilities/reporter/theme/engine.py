@@ -27,6 +27,7 @@ from types import MappingProxyType
 from typing import Final, override
 
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
+from ats_utilities.reporter.theme.types import MessageKey
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.validation.check_value import not_none, not_satisfied
 from ats_utilities.validation.check_type import istype
@@ -49,11 +50,6 @@ class ConsoleTheme(IConsoleTheme):
         It defines:
 
             :attributes:
-                | VERBOSE_KEY - Final key for verbose color code.
-                | SUCCESS_KEY - Final key for success color code.
-                | WARNING_KEY - Final key for warning color code.
-                | ERROR_KEY - Final key for error color code.
-                | RESET_KEY - Final key for reset color code.
                 | _DEFAULT_PALETTE_COLORS - Final default palette colors for different message types.
                 | _palette - Final mapping with color codes for different message types.
             :methods:
@@ -62,18 +58,12 @@ class ConsoleTheme(IConsoleTheme):
                 | __str__ - Returns console theme as string representation.
     '''
 
-    VERBOSE_KEY: Final[str] = r'verbose'
-    SUCCESS_KEY: Final[str] = r'success'
-    WARNING_KEY: Final[str] = r'warning'
-    ERROR_KEY:   Final[str] = r'error'
-    RESET_KEY:   Final[str] = r'reset'
-
     _DEFAULT_PALETTE_COLORS: Final[Mapping[str, str]] = MappingProxyType({
-        VERBOSE_KEY: '\x1b[34m', # ANSI blue
-        SUCCESS_KEY: '\x1b[32m', # ANSI green
-        WARNING_KEY: '\x1b[33m', # ANSI yellow
-        ERROR_KEY:   '\x1b[31m', # ANSI red
-        RESET_KEY:   '\x1b[0m'   # ANSI reset
+        MessageKey.VERBOSE: '\x1b[34m', # ANSI blue
+        MessageKey.SUCCESS: '\x1b[32m', # ANSI green
+        MessageKey.WARNING: '\x1b[33m', # ANSI yellow
+        MessageKey.ERROR:   '\x1b[31m', # ANSI red
+        MessageKey.RESET:   '\x1b[0m'   # ANSI reset
     })
 
     _palette: Final[Mapping[str, str]]

@@ -39,7 +39,8 @@ from ats_utilities.info.log_file.engine import LogFile
 from ats_utilities.info.info_ok.engine import InfoOk
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.setup.bundle import InfoBundle
-from ats_utilities.info.setup.dependencies import InfoOptions, InfoDependencies
+from ats_utilities.info.setup.dependencies import InfoDependencies
+from ats_utilities.info.setup.options import InfoOptions
 from ats_utilities.info.setup.registry import InfoRegistry
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype

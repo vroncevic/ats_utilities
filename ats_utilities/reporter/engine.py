@@ -31,9 +31,7 @@ from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.reporter.setup.validator import ReporterValidator
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
-from ats_utilities.reporter.theme.engine import (
-    VERBOSE_KEY, SUCCESS_KEY, WARNING_KEY, ERROR_KEY, RESET_KEY
-)
+from ats_utilities.reporter.theme.types import MessageKey
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.utils.reflection import to_str
@@ -106,7 +104,7 @@ class Reporter(IReporter[Sequence[Any]]):
         message_out: str = ' '.join([str(item) for item in message])
 
         if message_out:
-            reset: str = self._theme.get_color(RESET_KEY)
+            reset: str = self._theme.get_color(MessageKey.RESET)
             self._logger.write_log(f'{color}{message_out}{reset}', ctrl)
 
     @mcheck([('bool:is_verbose', None), ('Sequence:message', None)])
@@ -124,7 +122,7 @@ class Reporter(IReporter[Sequence[Any]]):
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         if is_verbose:
-            self._report(message, self._theme.get_color(VERBOSE_KEY), DEBUG)
+            self._report(message, self._theme.get_color(MessageKey.VERBOSE), DEBUG)
 
     @mcheck([('Sequence:message', None)])
     @override
@@ -139,7 +137,7 @@ class Reporter(IReporter[Sequence[Any]]):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._report(message, self._theme.get_color(SUCCESS_KEY), INFO)
+        self._report(message, self._theme.get_color(MessageKey.SUCCESS), INFO)
 
     @mcheck([('Sequence:message', None)])
     @override
@@ -154,7 +152,7 @@ class Reporter(IReporter[Sequence[Any]]):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._report(message, self._theme.get_color(WARNING_KEY), WARNING)
+        self._report(message, self._theme.get_color(MessageKey.WARNING), WARNING)
 
     @mcheck([('Sequence:message', None)])
     @override
@@ -169,7 +167,7 @@ class Reporter(IReporter[Sequence[Any]]):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._report(message, self._theme.get_color(ERROR_KEY), ERROR)
+        self._report(message, self._theme.get_color(MessageKey.ERROR), ERROR)
 
     @mcheck([('int:level', None)])
     @override
