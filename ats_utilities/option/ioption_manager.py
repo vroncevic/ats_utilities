@@ -29,7 +29,6 @@ from typing import Any
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
-from ats_utilities.context.bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -41,7 +40,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IOptionManager(ABC):
+class IOptionManager[ContextEnvironment](ABC):
     '''
         Defines abstract class IOptionManager with method(s).
         Creates an interface for option parsing.
@@ -61,12 +60,12 @@ class IOptionManager(ABC):
     '''
 
     @abstractmethod
-    def get_context(self) -> ContextBundle:
+    def get_context(self) -> ContextEnvironment:
         '''
             Returns the context.
 
             :return: Context
-            :rtype: ContextBundle
+            :rtype: ContextEnvironment
         '''
         pass
 

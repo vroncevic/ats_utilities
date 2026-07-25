@@ -25,7 +25,7 @@ import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.checker.reporter.check_reporter import CheckReporter
-from ats_utilities.checker.reporter.checker_reporter_bundle import CheckReporterData
+from ats_utilities.checker.reporter.data import CheckReporterData
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'

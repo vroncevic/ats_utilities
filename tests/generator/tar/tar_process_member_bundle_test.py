@@ -1,17 +1,38 @@
 # -*- coding: UTF-8 -*-
 
+'''
+Module
+    tar_process_member_bundle_test.py
+Copyright
+    Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Unit tests for the TarMemberData dataclass and TarMemberDataValidator.
+'''
+
+from __future__ import annotations
+
 import unittest
 from dataclasses import FrozenInstanceError
-from collections.abc import Mapping
 from tarfile import TarFile, TarInfo
 from unittest.mock import MagicMock
 
-# Adjust imports according to your project structure
-from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle
+from ats_utilities.generator.tar.data import TarMemberData
+from ats_utilities.generator.tar.data_validator import TarMemberDataValidator
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 
 class TestTarProcessMemberBundle(unittest.TestCase):
-    """Unit tests for the TarProcessMemberBundle dataclass."""
+    """Unit tests for the TarMemberData dataclass and TarMemberDataValidator."""
 
     def setUp(self) -> None:
         """Set up valid mock objects and parameters for bundle instantiation."""
@@ -29,7 +50,7 @@ class TestTarProcessMemberBundle(unittest.TestCase):
 
     def test_successful_initialization(self) -> None:
         """Test successful initialization when all parameters match types and constraints."""
-        bundle = TarProcessMemberBundle(**self.valid_params)
+        bundle = TarMemberData(**self.valid_params)
 
         self.assertEqual(bundle.tar, self.mock_tar)
         self.assertEqual(bundle.member, self.mock_member)
@@ -38,7 +59,7 @@ class TestTarProcessMemberBundle(unittest.TestCase):
 
     def test_immutability_frozen_slots(self) -> None:
         """Test that altering a property post-initialization throws a FrozenInstanceError."""
-        bundle = TarProcessMemberBundle(**self.valid_params)
+        bundle = TarMemberData(**self.valid_params)
         
         with self.assertRaises(FrozenInstanceError):
             bundle.dest_full_path = "/attempt/new/path.txt"  # type: ignore
@@ -47,14 +68,10 @@ class TestTarProcessMemberBundle(unittest.TestCase):
         """Test that positional arguments are barred under kw_only configuration rules."""
         with self.assertRaises(TypeError):
             # Attempting positional construction should raise a TypeError
-            TarProcessMemberBundle(
-                # pyrefly: ignore [unexpected-positional-argument]
+            TarMemberData(
                 self.mock_tar,
-                # pyrefly: ignore [unexpected-positional-argument]
                 self.mock_member, 
-                # pyrefly: ignore [unexpected-positional-argument]
                 self.valid_dest_path, 
-                # pyrefly: ignore [unexpected-positional-argument]
                 self.valid_vals
             )
 
@@ -67,9 +84,9 @@ class TestTarProcessMemberBundle(unittest.TestCase):
                 invalid_params = self.valid_params.copy()
                 invalid_params[field] = None  # type: ignore
                 
-                # Triggers validator exception via not_none helper
-                with self.assertRaises(Exception):
-                    TarProcessMemberBundle(**invalid_params)
+                bundle = TarMemberData(**invalid_params)
+                with self.assertRaises(ATSValueError):
+                    TarMemberDataValidator.validate(bundle)
 
     def test_validation_type_mismatches(self) -> None:
         """Test that providing an incorrect type fails the type check constraints."""
@@ -85,13 +102,13 @@ class TestTarProcessMemberBundle(unittest.TestCase):
                 invalid_params = self.valid_params.copy()
                 invalid_params[field] = bad_value  # type: ignore
                 
-                # Triggers validator exception via istype helper
-                with self.assertRaises(Exception):
-                    TarProcessMemberBundle(**invalid_params)
+                bundle = TarMemberData(**invalid_params)
+                with self.assertRaises(ATSTypeError):
+                    TarMemberDataValidator.validate(bundle)
 
     def test_to_dict(self) -> None:
         """Test that to_dict compiles the slot fields exactly into a standard dictionary mapping."""
-        bundle = TarProcessMemberBundle(**self.valid_params)
+        bundle = TarMemberData(**self.valid_params)
         exported_dict = bundle.to_dict()
 
         self.assertIsInstance(exported_dict, dict)

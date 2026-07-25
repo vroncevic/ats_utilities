@@ -48,7 +48,7 @@ class RegistryTest(unittest.TestCase):
     '''
 
     def test_create_bundle(self) -> None:
-        factory_bundle = ReporterFactory.create_default_bundle()
+        factory_bundle = ReporterFactory.create_bundle()
         bundle = ReporterRegistry.create_bundle(
             ReporterDependencies(
                 checker=factory_bundle.checker,

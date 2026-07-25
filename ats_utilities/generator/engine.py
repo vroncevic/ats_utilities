@@ -47,7 +47,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Generator(IGenerator):
+class Generator(IGenerator[ContextBundle]):
     '''
         Defines class Generator with attribute(s) and method(s).
         Template-based file generation from .tgz archives.

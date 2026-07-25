@@ -52,25 +52,25 @@ class EngineTest(unittest.TestCase):
     '''
 
     def test_init(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         inst = Repository(context_bundle)
         self.assertEqual(inst.repository, None)
 
     def test_property_get_set(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         inst = Repository(context_bundle)
         inst.repository = 'https://github.com/vroncevic/ats_utilities'
         self.assertEqual(inst.repository, 'https://github.com/vroncevic/ats_utilities')
 
     def test_not_none(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         inst = Repository(context_bundle)
         self.assertEqual(inst.not_none(), False)
         inst.repository = 'https://github.com/vroncevic/ats_utilities'
         self.assertTrue(inst.not_none())
 
     def test_str(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         inst = Repository(context_bundle)
         self.assertIn("Repository", str(inst))
 

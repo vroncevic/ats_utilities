@@ -23,10 +23,14 @@ from __future__ import annotations
 
 import logging
 import unittest
+from typing import Any
 from unittest.mock import MagicMock
 
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.setup.validator import LoggerValidator
+from ats_utilities.logger.iformatter import ILogFormatter
+from ats_utilities.logger.ibuffer import ILogBuffer
+from ats_utilities.logger.ihandler_manager import ILogHandlerManager
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
@@ -45,15 +49,20 @@ class ValidatorTest(unittest.TestCase):
         Tests LoggerValidator logic.
     '''
 
-    def test_validation_valid(self) -> None:
+    def _get_bundle_args(self) -> dict[str, Any]:
         mock_logger = MagicMock()
         mock_logger.info = MagicMock()
+        return {
+            "logger": mock_logger,
+            "log_file": "test.log",
+            "log_level": logging.INFO,
+            "formatter": MagicMock(spec=ILogFormatter),
+            "buffer": MagicMock(spec=ILogBuffer),
+            "handler_manager": MagicMock(spec=ILogHandlerManager),
+        }
 
-        bundle = LoggerBundle(
-            logger=mock_logger,
-            log_file="test.log",
-            log_level=logging.INFO
-        )
+    def test_validation_valid(self) -> None:
+        bundle = LoggerBundle(**self._get_bundle_args())
         # Should not raise any exceptions
         LoggerValidator.validate(bundle)
 
@@ -61,63 +70,45 @@ class ValidatorTest(unittest.TestCase):
         with self.assertRaises(ATSValueError):
             LoggerValidator.validate(None)  # type: ignore
 
-        mock_logger = MagicMock()
-        mock_logger.info = MagicMock()
-
+        args = self._get_bundle_args()
+        args["logger"] = None
         with self.assertRaises(ATSValueError):
-            bundle = LoggerBundle(
-                logger=None,  # type: ignore
-                log_file="test.log",
-                log_level=logging.INFO
-            )
+            bundle = LoggerBundle(**args)
             LoggerValidator.validate(bundle)
 
+        args = self._get_bundle_args()
+        args["log_file"] = None
         with self.assertRaises(ATSValueError):
-            bundle = LoggerBundle(
-                logger=mock_logger,
-                log_file=None,  # type: ignore
-                log_level=logging.INFO
-            )
+            bundle = LoggerBundle(**args)
             LoggerValidator.validate(bundle)
 
+        args = self._get_bundle_args()
+        args["log_level"] = None
         with self.assertRaises(ATSValueError):
-            bundle = LoggerBundle(
-                logger=mock_logger,
-                log_file="test.log",
-                log_level=None  # type: ignore
-            )
+            bundle = LoggerBundle(**args)
             LoggerValidator.validate(bundle)
 
     def test_validation_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
             LoggerValidator.validate("invalid")  # type: ignore
 
-        mock_logger = MagicMock()
-        mock_logger.info = MagicMock()
-
+        args = self._get_bundle_args()
+        args["log_file"] = 123
         with self.assertRaises(ATSTypeError):
-            bundle = LoggerBundle(
-                logger=mock_logger,
-                log_file=123,  # type: ignore
-                log_level=logging.INFO
-            )
+            bundle = LoggerBundle(**args)
             LoggerValidator.validate(bundle)
 
+        args = self._get_bundle_args()
+        args["log_level"] = "invalid"
         with self.assertRaises(ATSTypeError):
-            bundle = LoggerBundle(
-                logger=mock_logger,
-                log_file="test.log",
-                log_level="invalid"  # type: ignore
-            )
+            bundle = LoggerBundle(**args)
             LoggerValidator.validate(bundle)
 
     def test_validation_logger_spec(self) -> None:
+        args = self._get_bundle_args()
+        args["logger"] = object()  # Has neither info nor write_log
         with self.assertRaises(ATSValueError):
-            bundle = LoggerBundle(
-                logger=object(),  # Has neither info nor write_log
-                log_file="test.log",
-                log_level=logging.INFO
-            )
+            bundle = LoggerBundle(**args)
             LoggerValidator.validate(bundle)
 
 

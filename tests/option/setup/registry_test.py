@@ -52,7 +52,7 @@ class DummyParser(IArgParser):
         if own and hasattr(own, 'context_bundle'):
             self._context = own.context_bundle
         else:
-            self._context = ContextFactory.create_default_bundle()
+            self._context = ContextFactory.create_bundle()
 
     def get_context(self) -> ContextBundle:
         return self._context
@@ -90,7 +90,7 @@ class OptionRegistryTest(unittest.TestCase):
             "description": "desc",
             "epilog": "epi"
         }
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         factory_bundle = OptionFactory.create_option_bundle_from_dict(
             parameters=parameters,
             context_bundle=context_bundle,

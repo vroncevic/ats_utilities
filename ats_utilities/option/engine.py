@@ -46,7 +46,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class OptionManager(IOptionManager):
+class OptionManager(IOptionManager[ContextBundle]):
     '''
         Defines class OptionManager with attribute(s) and method(s).
         Creates an option parser based on the argparse argument processor.

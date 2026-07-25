@@ -46,7 +46,7 @@ class FactoryTest(unittest.TestCase):
     '''
 
     def test_create_default_bundle(self) -> None:
-        bundle = ReporterFactory.create_default_bundle()
+        bundle = ReporterFactory.create_bundle()
         self.assertIsInstance(bundle, ReporterBundle)
         self.assertIsInstance(bundle.checker, Checker)
         self.assertIsInstance(bundle.theme, ConsoleTheme)

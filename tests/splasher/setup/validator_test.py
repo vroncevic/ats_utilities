@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 from typing import Any
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
@@ -33,6 +33,7 @@ from ats_utilities.splasher.property.isplash_property import ISplashProperty
 from ats_utilities.splasher.setup.bundle import SplashBundle
 from ats_utilities.splasher.setup.validator import SplashValidator
 from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
+from ats_utilities.splasher.setup.splash_keys import SplashKeys
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -44,6 +45,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
 
 
+@patch("ats_utilities.splasher.setup.validator.ContextValidator.validate")
 class SplashValidatorTest(unittest.TestCase):
     '''
         Defines class SplashValidatorTest with attribute(s) and method(s).
@@ -61,20 +63,37 @@ class SplashValidatorTest(unittest.TestCase):
             "context_bundle": MagicMock(spec=ContextBundle),
         }
 
-    def test_validate_valid(self) -> None:
+    @patch("ats_utilities.splasher.setup.validator.check_file_exists")
+    def test_validate_valid(self, mock_check: MagicMock, mock_context_val: MagicMock) -> None:
         mocks = self._get_mocks()
+        mocks["prop"][SplashKeys.ATS_LOGO_PATH] = "/path/to/logo.png"
         bundle = SplashBundle(**mocks)
         # Should validate successfully
         SplashValidator.validate(bundle)
+        mock_check.assert_called_once_with(
+            "/path/to/logo.png",
+            "splash_validator::validate(...)",
+            "App/Tool/Script logo file path not correct"
+        )
+        mock_context_val.assert_called_once_with(bundle.context_bundle)
 
-    def test_validate_invalid_bundle(self) -> None:
+    @patch("ats_utilities.splasher.setup.validator.check_file_exists")
+    def test_validate_disabled(self, mock_check: MagicMock, mock_context_val: MagicMock) -> None:
+        mocks = self._get_mocks()
+        mocks["prop"] = {"enabled": False}
+        bundle = SplashBundle(**mocks)
+        SplashValidator.validate(bundle)
+        mock_check.assert_not_called()
+        mock_context_val.assert_called_once_with(bundle.context_bundle)
+
+    def test_validate_invalid_bundle(self, mock_context_val: MagicMock) -> None:
         with self.assertRaises(ATSValueError):
             SplashValidator.validate(None)  # type: ignore
 
         with self.assertRaises(ATSTypeError):
             SplashValidator.validate(object())  # type: ignore
 
-    def test_validate_invalid_none(self) -> None:
+    def test_validate_invalid_none(self, mock_context_val: MagicMock) -> None:
         for key in self._get_mocks().keys():
             # property_validated is a bool, so setting it to None should raise an error
             mocks = self._get_mocks()
@@ -85,7 +104,7 @@ class SplashValidatorTest(unittest.TestCase):
             with self.assertRaises(ATSValueError):
                 SplashValidator.validate(bundle)
 
-    def test_validate_invalid_type(self) -> None:
+    def test_validate_invalid_type(self, mock_context_val: MagicMock) -> None:
         type_mismatches = {
             "prop": object(),
             "splash_property": MagicMock(spec=ContextBundle),

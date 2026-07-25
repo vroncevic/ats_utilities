@@ -48,7 +48,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Storer(IStorer):
+class Storer(IStorer[ContextBundle]):
     '''
         Creates an API for storing the configuration from mapping format to configuration file.
         2nd level of configuration storer implementation.

@@ -46,7 +46,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Splasher(ISplasher[CenterData]):
+class Splasher(ISplasher[ContextBundle, CenterData]):
     '''
         Defines class Splasher with attribute(s) and method(s).
         Implements a splash screen with hyperlinks.
@@ -54,15 +54,15 @@ class Splasher(ISplasher[CenterData]):
         It defines:
 
             :attributes:
-                | _is_initialized - Indicates if the splasher component is initialized (default False).
-                | _show_splash - Indicates if the splasher should be shown (default False).
-                | _context - Context bundle with context.
+                | _is_initialized - Indicates if splasher component is initialized.
+                | _show_splash - Indicates if splasher should be shown.
+                | _context - Context bundle with core components.
             :methods:
-                | __init__ - Initials Splasher constructor.
-                | get_context - Returns the context.
-                | center - Centers console line.
+                | __init__ - Initializes Splasher.
+                | get_context - Returns context bundle.
+                | center - Centers console line and places text.
                 | is_initialized - Checks if splasher is initialized.
-                | __str__ - Returns the string representation of Splasher.
+                | __str__ - Returns splasher as string representation.
     '''
 
     _is_initialized: bool
@@ -71,15 +71,37 @@ class Splasher(ISplasher[CenterData]):
 
     def __init__(self, own: SplashBundle) -> None:
         '''
-            Initials Splasher constructor.
+            Initializes Splasher.
 
             :param own: Splash screen component bundle.
             :type own: SplashBundle
             :exceptions:
-                | ATSValueError: Component bundle must be provided.
-                | ATSTypeError: Component bundle must be a SplashBundle instance.
+                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Properties dictionary must be provided.
+                | ATSValueError: Splash property must be provided.
+                | ATSValueError: Property validated flag must be provided.
+                | ATSValueError: Terminal properties must be provided.
+                | ATSValueError: External infrastructure must be provided.
+                | ATSValueError: Progress bar must be provided.
                 | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Bundle must be an instance of SplashBundle.
+                | ATSTypeError: Properties dictionary must be an instance of Mapping.
+                | ATSTypeError: Splash property must be an instance of ISplashProperty.
+                | ATSTypeError: Property validated flag must be an instance of bool.
+                | ATSTypeError: Terminal properties must be an instance of ITerminalProperties.
+                | ATSTypeError: External infrastructure must be an instance of IExtInfrastructure.
+                | ATSTypeError: Progress bar must be an instance of IProgressBar.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSValueError: Checker must be provided.
+                | ATSValueError: Logger must be provided.
+                | ATSValueError: Reporter must be provided.
+                | ATSValueError: Verbose must be provided.
+                | ATSTypeError: Checker must be an instance of IChecker.
+                | ATSTypeError: Logger must be an instance of ILogger.
+                | ATSTypeError: Reporter must be an instance of IReporter.
+                | ATSTypeError: Verbose must be a boolean.
+                | ATSValueError: App/Tool/Script logo file path not correct.
+                | ATSValueError: Logo file content is invalid.
         '''
         SplashValidator.validate(own)
         self._is_initialized = False
@@ -106,17 +128,17 @@ class Splasher(ISplasher[CenterData]):
                         processed_line: str = line.rstrip()
 
                         if bool(processed_line):
-                            center_data = CenterData(columns=int(size[1]), additional_shifter=0)
-                            self.center(center_data, processed_line)
+                            position: CenterData = CenterData(columns=int(size[1]), additional_shifter=0)
+                            self.center(position, processed_line)
 
             except (OSError, UnicodeDecodeError) as exc:
                 ctx: str = r'splasher::init(...)'
                 not_satisfied(True, ctx, f'logo file content is invalid {exc}')
 
-            center_data = CenterData(columns=int(size[1]), additional_shifter=2)
-            self.center(center_data, own.ext.get_info_text())
-            self.center(center_data, own.ext.get_issue_text())
-            self.center(center_data, own.ext.get_author_text())
+            position: CenterData = CenterData(columns=int(size[1]), additional_shifter=2)
+            self.center(position, own.ext.get_info_text())
+            self.center(position, own.ext.get_issue_text())
+            self.center(position, own.ext.get_author_text())
             stdout.write('\n\n')
 
             for i in range(0, int(size[1]) - int(int(size[1]) / 2)):
@@ -130,9 +152,9 @@ class Splasher(ISplasher[CenterData]):
     @override
     def get_context(self) -> ContextBundle:
         '''
-            Returns the context.
+            Returns context bundle.
 
-            :return: Context.
+            :return: Context bundle.
             :rtype: ContextBundle
             :exceptions: None.
         '''
@@ -177,9 +199,9 @@ class Splasher(ISplasher[CenterData]):
     @override
     def __str__(self) -> str:
         '''
-            Returns the string representation of Splasher.
+            Returns splasher as string representation.
 
-            :return: The Splasher as string representation.
+            :return: Splasher as string representation.
             :rtype: str
             :exceptions: None.
         '''

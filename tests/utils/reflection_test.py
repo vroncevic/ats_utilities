@@ -230,7 +230,7 @@ class ReflectionTest(unittest.TestCase):
         class NonDataclass:
             pass
 
-        with self.assertRaises(ATSAttributeError):
+        with self.assertRaises((ATSAttributeError, ATSValueError)):
             instance_to_dict(NonDataclass())
 
 

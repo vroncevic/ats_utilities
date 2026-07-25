@@ -63,7 +63,7 @@ def proxy_validator_split(exp_type: str) -> tuple[str, str]:
     '''
     ctx: str = r'proxy_validator_split(...)'
     not_none(exp_type, ctx, r'expected type must be provided')
-    istype(exp_type, ctx, r'expected type must be a string')
+    istype(exp_type, str, ctx, r'expected type must be a string')
     not_satisfied(':' not in exp_type, ctx, f'invalid format: {exp_type}, expected type:name')
     parts = exp_type.split(sep=':')
     not_satisfied(len(parts) != 2, ctx, f'invalid format: {exp_type}, expected type:name')

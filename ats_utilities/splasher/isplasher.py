@@ -24,8 +24,6 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from ats_utilities.context.bundle import ContextBundle
-
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -36,7 +34,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ISplasher[PositionData](ABC):
+class ISplasher[ContextEnvironment, PositionData](ABC):
     '''
         Defines abstract class ISplasher with method(s).
         Provides an interface for splash screen.
@@ -44,19 +42,19 @@ class ISplasher[PositionData](ABC):
         It defines:
 
             :methods:
-                | get_context - Returns the context.
+                | get_context - Returns the context environment.
                 | center - Centers console line and places text.
                 | is_initialized - Checks if splasher is initialized.
                 | __str__ - Returns the splash screen as string representation.
     '''
 
     @abstractmethod
-    def get_context(self) -> ContextBundle:
+    def get_context(self) -> ContextEnvironment:
         '''
-            Returns the context.
+            Returns the context environment.
 
-            :return: Context.
-            :rtype: ContextBundle
+            :return: Context environment.
+            :rtype: ContextEnvironment
         '''
         pass
 
@@ -87,7 +85,7 @@ class ISplasher[PositionData](ABC):
         '''
             Returns the splash screen as string representation.
 
-            :return: The splash screen as string representation.
+            :return: Splash screen as string representation.
             :rtype: str
         '''
         pass

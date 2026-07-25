@@ -38,6 +38,7 @@ from ats_utilities.checker.reporter.data import (
     CheckReporterData, ParamMetadata
 )
 from ats_utilities.utils.reflection import to_str
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -145,7 +146,12 @@ class Checker(IChecker):
         is_fmt_err: bool = False
         for index, (exp_type, inst) in enumerate(parameters):
 
-            if not self._format_validator.is_valid(exp_type):
+            try:
+                if not self._format_validator.is_valid(exp_type):
+                    is_fmt_err = True
+                    error_id = self.ERRORS.FORMAT_ERROR
+                    break
+            except (ATSValueError, ATSTypeError):
                 is_fmt_err = True
                 error_id = self.ERRORS.FORMAT_ERROR
                 break
@@ -156,7 +162,13 @@ class Checker(IChecker):
             ptype, pname = self._format_validator.split(exp_type)
             params_meta.append((pname, ptype, inst))
 
-            if not self._type_validator.is_match(inst, ptype):
+            try:
+                if not self._type_validator.is_match(inst, ptype):
+                    err_indices.append(index)
+
+                    if error_id == self.ERRORS.NO_ERROR:
+                        error_id = self.ERRORS.TYPE_ERROR
+            except (ATSValueError, ATSTypeError):
                 err_indices.append(index)
 
                 if error_id == self.ERRORS.NO_ERROR:

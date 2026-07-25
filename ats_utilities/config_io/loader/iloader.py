@@ -26,8 +26,6 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Any
 
-from ats_utilities.context.bundle import ContextBundle
-
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
@@ -38,7 +36,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ILoader(ABC):
+class ILoader[ContextEnvironment](ABC):
     '''
         Defines abstract class ILoader with method(s).
         Creates an interface for loading the configuration from configuration reader.
@@ -53,12 +51,12 @@ class ILoader(ABC):
     '''
 
     @abstractmethod
-    def get_context(self) -> ContextBundle:
+    def get_context(self) -> ContextEnvironment:
         '''
             Returns the context.
 
             :return: Context.
-            :rtype: ContextBundle
+            :rtype: ContextEnvironment
             :exceptions: None.
         '''
         pass

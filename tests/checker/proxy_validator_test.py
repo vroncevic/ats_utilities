@@ -44,7 +44,7 @@ __status__: str = 'Development'
 class DummyClass:
     def __init__(self, use_checker: bool = True) -> None:
         if use_checker:
-            self._checker = Checker(CheckerFactory.create_default_bundle())
+            self._checker = Checker(CheckerFactory.create_bundle())
 
     @mcheck([('str:name', None), ('int:value', None)])
     def my_method(self, name: str, value: int) -> str:
@@ -121,7 +121,7 @@ class ProxyValidatorTest(unittest.TestCase):
     def test_vcheck_invalid_format(self) -> None:
         class BadSpecClass:
             def __init__(self) -> None:
-                self._checker = Checker(CheckerFactory.create_default_bundle())
+                self._checker = Checker(CheckerFactory.create_bundle())
 
             @mcheck([('invalid_format', None)])
             def bad_method(self, name: str) -> str:

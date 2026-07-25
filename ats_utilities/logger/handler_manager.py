@@ -84,6 +84,8 @@ class LogHandlerManager(ILogHandlerManager):
             ))
             self._logger.addHandler(file_handler)
             return True
+        elif hasattr(self._logger, 'write_log'):
+            return True
 
         return False
 
@@ -118,6 +120,8 @@ class LogHandlerManager(ILogHandlerManager):
                 ))
                 self._logger.addHandler(stream_handler)
             return True
+        elif hasattr(self._logger, 'write_log'):
+            return True
 
         return False
 
@@ -151,6 +155,8 @@ class LogHandlerManager(ILogHandlerManager):
                     datefmt='%m/%d/%Y %I:%M:%S %p'
                 ))
                 self._logger.addHandler(stream_handler)
+            return True
+        elif hasattr(self._logger, 'write_log'):
             return True
 
         return False

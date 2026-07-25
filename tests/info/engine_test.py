@@ -29,7 +29,7 @@ from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSAttributeError, ATSTypeError, ATSValueError
 from ats_utilities.info.engine import InfoManager
 from ats_utilities.info.setup.bundle import InfoBundle
-from ats_utilities.info.info_keys import InfoKeys
+from ats_utilities.info.setup.info_keys import InfoKeys
 from ats_utilities.info.setup.factory import InfoFactory
 
 __author__: str = 'Vladimir Roncevic'
@@ -53,7 +53,7 @@ class EngineTest(unittest.TestCase):
             :methods:
                 | test_init - Tests InfoManager initialization.
                 | test_init_invalid - Tests InfoManager initialization with invalid inputs.
-                | test_get_shared_context - Tests shared context getter.
+                | test_get_context - Tests shared context getter.
                 | test_set_and_get_info - Tests setting and getting info.
                 | test_set_info_invalid - Tests error cases for set_info.
                 | test_dynamic_attributes - Tests getting/setting dynamic managed attributes.
@@ -77,7 +77,7 @@ class EngineTest(unittest.TestCase):
         }
 
     def test_init(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
         self.assertIsInstance(manager, InfoManager)
@@ -90,14 +90,14 @@ class EngineTest(unittest.TestCase):
         with self.assertRaises(ATSTypeError):
             InfoManager(object())  # type: ignore
 
-    def test_get_shared_context(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+    def test_get_context(self) -> None:
+        context_bundle = ContextFactory.create_bundle()
         bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
-        self.assertIs(manager.get_shared_context(), context_bundle)
+        self.assertIs(manager.get_context(), context_bundle)
 
     def test_set_and_get_info(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
 
@@ -144,7 +144,7 @@ class EngineTest(unittest.TestCase):
         self.assertNotIn(InfoKeys.ATS_LOG_FILE, retrieved_no_log)
 
     def test_set_info_invalid(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
 
@@ -161,7 +161,7 @@ class EngineTest(unittest.TestCase):
             manager.set_info(invalid_info_2)
 
     def test_dynamic_attributes(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
 
@@ -175,7 +175,7 @@ class EngineTest(unittest.TestCase):
         self.assertEqual(bundle.name.name, "changed_name")
 
     def test_dynamic_attributes_invalid(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
 
@@ -184,7 +184,7 @@ class EngineTest(unittest.TestCase):
             _ = manager.invalid_attr
 
     def test_is_initialized(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
         self.assertTrue(manager.is_initialized())
@@ -195,13 +195,13 @@ class EngineTest(unittest.TestCase):
         self.assertFalse(manager.is_initialized())
 
     def test_str(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
         self.assertIn("InfoManager", str(manager))
 
     def test_setattr_edge_cases(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = InfoFactory.create_info_bundle_from_dict(self._get_valid_info_data(), context_bundle)
         manager = InfoManager(bundle)
 

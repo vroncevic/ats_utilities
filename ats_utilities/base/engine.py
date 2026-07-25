@@ -48,7 +48,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Base(IBase):
+class Base(IBase[ContextBundle]):
     '''
         Defines class Base with attribute(s) and method(s).
         Creates an API for setup (App/Tool/Script).
@@ -75,11 +75,11 @@ class Base(IBase):
 
     _is_initialized: bool
     _context: ContextBundle
-    _config_loader: ILoader
-    _info_manager: IInfoManager
-    _splasher: ISplasher
-    _options_parser: IOptionManager
-    _generator: IGenerator
+    _config_loader: ILoader[ContextBundle]
+    _info_manager: IInfoManager[ContextBundle]
+    _splasher: ISplasher[ContextBundle, Any]
+    _options_parser: IOptionManager[ContextBundle]
+    _generator: IGenerator[ContextBundle]
 
     def __init__(self, own: BaseBundle) -> None:
         '''

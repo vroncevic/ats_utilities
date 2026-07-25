@@ -52,25 +52,25 @@ class EngineTest(unittest.TestCase):
     '''
 
     def test_init(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         inst = Name(context_bundle)
         self.assertEqual(inst.name, None)
 
     def test_property_get_set(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         inst = Name(context_bundle)
         inst.name = 'ats_utilities'
         self.assertEqual(inst.name, 'ats_utilities')
 
     def test_not_none(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         inst = Name(context_bundle)
         self.assertEqual(inst.not_none(), False)
         inst.name = 'ats_utilities'
         self.assertTrue(inst.not_none())
 
     def test_str(self) -> None:
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         inst = Name(context_bundle)
         self.assertIn("Name", str(inst))
 

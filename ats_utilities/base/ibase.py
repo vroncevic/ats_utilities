@@ -26,7 +26,6 @@ from abc import ABC, abstractmethod
 from collections.abc import Sequence
 from typing import Any
 
-from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.option_namespace import OptionNamespace
 
 __author__ = r'Vladimir Roncevic'
@@ -42,7 +41,7 @@ __status__ = r'Development'
 type ArgSeq = Sequence[str] | None
 
 
-class IBase(ABC):
+class IBase[ContextEnvironment](ABC):
     '''
         Defines abstract class IBase with method(s).
         Interface for ATS base setup.
@@ -59,12 +58,12 @@ class IBase(ABC):
     '''
 
     @abstractmethod
-    def get_context(self) -> ContextBundle:
+    def get_context(self) -> ContextEnvironment:
         '''
             Returns the context.
 
             :return: Context.
-            :rtype: ContextBundle
+            :rtype: ContextEnvironment
             :exceptions: None.
         '''
         pass

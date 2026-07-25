@@ -50,7 +50,7 @@ class DummyParser(IArgParser):
         if own and hasattr(own, 'context_bundle'):
             self._context = own.context_bundle
         else:
-            self._context = ContextFactory.create_default_bundle()
+            self._context = ContextFactory.create_bundle()
 
     def get_context(self) -> ContextBundle:
         return self._context
@@ -87,9 +87,9 @@ class OptionFactoryTest(unittest.TestCase):
             "description": "desc",
             "epilog": "epi"
         }
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
 
-        bundle = OptionFactory.create_default_bundle({
+        bundle = OptionFactory.create_bundle({
             "parameters": parameters,
             "context_bundle": context_bundle,
             "parser_class": DummyParser

@@ -27,7 +27,7 @@ from unittest.mock import patch, MagicMock
 
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.splasher.setup.bundle import SplashBundle
-from ats_utilities.splasher.splash_keys import SplashKeys
+from ats_utilities.splasher.setup.splash_keys import SplashKeys
 from ats_utilities.splasher.setup.registry import SplashRegistry
 from ats_utilities.splasher.setup.dependencies import SplashDependencies
 from ats_utilities.splasher.setup.factory import SplashFactory
@@ -42,6 +42,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
 
 
+@patch("ats_utilities.splasher.setup.validator.check_file_exists")
 class SplashRegistryTest(unittest.TestCase):
     '''
         Defines class SplashRegistryTest with attribute(s) and method(s).
@@ -59,10 +60,10 @@ class SplashRegistryTest(unittest.TestCase):
         }
 
     @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.size")
-    def test_create_bundle(self, mock_size: MagicMock) -> None:
+    def test_create_bundle(self, mock_size: MagicMock, mock_check: MagicMock) -> None:
         """Tests create_bundle on SplashRegistry."""
         mock_size.return_value = (24, 80, 0, 0)
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         prop = self._get_valid_prop()
         factory_bundle = SplashFactory.create_splash_bundle_from_dict(prop, context_bundle)
 

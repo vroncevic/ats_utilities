@@ -24,7 +24,7 @@ from __future__ import annotations
 import unittest
 
 from ats_utilities.checker.format.format_validator import FormatValidator
-from ats_utilities.exceptions import ATSTypeError
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -53,7 +53,8 @@ class FormatValidatorTest(unittest.TestCase):
     def test_is_valid(self) -> None:
         validator = FormatValidator()
         self.assertTrue(validator.is_valid("str:param"))
-        self.assertFalse(validator.is_valid("invalid_format"))
+        with self.assertRaises(ATSValueError):
+            validator.is_valid("invalid_format")
         with self.assertRaises(ATSTypeError):
             validator.is_valid(123)  # type: ignore
 

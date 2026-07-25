@@ -115,7 +115,7 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
         istype(context_bundle, ContextBundle, ctx, r'context bundle must be a ContextBundle instance')
         istype(use_generator, bool, ctx, r'use generator must be a boolean')
 
-        config_loader: ILoader = Loader(
+        config_loader: ILoader[ContextBundle] = Loader(
             own=ConfigIORegistry.create_config_io_bundle_by_file_path_and_scheme(
                 file_path=info_file,
                 scheme={},
@@ -128,7 +128,7 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
         if log_file and hasattr(context_bundle.logger, 'set_log_file'):
             context_bundle.logger.set_log_file(log_file)
 
-        info_manager: IInfoManager = InfoManager(
+        info_manager: IInfoManager[ContextBundle] = InfoManager(
             own=InfoFactory.create_info_bundle_from_dict(
                 info=config_data,
                 context_bundle=context_bundle
@@ -137,19 +137,19 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
         logo_path: str = info_manager.logo
         info_manager.logo = f'{dirname(info_file)}/{logo_path}'
 
-        splasher: ISplasher = Splasher(
+        splasher: ISplasher[ContextBundle, Any] = Splasher(
             own=SplashFactory.create_splash_bundle_from_dict(
                 prop=info_manager.get_info(),
                 context_bundle=context_bundle
             )
         )
-        options_parser: IOptionManager = OptionManager(
+        options_parser: IOptionManager[ContextBundle] = OptionManager(
             own=OptionFactory.create_option_bundle_from_dict(
                 parameters=info_manager.get_info(),
                 context_bundle=context_bundle
             )
         )
-        generator: IGenerator | None = Generator(
+        generator: IGenerator[ContextBundle] | None = Generator(
             own=GeneratorFactory.create_default_generator_bundle(
                 context_bundle=context_bundle
             )

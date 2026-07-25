@@ -44,13 +44,13 @@ class ProConfigTest(unittest.TestCase):
     '''
 
     def test_init(self) -> None:
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         pro_config_obj = ProConfig(context_bundle)
         self.assertIsNone(pro_config_obj.config)
         self.assertFalse(pro_config_obj.not_none())
 
     def test_get_set_pro_config(self) -> None:
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         pro_config_obj = ProConfig(context_bundle)
         config_data = {
             "key1": "value1",
@@ -61,13 +61,13 @@ class ProConfigTest(unittest.TestCase):
         self.assertTrue(pro_config_obj.not_none())
 
     def test_set_pro_config_invalid_type(self) -> None:
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         pro_config_obj = ProConfig(context_bundle)
         with self.assertRaises(ATSTypeError):
             pro_config_obj.config = 123  # type: ignore
 
     def test_str(self) -> None:
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         pro_config_obj = ProConfig(context_bundle)
         self.assertIn("ProConfig", str(pro_config_obj))
 

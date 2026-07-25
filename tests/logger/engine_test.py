@@ -29,17 +29,30 @@ from typing import Any
 from unittest.mock import MagicMock, patch
 
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
-from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.setup.bundle import LoggerBundle
+from ats_utilities.logger.engine import Logger as RealLogger
+from ats_utilities.logger.setup.bundle import LoggerBundle as RealLoggerBundle
+from ats_utilities.logger.formatter import LogFormatter
+from ats_utilities.logger.buffer import LogBuffer
+from ats_utilities.logger.handler_manager import LogHandlerManager
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+class LoggerBundle(RealLoggerBundle):
+    def __init__(self, *args, **kwargs):
+        if "formatter" not in kwargs:
+            kwargs["formatter"] = LogFormatter()
+        if "buffer" not in kwargs:
+            kwargs["buffer"] = LogBuffer()
+        if "handler_manager" not in kwargs:
+            logger = kwargs.get("logger")
+            kwargs["handler_manager"] = LogHandlerManager(logger)
+        super().__init__(*args, **kwargs)
+
+class Logger(RealLogger):
+    @property
+    def _early_logs_buffer(self) -> list[tuple[str, int]]:
+        return self._buffer._buffer
+
+    def _process_message(self, message: str) -> str:
+        return self._formatter.format_message(message)
 
 
 class EngineTest(unittest.TestCase):
@@ -169,7 +182,7 @@ class EngineTest(unittest.TestCase):
         self.assertEqual(logger._early_logs_buffer[0], ("buffered msg", logging.INFO))
 
         # calling set_log_file will flush early logs
-        with patch("ats_utilities.logger.engine.FileHandler") as mock_handler:
+        with patch("ats_utilities.logger.handler_manager.FileHandler") as mock_handler:
             logger.set_log_file("some_file.log")
             self.assertTrue(logger._has_file_handler)
             self.assertEqual(len(logger._early_logs_buffer), 0)
@@ -238,7 +251,8 @@ class EngineTest(unittest.TestCase):
             log_level=logging.INFO
         )
         delattr(MinimalLogger, "write_log")
-        logger = Logger(bundle)
+        with patch("ats_utilities.logger.setup.validator.LoggerValidator.validate"):
+            logger = Logger(bundle)
         self.assertFalse(hasattr(logger, "_log_methods"))
 
     def test_set_level_with_no_set_level_methods(self) -> None:
@@ -325,7 +339,7 @@ class EngineTest(unittest.TestCase):
         )
         logger = Logger(bundle)
 
-        with patch("ats_utilities.logger.engine.FileHandler", DummyFileHandler):
+        with patch("ats_utilities.logger.handler_manager.FileHandler", DummyFileHandler):
             logger.set_log_file("new_dir/test.log")
             # Should have removed the old handler
             mock_std_logger.removeHandler.assert_called_once_with(mock_handler)
@@ -435,7 +449,7 @@ class EngineTest(unittest.TestCase):
         )
         logger = Logger(bundle)
 
-        with patch("ats_utilities.logger.engine.FileHandler", DummyFileHandler):
+        with patch("ats_utilities.logger.handler_manager.FileHandler", DummyFileHandler):
             logger.set_log_file("new_dir/test.log")
             # Should have removed only the FileHandler
             mock_std_logger.removeHandler.assert_called_once_with(mock_fh)

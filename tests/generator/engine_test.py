@@ -8,7 +8,7 @@ from collections.abc import Mapping
 from ats_utilities.generator.engine import Generator
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.setup.bundle import GeneratorBundle
-from ats_utilities.generator.gen_params_bundle import GenParamsBundle
+from ats_utilities.generator.data import GeneratorData
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.itar_processor import ITarProcessor
 
@@ -18,6 +18,9 @@ class TestGenerator(unittest.TestCase):
 
     def setUp(self) -> None:
         """Set up standard mocks and parameter bundles for Generator execution."""
+        self.file_exist_patcher = patch("ats_utilities.generator.data_validator.check_file_exists")
+        self.file_exist_patcher.start()
+
         self.mock_context = MagicMock(spec=ContextBundle)
         self.mock_scheme_loader = MagicMock(spec=ISchemeLoader)
         self.mock_tar_processor = MagicMock(spec=ITarProcessor)
@@ -28,19 +31,22 @@ class TestGenerator(unittest.TestCase):
         self.mock_component_bundle.scheme_loader = self.mock_scheme_loader
         self.mock_component_bundle.tar_processor = self.mock_tar_processor
 
-        # Build valid configuration parameters GenParamsBundle
-        self.mock_gen_params = MagicMock(spec=GenParamsBundle)
+        # Build valid configuration parameters GeneratorData
+        self.mock_gen_params = MagicMock(spec=GeneratorData)
         self.mock_gen_params.archive_path = "/path/to/archive.tgz"
         self.mock_gen_params.target_dir = "/path/to/target"
         self.mock_gen_params.template_key = "python_pkg"
         self.mock_gen_params.scheme = "scheme_config.json"
         self.mock_gen_params.template_values = {"project_name": "ats_utilities"}
 
+    def tearDown(self) -> None:
+        self.file_exist_patcher.stop()
+
     def test_initialization_success(self) -> None:
         """Test successful initialization and structural property mapping bindings."""
         generator = Generator(self.mock_component_bundle)
 
-        self.assertEqual(generator.get_shared_context(), self.mock_context)
+        self.assertEqual(generator.get_context(), self.mock_context)
         self.assertEqual(generator._scheme_loader, self.mock_scheme_loader)
         self.assertEqual(generator._tar_processor, self.mock_tar_processor)
         self.assertTrue(generator._is_initialized)
@@ -93,7 +99,7 @@ class TestGenerator(unittest.TestCase):
         with self.assertRaises(Exception):
             generator.prepare_template_values({"project_name": ""})
 
-    @patch("ats_utilities.generator.engine.TarProcessBundle")
+    @patch("ats_utilities.generator.engine.TarData")
     def test_generate_success_flow(self, mock_tar_bundle_cls: MagicMock) -> None:
         """Test a clean execution flow where processing and template rendering map perfectly."""
         # Arrange
@@ -170,12 +176,12 @@ class TestGenerator(unittest.TestCase):
     def test_string_representation(self, mock_to_str: MagicMock) -> None:
         """Test string casting reflection invocation properties mapping."""
         generator = Generator(self.mock_component_bundle)
-        mock_to_str.return_value = "Generator{_shared_context=ContextBundle}"
+        mock_to_str.return_value = "Generator{_context=ContextBundle}"
 
         result = str(generator)
 
         mock_to_str.assert_called_once_with(generator)
-        self.assertEqual(result, "Generator{_shared_context=ContextBundle}")
+        self.assertEqual(result, "Generator{_context=ContextBundle}")
 
 
 if __name__ == '__main__':

@@ -24,8 +24,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
-from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle
+from ats_utilities.generator.tar.data import TarData, TarMemberData
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,23 +51,23 @@ class ITarProcessor(ABC):
     '''
 
     @abstractmethod
-    def process_tar_member(self, tar_process_member_bundle: TarProcessMemberBundle) -> None:
+    def process_tar_member(self, tar_process_member_bundle: TarMemberData) -> None:
         '''
             Extracts and processes a single tar member (creates dirs or renders files).
 
             :param tar_process_member_bundle: Parameters defining what to do with the tar archive member.
-            :type tar_process_member_bundle: <TarProcessMemberBundle>
+            :type tar_process_member_bundle: <TarMemberData>
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def process(self, tar_process_bundle: TarProcessBundle) -> None:
+    def process(self, tar_process_bundle: TarData) -> None:
         '''
             Processes the tar archive members.
 
             :param tar_process_bundle: Parameters defining what to do with the tar archive.
-            :type tar_process_bundle: <TarProcessBundle>
+            :type tar_process_bundle: <TarData>
             :exceptions: None.
         '''
         pass

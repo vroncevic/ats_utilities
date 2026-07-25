@@ -176,6 +176,8 @@ class Logger(ILogger):
                 self._buffer.flush(lambda msg, lvl: self._logger.log(lvl, msg))
             elif hasattr(self._logger, 'write_log'):
                 self._buffer.flush(lambda msg, lvl: self._logger.write_log(msg, lvl))
+            else:
+                self._buffer.clear()
 
     @override
     def set_log_file(self, log_file: str) -> None:

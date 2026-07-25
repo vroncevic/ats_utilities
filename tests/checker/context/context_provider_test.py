@@ -65,17 +65,17 @@ class ContextProviderTest(unittest.TestCase):
             provider.set_stack_index_caller("invalid")  # type: ignore
 
     def test_get_context(self) -> None:
-        provider = ContextProvider(stack_index_caller=1)
+        provider = ContextProvider(index_caller=1)
         ctx = provider.get_context()
         self.assertIn("test_get_context", ctx)
 
     def test_get_context_overflow(self) -> None:
-        provider = ContextProvider(stack_index_caller=9999)
+        provider = ContextProvider(index_caller=9999)
         ctx = provider.get_context()
         self.assertIsNotNone(ctx)
 
     def test_get_context_decorated_wrapper(self) -> None:
-        provider = ContextProvider(stack_index_caller=1)
+        provider = ContextProvider(index_caller=1)
 
         def my_real_function() -> str:
             return provider.get_context()
@@ -88,7 +88,7 @@ class ContextProviderTest(unittest.TestCase):
         self.assertIn("my_real_function", ctx)
 
     def test_get_context_decorated_wrapper_no_name(self) -> None:
-        provider = ContextProvider(stack_index_caller=1)
+        provider = ContextProvider(index_caller=1)
 
         def wrapper() -> str:
             func = object()  # Has no __name__
@@ -98,7 +98,7 @@ class ContextProviderTest(unittest.TestCase):
         self.assertIn("wrapper", ctx)
 
     def test_get_context_decorated_wrapper_has_name(self) -> None:
-        provider = ContextProvider(stack_index_caller=1)
+        provider = ContextProvider(index_caller=1)
 
         def my_func() -> None:
             pass

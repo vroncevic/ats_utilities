@@ -61,7 +61,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = ParserData(
             prog="myprog",
             epilog="myepilog",
@@ -90,7 +90,7 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         mock_reporter = MagicMock(spec=IReporter)
-        custom_context = ContextFactory.create_default_bundle()
+        custom_context = ContextFactory.create_bundle()
         custom_context = custom_context.__class__(
             checker=custom_context.checker,
             logger=custom_context.logger,
@@ -118,7 +118,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = ParserData(
             prog="myprog",
             epilog="myepilog",
@@ -134,7 +134,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         parser = ArgParser(prog="testprog", context_bundle=context_bundle)
         self.assertEqual(parser.prog, "testprog")
         self.assertIs(parser._context.reporter, context_bundle.reporter)

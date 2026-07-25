@@ -16,14 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for CheckReporterData class.
+    Unit tests for CheckReporterData class and CheckReporterValidator.
 '''
 
 from __future__ import annotations
 
 import unittest
 
-from ats_utilities.checker.reporter.checker_reporter_bundle import CheckReporterData
+from ats_utilities.checker.reporter.data import CheckReporterData
+from ats_utilities.checker.reporter.data_validator import CheckReporterValidator
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
@@ -39,16 +40,7 @@ __status__: str = 'Development'
 class CheckerReporterBundleTest(unittest.TestCase):
     '''
         Defines class CheckerReporterBundleTest with attribute(s) and method(s).
-        Tests CheckReporterData dataclass logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_init_valid - Tests successful CheckReporterData initialization.
-                | test_init_invalid_none - Tests CheckReporterData initialization with None values.
-                | test_init_invalid_type - Tests CheckReporterData initialization with wrong types.
-                | test_to_dict - Tests CheckReporterData to_dict method.
+        Tests CheckReporterData dataclass and CheckReporterValidator logic.
     '''
 
     def test_init_valid(self) -> None:
@@ -62,72 +54,81 @@ class CheckerReporterBundleTest(unittest.TestCase):
         self.assertEqual(bundle.parameters_meta, [("param1", "str", "val")])
         self.assertEqual(bundle.err_indices, [0])
         self.assertTrue(bundle.is_fmt_err)
+        CheckReporterValidator.validate(bundle)
 
     def test_init_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            CheckReporterData(
+            bundle = CheckReporterData(
                 context=None,  # type: ignore
                 parameters_meta=[("p", "t", "v")],
                 err_indices=[0],
                 is_fmt_err=False
             )
+            CheckReporterValidator.validate(bundle)
 
         with self.assertRaises(ATSValueError):
-            CheckReporterData(
+            bundle = CheckReporterData(
                 context="ctx",
                 parameters_meta=None,  # type: ignore
                 err_indices=[0],
                 is_fmt_err=False
             )
+            CheckReporterValidator.validate(bundle)
 
         with self.assertRaises(ATSValueError):
-            CheckReporterData(
+            bundle = CheckReporterData(
                 context="ctx",
                 parameters_meta=[("p", "t", "v")],
                 err_indices=None,  # type: ignore
                 is_fmt_err=False
             )
+            CheckReporterValidator.validate(bundle)
 
         with self.assertRaises(ATSValueError):
-            CheckReporterData(
+            bundle = CheckReporterData(
                 context="ctx",
                 parameters_meta=[("p", "t", "v")],
                 err_indices=[0],
                 is_fmt_err=None  # type: ignore
             )
+            CheckReporterValidator.validate(bundle)
 
     def test_init_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            CheckReporterData(
+            bundle = CheckReporterData(
                 context=123,  # type: ignore
                 parameters_meta=[("p", "t", "v")],
                 err_indices=[0],
                 is_fmt_err=False
             )
+            CheckReporterValidator.validate(bundle)
 
         with self.assertRaises(ATSTypeError):
-            CheckReporterData(
+            bundle = CheckReporterData(
                 context="ctx",
                 parameters_meta=123,  # type: ignore
                 err_indices=[0],
                 is_fmt_err=False
             )
+            CheckReporterValidator.validate(bundle)
 
         with self.assertRaises(ATSTypeError):
-            CheckReporterData(
+            bundle = CheckReporterData(
                 context="ctx",
                 parameters_meta=[("p", "t", "v")],
                 err_indices=123,  # type: ignore
                 is_fmt_err=False
             )
+            CheckReporterValidator.validate(bundle)
 
         with self.assertRaises(ATSTypeError):
-            CheckReporterData(
+            bundle = CheckReporterData(
                 context="ctx",
                 parameters_meta=[("p", "t", "v")],
                 err_indices=[0],
                 is_fmt_err="invalid"  # type: ignore
             )
+            CheckReporterValidator.validate(bundle)
 
     def test_to_dict(self) -> None:
         bundle = CheckReporterData(

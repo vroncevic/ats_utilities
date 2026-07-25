@@ -28,6 +28,7 @@ from typing import Any, override
 from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.setup.splash_keys import SplashKeys
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -77,9 +78,18 @@ class ExtInfrastructure(IExtInfrastructure):
             :param context_bundle: Context bundle for external infrastructure.
             :type context_bundle: ContextBundle
             :exceptions:
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Checker must be provided.
+                | ATSValueError: Logger must be provided.
+                | ATSValueError: Reporter must be provided.
+                | ATSValueError: Verbose must be provided.
+                | ATSTypeError: Bundle must be an instance of ContextBundle.
+                | ATSTypeError: Checker must be an instance of IChecker.
+                | ATSTypeError: Logger must be an instance of ILogger.
+                | ATSTypeError: Reporter must be an instance of IReporter.
+                | ATSTypeError: Verbose must be a boolean.
         '''
+        ContextValidator.validate(context_bundle)
         self._context = context_bundle
         self._infrastructure_property = None
 

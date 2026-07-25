@@ -25,7 +25,7 @@ class TestSchemeLoader(unittest.TestCase):
         """Test successful initialization and context injection verification."""
         loader = SchemeLoader(self.mock_context_bundle)
 
-        self.assertEqual(loader._shared_context, self.mock_context_bundle)
+        self.assertEqual(loader._context, self.mock_context_bundle)
         self.assertTrue(loader._initialized)
 
     def test_is_initialized(self) -> None:

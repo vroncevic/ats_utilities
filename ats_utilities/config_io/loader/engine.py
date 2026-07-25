@@ -46,7 +46,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class Loader(ILoader):
+class Loader(ILoader[ContextBundle]):
     '''
         Creates an API for loading configuration from file and deploying as object.
         2nd level of configuration loader implementation.

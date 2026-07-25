@@ -28,6 +28,7 @@ from typing import Any, override
 from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.setup.splash_keys import SplashKeys
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -74,9 +75,18 @@ class GitHubInfrastructure(IExtInfrastructure):
             :param context_bundle: Context bundle for GitHub infrastructure.
             :type context_bundle: ContextBundle
             :exceptions:
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSValueError: Bundle must be provided.
+                | ATSValueError: Checker must be provided.
+                | ATSValueError: Logger must be provided.
+                | ATSValueError: Reporter must be provided.
+                | ATSValueError: Verbose must be provided.
+                | ATSTypeError: Bundle must be an instance of ContextBundle.
+                | ATSTypeError: Checker must be an instance of IChecker.
+                | ATSTypeError: Logger must be an instance of ILogger.
+                | ATSTypeError: Reporter must be an instance of IReporter.
+                | ATSTypeError: Verbose must be a boolean.
         '''
+        ContextValidator.validate(context_bundle)
         self._context = context_bundle
         self._infrastructure_property = None
 
@@ -145,7 +155,6 @@ class GitHubInfrastructure(IExtInfrastructure):
         not_empty(org, context, r'info property organization is missing or empty')
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
         not_empty(repo, context, r'info property repository is missing or empty')
-
         url_short: str = f'github.io/{repo}'
         url_long: str = f'https://{org}.github.io/{repo}'
 
@@ -173,7 +182,6 @@ class GitHubInfrastructure(IExtInfrastructure):
         not_empty(org, context, r'issue property organization is missing or empty')
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
         not_empty(repo, context, r'issue property repository is missing or empty')
-
         url: str = f'https://github.com/{org}/{repo}/issues/new/choose'
 
         return f'\x1b]8;;{url}\agithub.io/issue\x1b]8;;\a'
@@ -198,7 +206,6 @@ class GitHubInfrastructure(IExtInfrastructure):
         context: str = r'github_infrastructure::get_author_text(...)'
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
         not_empty(org, context, r'author property organization is missing or empty')
-
         org_short: str = f'{org}.github.io'
         org_long: str = f'https://{org}.github.io/bio/'
 

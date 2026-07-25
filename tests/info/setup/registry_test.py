@@ -46,7 +46,7 @@ class InfoRegistryTest(unittest.TestCase):
     '''
 
     def test_create_bundle(self) -> None:
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         info_data = {
             'ats_name': 'ats_utilities',
             'ats_version': '3.4.4',

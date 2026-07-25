@@ -63,11 +63,11 @@ class BaseBundle:
     '''
 
     info_file: str
-    config_loader: ILoader
-    info_manager: IInfoManager
-    options_parser: IOptionManager
-    splasher: ISplasher
-    generator: IGenerator | None
+    config_loader: ILoader[ContextBundle]
+    info_manager: IInfoManager[ContextBundle]
+    options_parser: IOptionManager[ContextBundle]
+    splasher: ISplasher[ContextBundle, Any]
+    generator: IGenerator[ContextBundle] | None
     use_generator: bool
     context_bundle: ContextBundle
 

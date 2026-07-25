@@ -101,15 +101,19 @@ class ProgressBarTest(unittest.TestCase):
     def test_set_and_plot(self, mock_flush: MagicMock, mock_write: MagicMock) -> None:
         pb = ProgressBar(end=100, start=0)
         pb.set_and_plot(50, 80)
-        self.assertEqual(mock_write.call_count, 1)
+        
+        def get_bar_writes():
+            return len([args[0] for args, _ in mock_write.call_args_list if args[0] != '\n'])
+
+        self.assertEqual(get_bar_writes(), 1)
 
         # Plotting the same level again should skip rewrite
         pb.set_and_plot(50, 80)
-        self.assertEqual(mock_write.call_count, 1)
+        self.assertEqual(get_bar_writes(), 1)
 
         # Plotting a different level should trigger rewrite
         pb.set_and_plot(70, 80)
-        self.assertEqual(mock_write.call_count, 2)
+        self.assertEqual(get_bar_writes(), 2)
 
     @patch("sys.stdout.write")
     def test_del(self, mock_write: MagicMock) -> None:

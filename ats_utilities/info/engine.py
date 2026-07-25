@@ -44,7 +44,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class InfoManager(IInfoManager):
+class InfoManager(IInfoManager[ContextBundle]):
     '''
         Defines class InfoManager with attribute(s) and method(s).
         Creates an API for the information in one container object.

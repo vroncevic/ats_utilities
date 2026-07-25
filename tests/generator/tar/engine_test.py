@@ -9,8 +9,7 @@ from typing import Any
 from ats_utilities.generator.tar.engine import TarProcessor
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
-from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
-from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle
+from ats_utilities.generator.tar.data import TarData, TarMemberData
 from ats_utilities.exceptions import ATSGeneratorError
 
 
@@ -23,13 +22,13 @@ class TestTarProcessor(unittest.TestCase):
         self.mock_template_processor = MagicMock(spec=ITemplateProcessor)
         
         # Valid bundles
-        self.mock_member_bundle = MagicMock(spec=TarProcessMemberBundle)
+        self.mock_member_bundle = MagicMock(spec=TarMemberData)
         self.mock_member_bundle.vals = {"name": "test"}
         self.mock_member_bundle.dest_full_path = "/target/path/file.txt"
         self.mock_member_bundle.member = MagicMock(spec=TarInfo)
         self.mock_member_bundle.tar = MagicMock(spec=TarFile)
 
-        self.mock_process_bundle = MagicMock(spec=TarProcessBundle)
+        self.mock_process_bundle = MagicMock(spec=TarData)
         self.mock_process_bundle.target_dir = "/target/dir"
         self.mock_process_bundle.archive_path = "/archive.tgz"
         self.mock_process_bundle.source_dir = "templates"
@@ -112,7 +111,7 @@ class TestTarProcessor(unittest.TestCase):
         self.mock_template_processor.render.assert_not_called()
         mock_makedirs.assert_called_once_with("/target/path", exist_ok=True)
 
-    @patch("ats_utilities.generator.tar.engine.TarProcessMemberBundle")
+    @patch("ats_utilities.generator.tar.engine.TarMemberData")
     @patch("ats_utilities.generator.tar.engine.open")
     @patch("ats_utilities.generator.tar.engine.normalize_path")
     @patch("ats_utilities.generator.tar.engine.resolve_relative_path")

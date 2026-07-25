@@ -45,7 +45,7 @@ class FactoryTest(unittest.TestCase):
     '''
 
     def test_create_default_bundle(self) -> None:
-        bundle = LoggerFactory.create_default_bundle({
+        bundle = LoggerFactory.create_bundle({
             "log_file": "test_factory.log",
             "log_level": logging.WARNING
         })
@@ -55,7 +55,7 @@ class FactoryTest(unittest.TestCase):
         self.assertIsInstance(bundle.logger, logging.Logger)
 
     def test_create_default_bundle_without_parameters(self) -> None:
-        bundle = LoggerFactory.create_default_bundle()
+        bundle = LoggerFactory.create_bundle()
         self.assertIsInstance(bundle, LoggerBundle)
         self.assertEqual(bundle.log_file, "")
         self.assertEqual(bundle.log_level, logging.INFO)
@@ -67,7 +67,7 @@ class FactoryTest(unittest.TestCase):
         mock_get_logger.return_value = mock_logger
 
         with patch("ats_utilities.logger.setup.factory.basicConfig") as mock_basic_config:
-            bundle = LoggerFactory.create_default_bundle({"log_file": None})
+            bundle = LoggerFactory.create_bundle({"log_file": None})
             mock_basic_config.assert_called_once()
             args, kwargs = mock_basic_config.call_args
             self.assertIn('stream', kwargs)
@@ -80,7 +80,7 @@ class FactoryTest(unittest.TestCase):
         mock_get_logger.return_value = mock_logger
 
         with patch("ats_utilities.logger.setup.factory.basicConfig") as mock_basic_config:
-            bundle = LoggerFactory.create_default_bundle({"log_file": "test_file.log"})
+            bundle = LoggerFactory.create_bundle({"log_file": "test_file.log"})
             mock_basic_config.assert_called_once()
             args, kwargs = mock_basic_config.call_args
             self.assertIn('filename', kwargs)

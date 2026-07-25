@@ -31,7 +31,7 @@ from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.data import CenterData
-from ats_utilities.splasher.splash_keys import SplashKeys
+from ats_utilities.splasher.setup.splash_keys import SplashKeys
 from ats_utilities.splasher.setup.factory import SplashFactory
 from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
 
@@ -64,7 +64,7 @@ class EngineTest(unittest.TestCase):
     '''
 
     def setUp(self) -> None:
-        self.context_bundle = ContextFactory.create_default_bundle()
+        self.context_bundle = ContextFactory.create_bundle()
         # Create a temporary file to act as the logo
         self.temp_logo = tempfile.NamedTemporaryFile(delete=False, mode="w", encoding="utf-8")
         self.temp_logo.write("LOGO LINE 1\n\nLOGO LINE 2\n")

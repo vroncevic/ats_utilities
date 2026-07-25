@@ -1,18 +1,48 @@
 # -*- coding: UTF-8 -*-
 
+'''
+Module
+    tar_process_bundle_test.py
+Copyright
+    Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Unit tests for the TarData dataclass and TarDataValidator.
+'''
+
+from __future__ import annotations
+
 import unittest
 from dataclasses import FrozenInstanceError
-from collections.abc import Mapping, Sequence
 
-# Adjust imports according to your project structure
-from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
+from ats_utilities.generator.tar.data import TarData
+from ats_utilities.generator.tar.data_validator import TarDataValidator
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
+__author__: str = 'Vladimir Roncevic'
+__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__: str = '3.4.4'
+__maintainer__: str = 'Vladimir Roncevic'
+__email__: str = 'elektron.ronca@gmail.com'
+__status__: str = 'Development'
+
+
 class TestTarProcessBundle(unittest.TestCase):
-    """Unit tests for the TarProcessBundle dataclass."""
+    """Unit tests for the TarData dataclass and TarDataValidator."""
 
     def setUp(self) -> None:
-        """Set up standard parameters for a valid TarProcessBundle configuration."""
+        """Set up standard parameters for a valid TarData configuration."""
         self.valid_params = {
             "archive_path": "/path/to/archive.tgz",
             "target_dir": "/path/to/target",
@@ -24,7 +54,7 @@ class TestTarProcessBundle(unittest.TestCase):
 
     def test_successful_initialization(self) -> None:
         """Test successful initialization with valid type definitions."""
-        bundle = TarProcessBundle(**self.valid_params)
+        bundle = TarData(**self.valid_params)
 
         self.assertEqual(bundle.archive_path, "/path/to/archive.tgz")
         self.assertEqual(bundle.target_dir, "/path/to/target")
@@ -35,7 +65,7 @@ class TestTarProcessBundle(unittest.TestCase):
 
     def test_immutability_frozen_slots(self) -> None:
         """Test that modifying a value after initialization raises FrozenInstanceError."""
-        bundle = TarProcessBundle(**self.valid_params)
+        bundle = TarData(**self.valid_params)
         
         with self.assertRaises(FrozenInstanceError):
             bundle.archive_path = "/new/path.tgz"  # type: ignore
@@ -43,19 +73,12 @@ class TestTarProcessBundle(unittest.TestCase):
     def test_keyword_only_initialization(self) -> None:
         """Test that positional initialization is restricted by kw_only config."""
         with self.assertRaises(TypeError):
-            # Attempt to instantiate via positional parameters instead of keywords
-            TarProcessBundle(
-                # pyrefly: ignore [unexpected-positional-argument]
+            TarData(
                 "/path/to/archive.tgz", 
-                # pyrefly: ignore [unexpected-positional-argument]
                 "/path/to/target", 
-                # pyrefly: ignore [unexpected-positional-argument]
                 "templates/core", 
-                # pyrefly: ignore [unexpected-positional-argument]
                 {"__name__": "my_module"}, 
-                # pyrefly: ignore [unexpected-positional-argument]
                 ["*.pyc"], 
-                # pyrefly: ignore [unexpected-positional-argument]
                 {"author": "Vladimir"}
             )
 
@@ -71,8 +94,9 @@ class TestTarProcessBundle(unittest.TestCase):
                 invalid_params = self.valid_params.copy()
                 invalid_params[field] = None
                 
-                with self.assertRaises(Exception):  # Catches value or check errors from not_none
-                    TarProcessBundle(**invalid_params)
+                bundle = TarData(**invalid_params)
+                with self.assertRaises(ATSValueError):
+                    TarDataValidator.validate(bundle)
 
     def test_validation_type_mismatches(self) -> None:
         """Test that incorrect data types trigger validation errors."""
@@ -90,24 +114,17 @@ class TestTarProcessBundle(unittest.TestCase):
                 invalid_params = self.valid_params.copy()
                 invalid_params[field] = bad_value
                 
-                with self.assertRaises(ATSTypeError):  # Catches check errors from istype
-                    TarProcessBundle(
-                        archive_path=invalid_params["archive_path"],
-                        target_dir=invalid_params["target_dir"],
-                        source_dir=invalid_params["source_dir"],
-                        path_replacements=invalid_params["path_replacements"],
-                        exclude_patterns=invalid_params["exclude_patterns"],
-                        vals=invalid_params["vals"]
-                    )
+                bundle = TarData(**invalid_params)
+                with self.assertRaises(ATSTypeError):
+                    TarDataValidator.validate(bundle)
 
     def test_to_dict(self) -> None:
         """Test that to_dict cleanly transforms the dataclass properties into a raw dictionary."""
-        bundle = TarProcessBundle(**self.valid_params)
+        bundle = TarData(**self.valid_params)
         exported_dict = bundle.to_dict()
 
         self.assertIsInstance(exported_dict, dict)
         self.assertEqual(exported_dict, self.valid_params)
-        # Ensure it handles extraction via slots definition boundaries explicitly
         self.assertEqual(set(exported_dict.keys()), set(bundle.__slots__))
 
 

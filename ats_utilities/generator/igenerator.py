@@ -25,7 +25,6 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
 
-from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.data import GeneratorData
 
 __author__ = r'Vladimir Roncevic'
@@ -38,7 +37,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IGenerator(ABC):
+class IGenerator[ContextEnvironment](ABC):
     '''
         Defines abstract class IGenerator with method(s).
         Creates an interface for template-based file generation from .tgz archives.
@@ -54,12 +53,12 @@ class IGenerator(ABC):
     '''
 
     @abstractmethod
-    def get_context(self) -> ContextBundle:
+    def get_context(self) -> ContextEnvironment:
         '''
             Returns the context.
 
             :return: Context.
-            :rtype: ContextBundle
+            :rtype: ContextEnvironment
             :exceptions: None.
         '''
         pass

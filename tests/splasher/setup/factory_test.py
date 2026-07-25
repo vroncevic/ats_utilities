@@ -28,7 +28,7 @@ from unittest.mock import patch, MagicMock
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.splasher.setup.bundle import SplashBundle
-from ats_utilities.splasher.splash_keys import SplashKeys
+from ats_utilities.splasher.setup.splash_keys import SplashKeys
 from ats_utilities.splasher.setup.factory import SplashFactory
 
 __author__: str = 'Vladimir Roncevic'
@@ -41,6 +41,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
 
 
+@patch("ats_utilities.splasher.setup.validator.check_file_exists")
 class SplashFactoryTest(unittest.TestCase):
     '''
         Defines class SplashFactoryTest with attribute(s) and method(s).
@@ -58,9 +59,9 @@ class SplashFactoryTest(unittest.TestCase):
         }
 
     @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.size")
-    def test_create_splash_bundle_github(self, mock_size: MagicMock) -> None:
+    def test_create_splash_bundle_github(self, mock_size: MagicMock, mock_check: MagicMock) -> None:
         mock_size.return_value = (24, 80, 0, 0)
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         prop = self._get_valid_prop()
         bundle = SplashFactory.create_splash_bundle_from_dict(prop, context_bundle)
         self.assertIsInstance(bundle, SplashBundle)
@@ -68,9 +69,9 @@ class SplashFactoryTest(unittest.TestCase):
         self.assertTrue(bundle.ext.infrastructure_property)
 
     @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.size")
-    def test_create_splash_bundle_external(self, mock_size: MagicMock) -> None:
+    def test_create_splash_bundle_external(self, mock_size: MagicMock, mock_check: MagicMock) -> None:
         mock_size.return_value = (24, 80, 0, 0)
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         prop = self._get_valid_prop()
         prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE] = False
         bundle = SplashFactory.create_splash_bundle_from_dict(prop, context_bundle)
@@ -79,24 +80,24 @@ class SplashFactoryTest(unittest.TestCase):
         self.assertTrue(bundle.ext.infrastructure_property)
 
     @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.size")
-    def test_create_splash_bundle_disabled(self, mock_size: MagicMock) -> None:
+    def test_create_splash_bundle_disabled(self, mock_size: MagicMock, mock_check: MagicMock) -> None:
         mock_size.return_value = (24, 80, 0, 0)
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         prop = {"enabled": False}
         bundle = SplashFactory.create_splash_bundle_from_dict(prop, context_bundle)
         self.assertIsInstance(bundle, SplashBundle)
         self.assertTrue(bundle.property_validated)
 
     @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.size")
-    def test_create_splash_bundle_none_prop(self, mock_size: MagicMock) -> None:
+    def test_create_splash_bundle_none_prop(self, mock_size: MagicMock, mock_check: MagicMock) -> None:
         mock_size.return_value = (24, 80, 0, 0)
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = SplashFactory.create_splash_bundle_from_dict(None, context_bundle)  # type: ignore
         self.assertIsInstance(bundle, SplashBundle)
         self.assertFalse(bundle.property_validated)
         self.assertEqual(bundle.prop, {})
 
-    def test_create_splash_bundle_invalid_context(self) -> None:
+    def test_create_splash_bundle_invalid_context(self, mock_check: MagicMock) -> None:
         prop = self._get_valid_prop()
         with self.assertRaises(ATSValueError):
             SplashFactory.create_splash_bundle_from_dict(prop, None)  # type: ignore

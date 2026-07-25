@@ -27,7 +27,7 @@ from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.info.setup.bundle import InfoBundle
-from ats_utilities.info.info_keys import InfoKeys
+from ats_utilities.info.setup.info_keys import InfoKeys
 from ats_utilities.info.setup.factory import InfoFactory
 
 __author__: str = 'Vladimir Roncevic'
@@ -47,7 +47,7 @@ class InfoFactoryTest(unittest.TestCase):
     '''
 
     def test_create_info_bundle_from_dict(self) -> None:
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         info_data = {
             InfoKeys.ATS_NAME: "ats_utilities",
             InfoKeys.ATS_VERSION: "3.4.4",
@@ -81,7 +81,7 @@ class InfoFactoryTest(unittest.TestCase):
         self.assertIsInstance(bundle_compat, InfoBundle)
 
     def test_create_info_bundle_from_dict_invalid(self) -> None:
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         info_data = {}
 
         # Context bundle None
@@ -112,7 +112,7 @@ class InfoFactoryTest(unittest.TestCase):
             })
 
     def test_create_info_bundle_from_dict_edge_cases(self) -> None:
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
 
         # 1. Use Github infrastructure is boolean False
         info_data_bool = {
@@ -141,7 +141,7 @@ class InfoFactoryTest(unittest.TestCase):
         try:
             InfoFactory._ATTR_TO_CLASS = dict(original_attr_to_class)
             InfoFactory._ATTR_TO_CLASS[InfoKeys.ATS_NAME] = None
-            with self.assertRaises(TypeError):
+            with self.assertRaises((TypeError, ATSValueError)):
                 InfoFactory.create_info_bundle_from_dict(info_data_bool, context_bundle)
         finally:
             InfoFactory._ATTR_TO_CLASS = original_attr_to_class

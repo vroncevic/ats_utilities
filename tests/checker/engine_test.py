@@ -61,7 +61,7 @@ class EngineTest(unittest.TestCase):
     '''
 
     def test_init_valid(self) -> None:
-        bundle = CheckerFactory.create_default_bundle()
+        bundle = CheckerFactory.create_bundle()
         checker = Checker(bundle)
         self.assertTrue(checker.is_initialized())
 
@@ -74,35 +74,35 @@ class EngineTest(unittest.TestCase):
             Checker("invalid")  # type: ignore
 
     def test_validates_parameters_valid(self) -> None:
-        bundle = CheckerFactory.create_default_bundle()
+        bundle = CheckerFactory.create_bundle()
         checker = Checker(bundle)
         msg, err_id = checker.validates_parameters([("str:param1", "test"), ("int:param2", 123)])
         self.assertEqual(err_id, ErrorChecker.NO_ERROR)
         self.assertIn("param1", msg)
 
     def test_validates_parameters_none(self) -> None:
-        bundle = CheckerFactory.create_default_bundle()
+        bundle = CheckerFactory.create_bundle()
         checker = Checker(bundle)
         msg, err_id = checker.validates_parameters(None)  # type: ignore
         self.assertEqual(err_id, ErrorChecker.FORMAT_ERROR)
         self.assertIn("format wrong", msg)
 
     def test_validates_parameters_format_error(self) -> None:
-        bundle = CheckerFactory.create_default_bundle()
+        bundle = CheckerFactory.create_bundle()
         checker = Checker(bundle)
         msg, err_id = checker.validates_parameters([("invalid_format", "test")])
         self.assertEqual(err_id, ErrorChecker.FORMAT_ERROR)
         self.assertIn("format wrong", msg)
 
     def test_validates_parameters_type_error(self) -> None:
-        bundle = CheckerFactory.create_default_bundle()
+        bundle = CheckerFactory.create_bundle()
         checker = Checker(bundle)
         msg, err_id = checker.validates_parameters([("int:param", "not_an_int")])
         self.assertEqual(err_id, ErrorChecker.TYPE_ERROR)
         self.assertIn("wrong type", msg)
 
     def test_validates_parameters_multiple_type_errors(self) -> None:
-        bundle = CheckerFactory.create_default_bundle()
+        bundle = CheckerFactory.create_bundle()
         checker = Checker(bundle)
         msg, err_id = checker.validates_parameters([
             ("int:param1", "not_an_int"),
@@ -112,12 +112,12 @@ class EngineTest(unittest.TestCase):
         self.assertIn("wrong type", msg)
 
     def test_is_initialized(self) -> None:
-        bundle = CheckerFactory.create_default_bundle()
+        bundle = CheckerFactory.create_bundle()
         checker = Checker(bundle)
         self.assertTrue(checker.is_initialized())
 
     def test_str(self) -> None:
-        bundle = CheckerFactory.create_default_bundle()
+        bundle = CheckerFactory.create_bundle()
         checker = Checker(bundle)
         self.assertIn("Checker", str(checker))
 

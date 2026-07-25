@@ -47,7 +47,7 @@ class FactoryTest(unittest.TestCase):
     '''
 
     def test_create_default_bundle(self) -> None:
-        bundle = CheckerFactory.create_default_bundle()
+        bundle = CheckerFactory.create_bundle()
         self.assertIsInstance(bundle, CheckerBundle)
         self.assertIsInstance(bundle.format_validator, FormatValidator)
         self.assertIsInstance(bundle.type_validator, TypeValidator)

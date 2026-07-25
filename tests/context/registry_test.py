@@ -22,10 +22,14 @@ Info
 from __future__ import annotations
 
 import unittest
+from unittest.mock import MagicMock
 
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.registry import ContextRegistry
-from ats_utilities.context.params import ContextDependencies
+from ats_utilities.context.dependencies import ContextDependencies
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -44,9 +48,23 @@ class ContextRegistryTest(unittest.TestCase):
     '''
 
     def test_create_bundle(self) -> None:
-        bundle = ContextRegistry.create_bundle(ContextDependencies(verbose=True))
+        mock_checker = MagicMock(spec=IChecker)
+        mock_logger = MagicMock(spec=ILogger)
+        mock_reporter = MagicMock(spec=IReporter)
+
+        bundle = ContextRegistry.create_bundle(
+            ContextDependencies(
+                checker=mock_checker,
+                logger=mock_logger,
+                reporter=mock_reporter,
+                verbose=True
+            )
+        )
         self.assertIsInstance(bundle, ContextBundle)
         self.assertTrue(bundle.verbose)
+        self.assertIs(bundle.checker, mock_checker)
+        self.assertIs(bundle.logger, mock_logger)
+        self.assertIs(bundle.reporter, mock_reporter)
 
 
 if __name__ == "__main__":

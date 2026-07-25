@@ -52,7 +52,7 @@ class ProjectRegistryTest(unittest.TestCase):
             "pro_config": {"key": "val"},
             "template_dir": "/tmp/templates"
         }
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
         factory_bundle = ProjectFactory.create_default_project_bundle(
             setup=setup,
             context_bundle=context_bundle

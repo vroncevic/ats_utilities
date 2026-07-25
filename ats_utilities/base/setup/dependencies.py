@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from typing import TypedDict, NotRequired
+from typing import Any, TypedDict, NotRequired
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.iloader import ILoader
@@ -57,11 +57,11 @@ class BaseDependencies(TypedDict):
                 | context_bundle: Context bundle instance.
     '''
     info_file: str
-    config_loader: ILoader
-    info_manager: IInfoManager
-    options_parser: IOptionManager
-    splasher: ISplasher
-    generator: IGenerator | None
+    config_loader: ILoader[ContextBundle]
+    info_manager: IInfoManager[ContextBundle]
+    options_parser: IOptionManager[ContextBundle]
+    splasher: ISplasher[ContextBundle, Any]
+    generator: IGenerator[ContextBundle] | None
     use_generator: bool
     context_bundle: ContextBundle
 

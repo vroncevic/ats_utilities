@@ -53,7 +53,7 @@ class EngineTest(unittest.TestCase):
             :methods:
                 | test_init_valid - Tests option manager successful initialization.
                 | test_init_invalid - Tests option manager initialization exceptions.
-                | test_get_shared_context - Tests get_shared_context.
+                | test_get_context - Tests get_context.
                 | test_add_operation - Tests add_operation.
                 | test_add_version_operation - Tests add_version_operation.
                 | test_parse_input_args - Tests parse_input_args.
@@ -71,7 +71,7 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         mock_strategy = MagicMock(spec=IParserStrategy)
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
             parameters={"name": "test"},
             strategy=mock_strategy,
@@ -81,7 +81,7 @@ class EngineTest(unittest.TestCase):
         manager = OptionManager(bundle)
         self.assertTrue(manager._is_initialized)
         self.assertIs(manager._strategy, mock_strategy)
-        self.assertIs(manager.get_shared_context(), context_bundle)
+        self.assertIs(manager.get_context(), context_bundle)
 
     def test_init_invalid(self) -> None:
         '''
@@ -95,21 +95,21 @@ class EngineTest(unittest.TestCase):
         with self.assertRaises(ATSTypeError):
             OptionManager("not a bundle")  # type: ignore
 
-    def test_get_shared_context(self) -> None:
+    def test_get_context(self) -> None:
         '''
-            Tests get_shared_context.
+            Tests get_context.
 
             :exceptions: None.
         '''
         mock_strategy = MagicMock(spec=IParserStrategy)
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
             parameters={"name": "test"},
             strategy=mock_strategy,
             context_bundle=context_bundle
         )
         manager = OptionManager(bundle)
-        self.assertIs(manager.get_shared_context(), context_bundle)
+        self.assertIs(manager.get_context(), context_bundle)
 
     def test_add_operation(self) -> None:
         '''
@@ -118,7 +118,7 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         mock_strategy = MagicMock(spec=IParserStrategy)
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
             parameters={"name": "test"},
             strategy=mock_strategy,
@@ -135,7 +135,7 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         mock_strategy = MagicMock(spec=IParserStrategy)
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
             parameters={"name": "test"},
             strategy=mock_strategy,
@@ -162,7 +162,7 @@ class EngineTest(unittest.TestCase):
         mock_ns = MagicMock(spec=OptionNamespace)
         mock_strategy.parse.return_value = mock_ns
 
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
             parameters={"name": "test"},
             strategy=mock_strategy,
@@ -183,7 +183,7 @@ class EngineTest(unittest.TestCase):
         mock_ns = MagicMock(spec=OptionNamespace)
         mock_strategy.parse.return_value = mock_ns
 
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
             parameters={"name": "test"},
             strategy=mock_strategy,
@@ -201,7 +201,7 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         mock_strategy = MagicMock(spec=IParserStrategy)
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
             parameters={"name": "test"},
             strategy=mock_strategy,
@@ -221,7 +221,7 @@ class EngineTest(unittest.TestCase):
         mock_strategy = MagicMock(spec=IParserStrategy)
         mock_strategy.parse_command.return_value = ("cmd", {"arg": "val"})
 
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
             parameters={"name": "test"},
             strategy=mock_strategy,
@@ -241,7 +241,7 @@ class EngineTest(unittest.TestCase):
         mock_strategy = MagicMock(spec=IParserStrategy)
         mock_strategy.is_initialized.return_value = True
 
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
             parameters={"name": "test"},
             strategy=mock_strategy,
@@ -261,7 +261,7 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         mock_strategy = MagicMock(spec=IParserStrategy)
-        context_bundle = ContextFactory.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
             parameters={"name": "test"},
             strategy=mock_strategy,

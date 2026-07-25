@@ -26,6 +26,9 @@ import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.logger.setup.bundle import LoggerBundle
+from ats_utilities.logger.iformatter import ILogFormatter
+from ats_utilities.logger.ibuffer import ILogBuffer
+from ats_utilities.logger.ihandler_manager import ILogHandlerManager
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -45,30 +48,46 @@ class BundleTest(unittest.TestCase):
 
     def test_init_valid(self) -> None:
         mock_logger = MagicMock()
-        mock_logger.info = MagicMock()
+        mock_formatter = MagicMock(spec=ILogFormatter)
+        mock_buffer = MagicMock(spec=ILogBuffer)
+        mock_handler_manager = MagicMock(spec=ILogHandlerManager)
 
         bundle = LoggerBundle(
             logger=mock_logger,
             log_file="test.log",
-            log_level=logging.INFO
+            log_level=logging.INFO,
+            formatter=mock_formatter,
+            buffer=mock_buffer,
+            handler_manager=mock_handler_manager
         )
         self.assertIs(bundle.logger, mock_logger)
         self.assertEqual(bundle.log_file, "test.log")
         self.assertEqual(bundle.log_level, logging.INFO)
+        self.assertIs(bundle.formatter, mock_formatter)
+        self.assertIs(bundle.buffer, mock_buffer)
+        self.assertIs(bundle.handler_manager, mock_handler_manager)
 
     def test_to_dict(self) -> None:
         mock_logger = MagicMock()
-        mock_logger.info = MagicMock()
+        mock_formatter = MagicMock(spec=ILogFormatter)
+        mock_buffer = MagicMock(spec=ILogBuffer)
+        mock_handler_manager = MagicMock(spec=ILogHandlerManager)
 
         bundle = LoggerBundle(
             logger=mock_logger,
             log_file="test.log",
-            log_level=logging.INFO
+            log_level=logging.INFO,
+            formatter=mock_formatter,
+            buffer=mock_buffer,
+            handler_manager=mock_handler_manager
         )
         expected = {
             "logger": mock_logger,
             "log_file": "test.log",
-            "log_level": logging.INFO
+            "log_level": logging.INFO,
+            "formatter": mock_formatter,
+            "buffer": mock_buffer,
+            "handler_manager": mock_handler_manager
         }
         self.assertEqual(bundle.to_dict(), expected)
 

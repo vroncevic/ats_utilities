@@ -51,7 +51,7 @@ class ProjectFactoryTest(unittest.TestCase):
             "pro_config": {"key": "val"},
             "template_dir": "/tmp/templates"
         }
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
 
         bundle = ProjectFactory.create_default_project_bundle(
             setup=setup,
@@ -64,16 +64,16 @@ class ProjectFactoryTest(unittest.TestCase):
         self.assertEqual(bundle.template_dir.template_dir, "/tmp/templates")
         self.assertIs(bundle.context_bundle, context_bundle)
 
-    def test_create_default_project_setup_bundle_compat(self) -> None:
-        '''Tests create_default_project_setup_bundle compatibility wrapper.'''
+    def test_create_default_project_bundle_compat(self) -> None:
+        '''Tests create_default_project_bundle compatibility wrapper.'''
         setup = {
             "pro_name": "my_test_project2",
             "pro_config": {"key2": "val2"},
             "template_dir": "/tmp/templates2"
         }
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
 
-        bundle = ProjectFactory.create_default_project_setup_bundle(
+        bundle = ProjectFactory.create_default_project_bundle(
             setup=setup,
             context_bundle=context_bundle
         )
@@ -91,7 +91,7 @@ class ProjectFactoryTest(unittest.TestCase):
             "pro_config": {"key": "val"},
             "template_dir": "/tmp/templates"
         }
-        context_bundle = ContextFactory.create_default_bundle()
+        context_bundle = ContextFactory.create_bundle()
 
         bundle = ProjectFactory.create_default_bundle(
             ProjectOptions(setup=setup, context_bundle=context_bundle)

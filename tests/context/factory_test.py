@@ -45,14 +45,14 @@ class ContextFactoryTest(unittest.TestCase):
         Tests ContextFactory static factory logic.
     '''
 
-    def test_create_default_context_bundle(self) -> None:
+    def test_create_bundle(self) -> None:
         '''
-            Tests create_default_context_bundle.
+            Tests create_bundle.
 
             :exceptions: None.
         '''
         # Test with verbose=False
-        bundle = ContextFactory.create_default_context_bundle(verbose=False)
+        bundle = ContextFactory.create_bundle({'verbose': False})
         self.assertIsInstance(bundle, ContextBundle)
         self.assertIsInstance(bundle.checker, IChecker)
         self.assertIsInstance(bundle.logger, ILogger)
@@ -60,7 +60,7 @@ class ContextFactoryTest(unittest.TestCase):
         self.assertFalse(bundle.verbose)
 
         # Test with verbose=True
-        bundle_verbose = ContextFactory.create_default_context_bundle(verbose=True)
+        bundle_verbose = ContextFactory.create_bundle({'verbose': True})
         self.assertIsInstance(bundle_verbose, ContextBundle)
         self.assertTrue(bundle_verbose.verbose)
 
