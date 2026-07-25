@@ -23,9 +23,9 @@ from __future__ import annotations
 
 from typing import TypedDict, NotRequired, Any
 
-from ats_utilities.logger.iformatter import ILogFormatter
-from ats_utilities.logger.ibuffer import ILogBuffer
-from ats_utilities.logger.ihandler_manager import ILogHandlerManager
+from ats_utilities.logger.formatter.iformatter import ILogFormatter
+from ats_utilities.logger.buffer.ibuffer import ILogBuffer
+from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -45,16 +45,14 @@ class LoggerDependencies(TypedDict):
 
             :attributes:
                 | logger: Logger instance.
-                | log_file: Log file path.
-                | log_level: Log level.
+                | has_file_handler: Flag indicating if logger has a file handler.
                 | formatter: Formatter for log messages.
                 | buffer: Buffer for early logs.
                 | handler_manager: Manager for log output handlers.
     '''
 
-    log_file: str
-    log_level: int
     logger: NotRequired[Any]
+    has_file_handler: NotRequired[bool]
     formatter: NotRequired[ILogFormatter]
     buffer: NotRequired[ILogBuffer]
     handler_manager: NotRequired[ILogHandlerManager]

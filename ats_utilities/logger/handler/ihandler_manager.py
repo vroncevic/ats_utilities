@@ -2,7 +2,7 @@
 
 '''
 Module
-    ikeys.py
+    ihandler_manager.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,14 +16,13 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Abstract interface for keys used in setup process.
-    Defines standard dependency-to-type and option-to-type mapping behavior.
+    Defines abstract class ILogHandlerManager with method(s).
+    Provides an interface for log handler manager.
 '''
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from types import MappingProxyType
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -35,34 +34,53 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IKeys[AttributeType, InterfaceType](ABC):
+class ILogHandlerManager(ABC):
     '''
-        Abstract interface for keys used in setup process.
-        Defines standard dependency-to-type and option-to-type mapping behavior.
+        Defines abstract class ILogHandlerManager with method(s).
+        Provides an interface for log handler manager.
 
-        :methods:
-            | get_dependency_to_type - Returns mapping of setup dependencies to their types.
-            | get_option_to_type - Returns mapping of setup options to their types.
+        It defines:
+
+            :methods:
+                | set_log_file - Configures file output handler.
+                | set_stdout - Configures stdout stream handler.
+                | set_stderr - Configures stderr stream handler.
+                | __str__ - Returns log handler manager as string representation.
     '''
 
-    @classmethod
     @abstractmethod
-    def get_dependency_to_type(cls) -> MappingProxyType[AttributeType, InterfaceType]:
+    def set_log_file(self, log_file: str) -> bool:
         '''
-            Returns mapping of setup dependencies to their types.
+            Configures file output handler.
 
-            :return: Mapping of setup dependencies to their types.
-            :exceptions: None.
+            :param log_file: Log file path.
+            :return: True if successfully, otherwise False.
         '''
         pass
 
-    @classmethod
     @abstractmethod
-    def get_option_to_type(cls) -> MappingProxyType[AttributeType, InterfaceType]:
+    def set_stdout(self) -> bool:
         '''
-            Returns mapping of setup options to their types.
+            Configures stdout stream handler.
 
-            :return: Mapping of setup options to their types.
-            :exceptions: None.
+            :return: True if successfully, otherwise False.
+        '''
+        pass
+
+    @abstractmethod
+    def set_stderr(self) -> bool:
+        '''
+            Configures stderr stream handler.
+
+            :return: True if successfully, otherwise False.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns log handler manager as string representation.
+
+            :return: Log handler manager as string representation.
         '''
         pass

@@ -25,9 +25,7 @@ from collections.abc import Mapping
 from typing import override
 
 from ats_utilities.logger.setup.dependencies import LoggerDependencies
-from ats_utilities.logger.iformatter import ILogFormatter
-from ats_utilities.logger.ibuffer import ILogBuffer
-from ats_utilities.logger.ihandler_manager import ILogHandlerManager
+from ats_utilities.logger.setup.keys import LoggerKeys
 from ats_utilities.utils.setup.idep_validator import IDependenciesValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none, not_satisfied
@@ -59,51 +57,28 @@ class LoggerDependenciesValidator(IDependenciesValidator[LoggerDependencies]):
             Validates logger dependencies instance.
 
             :param dependencies: Logger dependencies instance to be validated.
-            :type dependencies: LoggerDependencies
             :exceptions:
-                | ATSValueError: Dependencies must be provided.
-                | ATSTypeError: Dependencies must be a Mapping.
-                | ATSTypeError: Log file must be a string.
-                | ATSTypeError: Log level must be an integer.
-                | ATSTypeError: Logger must be an ILogger or standard logging.Logger instance.
-                | ATSTypeError: Formatter must be an instance of ILogFormatter.
-                | ATSTypeError: Buffer must be an instance of ILogBuffer.
-                | ATSTypeError: Handler manager must be an instance of ILogHandlerManager.
+                | ATSValueError: Dependencies must be provided and have proper values.
+                | ATSTypeError:  Dependencies must be an instance of LoggerDependencies
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         ctx: str = r'logger_dependencies_validator::validate(...)'
 
         not_none(dependencies, ctx, r'dependencies must be provided')
         istype(dependencies, Mapping, ctx, r'dependencies must be a Mapping')
 
-        log_file = dependencies.get('log_file')
+        for attr_name, expected_type in LoggerKeys.get_dependency_to_type().items():
+            value = dependencies.get(attr_name)
 
-        if log_file is not None:
-            istype(log_file, str, ctx, r'log file must be a string')
+            if attr_name is LoggerKeys.DEPENDENCY_LOGGER:
+                if value is not None:
+                    not_satisfied(
+                        not (hasattr(value, 'info') or hasattr(value, 'write_log')), ctx,
+                        r'logger must be an ILogger instance or a standard logging.Logger instance'
+                    )
+                continue
 
-        log_level = dependencies.get('log_level')
-
-        if log_level is not None:
-            istype(log_level, int, ctx, r'log level must be an integer')
-
-        logger = dependencies.get('logger')
-
-        if logger is not None:
-            not_satisfied(
-                not (hasattr(logger, 'info') or hasattr(logger, 'write_log')), ctx,
-                r'logger must be an ILogger instance or a standard logging.Logger instance'
-            )
-
-        formatter = dependencies.get('formatter')
-
-        if formatter is not None:
-            istype(formatter, ILogFormatter, ctx, r'formatter must be an instance of ILogFormatter')
-
-        buffer = dependencies.get('buffer')
-
-        if buffer is not None:
-            istype(buffer, ILogBuffer, ctx, r'buffer must be an instance of ILogBuffer')
-
-        handler_manager = dependencies.get('handler_manager')
-
-        if handler_manager is not None:
-            istype(handler_manager, ILogHandlerManager, ctx, r'handler manager must be an instance of ILogHandlerManager')
+            if value is not None:
+                err_msg = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+                istype(value, expected_type, ctx, err_msg)

@@ -25,6 +25,7 @@ from collections.abc import Mapping
 from typing import override
 
 from ats_utilities.logger.setup.options import LoggerOptions
+from ats_utilities.logger.setup.keys import LoggerKeys
 from ats_utilities.utils.setup.iopt_validator import IOptionsValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
@@ -56,24 +57,20 @@ class LoggerOptionsValidator(IOptionsValidator[LoggerOptions]):
             Validates logger options instance.
 
             :param options: Logger options instance to be validated.
-            :type options: LoggerOptions
             :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a Mapping.
-                | ATSTypeError: Log file must be a string.
-                | ATSTypeError: Log level must be an integer.
+                | ATSValueError: Options must be provided and have proper values.
+                | ATSTypeError:  Options must be an instance of LoggerOptions
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         ctx: str = r'logger_options_validator::validate(...)'
 
         not_none(options, ctx, r'options must be provided')
         istype(options, Mapping, ctx, r'options must be a Mapping')
 
-        log_file = options.get('log_file')
+        for opt_name, expected_type in LoggerKeys.get_option_to_type().items():
+            value = options.get(opt_name)
 
-        if log_file is not None:
-            istype(log_file, str, ctx, r'log file must be a string')
-
-        log_level = options.get('log_level')
-
-        if log_level is not None:
-            istype(log_level, int, ctx, r'log level must be an integer')
+            if value is not None:
+                err_msg = f'{opt_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+                istype(value, expected_type, ctx, err_msg)

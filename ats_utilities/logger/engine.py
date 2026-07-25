@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Logger with attribute(s) and method(s).
-    Provides an API for the logger.
+    Provides an API for the logging functionality.
 '''
 
 from __future__ import annotations
@@ -32,9 +32,9 @@ from typing import Any, override
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.setup.validator import LoggerValidator
-from ats_utilities.logger.iformatter import ILogFormatter
-from ats_utilities.logger.ibuffer import ILogBuffer
-from ats_utilities.logger.ihandler_manager import ILogHandlerManager
+from ats_utilities.logger.formatter.iformatter import ILogFormatter
+from ats_utilities.logger.buffer.ibuffer import ILogBuffer
+from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
 from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
@@ -50,7 +50,7 @@ __status__ = r'Development'
 class Logger(ILogger):
     '''
         Defines class Logger with attribute(s) and method(s).
-        Provides an API for the logger.
+        Provides an API for the logging functionality.
 
         It defines:
 
@@ -84,24 +84,19 @@ class Logger(ILogger):
         '''
             Initializes Logger constructor.
 
-            :param own: Component bundle with logger and log file.
-            :type own: LoggerBundle
+            :param own: Component bundle with logger and logging parameters.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSValueError: Log file must be provided.
-                | ATSValueError: Log level must be provided.
-                | ATSTypeError: Bundle must be an instance of LoggerBundle.
-                | ATSTypeError: Log file must be a str instance.
-                | ATSTypeError: Log level must be an int instance.
-                | ATSTypeError: Logger must be an ILogger or standard logging.Logger instance.
+                | ATSValueError: Logger bundle must be provided and have proper values.
+                | ATSTypeError:  Logger bundle must be an instance of LoggerBundle.
+                |                and its attributes must be instances of their
+                |                respective interfaces and types.
         '''
         LoggerValidator.validate(own)
         self._logger = own.logger
         self._formatter = own.formatter
         self._buffer = own.buffer
         self._handler_manager = own.handler_manager
-        self._has_file_handler = bool(own.log_file)
+        self._has_file_handler = own.has_file_handler
 
         if hasattr(self._logger, 'info'):
             self._log_methods = MappingProxyType({
@@ -126,9 +121,7 @@ class Logger(ILogger):
             Writes message to log.
 
             :param message: Log message in string format for log.
-            :type message: str
             :param ctrl: Control flag (debug, warning, critical, errors, info).
-            :type ctrl: int
             :exceptions: None.
         '''
         if bool(message) and isinstance(message, str):
@@ -146,7 +139,6 @@ class Logger(ILogger):
             Checks if logger is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         if hasattr(self._logger, 'hasHandlers'):
@@ -162,7 +154,6 @@ class Logger(ILogger):
             Sets log level.
 
             :param level: Log level.
-            :type level: int
             :exceptions: None.
         '''
         if hasattr(self._logger, 'setLevel'):
@@ -185,7 +176,6 @@ class Logger(ILogger):
             Sets log file.
 
             :param log_file: Log file path.
-            :type log_file: str
             :exceptions: None.
         '''
         if self._handler_manager.set_log_file(log_file):
@@ -233,7 +223,6 @@ class Logger(ILogger):
             Returns the logger as string representation.
 
             :return: The logger as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

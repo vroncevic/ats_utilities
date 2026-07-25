@@ -24,9 +24,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from ats_utilities.logger.iformatter import ILogFormatter
-from ats_utilities.logger.ibuffer import ILogBuffer
-from ats_utilities.logger.ihandler_manager import ILogHandlerManager
+from ats_utilities.logger.formatter.iformatter import ILogFormatter
+from ats_utilities.logger.buffer.ibuffer import ILogBuffer
+from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
 from ats_utilities.utils.reflection import instance_to_dict
 
 __author__ = r'Vladimir Roncevic'
@@ -48,8 +48,7 @@ class LoggerBundle:
 
             :attributes:
                 | logger - Logger instance.
-                | log_file - Log file path.
-                | log_level - Log level.
+                | has_file_handler - Flag indicating if logger has a file handler.
                 | formatter - Formatter for log messages.
                 | buffer - Buffer for early logs.
                 | handler_manager - Manager for log output handlers.
@@ -58,8 +57,7 @@ class LoggerBundle:
     '''
 
     logger: Any
-    log_file: str
-    log_level: int
+    has_file_handler: bool
     formatter: ILogFormatter
     buffer: ILogBuffer
     handler_manager: ILogHandlerManager

@@ -61,16 +61,16 @@ class CheckerDependenciesValidator(IDependenciesValidator[CheckerDependencies]):
                 | ATSValueError: Dependencies must be provided and have proper attributes.
                 | ATSTypeError:  Dependencies must be an instance of CheckerDependencies
                 |                and its attributes must be instances of their
-                |                respective interfaces.
+                |                respective types.
         '''
         ctx: str = r'checker_dependencies_validator::validate(...)'
 
         not_none(dependencies, ctx, r'dependencies must be provided')
         istype(dependencies, Mapping, ctx, r'dependencies must be a Mapping')
 
-        for attr_name, expected_interface in CheckerKeys.get_attr_to_interface().items():
+        for attr_name, expected_type in CheckerKeys.get_dependency_to_type().items():
             value = dependencies.get(attr_name)
 
             if value is not None:
-                err_msg = f'{attr_name.replace("_", " ")} must be an instance of {expected_interface.__name__}'
-                istype(value, expected_interface, ctx, err_msg)
+                err_msg = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+                istype(value, expected_type, ctx, err_msg)

@@ -2,7 +2,7 @@
 
 '''
 Module
-    options.py
+    __init__.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,12 +16,10 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Logger options for logger factory bundle creation.
+    Initialize ats_utilities.logger.handler package.
 '''
 
 from __future__ import annotations
-
-from typing import TypedDict, NotRequired
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -31,22 +29,3 @@ __version__ = r'3.4.4'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
-
-
-class LoggerOptions(TypedDict):
-    '''
-        Logger options for logger factory bundle creation.
-
-        It defines:
-
-            :attributes:
-                | log_file: Path to the log file (default None).
-                | log_level: Log level (default 20 - INFO).
-                | log_format: Format string for the log messages (default None).
-                | log_datefmt: Date format string for the log messages (default None).
-    '''
-
-    log_file: NotRequired[str | None]
-    log_level: NotRequired[int]
-    log_format: NotRequired[str | None]
-    log_datefmt: NotRequired[str | None]

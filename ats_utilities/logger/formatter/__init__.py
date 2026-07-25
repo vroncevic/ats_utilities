@@ -2,7 +2,7 @@
 
 '''
 Module
-    formatter.py
+    __init__.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,17 +16,10 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Formatter for log messages.
+    Initialize ats_utilities.logger.formatter package.
 '''
 
 from __future__ import annotations
-
-from os import environ
-from re import compile, Pattern
-from sys import stdout
-from typing import override
-
-from ats_utilities.logger.iformatter import ILogFormatter
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,36 +29,3 @@ __version__ = r'3.4.4'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
-
-
-class LogFormatter(ILogFormatter):
-    '''
-        Formatter for log messages.
-
-        It defines:
-
-            :methods:
-                | format_message - Formats the log message.
-    '''
-
-    _ANSI_ESCAPE: Pattern[str] = compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
-
-    @override
-    def format_message(self, message: str) -> str:
-        '''
-            Formats the log message by checking the environment.
-            Stripping ANSI color codes if output is redirected or disabled.
-
-            :param message: The original log message.
-            :type message: str
-            :return: The formatted log message.
-            :rtype: str
-        '''
-        no_color: bool = 'NO_COLOR' in environ
-        force_color: bool = 'FORCE_COLOR' in environ
-        is_terminal: bool = stdout.isatty()
-
-        if no_color or (not is_terminal and not force_color):
-            message = self._ANSI_ESCAPE.sub('', message)
-
-        return message

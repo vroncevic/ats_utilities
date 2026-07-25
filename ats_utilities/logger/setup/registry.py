@@ -26,6 +26,7 @@ from typing import override
 from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.setup.dependencies import LoggerDependencies
+from ats_utilities.logger.setup.keys import LoggerKeys
 from ats_utilities.logger.setup.validator import LoggerValidator
 from ats_utilities.logger.setup.dep_validator import LoggerDependenciesValidator
 
@@ -56,33 +57,21 @@ class LoggerRegistry(IRegistry[LoggerBundle, LoggerDependencies]):
             Orchestrates dependency injection and creates a logger bundle instance.
 
             :param dependencies: Registry-specific orchestration dependencies.
-            :type dependencies: LoggerDependencies
             :return: Logger bundle instance.
-            :rtype: LoggerBundle
             :exceptions:
-                | ATSValueError: Dependencies must be provided.
-                | ATSTypeError: Dependencies must be a Mapping.
-                | ATSTypeError: Log file must be a string.
-                | ATSTypeError: Log level must be an integer.
-                | ATSTypeError: Logger must be an ILogger or standard logging.Logger instance.
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSValueError: Log file must be provided.
-                | ATSValueError: Log level must be provided.
-                | ATSTypeError: Bundle must be an instance of LoggerBundle.
-                | ATSTypeError: Log file must be a str instance.
-                | ATSTypeError: Log level must be an int instance.
-                | ATSTypeError: Logger must be an ILogger or standard logging.Logger instance.
+                | ATSValueError: Dependencies must be provided and have proper values.
+                | ATSTypeError:  Dependencies must be an instance of LoggerDependencies
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         LoggerDependenciesValidator.validate(dependencies)
 
         bundle: LoggerBundle = LoggerBundle(
-            logger=dependencies.get('logger'),
-            log_file=dependencies.get('log_file'),
-            log_level=dependencies.get('log_level'),
-            formatter=dependencies.get('formatter'),
-            buffer=dependencies.get('buffer'),
-            handler_manager=dependencies.get('handler_manager')
+            logger=dependencies.get(LoggerKeys.DEPENDENCY_LOGGER),
+            has_file_handler=dependencies.get(LoggerKeys.DEPENDENCY_HAS_FILE_HANDLER),
+            formatter=dependencies.get(LoggerKeys.DEPENDENCY_FORMATTER),
+            buffer=dependencies.get(LoggerKeys.DEPENDENCY_BUFFER),
+            handler_manager=dependencies.get(LoggerKeys.DEPENDENCY_HANDLER_MANAGER)
         )
 
         LoggerValidator.validate(bundle)

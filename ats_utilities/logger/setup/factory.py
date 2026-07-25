@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from sys import stdout
-from logging import Logger, getLogger, basicConfig, INFO
+from logging import getLogger, basicConfig, INFO
 from typing import override, Any
 
 from ats_utilities.utils.setup.ifactory import IFactory
@@ -30,10 +30,11 @@ from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.setup.registry import LoggerRegistry
 from ats_utilities.logger.setup.dependencies import LoggerDependencies
 from ats_utilities.logger.setup.options import LoggerOptions
+from ats_utilities.logger.setup.keys import LoggerKeys
 from ats_utilities.logger.setup.opt_validator import LoggerOptionsValidator
-from ats_utilities.logger.formatter import LogFormatter
-from ats_utilities.logger.buffer import LogBuffer
-from ats_utilities.logger.handler_manager import LogHandlerManager
+from ats_utilities.logger.formatter.engine import LogFormatter
+from ats_utilities.logger.buffer.engine import LogBuffer
+from ats_utilities.logger.handler.engine import LogHandlerManager
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -61,40 +62,36 @@ class LoggerFactory(IFactory[LoggerBundle, LoggerOptions]):
         '''
             Creates a logger bundle with optional pre-configured options.
 
-            :param options: Pre-configured options for the bundle (default None).
-            :type options: LoggerOptions | None
+            :param options: Pre-configured options for the bundle.
             :return: Logger bundle instance.
-            :rtype: LoggerBundle
             :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a Mapping.
-                | ATSTypeError: Log file must be a string.
-                | ATSTypeError: Log level must be an integer.
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSValueError: Log file must be provided.
-                | ATSValueError: Log level must be provided.
-                | ATSTypeError: Bundle must be an instance of LoggerBundle.
-                | ATSTypeError: Log file must be a str instance.
-                | ATSTypeError: Log level must be an int instance.
-                | ATSTypeError: Logger must be an ILogger or standard logging.Logger instance.
+                | ATSValueError: Options must be provided and have proper values.
+                | ATSTypeError:  Options must be an instance of LoggerOptions
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         if options is not None:
             LoggerOptionsValidator.validate(options)
 
         log_file: str | None = None
         log_level: int = INFO
+        log_format: str = '%(asctime)s - %(levelname)s - %(message)s'
+        log_datefmt: str = '%m/%d/%Y %I:%M:%S %p'
+        log_buffer_size: int = 200
 
         if options:
-            log_file = options.get('log_file')
-            log_level = options.get('log_level', INFO)
+            log_file = options.get(LoggerKeys.OPTION_LOG_FILE)
+            log_level = options.get(LoggerKeys.OPTION_LOG_LEVEL, INFO)
+            log_format = options.get(LoggerKeys.OPTION_LOG_FORMAT, log_format)
+            log_datefmt = options.get(LoggerKeys.OPTION_LOG_DATEFMT, log_datefmt)
+            log_buffer_size = options.get(LoggerKeys.OPTION_LOG_BUFFER_SIZE, log_buffer_size)
 
         logger = getLogger()
 
         if not logger.hasHandlers():
             log_config: dict[str, Any] = {
-                'format': '%(asctime)s - %(levelname)s - %(message)s',
-                'datefmt': '%m/%d/%Y %I:%M:%S %p',
+                'format': log_format,
+                'datefmt': log_datefmt,
                 'level': log_level
             }
 
@@ -106,14 +103,13 @@ class LoggerFactory(IFactory[LoggerBundle, LoggerOptions]):
             basicConfig(**log_config)
 
         formatter: LogFormatter = LogFormatter()
-        buffer: LogBuffer = LogBuffer()
+        buffer: LogBuffer = LogBuffer(limit=log_buffer_size)
         handler_manager: LogHandlerManager = LogHandlerManager(logger)
 
         return LoggerRegistry.create_bundle(
             dependencies=LoggerDependencies(
                 logger=logger,
-                log_file=log_file or '',
-                log_level=log_level,
+                has_file_handler=log_file is not None,
                 formatter=formatter,
                 buffer=buffer,
                 handler_manager=handler_manager

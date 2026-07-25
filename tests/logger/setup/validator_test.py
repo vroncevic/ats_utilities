@@ -28,9 +28,9 @@ from unittest.mock import MagicMock
 
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.setup.validator import LoggerValidator
-from ats_utilities.logger.iformatter import ILogFormatter
-from ats_utilities.logger.ibuffer import ILogBuffer
-from ats_utilities.logger.ihandler_manager import ILogHandlerManager
+from ats_utilities.logger.formatter.iformatter import ILogFormatter
+from ats_utilities.logger.buffer.ibuffer import ILogBuffer
+from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'

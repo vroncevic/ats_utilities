@@ -2,7 +2,7 @@
 
 '''
 Module
-    buffer.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,7 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Buffer for early logs.
+    Defines class LogBuffer for early logs with attribute(s) and method(s).
+    Provides an API for early logging during initialization of logger.
 '''
 
 from __future__ import annotations
@@ -24,7 +25,8 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import override
 
-from ats_utilities.logger.ibuffer import ILogBuffer
+from ats_utilities.logger.buffer.ibuffer import ILogBuffer
+from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,19 +40,31 @@ __status__ = r'Development'
 
 class LogBuffer(ILogBuffer):
     '''
-        Buffer for early logs.
+        Defines class LogBuffer for early logs with attribute(s) and method(s).
+        Provides an API for early logging during initialization of logger.
 
         It defines:
 
+            :attributes:
+                | _buffer - Buffer for early logs.
+                | _limit - Maximum number of messages to buffer.
+                | _enabled - Flag indicating if buffering is enabled.
             :methods:
+                | __init__ - Initializes the buffer.
                 | add - Adds a message to the buffer.
                 | flush - Flushes buffered messages to a writer.
                 | clear - Clears the buffer.
-            :properties:
-                | is_enabled - Checks if buffering is enabled.
+                | is_enabled - Returns if buffering is enabled.
+                | __str__ - Returns buffer as string representation.
     '''
 
     def __init__(self, limit: int = 200) -> None:
+        '''
+            Initializes the buffer.
+
+            :param limit: Maximum number of messages to buffer.
+            :exceptions: None.
+        '''
         self._buffer: list[tuple[str, int]] = []
         self._limit = limit
         self._enabled = True
@@ -61,9 +75,8 @@ class LogBuffer(ILogBuffer):
             Adds a message to the buffer.
 
             :param message: The message to buffer.
-            :type message: str
             :param level: Log level.
-            :type level: int
+            :exceptions: None.
         '''
         if self._enabled and len(self._buffer) < self._limit:
             self._buffer.append((message, level))
@@ -74,10 +87,11 @@ class LogBuffer(ILogBuffer):
             Flushes buffered messages to a writer.
 
             :param writer: The logging method to write buffered logs.
-            :type writer: Callable[[str, int], None]
+            :exceptions: None.
         '''
         for msg, lvl in self._buffer:
             writer(msg, lvl)
+
         self._buffer.clear()
         self._enabled = False
 
@@ -85,6 +99,8 @@ class LogBuffer(ILogBuffer):
     def clear(self) -> None:
         '''
             Clears the buffer.
+
+            :exceptions: None.
         '''
         self._buffer.clear()
         self._enabled = False
@@ -96,6 +112,16 @@ class LogBuffer(ILogBuffer):
             Checks if buffering is enabled.
 
             :return: True if buffering is enabled, otherwise False.
-            :rtype: bool
+            :exceptions: None.
         '''
         return self._enabled
+
+    @override
+    def __str__(self) -> str:
+        '''
+            Returns buffer as string representation.
+
+            :return: Buffer as string representation.
+            :exceptions: None.
+        '''
+        return to_str(self)

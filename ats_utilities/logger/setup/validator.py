@@ -24,9 +24,9 @@ from __future__ import annotations
 from typing import override
 
 from ats_utilities.logger.setup.bundle import LoggerBundle
-from ats_utilities.logger.iformatter import ILogFormatter
-from ats_utilities.logger.ibuffer import ILogBuffer
-from ats_utilities.logger.ihandler_manager import ILogHandlerManager
+from ats_utilities.logger.formatter.iformatter import ILogFormatter
+from ats_utilities.logger.buffer.ibuffer import ILogBuffer
+from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
 from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none, not_satisfied
@@ -62,15 +62,13 @@ class LoggerValidator(IValidator[LoggerBundle]):
             :exceptions:
                 | ATSValueError: Bundle must be provided.
                 | ATSValueError: Logger must be provided.
-                | ATSValueError: Log file must be provided.
-                | ATSValueError: Log level must be provided.
+                | ATSValueError: Has file handler flag must be provided.
                 | ATSValueError: Formatter must be provided.
                 | ATSValueError: Buffer must be provided.
                 | ATSValueError: Handler manager must be provided.
                 | ATSTypeError: Bundle must be an instance of LoggerBundle.
-                | ATSTypeError: Log file must be a str instance.
-                | ATSTypeError: Log level must be an int instance.
                 | ATSTypeError: Logger must be an ILogger or standard logging.Logger instance.
+                | ATSTypeError: Has file handler flag must be a boolean instance.
                 | ATSTypeError: Formatter must be an instance of ILogFormatter.
                 | ATSTypeError: Buffer must be an instance of ILogBuffer.
                 | ATSTypeError: Handler manager must be an instance of ILogHandlerManager.
@@ -81,14 +79,12 @@ class LoggerValidator(IValidator[LoggerBundle]):
         istype(bundle, LoggerBundle, ctx, r'bundle must be an instance of LoggerBundle')
 
         not_none(bundle.logger, ctx, r'logger must be provided')
-        not_none(bundle.log_file, ctx, r'log file must be provided')
-        not_none(bundle.log_level, ctx, r'log level must be provided')
+        not_none(bundle.has_file_handler, ctx, r'has file handler flag must be provided')
         not_none(bundle.formatter, ctx, r'formatter must be provided')
         not_none(bundle.buffer, ctx, r'buffer must be provided')
         not_none(bundle.handler_manager, ctx, r'handler manager must be provided')
 
-        istype(bundle.log_file, str, ctx, r'log file must be a str instance')
-        istype(bundle.log_level, int, ctx, r'log level must be an int instance')
+        istype(bundle.has_file_handler, bool, ctx, r'has file handler flag must be a boolean instance')
         istype(bundle.formatter, ILogFormatter, ctx, r'formatter must be an instance of ILogFormatter')
         istype(bundle.buffer, ILogBuffer, ctx, r'buffer must be an instance of ILogBuffer')
         istype(bundle.handler_manager, ILogHandlerManager, ctx, r'handler manager must be an instance of ILogHandlerManager')

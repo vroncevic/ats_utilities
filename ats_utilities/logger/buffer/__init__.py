@@ -2,7 +2,7 @@
 
 '''
 Module
-    iformatter.py
+    __init__.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,12 +16,10 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Provides an interface for log formatting.
+    Initialize ats_utilities.logger.buffer package.
 '''
 
 from __future__ import annotations
-
-from abc import ABC, abstractmethod
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -31,26 +29,3 @@ __version__ = r'3.4.4'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
-
-
-class ILogFormatter(ABC):
-    '''
-        Provides an interface for log formatting.
-
-        It defines:
-
-            :methods:
-                | format_message - Formats the log message.
-    '''
-
-    @abstractmethod
-    def format_message(self, message: str) -> str:
-        '''
-            Formats the log message.
-
-            :param message: The original log message.
-            :type message: str
-            :return: The formatted log message.
-            :rtype: str
-        '''
-        pass

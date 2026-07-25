@@ -2,7 +2,7 @@
 
 '''
 Module
-    ikeys.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,14 +16,18 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Abstract interface for keys used in setup process.
-    Defines standard dependency-to-type and option-to-type mapping behavior.
+    Defines class LogFormatter with method(s).
+    Provides an API for log formatting (removing color codes, etc.).
 '''
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
-from types import MappingProxyType
+from os import environ
+from re import compile, Pattern
+from sys import stdout
+from typing import override
+
+from ats_utilities.logger.formatter.iformatter import ILogFormatter
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -35,34 +39,34 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IKeys[AttributeType, InterfaceType](ABC):
+class LogFormatter(ILogFormatter):
     '''
-        Abstract interface for keys used in setup process.
-        Defines standard dependency-to-type and option-to-type mapping behavior.
+        Defines class LogFormatter with method(s).
+        Provides an API for log formatting (removing color codes, etc.).
 
-        :methods:
-            | get_dependency_to_type - Returns mapping of setup dependencies to their types.
-            | get_option_to_type - Returns mapping of setup options to their types.
+        It defines:
+
+            :methods:
+                | format_message - Formats the log message.
     '''
 
-    @classmethod
-    @abstractmethod
-    def get_dependency_to_type(cls) -> MappingProxyType[AttributeType, InterfaceType]:
+    _ANSI_ESCAPE: Pattern[str] = compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
+
+    @override
+    def format_message(self, message: str) -> str:
         '''
-            Returns mapping of setup dependencies to their types.
+            Formats the log message by checking the environment.
+            Stripping ANSI color codes if output is redirected or disabled.
 
-            :return: Mapping of setup dependencies to their types.
+            :param message: The original log message.
+            :return: The formatted log message.
             :exceptions: None.
         '''
-        pass
+        no_color: bool = 'NO_COLOR' in environ
+        force_color: bool = 'FORCE_COLOR' in environ
+        is_terminal: bool = stdout.isatty()
 
-    @classmethod
-    @abstractmethod
-    def get_option_to_type(cls) -> MappingProxyType[AttributeType, InterfaceType]:
-        '''
-            Returns mapping of setup options to their types.
+        if no_color or (not is_terminal and not force_color):
+            message = self._ANSI_ESCAPE.sub('', message)
 
-            :return: Mapping of setup options to their types.
-            :exceptions: None.
-        '''
-        pass
+        return message

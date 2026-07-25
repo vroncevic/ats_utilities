@@ -2,7 +2,7 @@
 
 '''
 Module
-    ibuffer.py
+    iformatter.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,13 +16,13 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Provides an interface for log buffer.
+    Defines abstract class ILogFormatter with method(s).
+    Provides an interface for log formatting (removing color codes, etc.).
 '''
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from collections.abc import Callable
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -34,56 +34,23 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ILogBuffer(ABC):
+class ILogFormatter(ABC):
     '''
-        Provides an interface for log buffer.
+        Defines abstract class ILogFormatter with method(s).
+        Provides an interface for log formatting (removing color codes, etc.).
 
         It defines:
 
             :methods:
-                | add - Adds a message to the buffer.
-                | flush - Flushes buffered messages to a writer.
-                | clear - Clears the buffer.
-            :properties:
-                | is_enabled - Checks if buffering is enabled.
+                | format_message - Formats the log message.
     '''
 
     @abstractmethod
-    def add(self, message: str, level: int) -> None:
+    def format_message(self, message: str) -> str:
         '''
-            Adds a message to the buffer.
+            Formats the log message.
 
-            :param message: The message to buffer.
-            :type message: str
-            :param level: Log level.
-            :type level: int
-        '''
-        pass
-
-    @abstractmethod
-    def flush(self, writer: Callable[[str, int], None]) -> None:
-        '''
-            Flushes buffered messages to a writer.
-
-            :param writer: The logging method to write buffered logs.
-            :type writer: Callable[[str, int], None]
-        '''
-        pass
-
-    @abstractmethod
-    def clear(self) -> None:
-        '''
-            Clears the buffer.
-        '''
-        pass
-
-    @property
-    @abstractmethod
-    def is_enabled(self) -> bool:
-        '''
-            Checks if buffering is enabled.
-
-            :return: True if buffering is enabled, otherwise False.
-            :rtype: bool
+            :param message: The original log message.
+            :return: The formatted log message.
         '''
         pass

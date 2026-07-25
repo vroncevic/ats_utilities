@@ -2,7 +2,7 @@
 
 '''
 Module
-    handler_manager.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,7 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Manager for logger output handlers.
+    Defines class LogHandlerManager with attribute(s) and method(s).
+    Provides an API for managing logger output handlers.
 '''
 
 from __future__ import annotations
@@ -27,7 +28,8 @@ from os.path import dirname, exists
 from sys import stdout, stderr
 from typing import Any, override
 
-from ats_utilities.logger.ihandler_manager import ILogHandlerManager
+from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
+from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -41,17 +43,28 @@ __status__ = r'Development'
 
 class LogHandlerManager(ILogHandlerManager):
     '''
-        Manager for logger output handlers.
+        Defines class LogHandlerManager with attribute(s) and method(s).
+        Provides an API for managing logger output handlers.
 
         It defines:
 
+            :attributes:
+                | _logger - Logger to be managed.
             :methods:
+                | __init__ - Initializes the log handler manager.
                 | set_log_file - Configures file output handler.
                 | set_stdout - Configures stdout stream handler.
                 | set_stderr - Configures stderr stream handler.
+                | __str__ - Returns log handler manager as string representation.
     '''
 
     def __init__(self, logger: Any) -> None:
+        '''
+            Initializes the log handler manager.
+
+            :param logger: Logger to be managed.
+            :exceptions: None.
+        '''
         self._logger = logger
 
     @override
@@ -60,13 +73,13 @@ class LogHandlerManager(ILogHandlerManager):
             Configures file output handler.
 
             :param log_file: Log file path.
-            :type log_file: str
-            :return: True if configured successfully, otherwise False.
-            :rtype: bool
+            :return: True if successfully, otherwise False.
+            :exceptions: None.
         '''
         if hasattr(self._logger, 'set_log_file'):
             self._logger.set_log_file(log_file)
             return True
+
         elif hasattr(self._logger, 'addHandler'):
             log_dir = dirname(log_file)
 
@@ -83,7 +96,9 @@ class LogHandlerManager(ILogHandlerManager):
                 datefmt='%m/%d/%Y %I:%M:%S %p'
             ))
             self._logger.addHandler(file_handler)
+
             return True
+
         elif hasattr(self._logger, 'write_log'):
             return True
 
@@ -94,12 +109,13 @@ class LogHandlerManager(ILogHandlerManager):
         '''
             Configures stdout stream handler.
 
-            :return: True if configured successfully, otherwise False.
-            :rtype: bool
+            :return: True if successfully, otherwise False.
+            :exceptions: None.
         '''
         if hasattr(self._logger, 'set_stdout'):
             self._logger.set_stdout()
             return True
+
         elif hasattr(self._logger, 'addHandler'):
             for handler in list(self._logger.handlers):
                 if isinstance(handler, FileHandler):
@@ -119,7 +135,9 @@ class LogHandlerManager(ILogHandlerManager):
                     datefmt='%m/%d/%Y %I:%M:%S %p'
                 ))
                 self._logger.addHandler(stream_handler)
+
             return True
+
         elif hasattr(self._logger, 'write_log'):
             return True
 
@@ -130,12 +148,14 @@ class LogHandlerManager(ILogHandlerManager):
         '''
             Configures stderr stream handler.
 
-            :return: True if configured successfully, otherwise False.
-            :rtype: bool
+            :return: True if successfully, otherwise False.
+            :exceptions: None.
         '''
         if hasattr(self._logger, 'set_stderr'):
             self._logger.set_stderr()
+
             return True
+
         elif hasattr(self._logger, 'addHandler'):
             for handler in list(self._logger.handlers):
                 if isinstance(handler, FileHandler):
@@ -150,13 +170,27 @@ class LogHandlerManager(ILogHandlerManager):
 
             if not has_stderr:
                 stream_handler = StreamHandler(stderr)
-                stream_handler.setFormatter(Formatter(
-                    '%(asctime)s - %(levelname)s - %(message)s',
-                    datefmt='%m/%d/%Y %I:%M:%S %p'
-                ))
+                stream_handler.setFormatter(
+                    Formatter(
+                        '%(asctime)s - %(levelname)s - %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p'
+                    )
+                )
                 self._logger.addHandler(stream_handler)
+
             return True
+
         elif hasattr(self._logger, 'write_log'):
             return True
 
         return False
+
+    @override
+    def __str__(self) -> str:
+        '''
+            Returns log handler manager as string representation.
+
+            :return: Log handler manager as string representation.
+            :exceptions: None.
+        '''
+        return to_str(self)

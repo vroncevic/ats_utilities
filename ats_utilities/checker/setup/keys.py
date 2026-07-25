@@ -57,8 +57,8 @@ class CheckerKeys(IKeys[str, type]):
                 | STACK_INDEX_CALLER: Stack index caller option constant.
                 | MESSAGES_PROVIDER: Messages provider option constant.
             :methods:
-                | get_attr_to_interface - Returns mapping of checker dependency attributes to their interfaces.
-                | get_option_to_type - Returns mapping of checker option attributes to their expected types.
+                | get_dependency_to_type - Returns mapping of checker dependencies to their types.
+                | get_option_to_type - Returns mapping of checker options to their types.
     '''
 
     # Dependency Keys
@@ -75,11 +75,11 @@ class CheckerKeys(IKeys[str, type]):
 
     @classmethod
     @override
-    def get_attr_to_interface(cls) -> MappingProxyType[str, type]:
+    def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of checker dependency attributes to their interfaces.
+            Returns mapping of checker dependencies to their types.
 
-            :return: Mapping of checker dependency attributes to their interfaces.
+            :return: Mapping of checker dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -93,9 +93,9 @@ class CheckerKeys(IKeys[str, type]):
     @override
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of checker option attributes to their expected types.
+            Returns mapping of checker options to their types.
 
-            :return: Mapping of checker option attributes to their expected types.
+            :return: Mapping of checker options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

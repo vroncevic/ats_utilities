@@ -2,7 +2,7 @@
 
 '''
 Module
-    ihandler_manager.py
+    ibuffer.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,12 +16,14 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Provides an interface for log handler manager.
+    Defines abstract class ILogBuffer with method(s).
+    Provides an interface for log buffer during early stages of logging.
 '''
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from collections.abc import Callable
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -33,46 +35,62 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ILogHandlerManager(ABC):
+class ILogBuffer(ABC):
     '''
-        Provides an interface for log handler manager.
+        Defines abstract class ILogBuffer with method(s).
+        Provides an interface for log buffer during early stages of logging.
 
         It defines:
 
             :methods:
-                | set_log_file - Configures file output handler.
-                | set_stdout - Configures stdout stream handler.
-                | set_stderr - Configures stderr stream handler.
+                | add - Adds a message to the buffer.
+                | flush - Flushes buffered messages to a writer.
+                | clear - Clears the buffer.
+                | __str__ - Returns buffer as string representation.
+            
     '''
 
     @abstractmethod
-    def set_log_file(self, log_file: str) -> bool:
+    def add(self, message: str, level: int) -> None:
         '''
-            Configures file output handler.
+            Adds a message to the buffer.
 
-            :param log_file: Log file path.
-            :type log_file: str
-            :return: True if configured successfully, otherwise False.
-            :rtype: bool
+            :param message: The message to buffer.
+            :param level: Log level.
         '''
         pass
 
     @abstractmethod
-    def set_stdout(self) -> bool:
+    def flush(self, writer: Callable[[str, int], None]) -> None:
         '''
-            Configures stdout stream handler.
+            Flushes buffered messages to a writer.
 
-            :return: True if configured successfully, otherwise False.
-            :rtype: bool
+            :param writer: The logging method to write buffered logs.
         '''
         pass
 
     @abstractmethod
-    def set_stderr(self) -> bool:
+    def clear(self) -> None:
         '''
-            Configures stderr stream handler.
+            Clears the buffer.
+        '''
+        pass
 
-            :return: True if configured successfully, otherwise False.
-            :rtype: bool
+    @property
+    @abstractmethod
+    def is_enabled(self) -> bool:
+        '''
+            Checks if buffering is enabled.
+
+            :return: True if buffering is enabled, otherwise False.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns buffer as string representation.
+
+            :return: Buffer as string representation.
         '''
         pass
