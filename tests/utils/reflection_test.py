@@ -70,7 +70,6 @@ class DummyClass:
             Method decorated with has_attrs.
 
             :return: Static string indicating successful execution.
-            :rtype: str
             :exceptions: None.
         '''
         return "success"

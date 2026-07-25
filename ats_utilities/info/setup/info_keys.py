@@ -91,7 +91,6 @@ class InfoKeys:
             Returns a tuple of all information keys.
 
             :return: Tuple of all keys.
-            :rtype: tuple[str, ...]
             :exceptions: None.
         '''
         return (
@@ -113,7 +112,6 @@ class InfoKeys:
             Returns a mapping of information keys to attributes.
 
             :return: Key to attribute mapping.
-            :rtype: <MappingProxyType[str, str]>
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -135,7 +133,6 @@ class InfoKeys:
             Returns a mapping of attribute names to their expected interfaces.
 
             :return: Mapping of attribute name to interface/type.
-            :rtype: MappingProxyType[str, type]
             :exceptions: None.
         '''
         attr = cls.get_key_to_attr()

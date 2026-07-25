@@ -147,7 +147,6 @@ class ExtInfrastructure(IExtInfrastructure):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with info text.
-            :rtype: str
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
                 | ATSValueError: Target property name value is missing or empty.
@@ -170,7 +169,6 @@ class ExtInfrastructure(IExtInfrastructure):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with issue info.
-            :rtype: str
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
                 | ATSValueError: Target property name value is missing or empty.
@@ -193,7 +191,6 @@ class ExtInfrastructure(IExtInfrastructure):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with author info.
-            :rtype: str
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
                 | ATSValueError: Target property name value is missing or empty.
@@ -213,7 +210,6 @@ class ExtInfrastructure(IExtInfrastructure):
             Returns the string representation of ExtInfrastructure.
 
             :return: The ExtInfrastructure as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

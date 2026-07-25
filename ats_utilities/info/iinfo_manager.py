@@ -23,8 +23,6 @@ Info
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from collections.abc import Mapping
-from typing import Any
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,7 +34,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class IInfoManager[ContextEnvironment](ABC):
+class IInfoManager[InfoStructure, ContextEnvironment](ABC):
     '''
         Defines abstract class IInfoManager with method(s).
         Provides an interface for the info management.
@@ -47,11 +45,11 @@ class IInfoManager[ContextEnvironment](ABC):
 
             :methods:
                 | get_context - Returns the context.
-                | set_info - Sets the information.
-                | get_info - Gets the information.
+                | set_info - Sets the information structure.
+                | get_info - Gets the information structure.
                 | is_initialized - Checks if info manager is initialized.
                 | refresh_status - Refreshes status for information structure.
-                | __str__ - Returns the info manager as string representation.
+                | __str__ - Returns info manager as string representation.
     '''
 
     @abstractmethod
@@ -60,27 +58,24 @@ class IInfoManager[ContextEnvironment](ABC):
             Returns the context.
 
             :return: Context.
-            :rtype: ContextEnvironment
         '''
         pass
 
     @abstractmethod
-    def set_info(self, info: Mapping[str, Any]) -> None:
+    def set_info(self, info: InfoStructure) -> None:
         '''
-            Sets the information.
+            Sets the information structure.
 
-            :param info: Mapping with information.
-            :type info: Mapping[str, Any] 
+            :param info: Info structure.
         '''
         pass
 
     @abstractmethod
-    def get_info(self) -> Mapping[str, Any]:
+    def get_info(self) -> InfoStructure:
         '''
-            Gets the information.
+            Gets the information structure.
  
-            :return: Mapping with information.
-            :rtype: Mapping[str, Any] 
+            :return: Info structure.
         '''
         pass
 
@@ -90,7 +85,6 @@ class IInfoManager[ContextEnvironment](ABC):
             Checks if info manager is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
@@ -104,9 +98,8 @@ class IInfoManager[ContextEnvironment](ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the info manager as string representation.
+            Returns info manager as string representation.
 
-            :return: The info manager as string representation.
-            :rtype: str
+            :return: Info manager as string representation.
         '''
         pass

@@ -191,7 +191,6 @@ class Splasher(ISplasher[ContextBundle, CenterData]):
             Checks if splasher component is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         return self._is_initialized
@@ -202,7 +201,6 @@ class Splasher(ISplasher[ContextBundle, CenterData]):
             Returns splasher as string representation.
 
             :return: Splasher as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

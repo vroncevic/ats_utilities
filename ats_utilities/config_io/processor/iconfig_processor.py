@@ -74,7 +74,6 @@ class IConfigProcessor(ABC):
             :param content: Raw configuration data (str, stream, or sequence).
             :type content: Any
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -85,7 +84,6 @@ class IConfigProcessor(ABC):
             Converts the internal configuration structure back to a formatted string representation.
 
             :return: Configuration content as string.
-            :rtype: str
             :exceptions: None.
         '''
         pass
@@ -98,7 +96,6 @@ class IConfigProcessor(ABC):
             :param new_data: Mapping containing configuration keys and values.
             :type new_data: Mapping[str, str]
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -120,7 +117,6 @@ class IConfigProcessor(ABC):
             Validates the internal parsed data structure against the provided scheme.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -131,7 +127,6 @@ class IConfigProcessor(ABC):
             Returns the configuration processor as string representation.
 
             :return: The configuration processor as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         pass

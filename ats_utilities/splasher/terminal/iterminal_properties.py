@@ -84,6 +84,5 @@ class ITerminalProperties(ABC):
             Returns the terminal properties as string representation.
 
             :return: The terminal properties as string representation.
-            :rtype: str
         '''
         pass

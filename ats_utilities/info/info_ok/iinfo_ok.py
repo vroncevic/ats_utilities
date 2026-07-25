@@ -56,7 +56,6 @@ class IInfoOk(ABC):
             Note: Info status is only prepared when it is set by user (not None).
 
             :return: The information status in bool format
-            :rtype: bool
         '''
         pass
 
@@ -79,7 +78,6 @@ class IInfoOk(ABC):
             Note: Info status is only prepared when it is set by user (not None).
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
@@ -89,6 +87,5 @@ class IInfoOk(ABC):
             Returns the info status as string representation.
 
             :return: The info status as string representation.
-            :rtype: str
         '''
         pass

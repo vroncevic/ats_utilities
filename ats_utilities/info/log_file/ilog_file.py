@@ -56,7 +56,6 @@ class ILogFile(ABC):
             Note: Log file path is only prepared when it is set by user (not None).
 
             :return: The log file path in string format | None.
-            :rtype: str | None
         '''
         pass
 
@@ -79,7 +78,6 @@ class ILogFile(ABC):
             Note: Log file path is only prepared when it is set by user (not None).
 
             :return: True (Not None) | False (None).
-            :rtype: bool
         '''
         pass
 
@@ -89,6 +87,5 @@ class ILogFile(ABC):
             Returns the LogFile as string representation.
 
             :return: The LogFile as string representation.
-            :rtype: str
         '''
         pass

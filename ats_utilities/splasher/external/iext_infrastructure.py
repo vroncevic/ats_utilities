@@ -83,7 +83,6 @@ class IExtInfrastructure(ABC):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with info text.
-            :rtype: str
         '''
         pass
 
@@ -94,7 +93,6 @@ class IExtInfrastructure(ABC):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with issue info.
-            :rtype: str
         '''
         pass
 
@@ -105,7 +103,6 @@ class IExtInfrastructure(ABC):
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with author info.
-            :rtype: str
         '''
         pass
 
@@ -115,6 +112,5 @@ class IExtInfrastructure(ABC):
             Returns the external infrastructure as string representation.
 
             :return: The external infrastructure as string representation.
-            :rtype: str
         '''
         pass

@@ -65,7 +65,6 @@ def has_required_keys(source: Mapping[Any, Any], keys: frozenset[str]) -> bool:
         :param keys: Set of mandatory keys.
         :type keys: frozenset[str]
         :return: True (passed), False (failed).
-        :rtype: bool
         :exceptions: None.
     '''
     return keys.issubset(source or {})

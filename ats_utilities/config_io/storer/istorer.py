@@ -69,7 +69,6 @@ class IStorer[ContextEnvironment](ABC):
             :param config: Mapping with configuration information (read only data).
             :type config: Mapping[str, str]
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -80,7 +79,6 @@ class IStorer[ContextEnvironment](ABC):
             Returns the storer instance as string representation.
 
             :return: The storer instance as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         pass

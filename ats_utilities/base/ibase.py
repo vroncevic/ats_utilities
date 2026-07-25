@@ -74,7 +74,6 @@ class IBase[ContextEnvironment](ABC):
             Checks if App/Tool/Script base engine is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -113,7 +112,6 @@ class IBase[ContextEnvironment](ABC):
             :param verbose: Enable/Disable verbose option (default False).
             :type verbose: bool
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -124,7 +122,6 @@ class IBase[ContextEnvironment](ABC):
             Returns the App/Tool/Script base as string representation.
 
             :return: The App/Tool/Script base as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         pass

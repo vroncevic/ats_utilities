@@ -56,7 +56,6 @@ class IVersion(ABC):
             Note: Version is only prepared when it is set by user (not None).
 
             :return: The version in string format | None.
-            :rtype: str | None
         '''
         pass
 
@@ -68,7 +67,6 @@ class IVersion(ABC):
             Note: Version is only prepared when it is set by user (not None).
 
             :param version: The version in string format.
-            :type version: str
         '''
         pass
 
@@ -79,7 +77,6 @@ class IVersion(ABC):
             Note: Version is only prepared when it is set by user (not None).
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
 ]        '''
         pass
 
@@ -89,6 +86,5 @@ class IVersion(ABC):
             Returns the version as string representation.
 
             :return: The version as string representation.
-            :rtype: str
         '''
         pass

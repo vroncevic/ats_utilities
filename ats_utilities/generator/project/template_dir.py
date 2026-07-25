@@ -81,7 +81,6 @@ class TemplateDir(ITemplateDir):
             Property method for getting template dir.
 
             :return: Formatted template dir in string format.
-            :rtype: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -117,7 +116,6 @@ class TemplateDir(ITemplateDir):
             Checks project template dir is not None.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -131,7 +129,6 @@ class TemplateDir(ITemplateDir):
             Returns the ATS project template directory as string representation.
 
             :return: The ATS project template directory as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

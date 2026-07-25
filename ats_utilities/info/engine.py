@@ -44,7 +44,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class InfoManager(IInfoManager[ContextBundle]):
+class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
     '''
         Defines class InfoManager with attribute(s) and method(s).
         Provides an API for the information in one container object.
@@ -61,11 +61,11 @@ class InfoManager(IInfoManager[ContextBundle]):
             :methods:
                 | __init__ - Initializes InfoManager constructor.
                 | get_context - Returns the context.
-                | set_info - Sets the information.
-                | get_info - Gets the information.
+                | set_info - Sets the information structure.
+                | get_info - Gets the information structure.
                 | is_initialized - Checks if info manager is initialized.
-                | refresh_status - Refresh status for information structure.
-                | __str__ - Returns the InfoManager as string representation.
+                | refresh_status - Refreshes status for information structure.
+                | __str__ - Returns info manager as string representation.
     '''
 
     _is_initialized: bool
@@ -77,32 +77,11 @@ class InfoManager(IInfoManager[ContextBundle]):
             Initializes InfoManager constructor.
 
             :param own: Bundle with components.
-            :type own: InfoBundle
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Name must be provided.
-                | ATSValueError: Version must be provided.
-                | ATSValueError: Licence must be provided.
-                | ATSValueError: Build date must be provided.
-                | ATSValueError: Repository must be provided.
-                | ATSValueError: Organization must be provided.
-                | ATSValueError: Use GitHub must be provided.
-                | ATSValueError: Logo must be provided.
-                | ATSValueError: Log file must be provided.
-                | ATSValueError: Info ok must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Bundle must be an instance of InfoBundle.
-                | ATSTypeError: Name must be an instance of IName.
-                | ATSTypeError: Version must be an instance of IVersion.
-                | ATSTypeError: Licence must be an instance of ILicence.
-                | ATSTypeError: Build date must be an instance of IBuildDate.
-                | ATSTypeError: Repository must be an instance of IRepository.
-                | ATSTypeError: Organization must be an instance of IOrganization.
-                | ATSTypeError: Use GitHub must be an instance of IUseGitHub.
-                | ATSTypeError: Logo must be an instance of ILogo.
-                | ATSTypeError: Log file must be an instance of ILogFile.
-                | ATSTypeError: Info ok must be an instance of IInfoOk.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSValueError: Info bundle must be provided and have proper values.
+                | ATSTypeError:  Info bundle must be an instance of InfoBundle
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         InfoValidator.validate(own)
         self._components = own
@@ -116,7 +95,6 @@ class InfoManager(IInfoManager[ContextBundle]):
             Returns the context.
 
             :return: Context.
-            :rtype: ContextBundle
             :exceptions: None.
         '''
         return self._context
@@ -124,10 +102,9 @@ class InfoManager(IInfoManager[ContextBundle]):
     @override
     def set_info(self, info: Mapping[str, Any]) -> None:
         '''
-            Sets the information (read only data).
+            Sets the information structure.
 
             :param info: Mapping with information.
-            :type info: Mapping[str, Any] 
             :exceptions: None.
         '''
         for key in InfoKeys.get_keys():
@@ -156,10 +133,9 @@ class InfoManager(IInfoManager[ContextBundle]):
     @override
     def get_info(self) -> Mapping[str, Any]:
         '''
-            Gets the information (read only data).
+            Gets the information structure.
 
             :return: Mapping with information.
-            :rtype: Mapping[str, Any] 
             :exceptions: None.
         '''
         return {
@@ -173,9 +149,7 @@ class InfoManager(IInfoManager[ContextBundle]):
             Gets attribute from instance components dynamically.
 
             :param name: Name of the attribute to look up.
-            :type name: str
             :return: The value of the component attribute if found, otherwise None.
-            :rtype: <str | bool | None>
             :exceptions:
                 | ATSAttributeError: Name of the attribute is not a managed attribute.
         '''
@@ -192,9 +166,7 @@ class InfoManager(IInfoManager[ContextBundle]):
             Sets attribute to instance components dynamically and refreshes status.
 
             :param name: Name of the attribute to set.
-            :type name: str
             :param value: Value to assign to the component attribute.
-            :type value: <str | bool | None>
             :exceptions: None.
         '''
         if '_components' in self.__dict__ and (name in InfoKeys.get_key_to_attr().values() or name == 'info_ok'):
@@ -214,7 +186,6 @@ class InfoManager(IInfoManager[ContextBundle]):
             Checks if info manager is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         component = getattr(self._components, 'info_ok', None) if self._is_initialized else None
@@ -238,10 +209,9 @@ class InfoManager(IInfoManager[ContextBundle]):
     @override
     def __str__(self) -> str:
         '''
-            Returns the InfoManager as string representation.
+            Returns info manager as string representation.
 
-            :return: The InfoManager as string representation.
-            :rtype: str
+            :return: Info manager as string representation.
             :exceptions: None.
         '''
         return to_str(self)

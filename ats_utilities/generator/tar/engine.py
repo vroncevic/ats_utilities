@@ -233,7 +233,6 @@ class TarProcessor(ITarProcessor):
             Checks if tar processor component is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         return self._template_processor.is_initialized()
@@ -244,7 +243,6 @@ class TarProcessor(ITarProcessor):
             Returns the TarProcessor as string representation.
 
             :return: The TarProcessor as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

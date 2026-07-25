@@ -167,7 +167,6 @@ class ProgressBar(IProgressBar):
             Returns the string representation of ProgressBar.
 
             :return: The ProgressBar as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

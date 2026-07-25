@@ -56,7 +56,6 @@ class IRepository(ABC):
             Note: Repository is only prepared when it is set by user (not None).
 
             :return: The repository in string format | None.
-            :rtype: str | None
         '''
         pass
 
@@ -79,7 +78,6 @@ class IRepository(ABC):
             Note: Repository is only prepared when it is set by user (not None).
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
@@ -89,6 +87,5 @@ class IRepository(ABC):
             Returns the repository as string representation.
 
             :return: The repository as string representation.
-            :rtype: str
         '''
         pass

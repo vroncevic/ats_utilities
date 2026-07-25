@@ -121,7 +121,6 @@ class ArgParser(ArgumentParser, IArgParser[ParserData]):
             Returns the string representation of ArgParser.
 
             :return: The ArgParser as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

@@ -76,7 +76,7 @@ class IParserStrategy(ABC):
             Adds a version display option to the parser.
 
             :param version: The ATS version in string format | None.
-            :type version: str | None
+ | None
         '''
         pass
 
@@ -123,7 +123,6 @@ class IParserStrategy(ABC):
             Checks if parser strategy component is ok.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
@@ -133,6 +132,5 @@ class IParserStrategy(ABC):
             Returns the ATS parser strategy as string representation.
 
             :return: The ATS parser strategy as string representation.
-            :rtype: str
         '''
         pass

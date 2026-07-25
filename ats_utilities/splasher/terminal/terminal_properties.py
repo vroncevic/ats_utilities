@@ -172,7 +172,6 @@ class TerminalProperties(ITerminalProperties):
             Returns the string representation of TerminalProperties.
 
             :return: The TerminalProperties as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

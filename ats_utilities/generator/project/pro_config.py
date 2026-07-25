@@ -124,7 +124,6 @@ class ProConfig(IProConfig):
             Checks project configuration is not None.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -138,7 +137,6 @@ class ProConfig(IProConfig):
             Returns the ATS project configuration as string representation.
 
             :return: The ATS project configuration as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

@@ -78,7 +78,6 @@ class ILoader[ContextEnvironment](ABC):
             Returns the loader instance as string representation.
 
             :return: The loader instance as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         pass

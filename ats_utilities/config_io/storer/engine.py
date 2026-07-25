@@ -122,7 +122,6 @@ class Storer(IStorer[ContextBundle]):
             :param config: Configuration object.
             :type config: Mapping[str, str]
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         if not config:
@@ -150,7 +149,6 @@ class Storer(IStorer[ContextBundle]):
             Returns the Storer instance as string representation.
 
             :return: The Storer instance as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

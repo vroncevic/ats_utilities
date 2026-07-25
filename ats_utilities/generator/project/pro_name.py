@@ -81,7 +81,6 @@ class ProName(IProName):
             Property method for getting project name in string format.
 
             :return: Formatted project name in string format.
-            :rtype: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -117,7 +116,6 @@ class ProName(IProName):
             Checks project name is not None.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -131,7 +129,6 @@ class ProName(IProName):
             Returns the ATS project name as string representation.
 
             :return: The ATS project name as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

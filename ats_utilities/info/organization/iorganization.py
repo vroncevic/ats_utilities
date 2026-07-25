@@ -56,7 +56,6 @@ class IOrganization(ABC):
             Note: Organization is only prepared when it is set by user (not None).
 
             :return: The organization in string format | None.
-            :rtype: str | None
         '''
         pass
 
@@ -79,7 +78,6 @@ class IOrganization(ABC):
             Note: Organization is only prepared when it is set by user (not None).
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
@@ -89,6 +87,5 @@ class IOrganization(ABC):
             Returns the organization as string representation.
 
             :return: The organization as string representation.
-            :rtype: str
         '''
         pass

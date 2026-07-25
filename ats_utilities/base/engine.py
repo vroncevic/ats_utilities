@@ -141,7 +141,6 @@ class Base(IBase[ContextBundle]):
             Checks if App/Tool/Script base engine is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         return self._is_initialized
@@ -188,7 +187,6 @@ class Base(IBase[ContextBundle]):
             :param verbose: Enable/Disable verbose option (default False).
             :type verbose: bool
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -199,7 +197,6 @@ class Base(IBase[ContextBundle]):
             Returns the Base as string representation.
 
             :return: The Base as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

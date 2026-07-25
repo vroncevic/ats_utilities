@@ -100,7 +100,6 @@ class CFGProcessor(IConfigProcessor):
             :param content: Raw configuration data (str, stream, or sequence).
             :type content: Any
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         self._data.clear()
@@ -120,7 +119,6 @@ class CFGProcessor(IConfigProcessor):
             Converts the internal configuration structure back to a formatted string representation.
 
             :return: Configuration content as string.
-            :rtype: str
             :exceptions: None.
         '''
         return ''.join([f'{k} = {v}\n' for k, v in self._data.items()])
@@ -133,7 +131,6 @@ class CFGProcessor(IConfigProcessor):
             :param new_data: Mapping containing configuration keys and values.
             :type new_data: Mapping[str, str]
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         old_data = self._data.copy()
@@ -164,7 +161,6 @@ class CFGProcessor(IConfigProcessor):
             Validates the internal parsed data structure against the provided scheme.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         if self._scheme is None:
@@ -182,7 +178,6 @@ class CFGProcessor(IConfigProcessor):
             Returns the CFGProcessor instance as string representation.
 
             :return: The CFGProcessor instance as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

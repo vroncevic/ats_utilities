@@ -76,7 +76,6 @@ class ISplasher[ContextEnvironment, PositionData](ABC):
             Checks if splasher is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
@@ -86,6 +85,5 @@ class ISplasher[ContextEnvironment, PositionData](ABC):
             Returns the splash screen as string representation.
 
             :return: Splash screen as string representation.
-            :rtype: str
         '''
         pass

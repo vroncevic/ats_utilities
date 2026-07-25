@@ -87,6 +87,5 @@ class IProgressBar(ABC):
             Returns the progress bar as string representation.
 
             :return: The progress bar as string representation.
-            :rtype: str
         '''
         pass

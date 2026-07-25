@@ -87,7 +87,7 @@ class IOptionManager[ContextEnvironment](ABC):
             Adds version option to the parser.
 
             :param version: The version in string format | None
-            :type version: str | None
+ | None
         '''
         pass
 
@@ -144,7 +144,6 @@ class IOptionManager[ContextEnvironment](ABC):
             Checks if option parser component is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
@@ -154,6 +153,5 @@ class IOptionManager[ContextEnvironment](ABC):
             Returns the option parser as string representation.
 
             :return: The option parser as string representation.
-            :rtype: str
         '''
         pass

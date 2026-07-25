@@ -84,7 +84,6 @@ class IGenerator[ContextEnvironment](ABC):
             :param data: Generator data containing template generation parameters.
             :type data: GeneratorData
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -95,7 +94,6 @@ class IGenerator[ContextEnvironment](ABC):
             Checks if generator component is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -106,7 +104,6 @@ class IGenerator[ContextEnvironment](ABC):
             Returns the generator as string representation.
 
             :return: The generator as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         pass

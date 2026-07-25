@@ -92,7 +92,6 @@ class Organization(IOrganization):
             Note: Organization is only prepared when it is set by user (not None).
 
             :return: The organization in string format | None.
-            :rtype: str | None
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -130,7 +129,6 @@ class Organization(IOrganization):
             Note: Organization is only prepared when it is set by user (not None).
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -144,7 +142,6 @@ class Organization(IOrganization):
             Returns the Organization as string representation.
 
             :return: The Organization as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

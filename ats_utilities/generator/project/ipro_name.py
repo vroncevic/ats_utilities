@@ -54,7 +54,6 @@ class IProName(ABC):
             Property method for getting project name.
 
             :return: Formatted project name in string format | None
-            :rtype: str | None
             :exceptions: None.
         '''
         pass
@@ -77,7 +76,6 @@ class IProName(ABC):
             Checks if project name is not None.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -88,7 +86,6 @@ class IProName(ABC):
             Returns the ATS project name as string representation.
 
             :return: The ATS project name as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         pass

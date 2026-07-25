@@ -103,7 +103,6 @@ def cls_name(instance: Any) -> str:
         :param instance: The class instance.
         :type instance: Any
         :return: The class name in string format.
-        :rtype: str
         :exceptions: None.
     '''
     return instance.__class__.__name__
@@ -117,7 +116,6 @@ def to_str(instance: Any) -> str:
         :param instance: The class instance to format.
         :type instance: Any
         :return: String representation of the instance.
-        :rtype: str
         :exceptions: None.
     '''
     class_name: str = instance.__class__.__name__

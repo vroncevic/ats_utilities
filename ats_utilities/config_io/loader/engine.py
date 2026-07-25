@@ -145,7 +145,6 @@ class Loader(ILoader[ContextBundle]):
             Returns the Loader as string representation.
 
             :return: The Loader as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

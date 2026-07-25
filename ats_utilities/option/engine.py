@@ -129,7 +129,7 @@ class OptionManager(IOptionManager[ContextBundle]):
             Adds version option to the parser.
 
             :param version: The version in string format | None.
-            :type version: str | None
+ | None
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -215,7 +215,6 @@ class OptionManager(IOptionManager[ContextBundle]):
             Checks if option parser component is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
@@ -227,7 +226,6 @@ class OptionManager(IOptionManager[ContextBundle]):
             Returns the option manager as string representation.
 
             :return: The option manager as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

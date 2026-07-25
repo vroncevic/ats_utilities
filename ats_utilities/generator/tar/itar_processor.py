@@ -78,7 +78,6 @@ class ITarProcessor(ABC):
             Checks if component is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -89,7 +88,6 @@ class ITarProcessor(ABC):
             Returns the component as string representation.
 
             :return: String representation.
-            :rtype: str
             :exceptions: None.
         '''
         pass

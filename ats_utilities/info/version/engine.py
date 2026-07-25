@@ -92,7 +92,6 @@ class Version(IVersion):
             Note: Version is only prepared when it is set by user (not None).
 
             :return: The version in string format | None.
-            :rtype: str | None
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -110,7 +109,6 @@ class Version(IVersion):
             Note: Version is only prepared when it is set by user (not None).
 
             :param version: The version in string format.
-            :type version: str
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -130,7 +128,6 @@ class Version(IVersion):
             Note: Version is only prepared when it is set by user (not None).
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -144,7 +141,6 @@ class Version(IVersion):
             Returns the Version as string representation.
 
             :return: The Version as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

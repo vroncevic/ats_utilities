@@ -68,7 +68,6 @@ class ITemplateProcessor(ABC):
             Checks if component is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -79,7 +78,6 @@ class ITemplateProcessor(ABC):
             Returns the component as string representation.
 
             :return: String representation.
-            :rtype: str
             :exceptions: None.
         '''
         pass

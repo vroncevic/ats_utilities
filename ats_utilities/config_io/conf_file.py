@@ -148,7 +148,6 @@ class ConfFile(IConfFile):
             Returns the ConfFile as string representation.
 
             :return: The ConfFile as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

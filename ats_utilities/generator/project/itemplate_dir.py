@@ -54,7 +54,6 @@ class ITemplateDir(ABC):
             Property method for getting template dir.
 
             :return: Formatted template dir in string format | None
-            :rtype: str | None
             :exceptions: None.
         '''
         pass
@@ -77,7 +76,6 @@ class ITemplateDir(ABC):
             Checks if project template directory is not None.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         pass
@@ -88,7 +86,6 @@ class ITemplateDir(ABC):
             Returns the ATS project template directory as string representation.
 
             :return: The ATS project template directory as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         pass

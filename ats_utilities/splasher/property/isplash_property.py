@@ -81,7 +81,6 @@ class ISplashProperty(ABC):
             Note: Splash screen property comes from info configuration file as read only data.
 
             :return: True (success) else False (fail).
-            :rtype: bool
         '''
         pass
 
@@ -91,6 +90,5 @@ class ISplashProperty(ABC):
             Returns the splash keys as string representation.
 
             :return: The splash keys as string representation.
-            :rtype: str
         '''
         pass

@@ -133,7 +133,7 @@ class ParserStrategy(IParserStrategy):
             Adds a version display option to the parser.
 
             :param version: The ATS version | None.
-            :type version: str | None
+ | None
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -229,7 +229,6 @@ class ParserStrategy(IParserStrategy):
             Checks if the parser strategy is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         return True
@@ -240,7 +239,6 @@ class ParserStrategy(IParserStrategy):
             Returns the string representation of ParserStrategy.
 
             :return: The ParserStrategy as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

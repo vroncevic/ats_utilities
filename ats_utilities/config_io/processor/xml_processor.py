@@ -109,7 +109,6 @@ class XMLProcessor(IConfigProcessor):
             :param content: Raw configuration data (str, stream, or sequence).
             :type content: Any
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         try:
@@ -126,7 +125,6 @@ class XMLProcessor(IConfigProcessor):
             Converts the internal configuration structure back to a formatted string representation.
 
             :return: Configuration content as string.
-            :rtype: str
             :exceptions: None.
         '''
         if self._root is not None:
@@ -142,7 +140,6 @@ class XMLProcessor(IConfigProcessor):
             :param new_data: Mapping containing configuration keys and values.
             :type new_data: Mapping[str, str]
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         old_root = deepcopy(self._root) if self._root is not None else None
@@ -217,7 +214,6 @@ class XMLProcessor(IConfigProcessor):
             Validates the internal parsed data structure against the provided scheme.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         if self._root is None:
@@ -243,7 +239,6 @@ class XMLProcessor(IConfigProcessor):
             Returns the XMLProcessor instance as string representation.
 
             :return: The XMLProcessor instance as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

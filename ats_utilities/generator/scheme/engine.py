@@ -130,7 +130,6 @@ class SchemeLoader(ISchemeLoader):
             Checks if scheme loader component is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         return self._initialized
@@ -141,7 +140,6 @@ class SchemeLoader(ISchemeLoader):
             Returns the SchemeLoader as string representation.
 
             :return: The SchemeLoader as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

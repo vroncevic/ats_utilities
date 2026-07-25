@@ -100,7 +100,6 @@ class INIProcessor(IConfigProcessor):
             :param content: Raw configuration data (str, stream, or sequence).
             :type content: Any
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         try:
@@ -120,7 +119,6 @@ class INIProcessor(IConfigProcessor):
             Converts the internal configuration structure back to a formatted string representation.
 
             :return: Configuration content as string.
-            :rtype: str
             :exceptions: None.
         '''
         try:
@@ -140,7 +138,6 @@ class INIProcessor(IConfigProcessor):
             :param new_data: Mapping containing configuration keys and values.
             :type new_data: Mapping[str, str]
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         if self._scheme is None:
@@ -212,7 +209,6 @@ class INIProcessor(IConfigProcessor):
             Validates the internal parsed data structure against the provided scheme.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         if self._scheme is None:
@@ -238,7 +234,6 @@ class INIProcessor(IConfigProcessor):
             Returns the INIProcessor instance as string representation.
 
             :return: The INIProcessor instance as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

@@ -135,7 +135,6 @@ class SplashProperty(ISplashProperty):
             Note: Splash screen property comes from info configuration file as read only data.
 
             :return: True (success) else False (fail).
-            :rtype: bool
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_splash_keys'.
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
@@ -153,7 +152,6 @@ class SplashProperty(ISplashProperty):
             Returns the splash property as string representation.
 
             :return: The splash property as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

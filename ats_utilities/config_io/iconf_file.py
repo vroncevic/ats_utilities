@@ -85,7 +85,6 @@ class IConfFile(ABC):
             Returns the IConfFile as string representation.
 
             :return: The IConfFile as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         pass

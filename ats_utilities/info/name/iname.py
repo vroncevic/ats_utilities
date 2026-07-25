@@ -56,7 +56,6 @@ class IName(ABC):
             Note: Name is only prepared when it is set by user (not None).
 
             :return: The name in string format | None
-            :rtype: str | None
         '''
         pass
 
@@ -79,7 +78,6 @@ class IName(ABC):
             Note: Name is only prepared when it is set by user (not None).
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
@@ -89,6 +87,5 @@ class IName(ABC):
             Returns the name as string representation.
 
             :return: The name as string representation.
-            :rtype: str
         '''
         pass

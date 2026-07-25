@@ -100,7 +100,6 @@ def normalize_path(
         :param exc_class: The exception class to raise if file_path is None.
         :type exc_class: type[BaseException] (default ATSValueError)
         :return: The cleaned up relative path.
-        :rtype: str
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
@@ -150,7 +149,6 @@ def resolve_relative_path(
         :param exc_class: The exception class to raise if value is None.
         :type exc_class: type[BaseException] (default ATSValueError)
         :return: The relative path inside the source dir, or None if not matching.
-        :rtype: str | None
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
@@ -210,7 +208,6 @@ def is_excluded_path(
         :param exc_class: The exception class to raise if value is None.
         :type exc_class: type[BaseException] (default ATSValueError)
         :return: True if the path should be excluded, False otherwise.
-        :rtype: bool
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
@@ -278,7 +275,6 @@ def format_casing_by_match(
         :param exc_class: The exception class to raise if value is None.
         :type exc_class: type[BaseException] (default ATSValueError)
         :return: The replacement formatted in matching casing style.
-        :rtype: str
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
@@ -422,7 +418,6 @@ def apply_path_replacements(
         :param exc_class: The exception class to raise if value is None.
         :type exc_class: type[BaseException] (default ATSValueError)
         :return: The replaced relative path.
-        :rtype: str
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).

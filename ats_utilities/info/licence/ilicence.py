@@ -56,7 +56,6 @@ class ILicence(ABC):
             Note: Info licence is only prepared when it is set by user (not None).
 
             :return: The licence in string format | None.
-            :rtype: str | None
         '''
         pass
 
@@ -79,7 +78,6 @@ class ILicence(ABC):
             Note: Info licence is only prepared when it is set by user (not None).
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
@@ -89,6 +87,5 @@ class ILicence(ABC):
             Returns the licence as string representation.
 
             :return: The licence as string representation.
-            :rtype: str
         '''
         pass

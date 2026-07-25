@@ -56,7 +56,6 @@ class IBuildDate(ABC):
             Note: Build date is only prepared when it is set by user (not None).
 
             :return: The build date in string format | None.
-            :rtype: str | None
         '''
         pass
 
@@ -79,7 +78,6 @@ class IBuildDate(ABC):
             Note: Build date is only prepared when it is set by user (not None).
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
         '''
         pass
 
@@ -89,6 +87,5 @@ class IBuildDate(ABC):
             Returns the build date as string representation.
 
             :return: The build date as string representation.
-            :rtype: str
         '''
         pass

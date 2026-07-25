@@ -97,7 +97,6 @@ class YAMLProcessor(IConfigProcessor):
             :param content: Raw configuration data (str, stream, or sequence).
             :type content: Any
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         try:
@@ -114,7 +113,6 @@ class YAMLProcessor(IConfigProcessor):
             Converts the internal configuration structure back to a formatted string representation.
 
             :return: Configuration content as string.
-            :rtype: str
             :exceptions: None.
         '''
         return yaml.safe_dump(self._data, default_flow_style=False)
@@ -127,7 +125,6 @@ class YAMLProcessor(IConfigProcessor):
             :param new_data: Mapping containing configuration keys and values.
             :type new_data: Mapping[str, str]
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         old_data = self._data.copy()
@@ -158,7 +155,6 @@ class YAMLProcessor(IConfigProcessor):
             Validates the internal parsed data structure against the provided scheme.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         if self._scheme is None:
@@ -176,7 +172,6 @@ class YAMLProcessor(IConfigProcessor):
             Returns the YAMLProcessor instance as string representation.
 
             :return: The YAMLProcessor instance as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

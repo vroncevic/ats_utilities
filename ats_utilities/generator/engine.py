@@ -151,7 +151,6 @@ class Generator(IGenerator[ContextBundle]):
             :param data: Generator data containing template generation parameters.
             :type data: GeneratorData
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions:
                 | ATSValueError: Generator data must be provided.
                 | ATSTypeError: Generator data must be an instance of GeneratorData.
@@ -211,7 +210,6 @@ class Generator(IGenerator[ContextBundle]):
             Checks if generator component is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         return all([
@@ -226,7 +224,6 @@ class Generator(IGenerator[ContextBundle]):
             Returns the string representation of Generator.
 
             :return: The Generator as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

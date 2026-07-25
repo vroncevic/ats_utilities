@@ -56,7 +56,6 @@ class IOptionCommand[MetaOption](ABC):
             Returns the command name.
 
             :return: Command name.
-            :rtype: str
         '''
         pass
 
@@ -67,7 +66,6 @@ class IOptionCommand[MetaOption](ABC):
             Returns the command help text.
 
             :return: Command help text.
-            :rtype: str
         '''
         pass
 
@@ -88,6 +86,5 @@ class IOptionCommand[MetaOption](ABC):
             Returns the string representation of option command.
 
             :return: String representation of option command.
-            :rtype: str
         '''
         pass

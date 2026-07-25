@@ -100,7 +100,6 @@ class TemplateProcessor(ITemplateProcessor):
             Checks if template processor component is initialized.
 
             :return: True if successfully, otherwise False.
-            :rtype: bool
             :exceptions: None.
         '''
         return self._initialized
@@ -111,7 +110,6 @@ class TemplateProcessor(ITemplateProcessor):
             Returns the TemplateProcessor as string representation.
 
             :return: The TemplateProcessor as string representation.
-            :rtype: str
             :exceptions: None.
         '''
         return to_str(self)

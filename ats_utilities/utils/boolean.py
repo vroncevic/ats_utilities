@@ -48,7 +48,6 @@ def str_bool_to_bool(
         :param exc_context: Context representation in string format.
         :type exc_context: str | None
         :return: Boolean value.
-        :rtype: bool
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
     '''
