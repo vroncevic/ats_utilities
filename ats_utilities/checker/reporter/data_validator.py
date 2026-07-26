@@ -22,39 +22,34 @@ Info
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import override
 
-from ats_utilities.utils.data.ivalidator import IDataValidator
 from ats_utilities.checker.setup.types import ParametersMeta
 from ats_utilities.checker.reporter.data import CheckReporterData
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class CheckReporterValidator(IDataValidator[CheckReporterData]):
+class CheckReporterValidator:
     '''
 
         Validator for check reporter data.
         
         It defines:
 
-            :attributes:
-                | 
             :methods:
                 | validate - Validates check reporter data.
     '''
 
     @classmethod
-    @override
     def validate(cls, data: CheckReporterData) -> None:
         '''
             Validates check reporter data.
@@ -68,21 +63,21 @@ class CheckReporterValidator(IDataValidator[CheckReporterData]):
                 | ATSValueError: Error indices must be provided.
                 | ATSValueError: Is format error flag must be provided.
                 | ATSTypeError:  Context must be a string.
-                | ATSTypeError:  Parameters metadata must be a sequence of Parameters.
+                | ATSTypeError:  Parameters metadata must be a sequence of ParametersMeta.
                 | ATSTypeError:  Error indices must be a sequence of integers.
                 | ATSTypeError:  Is format error flag must be a boolean.
         '''
-        ctx: str = r'data_reporter_validator::validate(...)'
+        ctx: str = 'data_reporter_validator::validate(...)'
 
-        not_none(data, ctx, r'check reporter data must be provided')
-        istype(data, CheckReporterData, ctx, r'check reporter data must be an instance of CheckReporterData')
+        not_none(data, ctx, 'check reporter data must be provided')
+        istype(data, CheckReporterData, ctx, 'check reporter data must be an instance of CheckReporterData')
 
-        not_none(data.context, ctx, r'context must be provided')
-        not_none(data.parameters_meta, ctx, r'parameters meta must be provided')
-        not_none(data.err_indices, ctx, r'error indices must be provided')
-        not_none(data.is_fmt_err, ctx, r'is format error flag must be provided')
+        not_none(data.context, ctx, 'context must be provided')
+        not_none(data.parameters_meta, ctx, 'parameters meta must be provided')
+        not_none(data.err_indices, ctx, 'error indices must be provided')
+        not_none(data.is_fmt_err, ctx, 'is format error flag must be provided')
 
-        istype(data.context, str, ctx, r'context must be a string')
-        istype(data.parameters_meta, Sequence[ParametersMeta], ctx, r'parameters meta must be a sequence of ParametersMeta')
-        istype(data.err_indices, Sequence[int], ctx, r'error indices must be a sequence of integers')
-        istype(data.is_fmt_err, bool, ctx, r'is format error flag must be a boolean')
+        istype(data.context, str, ctx, 'context must be a string')
+        istype(data.parameters_meta, Sequence[ParametersMeta], ctx, 'parameters meta must be a sequence of ParametersMeta')
+        istype(data.err_indices, Sequence[int], ctx, 'error indices must be a sequence of integers')
+        istype(data.is_fmt_err, bool, ctx, 'is format error flag must be a boolean')

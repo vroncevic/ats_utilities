@@ -79,7 +79,7 @@ class EngineTest(unittest.TestCase):
         try:
             os.remove(self.temp_logo.name)
         except OSError:
-            pass
+            ...
 
     def _get_valid_prop(self) -> dict[str, Any]:
         return {

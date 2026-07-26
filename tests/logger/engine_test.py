@@ -93,7 +93,7 @@ class EngineTest(unittest.TestCase):
     def test_init_custom_logger(self) -> None:
         class CustomLogger:
             def write_log(self, message: str, ctrl: int) -> None:
-                pass
+                ...
 
         custom = CustomLogger()
         bundle = LoggerBundle(
@@ -195,7 +195,7 @@ class EngineTest(unittest.TestCase):
             def write_log(self, message: str, ctrl: int) -> None:
                 self.calls.append((message, ctrl))
             def set_log_file(self, log_file: str) -> None:
-                pass
+                ...
 
         custom = CustomLogger()
         bundle = LoggerBundle(
@@ -220,7 +220,7 @@ class EngineTest(unittest.TestCase):
             def __init__(self) -> None:
                 self.write_log = MagicMock()
             def set_log_file(self, log_file: str) -> None:
-                pass
+                ...
 
         custom = CustomLogger()
         bundle = LoggerBundle(
@@ -243,7 +243,7 @@ class EngineTest(unittest.TestCase):
         """Tests branch 112->exit when custom logger has neither info nor write_log."""
         class MinimalLogger:
             def write_log(self, message: str, ctrl: int) -> None:
-                pass
+                ...
         custom = MinimalLogger()
         bundle = LoggerBundle(
             logger=custom,
@@ -259,7 +259,7 @@ class EngineTest(unittest.TestCase):
         """Tests branch 187->exit when custom logger has neither setLevel nor set_level."""
         class MinimalLogger:
             def write_log(self, message: str, ctrl: int) -> None:
-                pass
+                ...
         custom = MinimalLogger()
         bundle = LoggerBundle(
             logger=custom,
@@ -274,7 +274,7 @@ class EngineTest(unittest.TestCase):
         # Case 1: Custom logger
         class CustomLogger:
             def write_log(self, message: str, ctrl: int) -> None:
-                pass
+                ...
 
         bundle = LoggerBundle(
             logger=CustomLogger(),
@@ -326,7 +326,7 @@ class EngineTest(unittest.TestCase):
     def test_set_log_file_handler_replacement(self) -> None:
         class DummyFileHandler(logging.FileHandler):
             def __init__(self, *args: Any, **kwargs: Any) -> None:
-                pass
+                ...
 
         mock_std_logger = MagicMock(spec=logging.Logger)
         mock_handler = MagicMock(spec=DummyFileHandler)
@@ -434,7 +434,7 @@ class EngineTest(unittest.TestCase):
     def test_set_log_file_non_file_handler(self) -> None:
         class DummyFileHandler(logging.FileHandler):
             def __init__(self, *args: Any, **kwargs: Any) -> None:
-                pass
+                ...
 
         mock_std_logger = MagicMock(spec=logging.Logger)
         # Put both a FileHandler mock and a non-FileHandler mock
@@ -590,9 +590,9 @@ class EngineTest(unittest.TestCase):
                 self.logs = []
                 self.handlers = []
             def addHandler(self, h):
-                pass
+                ...
             def removeHandler(self, h):
-                pass
+                ...
             def write_log(self, msg, level):
                 self.logs.append((msg, level))
 
@@ -616,9 +616,9 @@ class EngineTest(unittest.TestCase):
                 self.logs = []
                 self.handlers = []
             def addHandler(self, h):
-                pass
+                ...
             def removeHandler(self, h):
-                pass
+                ...
             def write_log(self, msg, level):
                 self.logs.append((msg, level))
 
@@ -641,7 +641,7 @@ class EngineTest(unittest.TestCase):
             def __init__(self):
                 self.calls = []
             def write_log(self, msg, level):
-                pass
+                ...
             def log(self, level, msg):
                 self.calls.append((msg, level))
 
@@ -661,7 +661,7 @@ class EngineTest(unittest.TestCase):
             def __init__(self):
                 self.calls = []
             def write_log(self, msg, level):
-                pass
+                ...
             def log(self, level, msg):
                 self.calls.append((msg, level))
 
@@ -681,14 +681,14 @@ class EngineTest(unittest.TestCase):
             def __init__(self):
                 self.handlers = []
             def addHandler(self, h):
-                pass
+                ...
             def removeHandler(self, h):
-                pass
-            def debug(self, msg): pass
-            def info(self, msg): pass
-            def warning(self, msg): pass
-            def error(self, msg): pass
-            def critical(self, msg): pass
+                ...
+            def debug(self, msg): ...
+            def info(self, msg): ...
+            def warning(self, msg): ...
+            def error(self, msg): ...
+            def critical(self, msg): ...
 
         dummy_logger = DummyLogger()
         bundle = LoggerBundle(
@@ -706,14 +706,14 @@ class EngineTest(unittest.TestCase):
             def __init__(self):
                 self.handlers = []
             def addHandler(self, h):
-                pass
+                ...
             def removeHandler(self, h):
-                pass
-            def debug(self, msg): pass
-            def info(self, msg): pass
-            def warning(self, msg): pass
-            def error(self, msg): pass
-            def critical(self, msg): pass
+                ...
+            def debug(self, msg): ...
+            def info(self, msg): ...
+            def warning(self, msg): ...
+            def error(self, msg): ...
+            def critical(self, msg): ...
 
         dummy_logger = DummyLogger()
         bundle = LoggerBundle(

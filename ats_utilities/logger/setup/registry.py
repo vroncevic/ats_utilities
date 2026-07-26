@@ -21,26 +21,23 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.setup.dependencies import LoggerDependencies
 from ats_utilities.logger.setup.keys import LoggerKeys
 from ats_utilities.logger.setup.validator import LoggerValidator
 from ats_utilities.logger.setup.dep_validator import LoggerDependenciesValidator
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class LoggerRegistry(IRegistry[LoggerBundle, LoggerDependencies]):
+class LoggerRegistry:
     '''
         Encapsulates core runtime components for simplification of logger bundle creation.
 
@@ -51,7 +48,6 @@ class LoggerRegistry(IRegistry[LoggerBundle, LoggerDependencies]):
     '''
 
     @classmethod
-    @override
     def create_bundle(cls, dependencies: LoggerDependencies) -> LoggerBundle:
         '''
             Orchestrates dependency injection and creates a logger bundle instance.

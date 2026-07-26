@@ -22,19 +22,20 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ITemplateProcessor(ABC):
+@runtime_checkable
+class ITemplateProcessor(Protocol):
     '''
         Defines abstract class ITemplateProcessor with method(s).
         Interface for rendering template placeholders.
@@ -47,7 +48,6 @@ class ITemplateProcessor(ABC):
                 | __str__ - Returns the component as string representation.
     '''
 
-    @abstractmethod
     def render(self, raw_content: bytes, vals: dict[str, str]) -> str | bytes:
         '''
             Decodes and renders template placeholders.
@@ -57,9 +57,8 @@ class ITemplateProcessor(ABC):
             :return: Rendered text content string, or raw bytes if binary format.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def is_initialized(self) -> bool:
         '''
             Checks if component is initialized.
@@ -67,9 +66,8 @@ class ITemplateProcessor(ABC):
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the component as string representation.
@@ -77,4 +75,4 @@ class ITemplateProcessor(ABC):
             :return: String representation.
             :exceptions: None.
         '''
-        pass
+        ...

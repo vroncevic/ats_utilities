@@ -22,19 +22,20 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ILogHandlerManager(ABC):
+@runtime_checkable
+class ILogHandlerManager[LogFileType, ResultType](Protocol):
     '''
         Defines abstract class ILogHandlerManager with method(s).
         Provides an interface for log handler manager.
@@ -48,39 +49,35 @@ class ILogHandlerManager(ABC):
                 | __str__ - Returns log handler manager as string representation.
     '''
 
-    @abstractmethod
-    def set_log_file(self, log_file: str) -> bool:
+    def set_log_file(self, log_file: LogFileType) -> ResultType:
         '''
             Configures file output handler.
 
-            :param log_file: Log file path.
-            :return: True if successfully, otherwise False.
+            :param log_file: Log file.
+            :return: Result of log file handler setup.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def set_stdout(self) -> bool:
+    def set_stdout(self) -> ResultType:
         '''
             Configures stdout stream handler.
 
-            :return: True if successfully, otherwise False.
+            :return: Result of stdout handler setup.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def set_stderr(self) -> bool:
+    def set_stderr(self) -> ResultType:
         '''
             Configures stderr stream handler.
 
-            :return: True if successfully, otherwise False.
+            :return: Result of stderr handler setup.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns log handler manager as string representation.
 
             :return: Log handler manager as string representation.
         '''
-        pass
+        ...

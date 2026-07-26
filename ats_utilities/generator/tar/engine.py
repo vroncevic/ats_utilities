@@ -25,9 +25,7 @@ from __future__ import annotations
 from os import makedirs
 from os.path import dirname, join
 from tarfile import open
-from typing import override
 
-from ats_utilities.generator.tar.itar_processor import ITarProcessor
 from ats_utilities.generator.tar.data import TarData, TarMemberData
 from ats_utilities.generator.tar.data_validator import (
     TarDataValidator, TarMemberDataValidator
@@ -47,17 +45,17 @@ from ats_utilities.validation.check_value import not_satisfied, not_none
 from ats_utilities.validation.check_type import istype
 from ats_utilities.exceptions.format_error import format_error_raw
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class TarProcessor(ITarProcessor):
+class TarProcessor:
     '''
         Defines class TarProcessor with method(s).
         Handles tar archive extraction and template rendering.
@@ -93,23 +91,22 @@ class TarProcessor(ITarProcessor):
                 | ATSValueError: Template processor must be provided.
                 | ATSTypeError: Template processor must be an instance of ITemplateProcessor.   
         '''
-        ctx: str = r'tar_processor::init(...)'
+        ctx: str = 'tar_processor::init(...)'
 
-        not_none(context_bundle, ctx, r'context bundle must be provided')
+        not_none(context_bundle, ctx, 'context bundle must be provided')
         istype(
             context_bundle, ContextBundle, ctx,
             r'context bundle must be an instance of ContextBundle'
         )
         self._context = context_bundle
 
-        not_none(template_processor, ctx, r'template processor must be provided')
+        not_none(template_processor, ctx, 'template processor must be provided')
         istype(
             template_processor, ITemplateProcessor, ctx,
             r'template processor must be an instance of ITemplateProcessor'
         )
         self._template_processor = template_processor
 
-    @override
     def process_tar_member(self, data: TarMemberData) -> None:
         '''
             Extracts and processes a single tar member (creates dirs or renders files).
@@ -140,13 +137,12 @@ class TarProcessor(ITarProcessor):
                 raw_content = f_obj.read()
                 rendered = self._template_processor.render(raw_content, data.vals)
 
-                ctx: str = r'tar_processor::process_tar_member(...)'
+                ctx: str = 'tar_processor::process_tar_member(...)'
                 write_content(
                     data.dest_full_path, rendered, ctx,
                     f'error writing to file {data.dest_full_path}'
                 )
 
-    @override
     def process(self, data: TarData) -> None:
         '''
             Processes the tar archive members.
@@ -174,7 +170,7 @@ class TarProcessor(ITarProcessor):
                 | ATSValueError: Error applying path replacements.
                 | ATSGeneratorError: Process execution failed.
         '''
-        ctx: str = r'tar_processor::process(...)'
+        ctx: str = 'tar_processor::process(...)'
         try:
             TarDataValidator.validate(data)
             makedirs(data.target_dir, exist_ok=True)
@@ -223,7 +219,6 @@ class TarProcessor(ITarProcessor):
             msg: str = format_error_raw(exc, self._context.verbose)
             not_satisfied(True, ctx, f'process execution failed: {msg}', ATSGeneratorError)
 
-    @override
     def is_initialized(self) -> bool:
         '''
             Checks if tar processor component is initialized.
@@ -233,7 +228,6 @@ class TarProcessor(ITarProcessor):
         '''
         return self._template_processor.is_initialized()
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the TarProcessor as string representation.

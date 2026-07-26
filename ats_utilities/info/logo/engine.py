@@ -22,26 +22,23 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.info.logo.ilogo import ILogo
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class Logo(ILogo):
+class Logo:
     '''
         Defines class Logo with attribute(s) and method(s).
         Provides an API for the logo path in one property object.
@@ -84,7 +81,6 @@ class Logo(ILogo):
 
     @property
     @vreport('getting logo {logo}')
-    @override
     def logo(self) -> str | None:
         '''
             Property method for getting logo path.
@@ -101,7 +97,6 @@ class Logo(ILogo):
     @logo.setter
     @mcheck([('str:logo', None)])
     @vreport('setting logo {logo}')
-    @override
     def logo(self, logo: str) -> None:
         '''
             Property method for setting logo path.
@@ -120,7 +115,6 @@ class Logo(ILogo):
         self._logo = logo
 
     @vreport('checking logo {logo}')
-    @override
     def not_none(self) -> bool:
         '''
             Checks is logo path not None.
@@ -134,7 +128,6 @@ class Logo(ILogo):
         '''
         return self._logo is not None
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the Logo as string representation.

@@ -23,24 +23,22 @@ from __future__ import annotations
 
 from collections.abc import Sequence, Mapping
 from tarfile import TarFile, TarInfo
-from typing import override
 
-from ats_utilities.utils.data.ivalidator import IDataValidator
 from ats_utilities.generator.tar.data import TarData, TarMemberData
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class TarDataValidator(IDataValidator[TarData]):
+class TarDataValidator:
     '''
 
         Validator for tar data.
@@ -54,7 +52,6 @@ class TarDataValidator(IDataValidator[TarData]):
     '''
 
     @classmethod
-    @override
     def validate(cls, data: TarData) -> None:
         '''
             Validates tar data.
@@ -96,7 +93,7 @@ class TarDataValidator(IDataValidator[TarData]):
         istype(data.vals, Mapping, context, r'vals must be a mapping.')
 
 
-class TarMemberDataValidator(IDataValidator[TarMemberData]):
+class TarMemberDataValidator:
     '''
 
         Validator for tar member data.
@@ -110,7 +107,6 @@ class TarMemberDataValidator(IDataValidator[TarMemberData]):
     '''
 
     @classmethod
-    @override
     def validate(cls, data: TarMemberData) -> None:
         '''
             Validates tar member data.

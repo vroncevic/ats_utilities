@@ -23,9 +23,8 @@ from __future__ import annotations
 
 from sys import stdout
 from logging import getLogger, basicConfig, INFO
-from typing import override, Any
+from typing import Any
 
-from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.setup.registry import LoggerRegistry
 from ats_utilities.logger.setup.dependencies import LoggerDependencies
@@ -36,17 +35,17 @@ from ats_utilities.logger.formatter.engine import LogFormatter
 from ats_utilities.logger.buffer.engine import LogBuffer
 from ats_utilities.logger.handler.engine import LogHandlerManager
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class LoggerFactory(IFactory[LoggerBundle, LoggerOptions]):
+class LoggerFactory:
     '''
         Factory for creating logger bundle instance.
 
@@ -57,7 +56,6 @@ class LoggerFactory(IFactory[LoggerBundle, LoggerOptions]):
     '''
 
     @classmethod
-    @override
     def create_bundle(cls, options: LoggerOptions | None = None) -> LoggerBundle:
         '''
             Creates a logger bundle with optional pre-configured options.

@@ -21,27 +21,24 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.formatter.iformatter import ILogFormatter
 from ats_utilities.logger.buffer.ibuffer import ILogBuffer
 from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
-from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none, not_satisfied
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class LoggerValidator(IValidator[LoggerBundle]):
+class LoggerValidator:
     '''
         Validator for logger bundle instance.
 
@@ -52,7 +49,6 @@ class LoggerValidator(IValidator[LoggerBundle]):
     '''
 
     @classmethod
-    @override
     def validate(cls, bundle: LoggerBundle) -> None:
         '''
             Validates logger bundle instance.
@@ -72,21 +68,21 @@ class LoggerValidator(IValidator[LoggerBundle]):
                 | ATSTypeError: Buffer must be an instance of ILogBuffer.
                 | ATSTypeError: Handler manager must be an instance of ILogHandlerManager.
         '''
-        ctx: str = r'logger_validator::validate(...)'
+        ctx: str = 'logger_validator::validate(...)'
 
-        not_none(bundle, ctx, r'bundle must be provided')
-        istype(bundle, LoggerBundle, ctx, r'bundle must be an instance of LoggerBundle')
+        not_none(bundle, ctx, 'bundle must be provided')
+        istype(bundle, LoggerBundle, ctx, 'bundle must be an instance of LoggerBundle')
 
-        not_none(bundle.logger, ctx, r'logger must be provided')
-        not_none(bundle.has_file_handler, ctx, r'has file handler flag must be provided')
-        not_none(bundle.formatter, ctx, r'formatter must be provided')
-        not_none(bundle.buffer, ctx, r'buffer must be provided')
-        not_none(bundle.handler_manager, ctx, r'handler manager must be provided')
+        not_none(bundle.logger, ctx, 'logger must be provided')
+        not_none(bundle.has_file_handler, ctx, 'has file handler flag must be provided')
+        not_none(bundle.formatter, ctx, 'formatter must be provided')
+        not_none(bundle.buffer, ctx, 'buffer must be provided')
+        not_none(bundle.handler_manager, ctx, 'handler manager must be provided')
 
-        istype(bundle.has_file_handler, bool, ctx, r'has file handler flag must be a boolean instance')
-        istype(bundle.formatter, ILogFormatter, ctx, r'formatter must be an instance of ILogFormatter')
-        istype(bundle.buffer, ILogBuffer, ctx, r'buffer must be an instance of ILogBuffer')
-        istype(bundle.handler_manager, ILogHandlerManager, ctx, r'handler manager must be an instance of ILogHandlerManager')
+        istype(bundle.has_file_handler, bool, ctx, 'has file handler flag must be a boolean instance')
+        istype(bundle.formatter, ILogFormatter, ctx, 'formatter must be an instance of ILogFormatter')
+        istype(bundle.buffer, ILogBuffer, ctx, 'buffer must be an instance of ILogBuffer')
+        istype(bundle.handler_manager, ILogHandlerManager, ctx, 'handler manager must be an instance of ILogHandlerManager')
 
         not_satisfied(
             not (hasattr(bundle.logger, 'info') or hasattr(bundle.logger, 'write_log')), ctx,

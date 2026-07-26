@@ -22,20 +22,21 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 from collections.abc import Sequence
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IOptionCommand[MetaOption](ABC):
+@runtime_checkable
+class IOptionCommand[MetaOption](Protocol):
     '''
         Defines abstract class IOptionCommand with method(s).
         Provides an interface for command with options.
@@ -50,40 +51,36 @@ class IOptionCommand[MetaOption](ABC):
     '''
 
     @property
-    @abstractmethod
     def name(self) -> str:
         '''
             Returns the command name.
 
             :return: Command name.
         '''
-        pass
+        ...
 
     @property
-    @abstractmethod
     def help_text(self) -> str:
         '''
             Returns the command help text.
 
             :return: Command help text.
         '''
-        pass
+        ...
 
     @property
-    @abstractmethod
     def options(self) -> Sequence[MetaOption]:
         '''
             Returns the sequence of options for the command.
 
             :return: Sequence of options for the command.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the string representation of option command.
 
             :return: String representation of option command.
         '''
-        pass
+        ...

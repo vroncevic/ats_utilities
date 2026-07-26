@@ -22,25 +22,24 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
-from typing import Any, override
+from typing import Any
 
-from ats_utilities.utils.setup.iopt_validator import IOptionsValidator
 from ats_utilities.info.setup.options import InfoOptions
 from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none, not_satisfied
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class InfoOptionsValidator(IOptionsValidator[InfoOptions]):
+class InfoOptionsValidator:
     '''
         Validator for info options.
 
@@ -51,7 +50,6 @@ class InfoOptionsValidator(IOptionsValidator[InfoOptions]):
     '''
 
     @classmethod
-    @override
     def validate(cls, options: InfoOptions) -> None:
         '''
             Validates info options instance.
@@ -62,10 +60,10 @@ class InfoOptionsValidator(IOptionsValidator[InfoOptions]):
                 | ATSTypeError:  Options must be an instance of Mapping and its
                 |                attributes must be instances of their respective types.
         '''
-        ctx: str = r'info_options_validator::validate(...)'
+        ctx: str = 'info_options_validator::validate(...)'
 
-        not_none(options, ctx, r'options must be provided and have proper values')
-        istype(options, Mapping, ctx, r'options must be a Mapping')
+        not_none(options, ctx, 'options must be provided and have proper values')
+        istype(options, Mapping, ctx, 'options must be a Mapping')
 
         for opt_name, expected_type in InfoKeys.get_option_to_type().items():
             not_satisfied(opt_name not in options, ctx, f'{opt_name} must be provided')
@@ -81,7 +79,7 @@ class InfoOptionsValidator(IOptionsValidator[InfoOptions]):
                 required_config_keys: Sequence[str] = InfoKeys.get_required_config_keys()
                 not_satisfied(
                     not all(key in info_structure for key in required_config_keys),
-                    ctx, r'info structure must contain all required keys'
+                    ctx, 'info structure must contain all required keys'
                 )
 
                 for key in info_structure.keys():

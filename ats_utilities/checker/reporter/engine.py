@@ -2,7 +2,7 @@
 
 '''
 Module
-    check_reporter.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -17,44 +17,44 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class CheckReporter with attribute(s) and method(s).
-    Provides an API for formating message in context of checker.
+    Provides an API for building a message in context of a checker.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 from types import MappingProxyType
-from typing import override
 
-from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.reporter.data import CheckReporterData
 from ats_utilities.checker.reporter.data_validator import CheckReporterValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_empty
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class CheckReporter(ICheckReporter[CheckReporterData]):
+class CheckReporter:
     '''
         Defines class CheckReporter with attribute(s) and method(s).
-        Provides an API for formating message in context of checker.
+        Provides an API for building a message in context of a checker.
 
         It defines:
 
             :attributes:
-                | _message_provider: Messages used to report findings.
+                | _DEFAULT_MESSAGES - Default messages used to report findings.
+                | _message_provider - Messages used to report findings.
             :methods:
-                | build_message_format - Builds the final message.
-                | __str__ - Returns the check reporter as string representation.
+                | __init__ - Initializes check reporter.
+                | build_message - Builds a final message.
+                | __str__ - Returns check reporter as string representation.
     '''
 
     _DEFAULT_MESSAGES: Mapping[str, str] = MappingProxyType({
@@ -66,7 +66,7 @@ class CheckReporter(ICheckReporter[CheckReporterData]):
 
     def __init__(self, message_provider: Mapping[str, str] | None = None) -> None:
         '''
-            Initializes the CheckReporter.
+            Initializes check reporter.
 
             :param message_provider: Messages used to report findings | None.
             :exceptions:
@@ -74,20 +74,19 @@ class CheckReporter(ICheckReporter[CheckReporterData]):
                 | ATSValueError: Message provider must not be empty (key and value must be strings).
         '''
         if message_provider is not None:
-            ctx: str = r'check_reporter::init(...)'
-            istype(message_provider, Mapping, ctx, r'message_provider must be a mapping')
+            ctx: str = 'check_reporter::init(...)'
+            istype(message_provider, Mapping, ctx, 'message_provider must be a mapping')
             not_empty(
                 message_provider, ctx,
-                r'message_provider must not be empty (key and value must be strings)'
+                'message_provider must not be empty (key and value must be strings)'
             )
             self._message_provider = MappingProxyType(message_provider)
         else:
             self._message_provider = self._DEFAULT_MESSAGES
 
-    @override
-    def build_message_format(self, data: CheckReporterData) -> str:
+    def build_message(self, data: CheckReporterData) -> str:
         '''
-            Builds the final message.
+            Builds a final message.
 
             :param data: Data to be formatted.
             :return: Formatted message report.
@@ -125,12 +124,11 @@ class CheckReporter(ICheckReporter[CheckReporterData]):
 
         return message
 
-    @override
     def __str__(self) -> str:
         '''
-            Returns the check reporter as string representation.
+            Returns check reporter as string representation.
 
-            :return: The check reporter as string representation.
+            :return: Check reporter as string representation.
             :exceptions: None.
         '''
         return to_str(self)

@@ -22,11 +22,10 @@ Info
 
 from __future__ import annotations
 
-from typing import Any, override
+from typing import Any
 from time import sleep
 from sys import stdout
 
-from ats_utilities.splasher.isplasher import ISplasher
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.splasher.setup.bundle import SplashBundle
 from ats_utilities.splasher.setup.validator import SplashValidator
@@ -36,17 +35,17 @@ from ats_utilities.splasher.setup.splash_keys import SplashKeys
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_satisfied
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class Splasher(ISplasher[ContextBundle, CenterData]):
+class Splasher:
     '''
         Defines class Splasher with attribute(s) and method(s).
         Implements a splash screen with hyperlinks.
@@ -131,7 +130,7 @@ class Splasher(ISplasher[ContextBundle, CenterData]):
                             self.center(position, processed_line)
 
             except (OSError, UnicodeDecodeError) as exc:
-                ctx: str = r'splasher::init(...)'
+                ctx: str = 'splasher::init(...)'
                 not_satisfied(True, ctx, f'logo file content is invalid {exc}')
 
             position: CenterData = CenterData(columns=int(size[1]), additional_shifter=2)
@@ -148,7 +147,6 @@ class Splasher(ISplasher[ContextBundle, CenterData]):
 
         self._is_initialized = True
 
-    @override
     def get_context(self) -> ContextBundle:
         '''
             Returns context bundle.
@@ -158,7 +156,6 @@ class Splasher(ISplasher[ContextBundle, CenterData]):
         '''
         return self._context
 
-    @override
     def center(self, position: CenterData, text: str) -> None:
         '''
             Centers console line and places text.
@@ -181,7 +178,6 @@ class Splasher(ISplasher[ContextBundle, CenterData]):
         number_of_tabs = int((start_position / 8) - 1 + position.additional_shifter)
         stdout.write('{0}{1}\n'.format('\011' * number_of_tabs, text))
 
-    @override
     def is_initialized(self) -> bool:
         '''
             Checks if splasher component is initialized.
@@ -191,7 +187,6 @@ class Splasher(ISplasher[ContextBundle, CenterData]):
         '''
         return self._is_initialized
 
-    @override
     def __str__(self) -> str:
         '''
             Returns splasher as string representation.

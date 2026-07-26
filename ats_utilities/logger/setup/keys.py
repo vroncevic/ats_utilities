@@ -21,25 +21,24 @@ Info
 
 from __future__ import annotations
 
-from typing import Any, ClassVar, override
+from typing import Any, ClassVar
 from types import MappingProxyType
 
-from ats_utilities.utils.setup.ikeys import IKeys
 from ats_utilities.logger.formatter.iformatter import ILogFormatter
 from ats_utilities.logger.buffer.ibuffer import ILogBuffer
 from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class LoggerKeys(IKeys[str, type]):
+class LoggerKeys:
     '''
         Runtime components and interface constraints for logger bundle.
 
@@ -75,7 +74,6 @@ class LoggerKeys(IKeys[str, type]):
     OPTION_LOG_BUFFER_SIZE: ClassVar[int] = 'log_buffer_size'
 
     @classmethod
-    @override
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
             Returns mapping of logger dependencies to their types.
@@ -92,7 +90,6 @@ class LoggerKeys(IKeys[str, type]):
         })
 
     @classmethod
-    @override
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
             Returns mapping of logger options to their types.

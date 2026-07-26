@@ -22,21 +22,22 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
 from ats_utilities.generator.tar.data import TarData, TarMemberData
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ITarProcessor(ABC):
+@runtime_checkable
+class ITarProcessor(Protocol):
     '''
         Defines abstract class ITarProcessor with method(s).
         Interface for tar archive extraction and template rendering.
@@ -50,7 +51,6 @@ class ITarProcessor(ABC):
                 | __str__ - Returns the processor as string representation.
     '''
 
-    @abstractmethod
     def process_tar_member(self, tar_process_member_bundle: TarMemberData) -> None:
         '''
             Extracts and processes a single tar member (creates dirs or renders files).
@@ -58,9 +58,8 @@ class ITarProcessor(ABC):
             :param tar_process_member_bundle: Parameters defining what to do with the tar archive member.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def process(self, tar_process_bundle: TarData) -> None:
         '''
             Processes the tar archive members.
@@ -68,9 +67,8 @@ class ITarProcessor(ABC):
             :param tar_process_bundle: Parameters defining what to do with the tar archive.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def is_initialized(self) -> bool:
         '''
             Checks if component is initialized.
@@ -78,9 +76,8 @@ class ITarProcessor(ABC):
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the component as string representation.
@@ -88,4 +85,4 @@ class ITarProcessor(ABC):
             :return: String representation.
             :exceptions: None.
         '''
-        pass
+        ...

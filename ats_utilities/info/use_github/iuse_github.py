@@ -22,19 +22,20 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IUseGitHub(ABC):
+@runtime_checkable
+class IUseGitHub(Protocol):
     '''
         Defines abstract class IUseGitHub with method(s).
         Interface for the use GitHub infrastructure mechanism.
@@ -49,7 +50,6 @@ class IUseGitHub(ABC):
     '''
 
     @property
-    @abstractmethod
     def use_github(self) -> bool:
         '''
             Property method for getting use GitHub infrastructure status.
@@ -57,10 +57,9 @@ class IUseGitHub(ABC):
 
             :return: The use GitHub infrastructure status.
         '''
-        pass
+        ...
 
     @use_github.setter
-    @abstractmethod
     def use_github(self, use_github: bool) -> None:
         '''
             Property method for setting use GitHub infrastructure status.
@@ -68,9 +67,8 @@ class IUseGitHub(ABC):
 
             :param use_github: The use GitHub infrastructure status.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def not_none(self) -> bool:
         '''
             Checks if use GitHub infrastructure status is not None.
@@ -78,13 +76,12 @@ class IUseGitHub(ABC):
 
             :return: True if successfully, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the use GitHub infrastructure as string representation.
 
             :return: The use GitHub infrastructure as string representation.
         '''
-        pass
+        ...

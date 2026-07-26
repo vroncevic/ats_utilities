@@ -21,28 +21,25 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.project.setup.bundle import ProjectBundle
 from ats_utilities.generator.project.ipro_config import IProConfig
 from ats_utilities.generator.project.ipro_name import IProName
 from ats_utilities.generator.project.itemplate_dir import ITemplateDir
-from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ProjectValidator(IValidator[ProjectBundle]):
+class ProjectValidator:
     '''
         Validator for project bundle instance.
 
@@ -53,7 +50,6 @@ class ProjectValidator(IValidator[ProjectBundle]):
     '''
 
     @classmethod
-    @override
     def validate(cls, bundle: ProjectBundle) -> None:
         '''
             Validates project bundle instance.
@@ -71,17 +67,17 @@ class ProjectValidator(IValidator[ProjectBundle]):
                 | ATSTypeError: Template directory must be an instance of ITemplateDir.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        ctx: str = r'project_validator::validate(...)'
+        ctx: str = 'project_validator::validate(...)'
 
-        not_none(bundle, ctx, r'bundle must be provided')
-        istype(bundle, ProjectBundle, ctx, r'bundle must be an instance of ProjectBundle')
+        not_none(bundle, ctx, 'bundle must be provided')
+        istype(bundle, ProjectBundle, ctx, 'bundle must be an instance of ProjectBundle')
 
-        not_none(bundle.pro_name, ctx, r'project name must be provided')
-        not_none(bundle.pro_config, ctx, r'project configuration must be provided')
-        not_none(bundle.template_dir, ctx, r'template directory must be provided')
-        not_none(bundle.context_bundle, ctx, r'context bundle must be provided')
+        not_none(bundle.pro_name, ctx, 'project name must be provided')
+        not_none(bundle.pro_config, ctx, 'project configuration must be provided')
+        not_none(bundle.template_dir, ctx, 'template directory must be provided')
+        not_none(bundle.context_bundle, ctx, 'context bundle must be provided')
 
-        istype(bundle.pro_name, IProName, ctx, r'project name must be an IProName instance')
-        istype(bundle.pro_config, IProConfig, ctx, r'project configuration must be an IProConfig instance')
-        istype(bundle.template_dir, ITemplateDir, ctx, r'template directory must be an ITemplateDir instance')
-        istype(bundle.context_bundle, ContextBundle, ctx, r'context bundle must be a ContextBundle instance')
+        istype(bundle.pro_name, IProName, ctx, 'project name must be an IProName instance')
+        istype(bundle.pro_config, IProConfig, ctx, 'project configuration must be an IProConfig instance')
+        istype(bundle.template_dir, ITemplateDir, ctx, 'template directory must be an ITemplateDir instance')
+        istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')

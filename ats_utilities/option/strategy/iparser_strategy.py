@@ -22,7 +22,7 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 from collections.abc import Sequence, Mapping
 from typing import Any
 
@@ -30,17 +30,18 @@ from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IParserStrategy(ABC):
+@runtime_checkable
+class IParserStrategy(Protocol):
     '''
         Defines abstract class IParserStrategy with method(s).
         Interface for concrete parsing engines (Strategy Pattern).
@@ -58,7 +59,6 @@ class IParserStrategy(ABC):
                 | __str__ - Returns the ATS parser strategy as string representation.
     '''
 
-    @abstractmethod
     def add_argument(self, *args: str, **kwargs: Any) -> None:
         '''
             Adds an operational argument/flag to the parser.
@@ -66,19 +66,16 @@ class IParserStrategy(ABC):
             :param args: Arguments in string format.
             :param kwargs: Arguments in Any form
         '''
-        pass
+        ...
 
-    @abstractmethod
     def add_version(self, version: str | None) -> None:
         '''
             Adds a version display option to the parser.
 
             :param version: The ATS version in string format | None.
- | None
         '''
-        pass
+        ...
 
-    @abstractmethod
     def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
         '''
             Parses the input arguments and returns an OptionNamespace.
@@ -87,18 +84,16 @@ class IParserStrategy(ABC):
             :param known_only: Parse only known arguments.
             :return: Option namespace object.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
         '''
             Register a sequence of commands with the parser.
 
             :param commands: Sequence of commands to register.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
         '''
             Parses CLI arguments for subcommands and returns command name and parameters.
@@ -106,23 +101,21 @@ class IParserStrategy(ABC):
             :param arguments: Sequence of arguments | None.
             :return: Tuple containing command name and parsed parameters (read only data).
         '''
-        pass
+        ...
 
 
-    @abstractmethod
     def is_initialized(self) -> bool:
         '''
             Checks if parser strategy component is ok.
 
             :return: True if successfully, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the ATS parser strategy as string representation.
 
             :return: The ATS parser strategy as string representation.
         '''
-        pass
+        ...

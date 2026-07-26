@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import override
+
 
 from ats_utilities.utils.data.ivalidator import IDataValidator
 from ats_utilities.context.bundle import ContextBundle
@@ -52,7 +52,6 @@ class StrategyDataValidator(IDataValidator[StrategyData]):
     '''
 
     @classmethod
-    @override
     def validate(cls, data: StrategyData) -> None:
         '''
             Validates StrategyData instance.
@@ -66,19 +65,19 @@ class StrategyDataValidator(IDataValidator[StrategyData]):
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
                 | ATSTypeError: Parser class must be a type subclassing IArgParser.
         '''
-        ctx: str = r'strategy_data_validator::validate(...)'
-        not_none(data, ctx, r'strategy data must be provided')
-        istype(data, StrategyData, ctx, r'strategy data must be an instance of StrategyData')
+        ctx: str = 'strategy_data_validator::validate(...)'
+        not_none(data, ctx, 'strategy data must be provided')
+        istype(data, StrategyData, ctx, 'strategy data must be an instance of StrategyData')
 
-        not_none(data.parameters, ctx, r'parameters must be provided')
-        not_none(data.context_bundle, ctx, r'context bundle must be provided')
-        not_none(data.parser_class, ctx, r'parser class must be provided')
+        not_none(data.parameters, ctx, 'parameters must be provided')
+        not_none(data.context_bundle, ctx, 'context bundle must be provided')
+        not_none(data.parser_class, ctx, 'parser class must be provided')
 
-        istype(data.parameters, Mapping, ctx, r'parameters must be a Mapping[str, str] instance')
-        istype(data.context_bundle, ContextBundle, ctx, r'context bundle must be a ContextBundle instance')
-        istype(data.parser_class, type, ctx, r'parser class must be a type')
+        istype(data.parameters, Mapping, ctx, 'parameters must be a Mapping[str, str] instance')
+        istype(data.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')
+        istype(data.parser_class, type, ctx, 'parser class must be a type')
 
         not_satisfied(
             not issubclass(data.parser_class, IArgParser),
-            ctx, r'parser class must be a class implementing IArgParser'
+            ctx, 'parser class must be a class implementing IArgParser'
         )

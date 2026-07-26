@@ -2,7 +2,7 @@
 
 import unittest
 from unittest.mock import MagicMock, patch
-from typing import Any, override
+from typing import Any
 
 # Adjust imports according to your project structure
 from ats_utilities.base.engine import Base
@@ -19,7 +19,6 @@ from ats_utilities.generator.igenerator import IGenerator
 class ConcreteBase(Base):
     """A concrete implementation of the abstract Base class for testing purposes."""
     
-    @override
     def process(self, verbose: bool = False) -> bool:
         return True
 

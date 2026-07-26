@@ -23,11 +23,8 @@ Info
 
 from __future__ import annotations
 
-from typing import ClassVar, override
-
-from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.setup.types import (
-    Parameters, ParametersMeta, Result, SplitResult, CheckerErrorType
+    Parameters, ParametersMeta, Result, CheckerErrorType
 )
 from ats_utilities.checker.type.itype_validator import ITypeValidator
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
@@ -39,17 +36,17 @@ from ats_utilities.checker.reporter.data import CheckReporterData
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.exceptions import ATSValueError, ATSTypeError
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class Checker(IChecker[Parameters, Result, str, SplitResult]):
+class Checker:
     '''
         Defines class Checker with attribute(s) and method(s).
         Concrete implementation of the parameter(s) checker.
@@ -58,7 +55,6 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
         It defines:
 
             :attributes:
-                | ERRORS - Marks error types for message reports.
                 | _is_initialized - Indicates if the checker component is initialized (default False).
                 | _format_validator - Validator for parameters format (default FormatValidator).
                 | _type_validator - Validator for parameters type (default TypeValidator).
@@ -66,14 +62,15 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
                 | _check_reporter - Formatter for message reports (default CheckReporter).
             :methods:
                 | __init__ - Initializes Checker constructor.
-                | validates_parameters - Validates parameter(s) for method(s) or function(s).
-                | split_parameter - Splits a single parameter specification item.
-                | get_separator - Returns the separator character used in parameter specifications.
+                | get_format_validator - Returns the format validator used in validation of parameters.
+                | get_type_validator - Returns the type validator used in validation of parameters.
+                | get_context_provider - Returns the context provider used in validation of parameters.
+                | get_check_reporter - Returns the check reporter used in validation of parameters.
+                | validates_parameters - Validates parameter(s) used by method(s) or function(s).
                 | is_initialized - Checks if checker component is initialized.
                 | __str__ - Returns the checker as string representation.
     '''
 
-    ERRORS: ClassVar[type[CheckerErrorType]] = CheckerErrorType
     _is_initialized: bool
     _format_validator: IFormatValidator
     _type_validator: ITypeValidator
@@ -98,12 +95,47 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
         self._check_reporter = own.check_reporter
         self._is_initialized = True
 
-    @override
+    def get_format_validator(self) -> IFormatValidator:
+        '''
+            Returns the format validator used in validation of parameters.
+
+            :return: Format validator used in validation of parameters.
+            :exceptions: None.
+        '''
+        return self._format_validator
+
+    def get_type_validator(self) -> ITypeValidator:
+        '''
+            Returns the type validator used in validation of parameters.
+
+            :return: Type validator used in validation of parameters.
+            :exceptions: None.
+        '''
+        return self._type_validator
+
+    def get_context_provider(self) -> IContextProvider:
+        '''
+            Returns the context provider used in validation of parameters.
+
+            :return: Context provider used in validation of parameters.
+            :exceptions: None.
+        '''
+        return self._context_provider
+
+    def get_check_reporter(self) -> ICheckReporter:
+        '''
+            Returns the check reporter used in validation of parameters.
+
+            :return: Check reporter used in validation of parameters.
+            :exceptions: None.
+        '''
+        return self._check_reporter
+
     def validates_parameters(self, parameters: Parameters) -> Result:
         '''
-            Validates parameters for method(s) or function(s).
+            Validates parameters used by method(s) or function(s).
 
-            :param parameters: Specification for parameters.
+            :param parameters: Specification of parameters.
             :return: Result containing error message report and error id.
             :exceptions:
                 | ATSValueError: Parameters must be provided and have proper values.
@@ -114,11 +146,11 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
         context: str = self._context_provider.get_context()
         parameters_meta: list[ParametersMeta] = []
         err_indices: list[int] = []
-        error_id: int = self.ERRORS.NO_ERROR
+        error_id: int = CheckerErrorType.NO_ERROR
 
         if parameters is None:
             return (
-                self._check_reporter.build_message_format(
+                self._check_reporter.build_message(
                     CheckReporterData(
                         context=context,
                         parameters_meta=(),
@@ -126,7 +158,7 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
                         is_fmt_err=True
                     )
                 ),
-                self.ERRORS.FORMAT_ERROR
+                CheckerErrorType.FORMAT_ERROR
             )
 
         is_fmt_err: bool = False
@@ -135,12 +167,12 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
             try:
                 if not self._format_validator.is_valid(exp_type):
                     is_fmt_err = True
-                    error_id = self.ERRORS.FORMAT_ERROR
+                    error_id = CheckerErrorType.FORMAT_ERROR
                     break
 
             except (ATSValueError, ATSTypeError):
                 is_fmt_err = True
-                error_id = self.ERRORS.FORMAT_ERROR
+                error_id = CheckerErrorType.FORMAT_ERROR
                 break
 
             ptype, pname = self._format_validator.split(exp_type)
@@ -150,16 +182,16 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
                 if not self._type_validator.is_match(inst, ptype):
                     err_indices.append(index)
 
-                    if error_id == self.ERRORS.NO_ERROR:
-                        error_id = self.ERRORS.TYPE_ERROR
+                    if error_id == CheckerErrorType.NO_ERROR:
+                        error_id = CheckerErrorType.TYPE_ERROR
 
             except (ATSValueError, ATSTypeError):
                 err_indices.append(index)
 
-                if error_id == self.ERRORS.NO_ERROR:
-                    error_id = self.ERRORS.TYPE_ERROR
+                if error_id == CheckerErrorType.NO_ERROR:
+                    error_id = CheckerErrorType.TYPE_ERROR
 
-        return self._check_reporter.build_message_format(
+        return self._check_reporter.build_message(
             CheckReporterData(
                 context=context,
                 parameters_meta=parameters_meta,
@@ -168,32 +200,6 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
             )
         ), error_id
 
-    @override
-    def split_parameter(self, parameter: str) -> SplitResult:
-        '''
-            Splits a single parameter specification item.
-
-            :param parameter: Parameter specification item to be splitted.
-            :return: Result of splitting parameter specification item.
-            :exceptions:
-                | ATSValueError: Format of parameter is not valid.
-        '''
-        try:
-            return self._format_validator.split(parameter)
-        except (ATSValueError, ATSTypeError) as e:
-            raise ATSValueError(f'format of parameter {parameter} is not valid') from e
-
-    @override
-    def get_separator(self) -> str:
-        '''
-            Returns the separator character used in parameter specifications.
-
-            :return: Separator character.
-            :exceptions: None.
-        '''
-        return self._format_validator.get_separator()
-
-    @override
     def is_initialized(self) -> bool:
         '''
             Checks if checker component is initialized.
@@ -203,7 +209,6 @@ class Checker(IChecker[Parameters, Result, str, SplitResult]):
         '''
         return self._is_initialized
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the Checker as string representation.

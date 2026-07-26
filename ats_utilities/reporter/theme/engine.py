@@ -24,25 +24,24 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from types import MappingProxyType
-from typing import Final, override
+from typing import Final
 
-from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.reporter.theme.types import MessageKey
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.validation.check_value import not_none, not_satisfied
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ConsoleTheme(IConsoleTheme):
+class ConsoleTheme:
     '''
         Defines class ConsoleTheme with attribute(s) and method(s).
         Implements a console theme for console styling.
@@ -77,14 +76,13 @@ class ConsoleTheme(IConsoleTheme):
                 | ATSTypeError: Palette must be a mapping.
         '''
         if palette is not None:
-            ctx: str = r'console_theme::init(...)',
-            istype(palette, Mapping, ctx, r'palette must be a mapping')
+            ctx: str = 'console_theme::init(...)',
+            istype(palette, Mapping, ctx, 'palette must be a mapping')
 
         # No dependency injection then use default ones.
         self._palette = MappingProxyType(palette) if palette is not None else self._DEFAULT_PALETTE_COLORS
 
     @has_attrs('_palette')
-    @override
     def get_color(self, color_type: str) -> str:
         '''
             Returns color code from palette.
@@ -96,9 +94,9 @@ class ConsoleTheme(IConsoleTheme):
                 | ATSTypeError: Color type must be a string.
                 | ATSValueError: Color type not found in palette.
         '''
-        ctx: str = r'console_theme::get_color(...)'
-        not_none(color_type, ctx, r'color type must be provided')
-        istype(color_type, str, ctx, r'color type must be a string')
+        ctx: str = 'console_theme::get_color(...)'
+        not_none(color_type, ctx, 'color type must be provided')
+        istype(color_type, str, ctx, 'color type must be a string')
         not_satisfied(
             color_type not in self._palette, ctx,
             f'color type {color_type} not found in palette'
@@ -106,7 +104,6 @@ class ConsoleTheme(IConsoleTheme):
 
         return self._palette[color_type]
 
-    @override
     def __str__(self) -> str:
         '''
             Returns console theme as string representation.

@@ -22,25 +22,23 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import override
 
 from ats_utilities.context.dependencies import ContextDependencies
 from ats_utilities.context.keys import ContextKeys
-from ats_utilities.utils.setup.idep_validator import IDependenciesValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ContextDependenciesValidator(IDependenciesValidator[ContextDependencies]):
+class ContextDependenciesValidator:
     '''
         Validator for context dependencies.
 
@@ -51,7 +49,6 @@ class ContextDependenciesValidator(IDependenciesValidator[ContextDependencies]):
     '''
 
     @classmethod
-    @override
     def validate(cls, dependencies: ContextDependencies) -> None:
         '''
             Validates context dependencies instance.
@@ -63,10 +60,10 @@ class ContextDependenciesValidator(IDependenciesValidator[ContextDependencies]):
                 |                and its attributes must be instances of their
                 |                respective types.
         '''
-        ctx: str = r'context_dependencies_validator::validate(...)'
+        ctx: str = 'context_dependencies_validator::validate(...)'
 
-        not_none(dependencies, ctx, r'dependencies must be provided')
-        istype(dependencies, Mapping, ctx, r'dependencies must be a Mapping')
+        not_none(dependencies, ctx, 'dependencies must be provided')
+        istype(dependencies, Mapping, ctx, 'dependencies must be a Mapping')
 
         for attr_name, expected_type in ContextKeys.get_dependency_to_type().items():
             value = dependencies.get(attr_name)

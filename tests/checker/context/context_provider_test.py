@@ -101,7 +101,7 @@ class ContextProviderTest(unittest.TestCase):
         provider = ContextProvider(index_caller=1)
 
         def my_func() -> None:
-            pass
+            ...
 
         def wrapper() -> str:
             func = my_func

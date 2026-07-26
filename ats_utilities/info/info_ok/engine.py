@@ -22,26 +22,23 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class InfoOk(IInfoOk):
+class InfoOk:
     '''
         Defines class InfoOk with attribute(s) and method(s).
         Provides an API for the info status in one property object.
@@ -84,7 +81,6 @@ class InfoOk(IInfoOk):
 
     @property
     @vreport('getting info_ok {info_ok}')
-    @override
     def info_ok(self) -> bool:
         '''
             Property method for getting information status.
@@ -101,7 +97,6 @@ class InfoOk(IInfoOk):
     @info_ok.setter
     @mcheck([('bool:info_ok', None)])
     @vreport('setting info_ok {info_ok}')
-    @override
     def info_ok(self, info_ok: bool) -> None:
         '''
             Property method for setting information status.
@@ -120,7 +115,6 @@ class InfoOk(IInfoOk):
         self._info_ok = info_ok
 
     @vreport('checking info_ok {info_ok}')
-    @override
     def not_none(self) -> bool:
         '''
             Checks if info status is not None.
@@ -134,7 +128,6 @@ class InfoOk(IInfoOk):
         '''
         return self._info_ok is not None
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the InfoOk as string representation.

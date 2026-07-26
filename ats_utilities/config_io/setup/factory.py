@@ -22,9 +22,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import override
 
-from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.config_io.setup.dependencies import ConfigIOOptions, ConfigIODependencies
 from ats_utilities.config_io.setup.registry import ConfigIORegistry
@@ -34,17 +32,17 @@ from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ConfigIOFactory(IFactory[ConfigIOBundle, ConfigIOOptions]):
+class ConfigIOFactory:
     '''
         Factory for creating config I/O bundle instance.
 
@@ -55,7 +53,6 @@ class ConfigIOFactory(IFactory[ConfigIOBundle, ConfigIOOptions]):
     '''
 
     @classmethod
-    @override
     def create_default_bundle(cls, options: ConfigIOOptions) -> ConfigIOBundle:
         '''
             Creates a default config I/O bundle using configuration options.
@@ -76,13 +73,13 @@ class ConfigIOFactory(IFactory[ConfigIOBundle, ConfigIOOptions]):
                 | ATSTypeError: Scheme must be an instance of Mapping interface.
                 | ATSTypeError: Processor must be an instance of IConfigProcessor interface.
         '''
-        ctx: str = r'config_io_factory::create_default_bundle(...)'
-        not_none(options, ctx, r'options must be provided')
-        istype(options, dict, ctx, r'options must be a dictionary')
+        ctx: str = 'config_io_factory::create_default_bundle(...)'
+        not_none(options, ctx, 'options must be provided')
+        istype(options, dict, ctx, 'options must be a dictionary')
 
         context_bundle: ContextBundle = options.get('context_bundle')
-        not_none(context_bundle, ctx, r'context_bundle must be provided')
-        istype(context_bundle, ContextBundle, ctx, r'context_bundle must be a ContextBundle instance')
+        not_none(context_bundle, ctx, 'context_bundle must be provided')
+        istype(context_bundle, ContextBundle, ctx, 'context_bundle must be a ContextBundle instance')
 
         file_path: str = options.get('file_path', '')
         scheme: Mapping[str, str] = options.get('scheme', {})

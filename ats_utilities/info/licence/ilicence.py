@@ -22,19 +22,20 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ILicence(ABC):
+@runtime_checkable
+class ILicence(Protocol):
     '''
         Defines abstract class ILicence with method(s).
         Interface for the licence mechanism.
@@ -49,7 +50,6 @@ class ILicence(ABC):
     '''
 
     @property
-    @abstractmethod
     def licence(self) -> str | None:
         '''
             Property method for getting licence.
@@ -57,10 +57,9 @@ class ILicence(ABC):
 
             :return: The licence in string format | None.
         '''
-        pass
+        ...
 
     @licence.setter
-    @abstractmethod
     def licence(self, licence: str) -> None:
         '''
             Property method for setting licence.
@@ -68,9 +67,8 @@ class ILicence(ABC):
 
             :param licence: The licence in string format.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def not_none(self) -> bool:
         '''
             Checks if licence is not None.
@@ -78,13 +76,12 @@ class ILicence(ABC):
 
             :return: True if successfully, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the licence as string representation.
 
             :return: The licence as string representation.
         '''
-        pass
+        ...

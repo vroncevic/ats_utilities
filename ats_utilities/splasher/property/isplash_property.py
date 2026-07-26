@@ -22,21 +22,21 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
-from typing import Any
 from collections.abc import Mapping
+from typing import Any, Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ISplashProperty(ABC):
+@runtime_checkable
+class ISplashProperty(Protocol):
     '''
         Defines abstract class ISplashProperty with method(s).
         Interface for checking splash screen property.
@@ -51,7 +51,6 @@ class ISplashProperty(ABC):
     '''
 
     @property
-    @abstractmethod
     def splash_keys(self) -> Mapping[str, Any]:
         '''
             Property method for getting splash keys.
@@ -59,10 +58,9 @@ class ISplashProperty(ABC):
 
             :return: Formatted splash screen property in Mapping format (read only data).
         '''
-        pass
+        ...
 
     @splash_keys.setter
-    @abstractmethod
     def splash_keys(self, setup: Mapping[str, Any]) -> None:
         '''
             Property method for setting project splash keys.
@@ -70,9 +68,8 @@ class ISplashProperty(ABC):
 
             :param setup: Project splash keys in Mapping format (read only data).
         '''
-        pass
+        ...
 
-    @abstractmethod
     def validates(self) -> bool:
         '''
             Validates splash keys.
@@ -80,13 +77,12 @@ class ISplashProperty(ABC):
 
             :return: True (success) else False (fail).
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the splash keys as string representation.
 
             :return: The splash keys as string representation.
         '''
-        pass
+        ...

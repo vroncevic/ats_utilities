@@ -56,19 +56,19 @@ class DummyParser(IArgParser):
         return self._context
 
     def error(self, message: str) -> Any:
-        pass
+        ...
 
     def add_argument(self, *args: Any, **kwargs: Any) -> None:
-        pass
+        ...
 
     def add_subparsers(self, *args: Any, **kwargs: Any) -> Any:
-        pass
+        ...
 
     def parse_args(self, *args: Any, **kwargs: Any) -> Any:
-        pass
+        ...
 
     def parse_known_args(self, *args: Any, **kwargs: Any) -> Any:
-        pass
+        ...
 
     def __str__(self) -> str:
         return "DummyParser"

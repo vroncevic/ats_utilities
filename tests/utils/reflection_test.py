@@ -156,7 +156,7 @@ class ReflectionTest(unittest.TestCase):
             :exceptions: None.
         '''
         class EmptyClass:
-            pass
+            ...
 
         instance = EmptyClass()
         expected = f"EmptyClass at 0x{id(instance):x}"
@@ -225,7 +225,7 @@ class ReflectionTest(unittest.TestCase):
             Tests instance_to_dict raises ATSAttributeError when instance is not a dataclass.
         '''
         class NonDataclass:
-            pass
+            ...
 
         with self.assertRaises((ATSAttributeError, ATSValueError)):
             instance_to_dict(NonDataclass())

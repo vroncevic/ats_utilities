@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import override
+
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
@@ -31,14 +31,14 @@ from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 class ConfigIOValidator(IValidator[ConfigIOBundle]):
@@ -52,7 +52,6 @@ class ConfigIOValidator(IValidator[ConfigIOBundle]):
     '''
 
     @classmethod
-    @override
     def validate(cls, bundle: ConfigIOBundle) -> None:
         '''
             Validates config I/O bundle instance.
@@ -70,17 +69,17 @@ class ConfigIOValidator(IValidator[ConfigIOBundle]):
                 | ATSTypeError: Processor must be an instance of IConfigProcessor interface.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle interface.
         '''
-        ctx: str = r'config_io_validator::validate(...)'
+        ctx: str = 'config_io_validator::validate(...)'
 
-        not_none(bundle, ctx, r'bundle must be provided')
-        istype(bundle, ConfigIOBundle, ctx, r'bundle must be an instance of ConfigIOBundle')
+        not_none(bundle, ctx, 'bundle must be provided')
+        istype(bundle, ConfigIOBundle, ctx, 'bundle must be an instance of ConfigIOBundle')
 
-        not_none(bundle.file_path, ctx, r'file path must be provided')
-        not_none(bundle.scheme, ctx, r'scheme must be provided')
-        not_none(bundle.processor, ctx, r'processor must be provided')
-        not_none(bundle.context_bundle, ctx, r'context bundle must be provided')
+        not_none(bundle.file_path, ctx, 'file path must be provided')
+        not_none(bundle.scheme, ctx, 'scheme must be provided')
+        not_none(bundle.processor, ctx, 'processor must be provided')
+        not_none(bundle.context_bundle, ctx, 'context bundle must be provided')
 
-        istype(bundle.file_path, str, ctx, r'file path must be a string')
-        istype(bundle.scheme, Mapping, ctx, r'scheme must be an instance of Mapping interface')
-        istype(bundle.processor, IConfigProcessor, ctx, r'processor must be an instance of IConfigProcessor interface')
-        istype(bundle.context_bundle, ContextBundle, ctx, r'context bundle must be an instance of ContextBundle interface')
+        istype(bundle.file_path, str, ctx, 'file path must be a string')
+        istype(bundle.scheme, Mapping, ctx, 'scheme must be an instance of Mapping interface')
+        istype(bundle.processor, IConfigProcessor, ctx, 'processor must be an instance of IConfigProcessor interface')
+        istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be an instance of ContextBundle interface')

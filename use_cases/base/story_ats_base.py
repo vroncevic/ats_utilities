@@ -21,20 +21,20 @@ Info
 
 from logging import INFO, WARNING
 from os.path import dirname, realpath
-from typing import override
+
 
 from ats_utilities.base.engine import Base
 from ats_utilities.base.setup.factory import BaseFactory
 from ats_utilities.context.factory import ContextFactory
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 class MyTool(Base):
     '''Concrete implementation of Base for use case illustration.'''
@@ -58,7 +58,6 @@ class MyTool(Base):
         my_logger.write_log('MyTool initialized successfully', INFO)
         my_reporter.success(['MyTool initialized successfully (Reporter Success)'])
 
-    @override
     def process(self, verbose: bool = True) -> bool:
         context = self.get_shared_context()
         context.logger.write_log(f'Processing starting, verbose: {verbose}', INFO)

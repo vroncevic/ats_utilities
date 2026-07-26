@@ -21,26 +21,23 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.info.setup.bundle import InfoBundle
 from ats_utilities.info.setup.dependencies import InfoDependencies
 from ats_utilities.info.setup.dep_validator import InfoDependenciesValidator
 from ats_utilities.info.setup.validator import InfoValidator
 from ats_utilities.info.setup.keys import InfoKeys
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class InfoRegistry(IRegistry[InfoBundle, InfoDependencies]):
+class InfoRegistry:
     '''
         Encapsulates core runtime components for simplification of info bundle creation.
 
@@ -51,7 +48,6 @@ class InfoRegistry(IRegistry[InfoBundle, InfoDependencies]):
     '''
 
     @classmethod
-    @override
     def create_bundle(cls, dependencies: InfoDependencies) -> InfoBundle:
         '''
             Orchestrates dependency injection and creates an info bundle instance.

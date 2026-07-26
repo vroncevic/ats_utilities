@@ -22,26 +22,23 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.info.repository.irepository import IRepository
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class Repository(IRepository):
+class Repository:
     '''
         Defines class Repository with attribute(s) and method(s).
         Provides an API for the repository in one property object.
@@ -84,7 +81,6 @@ class Repository(IRepository):
 
     @property
     @vreport('getting repository {repository}')
-    @override
     def repository(self) -> str | None:
         '''
             Property method for getting repository.
@@ -101,7 +97,6 @@ class Repository(IRepository):
     @repository.setter
     @mcheck([('str:repository', None)])
     @vreport('setting repository {repository}')
-    @override
     def repository(self, repository: str) -> None:
         '''
             Property method for setting repository.
@@ -120,7 +115,6 @@ class Repository(IRepository):
         self._repository = repository
 
     @vreport('checking repository {repository}')
-    @override
     def not_none(self) -> bool:
         '''
             Checks is repository not None.
@@ -134,7 +128,6 @@ class Repository(IRepository):
         '''
         return self._repository is not None
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the Repository as string representation.

@@ -23,31 +23,29 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import override
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.generator.setup.bundle import GeneratorBundle
 from ats_utilities.generator.data import GeneratorData
 from ats_utilities.generator.data_validator import GeneratorDataValidator
-from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.itar_processor import ITarProcessor
 from ats_utilities.generator.tar.data import TarData
 from ats_utilities.validation.check_value import not_satisfied, not_empty, not_none
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class Generator(IGenerator[ContextBundle]):
+class Generator:
     '''
         Defines class Generator with attribute(s) and method(s).
         Template-based file generation from .tgz archives.
@@ -99,7 +97,6 @@ class Generator(IGenerator[ContextBundle]):
         self._tar_processor = own.tar_processor
         self._is_initialized = True
 
-    @override
     def get_context(self) -> ContextBundle:
         '''
             Returns the context.
@@ -109,7 +106,6 @@ class Generator(IGenerator[ContextBundle]):
         '''
         return self._context
 
-    @override
     def prepare_template_values(self, template_values: Mapping[str, str]) -> dict[str, str]:
         '''
             Validates and computes name case variations from template values.
@@ -139,7 +135,6 @@ class Generator(IGenerator[ContextBundle]):
 
         return values
 
-    @override
     def generate(self, data: GeneratorData) -> bool:
         '''
             Generates project modules/files from a .tgz archive.
@@ -168,7 +163,7 @@ class Generator(IGenerator[ContextBundle]):
         GeneratorDataValidator.validate(data)
         resolved_scheme = self._scheme_loader.load(data.scheme)
         project_scheme = resolved_scheme.get(data.template_key)
-        ctx: str = r'generator::generate(...)'
+        ctx: str = 'generator::generate(...)'
         not_satisfied(
             not project_scheme, ctx,
             f'template_key {data.template_key} not found in scheme configuration'
@@ -199,7 +194,6 @@ class Generator(IGenerator[ContextBundle]):
         except Exception as exc:
             not_satisfied(True, ctx, f'generation failed {exc}')
 
-    @override
     def is_initialized(self) -> bool:
         '''
             Checks if generator component is initialized.
@@ -213,7 +207,6 @@ class Generator(IGenerator[ContextBundle]):
             self._tar_processor.is_initialized()
         ])
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of Generator.

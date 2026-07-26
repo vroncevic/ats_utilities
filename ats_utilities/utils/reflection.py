@@ -32,14 +32,14 @@ from dataclasses import is_dataclass
 from ats_utilities.validation.check_value import not_none, not_satisfied
 from ats_utilities.validation.context_error import raise_error
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 def get_pvt(instance: Any, attr_name: str) -> Any:
@@ -146,8 +146,8 @@ def instance_to_dict(instance: Any) -> dict[str, Any]:
             | ATSValueError: Instance must be provided.
             | ATSValueError: Instance must be a dataclass instance.
     '''
-    ctx: str = r'reflection::instance_to_dict(...)'
-    not_none(instance, ctx, r'instance must be provided')
-    not_satisfied(not is_dataclass(instance), ctx, r'instance must be a dataclass instance')
+    ctx: str = 'reflection::instance_to_dict(...)'
+    not_none(instance, ctx, 'instance must be provided')
+    not_satisfied(not is_dataclass(instance), ctx, 'instance must be a dataclass instance')
 
     return {field: getattr(instance, field) for field in instance.__dataclass_fields__}

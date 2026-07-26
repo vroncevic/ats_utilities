@@ -144,7 +144,7 @@ class StrategyDataTest(unittest.TestCase):
     def test_validation_invalid_parser_subclass(self) -> None:
         """Tests StrategyDataValidator with class that is not subclass of IArgParser."""
         class DummyClass:
-            pass
+            ...
 
         with self.assertRaises(ATSValueError):
             StrategyDataValidator.validate(

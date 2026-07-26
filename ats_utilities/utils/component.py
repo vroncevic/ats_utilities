@@ -29,14 +29,14 @@ from typing import Any
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.validation.context_error import raise_error
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 def make_component(
@@ -49,7 +49,7 @@ def make_component(
 
         :param passed_obj: An existing component instance or None.
         :param default_class: The class to instantiate if passed_obj is None.
-        :param factory_args: Arguments to pass to the default_class constructor | None.
+        :param factory_args: Arguments to ... to the default_class constructor | None.
         :return: An instance of the component.
         :exceptions: None.
     '''

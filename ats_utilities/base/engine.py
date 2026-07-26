@@ -23,10 +23,10 @@ Info
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import Any, override
+from typing import Any
 
 from ats_utilities.base.setup.bundle import BaseBundle
-from ats_utilities.base.ibase import ArgSeq, IBase
+from ats_utilities.base.ibase import ArgSeq
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.igenerator import IGenerator
@@ -38,17 +38,17 @@ from ats_utilities.utils.reflection import to_str, has_attrs
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class Base(IBase[ContextBundle]):
+class Base:
     '''
         Defines class Base with attribute(s) and method(s).
         Provides an API for setup (App/Tool/Script).
@@ -123,7 +123,6 @@ class Base(IBase[ContextBundle]):
             component is not None and component.is_initialized() for component in components
         )
 
-    @override
     def get_context(self) -> ContextBundle:
         '''
             Returns the context.
@@ -133,7 +132,6 @@ class Base(IBase[ContextBundle]):
         '''
         return self._context
 
-    @override
     def is_initialized(self) -> bool:
         '''
             Checks if App/Tool/Script base engine is initialized.
@@ -144,7 +142,6 @@ class Base(IBase[ContextBundle]):
         return self._is_initialized
 
     @has_attrs('_options_parser')
-    @override
     def add_new_option(self, *args: str, **kwargs: Any) -> None:
         '''
             Adds a new option for App/Tool/Script.
@@ -158,7 +155,6 @@ class Base(IBase[ContextBundle]):
             self._options_parser.add_operation(*args, **kwargs)
 
     @has_attrs('_options_parser')
-    @override
     def parse_args(self, argv: ArgSeq) -> OptionNamespace | None:
         '''
             Parses App/Tool/Script arguments.
@@ -173,7 +169,6 @@ class Base(IBase[ContextBundle]):
 
         return None
 
-    @abstractmethod
     def process(self, verbose: bool = False) -> bool:
         '''
             Processes and runs App/Tool/Script (Abstract).
@@ -182,9 +177,8 @@ class Base(IBase[ContextBundle]):
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the Base as string representation.

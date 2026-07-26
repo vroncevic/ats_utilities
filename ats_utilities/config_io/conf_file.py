@@ -24,7 +24,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, override
+from typing import Any
 
 from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.config_io.data import FileData
@@ -37,14 +37,14 @@ from ats_utilities.utils.files import check_file_exists
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 class ConfFile(IConfFile):
@@ -89,7 +89,6 @@ class ConfFile(IConfFile):
         self._file_mode = file_data.file_mode
 
     @vreport('open file {file_path} with mode {file_mode}')
-    @override
     def __enter__(self) -> File:
         '''
             Opens configuration file in mode.
@@ -117,7 +116,6 @@ class ConfFile(IConfFile):
         return self._file
 
     @vreport('close file {file_path}')
-    @override
     def __exit__(self, *args: tuple[Any, ...], **kwargs: Mapping[Any, Any]) -> None:
         '''
             Closes configuration file.
@@ -134,11 +132,10 @@ class ConfFile(IConfFile):
                 self._file.close()
 
         except Exception:
-            pass
+            ...
         finally:
             self._file = None
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the ConfFile as string representation.

@@ -309,8 +309,8 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   │   ├── dep_validator.py
          │   │   ├── dependencies.py
          │   │   ├── factory.py
-         │   │   ├── info_keys.py
          │   │   ├── __init__.py
+         │   │   ├── keys.py
          │   │   ├── opt_validator.py
          │   │   ├── options.py
          │   │   ├── registry.py
@@ -602,7 +602,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/info/build_date/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/build_date/engine.py` | 41 | 0 | 100%|
 | `ats_utilities/info/build_date/ibuild_date.py` | 11 | 0 | 100%|
-| `ats_utilities/info/engine.py` | 77 | 0 | 100%|
+| `ats_utilities/info/engine.py` | 105 | 63 | 32%|
 | `ats_utilities/info/iinfo_manager.py` | 11 | 0 | 100%|
 | `ats_utilities/info/info_ok/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/info_ok/engine.py` | 41 | 0 | 100%|
@@ -627,14 +627,14 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/info/repository/irepository.py` | 11 | 0 | 100%|
 | `ats_utilities/info/setup/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/setup/bundle.py` | 38 | 0 | 100%|
-| `ats_utilities/info/setup/dep_validator.py` | 36 | 36 | 0%|
+| `ats_utilities/info/setup/dep_validator.py` | 35 | 15 | 47%|
 | `ats_utilities/info/setup/dependencies.py` | 33 | 0 | 100%|
-| `ats_utilities/info/setup/factory.py` | 65 | 0 | 100%|
-| `ats_utilities/info/setup/info_keys.py` | 44 | 2 | 95%|
-| `ats_utilities/info/setup/opt_validator.py` | 31 | 31 | 0%|
+| `ats_utilities/info/setup/factory.py` | 41 | 17 | 49%|
+| `ats_utilities/info/setup/keys.py` | 109 | 20 | 82%|
+| `ats_utilities/info/setup/opt_validator.py` | 37 | 17 | 44%|
 | `ats_utilities/info/setup/options.py` | 15 | 0 | 100%|
-| `ats_utilities/info/setup/registry.py` | 21 | 0 | 100%|
-| `ats_utilities/info/setup/validator.py` | 54 | 0 | 100%|
+| `ats_utilities/info/setup/registry.py` | 24 | 4 | 83%|
+| `ats_utilities/info/setup/validator.py` | 60 | 0 | 100%|
 | `ats_utilities/info/use_github/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/use_github/engine.py` | 41 | 0 | 100%|
 | `ats_utilities/info/use_github/iuse_github.py` | 11 | 0 | 100%|
@@ -666,7 +666,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/option/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/command/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/command/data.py` | 27 | 0 | 100%|
-| `ats_utilities/option/command/data_validator.py` | 34 | 0 | 98%|
+| `ats_utilities/option/command/data_validator.py` | 34 | 0 | 93%|
 | `ats_utilities/option/command/ioption_command.py` | 12 | 0 | 100%|
 | `ats_utilities/option/engine.py` | 68 | 0 | 100%|
 | `ats_utilities/option/ioption_manager.py` | 16 | 0 | 100%|
@@ -674,7 +674,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/option/parser/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/parser/data.py` | 21 | 0 | 100%|
 | `ats_utilities/option/parser/data_validator.py` | 30 | 0 | 100%|
-| `ats_utilities/option/parser/engine.py` | 44 | 0 | 100%|
+| `ats_utilities/option/parser/engine.py` | 44 | 1 | 96%|
 | `ats_utilities/option/parser/iarg_parser.py` | 13 | 0 | 100%|
 | `ats_utilities/option/setup/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/setup/bundle.py` | 22 | 0 | 100%|
@@ -688,7 +688,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/option/strategy/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/strategy/data.py` | 23 | 0 | 100%|
 | `ats_utilities/option/strategy/data_validator.py` | 31 | 0 | 100%|
-| `ats_utilities/option/strategy/engine.py` | 93 | 0 | 100%|
+| `ats_utilities/option/strategy/engine.py` | 93 | 33 | 53%|
 | `ats_utilities/option/strategy/iparser_strategy.py` | 16 | 0 | 100%|
 | `ats_utilities/reporter/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/reporter/engine.py` | 67 | 14 | 72%|
@@ -756,7 +756,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/validation/check_type.py` | 37 | 0 | 100%|
 | `ats_utilities/validation/check_value.py` | 26 | 0 | 100%|
 | `ats_utilities/validation/context_error.py` | 14 | 0 | 100%|
-| **Total** | 7442 | 259 | 95% |
+| **Total** | 7525 | 360 | 93% |
 
 </details>
 

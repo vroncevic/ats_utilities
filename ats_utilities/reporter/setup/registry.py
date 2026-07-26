@@ -21,26 +21,23 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.reporter.setup.dependencies import ReporterDependencies
 from ats_utilities.reporter.setup.keys import ReporterKeys
 from ats_utilities.reporter.setup.validator import ReporterValidator
 from ats_utilities.reporter.setup.dep_validator import ReporterDependenciesValidator
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ReporterRegistry(IRegistry[ReporterBundle, ReporterDependencies]):
+class ReporterRegistry:
     '''
         Encapsulates core runtime components for simplification of reporter bundle creation.
 
@@ -51,7 +48,6 @@ class ReporterRegistry(IRegistry[ReporterBundle, ReporterDependencies]):
     '''
 
     @classmethod
-    @override
     def create_bundle(cls, dependencies: ReporterDependencies) -> ReporterBundle:
         '''
             Orchestrates dependency injection and creates a reporter bundle instance.

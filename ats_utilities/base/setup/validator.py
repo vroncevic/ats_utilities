@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from typing import override
+
 
 from ats_utilities.base.setup.bundle import BaseBundle
 from ats_utilities.config_io.loader.iloader import ILoader
@@ -34,14 +34,14 @@ from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 class BaseValidator(IValidator[BaseBundle]):
@@ -55,7 +55,6 @@ class BaseValidator(IValidator[BaseBundle]):
     '''
 
     @classmethod
-    @override
     def validate(cls, bundle: BaseBundle) -> None:
         '''
             Validates base bundle instance.
@@ -80,24 +79,24 @@ class BaseValidator(IValidator[BaseBundle]):
                 | ATSTypeError: Generator must be an instance of IGenerator or None.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        ctx: str = r'base_validator::validate(...)'
+        ctx: str = 'base_validator::validate(...)'
 
-        not_none(bundle, ctx, r'bundle must be provided')
-        istype(bundle, BaseBundle, ctx, r'bundle must be an instance of BaseBundle')
+        not_none(bundle, ctx, 'bundle must be provided')
+        istype(bundle, BaseBundle, ctx, 'bundle must be an instance of BaseBundle')
 
-        not_none(bundle.info_file, ctx, r'information file must be provided')
-        not_none(bundle.config_loader, ctx, r'config loader must be provided')
-        not_none(bundle.info_manager, ctx, r'info manager must be provided')
-        not_none(bundle.options_parser, ctx, r'options parser must be provided')
-        not_none(bundle.splasher, ctx, r'splasher must be provided')
-        not_none(bundle.use_generator, ctx, r'use_generator must be provided')
-        not_none(bundle.context_bundle, ctx, r'context bundle must be provided')
+        not_none(bundle.info_file, ctx, 'information file must be provided')
+        not_none(bundle.config_loader, ctx, 'config loader must be provided')
+        not_none(bundle.info_manager, ctx, 'info manager must be provided')
+        not_none(bundle.options_parser, ctx, 'options parser must be provided')
+        not_none(bundle.splasher, ctx, 'splasher must be provided')
+        not_none(bundle.use_generator, ctx, 'use_generator must be provided')
+        not_none(bundle.context_bundle, ctx, 'context bundle must be provided')
 
-        istype(bundle.info_file, str, ctx, r'information file must be str')
-        istype(bundle.config_loader, ILoader, ctx, r'config loader must be an ILoader interface')
-        istype(bundle.info_manager, IInfoManager, ctx, r'info manager must be an IInfoManager interface')
-        istype(bundle.options_parser, IOptionManager, ctx, r'options parser must be an IOptionManager interface')
-        istype(bundle.splasher, ISplasher, ctx, r'splasher must be an ISplasher interface')
-        istype(bundle.use_generator, bool, ctx, r'use generator flag must be a bool')
-        istype(bundle.generator, (IGenerator, type(None)), ctx, r'generator must be an IGenerator interface or None')
-        istype(bundle.context_bundle, ContextBundle, ctx, r'context bundle must be a ContextBundle instance')
+        istype(bundle.info_file, str, ctx, 'information file must be str')
+        istype(bundle.config_loader, ILoader, ctx, 'config loader must be an ILoader interface')
+        istype(bundle.info_manager, IInfoManager, ctx, 'info manager must be an IInfoManager interface')
+        istype(bundle.options_parser, IOptionManager, ctx, 'options parser must be an IOptionManager interface')
+        istype(bundle.splasher, ISplasher, ctx, 'splasher must be an ISplasher interface')
+        istype(bundle.use_generator, bool, ctx, 'use generator flag must be a bool')
+        istype(bundle.generator, (IGenerator, type(None)), ctx, 'generator must be an IGenerator interface or None')
+        istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')

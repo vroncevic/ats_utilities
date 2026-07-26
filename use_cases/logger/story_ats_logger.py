@@ -55,13 +55,13 @@ class LoguruATSAdapter(ILogger):
         return True
 
     def set_level(self, level: int) -> None:
-        pass
+        ...
 
     def set_log_file(self, log_file: str) -> None:
-        pass
+        ...
 
     def stop_buffering(self) -> None:
-        pass
+        ...
 
     def __str__(self) -> str:
         return 'LoguruATSAdapter'

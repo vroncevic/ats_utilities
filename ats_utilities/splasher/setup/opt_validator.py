@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import override
+
 
 from ats_utilities.splasher.setup.options import SplashOptions
 from ats_utilities.context.bundle import ContextBundle
@@ -30,14 +30,14 @@ from ats_utilities.utils.setup.iopt_validator import IOptionsValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 class SplashOptionsValidator(IOptionsValidator[SplashOptions]):
@@ -51,7 +51,6 @@ class SplashOptionsValidator(IOptionsValidator[SplashOptions]):
     '''
 
     @classmethod
-    @override
     def validate(cls, options: SplashOptions) -> None:
         '''
             Validates splash options instance.
@@ -63,15 +62,15 @@ class SplashOptionsValidator(IOptionsValidator[SplashOptions]):
                 | ATSTypeError: Properties must be a Mapping.
                 | ATSTypeError: Context bundle must be a ContextBundle.
         '''
-        ctx: str = r'splash_options_validator::validate(...)'
+        ctx: str = 'splash_options_validator::validate(...)'
 
-        not_none(options, ctx, r'options must be provided')
-        istype(options, Mapping, ctx, r'options must be a Mapping')
+        not_none(options, ctx, 'options must be provided')
+        istype(options, Mapping, ctx, 'options must be a Mapping')
 
         prop = options.get('prop')
         if prop is not None:
-            istype(prop, Mapping, ctx, r'prop must be a Mapping')
+            istype(prop, Mapping, ctx, 'prop must be a Mapping')
 
         context_bundle = options.get('context_bundle')
-        not_none(context_bundle, ctx, r'context bundle must be provided')
-        istype(context_bundle, ContextBundle, ctx, r'context bundle must be an instance of ContextBundle')
+        not_none(context_bundle, ctx, 'context bundle must be provided')
+        istype(context_bundle, ContextBundle, ctx, 'context bundle must be an instance of ContextBundle')

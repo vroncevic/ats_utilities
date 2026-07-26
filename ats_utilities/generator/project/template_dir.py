@@ -22,25 +22,22 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.generator.project.itemplate_dir import ITemplateDir
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class TemplateDir(ITemplateDir):
+class TemplateDir:
     '''
         Defines class TemplateDir with attribute(s) and method(s).
         Defines project template directory container.
@@ -74,7 +71,6 @@ class TemplateDir(ITemplateDir):
 
     @property
     @vreport('getting template dir {template_dir}')
-    @override
     def template_dir(self) -> str:
         '''
             Property method for getting template dir.
@@ -90,7 +86,6 @@ class TemplateDir(ITemplateDir):
     @template_dir.setter
     @mcheck([('str:dir_path', None)])
     @vreport('getting template dir {template_dir}')
-    @override
     def template_dir(self, dir_path: str) -> None:
         '''
             Property method for setting project template dir.
@@ -108,7 +103,6 @@ class TemplateDir(ITemplateDir):
         self._template_dir = dir_path
 
     @vreport('checking template dir {template_dir}')
-    @override
     def not_none(self) -> bool:
         '''
             Checks project template dir is not None.
@@ -121,7 +115,6 @@ class TemplateDir(ITemplateDir):
         '''
         return self._template_dir is not None
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the ATS project template directory as string representation.

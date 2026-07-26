@@ -22,74 +22,94 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+from ats_utilities.checker.format.iformat_validator import IFormatValidator
+from ats_utilities.checker.type.itype_validator import ITypeValidator
+from ats_utilities.checker.context.icontext_provider import IContextProvider
+from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
+
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IChecker[ParametersSpecification, ValidationResult, ParameterFormat, SplitParameterResult](ABC):
+@runtime_checkable
+class IChecker[ParametersSpecification, ValidationResult](Protocol):
     '''
         Defines abstract class IChecker with method(s).
-        Provides an interface for checking parameters of method(s) or function(s).
+        Provides an interface for checking parameters used by method(s) or function(s).
 
         It defines:
 
             :methods:
-                | validates_parameters - Validates parameters for method(s) or function(s).
+                | get_format_validator - Returns the format validator used in validation of parameters.
+                | get_type_validator - Returns the type validator used in validation of parameters.
+                | get_context_provider - Returns the context provider used in validation of parameters.
+                | get_check_reporter - Returns the check reporter used in validation of parameters.
+                | validates_parameters - Validates parameters used by method(s) or function(s).
                 | is_initialized - Checks if checker component is initialized.
                 | __str__ - Returns checker as string representation.
     '''
 
-    @abstractmethod
+    def get_format_validator(self) -> IFormatValidator:
+        '''
+            Returns the format validator used in validation of parameters.
+
+            :return: Format validator used in validation of parameters.
+        '''
+        ...
+
+    def get_type_validator(self) -> ITypeValidator:
+        '''
+            Returns the type validator used in validation of parameters.
+
+            :return: Type validator used in validation of parameters.
+        '''
+        ...
+
+    def get_context_provider(self) -> IContextProvider:
+        '''
+            Returns the context provider used in validation of parameters.
+
+            :return: Context provider used in validation of parameters.
+        '''
+        ...
+
+    def get_check_reporter(self) -> ICheckReporter:
+        '''
+            Returns the check reporter used in validation of parameters.
+
+            :return: Check reporter used in validation of parameters.
+        '''
+        ...
+
     def validates_parameters(self, parameters: ParametersSpecification) -> ValidationResult:
         '''
-            Validates parameters for a method(s) or function(s).
+            Validates parameters used by method(s) or function(s).
 
-            :param parameters: Specification for parameters.
+            :param parameters: Specification of parameters.
             :return: Result of validation.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def split_parameter(self, parameter: ParameterFormat) -> SplitParameterResult:
-        '''
-            Splits a single parameter specification item.
-
-            :param parameter: Parameter specification item to be splitted.
-            :return: Result of splitting parameter specification item.
-        '''
-        pass
-
-    @abstractmethod
-    def get_separator(self) -> str:
-        '''
-            Returns the separator character used in parameter specifications.
-
-            :return: Separator character.
-        '''
-        pass
-
-    @abstractmethod
     def is_initialized(self) -> bool:
         '''
             Checks if checker component is initialized.
 
             :return: True if successfully, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns checker as string representation.
 
             :return: Checker as string representation.
         '''
-        pass
+        ...

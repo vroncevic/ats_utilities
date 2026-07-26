@@ -24,28 +24,27 @@ from __future__ import annotations
 
 from fcntl import ioctl
 from os import open, ctermid, close, O_RDONLY
-from typing import Any, override
+from typing import Any
 from termios import TIOCGWINSZ
 from struct import unpack, pack
 
-from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class TerminalProperties(ITerminalProperties):
+class TerminalProperties:
     '''
         Defines class TerminalProperties with attribute(s) and method(s).
         Provides an API for getting terminal properties.
@@ -88,7 +87,6 @@ class TerminalProperties(ITerminalProperties):
 
     @mcheck([('int:file_descriptor', None)])
     @vreport('ioctl get window size {window_size}')
-    @override
     def ioctl_get_window_size(self, file_descriptor: int) -> tuple[Any, ...]:
         '''
             Gets size for file descriptor.
@@ -109,7 +107,6 @@ class TerminalProperties(ITerminalProperties):
         return self._window_size
 
     @vreport('ioctl for all descriptors {window_size}')
-    @override
     def ioctl_for_all_descriptors(self) -> None:
         '''
             Tries to get and set terminal window size using standard file descriptors (0, 1, 2).
@@ -131,7 +128,6 @@ class TerminalProperties(ITerminalProperties):
                 continue
 
     @vreport('size {window_size}')
-    @override
     def size(self) -> tuple[Any, ...]:
         '''
             Gets terminal window size.
@@ -146,7 +142,7 @@ class TerminalProperties(ITerminalProperties):
             self.ioctl_for_all_descriptors()
 
         except OSError:
-            pass
+            ...
 
         try:
             file_descriptor: int = open(ctermid(), O_RDONLY)
@@ -162,7 +158,6 @@ class TerminalProperties(ITerminalProperties):
 
         return self._window_size
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of TerminalProperties.

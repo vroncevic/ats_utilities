@@ -19,31 +19,28 @@ Info
     Factory for creating checker bundle instance.
 '''
 
-from typing import override
-
-from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.checker.setup.bundle import CheckerBundle
 from ats_utilities.checker.setup.options import CheckerOptions
 from ats_utilities.checker.setup.keys import CheckerKeys
 from ats_utilities.checker.setup.registry import CheckerRegistry
 from ats_utilities.checker.setup.dependencies import CheckerDependencies
 from ats_utilities.checker.setup.opt_validator import CheckerOptionsValidator
-from ats_utilities.checker.format.format_validator import FormatValidator
-from ats_utilities.checker.type.type_validator import TypeValidator
-from ats_utilities.checker.context.context_provider import ContextProvider
-from ats_utilities.checker.reporter.check_reporter import CheckReporter
+from ats_utilities.checker.format.engine import FormatValidator
+from ats_utilities.checker.type.engine import TypeValidator
+from ats_utilities.checker.context.engine import ContextProvider
+from ats_utilities.checker.reporter.engine import CheckReporter
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class CheckerFactory(IFactory[CheckerBundle, CheckerOptions]):
+class CheckerFactory:
     '''
         Factory for creating checker bundle instance.
 
@@ -54,7 +51,6 @@ class CheckerFactory(IFactory[CheckerBundle, CheckerOptions]):
     '''
 
     @classmethod
-    @override
     def create_bundle(cls, options: CheckerOptions | None = None) -> CheckerBundle:
         '''
             Creates a checker bundle with optional pre-configured options.

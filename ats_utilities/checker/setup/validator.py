@@ -21,28 +21,25 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
 from ats_utilities.checker.setup.bundle import CheckerBundle
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
 from ats_utilities.checker.type.itype_validator import ITypeValidator
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
-from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class CheckerValidator(IValidator[CheckerBundle]):
+class CheckerValidator:
     '''
         Validator for checker bundle instance.
 
@@ -53,7 +50,6 @@ class CheckerValidator(IValidator[CheckerBundle]):
     '''
 
     @classmethod
-    @override
     def validate(cls, bundle: CheckerBundle) -> None:
         '''
             Validates checker bundle instance.
@@ -71,17 +67,17 @@ class CheckerValidator(IValidator[CheckerBundle]):
                 | ATSTypeError:  Format validator must be an instance of IFormatValidator.
                 | ATSTypeError:  Type validator must be an instance of ITypeValidator.
         '''
-        ctx: str = r'checker_validator::validate(...)'
+        ctx: str = 'checker_validator::validate(...)'
 
-        not_none(bundle, ctx, r'bundle must be provided')
-        istype(bundle, CheckerBundle, ctx, r'bundle must be an instance of CheckerBundle')
+        not_none(bundle, ctx, 'bundle must be provided')
+        istype(bundle, CheckerBundle, ctx, 'bundle must be an instance of CheckerBundle')
 
-        not_none(bundle.context_provider, ctx, r'context provider must be provided')
-        not_none(bundle.check_reporter, ctx, r'check reporter must be provided')
-        not_none(bundle.format_validator, ctx, r'format validator must be provided')
-        not_none(bundle.type_validator, ctx, r'type validator must be provided')
+        not_none(bundle.context_provider, ctx, 'context provider must be provided')
+        not_none(bundle.check_reporter, ctx, 'check reporter must be provided')
+        not_none(bundle.format_validator, ctx, 'format validator must be provided')
+        not_none(bundle.type_validator, ctx, 'type validator must be provided')
 
-        istype(bundle.context_provider, IContextProvider, ctx, r'context provider must be an instance of IContextProvider')
-        istype(bundle.check_reporter, ICheckReporter, ctx, r'check reporter must be an instance of ICheckReporter')
-        istype(bundle.format_validator, IFormatValidator, ctx, r'format validator must be an instance of IFormatValidator')
-        istype(bundle.type_validator, ITypeValidator, ctx, r'type validator must be an instance of ITypeValidator')
+        istype(bundle.context_provider, IContextProvider, ctx, 'context provider must be an instance of IContextProvider')
+        istype(bundle.check_reporter, ICheckReporter, ctx, 'check reporter must be an instance of ICheckReporter')
+        istype(bundle.format_validator, IFormatValidator, ctx, 'format validator must be an instance of IFormatValidator')
+        istype(bundle.type_validator, ITypeValidator, ctx, 'type validator must be an instance of ITypeValidator')

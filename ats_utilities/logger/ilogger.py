@@ -22,7 +22,7 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -34,7 +34,8 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ILogger(ABC):
+@runtime_checkable
+class ILogger[ConfigType, MesssageType, LogLevelType](Protocol):
     '''
         Defines abstract class ILogger with attribute(s) and method(s).
         Provides an interface for the logger.
@@ -42,73 +43,54 @@ class ILogger(ABC):
         It defines:
 
             :methods:
+                | get_bundle - Gets current logger configuration bundle.
+                | update_bundle - Updates logger configuration bundle.
                 | write_log - Writes message to log output.
                 | is_initialized - Checks if logger is initialized.
-                | set_level - Sets log level.
-                | set_log_file - Sets log file.
-                | set_stdout - Sets log output to standard output (stdout).
-                | set_stderr - Sets log output to standard error (stderr).
                 | stop_buffering - Stops log buffering.
                 | __str__ - Returns the logger as string representation.
     '''
 
-    @abstractmethod
-    def write_log(self, message: str, ctrl: int) -> None:
+    def get_bundle(self) -> ConfigType:
+        '''
+            Gets current logger configuration bundle.
+
+            :return: LoggerBundle containing current logger setup.
+            :exceptions: None.
+        '''
+        ...
+
+    def update_bundle(self, bundle: ConfigType) -> bool:
+        '''
+            Updates logger configuration bundle.
+
+            :param bundle: LoggerBundle containing current logger setup.
+            :exceptions: None.
+        '''
+        ...
+
+    def write_log(self, message: MesssageType, ctrl: LogLevelType) -> None:
         '''
             Writes message to log output.
 
             :param message: Log message.
             :param ctrl: Log control flag.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def is_initialized(self) -> bool:
         '''
             Checks if logger is initialized.
 
             :return: True if successfully, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def set_level(self, level: int) -> None:
-        '''
-            Sets log level.
-
-            :param level: Log level.
-        '''
-        pass
-
-    @abstractmethod
-    def set_log_file(self, log_file: str) -> None:
-        '''
-            Sets log file.
-
-            :param log_file: Log file path.
-        '''
-        pass
-
-    @abstractmethod
-    def set_stdout(self) -> None:
-        '''
-            Sets log output to standard output (stdout).
-        '''
-        pass
-
-    @abstractmethod
-    def set_stderr(self) -> None:
-        '''
-            Sets log output to standard error (stderr).
-        '''
-        pass
-
-    @abstractmethod
     def stop_buffering(self) -> None:
         '''
             Stops log buffering.
         '''
-        pass
+        ...
 
     def __str__(self) -> str:
         '''
@@ -116,4 +98,4 @@ class ILogger(ABC):
 
             :return: The logger as string representation.
         '''
-        pass
+        ...

@@ -23,9 +23,8 @@ Info
 
 from __future__ import annotations
 
-from typing import override, Any
+from typing import Any
 
-from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.config_io.iconf_file import IConfFile
@@ -36,17 +35,17 @@ from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class Loader(ILoader[ContextBundle]):
+class Loader:
     '''
         Provides an API for loading configuration from file and deploying as object.
         2nd level of configuration loader implementation.
@@ -68,7 +67,6 @@ class Loader(ILoader[ContextBundle]):
     _processor: IConfigProcessor
     _conf_file: IConfFile
 
-    @override
     def __init__(self, own: ConfigIOBundle) -> None:
         '''
             Constructor.
@@ -100,7 +98,6 @@ class Loader(ILoader[ContextBundle]):
             )
         )
 
-    @override
     def get_context(self) -> ContextBundle:
         '''
             Returns the context.
@@ -110,7 +107,6 @@ class Loader(ILoader[ContextBundle]):
         '''
         return self._context
 
-    @override
     def load_configuration(self) -> dict[str, Any]:
         '''
             Loads configuration from file and returns dictionary with configuration content.
@@ -136,7 +132,6 @@ class Loader(ILoader[ContextBundle]):
 
         return {}
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the Loader as string representation.

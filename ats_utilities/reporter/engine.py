@@ -24,9 +24,8 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from logging import DEBUG, INFO, WARNING, ERROR
-from typing import Any, override
+from typing import Any
 
-from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.reporter.setup.validator import ReporterValidator
 from ats_utilities.checker.ichecker import IChecker
@@ -36,17 +35,17 @@ from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.utils.reflection import to_str
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class Reporter(IReporter[Sequence[Any]]):
+class Reporter:
     '''
         Defines class Reporter with attribute(s) and method(s).
         Implements an API for reporting messages to the console.
@@ -108,7 +107,6 @@ class Reporter(IReporter[Sequence[Any]]):
             self._logger.write_log(f'{color}{message_out}{reset}', ctrl)
 
     @mcheck([('bool:is_verbose', None), ('Sequence:message', None)])
-    @override
     def verbose(self, is_verbose: bool, message: Sequence[Any]) -> None:
         '''
             Reports verbose message to console.
@@ -125,7 +123,6 @@ class Reporter(IReporter[Sequence[Any]]):
             self._report(message, self._theme.get_color(MessageKey.VERBOSE), DEBUG)
 
     @mcheck([('Sequence:message', None)])
-    @override
     def success(self, message: Sequence[Any]) -> None:
         '''
             Reports success message to console.
@@ -140,7 +137,6 @@ class Reporter(IReporter[Sequence[Any]]):
         self._report(message, self._theme.get_color(MessageKey.SUCCESS), INFO)
 
     @mcheck([('Sequence:message', None)])
-    @override
     def warning(self, message: Sequence[Any]) -> None:
         '''
             Reports warning message to console.
@@ -155,7 +151,6 @@ class Reporter(IReporter[Sequence[Any]]):
         self._report(message, self._theme.get_color(MessageKey.WARNING), WARNING)
 
     @mcheck([('Sequence:message', None)])
-    @override
     def error(self, message: Sequence[Any]) -> None:
         '''
             Reports error message to console.
@@ -170,7 +165,6 @@ class Reporter(IReporter[Sequence[Any]]):
         self._report(message, self._theme.get_color(MessageKey.ERROR), ERROR)
 
     @mcheck([('int:level', None)])
-    @override
     def set_level(self, level: int) -> None:
         '''
             Sets log level.
@@ -187,7 +181,6 @@ class Reporter(IReporter[Sequence[Any]]):
         elif hasattr(self._logger, 'setLevel'):
             self._logger.setLevel(level)
 
-    @override
     def is_initialized(self) -> bool:
         '''
             Checks if reporter is initialized.
@@ -197,7 +190,6 @@ class Reporter(IReporter[Sequence[Any]]):
         '''
         return self._is_initialized
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the reporter as string representation.

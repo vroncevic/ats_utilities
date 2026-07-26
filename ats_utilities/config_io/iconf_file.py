@@ -23,25 +23,26 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 from collections.abc import Mapping
 from io import TextIOBase
 from typing import Any
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 # Optional bytes, str IO type
 type File = TextIOBase | None
 
 
-class IConfFile(ABC):
+@runtime_checkable
+class IConfFile(Protocol):
     '''
         Defines abstract class IConfFile with method(s).
         Provides an interface for configuration file context manager.
@@ -55,7 +56,6 @@ class IConfFile(ABC):
                 | __str__ - Returns the file context manager instance as string representation.
     '''
 
-    @abstractmethod
     def __enter__(self) -> File | None:
         '''
             Opens configuration context manager and opens the file.
@@ -63,9 +63,8 @@ class IConfFile(ABC):
             :return: File IO object | None.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __exit__(self, *args: tuple[Any, ...], **kwargs: Mapping[Any, Any]) -> None:
         '''
             Closes configuration context manager and closes the file.
@@ -74,9 +73,8 @@ class IConfFile(ABC):
             :param kwargs: Mapping of arguments.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the IConfFile as string representation.
@@ -84,4 +82,4 @@ class IConfFile(ABC):
             :return: The IConfFile as string representation.
             :exceptions: None.
         '''
-        pass
+        ...

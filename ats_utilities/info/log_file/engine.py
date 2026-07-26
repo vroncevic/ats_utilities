@@ -22,26 +22,23 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.info.log_file.ilog_file import ILogFile
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class LogFile(ILogFile):
+class LogFile:
     '''
         Defines class LogFile with attribute(s) and method(s).
         Provides an API for the log file path in one property object.
@@ -84,7 +81,6 @@ class LogFile(ILogFile):
 
     @property
     @vreport('getting log file {log_file}')
-    @override
     def log_file(self) -> str | None:
         '''
             Property method for getting log file path.
@@ -101,7 +97,6 @@ class LogFile(ILogFile):
     @log_file.setter
     @mcheck([('str:log_file', None)])
     @vreport('setting log file {log_file}')
-    @override
     def log_file(self, log_file: str) -> None:
         '''
             Property method for setting log file path.
@@ -120,7 +115,6 @@ class LogFile(ILogFile):
         self._log_file = log_file
 
     @vreport('checking log file {log_file}')
-    @override
     def not_none(self) -> bool:
         '''
             Checks is log file path not None.
@@ -134,7 +128,6 @@ class LogFile(ILogFile):
         '''
         return self._log_file is not None
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the LogFile as string representation.

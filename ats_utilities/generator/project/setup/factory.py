@@ -22,9 +22,8 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, override
+from typing import Any
 
-from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.generator.project.setup.bundle import ProjectBundle
 from ats_utilities.generator.project.setup.dependencies import (
     ProjectOptions, ProjectDependencies
@@ -37,17 +36,17 @@ from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ProjectFactory(IFactory[ProjectBundle, ProjectOptions]):
+class ProjectFactory:
     '''
         Factory for creating project bundle instance.
 
@@ -59,7 +58,6 @@ class ProjectFactory(IFactory[ProjectBundle, ProjectOptions]):
     '''
 
     @classmethod
-    @override
     def create_default_bundle(cls, options: ProjectOptions) -> ProjectBundle:
         '''
             Creates a default project bundle using configuration options.
@@ -82,17 +80,17 @@ class ProjectFactory(IFactory[ProjectBundle, ProjectOptions]):
                 | ATSTypeError: Project configuration must be an IProConfig instance.
                 | ATSTypeError: Template directory must be an ITemplateDir instance.
         '''
-        ctx: str = r'project_factory::create_default_bundle(...)'
-        not_none(options, ctx, r'options must be provided')
-        istype(options, dict, ctx, r'options must be a dictionary')
+        ctx: str = 'project_factory::create_default_bundle(...)'
+        not_none(options, ctx, 'options must be provided')
+        istype(options, dict, ctx, 'options must be a dictionary')
 
         setup: Mapping[str, Any] = options.get('setup')
         context_bundle: ContextBundle = options.get('context_bundle')
 
-        not_none(setup, ctx, r'setup must be provided')
-        istype(setup, Mapping, ctx, r'setup must be a Mapping instance')
-        not_none(context_bundle, ctx, r'context_bundle must be provided')
-        istype(context_bundle, ContextBundle, ctx, r'context_bundle must be ContextBundle instance')
+        not_none(setup, ctx, 'setup must be provided')
+        istype(setup, Mapping, ctx, 'setup must be a Mapping instance')
+        not_none(context_bundle, ctx, 'context_bundle must be provided')
+        istype(context_bundle, ContextBundle, ctx, 'context_bundle must be ContextBundle instance')
 
         pro_name = ProName(context_bundle=context_bundle)
         pro_name.pro_name = setup.get('pro_name')

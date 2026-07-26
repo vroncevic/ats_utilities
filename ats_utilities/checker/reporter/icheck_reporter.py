@@ -17,50 +17,49 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class ICheckReporter with method(s).
-    Provides an interface for formating message in context of checker.
+    Provides an interface for building a message in context of a checker.
 '''
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ICheckReporter[ReportData](ABC):
+@runtime_checkable
+class ICheckReporter[ReportDataType, ReportType](Protocol):
     '''
         Defines abstract class ICheckReporter with method(s).
-        Provides an interface for formating message in context of checker.
+        Provides an interface for building a message in context of a checker.
 
         It defines:
 
             :methods:
-                | build_message_format - Builds the final message.
-                | __str__ - Returns the check reporter as string representation.
+                | build_message - Builds a final message.
+                | __str__ - Returns check reporter as string representation.
     '''
 
-    @abstractmethod
-    def build_message_format(self, data: ReportData) -> str:
+    def build_message(self, data: ReportDataType) -> ReportType:
         '''
-            Builds the final message.
+            Builds a final message.
 
-            :param data: Data to be formatted.
-            :return: Formatted message.
+            :param data: Data to be processed and reported on.
+            :return: Reported message.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the check reporter as string representation.
+            Returns check reporter as string representation.
 
-            :return: The check reporter as string representation.
+            :return: Check reporter as string representation.
         '''
-        pass
+        ...

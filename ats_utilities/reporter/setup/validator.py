@@ -21,27 +21,24 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
 from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ReporterValidator(IValidator[ReporterBundle]):
+class ReporterValidator:
     '''
         Validator for reporter bundle instance.
 
@@ -52,7 +49,6 @@ class ReporterValidator(IValidator[ReporterBundle]):
     '''
 
     @classmethod
-    @override
     def validate(cls, bundle: ReporterBundle) -> None:
         '''
             Validates reporter bundle instance.
@@ -68,15 +64,15 @@ class ReporterValidator(IValidator[ReporterBundle]):
                 | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
                 | ATSTypeError: Logger must be an instance of ILogger interface.
         '''
-        ctx: str = r'reporter_validator::validate(...)'
+        ctx: str = 'reporter_validator::validate(...)'
 
-        not_none(bundle, ctx, r'bundle must be provided')
-        istype(bundle, ReporterBundle, ctx, r'bundle must be an instance of ReporterBundle')
+        not_none(bundle, ctx, 'bundle must be provided')
+        istype(bundle, ReporterBundle, ctx, 'bundle must be an instance of ReporterBundle')
 
-        not_none(bundle.checker, ctx, r'checker must be provided')
-        not_none(bundle.theme, ctx, r'theme must be provided')
-        not_none(bundle.logger, ctx, r'logger must be provided')
+        not_none(bundle.checker, ctx, 'checker must be provided')
+        not_none(bundle.theme, ctx, 'theme must be provided')
+        not_none(bundle.logger, ctx, 'logger must be provided')
 
-        istype(bundle.checker, IChecker, ctx, r'checker must be an IChecker instance')
-        istype(bundle.theme, IConsoleTheme, ctx, r'theme must be an IConsoleTheme instance')
-        istype(bundle.logger, ILogger, ctx, r'logger must be an ILogger instance')
+        istype(bundle.checker, IChecker, ctx, 'checker must be an IChecker instance')
+        istype(bundle.theme, IConsoleTheme, ctx, 'theme must be an IConsoleTheme instance')
+        istype(bundle.logger, ILogger, ctx, 'logger must be an ILogger instance')

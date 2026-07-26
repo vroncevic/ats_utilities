@@ -81,7 +81,7 @@ class CommandOptionTest(unittest.TestCase):
             Tests validation exceptions.
         '''
         # Missing name (not possible since dataclass requires it, but let's check None via type bypass if needed or validation checks)
-        # Instead, let's pass invalid type for name
+        # Instead, let's ... invalid type for name
         opt_type = OptionData(
             name=123,  # type: ignore
             help_text="help",

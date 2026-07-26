@@ -22,26 +22,23 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.info.use_github.iuse_github import IUseGitHub
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class UseGitHub(IUseGitHub):
+class UseGitHub:
     '''
         Defines class UseGitHub with attribute(s) and method(s).
         Provides an API for the use GitHub infrastructure in one property object.
@@ -84,7 +81,6 @@ class UseGitHub(IUseGitHub):
 
     @property
     @vreport('getting use_github {use_github}')
-    @override
     def use_github(self) -> bool:
         '''
             Property method for getting use GitHub infrastructure.
@@ -101,7 +97,6 @@ class UseGitHub(IUseGitHub):
     @use_github.setter
     @mcheck([('bool:use_github', None)])
     @vreport('setting use_github {use_github}')
-    @override
     def use_github(self, use_github: bool) -> None:
         '''
             Property method for setting use GitHub infrastructure.
@@ -120,7 +115,6 @@ class UseGitHub(IUseGitHub):
         self._use_github = use_github
 
     @vreport('checking use_github {use_github}')
-    @override
     def not_none(self) -> bool:
         '''
             Checks is use GitHub infrastructure not None.
@@ -134,7 +128,6 @@ class UseGitHub(IUseGitHub):
         '''
         return self._use_github is not None
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the UseGitHub infrastructure as string representation.

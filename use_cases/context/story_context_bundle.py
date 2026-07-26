@@ -24,14 +24,14 @@ from dataclasses import FrozenInstanceError
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.factory import ContextFactory
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 #
 # default [without DI]
@@ -87,7 +87,7 @@ class ReadOnlyAttribute:
         return instance.__dict__.get(self.name)
 
     def __set__(self, instance: Any, value: Any) -> None:
-        ctx: str = r'context_bundle::__setattr__(...)'
+        ctx: str = 'context_bundle::__setattr__(...)'
         raise ATSValueError(f'{ctx} cannot modify immutable attribute: {self.name}')
 
 
@@ -132,7 +132,7 @@ class ImmutableMeta(type):
     '''Metaclass that enforces strict immutability.'''
 
     def __setattr__(cls, name: str, value: Any) -> None:
-        ctx: str = r'context_bundle::__setattr__(...)'
+        ctx: str = 'context_bundle::__setattr__(...)'
         raise ATSValueError(f'{ctx} cannot modify immutable attribute: {name}')
 
 
@@ -144,7 +144,7 @@ class ContextBundle(metaclass=ImmutableMeta):
     verbose: bool
 
     def __setattr__(self, name: str, value: Any) -> None:
-        ctx: str = r'context_validator::__setattr__(...)'
+        ctx: str = 'context_validator::__setattr__(...)'
         raise ATSValueError(f'{ctx} cannot modify immutable attribute: {name}')
 
 
@@ -193,5 +193,5 @@ class ContextBundle:
         return self._verbose
 
     def __setattr__(self, name: str, value: Any) -> None:
-        ctx: str = r'context_bundle::__setattr__(...)'
+        ctx: str = 'context_bundle::__setattr__(...)'
         raise ATSValueError(f'{ctx} cannot modify immutable attribute: {name}')

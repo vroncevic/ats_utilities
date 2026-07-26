@@ -22,20 +22,21 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
 from collections.abc import Callable
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ILogBuffer(ABC):
+@runtime_checkable
+class ILogBuffer[MessageType, LevelType](Protocol):
     '''
         Defines abstract class ILogBuffer with method(s).
         Provides an interface for log buffer during early stages of logging.
@@ -50,47 +51,42 @@ class ILogBuffer(ABC):
             
     '''
 
-    @abstractmethod
-    def add(self, message: str, level: int) -> None:
+    def add(self, message: MessageType, level: LevelType) -> None:
         '''
             Adds a message to the buffer.
 
             :param message: The message to buffer.
             :param level: Log level.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def flush(self, writer: Callable[[str, int], None]) -> None:
+    def flush(self, writer: Callable[[MessageType, LevelType], None]) -> None:
         '''
             Flushes buffered messages to a writer.
 
             :param writer: The logging method to write buffered logs.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def clear(self) -> None:
         '''
             Clears the buffer.
         '''
-        pass
+        ...
 
     @property
-    @abstractmethod
     def is_enabled(self) -> bool:
         '''
             Checks if buffering is enabled.
 
             :return: True if buffering is enabled, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns buffer as string representation.
 
             :return: Buffer as string representation.
         '''
-        pass
+        ...

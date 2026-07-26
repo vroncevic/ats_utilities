@@ -22,21 +22,22 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IDataValidator[DataType](ABC):
+@runtime_checkable
+class IDataValidator[DataType](Protocol):
     '''
-        Abstract interface for all data validators.
+        Protocol interface for all data validators.
         Encapsulates standard validation behavior across data instances.
 
         It defines:
@@ -46,11 +47,10 @@ class IDataValidator[DataType](ABC):
     '''
 
     @classmethod
-    @abstractmethod
     def validate(cls, data: DataType) -> None:
         '''
             Validates a data instance.
 
             :param data: Data instance to be validated.
         '''
-        pass
+        ...

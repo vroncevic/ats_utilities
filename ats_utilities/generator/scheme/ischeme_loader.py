@@ -22,22 +22,21 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
-from typing import Any
-
 from collections.abc import Mapping
+from typing import Any, Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ISchemeLoader(ABC):
+@runtime_checkable
+class ISchemeLoader(Protocol):
     '''
         Defines abstract class ISchemeLoader with method(s).
         Interface for loading/resolving generation scheme.
@@ -50,7 +49,6 @@ class ISchemeLoader(ABC):
                 | __str__ - Returns the loader as string representation.
     '''
 
-    @abstractmethod
     def load(self, scheme: str | Mapping[str, Any]) -> dict[str, Any]:
         '''
             Loads and resolves the scheme.
@@ -59,9 +57,8 @@ class ISchemeLoader(ABC):
             :return: The resolved scheme dictionary.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def is_initialized(self) -> bool:
         '''
             Checks if component is initialized.
@@ -69,9 +66,8 @@ class ISchemeLoader(ABC):
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the component as string representation.
@@ -79,4 +75,4 @@ class ISchemeLoader(ABC):
             :return: String representation.
             :exceptions: None.
         '''
-        pass
+        ...

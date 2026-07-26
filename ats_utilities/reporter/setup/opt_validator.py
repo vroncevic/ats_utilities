@@ -22,25 +22,23 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import override
 
 from ats_utilities.reporter.setup.options import ReporterOptions
-from ats_utilities.utils.setup.iopt_validator import IOptionsValidator
 from ats_utilities.reporter.setup.keys import ReporterKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ReporterOptionsValidator(IOptionsValidator[ReporterOptions]):
+class ReporterOptionsValidator:
     '''
         Validator for reporter options.
 
@@ -51,7 +49,6 @@ class ReporterOptionsValidator(IOptionsValidator[ReporterOptions]):
     '''
 
     @classmethod
-    @override
     def validate(cls, options: ReporterOptions) -> None:
         '''
             Validates reporter options instance.
@@ -63,10 +60,10 @@ class ReporterOptionsValidator(IOptionsValidator[ReporterOptions]):
                 |                and its attributes must be instances of their
                 |                respective types.
         '''
-        ctx: str = r'reporter_options_validator::validate(...)'
+        ctx: str = 'reporter_options_validator::validate(...)'
 
-        not_none(options, ctx, r'options must be provided')
-        istype(options, Mapping, ctx, r'options must be a Mapping')
+        not_none(options, ctx, 'options must be provided')
+        istype(options, Mapping, ctx, 'options must be a Mapping')
 
         for opt_name, expected_type in ReporterKeys.get_option_to_type().items():
             value = options.get(opt_name)

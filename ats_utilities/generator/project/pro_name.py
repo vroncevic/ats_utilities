@@ -22,25 +22,22 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.generator.project.ipro_name import IProName
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ProName(IProName):
+class ProName:
     '''
         Defines class ProName with attribute(s) and method(s).
         Defines project name container.
@@ -74,7 +71,6 @@ class ProName(IProName):
 
     @property
     @vreport('getting pro name {pro_name}')
-    @override
     def pro_name(self) -> str:
         '''
             Property method for getting project name in string format.
@@ -90,7 +86,6 @@ class ProName(IProName):
     @pro_name.setter
     @mcheck([('str:name', None)])
     @vreport('getting pro name {pro_name}')
-    @override
     def pro_name(self, name: str) -> None:
         '''
             Property method for setting project name.
@@ -108,7 +103,6 @@ class ProName(IProName):
         self._pro_name = name
 
     @vreport('checking pro name {pro_name}')
-    @override
     def not_none(self) -> bool:
         '''
             Checks project name is not None.
@@ -121,7 +115,6 @@ class ProName(IProName):
         '''
         return self._pro_name is not None
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the ATS project name as string representation.

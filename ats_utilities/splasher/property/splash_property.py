@@ -22,28 +22,27 @@ Info
 
 from __future__ import annotations
 
-from typing import Any, override
 from collections.abc import Mapping
+from typing import Any
 
-from ats_utilities.splasher.property.isplash_property import ISplashProperty
-from ats_utilities.splasher.setup.splash_keys import SplashKeys
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.splasher.setup.splash_keys import SplashKeys
+from ats_utilities.utils.dicts import has_required_keys, require_keys
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.utils.dicts import require_keys, has_required_keys
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class SplashProperty(ISplashProperty):
+class SplashProperty:
     '''
         Defines class SplashProperty with attribute(s) and method(s).
         Provides an API for checking splash screen property.
@@ -77,7 +76,6 @@ class SplashProperty(ISplashProperty):
 
     @property
     @vreport('getting splash property {splash_keys}')
-    @override
     def splash_keys(self) -> Mapping[str, Any]:
         '''
             Property method for getting splash screen property.
@@ -94,7 +92,6 @@ class SplashProperty(ISplashProperty):
     @splash_keys.setter
     @mcheck([('Mapping:setup', None)])
     @vreport('setting splash property {splash_keys}')
-    @override
     def splash_keys(self, setup: Mapping[str, Any]) -> None:
         '''
             Property method for setting project splash screen property.
@@ -125,7 +122,6 @@ class SplashProperty(ISplashProperty):
 
     @vreport('validation or splash property {splash_keys}')
     @has_attrs('_splash_keys')
-    @override
     def validates(self) -> bool:
         '''
             Validates splash screen property.
@@ -143,7 +139,6 @@ class SplashProperty(ISplashProperty):
 
         return has_required_keys(self.splash_keys, frozenset(SplashKeys.get_all_keys()))
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the splash property as string representation.

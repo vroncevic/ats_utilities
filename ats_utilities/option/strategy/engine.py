@@ -24,7 +24,7 @@ from __future__ import annotations
 
 import sys
 from collections.abc import Sequence, Mapping
-from typing import Any, override
+from typing import Any
 from types import MappingProxyType
 
 from ats_utilities.option.strategy.data import StrategyData
@@ -43,14 +43,14 @@ from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 class ParserStrategy(IParserStrategy):
@@ -111,7 +111,6 @@ class ParserStrategy(IParserStrategy):
         istype(self._parser, IArgParser, context, r'parser must be an IArgParser instance')
 
     @has_attrs('_parser')
-    @override
     def add_argument(self, *args: str, **kwargs: Any) -> None:
         '''
             Adds an operational argument/flag to the parser.
@@ -124,7 +123,6 @@ class ParserStrategy(IParserStrategy):
         self._parser.add_argument(*args, **kwargs)
 
     @has_attrs('_parser')
-    @override
     def add_version(self, version: str | None) -> None:
         '''
             Adds a version display option to the parser.
@@ -136,7 +134,6 @@ class ParserStrategy(IParserStrategy):
         self._parser.add_argument('--version', action='version', version=version)
 
     @has_attrs('_parser')
-    @override
     def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
         '''
             Parses the input arguments and returns an OptionNamespace.
@@ -154,7 +151,6 @@ class ParserStrategy(IParserStrategy):
         return self._parser.parse_args(arguments)
 
     @has_attrs('_parser')
-    @override
     def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
         '''
             Registers the list of commands with the parser.
@@ -194,7 +190,6 @@ class ParserStrategy(IParserStrategy):
                 cmd_parser.add_argument(opt.name, **kwargs)
 
     @has_attrs('_parser')
-    @override
     def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
         '''
             Parses the input arguments and returns command name and parameters.
@@ -213,7 +208,6 @@ class ParserStrategy(IParserStrategy):
 
         return command_name, MappingProxyType(params)
 
-    @override
     def is_initialized(self) -> bool:
         '''
             Checks if the parser strategy is initialized.
@@ -223,7 +217,6 @@ class ParserStrategy(IParserStrategy):
         '''
         return True
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of ParserStrategy.

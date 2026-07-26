@@ -22,26 +22,27 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 from collections.abc import Sequence
 from typing import Any
 
 from ats_utilities.option.option_namespace import OptionNamespace
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 # Optional string sequence type
 type ArgSeq = Sequence[str] | None
 
 
-class IBase[ContextEnvironment](ABC):
+@runtime_checkable
+class IBase[ContextEnvironment](Protocol):
     '''
         Defines abstract class IBase with method(s).
         Interface for ATS base setup.
@@ -56,8 +57,6 @@ class IBase[ContextEnvironment](ABC):
                 | process - Processes and runs App/Tool/Script (Abstract).
                 | __str__ - Returns the App/Tool/Script base as string representation.
     '''
-
-    @abstractmethod
     def get_context(self) -> ContextEnvironment:
         '''
             Returns the context.
@@ -65,9 +64,8 @@ class IBase[ContextEnvironment](ABC):
             :return: Context.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def is_initialized(self) -> bool:
         '''
             Checks if App/Tool/Script base engine is initialized.
@@ -75,9 +73,8 @@ class IBase[ContextEnvironment](ABC):
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def add_new_option(self, *args: str, **kwargs: Any) -> None:
         '''
             Adds a new option for App/Tool/Script.
@@ -86,9 +83,8 @@ class IBase[ContextEnvironment](ABC):
             :param kwargs: Arguments in Any format.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def parse_args(self, argv: ArgSeq) -> OptionNamespace | None:
         '''
             Parses App/Tool/Script arguments.
@@ -97,9 +93,8 @@ class IBase[ContextEnvironment](ABC):
             :return: Options and arguments | None
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def process(self, verbose: bool = False) -> bool:
         '''
             Processes and runs App/Tool/Script (Abstract).
@@ -108,9 +103,8 @@ class IBase[ContextEnvironment](ABC):
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the App/Tool/Script base as string representation.
@@ -118,4 +112,4 @@ class IBase[ContextEnvironment](ABC):
             :return: The App/Tool/Script base as string representation.
             :exceptions: None.
         '''
-        pass
+        ...

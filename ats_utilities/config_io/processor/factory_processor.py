@@ -24,7 +24,6 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import override
 from pathlib import Path
 
 from ats_utilities.config_io.processor.ifactory_processor import IConfigProcessorFactory
@@ -39,14 +38,14 @@ from ats_utilities.utils.component import make_component, validate_component
 from ats_utilities.validation.check_value import not_none, not_satisfied
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 class ConfigProcessorFactory(IConfigProcessorFactory):
@@ -75,7 +74,6 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
     }
 
     @classmethod
-    @override
     def get_processor_class(cls, extension: str) -> type[IConfigProcessor]:
         '''
             Returns the processor class for a specific file extension.
@@ -103,7 +101,6 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
         return cls._PROCESSOR_MAP[formatted_ext]
 
     @classmethod
-    @override
     def create_from_extension(
         cls, 
         extension: str | None = None,
@@ -155,7 +152,6 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
         return resolved_processor
 
     @classmethod
-    @override
     def create_from_file_path(
         cls, 
         file_path: str | None = None,

@@ -22,19 +22,20 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IConsoleTheme(ABC):
+@runtime_checkable
+class IConsoleTheme(Protocol):
     '''
         Defines abstract class IConsoleTheme with method(s).
         Provides an interface for console styling.
@@ -46,7 +47,6 @@ class IConsoleTheme(ABC):
                 | __str__ - Returns console theme as string representation.
     '''
 
-    @abstractmethod
     def get_color(self, color_type: str) -> str:
         '''
             Returns color code based on type.
@@ -54,13 +54,12 @@ class IConsoleTheme(ABC):
             :param color_type: Type of the message (error, success, etc.).
             :return: Color code.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns console theme as string representation.
 
             :return: Console theme as string representation.
         '''
-        pass
+        ...

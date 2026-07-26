@@ -25,19 +25,19 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from re import match
-from typing import Any, override
+from typing import Any
 
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 class CFGProcessor(IConfigProcessor):
@@ -91,7 +91,6 @@ class CFGProcessor(IConfigProcessor):
         self._data: dict[str, str] = {}
         self._scheme = scheme
 
-    @override
     def deserialize(self, content: Any) -> bool:
         '''
             Loads and parses configuration from a raw source (string, stream, or lines).
@@ -111,7 +110,6 @@ class CFGProcessor(IConfigProcessor):
 
         return self.validate_by_scheme()
 
-    @override
     def serialize(self) -> str:
         '''
             Converts the internal configuration structure back to a formatted string representation.
@@ -121,7 +119,6 @@ class CFGProcessor(IConfigProcessor):
         '''
         return ''.join([f'{k} = {v}\n' for k, v in self._data.items()])
 
-    @override
     def update_data(self, new_data: Mapping[str, str]) -> bool:
         '''
             Updates the internal configuration data and validates it against the scheme.
@@ -141,7 +138,6 @@ class CFGProcessor(IConfigProcessor):
 
         return True
 
-    @override
     def to_dict(self) -> dict[str, str]:
         '''
             Returns the parsed configuration as a flat or structured dictionary.
@@ -151,7 +147,6 @@ class CFGProcessor(IConfigProcessor):
         '''
         return self._data
 
-    @override
     def validate_by_scheme(self) -> bool:
         '''
             Validates the internal parsed data structure against the provided scheme.
@@ -168,7 +163,6 @@ class CFGProcessor(IConfigProcessor):
 
         return True
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the CFGProcessor instance as string representation.

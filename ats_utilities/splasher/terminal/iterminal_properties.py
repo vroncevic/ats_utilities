@@ -22,20 +22,20 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ITerminalProperties(ABC):
+@runtime_checkable
+class ITerminalProperties(Protocol):
     '''
         Defines abstract class ITerminalProperties with method(s).
         Interface for getting terminal properties.
@@ -49,7 +49,6 @@ class ITerminalProperties(ABC):
                 | __str__ - Returns the terminal properties as string representation.
     '''
 
-    @abstractmethod
     def ioctl_get_window_size(self, file_descriptor: int) -> tuple[Any, ...]:
         '''
             Gets size for file descriptor.
@@ -57,29 +56,26 @@ class ITerminalProperties(ABC):
             :param file_descriptor: File descriptor.
             :return: Window size of terminal.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def ioctl_for_all_descriptors(self) -> None:
         '''
             Sets size for all file descriptors.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def size(self) -> tuple[Any, ...]:
         '''
             Gets terminal window size.
 
             :return: Terminal window size.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the terminal properties as string representation.
 
             :return: The terminal properties as string representation.
         '''
-        pass
+        ...

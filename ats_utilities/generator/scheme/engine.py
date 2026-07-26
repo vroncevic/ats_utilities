@@ -23,10 +23,9 @@ Info
 from __future__ import annotations
 
 from os.path import exists
-from typing import Any, override
+from typing import Any
 from collections.abc import Mapping
 
-from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.config_io.setup.registry import ConfigIORegistry
@@ -36,17 +35,17 @@ from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_satisfied
 from ats_utilities.exceptions.format_error import format_error_raw
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class SchemeLoader(ISchemeLoader):
+class SchemeLoader:
     '''
         Defines class SchemeLoader with method(s).
         Resolves generation scheme from dict or file path using config_io.
@@ -78,7 +77,6 @@ class SchemeLoader(ISchemeLoader):
         self._context = context_bundle
         self._initialized = True
 
-    @override
     def load(self, scheme: str | Mapping[str, Any]) -> dict[str, Any]:
         '''
             Loads and resolves the scheme.
@@ -121,7 +119,6 @@ class SchemeLoader(ISchemeLoader):
 
         return dict(scheme)
 
-    @override
     def is_initialized(self) -> bool:
         '''
             Checks if scheme loader component is initialized.
@@ -131,7 +128,6 @@ class SchemeLoader(ISchemeLoader):
         '''
         return self._initialized
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the SchemeLoader as string representation.

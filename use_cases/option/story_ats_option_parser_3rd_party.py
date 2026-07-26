@@ -36,14 +36,14 @@ from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.option.strategy.parser_strategy_bundle import ParserStrategyBundle
 from ats_utilities.option.setup.bundle import OptionBundle
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 class MyAppFireStrategy(IParserStrategy):
@@ -104,10 +104,10 @@ class MyAppFireStrategy(IParserStrategy):
         return res
 
     def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
-        pass
+        ...
 
     def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
-        pass
+        ...
 
     def is_initialized(self) -> bool:
         return True

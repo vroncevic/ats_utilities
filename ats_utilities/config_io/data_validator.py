@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from typing import override
+
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.data.ivalidator import IDataValidator
@@ -50,7 +50,6 @@ class FileDataValidator(IDataValidator[FileData]):
     '''
 
     @classmethod
-    @override
     def validate(cls, data: FileData) -> None:
         '''
             Validates FileData instance.

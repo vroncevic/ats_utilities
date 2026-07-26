@@ -22,26 +22,24 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import override
 
-from ats_utilities.utils.data.ivalidator import IDataValidator
 from ats_utilities.generator.data import GeneratorData
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 from ats_utilities.utils.files import check_file_exists
 
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class GeneratorDataValidator(IDataValidator[GeneratorData]):
+class GeneratorDataValidator:
     '''
 
         Validator for generator data.
@@ -55,7 +53,6 @@ class GeneratorDataValidator(IDataValidator[GeneratorData]):
     '''
 
     @classmethod
-    @override
     def validate(cls, data: GeneratorData) -> None:
         '''
             Validates generator data.
@@ -77,22 +74,22 @@ class GeneratorDataValidator(IDataValidator[GeneratorData]):
                 | ATSValueError: Archive file does not exist.
                 | ATSValueError: Scheme file does not exist.
         '''
-        ctx: str = r'generator_data_validator::validate(...)'
+        ctx: str = 'generator_data_validator::validate(...)'
 
-        not_none(data, ctx, r'generator data must be provided')
-        istype(data, GeneratorData, ctx, r'generator data must be an instance of GeneratorData')
+        not_none(data, ctx, 'generator data must be provided')
+        istype(data, GeneratorData, ctx, 'generator data must be an instance of GeneratorData')
 
-        not_none(data.archive_path, ctx, r'archive_path must be provided')
-        not_none(data.target_dir, ctx, r'target_dir must be provided')
-        not_none(data.template_key, ctx, r'template_key must be provided')
-        not_none(data.scheme, ctx, r'scheme must be provided')
-        not_none(data.template_values, ctx, r'template_values must be provided')
+        not_none(data.archive_path, ctx, 'archive_path must be provided')
+        not_none(data.target_dir, ctx, 'target_dir must be provided')
+        not_none(data.template_key, ctx, 'template_key must be provided')
+        not_none(data.scheme, ctx, 'scheme must be provided')
+        not_none(data.template_values, ctx, 'template_values must be provided')
 
-        istype(data.archive_path, str, ctx, r'archive_path must be a string')
-        istype(data.target_dir, str, ctx, r'target_dir must be a string')
-        istype(data.template_key, str, ctx, r'template_key must be a string')
-        istype(data.scheme, (str, Mapping), ctx, r'scheme must be a string or a mapping')
-        istype(data.template_values, Mapping, ctx, r'template_values must be a mapping')
+        istype(data.archive_path, str, ctx, 'archive_path must be a string')
+        istype(data.target_dir, str, ctx, 'target_dir must be a string')
+        istype(data.template_key, str, ctx, 'template_key must be a string')
+        istype(data.scheme, (str, Mapping), ctx, 'scheme must be a string or a mapping')
+        istype(data.template_values, Mapping, ctx, 'template_values must be a mapping')
 
         check_file_exists(data.archive_path, ctx, f'archive file does not exist: {data.archive_path}')
 

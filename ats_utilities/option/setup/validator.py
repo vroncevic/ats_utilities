@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import override
+
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.setup.bundle import OptionBundle
@@ -31,14 +31,14 @@ from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 class OptionValidator(IValidator[OptionBundle]):
@@ -52,7 +52,6 @@ class OptionValidator(IValidator[OptionBundle]):
     '''
 
     @classmethod
-    @override
     def validate(cls, bundle: OptionBundle) -> None:
         '''
             Validates option bundle instance.
@@ -68,15 +67,15 @@ class OptionValidator(IValidator[OptionBundle]):
                 | ATSTypeError: Strategy must be an IParserStrategy instance.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        ctx: str = r'option_validator::validate(...)'
+        ctx: str = 'option_validator::validate(...)'
 
-        not_none(bundle, ctx, r'option bundle must be provided')
-        istype(bundle, OptionBundle, ctx, r'option bundle must be an instance of OptionBundle')
+        not_none(bundle, ctx, 'option bundle must be provided')
+        istype(bundle, OptionBundle, ctx, 'option bundle must be an instance of OptionBundle')
 
-        not_none(bundle.parameters, ctx, r'parameters must be provided')
-        not_none(bundle.strategy, ctx, r'strategy must be provided')
-        not_none(bundle.context_bundle, ctx, r'context bundle must be provided')
+        not_none(bundle.parameters, ctx, 'parameters must be provided')
+        not_none(bundle.strategy, ctx, 'strategy must be provided')
+        not_none(bundle.context_bundle, ctx, 'context bundle must be provided')
 
-        istype(bundle.parameters, Mapping[str, str], ctx, r'parameters must be a Mapping[str, str] instance')
-        istype(bundle.strategy, IParserStrategy, ctx, r'strategy must be an IParserStrategy instance')
-        istype(bundle.context_bundle, ContextBundle, ctx, r'context bundle must be a ContextBundle instance')
+        istype(bundle.parameters, Mapping[str, str], ctx, 'parameters must be a Mapping[str, str] instance')
+        istype(bundle.strategy, IParserStrategy, ctx, 'strategy must be an IParserStrategy instance')
+        istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')

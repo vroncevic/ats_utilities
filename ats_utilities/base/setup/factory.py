@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from os.path import dirname
-from typing import Any, override
+from typing import Any
 
 from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.base.setup.bundle import BaseBundle
@@ -48,14 +48,14 @@ from ats_utilities.utils.dicts import get_first_available
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 class BaseFactory(IFactory[BaseBundle, BaseOptions]):
@@ -70,7 +70,6 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
     '''
 
     @classmethod
-    @override
     def create_default_bundle(cls, options: BaseOptions) -> BaseBundle:
         '''
             Creates a default base bundle using configuration options.
@@ -99,19 +98,19 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
                 | ATSTypeError: Use generator flag must be an instance of bool.
                 | ATSTypeError: Generator must be an instance of IGenerator or None.
         '''
-        ctx: str = r'base_factory::create_default_bundle(...)'
-        not_none(options, ctx, r'options must be provided')
-        istype(options, dict, ctx, r'options must be a dictionary')
+        ctx: str = 'base_factory::create_default_bundle(...)'
+        not_none(options, ctx, 'options must be provided')
+        istype(options, dict, ctx, 'options must be a dictionary')
 
         info_file: str = options.get('info_file')
         context_bundle: ContextBundle = options.get('context_bundle')
         use_generator: bool = options.get('use_generator', False)
 
-        not_none(info_file, ctx, r'info file must be provided')
-        not_none(context_bundle, ctx, r'context bundle must be provided')
-        istype(info_file, str, ctx, r'info file must be a string')
-        istype(context_bundle, ContextBundle, ctx, r'context bundle must be a ContextBundle instance')
-        istype(use_generator, bool, ctx, r'use generator must be a boolean')
+        not_none(info_file, ctx, 'info file must be provided')
+        not_none(context_bundle, ctx, 'context bundle must be provided')
+        istype(info_file, str, ctx, 'info file must be a string')
+        istype(context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')
+        istype(use_generator, bool, ctx, 'use generator must be a boolean')
 
         config_loader: ILoader[ContextBundle] = Loader(
             own=ConfigIORegistry.create_config_io_bundle_by_file_path_and_scheme(

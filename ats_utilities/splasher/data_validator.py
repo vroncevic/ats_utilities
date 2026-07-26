@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from typing import override
+
 
 from ats_utilities.utils.data.ivalidator import IDataValidator
 from ats_utilities.splasher.data import CenterData
@@ -49,7 +49,6 @@ class CenterDataValidator(IDataValidator[CenterData]):
     '''
 
     @classmethod
-    @override
     def validate(cls, data: CenterData) -> None:
         '''
             Validates CenterData instance.
@@ -63,14 +62,14 @@ class CenterDataValidator(IDataValidator[CenterData]):
                 | ATSTypeError: Additional shifter is not an integer.
                 | ATSValueError: Additional shifter cannot be negative.
         '''
-        ctx: str = r'center_data_validator::validate(...)'
-        not_none(data, ctx, r'center data must be provided')
-        istype(data, CenterData, ctx, r'center data must be an instance of CenterData')
+        ctx: str = 'center_data_validator::validate(...)'
+        not_none(data, ctx, 'center data must be provided')
+        istype(data, CenterData, ctx, 'center data must be an instance of CenterData')
 
-        not_none(data.columns, ctx, r'columns count must be provided')
-        istype(data.columns, int, ctx, r'columns count must be an integer')
-        not_satisfied(data.columns < 0, ctx, r'columns count cannot be negative')
+        not_none(data.columns, ctx, 'columns count must be provided')
+        istype(data.columns, int, ctx, 'columns count must be an integer')
+        not_satisfied(data.columns < 0, ctx, 'columns count cannot be negative')
 
-        not_none(data.additional_shifter, ctx, r'additional shifter must be provided')
-        istype(data.additional_shifter, int, ctx, r'additional shifter must be an integer')
-        not_satisfied(data.additional_shifter < 0, ctx, r'additional shifter cannot be negative')
+        not_none(data.additional_shifter, ctx, 'additional shifter must be provided')
+        istype(data.additional_shifter, int, ctx, 'additional shifter must be an integer')
+        not_satisfied(data.additional_shifter < 0, ctx, 'additional shifter cannot be negative')

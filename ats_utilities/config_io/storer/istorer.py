@@ -23,20 +23,21 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
 from collections.abc import Mapping
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IStorer[ContextEnvironment](ABC):
+@runtime_checkable
+class IStorer[ContextEnvironment](Protocol):
     '''
         Defines abstract class IStorer with method(s).
         Provides an interface for storing the configuration to writer.
@@ -50,7 +51,6 @@ class IStorer[ContextEnvironment](ABC):
                 | __str__ - Returns the storer instance as string representation.
     '''
 
-    @abstractmethod
     def get_context(self) -> ContextEnvironment:
         '''
             Returns the context.
@@ -58,9 +58,8 @@ class IStorer[ContextEnvironment](ABC):
             :return: Context.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def store_configuration(self, config: Mapping[str, str]) -> bool:
         '''
             Stores configuration content from mapping to configuration file.
@@ -69,9 +68,8 @@ class IStorer[ContextEnvironment](ABC):
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the storer instance as string representation.
@@ -79,4 +77,4 @@ class IStorer[ContextEnvironment](ABC):
             :return: The storer instance as string representation.
             :exceptions: None.
         '''
-        pass
+        ...

@@ -25,14 +25,14 @@ from collections.abc import Sequence
 from typing import Any
 from enum import Enum
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 # Parameters specification: (('expected type:param name', instance), ...)
 type Parameters = Sequence[tuple[str, Any]]
@@ -42,9 +42,6 @@ type ParametersMeta = Sequence[tuple[str, str, Any]]
 
 # Result type: ((error message report, error id), ...)
 type Result = tuple[str, int]
-
-# Split result: ((expected type, param name), ...)
-type SplitResult = tuple[str, str]
 
 
 class CheckerErrorType(int, Enum):

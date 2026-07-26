@@ -17,75 +17,72 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class ITypeValidator with method(s).
-    Provides an interface for validating parameters of method(s) and function(s).
+    Provides an interface for validating parameters used by method(s) and function(s).
 '''
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 from typing import Any
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ITypeValidator(ABC):
+@runtime_checkable
+class ITypeValidator[NameType, ValidType](Protocol):
     '''
         Defines abstract class ITypeValidator with method(s).
-        Provides an interface for validating parameters of method(s) and function(s).
+        Provides an interface for validating parameters used by method(s) and function(s).
 
         It defines:
 
             :methods:
                 | is_match - Compares instance type with expected type name.
                 | is_subtype - Checks if instance is a subtype of expected type name.
-                | get_type_name - Returns string representation of an instance type.
+                | get_type_name - Returns type name representation of an instance type.
                 | __str__ - Returns type validator as string representation.
     '''
 
-    @abstractmethod
-    def is_match(self, instance: Any, expected_type_name: str) -> bool:
+    def is_match(self, instance: Any, expected_type_name: NameType) -> ValidType:
         '''
             Compares instance type with expected type name.
 
-            :param instance: The instance to check.
+            :param instance: The instance whose type is to be checked.
             :param expected_type_name: The expected type name.
-            :return: True if successfully, otherwise False.
+            :return: The result of the comparison.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def is_subtype(self, instance: Any, expected_type_name: str) -> bool:
+    def is_subtype(self, instance: Any, expected_type_name: NameType) -> ValidType:
         '''
             Checks if instance is a subtype of expected type name.
 
-            :param instance: The instance to check.
+            :param instance: The instance whose type is to be checked.
             :param expected_type_name: The expected parent type name.
-            :return: True if successfully, otherwise False.
+            :return: The result of the comparison.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def get_type_name(self, instance: Any) -> str:
+    def get_type_name(self, instance: Any) -> NameType:
         '''
-            Returns string representation of an instance type.
+            Returns type name of an instance.
 
             :param instance: The instance to inspect.
-            :return: String name of type.
+            :return: The type name of the instance.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns type validator as string representation.
 
             :return: Type validator as string representation.
         '''
-        pass
+        ...

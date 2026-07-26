@@ -23,25 +23,24 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, override
+from typing import Any
 
-from ats_utilities.generator.project.ipro_config import IProConfig
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ProConfig(IProConfig):
+class ProConfig:
     '''
         Defines class ProConfig with attribute(s) and method(s).
         Defines project configuration container.
@@ -81,7 +80,6 @@ class ProConfig(IProConfig):
 
     @property
     @vreport('getting config {config}')
-    @override
     def config(self) -> Mapping[str, Any]:
         '''
             Property method for getting project configuration.
@@ -97,7 +95,6 @@ class ProConfig(IProConfig):
     @config.setter
     @mcheck([('Mapping | None:pro_config', None)])
     @vreport('getting config {config}')
-    @override
     def config(self, pro_config: Mapping[str, Any]) -> None:
         '''
             Property method for setting project configuration.
@@ -115,7 +112,6 @@ class ProConfig(IProConfig):
         self._config = pro_config
 
     @vreport('checking config {config}')
-    @override
     def not_none(self) -> bool:
         '''
             Checks project configuration is not None.
@@ -128,7 +124,6 @@ class ProConfig(IProConfig):
         '''
         return self._config is not None
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the ATS project configuration as string representation.

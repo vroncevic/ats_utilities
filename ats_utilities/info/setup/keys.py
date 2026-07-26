@@ -23,10 +23,9 @@ Info
 from __future__ import annotations
 
 from collections.abc import Sequence, Mapping
-from typing import Any, ClassVar, override
+from typing import Any, ClassVar
 from types import MappingProxyType
 
-from ats_utilities.utils.setup.ikeys import IKeys
 from ats_utilities.info.name.iname import IName
 from ats_utilities.info.name.engine import Name
 from ats_utilities.info.version.iversion import IVersion
@@ -50,17 +49,17 @@ from ats_utilities.info.info_ok.engine import InfoOk
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.validation.check_value import not_satisfied, not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class InfoKeys(IKeys[str, type]):
+class InfoKeys:
     '''
         Defines class InfoKeys with attribute(s) and method(s).
         Provides constants for information keys required for setup and configuration.
@@ -147,7 +146,6 @@ class InfoKeys(IKeys[str, type]):
     ATS_INFO_OK: ClassVar[str] = r'ats_info_ok'
 
     @classmethod
-    @override
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
             Returns mapping of info dependencies to their types.
@@ -170,7 +168,6 @@ class InfoKeys(IKeys[str, type]):
         })
 
     @classmethod
-    @override
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
             Returns mapping of info options to their types.
@@ -296,7 +293,7 @@ class InfoKeys(IKeys[str, type]):
                 | ATSValueError: Config key is not registered.
                 | ATSValueError: Instance key for config key is not defined.
         '''
-        ctx: str = r'info_keys::get_name_of_config_key(...)'
+        ctx: str = 'info_keys::get_name_of_config_key(...)'
         is_registered: bool = cls.is_registered_config_key(config_key)
         not_satisfied(not is_registered, ctx, f'{config_key} is not registered as a config key')
         config_key_to_key: Mapping[str, str] = cls.get_config_keys()

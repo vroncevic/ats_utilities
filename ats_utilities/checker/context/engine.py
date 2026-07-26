@@ -2,7 +2,7 @@
 
 '''
 Module
-    context_provider.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -24,24 +24,22 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from inspect import FrameInfo, stack
-from typing import override
 
-from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ContextProvider(IContextProvider):
+class ContextProvider:
     '''
         Defines class ContextProvider with attribute(s) and method(s).
         Provides an API for getting context information for method(s) and function(s).
@@ -54,8 +52,9 @@ class ContextProvider(IContextProvider):
             :methods:
                 | __init__ - Initializes context provider.
                 | set_stack_index_caller - Sets the index in the call stack to identify the caller.
-                | get_context - Returns a string representing the calling context.
-                | __str__ - Returns the context provider as string representation.
+                | get_stack_index_caller - Returns the index in the call stack to identify the caller.
+                | get_context - Returns the calling context.
+                | __str__ - Returns context provider as string representation.
     '''
 
     _DEFAULT_STACK_INDEX_CALLER: int = 2
@@ -70,13 +69,12 @@ class ContextProvider(IContextProvider):
                 | ATSTypeError: Stack index caller must be an integer.
         '''
         if stack_index_caller is not None:
-            ctx: str = r'context_provider::init(...)'
-            istype(stack_index_caller, int, ctx, r'stack index caller must be an integer')
+            ctx: str = 'context_provider::init(...)'
+            istype(stack_index_caller, int, ctx, 'stack index caller must be an integer')
             self._stack_index_caller = stack_index_caller
         else:
             self._stack_index_caller = self._DEFAULT_STACK_INDEX_CALLER
 
-    @override
     def set_stack_index_caller(self, stack_index_caller: int) -> None:
         '''
             Sets the index in the call stack to identify the caller.
@@ -86,19 +84,25 @@ class ContextProvider(IContextProvider):
                 | ATSValueError: Stack index caller must be provided.
                 | ATSTypeError:  Stack index caller must be an integer.
         '''
-        ctx: str = r'context_provider::set_stack_index_caller(...)'
-        not_none(stack_index_caller, ctx, r'stack index caller must be provided')
-        istype(stack_index_caller, int, ctx, r'stack index caller must be an integer')
+        ctx: str = 'context_provider::set_stack_index_caller(...)'
+        not_none(stack_index_caller, ctx, 'stack index caller must be provided')
+        istype(stack_index_caller, int, ctx, 'stack index caller must be an integer')
         self._stack_index_caller = stack_index_caller
 
-    @override
+    def get_stack_index_caller(self) -> int:
+        '''
+            Returns the index in the call stack to identify the caller.
+
+            :return: Index in the call stack to identify the caller.
+            :exceptions: None.
+        '''
+        return self._stack_index_caller
+
     def get_context(self) -> str:
         '''
-            Returns a string representing the calling context.
-            It uses the instance's STACK_INDEX_CALLER to determine the correct
-            frame in the call stack.
+            Returns the calling context.
 
-            :return: Context information in form of a string.
+            :return: The calling context information.
             :exceptions: None.
         '''
         current_stack: Sequence[FrameInfo] = stack()
@@ -118,12 +122,11 @@ class ContextProvider(IContextProvider):
 
         return f'\nmod: {caller.filename}\n  def: {func_name}()'
 
-    @override
     def __str__(self) -> str:
         '''
-            Returns the context provider as string representation.
+            Returns context provider as string representation.
 
-            :return: The context provider as string representation.
+            :return: Context provider as string representation.
             :exceptions: None.
         '''
         return to_str(self)

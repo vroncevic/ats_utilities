@@ -31,7 +31,7 @@ from typing import Any, cast
 from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.setup.types import Parameters
+from ats_utilities.checker.setup.types import Parameters, CheckerErrorType
 from ats_utilities.exceptions import (
     ATSRuntimeError, ATSTypeError, ATSValueError
 )
@@ -39,14 +39,14 @@ from ats_utilities.validation.context_error import raise_error
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 def validate_specs(specs: Parameters, ctx: str) -> None:
@@ -59,7 +59,7 @@ def validate_specs(specs: Parameters, ctx: str) -> None:
             | ATSValueError: Specs must be provided.
             | ATSTypeError:  Specs must be a list of (str, Any) tuples.
     '''
-    fmt_msg: str = r"expected format: [('expected_type:param_name', default_value), ...]"
+    fmt_msg: str = "expected format: [('expected_type:param_name', default_value), ...]"
     not_none(specs, ctx, f'specs must be provided, {fmt_msg}')
     istype(specs, Sequence, ctx, f'specs must be a Sequence, {fmt_msg}')
 
@@ -154,8 +154,8 @@ def validate_args(
     if runtime_parameters:
         report_message, error_id = checker.validates_parameters(runtime_parameters)
 
-        if error_id != checker.ERRORS.NO_ERROR:
-            if error_id == checker.ERRORS.TYPE_ERROR:
+        if error_id != CheckerErrorType.NO_ERROR:
+            if error_id == CheckerErrorType.TYPE_ERROR:
                 raise_error(
                     fallback_context=exc_context,
                     fallback_msg=f'type error: {report_message}',
@@ -188,7 +188,7 @@ def mcheck[F: Callable[..., Any]](specs: Parameters) -> Callable[[F], F]:
             | ATSRuntimeError:   Decorator used on a non-class method.
             | ATSAttributeError: Class does not provide a _checker object.
     '''
-    validate_specs(specs, r'mcheck(...)')
+    validate_specs(specs, 'mcheck(...)')
 
     def decorator(func: F) -> F:
 
@@ -199,9 +199,9 @@ def mcheck[F: Callable[..., Any]](specs: Parameters) -> Callable[[F], F]:
 
             if self_instance is None:
                 raise_error(
-                    fallback_context=r'mcheck::decorator(...)',
+                    fallback_context='mcheck::decorator(...)',
                     fallback_msg=f'decorator @mcheck on {func.__name__} can only be used on class methods',
-                    exc_context=r'mcheck::decorator(...)',
+                    exc_context='mcheck::decorator(...)',
                     exc_message=None,
                     exc_class=ATSRuntimeError
                 )
@@ -222,9 +222,9 @@ def mcheck[F: Callable[..., Any]](specs: Parameters) -> Callable[[F], F]:
 
             if checker is None:
                 raise_error(
-                    fallback_context=r'mcheck::decorator(...)',
+                    fallback_context='mcheck::decorator(...)',
                     fallback_msg=f'class {self_instance.__class__.__name__} must provide a checker to use @mcheck decorator',
-                    exc_context=r'mcheck::decorator(...)',
+                    exc_context='mcheck::decorator(...)',
                     exc_message=None,
                     exc_class=ATSRuntimeError
                 )
@@ -252,7 +252,7 @@ def fcheck[F: Callable[..., Any]](specs: Parameters, checker: IChecker | None = 
             | ATSTypeError:  Parameter type validation failed.
             | ATSValueError: Parameter format validation failed.
     '''
-    validate_specs(specs, r'fcheck(...)')
+    validate_specs(specs, 'fcheck(...)')
 
     active_checker: IChecker = checker or Checker(CheckerFactory.create_bundle())
 

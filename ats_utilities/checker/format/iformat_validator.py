@@ -17,73 +17,77 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IFormatValidator with method(s).
-    Provides an interface for validating parameters for method(s) and function(s).
+    Provides an interface for validating parameters used by method(s) and function(s).
 '''
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
-from collections.abc import Sequence
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IFormatValidator(ABC):
+@runtime_checkable
+class IFormatValidator[SeparatorType, FormatType, SplitType, ValidType](Protocol):
     '''
         Defines abstract class IFormatValidator with method(s).
-        Provides an interface for validating parameters for method(s) and function(s).
+        Provides an interface for validating parameters used by method(s) and function(s).
 
         It defines:
 
             :methods:
-                | get_separator - Returns the separator character used in parameter specifications.
-                | is_valid - Checks if the string follows the expected format.
-                | split - Splits the format string into components.
-                | __str__ - Returns the format validator as string representation.
+                | set_separator - Sets separator used in parameter specifications.
+                | get_separator - Returns separator used in parameter specifications.
+                | is_valid - Checks if format follows expected format.
+                | split - Splits format into parts.
+                | __str__ - Returns format validator as string representation.
     '''
 
-    @abstractmethod
-    def get_separator(self) -> str:
+    def set_separator(self, separator: SeparatorType) -> None:
         '''
-            Returns the separator character used in parameter specifications.
+            Sets separator used in parameter specifications.
 
-            :return: Separator character.
-            :exceptions: None.
+            :param separator: Separator used in parameter specifications.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def is_valid(self, exp_type: str) -> bool:
+    def get_separator(self) -> SeparatorType:
         '''
-            Checks if the string follows the expected format.
+            Returns separator used in parameter specifications.
 
-            :param exp_type: The expected format string to validate.
-            :return: True if successfully, otherwise False.
+            :return: Separator used in parameter specifications.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def split(self, exp_type: str) -> Sequence[str]:
+    def is_valid(self, format_to_check: FormatType) -> ValidType:
         '''
-            Splits the format string into parts.
+            Checks if format follows expected format.
 
-            :param exp_type: The format string to split.
-            :return: A Sequence containing the split components.
+            :param format_to_check: Format to be validated.
+            :return: Validation result.
         '''
-        pass
+        ...
 
-    @abstractmethod
+    def split(self, format_to_split: FormatType) -> SplitType:
+        '''
+            Splits format into parts.
+
+            :param format_to_split: Format to be split.
+            :return: Split format parts.
+        '''
+        ...
+
     def __str__(self) -> str:
         '''
-            Returns the format validator as string representation.
+            Returns format validator as string representation.
 
-            :return: The format validator as string representation.
+            :return: Format validator as string representation.
         '''
-        pass
+        ...

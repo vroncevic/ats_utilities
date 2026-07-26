@@ -23,7 +23,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Sequence, Mapping
-from typing import Any, override
+from typing import Any
 
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.context.bundle import ContextBundle
@@ -31,22 +31,21 @@ from ats_utilities.utils.reflection import to_str, has_attrs
 from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.setup.validator import OptionValidator
 from ats_utilities.option.command.ioption_command import IOptionCommand
-from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.option.option_namespace import OptArgs, OptionNamespace
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class OptionManager(IOptionManager[ContextBundle]):
+class OptionManager:
     '''
         Defines class OptionManager with attribute(s) and method(s).
         Creates an option parser based on the argparse argument processor.
@@ -94,7 +93,6 @@ class OptionManager(IOptionManager[ContextBundle]):
         self._strategy = own.strategy
         self._is_initialized = True
 
-    @override
     def get_context(self) -> ContextBundle:
         '''
             Returns the context.
@@ -105,7 +103,6 @@ class OptionManager(IOptionManager[ContextBundle]):
         return self._context
 
     @has_attrs('_strategy')
-    @override
     def add_operation(self, *args: str, **kwargs: Any) -> None:
         '''
             Adds an option to the parser.
@@ -119,7 +116,6 @@ class OptionManager(IOptionManager[ContextBundle]):
 
     @mcheck([('str | None:version', None)])
     @vreport('add version {version}')
-    @override
     def add_version_operation(self, version: str | None) -> None:
         '''
             Adds version option to the parser.
@@ -139,7 +135,6 @@ class OptionManager(IOptionManager[ContextBundle]):
 
     @has_attrs('_strategy')
     @vreport('parse inout args arguments {arguments}')
-    @override
     def parse_input_args(self, arguments: OptArgs) -> OptionNamespace:
         '''
             Processes arguments from the start.
@@ -156,7 +151,6 @@ class OptionManager(IOptionManager[ContextBundle]):
 
     @has_attrs('_strategy')
     @vreport('parse args arguments {arguments}')
-    @override
     def parse_args(self, arguments: OptArgs) -> OptionNamespace:
         '''
             Processes arguments from the start.
@@ -172,7 +166,6 @@ class OptionManager(IOptionManager[ContextBundle]):
         return self._strategy.parse(arguments, known_only=True)
 
     @has_attrs('_strategy')
-    @override
     def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
         '''
             Registers a sequence of commands with the parser.
@@ -184,7 +177,6 @@ class OptionManager(IOptionManager[ContextBundle]):
         self._strategy.register_commands(commands)
 
     @has_attrs('_strategy')
-    @override
     def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
         '''
             Parses arguments as a command.
@@ -197,7 +189,6 @@ class OptionManager(IOptionManager[ContextBundle]):
         return self._strategy.parse_command(arguments)
 
     @has_attrs('_strategy')
-    @override
     def is_initialized(self) -> bool:
         '''
             Checks if option parser component is initialized.
@@ -208,7 +199,6 @@ class OptionManager(IOptionManager[ContextBundle]):
         '''
         return self._is_initialized and self._strategy.is_initialized()
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the option manager as string representation.

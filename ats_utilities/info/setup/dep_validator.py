@@ -22,25 +22,23 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
-from typing import override
 
 from ats_utilities.info.setup.dependencies import InfoDependencies
-from ats_utilities.utils.setup.idep_validator import IDependenciesValidator
 from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none, not_satisfied
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class InfoDependenciesValidator(IDependenciesValidator[InfoDependencies]):
+class InfoDependenciesValidator:
     '''
         Validator for info dependencies.
 
@@ -51,7 +49,6 @@ class InfoDependenciesValidator(IDependenciesValidator[InfoDependencies]):
     '''
 
     @classmethod
-    @override
     def validate(cls, dependencies: InfoDependencies) -> None:
         '''
             Validates info dependencies instance.
@@ -62,10 +59,10 @@ class InfoDependenciesValidator(IDependenciesValidator[InfoDependencies]):
                 | ATSTypeError:  Dependencies must be an instance of Mapping and its
                 |                attributes must be instances of their respective types.
         '''
-        ctx: str = r'info_dependencies_validator::validate(...)'
+        ctx: str = 'info_dependencies_validator::validate(...)'
 
-        not_none(dependencies, ctx, r'dependencies must be provided and have proper values')
-        istype(dependencies, Mapping, ctx, r'dependencies must be an instance of Mapping')
+        not_none(dependencies, ctx, 'dependencies must be provided and have proper values')
+        istype(dependencies, Mapping, ctx, 'dependencies must be an instance of Mapping')
 
         required_dependency_keys: Sequence[str] = [
             InfoKeys.get_name_of_config_key(key) for key in InfoKeys.get_required_config_keys()

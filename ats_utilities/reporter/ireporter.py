@@ -22,19 +22,20 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IReporter[MessageType](ABC):
+@runtime_checkable
+class IReporter[MessageType](Protocol):
     '''
         Defines abstract class IReporter with method(s).
         Provides an interface for reporting messages.
@@ -51,7 +52,6 @@ class IReporter[MessageType](ABC):
                 | __str__ - Returns reporter as string representation.
     '''
 
-    @abstractmethod
     def verbose(self, is_verbose: bool, message: MessageType) -> None:
         '''
             Reports verbose message.
@@ -59,58 +59,52 @@ class IReporter[MessageType](ABC):
             :param is_verbose: Enable/Disable verbose option.
             :param message: Message content.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def success(self, message: MessageType) -> None:
         '''
             Reports success message.
 
             :param message: Message content.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def warning(self, message: MessageType) -> None:
         '''
             Reports warning message.
 
             :param message: Message content.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def error(self, message: MessageType) -> None:
         '''
             Reports error message.
 
             :param message: Message content.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def set_level(self, level: int) -> None:
         '''
             Sets message reporting level.
 
             :param level: Message reporting level.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def is_initialized(self) -> bool:
         '''
             Checks if reporter is initialized.
 
             :return: True if successfully, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns reporter as string representation.
 
             :return: Reporter as string representation.
         '''
-        pass
+        ...

@@ -16,28 +16,29 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Abstract interface for keys used in setup process.
+    Protocol interface for keys used in setup process.
     Defines standard dependency-to-type and option-to-type mapping behavior.
 '''
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
 from types import MappingProxyType
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IKeys[AttributeType, InterfaceType](ABC):
+@runtime_checkable
+class IKeys[AttributeType, InterfaceType](Protocol):
     '''
-        Abstract interface for keys used in setup process.
+        Protocol interface for keys used in setup process.
         Defines standard dependency-to-type and option-to-type mapping behavior.
 
         :methods:
@@ -46,7 +47,6 @@ class IKeys[AttributeType, InterfaceType](ABC):
     '''
 
     @classmethod
-    @abstractmethod
     def get_dependency_to_type(cls) -> MappingProxyType[AttributeType, InterfaceType]:
         '''
             Returns mapping of setup dependencies to their types.
@@ -54,10 +54,9 @@ class IKeys[AttributeType, InterfaceType](ABC):
             :return: Mapping of setup dependencies to their types.
             :exceptions: None.
         '''
-        pass
+        ...
 
     @classmethod
-    @abstractmethod
     def get_option_to_type(cls) -> MappingProxyType[AttributeType, InterfaceType]:
         '''
             Returns mapping of setup options to their types.
@@ -65,4 +64,4 @@ class IKeys[AttributeType, InterfaceType](ABC):
             :return: Mapping of setup options to their types.
             :exceptions: None.
         '''
-        pass
+        ...

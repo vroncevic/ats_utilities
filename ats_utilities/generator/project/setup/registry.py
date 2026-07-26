@@ -21,24 +21,21 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.generator.project.setup.bundle import ProjectBundle
 from ats_utilities.generator.project.setup.dependencies import ProjectDependencies
 from ats_utilities.generator.project.setup.validator import ProjectValidator
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ProjectRegistry(IRegistry[ProjectBundle, ProjectDependencies]):
+class ProjectRegistry:
     '''
         Encapsulates core runtime components for simplification of project bundle creation.
 
@@ -49,7 +46,6 @@ class ProjectRegistry(IRegistry[ProjectBundle, ProjectDependencies]):
     '''
 
     @classmethod
-    @override
     def create_bundle(cls, dependencies: ProjectDependencies) -> ProjectBundle:
         '''
             Orchestrates dependency injection and creates a project bundle instance.

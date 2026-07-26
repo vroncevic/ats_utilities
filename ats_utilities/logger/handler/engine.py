@@ -26,22 +26,21 @@ from logging import FileHandler, Formatter, StreamHandler
 from os import makedirs
 from os.path import dirname, exists
 from sys import stdout, stderr
-from typing import Any, override
+from typing import Any
 
-from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
 from ats_utilities.utils.reflection import to_str
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class LogHandlerManager(ILogHandlerManager):
+class LogHandlerManager:
     '''
         Defines class LogHandlerManager with attribute(s) and method(s).
         Provides an API for managing logger output handlers.
@@ -67,7 +66,6 @@ class LogHandlerManager(ILogHandlerManager):
         '''
         self._logger = logger
 
-    @override
     def set_log_file(self, log_file: str) -> bool:
         '''
             Configures file output handler.
@@ -104,7 +102,6 @@ class LogHandlerManager(ILogHandlerManager):
 
         return False
 
-    @override
     def set_stdout(self) -> bool:
         '''
             Configures stdout stream handler.
@@ -143,7 +140,6 @@ class LogHandlerManager(ILogHandlerManager):
 
         return False
 
-    @override
     def set_stderr(self) -> bool:
         '''
             Configures stderr stream handler.
@@ -185,7 +181,6 @@ class LogHandlerManager(ILogHandlerManager):
 
         return False
 
-    @override
     def __str__(self) -> str:
         '''
             Returns log handler manager as string representation.

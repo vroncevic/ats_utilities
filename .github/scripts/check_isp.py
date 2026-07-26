@@ -38,7 +38,7 @@ __status__ = r'Development'
 MAX_ABSTRACT_METHODS = 9
 
 def count_abstract_methods(class_node):
-    """Count methods within a class that have the @abstractmethod decorator."""
+    """Count methods within a class that have thedecorator."""
     count = 0
 
     for node in class_node.body:

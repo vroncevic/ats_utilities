@@ -23,21 +23,21 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
 from collections.abc import Mapping
-from typing import Any
+from typing import Any, Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IConfigProcessor(ABC):
+@runtime_checkable
+class IConfigProcessor(Protocol):
     '''
         Defines abstract class IConfigProcessor with method(s).
         Provides an interface for processing configuration content.
@@ -66,7 +66,6 @@ class IConfigProcessor(ABC):
         processor class documentation for concrete examples.
     '''
 
-    @abstractmethod
     def deserialize(self, content: Any) -> bool:
         '''
             Loads and parses configuration from a raw source (string, stream, or lines).
@@ -75,9 +74,8 @@ class IConfigProcessor(ABC):
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def serialize(self) -> str:
         '''
             Converts the internal configuration structure back to a formatted string representation.
@@ -85,9 +83,8 @@ class IConfigProcessor(ABC):
             :return: Configuration content as string.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def update_data(self, new_data: Mapping[str, str]) -> bool:
         '''
             Updates the internal configuration data and validates it against the scheme.
@@ -96,9 +93,8 @@ class IConfigProcessor(ABC):
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def to_dict(self) -> dict[str, str]:
         '''
             Returns the parsed configuration as a flat or structured dictionary.
@@ -106,9 +102,8 @@ class IConfigProcessor(ABC):
             :return: Dictionary with configuration information.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def validate_by_scheme(self) -> bool:
         '''
             Validates the internal parsed data structure against the provided scheme.
@@ -116,9 +111,8 @@ class IConfigProcessor(ABC):
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the configuration processor as string representation.
@@ -126,4 +120,4 @@ class IConfigProcessor(ABC):
             :return: The configuration processor as string representation.
             :exceptions: None.
         '''
-        pass
+        ...

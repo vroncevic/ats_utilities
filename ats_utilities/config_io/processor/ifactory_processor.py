@@ -22,22 +22,23 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
 from collections.abc import Mapping
+from typing import Protocol, runtime_checkable
 
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IConfigProcessorFactory(ABC):
+@runtime_checkable
+class IConfigProcessorFactory(Protocol):
     '''
         Abstract interface for ConfigProcessorFactory.
         Defines the factory orchestrations for generating configuration processors.
@@ -52,7 +53,6 @@ class IConfigProcessorFactory(ABC):
     '''
 
     @classmethod
-    @abstractmethod
     def get_processor_class(cls, extension: str) -> type[IConfigProcessor]:
         '''
             Returns the processor class for a specific file extension.
@@ -60,10 +60,9 @@ class IConfigProcessorFactory(ABC):
             :param extension: File extension.
             :return: Processor class.
         '''
-        pass
+        ...
 
     @classmethod
-    @abstractmethod
     def create_from_extension(
         cls, 
         extension: str | None = None,
@@ -78,10 +77,9 @@ class IConfigProcessorFactory(ABC):
             :param processor: Instance to be used as the processor | None.
             :return: Processor instance.
         '''
-        pass
+        ...
 
     @classmethod
-    @abstractmethod
     def create_from_file_path(
         cls, 
         file_path: str | None = None,
@@ -96,4 +94,4 @@ class IConfigProcessorFactory(ABC):
             :param processor: Instance to be used as the processor | None.
             :return: Processor instance.
         '''
-        pass
+        ...

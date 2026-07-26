@@ -23,29 +23,28 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, override
+from typing import Any
 
-from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
-from ats_utilities.splasher.setup.splash_keys import SplashKeys
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
+from ats_utilities.splasher.setup.splash_keys import SplashKeys
+from ats_utilities.utils.dicts import cherry_pick_dict, require_keys
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.utils.dicts import require_keys, cherry_pick_dict
 from ats_utilities.validation.check_value import not_empty
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ExtInfrastructure(IExtInfrastructure):
+class ExtInfrastructure:
     '''
         Defines class ExtInfrastructure with attribute(s) and method(s).
         Provides an API for processing hyperlinks for splash screen.
@@ -94,7 +93,6 @@ class ExtInfrastructure(IExtInfrastructure):
 
     @property
     @vreport('getting infrastructure property {infrastructure_property}')
-    @override
     def infrastructure_property(self) -> Mapping[str, Any]:
         '''
             Property method for getting infrastructure property.
@@ -111,7 +109,6 @@ class ExtInfrastructure(IExtInfrastructure):
     @infrastructure_property.setter
     @mcheck([('Mapping:setup', None)])
     @vreport('setting infrastructure property {infrastructure_property}')
-    @override
     def infrastructure_property(self, setup: Mapping[str, Any]) -> None:
         '''
             Property method for setting project infrastructure property.
@@ -137,7 +134,6 @@ class ExtInfrastructure(IExtInfrastructure):
 
     @vreport('getting info text {infrastructure_property}')
     @has_attrs('_infrastructure_property')
-    @override
     def get_info_text(self) -> str:
         '''
             Pre-processes info text for splash.
@@ -159,7 +155,6 @@ class ExtInfrastructure(IExtInfrastructure):
 
     @vreport('getting issue text {infrastructure_property}')
     @has_attrs('_infrastructure_property')
-    @override
     def get_issue_text(self) -> str:
         '''
             Pre-processes issue text for splash.
@@ -181,7 +176,6 @@ class ExtInfrastructure(IExtInfrastructure):
 
     @vreport('getting author text {infrastructure_property}')
     @has_attrs('_infrastructure_property')
-    @override
     def get_author_text(self) -> str:
         '''
             Pre-processes author text for splash.
@@ -201,7 +195,6 @@ class ExtInfrastructure(IExtInfrastructure):
 
         return f'\x1b]8;;{organization}\a{organization}\x1b]8;;\a'
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of ExtInfrastructure.

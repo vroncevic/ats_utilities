@@ -22,26 +22,23 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.info.organization.iorganization import IOrganization
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class Organization(IOrganization):
+class Organization:
     '''
         Defines class Organization with attribute(s) and method(s).
         Provides an API for the organization in one property object.
@@ -84,7 +81,6 @@ class Organization(IOrganization):
 
     @property
     @vreport('getting organization {organization}')
-    @override
     def organization(self) -> str | None:
         '''
             Property method for getting organization.
@@ -101,7 +97,6 @@ class Organization(IOrganization):
     @organization.setter
     @mcheck([('str:organization', None)])
     @vreport('setting organization {organization}')
-    @override
     def organization(self, organization: str) -> None:
         '''
             Property method for setting organization.
@@ -120,7 +115,6 @@ class Organization(IOrganization):
         self._organization = organization
 
     @vreport('checking organization {organization}')
-    @override
     def not_none(self) -> bool:
         '''
             Checks is organization not None.
@@ -134,7 +128,6 @@ class Organization(IOrganization):
         '''
         return self._organization is not None
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the Organization as string representation.

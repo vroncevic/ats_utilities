@@ -22,26 +22,23 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.info.build_date.ibuild_date import IBuildDate
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class BuildDate(IBuildDate):
+class BuildDate:
     '''
         Defines class BuildDate with attribute(s) and method(s).
         Provides an API for the build date in one property object.
@@ -84,7 +81,6 @@ class BuildDate(IBuildDate):
 
     @property
     @vreport('getting build_date {build_date}')
-    @override
     def build_date(self) -> str | None:
         '''
             Property method for getting build date.
@@ -101,7 +97,6 @@ class BuildDate(IBuildDate):
     @build_date.setter
     @mcheck([('str:build_date', None)])
     @vreport('setting build_date {build_date}')
-    @override
     def build_date(self, build_date: str) -> None:
         '''
             Property method for setting build date.
@@ -120,7 +115,6 @@ class BuildDate(IBuildDate):
         self._build_date = build_date
 
     @vreport('checking build_date {build_date}')
-    @override
     def not_none(self) -> bool:
         '''
             Checks is build date not None.
@@ -134,7 +128,6 @@ class BuildDate(IBuildDate):
         '''
         return self._build_date is not None
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the BuildDate as string representation.

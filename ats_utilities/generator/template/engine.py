@@ -24,23 +24,21 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from string import Template
-from typing import override
 
-from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class TemplateProcessor(ITemplateProcessor):
+class TemplateProcessor:
     '''
         Defines class TemplateProcessor with method(s).
         Handles string rendering and template substitutions.
@@ -71,7 +69,6 @@ class TemplateProcessor(ITemplateProcessor):
         self._context = context_bundle
         self._initialized = True
 
-    @override
     def render(self, raw_content: bytes, vals: Mapping[str, str]) -> str | bytes:
         '''
             Decodes and renders template placeholders.
@@ -90,7 +87,6 @@ class TemplateProcessor(ITemplateProcessor):
         except UnicodeDecodeError:
             return raw_content
 
-    @override
     def is_initialized(self) -> bool:
         '''
             Checks if template processor component is initialized.
@@ -100,7 +96,6 @@ class TemplateProcessor(ITemplateProcessor):
         '''
         return self._initialized
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the TemplateProcessor as string representation.

@@ -22,21 +22,21 @@ Info
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
 from collections.abc import Mapping
-from typing import Any
+from typing import Any, Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IExtInfrastructure(ABC):
+@runtime_checkable
+class IExtInfrastructure(Protocol):
     '''
         Defines abstract class IExtInfrastructure with method(s).
         Interface for processing hyperlinks for splash screen.
@@ -53,7 +53,6 @@ class IExtInfrastructure(ABC):
     '''
 
     @property
-    @abstractmethod
     def infrastructure_property(self) -> Mapping[str, Any]:
         '''
             Property method for getting infrastructure property.
@@ -61,10 +60,9 @@ class IExtInfrastructure(ABC):
 
             :return: Formatted infrastructure property in Mapping format (read only data).
         '''
-        pass
+        ...
 
     @infrastructure_property.setter
-    @abstractmethod
     def infrastructure_property(self, setup: Mapping[str, Any]) -> None:
         '''
             Property method for setting project infrastructure property.
@@ -72,9 +70,8 @@ class IExtInfrastructure(ABC):
 
             :param setup: Project infrastructure property in Mapping format (read only data).
         '''
-        pass
+        ...
 
-    @abstractmethod
     def get_info_text(self) -> str:
         '''
             Pre-processes info text for splash screen.
@@ -82,9 +79,8 @@ class IExtInfrastructure(ABC):
 
             :return: Hyperlink with info text.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def get_issue_text(self) -> str:
         '''
             Pre-processes issue text for splash screen.
@@ -92,9 +88,8 @@ class IExtInfrastructure(ABC):
 
             :return: Hyperlink with issue info.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def get_author_text(self) -> str:
         '''
             Pre-processes author text for splash screen.
@@ -102,13 +97,12 @@ class IExtInfrastructure(ABC):
 
             :return: Hyperlink with author info.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the external infrastructure as string representation.
 
             :return: The external infrastructure as string representation.
         '''
-        pass
+        ...

@@ -47,10 +47,10 @@ class CheckReporterTest(unittest.TestCase):
 
             :attributes: None.
             :methods:
-                | test_build_message_format_valid - Tests build_message_format with valid bundle.
+                | test_build_message_format_valid - Tests build_message with valid bundle.
                 | test_build_message_format_with_errors - Tests message formatting with errors.
-                | test_build_message_format_invalid_none - Tests build_message_format with None bundle.
-                | test_build_message_format_invalid_type - Tests build_message_format with wrong type.
+                | test_build_message_format_invalid_none - Tests build_message with None bundle.
+                | test_build_message_format_invalid_type - Tests build_message with wrong type.
                 | test_str - Tests __str__ representation.
     '''
 
@@ -62,7 +62,7 @@ class CheckReporterTest(unittest.TestCase):
             err_indices=[],
             is_fmt_err=False
         )
-        msg = reporter.build_message_format(bundle)
+        msg = reporter.build_message(bundle)
         self.assertIn("my_context", msg)
         self.assertIn("param1", msg)
         self.assertNotIn("wrong type", msg)
@@ -76,7 +76,7 @@ class CheckReporterTest(unittest.TestCase):
             err_indices=[1],
             is_fmt_err=True
         )
-        msg = reporter.build_message_format(bundle)
+        msg = reporter.build_message(bundle)
         self.assertIn("my_context", msg)
         self.assertIn("param1", msg)
         self.assertIn("param2", msg)
@@ -86,12 +86,12 @@ class CheckReporterTest(unittest.TestCase):
     def test_build_message_format_invalid_none(self) -> None:
         reporter = CheckReporter()
         with self.assertRaises(ATSValueError):
-            reporter.build_message_format(None)  # type: ignore
+            reporter.build_message(None)  # type: ignore
 
     def test_build_message_format_invalid_type(self) -> None:
         reporter = CheckReporter()
         with self.assertRaises(ATSTypeError):
-            reporter.build_message_format("invalid")  # type: ignore
+            reporter.build_message("invalid")  # type: ignore
 
     def test_str(self) -> None:
         reporter = CheckReporter()

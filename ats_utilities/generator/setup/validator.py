@@ -21,28 +21,25 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.setup.bundle import GeneratorBundle
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.itar_processor import ITarProcessor
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
-from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class GeneratorValidator(IValidator[GeneratorBundle]):
+class GeneratorValidator:
     '''
         Validator for generator bundle instance.
 
@@ -53,7 +50,6 @@ class GeneratorValidator(IValidator[GeneratorBundle]):
     '''
 
     @classmethod
-    @override
     def validate(cls, bundle: GeneratorBundle) -> None:
         '''
             Validates generator bundle instance.
@@ -71,17 +67,17 @@ class GeneratorValidator(IValidator[GeneratorBundle]):
                 | ATSTypeError: Tar processor must be an ITarProcessor instance.
                 | ATSTypeError: Template processor must be an ITemplateProcessor instance.
         '''
-        ctx: str = r'generator_validator::validate(...)'
+        ctx: str = 'generator_validator::validate(...)'
 
-        not_none(bundle, ctx, r'bundle must be provided')
-        istype(bundle, GeneratorBundle, ctx, r'bundle must be an instance of GeneratorBundle')
+        not_none(bundle, ctx, 'bundle must be provided')
+        istype(bundle, GeneratorBundle, ctx, 'bundle must be an instance of GeneratorBundle')
 
-        not_none(bundle.scheme_loader, ctx, r'scheme loader must be provided')
-        not_none(bundle.tar_processor, ctx, r'tar processor must be provided')
-        not_none(bundle.template_processor, ctx, r'template processor must be provided')
-        not_none(bundle.context_bundle, ctx, r'context bundle must be provided')
+        not_none(bundle.scheme_loader, ctx, 'scheme loader must be provided')
+        not_none(bundle.tar_processor, ctx, 'tar processor must be provided')
+        not_none(bundle.template_processor, ctx, 'template processor must be provided')
+        not_none(bundle.context_bundle, ctx, 'context bundle must be provided')
 
-        istype(bundle.scheme_loader, ISchemeLoader, ctx, r'scheme loader must be an ISchemeLoader instance')
-        istype(bundle.tar_processor, ITarProcessor, ctx, r'tar processor must be an ITarProcessor instance')
-        istype(bundle.template_processor, ITemplateProcessor, ctx, r'template processor must be an ITemplateProcessor instance')
-        istype(bundle.context_bundle, ContextBundle, ctx, r'context bundle must be a ContextBundle instance')
+        istype(bundle.scheme_loader, ISchemeLoader, ctx, 'scheme loader must be an ISchemeLoader instance')
+        istype(bundle.tar_processor, ITarProcessor, ctx, 'tar processor must be an ITarProcessor instance')
+        istype(bundle.template_processor, ITemplateProcessor, ctx, 'template processor must be an ITemplateProcessor instance')
+        istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')

@@ -21,9 +21,6 @@ Info
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
@@ -31,17 +28,17 @@ from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ContextValidator(IValidator[ContextBundle]):
+class ContextValidator:
     '''
         Validator for context bundle instance.
 
@@ -52,7 +49,6 @@ class ContextValidator(IValidator[ContextBundle]):
     '''
 
     @classmethod
-    @override
     def validate(cls, bundle: ContextBundle) -> None:
         '''
             Validates context bundle instance.
@@ -70,17 +66,17 @@ class ContextValidator(IValidator[ContextBundle]):
                 | ATSTypeError: Reporter must be an instance of IReporter.
                 | ATSTypeError: Verbose must be a boolean.
         '''
-        ctx: str = r'context_validator::validate(...)'
+        ctx: str = 'context_validator::validate(...)'
 
-        not_none(bundle, ctx, r'bundle must be provided')
-        istype(bundle, ContextBundle, ctx, r'bundle must be an instance of ContextBundle')
+        not_none(bundle, ctx, 'bundle must be provided')
+        istype(bundle, ContextBundle, ctx, 'bundle must be an instance of ContextBundle')
 
-        not_none(bundle.checker, ctx, r'checker must be provided')
-        not_none(bundle.logger, ctx, r'logger must be provided')
-        not_none(bundle.reporter, ctx, r'reporter must be provided')
-        not_none(bundle.verbose, ctx, r'verbose must be provided')
+        not_none(bundle.checker, ctx, 'checker must be provided')
+        not_none(bundle.logger, ctx, 'logger must be provided')
+        not_none(bundle.reporter, ctx, 'reporter must be provided')
+        not_none(bundle.verbose, ctx, 'verbose must be provided')
 
-        istype(bundle.checker, IChecker, ctx, r'checker must be an instance of IChecker')
-        istype(bundle.logger, ILogger, ctx, r'logger must be an instance of ILogger')
-        istype(bundle.reporter, IReporter, ctx, r'reporter must be an instance of IReporter')
-        istype(bundle.verbose, bool, ctx, r'verbose must be a boolean')
+        istype(bundle.checker, IChecker, ctx, 'checker must be an instance of IChecker')
+        istype(bundle.logger, ILogger, ctx, 'logger must be an instance of ILogger')
+        istype(bundle.reporter, IReporter, ctx, 'reporter must be an instance of IReporter')
+        istype(bundle.verbose, bool, ctx, 'verbose must be a boolean')

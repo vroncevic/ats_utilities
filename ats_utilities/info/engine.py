@@ -23,10 +23,9 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, override
+from typing import Any
 from types import MappingProxyType
 
-from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.setup.bundle import InfoBundle
 from ats_utilities.info.setup.factory import InfoFactory
@@ -37,17 +36,17 @@ from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_satisfied, not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
+class InfoManager:
     '''
         Defines class InfoManager with attribute(s) and method(s).
         Provides an API for the information in one container object.
@@ -92,7 +91,6 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
         self.refresh_status()
         self._is_initialized = True
 
-    @override
     def get_context(self) -> ContextBundle:
         '''
             Returns the context.
@@ -102,7 +100,6 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
         '''
         return self._context
 
-    @override
     def set_info(self, info: Mapping[str, Any]) -> None:
         '''
             Sets the information structure by re-creating the info bundle.
@@ -112,9 +109,9 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
                 | ATSValueError: Info mapping must be provided and contain required keys.
                 | ATSTypeError:  Info mapping must be an instance of Mapping.
         '''
-        ctx: str = r'info_manager::set_info(...)'
-        not_none(info, ctx, r'info mapping must be provided')
-        istype(info, Mapping, ctx, r'info must be a Mapping')
+        ctx: str = 'info_manager::set_info(...)'
+        not_none(info, ctx, 'info mapping must be provided')
+        istype(info, Mapping, ctx, 'info must be a Mapping')
 
         self._components = InfoFactory.create_bundle({
             InfoKeys.OPTION_INFO: info,
@@ -122,7 +119,6 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
         })
         self.refresh_status()
 
-    @override
     def get_info(self) -> Mapping[str, Any]:
         '''
             Gets the information structure.
@@ -171,7 +167,7 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
 
             return getattr(component, name, None) if component else None
 
-        ctx: str = r'info_manager::getattr(...)'
+        ctx: str = 'info_manager::getattr(...)'
         not_satisfied(True, ctx, f'{type(self).__name__} has no attribute {name}', ATSAttributeError)
 
     def __setattr__(self, name: str, value: str | bool | None) -> None:
@@ -197,10 +193,9 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
 
                 return
 
-        ctx: str = r'info_manager::setattr(...)'
+        ctx: str = 'info_manager::setattr(...)'
         not_satisfied(True, ctx, f'{type(self).__name__} has no registered attribute {name}', ATSAttributeError)
 
-    @override
     def is_initialized(self) -> bool:
         '''
             Checks if info manager is successfully initialized and has valid status.
@@ -214,7 +209,6 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
         info_ok_component = getattr(self._components, InfoKeys.DEPENDENCY_INFO_OK, None)
         return bool(info_ok_component and getattr(info_ok_component, InfoKeys.DEPENDENCY_INFO_OK, False))
 
-    @override
     def refresh_status(self) -> None:
         '''
             Refreshes status for information structure based on required components validity.
@@ -248,7 +242,6 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
         if info_ok_component is not None:
             setattr(info_ok_component, InfoKeys.DEPENDENCY_INFO_OK, is_all_ok)
 
-    @override
     def __str__(self) -> str:
         '''
             Returns info manager as string representation.

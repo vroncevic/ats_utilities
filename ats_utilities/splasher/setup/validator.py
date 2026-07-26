@@ -21,7 +21,6 @@ Info
 
 from __future__ import annotations
 
-from typing import override
 from collections.abc import Mapping
 
 from ats_utilities.context.bundle import ContextBundle
@@ -37,14 +36,14 @@ from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.utils.files import check_file_exists
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 class SplashValidator(IValidator[SplashBundle]):
@@ -58,7 +57,6 @@ class SplashValidator(IValidator[SplashBundle]):
     '''
 
     @classmethod
-    @override
     def validate(cls, bundle: SplashBundle) -> None:
         '''
             Validates splash bundle instance.
@@ -91,26 +89,26 @@ class SplashValidator(IValidator[SplashBundle]):
                 | ATSTypeError: Verbose must be a boolean.
                 | ATSValueError: App/Tool/Script logo file path not correct.
         '''
-        ctx: str = r'splash_validator::validate(...)'
+        ctx: str = 'splash_validator::validate(...)'
 
-        not_none(bundle, ctx, r'bundle must be provided')
-        istype(bundle, SplashBundle, ctx, r'bundle must be an instance of SplashBundle')
+        not_none(bundle, ctx, 'bundle must be provided')
+        istype(bundle, SplashBundle, ctx, 'bundle must be an instance of SplashBundle')
 
-        not_none(bundle.prop, ctx, r'properties dictionary must be provided')
-        not_none(bundle.splash_property, ctx, r'splash property must be provided')
-        not_none(bundle.property_validated, ctx, r'property validated flag must be provided')
-        not_none(bundle.terminal_property, ctx, r'terminal properties must be provided')
-        not_none(bundle.ext, ctx, r'external infrastructure must be provided')
-        not_none(bundle.pb, ctx, r'progress bar must be provided')
-        not_none(bundle.context_bundle, ctx, r'context bundle must be provided')
+        not_none(bundle.prop, ctx, 'properties dictionary must be provided')
+        not_none(bundle.splash_property, ctx, 'splash property must be provided')
+        not_none(bundle.property_validated, ctx, 'property validated flag must be provided')
+        not_none(bundle.terminal_property, ctx, 'terminal properties must be provided')
+        not_none(bundle.ext, ctx, 'external infrastructure must be provided')
+        not_none(bundle.pb, ctx, 'progress bar must be provided')
+        not_none(bundle.context_bundle, ctx, 'context bundle must be provided')
 
-        istype(bundle.prop, Mapping, ctx, r'properties dictionary must be a Mapping[str, Any] instance')
-        istype(bundle.splash_property, ISplashProperty, ctx, r'splash property must be an ISplashProperty instance')
-        istype(bundle.property_validated, bool, ctx, r'property validated flag must be an instance of bool')
-        istype(bundle.terminal_property, ITerminalProperties, ctx, r'terminal properties must be an ITerminalProperties instance')
-        istype(bundle.ext, IExtInfrastructure, ctx, r'external infrastructure must be an IExtInfrastructure instance')
-        istype(bundle.pb, IProgressBar, ctx, r'progress bar must be an IProgressBar instance')
-        istype(bundle.context_bundle, ContextBundle, ctx, r'context bundle must be a ContextBundle instance')
+        istype(bundle.prop, Mapping, ctx, 'properties dictionary must be a Mapping[str, Any] instance')
+        istype(bundle.splash_property, ISplashProperty, ctx, 'splash property must be an ISplashProperty instance')
+        istype(bundle.property_validated, bool, ctx, 'property validated flag must be an instance of bool')
+        istype(bundle.terminal_property, ITerminalProperties, ctx, 'terminal properties must be an ITerminalProperties instance')
+        istype(bundle.ext, IExtInfrastructure, ctx, 'external infrastructure must be an IExtInfrastructure instance')
+        istype(bundle.pb, IProgressBar, ctx, 'progress bar must be an IProgressBar instance')
+        istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')
 
         ContextValidator.validate(bundle.context_bundle)
 

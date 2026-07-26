@@ -23,22 +23,20 @@ Info
 from __future__ import annotations
 
 import sys
-from typing import override
 
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.4'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ProgressBar(IProgressBar):
+class ProgressBar:
     '''
         Defines class ProgressBar with attribute(s) and method(s).
         Implements a progressbar as part of splash screen.
@@ -92,7 +90,6 @@ class ProgressBar(IProgressBar):
         self._ratio = 0.0
         self._level_chars = 0
 
-    @override
     def set_level(self, level: int) -> None:
         '''
             Sets level for progress bar.
@@ -111,7 +108,6 @@ class ProgressBar(IProgressBar):
         )
         self._level_chars = int(self._ratio * self._bar_length)
 
-    @override
     def plot_progress(self, columns: int) -> None:
         '''
             Plots progress bar.
@@ -133,7 +129,6 @@ class ProgressBar(IProgressBar):
         sys.stdout.flush()
         self._plotted = True
 
-    @override
     def set_and_plot(self, level: int, columns: int) -> None:
         '''
             Sets and plots progress bar.
@@ -155,7 +150,6 @@ class ProgressBar(IProgressBar):
         '''
         sys.stdout.write('\n')
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of ProgressBar.

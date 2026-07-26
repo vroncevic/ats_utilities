@@ -65,7 +65,7 @@ class TestDirsUtility(unittest.TestCase):
     def test_check_dir_exists_custom_exception_class(self, mock_is_dir: MagicMock, mock_raise_error: MagicMock) -> None:
         """Test that custom exception classes are accurately passed down to the raise_error handler."""
         class CustomTestException(BaseException):
-            pass
+            ...
 
         missing_path = "/path/to/missing/dir"
         
