@@ -56,7 +56,7 @@ class IOptionManager[ContextEnvironment](ABC):
                 | register_commands - Registers a sequence of commands with the parser.
                 | parse_command - Parses the input arguments and returns an OptionNamespace.
                 | is_initialized - Checks if option parser component is initialized.
-                | __str__ - Returns the option parser as string representation.
+                | __str__ - Returns option parser as string representation.
     '''
 
     @abstractmethod
@@ -64,7 +64,7 @@ class IOptionManager[ContextEnvironment](ABC):
         '''
             Returns the context.
 
-            :return: Context
+            :return: Context.
         '''
         pass
 
@@ -73,8 +73,8 @@ class IOptionManager[ContextEnvironment](ABC):
         '''
             Adds an option to the parser.
 
-            :param args: Arguments in string form
-            :param kwargs: Arguments in Any form
+            :param args: Arguments in string form.
+            :param kwargs: Arguments in Any form.
         '''
         pass
 
@@ -83,8 +83,7 @@ class IOptionManager[ContextEnvironment](ABC):
         '''
             Adds version option to the parser.
 
-            :param version: The version in string format | None
- | None
+            :param version: Version in string format | None.
         '''
         pass
 
@@ -93,8 +92,8 @@ class IOptionManager[ContextEnvironment](ABC):
         '''
             Processes arguments from the start.
 
-            :param arguments: Sequence of arguments | None
-            :return: Option namespace object
+            :param arguments: Sequence of arguments | None.
+            :return: Option namespace object.
         '''
         pass
 
@@ -103,8 +102,8 @@ class IOptionManager[ContextEnvironment](ABC):
         '''
             Processes arguments from the start.
 
-            :param arguments: Sequence of arguments | None
-            :return: Option namespace object
+            :param arguments: Sequence of arguments | None.
+            :return: Option namespace object.
         '''
         pass
 
@@ -140,8 +139,8 @@ class IOptionManager[ContextEnvironment](ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the option parser as string representation.
+            Returns option parser as string representation.
 
-            :return: The option parser as string representation.
+            :return: Option parser as string representation.
         '''
         pass

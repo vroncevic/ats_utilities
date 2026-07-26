@@ -33,7 +33,7 @@ from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.parser.iarg_parser import IArgParser
 from ats_utilities.option.parser.data import ParserData
-from ats_utilities.info.setup.info_keys import InfoKeys
+from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 from ats_utilities.option.option_namespace import KnownArgs
@@ -130,7 +130,6 @@ class ParserStrategy(IParserStrategy):
             Adds a version display option to the parser.
 
             :param version: The ATS version | None.
- | None
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''

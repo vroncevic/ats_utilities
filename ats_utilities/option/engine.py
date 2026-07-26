@@ -125,7 +125,6 @@ class OptionManager(IOptionManager[ContextBundle]):
             Adds version option to the parser.
 
             :param version: The version in string format | None.
- | None
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
