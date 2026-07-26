@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from typing import override
 
 from ats_utilities.info.setup.dependencies import InfoDependencies
@@ -66,14 +66,30 @@ class InfoDependenciesValidator(IDependenciesValidator[InfoDependencies]):
 
         not_none(dependencies, ctx, r'dependencies must be provided and have proper values')
         istype(dependencies, Mapping, ctx, r'dependencies must be an instance of Mapping')
-        not_satisfied(
-            InfoKeys.DEPENDENCY_CONTEXT_BUNDLE not in dependencies, ctx,
-            f'{InfoKeys.DEPENDENCY_CONTEXT_BUNDLE} must be provided in dependencies'
-        )
+
+        required_dependency_keys: Sequence[str] = [
+            InfoKeys.get_key_by_config_key(key) for key in InfoKeys.get_required_keys()
+        ]
+        optional_dependency_keys: Sequence[str] = [
+            InfoKeys.get_key_by_config_key(key) for key in InfoKeys.get_optional_keys()
+        ]
+
+        for key in required_dependency_keys:
+            not_satisfied(key not in dependencies, ctx, f'{key} must be provided in dependencies')
 
         for attr_name, expected_type in InfoKeys.get_dependency_to_type().items():
             value = dependencies.get(attr_name)
 
-            if value is not None:
-                err_msg = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
-                istype(value, expected_type, ctx, err_msg)
+            if attr_name in required_dependency_keys:
+                not_satisfied(value is None, ctx, f'{attr_name} must be provided and have proper value')
+                istype(
+                    value, expected_type, ctx,
+                    f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+                )
+                continue
+
+            if attr_name in optional_dependency_keys and value is not None:
+                istype(
+                    value, expected_type, ctx,
+                    f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+                )

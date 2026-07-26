@@ -21,12 +21,11 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from typing import Any, override
 
 from ats_utilities.utils.setup.iopt_validator import IOptionsValidator
 from ats_utilities.info.setup.options import InfoOptions
-from ats_utilities.context.validator import ContextValidator
 from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none, not_satisfied
@@ -71,21 +70,30 @@ class InfoOptionsValidator(IOptionsValidator[InfoOptions]):
         for opt_name, expected_type in InfoKeys.get_option_to_type().items():
             not_satisfied(opt_name not in options, ctx, f'{opt_name} must be provided')
             value = options.get(opt_name)
+            not_none(value, ctx, f'{opt_name} must be provided and have proper value')
+            istype(
+                value, expected_type, ctx,
+                f'{opt_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+            )
 
-            if value is not None:
-                err_msg = f'{opt_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
-                istype(value, expected_type, ctx, err_msg)
+            if opt_name is InfoKeys.OPTION_INFO:
+                info_structure: Mapping[str, Any] = value
+                required_config_keys: Sequence[str] = InfoKeys.get_required_keys()
+                not_satisfied(
+                    not all(key in info_structure for key in required_config_keys),
+                    ctx, r'info structure must contain all required keys'
+                )
 
-                if opt_name is InfoKeys.OPTION_INFO:
-                    info_structure: Mapping[str, Any] = value
+                for key in info_structure.keys():
+                    not_satisfied(
+                        key not in InfoKeys.get_config_keys(),
+                        ctx, f'{key} is not a valid info configuration key'
+                    )
 
-                    for key in info_structure.keys():
-                        not_satisfied(key not in InfoKeys.get_config_keys(), ctx, f'{key} is not a valid info key')
+                    if InfoKeys.is_optional_key(key):
+                        continue
 
-                        if InfoKeys.is_optional_key(key):
-                            continue
-
-                        not_satisfied(info_structure[key] is None, ctx, f'info value for {key} must be provided')
-
-                if opt_name is InfoKeys.OPTION_CONTEXT_BUNDLE:
-                    ContextValidator.validate(value)
+                    not_satisfied(
+                        info_structure[key] is None, ctx,
+                        f'info value for required key {key} must be provided'
+                    )

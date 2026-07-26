@@ -93,12 +93,6 @@ class InfoValidator(IValidator[InfoBundle]):
         not_empty(bundle.version, ctx, r'version must be not empty')
         not_empty(bundle.licence, ctx, r'licence must be not empty')
         not_empty(bundle.build_date, ctx, r'build date must be not empty')
-        not_empty(bundle.repository, ctx, r'repository must be not empty')
-        not_empty(bundle.organization, ctx, r'organization must be not empty')
-        not_empty(bundle.use_github, ctx, r'use github must be not empty')
-        not_empty(bundle.logo, ctx, r'logo must be not empty')
-        not_empty(bundle.log_file, ctx, r'log file must be not empty')
-        not_empty(bundle.info_ok, ctx, r'info ok must be not empty')
 
         istype(bundle.name, IName, ctx, r'name must be an instance of IName')
         istype(bundle.version, IVersion, ctx, r'version must be an instance of IVersion')
