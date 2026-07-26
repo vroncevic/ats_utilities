@@ -78,7 +78,7 @@ class InfoOptionsValidator(IOptionsValidator[InfoOptions]):
 
             if opt_name is InfoKeys.OPTION_INFO:
                 info_structure: Mapping[str, Any] = value
-                required_config_keys: Sequence[str] = InfoKeys.get_required_keys()
+                required_config_keys: Sequence[str] = InfoKeys.get_required_config_keys()
                 not_satisfied(
                     not all(key in info_structure for key in required_config_keys),
                     ctx, r'info structure must contain all required keys'
@@ -90,7 +90,7 @@ class InfoOptionsValidator(IOptionsValidator[InfoOptions]):
                         ctx, f'{key} is not a valid info configuration key'
                     )
 
-                    if InfoKeys.is_optional_key(key):
+                    if InfoKeys.is_optional_config_key(key):
                         continue
 
                     not_satisfied(

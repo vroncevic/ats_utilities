@@ -24,14 +24,17 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from typing import Any, override
+from types import MappingProxyType
 
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.setup.bundle import InfoBundle
+from ats_utilities.info.setup.factory import InfoFactory
 from ats_utilities.info.setup.validator import InfoValidator
 from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.exceptions import ATSAttributeError
 from ats_utilities.utils.reflection import to_str
+from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_satisfied, not_none
 
 __author__ = r'Vladimir Roncevic'
@@ -50,7 +53,7 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
         Provides an API for the information in one container object.
         The information container for App/Tool/Script.
         Note: The information is read-only data (it is provided by
-        configuraiton file which is loaded by config loader).
+        configuration file which is loaded by config loader).
 
         It defines:
 
@@ -85,6 +88,7 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
         InfoValidator.validate(own)
         self._components = own
         self._context = own.context_bundle
+        self._is_initialized = False
         self.refresh_status()
         self._is_initialized = True
 
@@ -98,65 +102,60 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
         '''
         return self._context
 
-    def is_attribute(self, name: str | bool | None) -> bool:
-        '''
-            Checks if attribute name is a manageable attribute.
-
-            :param name: Name of the attribute to check.
-            :return: True if attribute name is a manageable attribute, otherwise False.
-            :exceptions: None.
-        '''
-        has_components: bool = '_components' in self.__dict__
-        is_registered_attribute: bool = (
-            name in InfoKeys.get_dependency_to_type().keys() or name == InfoKeys.ATS_INFO_OK
-        )
-
-        return has_components and is_registered_attribute
-
     @override
     def set_info(self, info: Mapping[str, Any]) -> None:
         '''
-            Sets the information structure.
+            Sets the information structure by re-creating the info bundle.
 
-            :param info: Mapping with information.
-            :exceptions: None.
+            :param info: Mapping with configuration information.
+            :exceptions:
+                | ATSValueError: Info mapping must be provided and contain required keys.
+                | ATSTypeError:  Info mapping must be an instance of Mapping.
         '''
-        for key in InfoKeys.get_config_keys():
-            if key == InfoKeys.ATS_LOG_FILE:
-                continue
+        ctx: str = r'info_manager::set_info(...)'
+        not_none(info, ctx, r'info mapping must be provided')
+        istype(info, Mapping, ctx, r'info must be a Mapping')
 
-            ctx: str = r'info_manager::set_info(...)'
-
-            if key not in info:
-                not_none(None, ctx, f'missing key: {key}')
-
-            not_none(info.get(key), ctx, f'null value for key: {key}')
-
-        for key, attr in InfoKeys.get_dependency_to_type().items():
-            val = info.get(key)
-
-            if key == InfoKeys.ATS_LOG_FILE and val is None:
-                continue
-
-            if key == InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE:
-                if isinstance(val, str):
-                    val = True if val == 'True' else False
-
-            setattr(self, attr, val)
+        self._components = InfoFactory.create_bundle({
+            InfoKeys.OPTION_INFO: info,
+            InfoKeys.OPTION_CONTEXT_BUNDLE: self._context
+        })
+        self.refresh_status()
 
     @override
     def get_info(self) -> Mapping[str, Any]:
         '''
             Gets the information structure.
 
-            :return: Mapping with information.
+            :return: Mapping representation of current info configuration.
             :exceptions: None.
         '''
-        return {
-            key: getattr(self, attr)
-            for key, attr in InfoKeys.get_dependency_to_type().items()
-            if key != InfoKeys.ATS_LOG_FILE or getattr(self, attr) is not None
-        }
+        info_dict: dict[str, Any] = {}
+        config_key_to_dep = InfoKeys.get_config_keys()
+
+        for config_key, dep_attr in config_key_to_dep.items():
+            component = getattr(self._components, dep_attr, None)
+
+            if component is not None:
+                val = getattr(component, dep_attr, None)
+
+                if val is not None:
+                    info_dict[config_key] = val
+
+        return MappingProxyType(info_dict)
+
+    def is_registered_attribute(self, name: str) -> bool:
+        '''
+            Checks if attribute name is a registered dependency attribute name.
+
+            :param name: Name of the attribute to check.
+            :return: True if attribute name is a registered attribute, otherwise False.
+            :exceptions: None.
+        '''
+        has_components: bool = '_components' in self.__dict__
+        is_registered: bool = name in InfoKeys.get_all_names_config_keys()
+
+        return has_components and is_registered
 
     def __getattr__(self, name: str) -> str | bool | None:
         '''
@@ -165,15 +164,15 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
             :param name: Name of the attribute to look up.
             :return: The value of the component attribute if found, otherwise None.
             :exceptions:
-                | ATSAttributeError: Name of the attribute is not a managed attribute.
+                | ATSAttributeError: Name of the attribute is not a registered attribute.
         '''
-        if self.is_attribute(name):
+        if self.is_registered_attribute(name):
             component = getattr(self._components, name, None)
 
             return getattr(component, name, None) if component else None
 
         ctx: str = r'info_manager::getattr(...)'
-        not_satisfied(True, ctx, f'{type(self).__name__} object has no attribute {name}', ATSAttributeError)
+        not_satisfied(True, ctx, f'{type(self).__name__} has no attribute {name}', ATSAttributeError)
 
     def __setattr__(self, name: str, value: str | bool | None) -> None:
         '''
@@ -181,44 +180,73 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
 
             :param name: Name of the attribute to set.
             :param value: Value to assign to the component attribute.
-            :exceptions: None.
+            :exceptions:
+                | ATSAttributeError: Name of the attribute is not a registered attribute.
         '''
-        if self.is_attribute(name):
+        if name.startswith('_'):
+            super().__setattr__(name, value)
+
+            return
+
+        if self.is_registered_attribute(name):
             component = getattr(self._components, name, None)
 
-            if component:
+            if component is not None:
                 setattr(component, name, value)
                 self.refresh_status()
 
                 return
 
-        super().__setattr__(name, value)
+        ctx: str = r'info_manager::setattr(...)'
+        not_satisfied(True, ctx, f'{type(self).__name__} has no registered attribute {name}', ATSAttributeError)
 
     @override
     def is_initialized(self) -> bool:
         '''
-            Checks if info manager is initialized.
+            Checks if info manager is successfully initialized and has valid status.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successfully initialized, otherwise False.
             :exceptions: None.
         '''
-        component = getattr(self._components, InfoKeys.ATS_INFO_OK, None) if self._is_initialized else None
+        if not self._is_initialized or self._components is None:
+            return False
 
-        return self._is_initialized and (component.info_ok if component else False)
+        info_ok_component = getattr(self._components, InfoKeys.DEPENDENCY_INFO_OK, None)
+        return bool(info_ok_component and getattr(info_ok_component, InfoKeys.DEPENDENCY_INFO_OK, False))
 
     @override
     def refresh_status(self) -> None:
         '''
-            Refresh status for information structure.
+            Refreshes status for information structure based on required components validity.
 
             :exceptions: None.
         '''
-        info_ok = getattr(self._components, InfoKeys.ATS_INFO_OK, False)
-        info_ok.info_ok = all(
-            getattr(self._components, attr, None).not_none()
-            for attr in InfoKeys.get_dependency_to_type().values()
-            if attr != InfoKeys.ATS_LOG_FILE
-        )
+        if not hasattr(self, r'_components') or self._components is None:
+            return
+
+        required_dep_names = InfoKeys.get_names_of_required_config_keys()
+        is_all_ok: bool = True
+
+        for dep_name in required_dep_names:
+            if dep_name == InfoKeys.DEPENDENCY_INFO_OK:
+                continue
+
+            component = getattr(self._components, dep_name, None)
+
+            if component is None:
+                is_all_ok = False
+                break
+
+            val = getattr(component, dep_name, None)
+
+            if val is None or val == '':
+                is_all_ok = False
+                break
+
+        info_ok_component = getattr(self._components, InfoKeys.DEPENDENCY_INFO_OK, None)
+
+        if info_ok_component is not None:
+            setattr(info_ok_component, InfoKeys.DEPENDENCY_INFO_OK, is_all_ok)
 
     @override
     def __str__(self) -> str:

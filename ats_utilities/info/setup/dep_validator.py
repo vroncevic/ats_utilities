@@ -68,10 +68,10 @@ class InfoDependenciesValidator(IDependenciesValidator[InfoDependencies]):
         istype(dependencies, Mapping, ctx, r'dependencies must be an instance of Mapping')
 
         required_dependency_keys: Sequence[str] = [
-            InfoKeys.get_key_by_config_key(key) for key in InfoKeys.get_required_keys()
+            InfoKeys.get_name_of_config_key(key) for key in InfoKeys.get_required_config_keys()
         ]
         optional_dependency_keys: Sequence[str] = [
-            InfoKeys.get_key_by_config_key(key) for key in InfoKeys.get_optional_keys()
+            InfoKeys.get_name_of_config_key(key) for key in InfoKeys.get_optional_config_keys()
         ]
 
         for key in required_dependency_keys:

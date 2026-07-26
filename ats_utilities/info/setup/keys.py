@@ -108,12 +108,12 @@ class InfoKeys(IKeys[str, type]):
                 | get_option_to_type - Returns mapping of info options to their types.
                 | get_config_keys - Returns a sequence of all information config keys.
                 | is_registered_config_key - Checks if key name is a registered config key.
-                | get_keys - Returns mapping of all config keys to their dependency keys.
-                | get_optional_keys - Returns a sequence of all optional keys.
-                | is_optional_key - Checks if key name is an optional key.
-                | get_required_keys - Returns a sequence of all required keys.
-                | is_required_key - Checks if key name is a required key.
-                | get_key_by_config_key - Returns the dependency key for the given config key.
+                | get_config_keys - Returns mapping of all config keys to their dependency keys.
+                | get_optional_config_keys - Returns a sequence of all optional keys.
+                | is_optional_config_key - Checks if key name is an optional key.
+                | get_required_config_keys - Returns a sequence of all required keys.
+                | is_required_config_key - Checks if key name is a required key.
+                | get_name_of_config_key - Returns the dependency key for the given config key.
                 | get_config_key_to_type - Returns mapping of all config keys to their types.
     '''
 
@@ -216,7 +216,7 @@ class InfoKeys(IKeys[str, type]):
         return name in cls.get_config_keys()
 
     @classmethod
-    def get_keys(cls) -> MappingProxyType[str, str]:
+    def get_config_keys(cls) -> MappingProxyType[str, str]:
         '''
             Returns a mapping of all config keys to their dependency keys.
 
@@ -238,7 +238,7 @@ class InfoKeys(IKeys[str, type]):
 
 
     @classmethod
-    def get_optional_keys(cls) -> Sequence[str]:
+    def get_optional_config_keys(cls) -> Sequence[str]:
         '''
             Returns a sequence of all optional keys.
 
@@ -254,7 +254,7 @@ class InfoKeys(IKeys[str, type]):
         )
 
     @classmethod
-    def is_optional_key(cls, key: str) -> bool:
+    def is_optional_config_key(cls, key: str) -> bool:
         '''
             Checks if key name is an optional key.
 
@@ -262,10 +262,10 @@ class InfoKeys(IKeys[str, type]):
             :return: True if key name is an optional key, otherwise False.
             :exceptions: None.
         '''
-        return key in cls.get_optional_keys()
+        return key in cls.get_optional_config_keys()
 
     @classmethod
-    def is_required_key(cls, key: str) -> bool:
+    def is_required_config_key(cls, key: str) -> bool:
         '''
             Checks if key name is a required key.
 
@@ -273,20 +273,20 @@ class InfoKeys(IKeys[str, type]):
             :return: True if key name is a required key, otherwise False.
             :exceptions: None.
         '''
-        return key in cls.get_config_keys() and not cls.is_optional_key(key)
+        return key in cls.get_config_keys() and not cls.is_optional_config_key(key)
 
     @classmethod
-    def get_required_keys(cls) -> Sequence[str]:
+    def get_required_config_keys(cls) -> Sequence[str]:
         '''
             Returns a sequence of all required keys.
 
             :return: Sequence of all required keys.
             :exceptions: None.
         '''
-        return tuple(key for key in cls.get_config_keys() if cls.is_required_key(key))
+        return tuple(key for key in cls.get_config_keys() if cls.is_required_config_key(key))
 
     @classmethod
-    def get_key_by_config_key(cls, config_key: str) -> str:
+    def get_name_of_config_key(cls, config_key: str) -> str:
         '''
             Returns the dependency key for the given config key.
 
@@ -296,14 +296,44 @@ class InfoKeys(IKeys[str, type]):
                 | ATSValueError: Config key is not registered.
                 | ATSValueError: Instance key for config key is not defined.
         '''
-        ctx: str = r'info_keys::get_key_by_config_key(...)'
+        ctx: str = r'info_keys::get_name_of_config_key(...)'
         is_registered: bool = cls.is_registered_config_key(config_key)
         not_satisfied(not is_registered, ctx, f'{config_key} is not registered as a config key')
-        config_key_to_key: Mapping[str, str] = cls.get_keys()
+        config_key_to_key: Mapping[str, str] = cls.get_config_keys()
         key: str = config_key_to_key.get(config_key)
         not_none(key, ctx, f'instance key for {config_key} is not defined')
 
         return key
+
+    @classmethod
+    def get_names_of_optional_config_keys(cls) -> Sequence[str]:
+        '''
+            Returns a sequence of all optional config keys names.
+
+            :return: Sequence of all optional config keys names.
+            :exceptions: None.
+        '''
+        return tuple(cls.get_name_of_config_key(key) for key in cls.get_optional_config_keys())
+
+    @classmethod
+    def get_names_of_required_config_keys(cls) -> Sequence[str]:
+        '''
+            Returns a sequence of all required config keys names.
+
+            :return: Sequence of all required config keys names.
+            :exceptions: None.
+        '''
+        return tuple(cls.get_name_of_config_key(key) for key in cls.get_required_config_keys())
+
+    @classmethod
+    def get_all_names_config_keys(cls) -> Sequence[str]:
+        '''
+            Returns a sequence of all config keys names.
+
+            :return: Sequence of all config keys names.
+            :exceptions: None.
+        '''
+        return tuple(cls.get_name_of_config_key(key) for key in cls.get_config_keys())
 
     @classmethod
     def get_config_key_to_type(cls) -> MappingProxyType[str, type]:

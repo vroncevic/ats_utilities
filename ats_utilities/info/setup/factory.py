@@ -77,7 +77,7 @@ class InfoFactory(IFactory[InfoBundle, InfoOptions]):
 
         for key, engine_class in key_to_type.items():
             engine_instance: Any = engine_class(context_bundle=context_bundle)
-            attr_name: str = InfoKeys.get_key_by_config_key(key)
+            attr_name: str = InfoKeys.get_name_of_config_key(key)
             val: Any = info.get(key)
 
             if val is not None and key is InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE:
