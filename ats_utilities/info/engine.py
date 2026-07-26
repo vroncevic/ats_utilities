@@ -29,7 +29,7 @@ from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.setup.bundle import InfoBundle
 from ats_utilities.info.setup.validator import InfoValidator
-from ats_utilities.info.setup.info_keys import InfoKeys
+from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.exceptions import ATSAttributeError
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_satisfied, not_none
@@ -79,13 +79,12 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
             :param own: Bundle with components.
             :exceptions:
                 | ATSValueError: Info bundle must be provided and have proper values.
-                | ATSTypeError:  Info bundle must be an instance of InfoBundle
-                |                and its attributes must be instances of their
-                |                respective types.
+                | ATSTypeError:  Info bundle must be an instance of InfoBundle and its
+                |                attributes must be instances of their respective types.
         '''
         InfoValidator.validate(own)
         self._components = own
-        self._context = self._components.context_bundle
+        self._context = own.context_bundle
         self.refresh_status()
         self._is_initialized = True
 
@@ -99,6 +98,21 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
         '''
         return self._context
 
+    def is_attribute(self, name: str | bool | None) -> bool:
+        '''
+            Checks if attribute name is a manageable attribute.
+
+            :param name: Name of the attribute to check.
+            :return: True if attribute name is a manageable attribute, otherwise False.
+            :exceptions: None.
+        '''
+        has_components: bool = '_components' in self.__dict__
+        is_registered_attribute: bool = (
+            name in InfoKeys.get_dependency_to_type().keys() or name == InfoKeys.ATS_INFO_OK
+        )
+
+        return has_components and is_registered_attribute
+
     @override
     def set_info(self, info: Mapping[str, Any]) -> None:
         '''
@@ -107,18 +121,18 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
             :param info: Mapping with information.
             :exceptions: None.
         '''
-        for key in InfoKeys.get_keys():
+        for key in InfoKeys.get_config_keys():
             if key == InfoKeys.ATS_LOG_FILE:
                 continue
 
-            context: str = r'info_manager::set_info(...)'
+            ctx: str = r'info_manager::set_info(...)'
 
             if key not in info:
-                not_none(None, context, f'missing key: {key}')
+                not_none(None, ctx, f'missing key: {key}')
 
-            not_none(info.get(key), context, f'null value for key: {key}')
+            not_none(info.get(key), ctx, f'null value for key: {key}')
 
-        for key, attr in InfoKeys.get_key_to_attr().items():
+        for key, attr in InfoKeys.get_dependency_to_type().items():
             val = info.get(key)
 
             if key == InfoKeys.ATS_LOG_FILE and val is None:
@@ -140,7 +154,7 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
         '''
         return {
             key: getattr(self, attr)
-            for key, attr in InfoKeys.get_key_to_attr().items()
+            for key, attr in InfoKeys.get_dependency_to_type().items()
             if key != InfoKeys.ATS_LOG_FILE or getattr(self, attr) is not None
         }
 
@@ -153,13 +167,13 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
             :exceptions:
                 | ATSAttributeError: Name of the attribute is not a managed attribute.
         '''
-        if name in InfoKeys.get_key_to_attr().values() or name == 'info_ok':
+        if self.is_attribute(name):
             component = getattr(self._components, name, None)
 
             return getattr(component, name, None) if component else None
 
-        context: str = r'info_manager::getattr(...)'
-        not_satisfied(True, context, f'{type(self).__name__} object has no attribute {name}', ATSAttributeError)
+        ctx: str = r'info_manager::getattr(...)'
+        not_satisfied(True, ctx, f'{type(self).__name__} object has no attribute {name}', ATSAttributeError)
 
     def __setattr__(self, name: str, value: str | bool | None) -> None:
         '''
@@ -169,7 +183,7 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
             :param value: Value to assign to the component attribute.
             :exceptions: None.
         '''
-        if '_components' in self.__dict__ and (name in InfoKeys.get_key_to_attr().values() or name == 'info_ok'):
+        if self.is_attribute(name):
             component = getattr(self._components, name, None)
 
             if component:
@@ -188,7 +202,7 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        component = getattr(self._components, 'info_ok', None) if self._is_initialized else None
+        component = getattr(self._components, InfoKeys.ATS_INFO_OK, None) if self._is_initialized else None
 
         return self._is_initialized and (component.info_ok if component else False)
 
@@ -199,11 +213,11 @@ class InfoManager(IInfoManager[Mapping[str, Any], ContextBundle]):
 
             :exceptions: None.
         '''
-        info_ok = getattr(self._components, 'info_ok', False)
+        info_ok = getattr(self._components, InfoKeys.ATS_INFO_OK, False)
         info_ok.info_ok = all(
             getattr(self._components, attr, None).not_none()
-            for attr in InfoKeys.get_key_to_attr().values()
-            if attr != 'log_file'
+            for attr in InfoKeys.get_dependency_to_type().values()
+            if attr != InfoKeys.ATS_LOG_FILE
         )
 
     @override

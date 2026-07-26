@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypedDict
+from typing import Any, TypedDict, NotRequired
 
 from ats_utilities.context.bundle import ContextBundle
 
@@ -47,5 +47,8 @@ class InfoOptions(TypedDict):
                 | context_bundle: Context bundle.
     '''
 
-    info: Mapping[str, Any]
+    # --- REQUIRED ATTRIBUTES ---
     context_bundle: ContextBundle
+
+    # --- OPTIONAL ATTRIBUTES ---
+    info: NotRequired[Mapping[str, Any]]

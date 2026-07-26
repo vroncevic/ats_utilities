@@ -21,13 +21,12 @@ Info
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from typing import override
 
 from ats_utilities.info.setup.dependencies import InfoDependencies
 from ats_utilities.utils.setup.idep_validator import IDependenciesValidator
-from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
-from ats_utilities.info.setup.info_keys import InfoKeys
+from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none, not_satisfied
 
@@ -59,30 +58,22 @@ class InfoDependenciesValidator(IDependenciesValidator[InfoDependencies]):
 
             :param dependencies: Info dependencies instance to be validated.
             :exceptions:
-                | ATSValueError: Dependencies must be provided.
-                | ATSValueError: Dependencies attributes must have proper values.
-                | ATSTypeError: Dependencies must be an instance of InfoDependencies.
-                | ATSTypeError: Dependencies attributes must be instances of their respective interfaces.
+                | ATSValueError: Dependencies must be provided and have proper values.
+                | ATSTypeError:  Dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
         ctx: str = r'info_dependencies_validator::validate(...)'
 
-        not_none(dependencies, ctx, r'dependencies must be provided')
-        istype(dependencies, InfoDependencies, ctx, r'dependencies must be an instance of InfoDependencies')
+        not_none(dependencies, ctx, r'dependencies must be provided and have proper values')
+        istype(dependencies, Mapping, ctx, r'dependencies must be an instance of Mapping')
+        not_satisfied(
+            InfoKeys.DEPENDENCY_CONTEXT_BUNDLE not in dependencies, ctx,
+            f'{InfoKeys.DEPENDENCY_CONTEXT_BUNDLE} must be provided in dependencies'
+        )
 
-        attr_to_interface = InfoKeys.get_attr_to_interface()
+        for attr_name, expected_type in InfoKeys.get_dependency_to_type().items():
+            value = dependencies.get(attr_name)
 
-        for attr_name, expected_interface in attr_to_interface.items():
-            not_satisfied(attr_name not in dependencies, ctx, f'Missing required dependency key: {attr_name}')
-
-            value = dependencies[attr_name]
-            not_none(value, ctx, f'{attr_name} must be provided')
-
-            err_msg = f'{attr_name.replace("_", " ")} must be an instance of {expected_interface.__name__}'
-            istype(value, expected_interface, ctx, err_msg)
-
-        not_satisfied('context_bundle' not in dependencies, ctx, r'context bundle must be provided')
-
-        context_bundle = dependencies['context_bundle']
-        not_none(context_bundle, ctx, r'context bundle must be provided')
-        istype(context_bundle, ContextBundle, ctx, r'context bundle must be an instance of ContextBundle')
-        ContextValidator.validate(context_bundle)
+            if value is not None:
+                err_msg = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+                istype(value, expected_type, ctx, err_msg)

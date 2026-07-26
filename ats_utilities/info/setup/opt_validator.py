@@ -22,14 +22,14 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import override
+from typing import Any, override
 
 from ats_utilities.utils.setup.iopt_validator import IOptionsValidator
 from ats_utilities.info.setup.options import InfoOptions
-from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
+from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.validation.check_type import istype
-from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_value import not_none, not_satisfied
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -59,31 +59,33 @@ class InfoOptionsValidator(IOptionsValidator[InfoOptions]):
 
             :param options: Info options instance to be validated.
             :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a Mapping.
-                | ATSTypeError: Info must be a Mapping.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
-                | ATSValueError: Checker must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSValueError: Reporter must be provided.
-                | ATSValueError: Verbose must be provided.
-                | ATSTypeError: Checker must be an instance of IChecker.
-                | ATSTypeError: Logger must be an instance of ILogger.
-                | ATSTypeError: Reporter must be an instance of IReporter.
-                | ATSTypeError: Verbose must be a boolean.
+                | ATSValueError: Options must be provided and have proper values.
+                | ATSTypeError:  Options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
         ctx: str = r'info_options_validator::validate(...)'
 
-        not_none(options, ctx, r'options must be provided')
+        not_none(options, ctx, r'options must be provided and have proper values')
         istype(options, Mapping, ctx, r'options must be a Mapping')
 
-        info = options.get('info')
+        for opt_name, expected_type in InfoKeys.get_option_to_type().items():
+            not_satisfied(opt_name not in options, ctx, f'{opt_name} must be provided')
+            value = options.get(opt_name)
 
-        if info is not None:
-            istype(info, Mapping, ctx, r'info must be a Mapping')
+            if value is not None:
+                err_msg = f'{opt_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+                istype(value, expected_type, ctx, err_msg)
 
-        context_bundle = options.get('context_bundle')
+                if opt_name is InfoKeys.OPTION_INFO:
+                    info_structure: Mapping[str, Any] = value
 
-        if context_bundle is not None:
-            istype(context_bundle, ContextBundle, ctx, r'context bundle must be an instance of ContextBundle')
-            ContextValidator.validate(context_bundle)
+                    for key in info_structure.keys():
+                        not_satisfied(key not in InfoKeys.get_config_keys(), ctx, f'{key} is not a valid info key')
+
+                        if InfoKeys.is_optional_key(key):
+                            continue
+
+                        not_satisfied(info_structure[key] is None, ctx, f'info value for {key} must be provided')
+
+                if opt_name is InfoKeys.OPTION_CONTEXT_BUNDLE:
+                    ContextValidator.validate(value)

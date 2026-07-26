@@ -21,9 +21,8 @@ Info
 
 from __future__ import annotations
 
-from typing import TypedDict
+from typing import TypedDict, NotRequired
 
-from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.name.iname import IName
 from ats_utilities.info.version.iversion import IVersion
 from ats_utilities.info.licence.ilicence import ILicence
@@ -34,6 +33,7 @@ from ats_utilities.info.use_github.iuse_github import IUseGitHub
 from ats_utilities.info.logo.ilogo import ILogo
 from ats_utilities.info.log_file.ilog_file import ILogFile
 from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
+from ats_utilities.context.bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -65,14 +65,17 @@ class InfoDependencies(TypedDict):
                 | context_bundle: The context bundle.
     '''
 
+    # --- REQUIRED ATTRIBUTES ---
     name: IName
     version: IVersion
     licence: ILicence
     build_date: IBuildDate
-    repository: IRepository
-    organization: IOrganization
-    use_github: IUseGitHub
-    logo: ILogo
-    log_file: ILogFile
     info_ok: IInfoOk
     context_bundle: ContextBundle
+
+    # --- OPTIONAL ATTRIBUTES ---
+    repository: NotRequired[IRepository]
+    organization: NotRequired[IOrganization]
+    use_github: NotRequired[IUseGitHub]
+    logo: NotRequired[ILogo]
+    log_file: NotRequired[ILogFile]

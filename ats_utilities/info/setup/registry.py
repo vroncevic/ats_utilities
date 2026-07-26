@@ -26,7 +26,9 @@ from typing import override
 from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.info.setup.bundle import InfoBundle
 from ats_utilities.info.setup.dependencies import InfoDependencies
+from ats_utilities.info.setup.dep_validator import InfoDependenciesValidator
 from ats_utilities.info.setup.validator import InfoValidator
+from ats_utilities.info.setup.keys import InfoKeys
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -57,43 +59,24 @@ class InfoRegistry(IRegistry[InfoBundle, InfoDependencies]):
             :param dependencies: Registry-specific orchestration dependencies.
             :return: Info bundle instance.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Name must be provided.
-                | ATSValueError: Version must be provided.
-                | ATSValueError: Licence must be provided.
-                | ATSValueError: Build date must be provided.
-                | ATSValueError: Repository must be provided.
-                | ATSValueError: Organization must be provided.
-                | ATSValueError: Use GitHub must be provided.
-                | ATSValueError: Logo must be provided.
-                | ATSValueError: Log file must be provided.
-                | ATSValueError: Info ok must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Bundle must be an instance of InfoBundle.
-                | ATSTypeError: Name must be an instance of IName interface.
-                | ATSTypeError: Version must be an instance of IVersion interface.
-                | ATSTypeError: Licence must be an instance of ILicence interface.
-                | ATSTypeError: Build date must be an instance of IBuildDate interface.
-                | ATSTypeError: Repository must be an instance of IRepository interface.
-                | ATSTypeError: Organization must be an instance of IOrganization interface.
-                | ATSTypeError: Use GitHub must be an instance of IUseGitHub interface.
-                | ATSTypeError: Logo must be an instance of ILogo interface.
-                | ATSTypeError: Log file must be an instance of ILogFile interface.
-                | ATSTypeError: Info ok must be an instance of IInfoOk interface.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle class.
+                | ATSValueError: Dependencies must be provided and have proper values.
+                | ATSTypeError:  Dependencies must be an instance of InfoDependencies and its
+                |                attributes must be instances of their respective types.
         '''
-        bundle = InfoBundle(
-            name=dependencies.get('name'),
-            version=dependencies.get('version'),
-            licence=dependencies.get('licence'),
-            build_date=dependencies.get('build_date'),
-            repository=dependencies.get('repository'),
-            organization=dependencies.get('organization'),
-            use_github=dependencies.get('use_github'),
-            logo=dependencies.get('logo'),
-            log_file=dependencies.get('log_file'),
-            info_ok=dependencies.get('info_ok'),
-            context_bundle=dependencies.get('context_bundle')
+        InfoDependenciesValidator.validate(dependencies)
+
+        bundle: InfoBundle = InfoBundle(
+            name=dependencies.get(InfoKeys.DEPENDENCY_NAME) if dependencies else None,
+            version=dependencies.get(InfoKeys.DEPENDENCY_VERSION) if dependencies else None,
+            licence=dependencies.get(InfoKeys.DEPENDENCY_LICENCE) if dependencies else None,
+            build_date=dependencies.get(InfoKeys.DEPENDENCY_BUILD_DATE) if dependencies else None,
+            repository=dependencies.get(InfoKeys.DEPENDENCY_REPOSITORY) if dependencies else None,
+            organization=dependencies.get(InfoKeys.DEPENDENCY_ORGANIZATION) if dependencies else None,
+            use_github=dependencies.get(InfoKeys.DEPENDENCY_USE_GITHUB_INFRASTRUCTURE) if dependencies else None,
+            logo=dependencies.get(InfoKeys.DEPENDENCY_LOGO_PATH) if dependencies else None,
+            log_file=dependencies.get(InfoKeys.DEPENDENCY_LOG_FILE) if dependencies else None,
+            info_ok=dependencies.get(InfoKeys.DEPENDENCY_INFO_OK) if dependencies else None,
+            context_bundle=dependencies.get(InfoKeys.OPTION_CONTEXT_BUNDLE) if dependencies else None
         )
 
         InfoValidator.validate(bundle)

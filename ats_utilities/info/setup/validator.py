@@ -35,6 +35,7 @@ from ats_utilities.info.logo.ilogo import ILogo
 from ats_utilities.info.log_file.ilog_file import ILogFile
 from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_value import not_empty, not_none
 from ats_utilities.validation.check_type import istype
@@ -67,46 +68,37 @@ class InfoValidator(IValidator[InfoBundle]):
 
             :param bundle: Info bundle instance to be validated.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Name must be provided.
-                | ATSValueError: Version must be provided.
-                | ATSValueError: Licence must be provided.
-                | ATSValueError: Build date must be provided.
-                | ATSValueError: Repository must be provided.
-                | ATSValueError: Organization must be provided.
-                | ATSValueError: Use GitHub must be provided.
-                | ATSValueError: Logo must be provided.
-                | ATSValueError: Log file must be provided.
-                | ATSValueError: Info ok must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Bundle must be an instance of InfoBundle.
-                | ATSTypeError: Name must be an instance of IName.
-                | ATSTypeError: Version must be an instance of IVersion.
-                | ATSTypeError: Licence must be an instance of ILicence.
-                | ATSTypeError: Build date must be an instance of IBuildDate.
-                | ATSTypeError: Repository must be an instance of IRepository.
-                | ATSTypeError: Organization must be an instance of IOrganization.
-                | ATSTypeError: Use GitHub must be an instance of IUseGitHub.
-                | ATSTypeError: Logo must be an instance of ILogo.
-                | ATSTypeError: Log file must be an instance of ILogFile.
-                | ATSTypeError: Info ok must be an instance of IInfoOk.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSValueError: Info bundle must be provided and have proper values.
+                | ATSTypeError:  Info bundle must be an instance of InfoBundle and its
+                |                attributes must be instances of their respective types.
         '''
         ctx: str = r'info_validator::validate(...)'
-        not_none(bundle, ctx, r'bundle must be provided')
+
+        not_none(bundle, ctx, r'bundle must be provided and have proper values')
         istype(bundle, InfoBundle, ctx, r'bundle must be an instance of InfoBundle')
 
-        not_empty(bundle.name, ctx, r'name must be provided')
-        not_empty(bundle.version, ctx, r'version must be provided')
-        not_empty(bundle.licence, ctx, r'licence must be provided')
-        not_empty(bundle.build_date, ctx, r'build date must be provided')
-        not_empty(bundle.repository, ctx, r'repository must be provided')
-        not_empty(bundle.organization, ctx, r'organization must be provided')
-        not_empty(bundle.use_github, ctx, r'use github must be provided')
-        not_empty(bundle.logo, ctx, r'logo must be provided')
-        not_empty(bundle.log_file, ctx, r'log file must be provided')
-        not_empty(bundle.info_ok, ctx, r'info ok must be provided')
+        not_none(bundle.name, ctx, r'name must be provided')
+        not_none(bundle.version, ctx, r'version must be provided')
+        not_none(bundle.licence, ctx, r'licence must be provided')
+        not_none(bundle.build_date, ctx, r'build date must be provided')
+        not_none(bundle.repository, ctx, r'repository must be provided')
+        not_none(bundle.organization, ctx, r'organization must be provided')
+        not_none(bundle.use_github, ctx, r'use github must be provided')
+        not_none(bundle.logo, ctx, r'logo must be provided')
+        not_none(bundle.log_file, ctx, r'log file must be provided')
+        not_none(bundle.info_ok, ctx, r'info ok must be provided')
         not_none(bundle.context_bundle, ctx, r'context bundle must be provided')
+
+        not_empty(bundle.name, ctx, r'name must be not empty')
+        not_empty(bundle.version, ctx, r'version must be not empty')
+        not_empty(bundle.licence, ctx, r'licence must be not empty')
+        not_empty(bundle.build_date, ctx, r'build date must be not empty')
+        not_empty(bundle.repository, ctx, r'repository must be not empty')
+        not_empty(bundle.organization, ctx, r'organization must be not empty')
+        not_empty(bundle.use_github, ctx, r'use github must be not empty')
+        not_empty(bundle.logo, ctx, r'logo must be not empty')
+        not_empty(bundle.log_file, ctx, r'log file must be not empty')
+        not_empty(bundle.info_ok, ctx, r'info ok must be not empty')
 
         istype(bundle.name, IName, ctx, r'name must be an instance of IName')
         istype(bundle.version, IVersion, ctx, r'version must be an instance of IVersion')
@@ -119,3 +111,5 @@ class InfoValidator(IValidator[InfoBundle]):
         istype(bundle.log_file, ILogFile, ctx, r'log file must be an instance of ILogFile')
         istype(bundle.info_ok, IInfoOk, ctx, r'info ok must be an instance of IInfoOk')
         istype(bundle.context_bundle, ContextBundle, ctx, r'context bundle must be an instance of ContextBundle')
+
+        ContextValidator.validate(bundle.context_bundle)
