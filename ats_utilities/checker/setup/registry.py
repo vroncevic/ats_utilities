@@ -64,10 +64,10 @@ class CheckerRegistry:
             CheckerDependenciesValidator.validate(dependencies)
 
         bundle: CheckerBundle = CheckerBundle(
-            format_validator=dependencies.get(CheckerKeys.FORMAT_VALIDATOR) if dependencies else None,
-            type_validator=dependencies.get(CheckerKeys.TYPE_VALIDATOR) if dependencies else None,
-            context_provider=dependencies.get(CheckerKeys.CONTEXT_PROVIDER) if dependencies else None,
-            check_reporter=dependencies.get(CheckerKeys.CHECK_REPORTER) if dependencies else None
+            format_validator=dependencies.get(CheckerKeys.DEPENDENCY_FORMAT_VALIDATOR) if dependencies else None,
+            type_validator=dependencies.get(CheckerKeys.DEPENDENCY_TYPE_VALIDATOR) if dependencies else None,
+            context_provider=dependencies.get(CheckerKeys.DEPENDENCY_CONTEXT_PROVIDER) if dependencies else None,
+            check_reporter=dependencies.get(CheckerKeys.DEPENDENCY_CHECK_REPORTER) if dependencies else None
         )
 
         CheckerValidator.validate(bundle)

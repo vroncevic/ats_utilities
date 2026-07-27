@@ -23,7 +23,6 @@ Info
 from __future__ import annotations
 
 from typing import Protocol, runtime_checkable
-from typing import Any
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -50,7 +49,7 @@ class ITypeValidator[NameType, ValidType](Protocol):
                 | __str__ - Returns type validator as string representation.
     '''
 
-    def is_match(self, instance: Any, expected_type_name: NameType) -> ValidType:
+    def is_match(self, instance: object, expected_type_name: NameType) -> ValidType:
         '''
             Compares instance type with expected type name.
 
@@ -60,7 +59,7 @@ class ITypeValidator[NameType, ValidType](Protocol):
         '''
         ...
 
-    def is_subtype(self, instance: Any, expected_type_name: NameType) -> ValidType:
+    def is_subtype(self, instance: object, expected_type_name: NameType) -> ValidType:
         '''
             Checks if instance is a subtype of expected type name.
 
@@ -70,7 +69,7 @@ class ITypeValidator[NameType, ValidType](Protocol):
         '''
         ...
 
-    def get_type_name(self, instance: Any) -> NameType:
+    def get_type_name(self, instance: object) -> NameType:
         '''
             Returns type name of an instance.
 

@@ -22,7 +22,6 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
-from typing import Any
 
 from ats_utilities.exceptions import ATSValueError
 from ats_utilities.validation.context_error import raise_error
@@ -38,7 +37,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-def cherry_pick_dict(source: Mapping[Any, Any], keys: frozenset[str]) -> dict[Any, Any]:
+def cherry_pick_dict(source: Mapping[object, object], keys: frozenset[str]) -> dict[object, object]:
     '''
         Cherry picks keys from a source dictionary.
 
@@ -53,7 +52,7 @@ def cherry_pick_dict(source: Mapping[Any, Any], keys: frozenset[str]) -> dict[An
     return {key: source[key] for key in keys if key in source}
 
 
-def has_required_keys(source: Mapping[Any, Any], keys: frozenset[str]) -> bool:
+def has_required_keys(source: Mapping[object, object], keys: frozenset[str]) -> bool:
     '''
         Checks if all required keys are present in the source dictionary.
 
@@ -66,7 +65,7 @@ def has_required_keys(source: Mapping[Any, Any], keys: frozenset[str]) -> bool:
 
 
 def require_keys(
-    source: Mapping[Any, Any],
+    source: Mapping[object, object],
     keys: frozenset[str],
     exc_context: str | None = None,
     exc_message: str | None = None,
@@ -91,7 +90,7 @@ def require_keys(
         missing = list(keys - frozenset(source.keys() if source else []))
 
         raise_error(
-            fallback_context=r'dicts::require_keys(...)',
+            fallback_context='dicts::require_keys(...)',
             fallback_msg=f'mapping is missing required keys: {missing}',
             exc_context=exc_context,
             exc_message=exc_message,
@@ -100,11 +99,11 @@ def require_keys(
 
 
 def get_first_available(
-    source: Mapping[Any, Any],
-    keys: Sequence[Any],
+    source: Mapping[object, object],
+    keys: Sequence[object],
     exc_context: str | None = None,
     exc_message: str | None = None
-) -> Any | None:
+) -> object | None:
     '''
         Retrieves the first available value from a list of keys in priority order.
         Simulates the logic of: source.get(key1) or source.get(key2) ...

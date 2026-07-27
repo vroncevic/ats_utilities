@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypedDict, NotRequired
+from typing import TypedDict, NotRequired
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -48,6 +48,6 @@ class CheckerOptions(TypedDict):
     '''
 
     separator: NotRequired[str]
-    abstract_types: NotRequired[Mapping[str, Any]]
+    abstract_types: NotRequired[Mapping[str, object]]
     stack_index_caller: NotRequired[int]
     messages_provider: NotRequired[Mapping[str, str]]

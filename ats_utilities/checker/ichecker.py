@@ -40,7 +40,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IChecker[ParametersSpecification, ValidationResult](Protocol):
+class IChecker[ConfigType, ParametersSpecification, ValidationResult](Protocol):
     '''
         Defines abstract class IChecker with method(s).
         Provides an interface for checking parameters used by method(s) or function(s).
@@ -48,6 +48,8 @@ class IChecker[ParametersSpecification, ValidationResult](Protocol):
         It defines:
 
             :methods:
+                | get_bundle - Gets current checker configuration bundle.
+                | update_bundle - Updates checker configuration bundle.
                 | get_format_validator - Returns the format validator used in validation of parameters.
                 | get_type_validator - Returns the type validator used in validation of parameters.
                 | get_context_provider - Returns the context provider used in validation of parameters.
@@ -56,6 +58,24 @@ class IChecker[ParametersSpecification, ValidationResult](Protocol):
                 | is_initialized - Checks if checker component is initialized.
                 | __str__ - Returns checker as string representation.
     '''
+
+    def get_bundle(self) -> ConfigType:
+        '''
+            Gets current checker configuration bundle.
+
+            :return: Checker configuration bundle.
+            :exceptions: None.
+        '''
+        ...
+
+    def update_bundle(self, bundle: ConfigType) -> bool:
+        '''
+            Updates checker configuration bundle.
+
+            :param bundle: Checker configuration bundle.
+            :exceptions: None.
+        '''
+        ...
 
     def get_format_validator(self) -> IFormatValidator:
         '''

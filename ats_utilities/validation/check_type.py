@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from typing import Any, get_origin, Union
+from typing import get_origin, Union
 from types import UnionType
 
 from ats_utilities.validation.context_error import raise_error
@@ -37,7 +37,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-def _resolve_type(type_to_resolve: Any) -> Any:
+def _resolve_type(type_to_resolve: object) -> object:
     '''
         Resolves nested Union types.
         Handles cases like Union[int, float] by flattening them 
@@ -68,7 +68,7 @@ def _resolve_type(type_to_resolve: Any) -> Any:
 
 def istype(
     instance: object,
-    class_or_tuple: type[Any] | tuple[type[Any], ...],
+    class_or_tuple: type | UnionType | tuple[type | UnionType, ...],
     exc_context: str | None = None,
     exc_message: str | None = None,
     exc_class: type[BaseException] = ATSTypeError

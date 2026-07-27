@@ -24,7 +24,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping, Sequence, Iterable
 from types import MappingProxyType
-from typing import Any, Final
+from typing import Final
 
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_type import istype
@@ -82,7 +82,7 @@ class TypeValidator:
         else:
             self._abstract_types = self._DEFAULT_TYPES
 
-    def is_match(self, instance: Any, expected_type_name: str) -> bool:
+    def is_match(self, instance: object, expected_type_name: str) -> bool:
         '''
             Compares instance type with expected type name.
             Compares __name__ of instance type with expected string.
@@ -106,7 +106,7 @@ class TypeValidator:
 
         return type(instance).__name__ == base_type_name
 
-    def is_subtype(self, instance: Any, expected_type_name: str) -> bool:
+    def is_subtype(self, instance: object, expected_type_name: str) -> bool:
         '''
             Checks if instance is a subtype of expected type name.
             Traverses the Method Resolution Order (MRO) to find a match.
@@ -130,7 +130,7 @@ class TypeValidator:
 
         return any(cls.__name__ == base_type_name for cls in type(instance).mro())
 
-    def get_type_name(self, instance: Any) -> str:
+    def get_type_name(self, instance: object) -> str:
         '''
             Returns type name representation of an instance type.
 

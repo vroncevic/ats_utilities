@@ -24,7 +24,6 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any
 
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.validation.context_error import raise_error
@@ -40,10 +39,10 @@ __status__ = 'Development'
 
 
 def make_component(
-    passed_obj: Any,
-    default_class: Any,
-    factory_args: Mapping[str, Any] | None = None
-) -> Any:
+    passed_obj: object,
+    default_class: object,
+    factory_args: Mapping[str, object] | None = None
+) -> object:
     '''
         Creates a component instance or returns an existing one.
 
@@ -63,8 +62,8 @@ def make_component(
 
 
 def validate_component(
-    instance: Any,
-    expected_class: type[Any],
+    instance: object,
+    expected_class: type[object],
     exc_context: str | None = None,
     exc_message: str | None = None,
     exc_class: type[BaseException] = ATSTypeError
@@ -82,7 +81,7 @@ def validate_component(
     '''
     if not isinstance(instance, expected_class):
         raise_error(
-            fallback_context=r'component::validate_component(...)',
+            fallback_context='component::validate_component(...)',
             fallback_msg=f'instance is not of expected type {expected_class}',
             exc_context=exc_context,
             exc_message=exc_message,

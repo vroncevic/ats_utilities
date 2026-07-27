@@ -21,7 +21,6 @@ Info
 
 from __future__ import annotations
 
-from typing import Any
 from dataclasses import dataclass
 
 from ats_utilities.checker.type.itype_validator import ITypeValidator
@@ -61,7 +60,7 @@ class CheckerBundle:
     context_provider: IContextProvider
     check_reporter: ICheckReporter
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts checker bundle to a dictionary.
 

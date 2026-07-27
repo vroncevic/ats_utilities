@@ -19,6 +19,10 @@ Info
     Factory for creating checker bundle instance.
 '''
 
+from __future__ import annotations
+
+from collections.abc import Mapping
+
 from ats_utilities.checker.setup.bundle import CheckerBundle
 from ats_utilities.checker.setup.options import CheckerOptions
 from ats_utilities.checker.setup.keys import CheckerKeys
@@ -66,10 +70,10 @@ class CheckerFactory:
         if options is not None:
             CheckerOptionsValidator.validate(options)
 
-        separator = options.get(CheckerKeys.SEPARATOR) if options else None
-        abstract_types = options.get(CheckerKeys.ABSTRACT_TYPES) if options else None
-        stack_index_caller = options.get(CheckerKeys.STACK_INDEX_CALLER) if options else None
-        messages_provider = options.get(CheckerKeys.MESSAGES_PROVIDER) if options else None
+        separator: str | None = options.get(CheckerKeys.OPTION_SEPARATOR) if options else None
+        abstract_types: Mapping | None = options.get(CheckerKeys.OPTION_ABSTRACT_TYPES) if options else None
+        stack_index_caller: int | None = options.get(CheckerKeys.OPTION_STACK_INDEX_CALLER) if options else None
+        messages_provider: Mapping | None = options.get(CheckerKeys.OPTION_MESSAGES_PROVIDER) if options else None
 
         format_validator: FormatValidator = FormatValidator(separator=separator)
         type_validator: TypeValidator = TypeValidator(abstract_types=abstract_types)

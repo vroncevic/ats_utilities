@@ -24,9 +24,9 @@ Info
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-import inspect
+from inspect import signature, Signature
 from functools import wraps
-from typing import Any, cast
+from typing import cast
 
 from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.checker.ichecker import IChecker
@@ -57,7 +57,7 @@ def validate_specs(specs: Parameters, ctx: str) -> None:
         :param ctx: Context string for error reporting.
         :exceptions:
             | ATSValueError: Specs must be provided.
-            | ATSTypeError:  Specs must be a list of (str, Any) tuples.
+            | ATSTypeError:  Specs must be a list of (str, object) tuples.
     '''
     fmt_msg: str = "expected format: [('expected_type:param_name', default_value), ...]"
     not_none(specs, ctx, f'specs must be provided, {fmt_msg}')
@@ -78,9 +78,9 @@ def validate_specs(specs: Parameters, ctx: str) -> None:
 
 
 def validate_args(
-    func: Callable[..., Any],
-    args: tuple[Any, ...],
-    kwargs: dict[str, Any],
+    func: Callable[..., object],
+    args: tuple[object, ...],
+    kwargs: dict[str, object],
     specs: Parameters,
     checker: IChecker,
     exc_context: str
@@ -100,7 +100,7 @@ def validate_args(
             | ATSValueError: Parameter format validation failed.
     '''
     # Safely bind the passed args and kwargs to the function's signature
-    func_signature = inspect.signature(func)
+    func_signature: Signature = signature(func)
     bound_arguments = func_signature.bind(*args, **kwargs)
 
     # Fill in empty optional parameters with their default values from definition
@@ -173,7 +173,7 @@ def validate_args(
                 )
 
 
-def mcheck[F: Callable[..., Any]](specs: Parameters) -> Callable[[F], F]:
+def mcheck[F: Callable[..., object]](specs: Parameters) -> Callable[[F], F]:
     '''
         Decorator supporting class methods (instance methods, classmethods).
         Borrows the checker object dynamically from the class instance 
@@ -193,7 +193,7 @@ def mcheck[F: Callable[..., Any]](specs: Parameters) -> Callable[[F], F]:
     def decorator(func: F) -> F:
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: object, **kwargs: object) -> object:
             # Capturing the class instance (self is always the first argument in args)
             self_instance = args[0] if args else None
 
@@ -239,7 +239,7 @@ def mcheck[F: Callable[..., Any]](specs: Parameters) -> Callable[[F], F]:
     return decorator
 
 
-def fcheck[F: Callable[..., Any]](specs: Parameters, checker: IChecker | None = None) -> Callable[[F], F]:
+def fcheck[F: Callable[..., object]](specs: Parameters, checker: IChecker | None = None) -> Callable[[F], F]:
     '''
         Decorator supporting free functions.
         Uses a default Checker to validate function parameters.
@@ -259,7 +259,7 @@ def fcheck[F: Callable[..., Any]](specs: Parameters, checker: IChecker | None = 
     def decorator(func: F) -> F:
 
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: object, **kwargs: object) -> object:
             validate_args(func, args, kwargs, specs, active_checker, func.__name__)
 
             return func(*args, **kwargs)

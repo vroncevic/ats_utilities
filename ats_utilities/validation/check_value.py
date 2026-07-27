@@ -21,8 +21,6 @@ Info
 
 from __future__ import annotations
 
-from typing import Any
-
 from ats_utilities.validation.context_error import raise_error
 from ats_utilities.exceptions import ATSValueError
 
@@ -37,7 +35,7 @@ __status__ = 'Development'
 
 
 def not_none(
-    value: Any,
+    value: object,
     exc_context: str | None = None,
     exc_message: str | None = None,
     exc_class: type[BaseException] = ATSValueError
@@ -63,7 +61,7 @@ def not_none(
 
 
 def not_empty(
-    value: Any,
+    value: object,
     exc_context: str | None = None,
     exc_message: str | None = None,
     exc_class: type[BaseException] = ATSValueError,

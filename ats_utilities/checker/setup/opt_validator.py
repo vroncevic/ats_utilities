@@ -65,8 +65,8 @@ class CheckerOptionsValidator:
         istype(options, Mapping, ctx, 'options must be a Mapping')
 
         for opt_name, expected_type in CheckerKeys.get_option_to_type().items():
-            value = options.get(opt_name)
+            value: object | None = options.get(opt_name)
 
             if value is not None:
-                err_msg = f'{opt_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+                err_msg: str = f'{opt_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
                 istype(value, expected_type, ctx, err_msg)

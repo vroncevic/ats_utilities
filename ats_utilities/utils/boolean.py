@@ -56,7 +56,7 @@ def str_bool_to_bool(
             return False
         case _:
             raise_error(
-                fallback_context=r'boolean::str_bool_to_bool(...)',
+                fallback_context='boolean::str_bool_to_bool(...)',
                 fallback_msg=f'can not convert {value} to bool',
                 exc_context=exc_context,
                 exc_message=exc_message,

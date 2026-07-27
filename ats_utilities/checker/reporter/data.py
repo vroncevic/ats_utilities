@@ -23,7 +23,6 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Any
 
 from ats_utilities.checker.setup.types import ParametersMeta
 from ats_utilities.utils.reflection import instance_to_dict
@@ -59,7 +58,7 @@ class CheckReporterData:
     err_indices: Sequence[int]
     is_fmt_err: bool
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts the check reporter data instance to a dictionary.
 

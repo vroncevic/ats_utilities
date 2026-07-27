@@ -24,7 +24,6 @@ Info
 
 from __future__ import annotations
 
-from typing import Any
 from collections.abc import Callable
 from functools import wraps
 from dataclasses import is_dataclass
@@ -42,7 +41,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-def get_pvt(instance: Any, attr_name: str) -> Any:
+def get_pvt(instance: object, attr_name: str) -> object:
     '''
         Dynamically retrieves a private attribute from an instance.
 
@@ -57,7 +56,7 @@ def get_pvt(instance: Any, attr_name: str) -> Any:
     return getattr(instance, name)
 
 
-def has_attrs(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def has_attrs(*attr_names: str) -> Callable[[Callable[..., object]], Callable[..., object]]:
     '''
         Checks if instance attribute is defined and has value or not.
         In case attribute value is not defined set default value to None.
@@ -68,15 +67,15 @@ def has_attrs(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., 
         :exceptions:
             | ATSValueError: Missing or empty attribute: '{attr}'.
     '''
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    def decorator(func: Callable[..., object]) -> Callable[..., object]:
         @wraps(func)
-        def wrapper(self: Any, *args: Any, **kwargs: Any) -> Any:
+        def wrapper(self: object, *args: object, **kwargs: object) -> object:
             class_name: str = self.__class__.__name__.lower()
             method_name: str = func.__name__
             context: str = f'{class_name}::{method_name}'
 
             for attr in attr_names:
-                value: Any = getattr(self, attr, None)
+                value: object | None = getattr(self, attr, None)
 
                 if not bool(value) and value != 0 and value != False:
                     raise_error(
@@ -91,7 +90,7 @@ def has_attrs(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., 
     return decorator
 
 
-def cls_name(instance: Any) -> str:
+def cls_name(instance: object) -> str:
     '''
         Returns the class name of an instance.
 
@@ -102,7 +101,7 @@ def cls_name(instance: Any) -> str:
     return instance.__class__.__name__
 
 
-def to_str(instance: Any) -> str:
+def to_str(instance: object) -> str:
     '''
         Generates a standardized string representation for any class instance.
         Cleans private attributes and appends memory addresses in hex.
@@ -118,17 +117,14 @@ def to_str(instance: Any) -> str:
         clean_key: str = k[1:] if k.startswith('_') and not k.startswith('__') else k
         val_str: str = str(v).replace('\n', '\n    ')
 
-        v_id_hex = f'0x{id(v):x}'
+        v_id_hex: str = f'0x{id(v):x}'
 
         if f'at {v_id_hex}' not in val_str:
-            if isinstance(v, (str, int, float, bool)):
-                val_str = f'{val_str} at {v_id_hex}' if isinstance(v, str) else f'{val_str} at {v_id_hex}'
-            else:
-                val_str = f'{val_str} at {v_id_hex}'
+            val_str = f'{val_str} at {v_id_hex}'
 
         formatted_lines.append(f'    {clean_key}={val_str}')
 
-    formatted_attrs = ',\n'.join(formatted_lines)
+    formatted_attrs: str = ',\n'.join(formatted_lines)
 
     if not formatted_attrs:
         return f'{class_name} at 0x{id(instance):x}'
@@ -136,7 +132,7 @@ def to_str(instance: Any) -> str:
     return f'{class_name}(\n{formatted_attrs}\n) at 0x{id(instance):x}'
 
 
-def instance_to_dict(instance: Any) -> dict[str, Any]:
+def instance_to_dict(instance: object) -> dict[str, object]:
     '''
         Converts a dataclass instance to a dictionary representation.
 

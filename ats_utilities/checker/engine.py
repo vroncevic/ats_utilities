@@ -62,6 +62,8 @@ class Checker:
                 | _check_reporter - Formatter for message reports (default CheckReporter).
             :methods:
                 | __init__ - Initializes Checker constructor.
+                | get_bundle - Gets current checker configuration bundle.
+                | update_bundle - Updates checker configuration bundle.
                 | get_format_validator - Returns the format validator used in validation of parameters.
                 | get_type_validator - Returns the type validator used in validation of parameters.
                 | get_context_provider - Returns the context provider used in validation of parameters.
@@ -94,6 +96,40 @@ class Checker:
         self._context_provider = own.context_provider
         self._check_reporter = own.check_reporter
         self._is_initialized = True
+
+    def get_bundle(self) -> CheckerBundle:
+        '''
+            Gets current checker configuration bundle.
+
+            :return: Checker configuration bundle.
+            :exceptions: None.
+        '''
+        return CheckerBundle(
+            format_validator=self._format_validator,
+            type_validator=self._type_validator,
+            context_provider=self._context_provider,
+            check_reporter=self._check_reporter
+        )
+
+    def update_bundle(self, bundle: CheckerBundle) -> bool:
+        '''
+            Updates checker configuration bundle.
+
+            :param bundle: Checker configuration bundle.
+            :return: True if configuration was successfully updated, False otherwise.
+            :exceptions: None.
+        '''
+        try:
+            CheckerValidator.validate(bundle)
+            self._format_validator = bundle.format_validator
+            self._type_validator = bundle.type_validator
+            self._context_provider = bundle.context_provider
+            self._check_reporter = bundle.check_reporter
+
+            return True
+
+        except (ATSValueError, ATSTypeError):
+            return False
 
     def get_format_validator(self) -> IFormatValidator:
         '''
@@ -136,12 +172,8 @@ class Checker:
             Validates parameters used by method(s) or function(s).
 
             :param parameters: Specification of parameters.
-            :return: Result containing error message report and error id.
-            :exceptions:
-                | ATSValueError: Parameters must be provided and have proper values.
-                | ATSTypeError:  Parameters must be an instance of Parameters
-                |                and its elements must be instances of their
-                |                respective types.
+            :return: Result of validation (message report and error id).
+            :exceptions: None.
         '''
         context: str = self._context_provider.get_context()
         parameters_meta: list[ParametersMeta] = []
@@ -149,19 +181,25 @@ class Checker:
         error_id: int = CheckerErrorType.NO_ERROR
 
         if parameters is None:
-            return (
-                self._check_reporter.build_message(
+            msg: str = f'{context} format wrong during checking parameters'
+
+            try:
+                msg = self._check_reporter.build_message(
                     CheckReporterData(
                         context=context,
                         parameters_meta=(),
                         err_indices=(),
                         is_fmt_err=True
                     )
-                ),
-                CheckerErrorType.FORMAT_ERROR
-            )
+                )
+
+            except (ATSValueError, ATSTypeError):
+                pass
+
+            return msg, CheckerErrorType.FORMAT_ERROR
 
         is_fmt_err: bool = False
+
         for index, (exp_type, inst) in enumerate(parameters):
 
             try:
@@ -170,13 +208,13 @@ class Checker:
                     error_id = CheckerErrorType.FORMAT_ERROR
                     break
 
+                ptype, pname = self._format_validator.split(exp_type)
+                parameters_meta.append((pname, ptype, inst))
+
             except (ATSValueError, ATSTypeError):
                 is_fmt_err = True
                 error_id = CheckerErrorType.FORMAT_ERROR
                 break
-
-            ptype, pname = self._format_validator.split(exp_type)
-            parameters_meta.append((pname, ptype, inst))
 
             try:
                 if not self._type_validator.is_match(inst, ptype):
@@ -191,14 +229,21 @@ class Checker:
                 if error_id == CheckerErrorType.NO_ERROR:
                     error_id = CheckerErrorType.TYPE_ERROR
 
-        return self._check_reporter.build_message(
-            CheckReporterData(
-                context=context,
-                parameters_meta=parameters_meta,
-                err_indices=err_indices,
-                is_fmt_err=is_fmt_err
+        report_msg: str = f'{context} error during building check report'
+
+        try:
+            report_msg = self._check_reporter.build_message(
+                CheckReporterData(
+                    context=context,
+                    parameters_meta=parameters_meta,
+                    err_indices=err_indices,
+                    is_fmt_err=is_fmt_err
+                )
             )
-        ), error_id
+        except (ATSValueError, ATSTypeError):
+            pass
+
+        return report_msg, error_id
 
     def is_initialized(self) -> bool:
         '''
@@ -211,9 +256,9 @@ class Checker:
 
     def __str__(self) -> str:
         '''
-            Returns the Checker as string representation.
+            Returns checker as string representation.
 
-            :return: The Checker as string representation.
+            :return: Checker as string representation.
             :exceptions: None.
         '''
         return to_str(self)

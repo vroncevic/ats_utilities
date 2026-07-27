@@ -22,7 +22,6 @@ Info
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import Any
 from enum import Enum
 
 __author__ = 'Vladimir Roncevic'
@@ -35,10 +34,10 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 # Parameters specification: (('expected type:param name', instance), ...)
-type Parameters = Sequence[tuple[str, Any]]
+type Parameters = Sequence[tuple[str, object]]
 
 # Parameters metadata specification: (('expected type', 'param name'), ...)
-type ParametersMeta = Sequence[tuple[str, str, Any]]
+type ParametersMeta = Sequence[tuple[str, str, object]]
 
 # Result type: ((error message report, error id), ...)
 type Result = tuple[str, int]

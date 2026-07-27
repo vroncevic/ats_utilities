@@ -65,8 +65,8 @@ class CheckerDependenciesValidator:
         istype(dependencies, Mapping, ctx, 'dependencies must be a Mapping')
 
         for attr_name, expected_type in CheckerKeys.get_dependency_to_type().items():
-            value = dependencies.get(attr_name)
+            value: object | None = dependencies.get(attr_name)
 
             if value is not None:
-                err_msg = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+                err_msg: str = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
                 istype(value, expected_type, ctx, err_msg)
