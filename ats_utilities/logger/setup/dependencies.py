@@ -21,11 +21,12 @@ Info
 
 from __future__ import annotations
 
-from typing import TypedDict, NotRequired, Any
+from typing import TypedDict, NotRequired
 
 from ats_utilities.logger.formatter.iformatter import ILogFormatter
 from ats_utilities.logger.buffer.ibuffer import ILogBuffer
 from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
+from ats_utilities.logger.processor.imessage_processor import IMessageProcessor
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -49,10 +50,12 @@ class LoggerDependencies(TypedDict):
                 | formatter: Formatter for log messages.
                 | buffer: Buffer for early logs.
                 | handler_manager: Manager for log output handlers.
+                | message_processor: Processor for log messages.
     '''
 
-    logger: NotRequired[Any]
+    logger: NotRequired[object]
     has_file_handler: NotRequired[bool]
     formatter: NotRequired[ILogFormatter]
     buffer: NotRequired[ILogBuffer]
     handler_manager: NotRequired[ILogHandlerManager]
+    message_processor: NotRequired[IMessageProcessor]

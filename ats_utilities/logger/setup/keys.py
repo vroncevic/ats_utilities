@@ -21,12 +21,14 @@ Info
 
 from __future__ import annotations
 
-from typing import Any, ClassVar
+from typing import ClassVar
+from re import Pattern
 from types import MappingProxyType
 
 from ats_utilities.logger.formatter.iformatter import ILogFormatter
 from ats_utilities.logger.buffer.ibuffer import ILogBuffer
 from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
+from ats_utilities.logger.processor.imessage_processor import IMessageProcessor
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -65,6 +67,7 @@ class LoggerKeys:
     DEPENDENCY_FORMATTER: ClassVar[str] = 'formatter'
     DEPENDENCY_BUFFER: ClassVar[str] = 'buffer'
     DEPENDENCY_HANDLER_MANAGER: ClassVar[str] = 'handler_manager'
+    DEPENDENCY_MESSAGE_PROCESSOR: ClassVar[str] = 'message_processor'
 
     # Option Keys
     OPTION_LOG_FILE: ClassVar[str] = 'log_file'
@@ -72,6 +75,7 @@ class LoggerKeys:
     OPTION_LOG_FORMAT: ClassVar[str] = 'log_format'
     OPTION_LOG_DATEFMT: ClassVar[str] = 'log_datefmt'
     OPTION_LOG_BUFFER_SIZE: ClassVar[int] = 'log_buffer_size'
+    OPTION_LOG_MESSAGE_PROCESSOR: ClassVar[str] = 'message_processor'
 
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
@@ -82,11 +86,12 @@ class LoggerKeys:
             :exceptions: None.
         '''
         return MappingProxyType({
-            cls.DEPENDENCY_LOGGER: Any,
+            cls.DEPENDENCY_LOGGER: object,
             cls.DEPENDENCY_HAS_FILE_HANDLER: bool,
             cls.DEPENDENCY_FORMATTER: ILogFormatter,
             cls.DEPENDENCY_BUFFER: ILogBuffer,
             cls.DEPENDENCY_HANDLER_MANAGER: ILogHandlerManager,
+            cls.DEPENDENCY_MESSAGE_PROCESSOR: IMessageProcessor,
         })
 
     @classmethod
@@ -103,4 +108,5 @@ class LoggerKeys:
             cls.OPTION_LOG_FORMAT: str,
             cls.OPTION_LOG_DATEFMT: str,
             cls.OPTION_LOG_BUFFER_SIZE: int,
+            cls.OPTION_LOG_MESSAGE_PROCESSOR: Pattern[str],
         })

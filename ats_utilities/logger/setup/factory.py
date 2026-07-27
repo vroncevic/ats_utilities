@@ -23,7 +23,7 @@ from __future__ import annotations
 
 from sys import stdout
 from logging import getLogger, basicConfig, INFO
-from typing import Any
+from re import Pattern
 
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.setup.registry import LoggerRegistry
@@ -34,6 +34,7 @@ from ats_utilities.logger.setup.opt_validator import LoggerOptionsValidator
 from ats_utilities.logger.formatter.engine import LogFormatter
 from ats_utilities.logger.buffer.engine import LogBuffer
 from ats_utilities.logger.handler.engine import LogHandlerManager
+from ats_utilities.logger.processor.engine import MessageProcessor
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -76,6 +77,7 @@ class LoggerFactory:
         log_format: str = '%(asctime)s - %(levelname)s - %(message)s'
         log_datefmt: str = '%m/%d/%Y %I:%M:%S %p'
         log_buffer_size: int = 200
+        log_message_processor: Pattern[str] | None = None
 
         if options:
             log_file = options.get(LoggerKeys.OPTION_LOG_FILE)
@@ -83,11 +85,12 @@ class LoggerFactory:
             log_format = options.get(LoggerKeys.OPTION_LOG_FORMAT, log_format)
             log_datefmt = options.get(LoggerKeys.OPTION_LOG_DATEFMT, log_datefmt)
             log_buffer_size = options.get(LoggerKeys.OPTION_LOG_BUFFER_SIZE, log_buffer_size)
+            log_message_processor = options.get(LoggerKeys.OPTION_LOG_MESSAGE_PROCESSOR)
 
         logger = getLogger()
 
         if not logger.hasHandlers():
-            log_config: dict[str, Any] = {
+            log_config: dict[str, object] = {
                 'format': log_format,
                 'datefmt': log_datefmt,
                 'level': log_level
@@ -100,9 +103,10 @@ class LoggerFactory:
 
             basicConfig(**log_config)
 
-        formatter: LogFormatter = LogFormatter()
+        formatter: LogFormatter = LogFormatter(log_format=log_format, log_datefmt=log_datefmt)
         buffer: LogBuffer = LogBuffer(limit=log_buffer_size)
-        handler_manager: LogHandlerManager = LogHandlerManager(logger)
+        handler_manager: LogHandlerManager = LogHandlerManager(logger=logger)
+        message_processor: MessageProcessor = MessageProcessor(pattern=log_message_processor)
 
         return LoggerRegistry.create_bundle(
             dependencies=LoggerDependencies(
@@ -110,6 +114,7 @@ class LoggerFactory:
                 has_file_handler=log_file is not None,
                 formatter=formatter,
                 buffer=buffer,
-                handler_manager=handler_manager
+                handler_manager=handler_manager,
+                message_processor=message_processor
             )
         )

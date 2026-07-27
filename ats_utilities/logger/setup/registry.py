@@ -56,18 +56,18 @@ class LoggerRegistry:
             :return: Logger bundle instance.
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper values.
-                | ATSTypeError:  Dependencies must be an instance of LoggerDependencies
-                |                and its attributes must be instances of their
-                |                respective types.
+                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
         LoggerDependenciesValidator.validate(dependencies)
 
         bundle: LoggerBundle = LoggerBundle(
-            logger=dependencies.get(LoggerKeys.DEPENDENCY_LOGGER),
-            has_file_handler=dependencies.get(LoggerKeys.DEPENDENCY_HAS_FILE_HANDLER),
-            formatter=dependencies.get(LoggerKeys.DEPENDENCY_FORMATTER),
-            buffer=dependencies.get(LoggerKeys.DEPENDENCY_BUFFER),
-            handler_manager=dependencies.get(LoggerKeys.DEPENDENCY_HANDLER_MANAGER)
+            logger=dependencies.get(LoggerKeys.DEPENDENCY_LOGGER) if dependencies else None,
+            has_file_handler=dependencies.get(LoggerKeys.DEPENDENCY_HAS_FILE_HANDLER) if dependencies else None,
+            formatter=dependencies.get(LoggerKeys.DEPENDENCY_FORMATTER) if dependencies else None,
+            buffer=dependencies.get(LoggerKeys.DEPENDENCY_BUFFER) if dependencies else None,
+            handler_manager=dependencies.get(LoggerKeys.DEPENDENCY_HANDLER_MANAGER) if dependencies else None,
+            message_processor=dependencies.get(LoggerKeys.DEPENDENCY_MESSAGE_PROCESSOR) if dependencies else None
         )
 
         LoggerValidator.validate(bundle)

@@ -22,9 +22,8 @@ Info
 
 from __future__ import annotations
 
-from os import environ
-from re import compile, Pattern
-from sys import stdout
+from ats_utilities.validation.check_value import not_none, not_empty
+from ats_utilities.validation.check_type import istype
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -39,32 +38,97 @@ __status__ = 'Development'
 class LogFormatter:
     '''
         Defines class LogFormatter with attribute(s) and method(s).
-        Provides an API for log formatting (removing color codes, etc.).
+        Provides an API for log formatting.
 
         It defines:
 
             :attributes:
                 | _ANSI_ESCAPE - Regex pattern for ANSI escape codes.
+                | DEFAULT_LOG_FORMAT - Default log message format.
+                | DEFAULT_LOG_DATEFMT - Default log message date format.
+                | _log_format - Log message format.
+                | _log_datefmt - Log message date format.
             :methods:
-                | format_message - Formats the log message.
+                | __init__ - Initializes log formatter.
+                | set_format - Sets the log format.
+                | get_format - Gets the log format.
+                | set_date_format - Sets the log date format.
+                | get_date_format - Gets the log date format.
     '''
 
-    _ANSI_ESCAPE: Pattern[str] = compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
+    DEFAULT_LOG_FORMAT: str = '%(asctime)s - %(levelname)s - %(message)s'
+    DEFAULT_LOG_DATEFMT: str = '%m/%d/%Y %I:%M:%S %p'
+    _log_format: str
+    _log_datefmt: str
 
-    def format_message(self, message: str) -> str:
+    def __init__(self, log_format: str | None, log_datefmt: str | None) -> None:
         '''
-            Formats the log message by checking the environment.
-            Stripping ANSI color codes if output is redirected or disabled.
+            Initializes log formatter.
 
-            :param message: The original log message.
-            :return: The formatted log message.
-            :exceptions: None.
+            :param log_format: Log message format.
+            :param log_datefmt: Log message date format.
+            :exceptions:
+                | ATSTypeError: Log format or date format is not a string.
+                | ATSValueError: Log format or date format is empty.
         '''
-        no_color: bool = 'NO_COLOR' in environ
-        force_color: bool = 'FORCE_COLOR' in environ
-        is_terminal: bool = stdout.isatty()
+        ctx: str = 'log_formatter::init(...)'
 
-        if no_color or (not is_terminal and not force_color):
-            message = self._ANSI_ESCAPE.sub('', message)
+        if log_format is not None:
+            istype(log_format, str, ctx, 'log format must be a string')
+            not_empty(log_format, ctx, 'log format cannot be empty')
+            self._log_format = log_format
+        else:
+            self._log_format = self.DEFAULT_LOG_FORMAT
 
-        return message
+        if log_datefmt is not None:
+            istype(log_datefmt, str, ctx, 'log date format must be a string')
+            not_empty(log_datefmt, ctx, 'log date format cannot be empty')
+            self._log_datefmt = log_datefmt
+        else:
+            self._log_datefmt = self.DEFAULT_LOG_DATEFMT
+
+    def set_format(self, log_format: str) -> None:
+        '''
+            Sets the log format.
+
+            :param log_format: The log format.
+            :exceptions:
+                | ATSValueError: Log format must be provided and not empty.
+                | ATSTypeError:  Log format must be a string.
+        '''
+        ctx: str = 'log_formatter::set_format(...)'
+        not_none(log_format, ctx, 'log format must be provided')
+        istype(log_format, str, ctx, 'log format must be a string')
+        not_empty(log_format, ctx, 'log format cannot be empty')
+        self._log_format = log_format
+
+    def get_format(self) -> str:
+        '''
+            Gets the log format.
+
+            :return: The log format.
+        '''
+        return self._log_format
+
+    def set_date_format(self, log_datefmt: str) -> None:
+        '''
+            Sets the log date format.
+
+            :param log_datefmt: The log date format.
+            :exceptions:
+                | ATSValueError: Log date format must be provided and not empty.
+                | ATSTypeError:  Log date format must be a string.
+        '''
+        ctx: str = 'log_formatter::set_date_format(...)'
+        not_none(log_datefmt, ctx, 'log date format must be provided')
+        istype(log_datefmt, str, ctx, 'log date format must be a string')
+        not_empty(log_datefmt, ctx, 'log date format cannot be empty')
+        self._log_datefmt = log_datefmt
+
+    def get_date_format(self) -> str:
+        '''
+            Gets the log date format.
+
+            :return: The log date format.
+        '''
+        return self._log_datefmt

@@ -25,6 +25,7 @@ from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.formatter.iformatter import ILogFormatter
 from ats_utilities.logger.buffer.ibuffer import ILogBuffer
 from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
+from ats_utilities.logger.processor.imessage_processor import IMessageProcessor
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none, not_satisfied
 
@@ -61,12 +62,14 @@ class LoggerValidator:
                 | ATSValueError: Formatter must be provided.
                 | ATSValueError: Buffer must be provided.
                 | ATSValueError: Handler manager must be provided.
+                | ATSValueError: Message processor must be provided.
                 | ATSTypeError: Bundle must be an instance of LoggerBundle.
                 | ATSTypeError: Logger must be an ILogger or standard logging.Logger instance.
                 | ATSTypeError: Has file handler flag must be a boolean instance.
                 | ATSTypeError: Formatter must be an instance of ILogFormatter.
                 | ATSTypeError: Buffer must be an instance of ILogBuffer.
                 | ATSTypeError: Handler manager must be an instance of ILogHandlerManager.
+                | ATSTypeError: Message processor must be an instance of IMessageProcessor.
         '''
         ctx: str = 'logger_validator::validate(...)'
 
@@ -78,11 +81,13 @@ class LoggerValidator:
         not_none(bundle.formatter, ctx, 'formatter must be provided')
         not_none(bundle.buffer, ctx, 'buffer must be provided')
         not_none(bundle.handler_manager, ctx, 'handler manager must be provided')
+        not_none(bundle.message_processor, ctx, 'message processor must be provided')
 
         istype(bundle.has_file_handler, bool, ctx, 'has file handler flag must be a boolean instance')
         istype(bundle.formatter, ILogFormatter, ctx, 'formatter must be an instance of ILogFormatter')
         istype(bundle.buffer, ILogBuffer, ctx, 'buffer must be an instance of ILogBuffer')
         istype(bundle.handler_manager, ILogHandlerManager, ctx, 'handler manager must be an instance of ILogHandlerManager')
+        istype(bundle.message_processor, IMessageProcessor, ctx, 'message processor must be an instance of IMessageProcessor')
 
         not_satisfied(
             not (hasattr(bundle.logger, 'info') or hasattr(bundle.logger, 'write_log')), ctx,

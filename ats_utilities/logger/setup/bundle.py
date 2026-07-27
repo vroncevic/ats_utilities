@@ -22,11 +22,11 @@ Info
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
 
 from ats_utilities.logger.formatter.iformatter import ILogFormatter
 from ats_utilities.logger.buffer.ibuffer import ILogBuffer
 from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
+from ats_utilities.logger.processor.imessage_processor import IMessageProcessor
 from ats_utilities.utils.reflection import instance_to_dict
 
 __author__ = 'Vladimir Roncevic'
@@ -52,17 +52,19 @@ class LoggerBundle:
                 | formatter - Formatter for log messages.
                 | buffer - Buffer for early logs.
                 | handler_manager - Manager for log output handlers.
+                | message_processor - Processor for log messages.
             :methods:
                 | to_dict - Converts logger bundle to a dictionary.
     '''
 
-    logger: Any
+    logger: object
     has_file_handler: bool
     formatter: ILogFormatter
     buffer: ILogBuffer
     handler_manager: ILogHandlerManager
+    message_processor: IMessageProcessor
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts logger bundle to a dictionary.
 

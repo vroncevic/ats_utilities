@@ -27,13 +27,13 @@ from logging import (
     getLogger, DEBUG, INFO, WARNING, ERROR, CRITICAL
 )
 from types import MappingProxyType
-from typing import Any
 
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.setup.validator import LoggerValidator
 from ats_utilities.logger.formatter.iformatter import ILogFormatter
 from ats_utilities.logger.buffer.ibuffer import ILogBuffer
 from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
+from ats_utilities.logger.processor.imessage_processor import IMessageProcessor
 from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.utils.reflection import to_str
 
@@ -63,21 +63,20 @@ class Logger:
                 | _has_file_handler - Flag indicating if logger has a file handler.
             :methods:
                 | __init__ - Initializes Logger constructor.
-                | write_log - Writes message to log.
+                | get_bundle - Gets current logger configuration bundle.
+                | update_bundle - Updates logger configuration bundle.
+                | write_log - Writes message to log output.
                 | is_initialized - Checks if logger is initialized.
-                | set_level - Sets log level.
-                | set_log_file - Sets log file.
-                | set_stdout - Sets log output to standard output (stdout).
-                | set_stderr - Sets log output to standard error (stderr).
                 | stop_buffering - Stops log buffering.
-                | __str__ - Returns the logger as string representation.
+                | __str__ - Returns logger as string representation.
     '''
 
-    _logger: Any
+    _logger: object
     _log_methods: Mapping[int, Callable[..., None]]
     _formatter: ILogFormatter
     _buffer: ILogBuffer
     _handler_manager: ILogHandlerManager
+    _message_processor: IMessageProcessor
     _has_file_handler: bool
 
     def __init__(self, own: LoggerBundle) -> None:
@@ -198,57 +197,57 @@ class Logger:
 
         return bool(self._logger and self._log_methods)
 
-#    def set_level(self, level: int) -> None:
-#        '''
-#            Sets log level.
-#
-#            :param level: Log level.
-#            :exceptions: None.
-#        '''
-#        if hasattr(self._logger, 'setLevel'):
-#            self._logger.setLevel(level)
-#        elif hasattr(self._logger, 'set_level'):
-#            self._logger.set_level(level)
-#
-#    def _flush_buffer(self) -> None:
-#        if self._has_file_handler and self._buffer.is_enabled:
-#            if hasattr(self._logger, 'log'):
-#                self._buffer.flush(lambda msg, lvl: self._logger.log(lvl, msg))
-#            elif hasattr(self._logger, 'write_log'):
-#                self._buffer.flush(lambda msg, lvl: self._logger.write_log(msg, lvl))
-#            else:
-#                self._buffer.clear()
-#
-#    def set_log_file(self, log_file: str) -> None:
-#        '''
-#            Sets log file.
-#
-#            :param log_file: Log file path.
-#            :exceptions: None.
-#        '''
-#        if self._handler_manager.set_log_file(log_file):
-#            self._has_file_handler = True
-#            self._flush_buffer()
-#
-#    def set_stdout(self) -> None:
-#        '''
-#            Sets log output to standard output (stdout).
-#
-#            :exceptions: None.
-#        '''
-#        if self._handler_manager.set_stdout():
-#            self._has_file_handler = True
-#            self._flush_buffer()
-#
-#    def set_stderr(self) -> None:
-#        '''
-#            Sets log output to standard error (stderr).
-#
-#            :exceptions: None.
-#        '''
-#        if self._handler_manager.set_stderr():
-#            self._has_file_handler = True
-#            self._flush_buffer()
+    def set_level(self, level: int) -> None:
+        '''
+            Sets log level.
+
+            :param level: Log level.
+            :exceptions: None.
+        '''
+        if hasattr(self._logger, 'setLevel'):
+            self._logger.setLevel(level)
+        elif hasattr(self._logger, 'set_level'):
+            self._logger.set_level(level)
+
+    def _flush_buffer(self) -> None:
+        if self._has_file_handler and self._buffer.is_enabled:
+            if hasattr(self._logger, 'log'):
+                self._buffer.flush(lambda msg, lvl: self._logger.log(lvl, msg))
+            elif hasattr(self._logger, 'write_log'):
+                self._buffer.flush(lambda msg, lvl: self._logger.write_log(msg, lvl))
+            else:
+                self._buffer.clear()
+
+    def set_log_file(self, log_file: str) -> None:
+        '''
+            Sets log file.
+
+            :param log_file: Log file path.
+            :exceptions: None.
+        '''
+        if self._handler_manager.set_log_file(log_file):
+            self._has_file_handler = True
+            self._flush_buffer()
+
+    def set_stdout(self) -> None:
+        '''
+            Sets log output to standard output (stdout).
+
+            :exceptions: None.
+        '''
+        if self._handler_manager.set_stdout():
+            self._has_file_handler = True
+            self._flush_buffer()
+
+    def set_stderr(self) -> None:
+        '''
+            Sets log output to standard error (stderr).
+
+            :exceptions: None.
+        '''
+        if self._handler_manager.set_stderr():
+            self._has_file_handler = True
+            self._flush_buffer()
 
     def stop_buffering(self) -> None:
         '''

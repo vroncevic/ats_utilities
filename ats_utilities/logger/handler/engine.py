@@ -26,7 +26,6 @@ from logging import FileHandler, Formatter, StreamHandler
 from os import makedirs
 from os.path import dirname, exists
 from sys import stdout, stderr
-from typing import Any
 
 from ats_utilities.utils.reflection import to_str
 
@@ -57,7 +56,7 @@ class LogHandlerManager:
                 | __str__ - Returns log handler manager as string representation.
     '''
 
-    def __init__(self, logger: Any) -> None:
+    def __init__(self, logger: object) -> None:
         '''
             Initializes the log handler manager.
 

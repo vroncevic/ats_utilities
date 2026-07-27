@@ -2,7 +2,7 @@
 
 '''
 Module
-    iformatter.py
+    imessage_processor.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILogFormatter with method(s).
-    Provides an interface for log formatting.
+    Defines abstract class IMessageProcessor with method(s).
+    Provides an interface for processing/sanitizing log messages.
 '''
 
 from __future__ import annotations
@@ -35,48 +35,36 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class ILogFormatter[LogFormatType, LogDateFormatType, MessageType](Protocol):
+class IMessageProcessor[PatternType, MessageType](Protocol):
     '''
-        Defines abstract class ILogFormatter with method(s).
-        Provides an interface for log formatting.
+        Defines abstract class IMessageProcessor with method(s).
+        Provides an interface for processing/sanitizing log messages.
 
-        It defines:
-
-            :methods:
-                | set_format - Sets the log format.
-                | get_format - Gets the log format.
-                | set_date_format - Sets the log date format.
-                | get_date_format - Gets the log date format.
+        :methods:
+            | get_pattern - Gets a regex pattern for message processing.
+            | set_pattern - Sets a regex pattern for message processing.
+            | process - Processes a log message.
     '''
 
-    def set_format(self, log_format: LogFormatType) -> None:
+    def get_pattern(self) -> PatternType:
         '''
-            Sets the log format.
-
-            :param log_format: The log format.
-        '''
-        ...
-
-    def get_format(self) -> LogFormatType:
-        '''
-            Gets the log format.
-
-            :return: The log format.
+            Gets a regex pattern for message processing.
+            :return: A regex pattern for message processing.
         '''
         ...
 
-    def set_date_format(self, log_datefmt: LogDateFormatType) -> None:
+    def set_pattern(self, pattern: PatternType) -> None:
         '''
-            Sets the log date format.
-
-            :param log_datefmt: The log date format.
+            Sets a regex pattern for message processing.
+            :param pattern: A regex pattern for message processing.
         '''
         ...
 
-    def get_date_format(self) -> LogDateFormatType:
+    def process(self, message: MessageType) -> MessageType:
         '''
-            Gets the log date format.
+            Processes a log message.
 
-            :return: The log date format.
+            :param message: A log message to process.
+            :return: A processed log message.
         '''
         ...

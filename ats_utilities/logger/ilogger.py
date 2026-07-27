@@ -48,15 +48,14 @@ class ILogger[ConfigType, MesssageType, LogLevelType](Protocol):
                 | write_log - Writes message to log output.
                 | is_initialized - Checks if logger is initialized.
                 | stop_buffering - Stops log buffering.
-                | __str__ - Returns the logger as string representation.
+                | __str__ - Returns logger as string representation.
     '''
 
     def get_bundle(self) -> ConfigType:
         '''
             Gets current logger configuration bundle.
 
-            :return: LoggerBundle containing current logger setup.
-            :exceptions: None.
+            :return: Logger configuration bundle.
         '''
         ...
 
@@ -64,17 +63,16 @@ class ILogger[ConfigType, MesssageType, LogLevelType](Protocol):
         '''
             Updates logger configuration bundle.
 
-            :param bundle: LoggerBundle containing current logger setup.
-            :exceptions: None.
+            :param bundle: Logger configuration bundle.
         '''
         ...
 
-    def write_log(self, message: MesssageType, ctrl: LogLevelType) -> None:
+    def write_log(self, message: MesssageType, level: LogLevelType) -> None:
         '''
             Writes message to log output.
 
-            :param message: Log message.
-            :param ctrl: Log control flag.
+            :param message: Message to be logged.
+            :param level: Log message level.
         '''
         ...
 
@@ -94,8 +92,8 @@ class ILogger[ConfigType, MesssageType, LogLevelType](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns the logger as string representation.
+            Returns logger as string representation.
 
-            :return: The logger as string representation.
+            :return: Logger as string representation.
         '''
         ...
