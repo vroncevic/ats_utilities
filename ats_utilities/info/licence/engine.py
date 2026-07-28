@@ -64,16 +64,10 @@ class Licence:
 
             :param context_bundle: Context bundle for licence.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Checker must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSValueError: Reporter must be provided.
-                | ATSValueError: Verbose must be provided.
-                | ATSTypeError: Bundle must be an instance of ContextBundle.
-                | ATSTypeError: Checker must be an instance of IChecker.
-                | ATSTypeError: Logger must be an instance of ILogger.
-                | ATSTypeError: Reporter must be an instance of IReporter.
-                | ATSTypeError: Verbose must be a boolean.
+                | ATSValueError:  Context bundle must be provided and have proper values.
+                | ATSTypeError:   Context bundle must be an instance of ContextBundle
+                |                 and its attributes must be instances of their
+                |                 respective types.
         '''
         ContextValidator.validate(context_bundle)
         self._context = context_bundle

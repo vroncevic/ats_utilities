@@ -60,11 +60,11 @@ class ContextValidator:
                 | ATSValueError: Logger must be provided.
                 | ATSValueError: Reporter must be provided.
                 | ATSValueError: Verbose must be provided.
-                | ATSTypeError: Bundle must be an instance of ContextBundle.
-                | ATSTypeError: Checker must be an instance of IChecker.
-                | ATSTypeError: Logger must be an instance of ILogger.
-                | ATSTypeError: Reporter must be an instance of IReporter.
-                | ATSTypeError: Verbose must be a boolean.
+                | ATSTypeError:  Bundle must be an instance of ContextBundle.
+                | ATSTypeError:  Checker must be an instance of IChecker.
+                | ATSTypeError:  Logger must be an instance of ILogger.
+                | ATSTypeError:  Reporter must be an instance of IReporter.
+                | ATSTypeError:  Verbose must be a boolean.
         '''
         ctx: str = 'context_validator::validate(...)'
 

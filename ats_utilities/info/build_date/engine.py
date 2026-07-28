@@ -64,16 +64,10 @@ class BuildDate:
 
             :param context_bundle: Context bundle for build date.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Checker must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSValueError: Reporter must be provided.
-                | ATSValueError: Verbose must be provided.
-                | ATSTypeError: Bundle must be an instance of ContextBundle.
-                | ATSTypeError: Checker must be an instance of IChecker.
-                | ATSTypeError: Logger must be an instance of ILogger.
-                | ATSTypeError: Reporter must be an instance of IReporter.
-                | ATSTypeError: Verbose must be a boolean.
+                | ATSValueError:  Context bundle must be provided and have proper values.
+                | ATSTypeError:   Context bundle must be an instance of ContextBundle
+                |                 and its attributes must be instances of their
+                |                 respective types.
         '''
         ContextValidator.validate(context_bundle)
         self._context = context_bundle
@@ -88,7 +82,7 @@ class BuildDate:
 
             :return: The build date in string format | None.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
@@ -104,12 +98,12 @@ class BuildDate:
 
             :param build_date: The build date in string format.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
-                | ATSTypeError: Parameter type validation failed.
-                | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSTypeError:      Parameter type validation failed.
+                | ATSValueError:     Parameter format validation failed.
+                | ATSRuntimeError:   Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._build_date = build_date
@@ -122,7 +116,7 @@ class BuildDate:
 
             :return: True if successfully, otherwise False.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
