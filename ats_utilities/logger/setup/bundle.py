@@ -23,6 +23,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from ats_utilities.logger.underlying.iunderlying import IUnderlyingLogger
 from ats_utilities.logger.formatter.iformatter import ILogFormatter
 from ats_utilities.logger.buffer.ibuffer import ILogBuffer
 from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
@@ -57,7 +58,7 @@ class LoggerBundle:
                 | to_dict - Converts logger bundle to a dictionary.
     '''
 
-    logger: object
+    logger: IUnderlyingLogger
     has_file_handler: bool
     formatter: ILogFormatter
     buffer: ILogBuffer

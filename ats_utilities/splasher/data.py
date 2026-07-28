@@ -53,7 +53,7 @@ class CenterData:
     columns: int
     additional_shifter: int
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts the center data instance to a dictionary.
 

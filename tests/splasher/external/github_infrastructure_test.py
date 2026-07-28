@@ -57,7 +57,7 @@ class GitHubInfrastructureTest(unittest.TestCase):
                 | test_str - Tests __str__ method.
     '''
 
-    def _get_valid_setup(self) -> dict[str, Any]:
+    def _get_valid_setup(self) -> dict[str, object]:
         return {
             SplashKeys.ATS_REPOSITORY: "ats_utilities",
             SplashKeys.ATS_ORGANIZATION: "vroncevic",

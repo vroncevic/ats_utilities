@@ -56,7 +56,7 @@ class FileData:
     file_mode: str
     context_bundle: ContextBundle
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts the file data instance to a dictionary.
 

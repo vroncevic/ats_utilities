@@ -45,7 +45,6 @@ class ILogHandlerManager[LogFileType, ResultType](Protocol):
             :methods:
                 | set_log_file - Configures file output handler.
                 | set_stdout - Configures stdout stream handler.
-                | set_stderr - Configures stderr stream handler.
                 | __str__ - Returns log handler manager as string representation.
     '''
 
@@ -63,14 +62,6 @@ class ILogHandlerManager[LogFileType, ResultType](Protocol):
             Configures stdout stream handler.
 
             :return: Result of stdout handler setup.
-        '''
-        ...
-
-    def set_stderr(self) -> ResultType:
-        '''
-            Configures stderr stream handler.
-
-            :return: Result of stderr handler setup.
         '''
         ...
 

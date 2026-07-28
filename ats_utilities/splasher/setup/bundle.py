@@ -69,7 +69,7 @@ class SplashBundle:
     pb: IProgressBar
     context_bundle: ContextBundle
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts splash bundle to a dictionary.
 

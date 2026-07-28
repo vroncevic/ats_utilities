@@ -22,13 +22,8 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Callable, Mapping
-from logging import (
-    getLogger, DEBUG, INFO, WARNING, ERROR, CRITICAL
-)
-from types import MappingProxyType
-
 from ats_utilities.logger.setup.bundle import LoggerBundle
+from ats_utilities.logger.underlying.iunderlying import IUnderlyingLogger
 from ats_utilities.logger.setup.validator import LoggerValidator
 from ats_utilities.logger.formatter.iformatter import ILogFormatter
 from ats_utilities.logger.buffer.ibuffer import ILogBuffer
@@ -64,15 +59,19 @@ class Logger:
             :methods:
                 | __init__ - Initializes Logger constructor.
                 | get_bundle - Gets current logger configuration bundle.
-                | update_bundle - Updates logger configuration bundle.
-                | write_log - Writes message to log output.
                 | is_initialized - Checks if logger is initialized.
+                | update_bundle - Updates logger configuration bundle.
+                | _apply_bundle - Applies bundle configuration to instance attributes.
+                | set_level - Sets log level.
+                | _flush_buffer - Flushes log buffer.
+                | set_log_file - Configures output handler.
+                | set_stdout - Configures output handler.
                 | stop_buffering - Stops log buffering.
+                | write_log - Writes message to log output.
                 | __str__ - Returns logger as string representation.
     '''
 
-    _logger: object
-    _log_methods: Mapping[int, Callable[..., None]]
+    _logger: IUnderlyingLogger
     _formatter: ILogFormatter
     _buffer: ILogBuffer
     _handler_manager: ILogHandlerManager
@@ -91,28 +90,7 @@ class Logger:
                 |                respective interfaces and types.
         '''
         LoggerValidator.validate(own)
-        self._logger = own.logger
-        self._formatter = own.formatter
-        self._buffer = own.buffer
-        self._handler_manager = own.handler_manager
-        self._has_file_handler = own.has_file_handler
-
-        if hasattr(self._logger, 'info'):
-            self._log_methods = MappingProxyType({
-                DEBUG: self._logger.debug,
-                INFO: self._logger.info,
-                WARNING: self._logger.warning,
-                ERROR: self._logger.error,
-                CRITICAL: self._logger.critical,
-            })
-        elif hasattr(self._logger, 'write_log'):
-            self._log_methods = MappingProxyType({
-                DEBUG: lambda msg: self._logger.write_log(msg, DEBUG),
-                INFO: lambda msg: self._logger.write_log(msg, INFO),
-                WARNING: lambda msg: self._logger.write_log(msg, WARNING),
-                ERROR: lambda msg: self._logger.write_log(msg, ERROR),
-                CRITICAL: lambda msg: self._logger.write_log(msg, CRITICAL),
-            })
+        self._apply_bundle(own)
 
     def get_bundle(self) -> LoggerBundle:
         '''
@@ -129,60 +107,6 @@ class Logger:
             has_file_handler=self._has_file_handler
         )
 
-    def update_bundle(self, bundle: LoggerBundle) -> bool:
-        '''
-            Updates logger configuration using a logger bundle.
-
-            :param bundle: Component bundle with logger and logging parameters.
-            :return: True if configuration was successfully updated, False otherwise.
-            :exceptions: None.
-        '''
-        try:
-            LoggerValidator.validate(bundle)
-            self._logger = bundle.logger
-            self._formatter = bundle.formatter
-            self._buffer = bundle.buffer
-            self._handler_manager = bundle.handler_manager
-            self._has_file_handler = bundle.has_file_handler
-
-            if hasattr(self._logger, 'info'):
-                self._log_methods = MappingProxyType({
-                    DEBUG: self._logger.debug,
-                    INFO: self._logger.info,
-                    WARNING: self._logger.warning,
-                    ERROR: self._logger.error,
-                    CRITICAL: self._logger.critical,
-                })
-            elif hasattr(self._logger, 'write_log'):
-                self._log_methods = MappingProxyType({
-                    DEBUG: lambda msg: self._logger.write_log(msg, DEBUG),
-                    INFO: lambda msg: self._logger.write_log(msg, INFO),
-                    WARNING: lambda msg: self._logger.write_log(msg, WARNING),
-                    ERROR: lambda msg: self._logger.write_log(msg, ERROR),
-                    CRITICAL: lambda msg: self._logger.write_log(msg, CRITICAL),
-                })
-            return True
-
-        except (ATSValueError, ATSTypeError):
-            return False
-
-    def write_log(self, message: str, ctrl: int) -> None:
-        '''
-            Writes message to log.
-
-            :param message: Log message in string format for log.
-            :param ctrl: Control flag (debug, warning, critical, errors, info).
-            :exceptions: None.
-        '''
-        if bool(message) and isinstance(message, str):
-            if ctrl in self._log_methods:
-                processed_message: str = self._formatter.format_message(message)
-
-                if not self._has_file_handler and self._buffer.is_enabled:
-                    self._buffer.add(processed_message, ctrl)
-
-                self._log_methods[ctrl](processed_message)
-
     def is_initialized(self) -> bool:
         '''
             Checks if logger is initialized.
@@ -190,12 +114,38 @@ class Logger:
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        if hasattr(self._logger, 'hasHandlers'):
-            return bool(self._log_methods) and (
-                self._logger.hasHandlers() or getLogger().hasHandlers()
-            )
+        return self._logger.has_handlers()
 
-        return bool(self._logger and self._log_methods)
+    def update_bundle(self, bundle: LoggerBundle) -> bool:
+        '''
+            Updates logger configuration using a logger bundle.
+
+            :param bundle: Logger bundle with logger and logging parameters.
+            :return: True if configuration was successfully updated, False otherwise.
+            :exceptions: None.
+        '''
+        try:
+            LoggerValidator.validate(bundle)
+            self._apply_bundle(bundle)
+
+            return True
+
+        except (ATSValueError, ATSTypeError):
+            return False
+
+    def _apply_bundle(self, bundle: LoggerBundle) -> None:
+        '''
+            Applies bundle configuration to instance attributes.
+
+            :param bundle: Logger bundle with logger and logging parameters.
+            :exceptions: None.
+        '''
+        self._logger = bundle.logger
+        self._formatter = bundle.formatter
+        self._buffer = bundle.buffer
+        self._handler_manager = bundle.handler_manager
+        self._message_processor = bundle.message_processor
+        self._has_file_handler = bundle.has_file_handler
 
     def set_level(self, level: int) -> None:
         '''
@@ -204,21 +154,13 @@ class Logger:
             :param level: Log level.
             :exceptions: None.
         '''
-        if hasattr(self._logger, 'setLevel'):
-            self._logger.setLevel(level)
-        elif hasattr(self._logger, 'set_level'):
-            self._logger.set_level(level)
+        self._logger.set_level(level)
 
     def _flush_buffer(self) -> None:
         if self._has_file_handler and self._buffer.is_enabled:
-            if hasattr(self._logger, 'log'):
-                self._buffer.flush(lambda msg, lvl: self._logger.log(lvl, msg))
-            elif hasattr(self._logger, 'write_log'):
-                self._buffer.flush(lambda msg, lvl: self._logger.write_log(msg, lvl))
-            else:
-                self._buffer.clear()
+            self._buffer.flush(lambda message, level: self._logger.log(level, message))
 
-    def set_log_file(self, log_file: str) -> None:
+    def set_log_file(self, log_file: str) -> bool:
         '''
             Sets log file.
 
@@ -229,7 +171,11 @@ class Logger:
             self._has_file_handler = True
             self._flush_buffer()
 
-    def set_stdout(self) -> None:
+            return True
+
+        return False
+
+    def set_stdout(self) -> bool:
         '''
             Sets log output to standard output (stdout).
 
@@ -239,15 +185,9 @@ class Logger:
             self._has_file_handler = True
             self._flush_buffer()
 
-    def set_stderr(self) -> None:
-        '''
-            Sets log output to standard error (stderr).
+            return True
 
-            :exceptions: None.
-        '''
-        if self._handler_manager.set_stderr():
-            self._has_file_handler = True
-            self._flush_buffer()
+        return False
 
     def stop_buffering(self) -> None:
         '''
@@ -255,11 +195,27 @@ class Logger:
 
             :exceptions: None.
         '''
-        if hasattr(self._logger, 'stop_buffering'):
-            self._logger.stop_buffering()
-
+        self._flush_buffer()
         self._buffer.clear()
         self._has_file_handler = True
+
+    def write_log(self, level: int, message: str) -> None:
+        '''
+            Writes message to log.
+
+            :param level: Log level.
+            :param message: Log message in string format for log.
+            :exceptions: None.
+        '''
+        if not message or not isinstance(message, str):
+            return
+
+        processed_message: str = self._message_processor.process(message)
+
+        if not self._has_file_handler and self._buffer.is_enabled:
+            self._buffer.add(processed_message, level)
+
+        self._logger.log(level, processed_message)
 
     def __str__(self) -> str:
         '''

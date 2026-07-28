@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILogger with attribute(s) and method(s).
+    Defines abstract class ILogger with method(s).
     Provides an interface for the logger.
 '''
 
@@ -35,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class ILogger[ConfigType, MesssageType, LogLevelType](Protocol):
+class ILogger[ConfigType, LogFileType, LogLevelType, MesssageType](Protocol):
     '''
         Defines abstract class ILogger with attribute(s) and method(s).
         Provides an interface for the logger.
@@ -44,10 +44,13 @@ class ILogger[ConfigType, MesssageType, LogLevelType](Protocol):
 
             :methods:
                 | get_bundle - Gets current logger configuration bundle.
-                | update_bundle - Updates logger configuration bundle.
-                | write_log - Writes message to log output.
                 | is_initialized - Checks if logger is initialized.
+                | update_bundle - Updates logger configuration bundle.
+                | set_level - Sets log level.
+                | set_log_file - Configures output handler.
+                | set_stdout - Configures output handler.
                 | stop_buffering - Stops log buffering.
+                | write_log - Writes message to log output.
                 | __str__ - Returns logger as string representation.
     '''
 
@@ -59,23 +62,6 @@ class ILogger[ConfigType, MesssageType, LogLevelType](Protocol):
         '''
         ...
 
-    def update_bundle(self, bundle: ConfigType) -> bool:
-        '''
-            Updates logger configuration bundle.
-
-            :param bundle: Logger configuration bundle.
-        '''
-        ...
-
-    def write_log(self, message: MesssageType, level: LogLevelType) -> None:
-        '''
-            Writes message to log output.
-
-            :param message: Message to be logged.
-            :param level: Log message level.
-        '''
-        ...
-
     def is_initialized(self) -> bool:
         '''
             Checks if logger is initialized.
@@ -84,9 +70,51 @@ class ILogger[ConfigType, MesssageType, LogLevelType](Protocol):
         '''
         ...
 
+    def update_bundle(self, bundle: ConfigType) -> bool:
+        '''
+            Updates logger configuration bundle.
+
+            :param bundle: Logger configuration bundle.
+        '''
+        ...
+
+    def set_level(self, level: LogLevelType) -> None:
+        '''
+            Sets log level.
+
+            :param level: Log level.
+        '''
+        ...
+
+    def set_log_file(self, log_file: LogFileType) -> bool:
+        '''
+            Configures output handler.
+
+            :param log_file: Log file.
+            :return: True if successfully, otherwise False.
+        '''
+        ...
+
+    def set_stdout(self) -> bool:
+        '''
+            Configures output handler.
+
+            :return: True if successfully, otherwise False.
+        '''
+        ...
+
     def stop_buffering(self) -> None:
         '''
             Stops log buffering.
+        '''
+        ...
+
+    def write_log(self, level: LogLevelType, message: MesssageType) -> None:
+        '''
+            Writes message to log output.
+
+            :param level: Log message level.
+            :param message: Message to be logged.
         '''
         ...
 

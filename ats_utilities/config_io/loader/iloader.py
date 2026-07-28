@@ -59,7 +59,7 @@ class ILoader[ContextEnvironment](Protocol):
         '''
         ...
 
-    def load_configuration(self) -> dict[str, Any]:
+    def load_configuration(self) -> dict[str, object]:
         '''
             Loads configuration from file and returns dictionary with configuration content.
 

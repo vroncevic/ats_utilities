@@ -102,7 +102,7 @@ def run_coverage(pro_name: str) -> None:
     stdout.write('\n--- HTML Report saved to htmlcov ---\n')
 
 
-def load_report(file_path: str) -> dict[str, Any]:
+def load_report(file_path: str) -> dict[str, object]:
     '''
         Loads coverage report from file (JSON format).
 
@@ -116,7 +116,7 @@ def load_report(file_path: str) -> dict[str, Any]:
 
     check_exists(file_path)
 
-    data: dict[str, Any] = {}
+    data: dict[str, object] = {}
 
     try:
         with open(file_path, 'r', encoding='utf-8') as loaded_file:
@@ -151,7 +151,7 @@ def find_root_package(module_path: str) -> Path | None:
     return root
 
 
-def update_readme(coverage: dict[str, Any], readme_path: str = 'README.md') -> None:
+def update_readme(coverage: dict[str, object], readme_path: str = 'README.md') -> None:
     '''
         Updates README.md file with code coverage report table.
 
@@ -216,7 +216,7 @@ def update_readme(coverage: dict[str, Any], readme_path: str = 'README.md') -> N
                             result = result.lstrip('/')
                             module = f'{basename(abs_root)}/{result}'
 
-                    file_summary: dict[str, Any] = coverage['files'][name]
+                    file_summary: dict[str, object] = coverage['files'][name]
                     statements: str = file_summary['summary'][stmts]
                     missing: str = file_summary['summary'][miss]
                     covered: str = file_summary['summary'][cover]
@@ -389,7 +389,7 @@ if __name__ == "__main__":
     try:
         pro_name: str = 'ats_utilities'
         run_coverage(pro_name)
-        report_data: dict[str, Any] = load_report(f'{pro_name}.json')
+        report_data: dict[str, object] = load_report(f'{pro_name}.json')
 
         if report_data:
             update_readme(report_data)

@@ -35,6 +35,7 @@ from ats_utilities.logger.formatter.engine import LogFormatter
 from ats_utilities.logger.buffer.engine import LogBuffer
 from ats_utilities.logger.handler.engine import LogHandlerManager
 from ats_utilities.logger.processor.engine import MessageProcessor
+from ats_utilities.logger.underlying.engine import LoggerAdapter
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -65,9 +66,8 @@ class LoggerFactory:
             :return: Logger bundle instance.
             :exceptions:
                 | ATSValueError: Options must be provided and have proper values.
-                | ATSTypeError:  Options must be an instance of LoggerOptions
-                |                and its attributes must be instances of their
-                |                respective types.
+                | ATSTypeError:  Options must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
         if options is not None:
             LoggerOptionsValidator.validate(options)
@@ -77,7 +77,7 @@ class LoggerFactory:
         log_format: str = '%(asctime)s - %(levelname)s - %(message)s'
         log_datefmt: str = '%m/%d/%Y %I:%M:%S %p'
         log_buffer_size: int = 200
-        log_message_processor: Pattern[str] | None = None
+        log_message_pattern: Pattern[str] | None = None
 
         if options:
             log_file = options.get(LoggerKeys.OPTION_LOG_FILE)
@@ -85,7 +85,7 @@ class LoggerFactory:
             log_format = options.get(LoggerKeys.OPTION_LOG_FORMAT, log_format)
             log_datefmt = options.get(LoggerKeys.OPTION_LOG_DATEFMT, log_datefmt)
             log_buffer_size = options.get(LoggerKeys.OPTION_LOG_BUFFER_SIZE, log_buffer_size)
-            log_message_processor = options.get(LoggerKeys.OPTION_LOG_MESSAGE_PROCESSOR)
+            log_message_pattern = options.get(LoggerKeys.OPTION_LOG_MESSAGE_PATTERN)
 
         logger = getLogger()
 
@@ -104,13 +104,14 @@ class LoggerFactory:
             basicConfig(**log_config)
 
         formatter: LogFormatter = LogFormatter(log_format=log_format, log_datefmt=log_datefmt)
+        underlying_logger: LoggerAdapter = LoggerAdapter(logger=logger, formatter=formatter)
         buffer: LogBuffer = LogBuffer(limit=log_buffer_size)
-        handler_manager: LogHandlerManager = LogHandlerManager(logger=logger)
-        message_processor: MessageProcessor = MessageProcessor(pattern=log_message_processor)
+        handler_manager: LogHandlerManager = LogHandlerManager(logger=underlying_logger)
+        message_processor: MessageProcessor = MessageProcessor(pattern=log_message_pattern)
 
         return LoggerRegistry.create_bundle(
             dependencies=LoggerDependencies(
-                logger=logger,
+                logger=underlying_logger,
                 has_file_handler=log_file is not None,
                 formatter=formatter,
                 buffer=buffer,

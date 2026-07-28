@@ -107,7 +107,7 @@ class Loader:
         '''
         return self._context
 
-    def load_configuration(self) -> dict[str, Any]:
+    def load_configuration(self) -> dict[str, object]:
         '''
             Loads configuration from file and returns dictionary with configuration content.
 

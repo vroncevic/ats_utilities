@@ -123,7 +123,7 @@ class SplashKeys:
             :exceptions: None.
         '''
         is_enabled: bool = bool(config.get('enabled', True))
-        kwargs: dict[str, Any] = {'enabled': is_enabled}
+        kwargs: dict[str, object] = {'enabled': is_enabled}
         key: str
         attr_name: str
 
@@ -142,7 +142,7 @@ class SplashKeys:
         '''
         return tuple(cls.get_key_to_attr().keys())
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts the SplashKeys instance to a dictionary.
 
@@ -152,7 +152,7 @@ class SplashKeys:
         if not self.enabled:
             return {'enabled': False}
 
-        data: dict[str, Any] = {}
+        data: dict[str, object] = {}
         key: str
         attr_name: str
 

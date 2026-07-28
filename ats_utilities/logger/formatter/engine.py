@@ -24,6 +24,7 @@ from __future__ import annotations
 
 from ats_utilities.validation.check_value import not_none, not_empty
 from ats_utilities.validation.check_type import istype
+from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -54,6 +55,7 @@ class LogFormatter:
                 | get_format - Gets the log format.
                 | set_date_format - Sets the log date format.
                 | get_date_format - Gets the log date format.
+                | __str__ - Returns log formatter as string representation.
     '''
 
     DEFAULT_LOG_FORMAT: str = '%(asctime)s - %(levelname)s - %(message)s'
@@ -107,6 +109,7 @@ class LogFormatter:
             Gets the log format.
 
             :return: The log format.
+            :exceptions: None
         '''
         return self._log_format
 
@@ -130,5 +133,15 @@ class LogFormatter:
             Gets the log date format.
 
             :return: The log date format.
+            :exceptions: None
         '''
         return self._log_datefmt
+
+    def __str__(self) -> str:
+        '''
+            Returns log formatter as string representation.
+
+            :return: Log formatter as string representation.
+            :exceptions: None.
+        '''
+        return to_str(self)

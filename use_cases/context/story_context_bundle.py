@@ -114,7 +114,7 @@ class ContextBundle:
         self.__dict__['reporter'] = reporter
         self.__dict__['verbose'] = verbose
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         return instance_to_dict(self)
 
 

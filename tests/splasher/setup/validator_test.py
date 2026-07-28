@@ -52,7 +52,7 @@ class SplashValidatorTest(unittest.TestCase):
         Tests SplashValidator logic.
     '''
 
-    def _get_mocks(self) -> dict[str, Any]:
+    def _get_mocks(self) -> dict[str, object]:
         return {
             "prop": {"enabled": True},
             "splash_property": MagicMock(spec=ISplashProperty),

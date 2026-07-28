@@ -58,7 +58,7 @@ class ReporterBundle:
     theme: IConsoleTheme
     logger: ILogger
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts reporter bundle to a dictionary.
 

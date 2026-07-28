@@ -75,7 +75,7 @@ class LoggerKeys:
     OPTION_LOG_FORMAT: ClassVar[str] = 'log_format'
     OPTION_LOG_DATEFMT: ClassVar[str] = 'log_datefmt'
     OPTION_LOG_BUFFER_SIZE: ClassVar[int] = 'log_buffer_size'
-    OPTION_LOG_MESSAGE_PROCESSOR: ClassVar[str] = 'message_processor'
+    OPTION_LOG_MESSAGE_PATTERN: ClassVar[str] = 'message_pattern'
 
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
@@ -108,5 +108,5 @@ class LoggerKeys:
             cls.OPTION_LOG_FORMAT: str,
             cls.OPTION_LOG_DATEFMT: str,
             cls.OPTION_LOG_BUFFER_SIZE: int,
-            cls.OPTION_LOG_MESSAGE_PROCESSOR: Pattern[str],
+            cls.OPTION_LOG_MESSAGE_PATTERN: Pattern[str],
         })

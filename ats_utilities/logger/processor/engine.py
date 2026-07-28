@@ -28,6 +28,7 @@ from sys import stdout
 
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
+from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,6 +53,7 @@ class MessageProcessor:
             | get_pattern - Gets a regex pattern for message processing.
             | set_pattern - Sets a regex pattern for message processing.
             | process - Processes a log message.
+            | __str__ - Returns message processor as string representation.
     '''
 
     _ANSI_ESCAPE: Pattern[str] = compile(r'\x1B(?:[@-Z\\-_]|[\[0-?]*[ -/]*[@-~])')
@@ -110,3 +112,12 @@ class MessageProcessor:
             message = self._ANSI_ESCAPE.sub('', message)
 
         return message
+
+    def __str__(self) -> str:
+        '''
+            Returns message processor as string representation.
+
+            :return: Message processor as string representation.
+            :exceptions: None.
+        '''
+        return to_str(self)

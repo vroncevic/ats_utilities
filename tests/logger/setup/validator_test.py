@@ -49,7 +49,7 @@ class ValidatorTest(unittest.TestCase):
         Tests LoggerValidator logic.
     '''
 
-    def _get_bundle_args(self) -> dict[str, Any]:
+    def _get_bundle_args(self) -> dict[str, object]:
         mock_logger = MagicMock()
         mock_logger.info = MagicMock()
         return {

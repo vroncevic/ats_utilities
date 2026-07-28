@@ -71,7 +71,7 @@ class InfoFactory:
         context_bundle: ContextBundle = options.get(InfoKeys.OPTION_CONTEXT_BUNDLE)
 
         key_to_type: MappingProxyType[str, type] = InfoKeys.get_config_key_to_type()
-        bundle_kwargs: dict[str, Any] = {}
+        bundle_kwargs: dict[str, object] = {}
 
         for key, engine_class in key_to_type.items():
             engine_instance: Any = engine_class(context_bundle=context_bundle)

@@ -63,7 +63,7 @@ class TarData:
     exclude_patterns: Sequence[str]
     vals: Mapping[str, str]
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts the tar process data to a dictionary.
 
@@ -93,7 +93,7 @@ class TarMemberData:
     dest_full_path: str
     vals: Mapping[str, str]
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts the tar member data to a dictionary.
 

@@ -81,7 +81,7 @@ class EngineTest(unittest.TestCase):
         except OSError:
             ...
 
-    def _get_valid_prop(self) -> dict[str, Any]:
+    def _get_valid_prop(self) -> dict[str, object]:
         return {
             "enabled": True,
             SplashKeys.ATS_NAME: "ats_utilities",

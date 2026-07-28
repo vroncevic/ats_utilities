@@ -73,7 +73,7 @@ class OptionData:
         if self.choices is not None:
             object.__setattr__(self, 'choices', tuple(self.choices))
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts the option data instance to a dictionary.
 

@@ -77,7 +77,7 @@ class SchemeLoader:
         self._context = context_bundle
         self._initialized = True
 
-    def load(self, scheme: str | Mapping[str, Any]) -> dict[str, Any]:
+    def load(self, scheme: str | Mapping[str, Any]) -> dict[str, object]:
         '''
             Loads and resolves the scheme.
 

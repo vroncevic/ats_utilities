@@ -61,7 +61,7 @@ class ProjectBundle:
     template_dir: ITemplateDir
     context_bundle: ContextBundle
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts project bundle to a dictionary.
 

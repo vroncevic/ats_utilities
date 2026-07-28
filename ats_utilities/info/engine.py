@@ -126,7 +126,7 @@ class InfoManager:
             :return: Mapping representation of current info configuration.
             :exceptions: None.
         '''
-        info_dict: dict[str, Any] = {}
+        info_dict: dict[str, object] = {}
         config_key_to_dep = InfoKeys.get_config_keys()
 
         for config_key, dep_attr in config_key_to_dep.items():

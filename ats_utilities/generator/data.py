@@ -60,7 +60,7 @@ class GeneratorData:
     scheme: str | Mapping[str, Any]
     template_values: Mapping[str, str]
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts the generator data instance to a dictionary.
 

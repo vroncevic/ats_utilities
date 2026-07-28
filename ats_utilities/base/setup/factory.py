@@ -119,7 +119,7 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
                 context_bundle=context_bundle
             )
         )
-        config_data: dict[str, Any] = config_loader.load_configuration()
+        config_data: dict[str, object] = config_loader.load_configuration()
         log_file: str = get_first_available(config_data, ('ats_log_path', 'ats_log_file'))
 
         if log_file and hasattr(context_bundle.logger, 'set_log_file'):

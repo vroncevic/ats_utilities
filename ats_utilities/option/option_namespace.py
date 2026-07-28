@@ -49,7 +49,7 @@ class OptionNamespace(Protocol):
                 | __dict__ - A dictionary mapping attribute names to their values.
     '''
 
-    __dict__: dict[str, Any]
+    __dict__: dict[str, object]
 
 # Type alias for optional sequence of strings representing command-line arguments
 type OptArgs = Sequence[str] | None

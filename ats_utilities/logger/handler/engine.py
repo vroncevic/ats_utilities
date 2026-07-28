@@ -22,11 +22,7 @@ Info
 
 from __future__ import annotations
 
-from logging import FileHandler, Formatter, StreamHandler
-from os import makedirs
-from os.path import dirname, exists
-from sys import stdout, stderr
-
+from ats_utilities.logger.underlying.iunderlying import IUnderlyingLogger
 from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
@@ -52,11 +48,12 @@ class LogHandlerManager:
                 | __init__ - Initializes the log handler manager.
                 | set_log_file - Configures file output handler.
                 | set_stdout - Configures stdout stream handler.
-                | set_stderr - Configures stderr stream handler.
                 | __str__ - Returns log handler manager as string representation.
     '''
 
-    def __init__(self, logger: object) -> None:
+    _logger: IUnderlyingLogger
+
+    def __init__(self, logger: IUnderlyingLogger) -> None:
         '''
             Initializes the log handler manager.
 
@@ -73,33 +70,7 @@ class LogHandlerManager:
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        if hasattr(self._logger, 'set_log_file'):
-            self._logger.set_log_file(log_file)
-            return True
-
-        elif hasattr(self._logger, 'addHandler'):
-            log_dir = dirname(log_file)
-
-            if log_dir and not exists(log_dir):
-                makedirs(log_dir, exist_ok=True)
-
-            for handler in list(self._logger.handlers):
-                if isinstance(handler, FileHandler):
-                    self._logger.removeHandler(handler)
-
-            file_handler = FileHandler(log_file)
-            file_handler.setFormatter(Formatter(
-                '%(asctime)s - %(levelname)s - %(message)s',
-                datefmt='%m/%d/%Y %I:%M:%S %p'
-            ))
-            self._logger.addHandler(file_handler)
-
-            return True
-
-        elif hasattr(self._logger, 'write_log'):
-            return True
-
-        return False
+        return self._logger.add_file_handler(log_file)
 
     def set_stdout(self) -> bool:
         '''
@@ -108,77 +79,7 @@ class LogHandlerManager:
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        if hasattr(self._logger, 'set_stdout'):
-            self._logger.set_stdout()
-            return True
-
-        elif hasattr(self._logger, 'addHandler'):
-            for handler in list(self._logger.handlers):
-                if isinstance(handler, FileHandler):
-                    self._logger.removeHandler(handler)
-                elif isinstance(handler, StreamHandler) and getattr(handler, 'stream', None) is not stdout:
-                    self._logger.removeHandler(handler)
-
-            has_stdout = any(
-                isinstance(h, StreamHandler) and getattr(h, 'stream', None) is stdout
-                for h in self._logger.handlers
-            )
-
-            if not has_stdout:
-                stream_handler = StreamHandler(stdout)
-                stream_handler.setFormatter(Formatter(
-                    '%(asctime)s - %(levelname)s - %(message)s',
-                    datefmt='%m/%d/%Y %I:%M:%S %p'
-                ))
-                self._logger.addHandler(stream_handler)
-
-            return True
-
-        elif hasattr(self._logger, 'write_log'):
-            return True
-
-        return False
-
-    def set_stderr(self) -> bool:
-        '''
-            Configures stderr stream handler.
-
-            :return: True if successfully, otherwise False.
-            :exceptions: None.
-        '''
-        if hasattr(self._logger, 'set_stderr'):
-            self._logger.set_stderr()
-
-            return True
-
-        elif hasattr(self._logger, 'addHandler'):
-            for handler in list(self._logger.handlers):
-                if isinstance(handler, FileHandler):
-                    self._logger.removeHandler(handler)
-                elif isinstance(handler, StreamHandler) and getattr(handler, 'stream', None) is not stderr:
-                    self._logger.removeHandler(handler)
-
-            has_stderr = any(
-                isinstance(h, StreamHandler) and getattr(h, 'stream', None) is stderr
-                for h in self._logger.handlers
-            )
-
-            if not has_stderr:
-                stream_handler = StreamHandler(stderr)
-                stream_handler.setFormatter(
-                    Formatter(
-                        '%(asctime)s - %(levelname)s - %(message)s',
-                        datefmt='%m/%d/%Y %I:%M:%S %p'
-                    )
-                )
-                self._logger.addHandler(stream_handler)
-
-            return True
-
-        elif hasattr(self._logger, 'write_log'):
-            return True
-
-        return False
+        return self._logger.add_stdout_handler()
 
     def __str__(self) -> str:
         '''

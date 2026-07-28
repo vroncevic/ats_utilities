@@ -104,7 +104,7 @@ class Reporter:
 
         if message_out:
             reset: str = self._theme.get_color(MessageKey.RESET)
-            self._logger.write_log(f'{color}{message_out}{reset}', ctrl)
+            self._logger.write_log(ctrl, f'{color}{message_out}{reset}')
 
     @mcheck([('bool:is_verbose', None), ('Sequence:message', None)])
     def verbose(self, is_verbose: bool, message: Sequence[Any]) -> None:

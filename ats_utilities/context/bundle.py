@@ -60,7 +60,7 @@ class ContextBundle:
     reporter: IReporter
     verbose: bool
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts context bundle to dictionary.
 

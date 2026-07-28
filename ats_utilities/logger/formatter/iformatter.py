@@ -47,6 +47,7 @@ class ILogFormatter[LogFormatType, LogDateFormatType, MessageType](Protocol):
                 | get_format - Gets the log format.
                 | set_date_format - Sets the log date format.
                 | get_date_format - Gets the log date format.
+                | __str__ - Returns log formatter as string representation.
     '''
 
     def set_format(self, log_format: LogFormatType) -> None:
@@ -78,5 +79,13 @@ class ILogFormatter[LogFormatType, LogDateFormatType, MessageType](Protocol):
             Gets the log date format.
 
             :return: The log date format.
+        '''
+        ...
+
+    def __str__(self) -> str:
+        '''
+            Returns log formatter as string representation.
+
+            :return: Log formatter as string representation.
         '''
         ...

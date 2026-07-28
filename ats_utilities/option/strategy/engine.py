@@ -169,7 +169,7 @@ class ParserStrategy(IParserStrategy):
 
             for opt in cmd.options:
                 OptionDataValidator.validate(opt)
-                kwargs: dict[str, Any] = {}
+                kwargs: dict[str, object] = {}
 
                 if getattr(opt, 'action', None) is not None:
                     kwargs['action'] = opt.action
@@ -203,7 +203,7 @@ class ParserStrategy(IParserStrategy):
             arguments: OptArgs = sys.argv[1:]
 
         option_namespace: OptionNamespace = self._parser.parse_args(arguments)
-        params: dict[str, Any] = vars(option_namespace)
+        params: dict[str, object] = vars(option_namespace)
         command_name: str = params.pop('command')
 
         return command_name, MappingProxyType(params)

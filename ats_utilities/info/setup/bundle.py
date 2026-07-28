@@ -82,7 +82,7 @@ class InfoBundle:
     info_ok: IInfoOk
     context_bundle: ContextBundle
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts the info bundle to a dictionary.
 

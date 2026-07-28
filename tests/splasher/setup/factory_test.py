@@ -48,7 +48,7 @@ class SplashFactoryTest(unittest.TestCase):
         Tests SplashFactory logic.
     '''
 
-    def _get_valid_prop(self) -> dict[str, Any]:
+    def _get_valid_prop(self) -> dict[str, object]:
         return {
             "enabled": True,
             SplashKeys.ATS_NAME: "ats_utilities",

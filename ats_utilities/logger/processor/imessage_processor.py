@@ -44,6 +44,7 @@ class IMessageProcessor[PatternType, MessageType](Protocol):
             | get_pattern - Gets a regex pattern for message processing.
             | set_pattern - Sets a regex pattern for message processing.
             | process - Processes a log message.
+            | __str__ - Returns message processor as string representation.
     '''
 
     def get_pattern(self) -> PatternType:
@@ -66,5 +67,13 @@ class IMessageProcessor[PatternType, MessageType](Protocol):
 
             :param message: A log message to process.
             :return: A processed log message.
+        '''
+        ...
+
+    def __str__(self) -> str:
+        '''
+            Returns message processor as string representation.
+
+            :return: Message processor as string representation.
         '''
         ...

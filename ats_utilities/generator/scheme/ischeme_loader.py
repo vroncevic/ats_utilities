@@ -49,7 +49,7 @@ class ISchemeLoader(Protocol):
                 | __str__ - Returns the loader as string representation.
     '''
 
-    def load(self, scheme: str | Mapping[str, Any]) -> dict[str, Any]:
+    def load(self, scheme: str | Mapping[str, Any]) -> dict[str, object]:
         '''
             Loads and resolves the scheme.
 

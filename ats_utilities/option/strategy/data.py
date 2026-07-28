@@ -59,7 +59,7 @@ class StrategyData:
     context_bundle: ContextBundle
     parser_class: type[IArgParser] = ArgParser
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, object]:
         '''
             Converts StrategyData instance to dictionary.
 

@@ -26,7 +26,7 @@ from collections.abc import Mapping
 from ats_utilities.logger.setup.dependencies import LoggerDependencies
 from ats_utilities.logger.setup.keys import LoggerKeys
 from ats_utilities.validation.check_type import istype
-from ats_utilities.validation.check_value import not_none, not_satisfied
+from ats_utilities.validation.check_value import not_none
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -56,9 +56,8 @@ class LoggerDependenciesValidator:
             :param dependencies: Logger dependencies instance to be validated.
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper values.
-                | ATSTypeError:  Dependencies must be an instance of LoggerDependencies
-                |                and its attributes must be instances of their
-                |                respective types.
+                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
         ctx: str = 'logger_dependencies_validator::validate(...)'
 
@@ -67,14 +66,6 @@ class LoggerDependenciesValidator:
 
         for attr_name, expected_type in LoggerKeys.get_dependency_to_type().items():
             value = dependencies.get(attr_name)
-
-            if attr_name is LoggerKeys.DEPENDENCY_LOGGER:
-                if value is not None:
-                    not_satisfied(
-                        not (hasattr(value, 'info') or hasattr(value, 'write_log')), ctx,
-                        r'logger must be an ILogger instance or a standard logging.Logger instance'
-                    )
-                continue
 
             if value is not None:
                 err_msg = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
