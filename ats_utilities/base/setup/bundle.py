@@ -21,7 +21,6 @@ Info
 
 from __future__ import annotations
 
-from typing import Any
 from dataclasses import dataclass
 
 from ats_utilities.config_io.loader.iloader import ILoader
@@ -66,7 +65,7 @@ class BaseBundle:
     config_loader: ILoader[ContextBundle]
     info_manager: IInfoManager[ContextBundle]
     options_parser: IOptionManager[ContextBundle]
-    splasher: ISplasher[ContextBundle, Any]
+    splasher: ISplasher[ContextBundle, object]
     generator: IGenerator[ContextBundle] | None
     use_generator: bool
     context_bundle: ContextBundle

@@ -22,8 +22,6 @@ Info
 import sys
 import types
 from collections.abc import Sequence, Mapping
-from typing import Any
-
 
 from fire import Fire  # type: ignore
 
@@ -73,7 +71,7 @@ class MyAppFireStrategy(IParserStrategy):
         '''
         self._target = types.SimpleNamespace()
 
-    def add_argument(self, *args: str, **kwargs: Any) -> None:
+    def add_argument(self, *args: str, **kwargs: object) -> None:
         if args:
             name = args[-1].lstrip('-').replace('-', '_')
             setattr(self._target, name, kwargs.get('default'))
@@ -106,7 +104,7 @@ class MyAppFireStrategy(IParserStrategy):
     def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
         ...
 
-    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, object]]:
         ...
 
     def is_initialized(self) -> bool:

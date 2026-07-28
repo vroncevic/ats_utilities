@@ -22,7 +22,6 @@ Info
 
 from __future__ import annotations
 
-from typing import Any
 from time import sleep
 from sys import stdout
 
@@ -117,7 +116,7 @@ class Splasher:
             else:
                 self._show_splash = True
 
-            size: tuple[Any, ...] = own.terminal_property.size()
+            size: tuple[object, ...] = own.terminal_property.size()
             stdout.write('\n\n')
 
             try:

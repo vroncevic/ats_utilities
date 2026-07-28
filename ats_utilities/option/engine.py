@@ -23,7 +23,6 @@ Info
 from __future__ import annotations
 
 from collections.abc import Sequence, Mapping
-from typing import Any
 
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.context.bundle import ContextBundle
@@ -103,7 +102,7 @@ class OptionManager:
         return self._context
 
     @has_attrs('_strategy')
-    def add_operation(self, *args: str, **kwargs: Any) -> None:
+    def add_operation(self, *args: str, **kwargs: object) -> None:
         '''
             Adds an option to the parser.
 
@@ -177,7 +176,7 @@ class OptionManager:
         self._strategy.register_commands(commands)
 
     @has_attrs('_strategy')
-    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, object]]:
         '''
             Parses arguments as a command.
 

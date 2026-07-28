@@ -23,7 +23,6 @@ from __future__ import annotations
 
 import unittest
 from unittest.mock import MagicMock
-from typing import Any
 
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.base.setup.bundle import BaseBundle

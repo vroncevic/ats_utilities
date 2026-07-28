@@ -3,7 +3,6 @@
 import unittest
 from unittest.mock import MagicMock, patch, mock_open
 from tarfile import TarFile, TarInfo
-from typing import Any
 
 # Adjust imports according to your project structure
 from ats_utilities.generator.tar.engine import TarProcessor

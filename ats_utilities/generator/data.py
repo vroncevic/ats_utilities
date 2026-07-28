@@ -23,7 +23,6 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Any
 
 from ats_utilities.utils.reflection import instance_to_dict
 
@@ -57,7 +56,7 @@ class GeneratorData:
     archive_path: str
     target_dir: str
     template_key: str
-    scheme: str | Mapping[str, Any]
+    scheme: str | Mapping[str, object]
     template_values: Mapping[str, str]
 
     def to_dict(self) -> dict[str, object]:

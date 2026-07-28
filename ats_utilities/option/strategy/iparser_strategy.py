@@ -24,7 +24,6 @@ from __future__ import annotations
 
 from typing import Protocol, runtime_checkable
 from collections.abc import Sequence, Mapping
-from typing import Any
 
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.option_namespace import OptionNamespace
@@ -59,12 +58,12 @@ class IParserStrategy(Protocol):
                 | __str__ - Returns the ATS parser strategy as string representation.
     '''
 
-    def add_argument(self, *args: str, **kwargs: Any) -> None:
+    def add_argument(self, *args: str, **kwargs: object) -> None:
         '''
             Adds an operational argument/flag to the parser.
 
             :param args: Arguments in string format.
-            :param kwargs: Arguments in Any form
+            :param kwargs: Arguments in object form
         '''
         ...
 
@@ -94,7 +93,7 @@ class IParserStrategy(Protocol):
         '''
         ...
 
-    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, object]]:
         '''
             Parses CLI arguments for subcommands and returns command name and parameters.
 

@@ -23,7 +23,6 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.splasher.setup.splash_keys import SplashKeys
@@ -76,7 +75,7 @@ class SplashProperty:
 
     @property
     @vreport('getting splash property {splash_keys}')
-    def splash_keys(self) -> Mapping[str, Any]:
+    def splash_keys(self) -> Mapping[str, object]:
         '''
             Property method for getting splash screen property.
             Note: Splash screen property comes from info configuration file as read only data.
@@ -92,7 +91,7 @@ class SplashProperty:
     @splash_keys.setter
     @mcheck([('Mapping:setup', None)])
     @vreport('setting splash property {splash_keys}')
-    def splash_keys(self, setup: Mapping[str, Any]) -> None:
+    def splash_keys(self, setup: Mapping[str, object]) -> None:
         '''
             Property method for setting project splash screen property.
             Note: Splash screen property comes from info configuration file as read only data.

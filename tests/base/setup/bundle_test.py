@@ -24,7 +24,6 @@ from __future__ import annotations
 import unittest
 from dataclasses import FrozenInstanceError
 from unittest.mock import MagicMock
-from typing import Any
 
 from ats_utilities.base.setup.bundle import BaseBundle
 from ats_utilities.config_io.loader.iloader import ILoader

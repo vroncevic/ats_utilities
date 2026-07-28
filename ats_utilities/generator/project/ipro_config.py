@@ -23,7 +23,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, Protocol, runtime_checkable
+from typing import Protocol, runtime_checkable
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -50,7 +50,7 @@ class IProConfig(Protocol):
     '''
 
     @property
-    def config(self) -> Mapping[str, Any] | None:
+    def config(self) -> Mapping[str, object] | None:
         '''
             Property method for getting project configuration.
 
@@ -60,7 +60,7 @@ class IProConfig(Protocol):
         ...
 
     @config.setter
-    def config(self, pro_config: Mapping[str, Any] | None) -> None:
+    def config(self, pro_config: Mapping[str, object] | None) -> None:
         '''
             Property method for setting project configuration.
 

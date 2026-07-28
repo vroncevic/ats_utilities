@@ -23,7 +23,6 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
@@ -63,7 +62,7 @@ class ProConfig:
     TEMPLATES: str = 'templates'
     MODULES: str = 'modules'
     FORMAT: str = 'template'
-    _config: Mapping[str, Any] | None
+    _config: Mapping[str, object] | None
     _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
@@ -80,7 +79,7 @@ class ProConfig:
 
     @property
     @vreport('getting config {config}')
-    def config(self) -> Mapping[str, Any]:
+    def config(self) -> Mapping[str, object]:
         '''
             Property method for getting project configuration.
 
@@ -95,7 +94,7 @@ class ProConfig:
     @config.setter
     @mcheck([('Mapping | None:pro_config', None)])
     @vreport('getting config {config}')
-    def config(self, pro_config: Mapping[str, Any]) -> None:
+    def config(self, pro_config: Mapping[str, object]) -> None:
         '''
             Property method for setting project configuration.
 

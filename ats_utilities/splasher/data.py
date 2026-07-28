@@ -21,7 +21,6 @@ Info
 
 from __future__ import annotations
 
-from typing import Any
 from dataclasses import dataclass
 
 from ats_utilities.utils.reflection import instance_to_dict

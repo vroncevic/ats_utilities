@@ -19,7 +19,6 @@ Info
     Use cases for ATS splasher.
 '''
 
-from typing import Any
 from os.path import dirname, realpath
 from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.splash_keys import SplashKeys
@@ -44,7 +43,7 @@ context_bundle: ContextBundle = ContextFactory.create_default_bundle()
 # default [with GitHub]
 # ======================
 #
-mytool_property_github: dict[Any, Any] = {
+mytool_property_github: dict[object, object] = {
     SplashKeys.ATS_ORGANIZATION: 'myorganization',
     SplashKeys.ATS_REPOSITORY: 'myrepository',
     SplashKeys.ATS_NAME: 'mytool',
@@ -63,7 +62,7 @@ print(100 * '=')
 # default [without GitHub]
 # =========================
 #
-mytool_property_no_github: dict[Any, Any] = {
+mytool_property_no_github: dict[object, object] = {
     SplashKeys.ATS_ORGANIZATION: 'myorganization',
     SplashKeys.ATS_REPOSITORY: 'myrepository',
     SplashKeys.ATS_NAME: 'mytool',
@@ -82,7 +81,7 @@ print(100 * '=')
 # default [disabled]
 # ==================
 #
-mytool_property_disabled: dict[Any, Any] = {
+mytool_property_disabled: dict[object, object] = {
     'enabled': False
 }
 ats_splash_disabled: Splasher = Splasher(

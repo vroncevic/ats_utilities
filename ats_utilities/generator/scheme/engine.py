@@ -23,7 +23,6 @@ Info
 from __future__ import annotations
 
 from os.path import exists
-from typing import Any
 from collections.abc import Mapping
 
 from ats_utilities.context.bundle import ContextBundle
@@ -77,7 +76,7 @@ class SchemeLoader:
         self._context = context_bundle
         self._initialized = True
 
-    def load(self, scheme: str | Mapping[str, Any]) -> dict[str, object]:
+    def load(self, scheme: str | Mapping[str, object]) -> dict[str, object]:
         '''
             Loads and resolves the scheme.
 

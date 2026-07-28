@@ -25,7 +25,6 @@ from sys import stdout, stderr, exit
 from json import load
 from os.path import basename
 from pathlib import Path
-from typing import Any
 from unittest import TestLoader, TestSuite, TextTestRunner
 
 from coverage import Coverage

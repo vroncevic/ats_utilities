@@ -21,7 +21,6 @@ Info
 
 from __future__ import annotations
 
-from typing import Any
 import unittest
 
 from ats_utilities.exceptions import ATSValueError

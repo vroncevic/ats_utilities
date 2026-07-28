@@ -22,7 +22,6 @@ Info
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.project.ipro_config import IProConfig

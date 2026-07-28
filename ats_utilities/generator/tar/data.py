@@ -24,7 +24,6 @@ from __future__ import annotations
 from collections.abc import Sequence, Mapping
 from dataclasses import dataclass
 from tarfile import TarFile, TarInfo
-from typing import Any
 
 from ats_utilities.utils.reflection import instance_to_dict
 

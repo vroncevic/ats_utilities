@@ -23,7 +23,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, Protocol, runtime_checkable
+from typing import Protocol, runtime_checkable
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -51,7 +51,7 @@ class ISplashProperty(Protocol):
     '''
 
     @property
-    def splash_keys(self) -> Mapping[str, Any]:
+    def splash_keys(self) -> Mapping[str, object]:
         '''
             Property method for getting splash keys.
             Note: Splash screen property comes from info configuration file as read only data.
@@ -61,7 +61,7 @@ class ISplashProperty(Protocol):
         ...
 
     @splash_keys.setter
-    def splash_keys(self, setup: Mapping[str, Any]) -> None:
+    def splash_keys(self, setup: Mapping[str, object]) -> None:
         '''
             Property method for setting project splash keys.
             Note: Splash screen property comes from info configuration file as read only data.

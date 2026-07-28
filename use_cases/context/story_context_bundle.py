@@ -66,8 +66,6 @@ print(100 * '=')
 # =============================
 #
 
-from typing import Any
-
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
@@ -81,12 +79,12 @@ class ReadOnlyAttribute:
     def __init__(self, name: str) -> None:
         self.name = name
 
-    def __get__(self, instance: Any, owner: Any = None) -> Any:
+    def __get__(self, instance: object, owner: object = None) -> object:
         if instance is None:
             return self
         return instance.__dict__.get(self.name)
 
-    def __set__(self, instance: Any, value: Any) -> None:
+    def __set__(self, instance: object, value: object) -> None:
         ctx: str = 'context_bundle::__setattr__(...)'
         raise ATSValueError(f'{ctx} cannot modify immutable attribute: {self.name}')
 
@@ -123,7 +121,7 @@ class ContextBundle:
 # ==========================
 #
 
-from typing import Any
+from typing import object
 from dataclasses import dataclass
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 
@@ -131,7 +129,7 @@ from ats_utilities.exceptions.ats_value_error import ATSValueError
 class ImmutableMeta(type):
     '''Metaclass that enforces strict immutability.'''
 
-    def __setattr__(cls, name: str, value: Any) -> None:
+    def __setattr__(cls, name: str, value: object) -> None:
         ctx: str = 'context_bundle::__setattr__(...)'
         raise ATSValueError(f'{ctx} cannot modify immutable attribute: {name}')
 
@@ -143,7 +141,7 @@ class ContextBundle(metaclass=ImmutableMeta):
     reporter: IReporter
     verbose: bool
 
-    def __setattr__(self, name: str, value: Any) -> None:
+    def __setattr__(self, name: str, value: object) -> None:
         ctx: str = 'context_validator::__setattr__(...)'
         raise ATSValueError(f'{ctx} cannot modify immutable attribute: {name}')
 
@@ -153,7 +151,7 @@ class ContextBundle(metaclass=ImmutableMeta):
 # ====================================
 #
 
-from typing import Any
+from typing import object
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
@@ -192,6 +190,6 @@ class ContextBundle:
     def verbose(self) -> bool:
         return self._verbose
 
-    def __setattr__(self, name: str, value: Any) -> None:
+    def __setattr__(self, name: str, value: object) -> None:
         ctx: str = 'context_bundle::__setattr__(...)'
         raise ATSValueError(f'{ctx} cannot modify immutable attribute: {name}')

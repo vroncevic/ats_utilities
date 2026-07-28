@@ -22,7 +22,6 @@ Info
 from __future__ import annotations
 
 import unittest
-from typing import Any
 from unittest.mock import MagicMock
 
 from ats_utilities.checker.setup.factory import CheckerFactory

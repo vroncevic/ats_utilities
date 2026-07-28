@@ -21,7 +21,6 @@ Info
 
 import sys
 from os.path import abspath
-from typing import Any
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -50,16 +49,16 @@ pygments_style: str = 'sphinx'
 html_theme: str = 'classic'
 html_static_path: list[str] = ['_static']
 htmlhelp_basename: str = 'ats_utilitiesdoc'
-latex_elements: dict[Any, Any] = {}
-latex_documents: list[tuple[Any, ...]] = [(
+latex_elements: dict[object, object] = {}
+latex_documents: list[tuple[object, ...]] = [(
     master_doc, 'ats_utilities.tex', 'ats\\_utilities Documentation',
     'Vladimir Roncevic \\textless{}elektron.ronca@gmail.com\\textgreater{}',
     'manual'
 )]
-man_pages: list[tuple[Any, ...]] = [(
+man_pages: list[tuple[object, ...]] = [(
     master_doc, 'ats_utilities', 'ats_utilities Documentation', [author], 1
 )]
-texinfo_documents: list[tuple[Any, ...]] = [(
+texinfo_documents: list[tuple[object, ...]] = [(
     master_doc, 'ats_utilities', 'ats_utilities Documentation',
     author, 'ats_utilities', 'One line description of project.',
     'Miscellaneous'

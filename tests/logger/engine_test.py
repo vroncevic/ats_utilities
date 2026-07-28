@@ -25,7 +25,6 @@ import logging
 import os
 import sys
 import unittest
-from typing import Any
 from unittest.mock import MagicMock, patch
 
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
@@ -325,7 +324,7 @@ class EngineTest(unittest.TestCase):
 
     def test_set_log_file_handler_replacement(self) -> None:
         class DummyFileHandler(logging.FileHandler):
-            def __init__(self, *args: Any, **kwargs: Any) -> None:
+            def __init__(self, *args: object, **kwargs: object) -> None:
                 ...
 
         mock_std_logger = MagicMock(spec=logging.Logger)
@@ -433,7 +432,7 @@ class EngineTest(unittest.TestCase):
 
     def test_set_log_file_non_file_handler(self) -> None:
         class DummyFileHandler(logging.FileHandler):
-            def __init__(self, *args: Any, **kwargs: Any) -> None:
+            def __init__(self, *args: object, **kwargs: object) -> None:
                 ...
 
         mock_std_logger = MagicMock(spec=logging.Logger)

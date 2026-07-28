@@ -23,7 +23,6 @@ from __future__ import annotations
 
 import logging
 import unittest
-from typing import Any
 from unittest.mock import MagicMock
 
 from ats_utilities.logger.setup.bundle import LoggerBundle

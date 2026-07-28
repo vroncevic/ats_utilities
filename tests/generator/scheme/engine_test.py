@@ -3,7 +3,6 @@
 import unittest
 from unittest.mock import MagicMock, patch
 from collections.abc import Mapping
-from typing import Any
 
 # Adjust imports according to your project structure
 from ats_utilities.generator.scheme.engine import SchemeLoader

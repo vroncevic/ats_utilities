@@ -22,7 +22,6 @@ Info
 from __future__ import annotations
 
 from os.path import dirname
-from typing import Any
 
 from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.base.setup.bundle import BaseBundle
@@ -134,7 +133,7 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
         logo_path: str = info_manager.logo
         info_manager.logo = f'{dirname(info_file)}/{logo_path}'
 
-        splasher: ISplasher[ContextBundle, Any] = Splasher(
+        splasher: ISplasher[ContextBundle, object] = Splasher(
             own=SplashFactory.create_splash_bundle_from_dict(
                 prop=info_manager.get_info(),
                 context_bundle=context_bundle

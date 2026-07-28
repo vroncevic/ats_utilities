@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypedDict
+from typing import TypedDict
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.splasher.property.isplash_property import ISplashProperty
@@ -56,7 +56,7 @@ class SplashDependencies(TypedDict):
                 | context_bundle: Context bundle instance.
     '''
 
-    prop: Mapping[str, Any]
+    prop: Mapping[str, object]
     splash_property: ISplashProperty
     property_validated: bool
     terminal_property: ITerminalProperties

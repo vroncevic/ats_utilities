@@ -25,7 +25,6 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from json import loads, dumps, JSONDecodeError
-from typing import Any
 
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.utils.reflection import to_str
@@ -88,7 +87,7 @@ class JSONProcessor(IConfigProcessor):
         self._data = {}
         self._scheme = scheme
 
-    def deserialize(self, content: Any) -> bool:
+    def deserialize(self, content: object) -> bool:
         '''
             Loads and parses configuration from a raw source (string, stream, or lines).
 

@@ -23,7 +23,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, Protocol, runtime_checkable
+from typing import Protocol, runtime_checkable
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -49,7 +49,7 @@ class ISchemeLoader(Protocol):
                 | __str__ - Returns the loader as string representation.
     '''
 
-    def load(self, scheme: str | Mapping[str, Any]) -> dict[str, object]:
+    def load(self, scheme: str | Mapping[str, object]) -> dict[str, object]:
         '''
             Loads and resolves the scheme.
 

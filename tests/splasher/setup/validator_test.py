@@ -22,7 +22,6 @@ Info
 from __future__ import annotations
 
 import unittest
-from typing import Any
 from unittest.mock import MagicMock, patch
 
 from ats_utilities.context.bundle import ContextBundle

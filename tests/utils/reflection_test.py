@@ -21,7 +21,6 @@ Info
 
 from __future__ import annotations
 
-from typing import Any
 import unittest
 
 from ats_utilities.exceptions import ATSValueError, ATSAttributeError
@@ -51,7 +50,7 @@ class DummyClass:
                 | decorated_method - Method decorated with has_attrs.
     '''
 
-    def __init__(self, attr1: Any = None, attr2: Any = None) -> None:
+    def __init__(self, attr1: object = None, attr2: object = None) -> None:
         '''
             Initializes DummyClass constructor.
 

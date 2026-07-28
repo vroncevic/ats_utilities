@@ -22,7 +22,6 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any
 
 from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.splasher.setup.bundle import SplashBundle
@@ -90,7 +89,7 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
         '''
         SplashOptionsValidator.validate(options)
 
-        prop: Mapping[str, Any] | None = options.get('prop')
+        prop: Mapping[str, object] | None = options.get('prop')
         context_bundle: ContextBundle = options.get('context_bundle')
 
         splash_property: ISplashProperty = SplashProperty(context_bundle)
@@ -111,7 +110,7 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
             if prop.get('enabled', True):
                 ext.infrastructure_property = prop
 
-        size: tuple[Any, ...] = terminal_property.size()
+        size: tuple[object, ...] = terminal_property.size()
         pb: IProgressBar = ProgressBar(int(size[1]) - int(int(size[1]) / 2))
 
         return SplashRegistry.create_bundle(
@@ -129,7 +128,7 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
     @classmethod
     def create_splash_bundle_from_dict(
         cls,
-        prop: Mapping[str, Any],
+        prop: Mapping[str, object],
         context_bundle: ContextBundle
     ) -> SplashBundle:
         '''

@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypedDict
+from typing import TypedDict
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generator.project.ipro_config import IProConfig
@@ -67,5 +67,5 @@ class ProjectOptions(TypedDict):
                 | setup: The project setup dictionary.
                 | context_bundle: The context bundle.
     '''
-    setup: Mapping[str, Any]
+    setup: Mapping[str, object]
     context_bundle: ContextBundle

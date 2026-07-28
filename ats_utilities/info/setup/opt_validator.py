@@ -22,7 +22,6 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
-from typing import Any
 
 from ats_utilities.info.setup.options import InfoOptions
 from ats_utilities.info.setup.keys import InfoKeys
@@ -75,7 +74,7 @@ class InfoOptionsValidator:
             )
 
             if opt_name is InfoKeys.OPTION_INFO:
-                info_structure: Mapping[str, Any] = value
+                info_structure: Mapping[str, object] = value
                 required_config_keys: Sequence[str] = InfoKeys.get_required_config_keys()
                 not_satisfied(
                     not all(key in info_structure for key in required_config_keys),

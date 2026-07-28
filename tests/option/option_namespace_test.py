@@ -22,7 +22,6 @@ Info
 from __future__ import annotations
 
 import unittest
-from typing import Any
 
 from ats_utilities.option.option_namespace import OptionNamespace
 
@@ -40,7 +39,7 @@ class DummyNamespace:
     '''
         A dummy class that implements the OptionNamespace protocol.
     '''
-    def __init__(self, **kwargs: Any) -> None:
+    def __init__(self, **kwargs: object) -> None:
         self.__dict__.update(kwargs)
 
 

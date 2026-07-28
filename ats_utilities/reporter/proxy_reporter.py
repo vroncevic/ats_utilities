@@ -26,7 +26,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from re import findall
 from functools import wraps
-from typing import Any, cast
+from typing import cast
 
 from ats_utilities.validation.context_error import raise_error
 from ats_utilities.exceptions import ATSRuntimeError, ATSValueError
@@ -40,7 +40,7 @@ __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
-def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], F]:
+def vreport[F: Callable[..., object]](templates: str | list[str]) -> Callable[[F], F]:
     '''
         Decorator supporting class methods and property operations.
         Borrows the reporter object and verbose flag dynamically from the 
@@ -68,7 +68,7 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
 
     def decorator(func: F) -> F:
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: object, **kwargs: object) -> object:
             self_instance = args[0] if args else None
 
             if self_instance is None:

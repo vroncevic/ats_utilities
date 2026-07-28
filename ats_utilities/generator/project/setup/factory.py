@@ -22,7 +22,6 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any
 
 from ats_utilities.generator.project.setup.bundle import ProjectBundle
 from ats_utilities.generator.project.setup.dependencies import (
@@ -84,7 +83,7 @@ class ProjectFactory:
         not_none(options, ctx, 'options must be provided')
         istype(options, dict, ctx, 'options must be a dictionary')
 
-        setup: Mapping[str, Any] = options.get('setup')
+        setup: Mapping[str, object] = options.get('setup')
         context_bundle: ContextBundle = options.get('context_bundle')
 
         not_none(setup, ctx, 'setup must be provided')
@@ -111,7 +110,7 @@ class ProjectFactory:
     @classmethod
     def create_default_project_bundle(
         cls,
-        setup: Mapping[str, Any],
+        setup: Mapping[str, object],
         context_bundle: ContextBundle
     ) -> ProjectBundle:
         '''

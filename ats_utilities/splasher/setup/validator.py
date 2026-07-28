@@ -102,7 +102,7 @@ class SplashValidator(IValidator[SplashBundle]):
         not_none(bundle.pb, ctx, 'progress bar must be provided')
         not_none(bundle.context_bundle, ctx, 'context bundle must be provided')
 
-        istype(bundle.prop, Mapping, ctx, 'properties dictionary must be a Mapping[str, Any] instance')
+        istype(bundle.prop, Mapping, ctx, 'properties dictionary must be a Mapping[str, object] instance')
         istype(bundle.splash_property, ISplashProperty, ctx, 'splash property must be an ISplashProperty instance')
         istype(bundle.property_validated, bool, ctx, 'property validated flag must be an instance of bool')
         istype(bundle.terminal_property, ITerminalProperties, ctx, 'terminal properties must be an ITerminalProperties instance')

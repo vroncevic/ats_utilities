@@ -25,7 +25,6 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from re import match
-from typing import Any
 
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
@@ -91,7 +90,7 @@ class CFGProcessor(IConfigProcessor):
         self._data: dict[str, str] = {}
         self._scheme = scheme
 
-    def deserialize(self, content: Any) -> bool:
+    def deserialize(self, content: object) -> bool:
         '''
             Loads and parses configuration from a raw source (string, stream, or lines).
 

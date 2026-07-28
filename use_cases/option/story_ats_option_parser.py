@@ -20,7 +20,6 @@ Info
 '''
 
 import sys
-from typing import Any
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.option.setup.factory import OptionFactory
 from ats_utilities.option.engine import OptionManager
@@ -54,7 +53,7 @@ parser: OptionManager = OptionManager(own=own)
 parser.add_version_operation('1.2.4')
 parser.add_operation(OPS[0], OPS[1], dest='name', help='generate project (provide name)')
 
-args: Any = parser.parse_args(sys.argv)
+args: object = parser.parse_args(sys.argv)
 
 if bool(getattr(args, "name")):
     print(f'option name: {getattr(args, "name")}')

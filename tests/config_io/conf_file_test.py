@@ -3,7 +3,6 @@
 import unittest
 from unittest.mock import MagicMock, patch, mock_open
 from collections.abc import Mapping
-from typing import Any
 
 # Adjust imports according to your project structure
 from ats_utilities.config_io.conf_file import ConfFile

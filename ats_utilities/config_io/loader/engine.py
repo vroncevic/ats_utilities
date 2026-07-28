@@ -23,8 +23,6 @@ Info
 
 from __future__ import annotations
 
-from typing import Any
-
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.config_io.iconf_file import IConfFile

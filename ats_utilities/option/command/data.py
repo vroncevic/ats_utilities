@@ -22,7 +22,6 @@ Info
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
 from collections.abc import Sequence
 
 from ats_utilities.utils.reflection import instance_to_dict
@@ -60,9 +59,9 @@ class OptionData:
     name: str
     help_text: str
     action: str | None
-    default: Any | None
+    default: object | None
     required: bool
-    choices: Sequence[Any] | None
+    choices: Sequence[object] | None
     nargs: str | int | None
 
     def __post_init__(self) -> None:

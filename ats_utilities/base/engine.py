@@ -22,9 +22,6 @@ Info
 
 from __future__ import annotations
 
-from abc import abstractmethod
-from typing import Any
-
 from ats_utilities.base.setup.bundle import BaseBundle
 from ats_utilities.base.ibase import ArgSeq
 from ats_utilities.config_io.loader.iloader import ILoader
@@ -77,7 +74,7 @@ class Base:
     _context: ContextBundle
     _config_loader: ILoader[ContextBundle]
     _info_manager: IInfoManager[ContextBundle]
-    _splasher: ISplasher[ContextBundle, Any]
+    _splasher: ISplasher[ContextBundle, object]
     _options_parser: IOptionManager[ContextBundle]
     _generator: IGenerator[ContextBundle]
 
@@ -113,7 +110,7 @@ class Base:
         self._info_manager = own.info_manager
         self._splasher = own.splasher
         self._options_parser = own.options_parser
-        components: list[Any] = [self._info_manager, self._splasher, self._options_parser]
+        components: list[object] = [self._info_manager, self._splasher, self._options_parser]
 
         if own.use_generator:
             self._generator = own.generator
@@ -142,12 +139,12 @@ class Base:
         return self._is_initialized
 
     @has_attrs('_options_parser')
-    def add_new_option(self, *args: str, **kwargs: Any) -> None:
+    def add_new_option(self, *args: str, **kwargs: object) -> None:
         '''
             Adds a new option for App/Tool/Script.
 
             :param args: Arguments in string format.
-            :param kwargs: Arguments in Any format.
+            :param kwargs: Arguments in object format.
             :exceptions:
                 | ATSValueError: Missing or None attribute: '_options_parser'.
         '''

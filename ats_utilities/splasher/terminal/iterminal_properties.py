@@ -22,7 +22,7 @@ Info
 
 from __future__ import annotations
 
-from typing import Any, Protocol, runtime_checkable
+from typing import Protocol, runtime_checkable
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -49,7 +49,7 @@ class ITerminalProperties(Protocol):
                 | __str__ - Returns the terminal properties as string representation.
     '''
 
-    def ioctl_get_window_size(self, file_descriptor: int) -> tuple[Any, ...]:
+    def ioctl_get_window_size(self, file_descriptor: int) -> tuple[object, ...]:
         '''
             Gets size for file descriptor.
 
@@ -64,7 +64,7 @@ class ITerminalProperties(Protocol):
         '''
         ...
 
-    def size(self) -> tuple[Any, ...]:
+    def size(self) -> tuple[object, ...]:
         '''
             Gets terminal window size.
 

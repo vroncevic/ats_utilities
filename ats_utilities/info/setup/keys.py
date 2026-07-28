@@ -23,7 +23,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Sequence, Mapping
-from typing import Any, ClassVar
+from typing import ClassVar
 from types import MappingProxyType
 
 from ats_utilities.info.name.iname import IName
@@ -176,7 +176,7 @@ class InfoKeys:
             :exceptions: None.
         '''
         return MappingProxyType({
-            cls.OPTION_INFO: Mapping[str, Any],
+            cls.OPTION_INFO: Mapping[str, object],
             cls.OPTION_CONTEXT_BUNDLE: ContextBundle,
         })
 

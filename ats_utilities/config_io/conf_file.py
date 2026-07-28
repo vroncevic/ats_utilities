@@ -24,7 +24,6 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any
 
 from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.config_io.data import FileData
@@ -116,7 +115,7 @@ class ConfFile(IConfFile):
         return self._file
 
     @vreport('close file {file_path}')
-    def __exit__(self, *args: tuple[Any, ...], **kwargs: Mapping[Any, Any]) -> None:
+    def __exit__(self, *args: tuple[object, ...], **kwargs: Mapping[object, object]) -> None:
         '''
             Closes configuration file.
 

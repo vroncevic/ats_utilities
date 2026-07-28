@@ -23,7 +23,6 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
@@ -67,7 +66,7 @@ class ExtInfrastructure:
     _REQUIRED_KEYS: frozenset[str] = frozenset([
         SplashKeys.ATS_NAME, SplashKeys.ATS_ORGANIZATION, SplashKeys.ATS_REPOSITORY
     ])
-    _infrastructure_property: Mapping[str, Any] | None
+    _infrastructure_property: Mapping[str, object] | None
     _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
@@ -93,7 +92,7 @@ class ExtInfrastructure:
 
     @property
     @vreport('getting infrastructure property {infrastructure_property}')
-    def infrastructure_property(self) -> Mapping[str, Any]:
+    def infrastructure_property(self) -> Mapping[str, object]:
         '''
             Property method for getting infrastructure property.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
@@ -109,7 +108,7 @@ class ExtInfrastructure:
     @infrastructure_property.setter
     @mcheck([('Mapping:setup', None)])
     @vreport('setting infrastructure property {infrastructure_property}')
-    def infrastructure_property(self, setup: Mapping[str, Any]) -> None:
+    def infrastructure_property(self, setup: Mapping[str, object]) -> None:
         '''
             Property method for setting project infrastructure property.
             Note: Splash screen infrastructure comes from info configuration file as read only data.

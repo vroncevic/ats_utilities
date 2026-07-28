@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from typing import Any, Union
+from typing import Union
 import unittest
 
 from ats_utilities.exceptions import ATSTypeError
@@ -102,7 +102,7 @@ class CheckTypeTest(unittest.TestCase):
         mock_outer_union = MagicMock()
         mock_outer_union.__args__ = (mock_inner_union, float)
 
-        def custom_get_origin(tp: Any) -> Any:
+        def custom_get_origin(tp: object) -> object:
             if tp is mock_outer_union or tp is mock_inner_union:
                 return Union
             return None

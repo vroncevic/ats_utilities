@@ -26,7 +26,6 @@ from __future__ import annotations
 from typing import Protocol, runtime_checkable
 from collections.abc import Mapping
 from io import TextIOBase
-from typing import Any
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -65,7 +64,7 @@ class IConfFile(Protocol):
         '''
         ...
 
-    def __exit__(self, *args: tuple[Any, ...], **kwargs: Mapping[Any, Any]) -> None:
+    def __exit__(self, *args: tuple[object, ...], **kwargs: Mapping[object, object]) -> None:
         '''
             Closes configuration context manager and closes the file.
 

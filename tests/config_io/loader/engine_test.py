@@ -2,7 +2,6 @@
 
 import unittest
 from unittest.mock import MagicMock, patch
-from typing import Any
 
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle

@@ -22,7 +22,6 @@ Info
 from __future__ import annotations
 
 import unittest
-from typing import Any
 
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.context.bundle import ContextBundle
@@ -46,7 +45,7 @@ class DummyParser(IArgParser):
     '''
     _context: ContextBundle
 
-    def __init__(self, own: Any) -> None:
+    def __init__(self, own: object) -> None:
         if own and hasattr(own, 'context_bundle'):
             self._context = own.context_bundle
         else:
@@ -55,19 +54,19 @@ class DummyParser(IArgParser):
     def get_context(self) -> ContextBundle:
         return self._context
 
-    def error(self, message: str) -> Any:
+    def error(self, message: str) -> object:
         ...
 
-    def add_argument(self, *args: Any, **kwargs: Any) -> None:
+    def add_argument(self, *args: object, **kwargs: object) -> None:
         ...
 
-    def add_subparsers(self, *args: Any, **kwargs: Any) -> Any:
+    def add_subparsers(self, *args: object, **kwargs: object) -> object:
         ...
 
-    def parse_args(self, *args: Any, **kwargs: Any) -> Any:
+    def parse_args(self, *args: object, **kwargs: object) -> object:
         ...
 
-    def parse_known_args(self, *args: Any, **kwargs: Any) -> Any:
+    def parse_known_args(self, *args: object, **kwargs: object) -> object:
         ...
 
     def __str__(self) -> str:

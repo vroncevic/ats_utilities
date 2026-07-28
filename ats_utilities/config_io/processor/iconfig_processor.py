@@ -24,7 +24,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, Protocol, runtime_checkable
+from typing import Protocol, runtime_checkable
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -66,7 +66,7 @@ class IConfigProcessor(Protocol):
         processor class documentation for concrete examples.
     '''
 
-    def deserialize(self, content: Any) -> bool:
+    def deserialize(self, content: object) -> bool:
         '''
             Loads and parses configuration from a raw source (string, stream, or lines).
 

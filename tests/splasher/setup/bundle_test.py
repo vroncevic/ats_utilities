@@ -23,7 +23,6 @@ from __future__ import annotations
 
 import unittest
 from dataclasses import FrozenInstanceError
-from typing import Any
 from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle

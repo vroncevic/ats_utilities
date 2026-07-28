@@ -24,7 +24,6 @@ from __future__ import annotations
 
 import sys
 from collections.abc import Sequence, Mapping
-from typing import Any
 from types import MappingProxyType
 
 from ats_utilities.option.strategy.data import StrategyData
@@ -82,7 +81,7 @@ class ParserStrategy(IParserStrategy):
     _context: ContextBundle
     _parser: IArgParser
     _parser_class: type[IArgParser]
-    _subparsers: Any
+    _subparsers: object
 
     def __init__(self, strategy_data: StrategyData) -> None:
         '''
@@ -111,7 +110,7 @@ class ParserStrategy(IParserStrategy):
         istype(self._parser, IArgParser, context, r'parser must be an IArgParser instance')
 
     @has_attrs('_parser')
-    def add_argument(self, *args: str, **kwargs: Any) -> None:
+    def add_argument(self, *args: str, **kwargs: object) -> None:
         '''
             Adds an operational argument/flag to the parser.
 
@@ -190,7 +189,7 @@ class ParserStrategy(IParserStrategy):
                 cmd_parser.add_argument(opt.name, **kwargs)
 
     @has_attrs('_parser')
-    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, object]]:
         '''
             Parses the input arguments and returns command name and parameters.
 

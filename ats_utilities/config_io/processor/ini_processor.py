@@ -28,7 +28,6 @@ from copy import deepcopy
 from collections.abc import Mapping
 from configparser import ConfigParser, Error as ConfigParserError
 from io import StringIO
-from typing import Any
 
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.utils.reflection import to_str
@@ -91,7 +90,7 @@ class INIProcessor(IConfigProcessor):
         self._config = ConfigParser()
         self._scheme = scheme
 
-    def deserialize(self, content: Any) -> bool:
+    def deserialize(self, content: object) -> bool:
         '''
             Loads and parses configuration from a raw source (string, stream, or lines).
 

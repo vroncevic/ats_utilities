@@ -23,7 +23,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Any, ClassVar, Self
+from typing import ClassVar, Self
 from types import MappingProxyType
 
 __author__ = 'Vladimir Roncevic'
@@ -114,7 +114,7 @@ class SplashKeys:
         return cls._key_to_attr
 
     @classmethod
-    def from_dict(cls, config: Mapping[str, Any]) -> Self:
+    def from_dict(cls, config: Mapping[str, object]) -> Self:
         '''
             Factory method to safely parse a dictionary into a SplashKeys instance.
 

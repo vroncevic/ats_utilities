@@ -23,7 +23,6 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any
 from types import MappingProxyType
 
 from ats_utilities.context.bundle import ContextBundle
@@ -100,7 +99,7 @@ class InfoManager:
         '''
         return self._context
 
-    def set_info(self, info: Mapping[str, Any]) -> None:
+    def set_info(self, info: Mapping[str, object]) -> None:
         '''
             Sets the information structure by re-creating the info bundle.
 
@@ -119,7 +118,7 @@ class InfoManager:
         })
         self.refresh_status()
 
-    def get_info(self) -> Mapping[str, Any]:
+    def get_info(self) -> Mapping[str, object]:
         '''
             Gets the information structure.
 

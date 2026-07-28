@@ -24,7 +24,6 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any
 import yaml
 
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
@@ -88,7 +87,7 @@ class YAMLProcessor(IConfigProcessor):
         self._data = {}
         self._scheme = scheme
 
-    def deserialize(self, content: Any) -> bool:
+    def deserialize(self, content: object) -> bool:
         '''
             Loads and parses configuration from a raw source (string, stream, or lines).
 

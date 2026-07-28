@@ -23,7 +23,6 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from types import MappingProxyType
-from typing import Any
 
 from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.context.bundle import ContextBundle
@@ -67,16 +66,16 @@ class InfoFactory:
         '''
         InfoOptionsValidator.validate(options)
 
-        info: Mapping[str, Any] = options.get(InfoKeys.OPTION_INFO)
+        info: Mapping[str, object] = options.get(InfoKeys.OPTION_INFO)
         context_bundle: ContextBundle = options.get(InfoKeys.OPTION_CONTEXT_BUNDLE)
 
         key_to_type: MappingProxyType[str, type] = InfoKeys.get_config_key_to_type()
         bundle_kwargs: dict[str, object] = {}
 
         for key, engine_class in key_to_type.items():
-            engine_instance: Any = engine_class(context_bundle=context_bundle)
+            engine_instance: object = engine_class(context_bundle=context_bundle)
             attr_name: str = InfoKeys.get_name_of_config_key(key)
-            val: Any = info.get(key)
+            val: object = info.get(key)
 
             if val is not None and key is InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE:
                 if isinstance(val, str):

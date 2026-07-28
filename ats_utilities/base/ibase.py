@@ -24,7 +24,6 @@ from __future__ import annotations
 
 from typing import Protocol, runtime_checkable
 from collections.abc import Sequence
-from typing import Any
 
 from ats_utilities.option.option_namespace import OptionNamespace
 
@@ -75,12 +74,12 @@ class IBase[ContextEnvironment](Protocol):
         '''
         ...
 
-    def add_new_option(self, *args: str, **kwargs: Any) -> None:
+    def add_new_option(self, *args: str, **kwargs: object) -> None:
         '''
             Adds a new option for App/Tool/Script.
 
             :param args: Arguments in string format.
-            :param kwargs: Arguments in Any format.
+            :param kwargs: Arguments in object format.
             :exceptions: None.
         '''
         ...

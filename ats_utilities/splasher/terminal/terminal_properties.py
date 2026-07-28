@@ -24,7 +24,6 @@ from __future__ import annotations
 
 from fcntl import ioctl
 from os import open, ctermid, close, O_RDONLY
-from typing import Any
 from termios import TIOCGWINSZ
 from struct import unpack, pack
 
@@ -61,7 +60,7 @@ class TerminalProperties:
                 | __str__ - Returns the string representation of TerminalProperties.
     '''
 
-    _window_size: tuple[Any, ...] | None
+    _window_size: tuple[object, ...] | None
     _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
@@ -87,7 +86,7 @@ class TerminalProperties:
 
     @mcheck([('int:file_descriptor', None)])
     @vreport('ioctl get window size {window_size}')
-    def ioctl_get_window_size(self, file_descriptor: int) -> tuple[Any, ...]:
+    def ioctl_get_window_size(self, file_descriptor: int) -> tuple[object, ...]:
         '''
             Gets size for file descriptor.
 
@@ -128,7 +127,7 @@ class TerminalProperties:
                 continue
 
     @vreport('size {window_size}')
-    def size(self) -> tuple[Any, ...]:
+    def size(self) -> tuple[object, ...]:
         '''
             Gets terminal window size.
 

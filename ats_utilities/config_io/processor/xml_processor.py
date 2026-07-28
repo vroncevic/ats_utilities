@@ -25,7 +25,6 @@ from __future__ import annotations
 
 from copy import deepcopy
 from collections.abc import Mapping
-from typing import Any
 import xml.etree.ElementTree as ET
 
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
@@ -100,7 +99,7 @@ class XMLProcessor(IConfigProcessor):
         if scheme is not None and '__root__' in scheme:
             self._root_tag = scheme['__root__']
 
-    def deserialize(self, content: Any) -> bool:
+    def deserialize(self, content: object) -> bool:
         '''
             Loads and parses configuration from a raw source (string, stream, or lines).
 

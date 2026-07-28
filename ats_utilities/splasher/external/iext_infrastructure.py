@@ -23,7 +23,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, Protocol, runtime_checkable
+from typing import Protocol, runtime_checkable
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -53,7 +53,7 @@ class IExtInfrastructure(Protocol):
     '''
 
     @property
-    def infrastructure_property(self) -> Mapping[str, Any]:
+    def infrastructure_property(self) -> Mapping[str, object]:
         '''
             Property method for getting infrastructure property.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
@@ -63,7 +63,7 @@ class IExtInfrastructure(Protocol):
         ...
 
     @infrastructure_property.setter
-    def infrastructure_property(self, setup: Mapping[str, Any]) -> None:
+    def infrastructure_property(self, setup: Mapping[str, object]) -> None:
         '''
             Property method for setting project infrastructure property.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
