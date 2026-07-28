@@ -72,20 +72,12 @@ class LoggerFactory:
         if options is not None:
             LoggerOptionsValidator.validate(options)
 
-        log_file: str | None = None
-        log_level: int = INFO
-        log_format: str = '%(asctime)s - %(levelname)s - %(message)s'
-        log_datefmt: str = '%m/%d/%Y %I:%M:%S %p'
-        log_buffer_size: int = 200
-        log_message_pattern: Pattern[str] | None = None
-
-        if options:
-            log_file = options.get(LoggerKeys.OPTION_LOG_FILE)
-            log_level = options.get(LoggerKeys.OPTION_LOG_LEVEL, INFO)
-            log_format = options.get(LoggerKeys.OPTION_LOG_FORMAT, log_format)
-            log_datefmt = options.get(LoggerKeys.OPTION_LOG_DATEFMT, log_datefmt)
-            log_buffer_size = options.get(LoggerKeys.OPTION_LOG_BUFFER_SIZE, log_buffer_size)
-            log_message_pattern = options.get(LoggerKeys.OPTION_LOG_MESSAGE_PATTERN)
+        log_file: str | None = options.get(LoggerKeys.OPTION_LOG_FILE) if options else None
+        log_level: int = options.get(LoggerKeys.OPTION_LOG_LEVEL) if options else INFO
+        log_format: str = options.get(LoggerKeys.OPTION_LOG_FORMAT) if options else '%(asctime)s - %(levelname)s - %(message)s'
+        log_datefmt: str = options.get(LoggerKeys.OPTION_LOG_DATEFMT) if options else '%m/%d/%Y %I:%M:%S %p'
+        log_buffer_size: int = options.get(LoggerKeys.OPTION_LOG_BUFFER_SIZE) if options else 200
+        log_message_pattern: Pattern[str] | None = options.get(LoggerKeys.OPTION_LOG_MESSAGE_PATTERN) if options else None
 
         logger = getLogger()
 

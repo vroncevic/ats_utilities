@@ -59,7 +59,7 @@ class LoggerAdapter:
                 | has_handlers - Checks if the logger has any handler.
                 | add_file_handler - Adds a file handler for logging.
                 | add_stdout_handler - Adds a stdout handler for logging.
-                | __to_str__ - Returns Logger adapter as a string representation.
+                | __str__ - Returns Logger adapter as a string representation.
     '''
 
     def __init__(self, logger: Logger, formatter: ILogFormatter) -> None:
@@ -68,6 +68,7 @@ class LoggerAdapter:
 
             :param logger: Underlying logger instance.
             :param formatter: Formatter instance.
+            :exceptions: None.
         '''
         self._logger = logger
         self._formatter = formatter
@@ -78,6 +79,7 @@ class LoggerAdapter:
 
             :param level: Log level.
             :param message: Message to log.
+            :exceptions: None.
         '''
         self._logger.log(level, message)
 
@@ -86,6 +88,7 @@ class LoggerAdapter:
             Sets the logging level.
 
             :param level: Log level.
+            :exceptions: None.
         '''
         self._logger.setLevel(level)
 
@@ -94,6 +97,7 @@ class LoggerAdapter:
             Checks if the logger has any handler.
 
             :return: True if the logger has any handler, otherwise False.
+            :exceptions: None.
         '''
         return self._logger.hasHandlers()
 
@@ -103,6 +107,7 @@ class LoggerAdapter:
 
             :param log_file: Log file path.
             :return: True if successfully, otherwise False.
+            :exceptions: None.
         '''
         try:
             file_handler = FileHandler(log_file)
@@ -124,6 +129,7 @@ class LoggerAdapter:
             Adds a stdout handler for logging.
 
             :return: True if successfully, otherwise False.
+            :exceptions: None.
         '''
         try:
             stdout_handler = StreamHandler(stdout)
@@ -140,10 +146,11 @@ class LoggerAdapter:
         except Exception:
             return False
 
-    def __to_str__(self) -> str:
+    def __str__(self) -> str:
         '''
             Returns Logger adapter as a string representation.
 
             :return: Logger adapter as a string representation.
+            :exceptions: None.
         '''
         return to_str(self)

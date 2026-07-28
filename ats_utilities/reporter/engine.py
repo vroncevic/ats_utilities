@@ -24,7 +24,6 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from logging import DEBUG, INFO, WARNING, ERROR
-from typing import Any
 
 from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.reporter.setup.validator import ReporterValidator
@@ -32,6 +31,7 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.reporter.theme.types import MessageKey
 from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.utils.reflection import to_str
 
@@ -59,6 +59,9 @@ class Reporter:
                 | _is_initialized -  Indicates if the reporter is initialized (default False).
             :methods:
                 | __init__ - Initializes Reporter.
+                | get_bundle - Gets current logger configuration bundle.
+                | update_bundle - Updates logger configuration bundle.
+                | _apply_bundle - Applies bundle configuration to instance attributes.
                 | _report - Utility method for reporting messages to console.
                 | verbose - Reports verbose message to console.
                 | success - Reports success message to console.
@@ -66,7 +69,7 @@ class Reporter:
                 | error - Reports error message to console.
                 | set_level - Sets log level.
                 | is_initialized - Checks if reporter is initialized.
-                | __str__ - Returns the reporter as string representation.
+                | __str__ - Returns reporter as string representation.
     '''
 
     _checker: IChecker
@@ -86,12 +89,51 @@ class Reporter:
                 |                respective types.
         '''
         ReporterValidator.validate(own)
-        self._checker = own.checker
-        self._theme = own.theme
-        self._logger = own.logger
+        self._apply_bundle(own)
+
+    def get_bundle(self) -> ReporterBundle:
+        '''
+            Gets current reporter configuration bundle.
+
+            :return: ReporterBundle containing current reporter setup.
+            :exceptions: None.
+        '''
+        return ReporterBundle(
+            checker=self._checker,
+            theme=self._theme,
+            logger=self._logger
+        )
+
+    def update_bundle(self, bundle: ReporterBundle) -> bool:
+        '''
+            Updates reporter configuration using a reporter bundle.
+
+            :param bundle: Reporter bundle with reporter and reporting parameters.
+            :return: True if configuration was successfully updated, False otherwise.
+            :exceptions: None.
+        '''
+        try:
+            ReporterValidator.validate(bundle)
+            self._apply_bundle(bundle)
+
+            return True
+
+        except (ATSValueError, ATSTypeError):
+            return False
+
+    def _apply_bundle(self, bundle: ReporterBundle) -> None:
+        '''
+            Applies bundle configuration to instance attributes.
+
+            :param bundle: Reporter bundle with reporter and reporting parameters.
+            :exceptions: None.
+        '''
+        self._checker = bundle.checker
+        self._theme = bundle.theme
+        self._logger = bundle.logger
         self._is_initialized = True
 
-    def _report(self, message: Sequence[Any], color: str, ctrl: int) -> None:
+    def _report(self, message: Sequence[object], color: str, ctrl: int) -> None:
         '''
             Utility method for reporting message to log/console.
 
@@ -107,7 +149,7 @@ class Reporter:
             self._logger.write_log(ctrl, f'{color}{message_out}{reset}')
 
     @mcheck([('bool:is_verbose', None), ('Sequence:message', None)])
-    def verbose(self, is_verbose: bool, message: Sequence[Any]) -> None:
+    def verbose(self, is_verbose: bool, message: Sequence[object]) -> None:
         '''
             Reports verbose message to console.
 
@@ -123,7 +165,7 @@ class Reporter:
             self._report(message, self._theme.get_color(MessageKey.VERBOSE), DEBUG)
 
     @mcheck([('Sequence:message', None)])
-    def success(self, message: Sequence[Any]) -> None:
+    def success(self, message: Sequence[object]) -> None:
         '''
             Reports success message to console.
 
@@ -137,7 +179,7 @@ class Reporter:
         self._report(message, self._theme.get_color(MessageKey.SUCCESS), INFO)
 
     @mcheck([('Sequence:message', None)])
-    def warning(self, message: Sequence[Any]) -> None:
+    def warning(self, message: Sequence[object]) -> None:
         '''
             Reports warning message to console.
 
@@ -151,7 +193,7 @@ class Reporter:
         self._report(message, self._theme.get_color(MessageKey.WARNING), WARNING)
 
     @mcheck([('Sequence:message', None)])
-    def error(self, message: Sequence[Any]) -> None:
+    def error(self, message: Sequence[object]) -> None:
         '''
             Reports error message to console.
 
@@ -192,9 +234,9 @@ class Reporter:
 
     def __str__(self) -> str:
         '''
-            Returns the reporter as string representation.
+            Returns reporter as string representation.
 
-            :return: The reporter as string representation.
+            :return: Reporter as string representation.
             :exceptions: None.
         '''
         return to_str(self)

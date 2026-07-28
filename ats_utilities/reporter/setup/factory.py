@@ -62,9 +62,8 @@ class ReporterFactory:
             :return: Reporter bundle instance.
             :exceptions:
                 | ATSValueError: Options must be provided and have proper values.
-                | ATSTypeError:  Options must be an instance of ReporterOptions
-                |                and its attributes must be instances of their
-                |                respective types.
+                | ATSTypeError:  Options must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
         if options is not None:
             ReporterOptionsValidator.validate(options)
@@ -73,9 +72,9 @@ class ReporterFactory:
         logger_opts = options.get(ReporterKeys.OPTION_LOGGER) if options else None
         theme_opts = options.get(ReporterKeys.OPTION_THEME) if options else None
 
-        checker = Checker(own=CheckerFactory.create_bundle(checker_opts))
+        checker = Checker(own=CheckerFactory.create_bundle(options=checker_opts))
         theme = ConsoleTheme(palette=theme_opts)
-        logger = Logger(own=LoggerFactory.create_bundle(logger_opts))
+        logger = Logger(own=LoggerFactory.create_bundle(options=logger_opts))
 
         return ReporterRegistry.create_bundle(
             dependencies=ReporterDependencies(

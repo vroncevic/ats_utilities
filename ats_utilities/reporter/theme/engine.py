@@ -78,9 +78,10 @@ class ConsoleTheme:
         if palette is not None:
             ctx: str = 'console_theme::init(...)',
             istype(palette, Mapping, ctx, 'palette must be a mapping')
-
-        # No dependency injection then use default ones.
-        self._palette = MappingProxyType(palette) if palette is not None else self._DEFAULT_PALETTE_COLORS
+            self._palette = MappingProxyType(palette)
+        else:
+            # No dependency injection then use default ones.
+            self._palette = self._DEFAULT_PALETTE_COLORS
 
     @has_attrs('_palette')
     def get_color(self, color_type: str) -> str:

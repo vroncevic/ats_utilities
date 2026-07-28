@@ -22,7 +22,6 @@ Info
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme

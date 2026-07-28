@@ -56,17 +56,16 @@ class ContextRegistry:
             :return: Context bundle instance.
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper values.
-                | ATSTypeError:  Dependencies must be an instance of ContextDependencies
-                |                and its attributes must be instances of their
-                |                respective types.
+                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
         ContextDependenciesValidator.validate(dependencies)
 
         bundle: ContextBundle = ContextBundle(
-            checker=dependencies.get(ContextKeys.DEPENDENCY_CHECKER),
-            logger=dependencies.get(ContextKeys.DEPENDENCY_LOGGER),
-            reporter=dependencies.get(ContextKeys.DEPENDENCY_REPORTER),
-            verbose=dependencies.get(ContextKeys.DEPENDENCY_VERBOSE, False)
+            checker=dependencies.get(ContextKeys.DEPENDENCY_CHECKER) if dependencies else None,
+            logger=dependencies.get(ContextKeys.DEPENDENCY_LOGGER) if dependencies else None,
+            reporter=dependencies.get(ContextKeys.DEPENDENCY_REPORTER) if dependencies else None,
+            verbose=dependencies.get(ContextKeys.DEPENDENCY_VERBOSE) if dependencies else False
         )
 
         ContextValidator.validate(bundle)

@@ -51,11 +51,11 @@ class Logger:
 
             :attributes:
                 | _logger - Logger instance.
-                | _log_methods - Mapping of log levels to log methods.
                 | _formatter - Formatter for log messages.
                 | _buffer - Buffer for early logs.
                 | _handler_manager - Manager for log output handlers.
                 | _has_file_handler - Flag indicating if logger has a file handler.
+                | _is_initialized - Indicates if logger is initialized.
             :methods:
                 | __init__ - Initializes Logger constructor.
                 | get_bundle - Gets current logger configuration bundle.
@@ -77,6 +77,7 @@ class Logger:
     _handler_manager: ILogHandlerManager
     _message_processor: IMessageProcessor
     _has_file_handler: bool
+    _is_initialized: bool
 
     def __init__(self, own: LoggerBundle) -> None:
         '''
@@ -114,7 +115,7 @@ class Logger:
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
-        return self._logger.has_handlers()
+        return self._is_initialized
 
     def update_bundle(self, bundle: LoggerBundle) -> bool:
         '''
@@ -146,6 +147,7 @@ class Logger:
         self._handler_manager = bundle.handler_manager
         self._message_processor = bundle.message_processor
         self._has_file_handler = bundle.has_file_handler
+        self._is_initialized = self._logger.has_handlers()
 
     def set_level(self, level: int) -> None:
         '''
@@ -157,8 +159,13 @@ class Logger:
         self._logger.set_level(level)
 
     def _flush_buffer(self) -> None:
+        '''
+            Flushes buffered messages to the logger.
+
+            :exceptions: None.
+        '''
         if self._has_file_handler and self._buffer.is_enabled:
-            self._buffer.flush(lambda message, level: self._logger.log(level, message))
+            self._buffer.flush(lambda level, message: self._logger.log(level, message))
 
     def set_log_file(self, log_file: str) -> bool:
         '''

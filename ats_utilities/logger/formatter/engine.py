@@ -109,7 +109,7 @@ class LogFormatter:
             Gets the log format.
 
             :return: The log format.
-            :exceptions: None
+            :exceptions: None.
         '''
         return self._log_format
 
@@ -133,7 +133,7 @@ class LogFormatter:
             Gets the log date format.
 
             :return: The log date format.
-            :exceptions: None
+            :exceptions: None.
         '''
         return self._log_datefmt
 

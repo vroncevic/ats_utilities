@@ -65,16 +65,15 @@ class ContextFactory:
             :return: Context bundle instance.
             :exceptions:
                 | ATSValueError: Options must be provided and have proper values.
-                | ATSTypeError:  Options must be an instance of ContextOptions
-                |                and its attributes must be instances of their
-                |                respective types.
+                | ATSTypeError:  Options must be an instance of Mapping and its attributes 
+                |                must be instances of their respective types.
         '''
         if options is not None:
             ContextOptionsValidator.validate(options)
 
         checker_opts = options.get(ContextKeys.OPTION_CHECKER) if options else None
         logger_opts = options.get(ContextKeys.OPTION_LOGGER) if options else None
-        verbose = options.get(ContextKeys.OPTION_VERBOSE, False) if options else False
+        verbose = options.get(ContextKeys.OPTION_VERBOSE) if options else False
 
         checker: Checker = Checker(own=CheckerFactory.create_bundle(checker_opts))
         logger: Logger = Logger(own=LoggerFactory.create_bundle(logger_opts))

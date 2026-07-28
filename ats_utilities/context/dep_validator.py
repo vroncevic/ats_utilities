@@ -56,9 +56,8 @@ class ContextDependenciesValidator:
             :param dependencies: Context dependencies instance to be validated.
             :exceptions:
                 | ATSValueError: Context dependencies must be provided and have proper values.
-                | ATSTypeError:  Context dependencies must be an instance of ContextDependencies
-                |                and its attributes must be instances of their
-                |                respective types.
+                | ATSTypeError:  Context dependencies must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
         ctx: str = 'context_dependencies_validator::validate(...)'
 

@@ -56,9 +56,8 @@ class ReporterDependenciesValidator:
             :param dependencies: Reporter dependencies instance to be validated.
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper values.
-                | ATSTypeError:  Dependencies must be an instance of ReporterDependencies
-                |                and its attributes must be instances of their
-                |                respective types.
+                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
         ctx: str = 'reporter_dependencies_validator::validate(...)'
 

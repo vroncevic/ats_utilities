@@ -56,9 +56,8 @@ class ContextOptionsValidator:
             :param options: Context options instance to be validated.
             :exceptions:
                 | ATSValueError: Context options must be provided and have proper values.
-                | ATSTypeError:  Context options must be an instance of ContextOptions
-                |                and its attributes must be instances of their
-                |                respective types.
+                | ATSTypeError:  Context options must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
         ctx: str = 'context_options_validator::validate(...)'
 

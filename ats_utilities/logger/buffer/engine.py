@@ -63,30 +63,30 @@ class LogBuffer:
             :param limit: Maximum number of messages to buffer.
             :exceptions: None.
         '''
-        self._buffer: list[tuple[str, int]] = []
+        self._buffer: list[tuple[int, str]] = []
         self._limit = limit
         self._enabled = True
 
-    def add(self, message: str, level: int) -> None:
+    def add(self, level: int, message: str) -> None:
         '''
             Adds a message to the buffer.
 
-            :param message: The message to buffer.
             :param level: Log level.
+            :param message: The message to buffer.
             :exceptions: None.
         '''
         if self._enabled and len(self._buffer) < self._limit:
-            self._buffer.append((message, level))
+            self._buffer.append((level, message))
 
-    def flush(self, writer: Callable[[str, int], None]) -> None:
+    def flush(self, writer: Callable[[int, str], None]) -> None:
         '''
             Flushes buffered messages to a writer.
 
             :param writer: The logging method to write buffered logs.
             :exceptions: None.
         '''
-        for message, level in self._buffer:
-            writer(message, level)
+        for level, message in self._buffer:
+            writer(level, message)
 
         self._buffer.clear()
         self._enabled = False

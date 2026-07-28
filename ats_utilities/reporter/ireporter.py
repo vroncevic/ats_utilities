@@ -35,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IReporter[MessageType](Protocol):
+class IReporter[ConfigType, MessageType](Protocol):
     '''
         Defines abstract class IReporter with method(s).
         Provides an interface for reporting messages.
@@ -43,6 +43,8 @@ class IReporter[MessageType](Protocol):
         It defines:
 
             :methods:
+                | get_bundle - Gets current reporter configuration bundle.
+                | update_bundle - Updates reporter configuration bundle.
                 | verbose - Reports verbose message.
                 | success - Reports success message.
                 | warning - Reports warning message.
@@ -51,6 +53,22 @@ class IReporter[MessageType](Protocol):
                 | is_initialized - Checks if reporter is initialized.
                 | __str__ - Returns reporter as string representation.
     '''
+
+    def get_bundle(self) -> ConfigType:
+        '''
+            Gets current reporter configuration bundle.
+
+            :return: Reporter configuration bundle.
+        '''
+        ...
+
+    def update_bundle(self, bundle: ConfigType) -> bool:
+        '''
+            Updates reporter configuration bundle.
+
+            :param bundle: Reporter configuration bundle.
+        '''
+        ...
 
     def verbose(self, is_verbose: bool, message: MessageType) -> None:
         '''

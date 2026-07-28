@@ -56,9 +56,8 @@ class ReporterOptionsValidator:
             :param options: Reporter options instance to be validated.
             :exceptions:
                 | ATSValueError: Options must be provided and have proper values.
-                | ATSTypeError:  Options must be an instance of ReporterOptions
-                |                and its attributes must be instances of their
-                |                respective types.
+                | ATSTypeError:  Options must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
         ctx: str = 'reporter_options_validator::validate(...)'
 

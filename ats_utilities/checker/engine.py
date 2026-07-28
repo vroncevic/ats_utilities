@@ -64,6 +64,7 @@ class Checker:
                 | __init__ - Initializes Checker constructor.
                 | get_bundle - Gets current checker configuration bundle.
                 | update_bundle - Updates checker configuration bundle.
+                | _apply_bundle - Applies bundle configuration to instance attributes.
                 | get_format_validator - Returns the format validator used in validation of parameters.
                 | get_type_validator - Returns the type validator used in validation of parameters.
                 | get_context_provider - Returns the context provider used in validation of parameters.
@@ -91,10 +92,7 @@ class Checker:
                 |                respective interfaces and types.
         '''
         CheckerValidator.validate(own)
-        self._format_validator = own.format_validator
-        self._type_validator = own.type_validator
-        self._context_provider = own.context_provider
-        self._check_reporter = own.check_reporter
+        self._apply_bundle(own)
         self._is_initialized = True
 
     def get_bundle(self) -> CheckerBundle:
@@ -121,15 +119,24 @@ class Checker:
         '''
         try:
             CheckerValidator.validate(bundle)
-            self._format_validator = bundle.format_validator
-            self._type_validator = bundle.type_validator
-            self._context_provider = bundle.context_provider
-            self._check_reporter = bundle.check_reporter
+            self._apply_bundle(bundle)
 
             return True
 
         except (ATSValueError, ATSTypeError):
             return False
+
+    def _apply_bundle(self, bundle: CheckerBundle) -> None:
+        '''
+            Applies bundle configuration to instance attributes.
+
+            :param bundle: Checker bundle with checker components.
+            :exceptions: None.
+        '''
+        self._format_validator = bundle.format_validator
+        self._type_validator = bundle.type_validator
+        self._context_provider = bundle.context_provider
+        self._check_reporter = bundle.check_reporter
 
     def get_format_validator(self) -> IFormatValidator:
         '''

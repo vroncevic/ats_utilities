@@ -56,16 +56,15 @@ class ReporterRegistry:
             :return: Reporter bundle instance.
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper values.
-                | ATSTypeError:  Dependencies must be an instance of ReporterDependencies
-                |                and its attributes must be instances of their
-                |                respective types.
+                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
         ReporterDependenciesValidator.validate(dependencies)
 
         bundle: ReporterBundle = ReporterBundle(
-            checker=dependencies.get(ReporterKeys.DEPENDENCY_CHECKER),
-            theme=dependencies.get(ReporterKeys.DEPENDENCY_THEME),
-            logger=dependencies.get(ReporterKeys.DEPENDENCY_LOGGER),
+            checker=dependencies.get(ReporterKeys.DEPENDENCY_CHECKER) if dependencies else None,
+            theme=dependencies.get(ReporterKeys.DEPENDENCY_THEME) if dependencies else None,
+            logger=dependencies.get(ReporterKeys.DEPENDENCY_LOGGER) if dependencies else None,
         )
 
         ReporterValidator.validate(bundle)

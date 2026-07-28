@@ -51,16 +51,16 @@ class ILogBuffer[MessageType, LevelType](Protocol):
             
     '''
 
-    def add(self, message: MessageType, level: LevelType) -> None:
+    def add(self, level: LevelType, message: MessageType) -> None:
         '''
             Adds a message to the buffer.
 
-            :param message: The message to buffer.
             :param level: Log level.
+            :param message: The message to buffer.
         '''
         ...
 
-    def flush(self, writer: Callable[[MessageType, LevelType], None]) -> None:
+    def flush(self, writer: Callable[[LevelType, MessageType], None]) -> None:
         '''
             Flushes buffered messages to a writer.
 
