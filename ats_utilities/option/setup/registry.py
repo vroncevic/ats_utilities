@@ -21,7 +21,6 @@ Info
 
 from __future__ import annotations
 
-from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.setup.dependencies import OptionDependencies
 from ats_utilities.option.setup.keys import OptionKeys
@@ -38,7 +37,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class OptionRegistry(IRegistry[OptionBundle, OptionDependencies]):
+class OptionRegistry:
     '''
         Encapsulates core runtime components for simplification of option bundle creation.
 
@@ -56,24 +55,13 @@ class OptionRegistry(IRegistry[OptionBundle, OptionDependencies]):
             :param dependencies: Registry-specific orchestration dependencies.
             :return: Option bundle instance.
             :exceptions:
-                | ATSValueError: Dependencies must be provided.
-                | ATSTypeError: Dependencies must be a Mapping.
-                | ATSTypeError: Parameters must be a Mapping.
-                | ATSTypeError: Strategy must be an instance of IParserStrategy.
-                | ATSTypeError: Context bundle must be a ContextBundle.
-                | ATSValueError: Option bundle must be provided.
-                | ATSValueError: Parameters must be provided.
-                | ATSValueError: Strategy must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Option bundle must be an instance of OptionBundle.
-                | ATSTypeError: Parameters must be a Mapping[str, str] instance.
-                | ATSTypeError: Strategy must be an IParserStrategy instance.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSValueError: Option dependencies must be provided and have proper values.
+                | ATSTypeError:  Option dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
         OptionDependenciesValidator.validate(dependencies)
 
         bundle: OptionBundle = OptionBundle(
-            parameters=dependencies.get(OptionKeys.DEPENDENCY_PARAMETERS) if dependencies else None,
             strategy=dependencies.get(OptionKeys.DEPENDENCY_STRATEGY) if dependencies else None,
             context_bundle=dependencies.get(OptionKeys.DEPENDENCY_CONTEXT_BUNDLE) if dependencies else None
         )

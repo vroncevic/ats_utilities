@@ -21,13 +21,10 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
-
-
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
-from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -41,7 +38,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class OptionValidator(IValidator[OptionBundle]):
+class OptionValidator:
     '''
         Validator for option bundle instance.
 
@@ -58,24 +55,19 @@ class OptionValidator(IValidator[OptionBundle]):
 
             :param bundle: Option bundle instance to be validated.
             :exceptions:
-                | ATSValueError: Option bundle must be provided.
-                | ATSValueError: Parameters must be provided.
-                | ATSValueError: Strategy must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Option bundle must be an instance of OptionBundle.
-                | ATSTypeError: Parameters must be a Mapping[str, str] instance.
-                | ATSTypeError: Strategy must be an IParserStrategy instance.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSValueError: Option bundle must be provided and have proper values.
+                | ATSTypeError:  Option bundle must be an instance of OptionBundle and its
+                |                attributes must be instances of their respective types.
         '''
         ctx: str = 'option_validator::validate(...)'
 
         not_none(bundle, ctx, 'option bundle must be provided')
         istype(bundle, OptionBundle, ctx, 'option bundle must be an instance of OptionBundle')
 
-        not_none(bundle.parameters, ctx, 'parameters must be provided')
         not_none(bundle.strategy, ctx, 'strategy must be provided')
         not_none(bundle.context_bundle, ctx, 'context bundle must be provided')
 
-        istype(bundle.parameters, Mapping[str, str], ctx, 'parameters must be a Mapping[str, str] instance')
         istype(bundle.strategy, IParserStrategy, ctx, 'strategy must be an IParserStrategy instance')
         istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')
+
+        ContextValidator.validate(bundle.context_bundle)

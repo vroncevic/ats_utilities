@@ -46,14 +46,12 @@ class OptionBundle:
         It defines:
 
             :attributes:
-                | parameters - Configuration parameters.
                 | strategy - Strategy for argument parsing.
                 | context_bundle - Context bundle for dependency injection.
             :methods:
                 | to_dict - Converts option bundle to a dictionary.
     '''
 
-    parameters: Mapping[str, str]
     strategy: IParserStrategy
     context_bundle: ContextBundle
 

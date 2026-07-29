@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Container, Mapping, Sequence
 
 from ats_utilities.exceptions import ATSValueError
 from ats_utilities.validation.context_error import raise_error
@@ -37,7 +37,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-def cherry_pick_dict(source: Mapping[object, object], keys: frozenset[str]) -> dict[object, object]:
+def cherry_pick_dict[K, V](source: Mapping[K, V] | None, keys: Container[object] | None) -> dict[K, V]:
     '''
         Cherry picks keys from a source dictionary.
 

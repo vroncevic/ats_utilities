@@ -16,13 +16,12 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Option dependencies and options for option bundle creation.
+    Option dependencies for option bundle creation.
 '''
 
 from __future__ import annotations
 
-from collections.abc import Mapping
-from typing import TypedDict, NotRequired
+from typing import TypedDict
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
@@ -44,11 +43,9 @@ class OptionDependencies(TypedDict):
         It defines:
 
             :attributes:
-                | parameters: Configuration parameters.
                 | strategy: Strategy for argument parsing.
                 | context_bundle: Context bundle for dependency injection.
     '''
 
-    parameters: NotRequired[Mapping[str, str]]
-    strategy: NotRequired[IParserStrategy]
-    context_bundle: NotRequired[ContextBundle]
+    strategy: IParserStrategy
+    context_bundle: ContextBundle

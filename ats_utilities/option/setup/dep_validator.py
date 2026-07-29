@@ -25,9 +25,7 @@ from collections.abc import Mapping
 
 from ats_utilities.option.setup.dependencies import OptionDependencies
 from ats_utilities.option.setup.keys import OptionKeys
-from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
-from ats_utilities.utils.setup.idep_validator import IDependenciesValidator
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -41,7 +39,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class OptionDependenciesValidator(IDependenciesValidator[OptionDependencies]):
+class OptionDependenciesValidator:
     '''
         Validator for option dependencies.
 
@@ -58,25 +56,23 @@ class OptionDependenciesValidator(IDependenciesValidator[OptionDependencies]):
 
             :param dependencies: Option dependencies instance to be validated.
             :exceptions:
-                | ATSValueError: Dependencies must be provided.
-                | ATSTypeError: Dependencies must be a Mapping.
-                | ATSTypeError: Parameters must be a Mapping.
-                | ATSTypeError: Strategy must be an instance of IParserStrategy.
-                | ATSTypeError: Context bundle must be a ContextBundle.
+                | ATSValueError: Dependencies must be provided and have proper values.
+                | ATSTypeError:  Dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
         ctx: str = 'option_dependencies_validator::validate(...)'
 
         not_none(dependencies, ctx, 'dependencies must be provided')
         istype(dependencies, Mapping, ctx, 'dependencies must be a Mapping')
 
-        parameters = dependencies.get(OptionKeys.DEPENDENCY_PARAMETERS)
-        not_none(parameters, ctx, 'parameters must be provided')
-        istype(parameters, Mapping, ctx, 'parameters must be a Mapping')
+        for attr_name, expected_type in OptionKeys.get_dependency_to_type().items():
+            attribute: object = dependencies.get(attr_name)
 
-        strategy = dependencies.get(OptionKeys.DEPENDENCY_STRATEGY)
-        not_none(strategy, ctx, 'strategy must be provided')
-        istype(strategy, IParserStrategy, ctx, 'strategy must be an instance of IParserStrategy')
+            not_none(attribute, ctx, f'{attr_name.replace("_", " ")} must be provided')
+            istype(
+                attribute, expected_type, ctx,
+                f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+            )
 
-        context_bundle = dependencies.get(OptionKeys.DEPENDENCY_CONTEXT_BUNDLE)
-        not_none(context_bundle, ctx, 'context bundle must be provided')
-        istype(context_bundle, ContextBundle, ctx, 'context bundle must be an instance of ContextBundle')
+            if attr_name == OptionKeys.DEPENDENCY_CONTEXT_BUNDLE:
+                ContextValidator.validate(attribute)

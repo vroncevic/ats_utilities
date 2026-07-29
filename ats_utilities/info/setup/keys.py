@@ -114,6 +114,16 @@ class InfoKeys:
                 | is_required_config_key - Checks if key name is a required key.
                 | get_name_of_config_key - Returns the dependency key for the given config key.
                 | get_config_key_to_type - Returns mapping of all config keys to their types.
+                | get_name - Returns the name of the application from config.
+                | get_version - Returns the version of the application from config.
+                | get_build_date - Returns the build date of the application from config.
+                | get_licence - Returns the licence of the application from config.
+                | get_repository - Returns the repository of the application from config.
+                | get_organization - Returns the organization of the application from config.
+                | get_use_github_infrastructure - Returns the use github infrastructure of the application from config.
+                | get_logo_path - Returns the logo path of the application from config.
+                | get_log_file - Returns the log file of the application from config.
+                | get_info_ok - Returns the info ok of the application from config.
     '''
 
     # Dependency Keys
@@ -352,3 +362,113 @@ class InfoKeys:
             cls.ATS_LOG_FILE: LogFile,
             cls.ATS_INFO_OK: InfoOk
         })
+
+    @classmethod
+    def get_name(cls, config: Mapping[str, str]) -> str | None:
+        '''
+            Returns the name of the application from config.
+
+            :param config: Configuration mapping.
+            :return: Name of the application if defined, otherwise None.
+            :exceptions: None.
+        '''
+        return config.get(cls.ATS_NAME) if cls.ATS_NAME in config else None
+
+    @classmethod
+    def get_version(cls, config: Mapping[str, str]) -> str | None:
+        '''
+            Returns the version of the application from config.
+
+            :param config: Configuration mapping.
+            :return: Version of the application if defined, otherwise None.
+            :exceptions: None.
+        '''
+        return config.get(cls.ATS_VERSION) if cls.ATS_VERSION in config else None
+
+    @classmethod
+    def get_build_date(cls, config: Mapping[str, str]) -> str | None:
+        '''
+            Returns the build date of the application from config.
+
+            :param config: Configuration mapping.
+            :return: Build date of the application if defined, otherwise None.
+            :exceptions: None.
+        '''
+        return config.get(cls.ATS_BUILD_DATE) if cls.ATS_BUILD_DATE in config else None
+
+    @classmethod
+    def get_licence(cls, config: Mapping[str, str]) -> str | None:
+        '''
+            Returns the licence of the application from config.
+
+            :param config: Configuration mapping.
+            :return: Licence of the application if defined, otherwise None.
+            :exceptions: None.
+        '''
+        return config.get(cls.ATS_LICENCE) if cls.ATS_LICENCE in config else None
+
+    @classmethod
+    def get_repository(cls, config: Mapping[str, str]) -> str | None:
+        '''
+            Returns the repository of the application from config.
+
+            :param config: Configuration mapping.
+            :return: Repository of the application if defined, otherwise None.
+            :exceptions: None.
+        '''
+        return config.get(cls.ATS_REPOSITORY) if cls.ATS_REPOSITORY in config else None
+
+    @classmethod
+    def get_organization(cls, config: Mapping[str, str]) -> str | None:
+        '''
+            Returns the organization of the application from config.
+
+            :param config: Configuration mapping.
+            :return: Organization of the application if defined, otherwise None.
+            :exceptions: None.
+        '''
+        return config.get(cls.ATS_ORGANIZATION) if cls.ATS_ORGANIZATION in config else None
+
+    @classmethod
+    def get_use_github_infrastructure(cls, config: Mapping[str, str]) -> bool | None:
+        '''
+            Returns the use github infrastructure of the application from config.
+
+            :param config: Configuration mapping.
+            :return: Use github infrastructure of the application if defined, otherwise None.
+            :exceptions: None.
+        '''
+        return config.get(cls.ATS_USE_GITHUB_INFRASTRUCTURE) if cls.ATS_USE_GITHUB_INFRASTRUCTURE in config else None
+
+    @classmethod
+    def get_logo_path(cls, config: Mapping[str, str]) -> str | None:
+        '''
+            Returns the logo path of the application from config.
+
+            :param config: Configuration mapping.
+            :return: Logo path of the application if defined, otherwise None.
+            :exceptions: None.
+        '''
+        return config.get(cls.ATS_LOGO_PATH) if cls.ATS_LOGO_PATH in config else None
+
+    @classmethod
+    def get_log_file(cls, config: Mapping[str, str]) -> str | None:
+        '''
+            Returns the log file of the application from config.
+
+            :param config: Configuration mapping.
+            :return: Log file of the application if defined, otherwise None.
+            :exceptions: None.
+        '''
+        return config.get(cls.ATS_LOG_FILE) if cls.ATS_LOG_FILE in config else None
+
+    @classmethod
+    def get_info_ok(cls, config: Mapping[str, str]) -> bool | None:
+        '''
+            Returns the info ok of the application from config.
+
+            :param config: Configuration mapping.
+            :return: Info ok of the application if defined, otherwise None.
+            :exceptions: None.
+        '''
+        return config.get(cls.ATS_INFO_OK) if cls.ATS_INFO_OK in config else None

@@ -22,10 +22,9 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TypedDict, NotRequired
+from typing import TypedDict
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.underlying.iunderlying import IUnderlyingParser
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -46,9 +45,7 @@ class OptionOptions(TypedDict):
             :attributes:
                 | parameters: Configuration parameters.
                 | context_bundle: Context bundle for dependency injection.
-                | parser: Injected parser instance.
     '''
 
-    parameters: NotRequired[Mapping[str, str]]
-    context_bundle: NotRequired[ContextBundle]
-    parser: NotRequired[IUnderlyingParser]
+    parameters: Mapping[str, str]
+    context_bundle: ContextBundle

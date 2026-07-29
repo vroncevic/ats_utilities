@@ -21,7 +21,6 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 from dataclasses import dataclass
 
 from ats_utilities.context.bundle import ContextBundle
@@ -46,14 +45,12 @@ class StrategyData:
         It defines:
 
             :attributes:
-                | parameters - Configuration parameters.
                 | context_bundle - Context bundle for strategy.
                 | parser - Underlying parser.
             :methods:
                 | to_dict - Converts StrategyData instance to dictionary.
     '''
 
-    parameters: Mapping[str, str]
     context_bundle: ContextBundle
     parser: IUnderlyingParser
 

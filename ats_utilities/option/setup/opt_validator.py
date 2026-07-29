@@ -25,11 +25,10 @@ from collections.abc import Mapping
 
 from ats_utilities.option.setup.options import OptionOptions
 from ats_utilities.option.setup.keys import OptionKeys
-from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.underlying.iunderlying import IUnderlyingParser
+from ats_utilities.context.validator import ContextValidator 
 from ats_utilities.utils.setup.iopt_validator import IOptionsValidator
 from ats_utilities.validation.check_type import istype
-from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_value import not_none, not_satisfied
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -58,27 +57,27 @@ class OptionOptionsValidator(IOptionsValidator[OptionOptions]):
 
             :param options: Option options instance to be validated.
             :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a Mapping.
-                | ATSTypeError: Parameters must be a Mapping.
-                | ATSTypeError: Context bundle must be a ContextBundle.
-                | ATSTypeError: Parser must be an instance of IUnderlyingParser.
+                | ATSValueError: Options must be provided and have proper values.
+                | ATSTypeError:  Options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
         ctx: str = 'option_options_validator::validate(...)'
 
         not_none(options, ctx, 'options must be provided')
         istype(options, Mapping, ctx, 'options must be a Mapping')
 
-        parameters = options.get(OptionKeys.OPTION_PARAMETERS)
-        not_none(parameters, ctx, 'parameters must be provided')
-        istype(parameters, Mapping, ctx, 'parameters must be a Mapping')
+        for opt_name, expected_type in OptionKeys.get_option_to_type().items():
+            opt_attribute: object = options.get(opt_name)
+            not_none(opt_attribute, ctx, f'{opt_name.replace("_", " ")} must be provided')
+            istype(
+                opt_attribute, expected_type, ctx,
+                f'{opt_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+            )
 
-        context_bundle = options.get(OptionKeys.OPTION_CONTEXT_BUNDLE)
-        not_none(context_bundle, ctx, 'context bundle must be provided')
-        istype(context_bundle, ContextBundle, ctx, 'context bundle must be an instance of ContextBundle')
+            if opt_name == OptionKeys.OPTION_PARAMETERS:
+                missing_keys: set[str] = OptionKeys.REQUIRED_CONFIG_KEYS_SET - opt_attribute.keys()
+                msg: str | None = f'missing configuration keys: {', '.join(sorted(missing_keys))}' if missing_keys else None
+                not_satisfied(bool(missing_keys), ctx, msg)
 
-        parser = options.get(OptionKeys.OPTION_PARSER)
-
-        if parser is not None:
-            not_none(parser, ctx, 'parser must be provided')
-            istype(parser, IUnderlyingParser, ctx, 'parser must be an instance of IUnderlyingParser')
+            if opt_name == OptionKeys.OPTION_CONTEXT_BUNDLE:
+                ContextValidator.validate(opt_attribute)

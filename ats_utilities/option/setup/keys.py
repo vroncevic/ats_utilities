@@ -23,10 +23,10 @@ from __future__ import annotations
 
 from typing import ClassVar
 from types import MappingProxyType
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 
+from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
-from ats_utilities.option.underlying.iunderlying import IUnderlyingParser
 from ats_utilities.context.bundle import ContextBundle
 
 __author__ = 'Vladimir Roncevic'
@@ -46,26 +46,37 @@ class OptionKeys:
         It defines:
 
             :attributes:
-                | DEPENDENCY_PARAMETERS: Parameters interface constant.
                 | DEPENDENCY_STRATEGY: Strategy interface constant.
                 | DEPENDENCY_CONTEXT_BUNDLE: Context bundle interface constant.
                 | OPTION_PARAMETERS: Parameters option constant.
                 | OPTION_CONTEXT_BUNDLE: Context bundle option constant.
-                | OPTION_PARSER: Parser option constant.
+                | REQUIRED_CONFIG_KEYS_SET - Set of required information keys.
+                | GET_NAME: Callable that retrieves name from the parameters.
+                | GET_VERSION: Callable that retrieves version from the parameters.
+                | GET_BUILD_DATE: Callable that retrieves build date from the parameters.
+                | GET_LICENCE: Callable that retrieves licence from the parameters.
             :methods:
                 | get_dependency_to_type - Returns mapping of option dependencies to their types.
                 | get_option_to_type - Returns mapping of option options to their types.
     '''
 
     # Dependency Keys
-    DEPENDENCY_PARAMETERS: ClassVar[str] = 'parameters'
     DEPENDENCY_STRATEGY: ClassVar[str] = 'strategy'
     DEPENDENCY_CONTEXT_BUNDLE: ClassVar[str] = 'context_bundle'
 
     # Option Keys
     OPTION_PARAMETERS: ClassVar[str] = 'parameters'
     OPTION_CONTEXT_BUNDLE: ClassVar[str] = 'context_bundle'
-    OPTION_PARSER: ClassVar[str] = 'parser'
+
+    # Information Keys
+    REQUIRED_CONFIG_KEYS_SET: ClassVar[frozenset[str]] = frozenset(
+        InfoKeys.get_required_config_keys()
+    )
+
+    GET_NAME: ClassVar[Callable[[Mapping[str, str]], str]] = InfoKeys.get_name
+    GET_VERSION: ClassVar[Callable[[Mapping[str, str]], str]] = InfoKeys.get_version
+    GET_BUILD_DATE: ClassVar[Callable[[Mapping[str, str]], str]] = InfoKeys.get_build_date
+    GET_LICENCE: ClassVar[Callable[[Mapping[str, str]], str]] = InfoKeys.get_licence
 
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
@@ -76,7 +87,6 @@ class OptionKeys:
             :exceptions: None.
         '''
         return MappingProxyType({
-            cls.DEPENDENCY_PARAMETERS: Mapping,
             cls.DEPENDENCY_STRATEGY: IParserStrategy,
             cls.DEPENDENCY_CONTEXT_BUNDLE: ContextBundle,
         })
@@ -92,5 +102,4 @@ class OptionKeys:
         return MappingProxyType({
             cls.OPTION_PARAMETERS: Mapping,
             cls.OPTION_CONTEXT_BUNDLE: ContextBundle,
-            cls.OPTION_PARSER: IUnderlyingParser,
         })

@@ -21,13 +21,11 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
-
-
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.option.strategy.data import StrategyData
 from ats_utilities.option.underlying.iunderlying import IUnderlyingParser
-from ats_utilities.validation.check_value import not_none, not_satisfied
+from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
 __author__: str = 'Vladimir Roncevic'
@@ -57,21 +55,18 @@ class StrategyDataValidator:
 
             :param data: StrategyData instance to be validated.
             :exceptions:
-                | ATSValueError: Parameters must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSValueError: Parser must be provided.
-                | ATSTypeError: Parameters must be a Mapping[str, str] instance.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
-                | ATSTypeError: Parser must be an instance of IUnderlyingParser.
+                | ATSValueError: Strategy data must be provided and have proper values.
+                | ATSTypeError:  Strategy data must be an instance of StrategyData and its
+                |                attributes must be instances of their respective types.
         '''
         ctx: str = 'strategy_data_validator::validate(...)'
         not_none(data, ctx, 'strategy data must be provided')
         istype(data, StrategyData, ctx, 'strategy data must be an instance of StrategyData')
 
-        not_none(data.parameters, ctx, 'parameters must be provided')
         not_none(data.context_bundle, ctx, 'context bundle must be provided')
         not_none(data.parser, ctx, 'parser must be provided')
 
-        istype(data.parameters, Mapping, ctx, 'parameters must be a Mapping[str, str] instance')
         istype(data.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')
         istype(data.parser, IUnderlyingParser, ctx, 'parser must be an instance of IUnderlyingParser')
+
+        ContextValidator.validate(data.context_bundle)
