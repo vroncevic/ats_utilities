@@ -56,7 +56,7 @@ class InfoRegistry:
             :return: Info bundle instance.
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper values.
-                | ATSTypeError:  Dependencies must be an instance of InfoDependencies and its
+                | ATSTypeError:  Dependencies must be an instance of Mapping and its
                 |                attributes must be instances of their respective types.
         '''
         InfoDependenciesValidator.validate(dependencies)

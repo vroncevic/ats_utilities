@@ -35,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class ILogo(Protocol):
+class ILogo[LogoType](Protocol):
     '''
         Defines abstract class ILogo with method(s).
         Interface for the logo path mechanism.
@@ -50,22 +50,22 @@ class ILogo(Protocol):
     '''
 
     @property
-    def logo(self) -> str | None:
+    def logo(self) -> LogoType | None:
         '''
             Property method for getting logo path.
             Note: Logo path is only prepared when it is set by user (not None).
 
-            :return: The logo path in string format | None.
+            :return: The logo path in LogoType format | None.
         '''
         ...
 
     @logo.setter
-    def logo(self, logo: str) -> None:
+    def logo(self, logo: LogoType) -> None:
         '''
             Property method for setting logo path.
             Note: Logo path is only prepared when it is set by user (not None).
 
-            :param logo: The logo path in string format.
+            :param logo: The logo path in LogoType format.
         '''
         ...
 

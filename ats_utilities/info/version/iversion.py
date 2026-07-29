@@ -35,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IVersion(Protocol):
+class IVersion[VersionType](Protocol):
     '''
         Defines abstract class IVersion with method(s).
         Interface for the version mechanism.
@@ -50,22 +50,22 @@ class IVersion(Protocol):
     '''
 
     @property
-    def version(self) -> str | None:
+    def version(self) -> VersionType | None:
         '''
             Property method for getting version.
             Note: Version is only prepared when it is set by user (not None).
 
-            :return: The version in string format | None.
+            :return: The version in VersionType format | None.
         '''
         ...
 
     @version.setter
-    def version(self, version: str) -> None:
+    def version(self, version: VersionType) -> None:
         '''
             Property method for setting version.
             Note: Version is only prepared when it is set by user (not None).
 
-            :param version: The version in string format.
+            :param version: The version in VersionType format.
         '''
         ...
 

@@ -35,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class ILicence(Protocol):
+class ILicence[LicenceType](Protocol):
     '''
         Defines abstract class ILicence with method(s).
         Interface for the licence mechanism.
@@ -50,22 +50,22 @@ class ILicence(Protocol):
     '''
 
     @property
-    def licence(self) -> str | None:
+    def licence(self) -> LicenceType | None:
         '''
             Property method for getting licence.
             Note: Info licence is only prepared when it is set by user (not None).
 
-            :return: The licence in string format | None.
+            :return: The licence in LicenceType format | None.
         '''
         ...
 
     @licence.setter
-    def licence(self, licence: str) -> None:
+    def licence(self, licence: LicenceType) -> None:
         '''
             Property method for setting licence.
             Note: Info licence is only prepared when it is set by user (not None).
 
-            :param licence: The licence in string format.
+            :param licence: The licence in LicenceType format.
         '''
         ...
 

@@ -35,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IName(Protocol):
+class IName[NameType](Protocol):
     '''
         Defines abstract class IName with method(s).
         Interface for the name mechanism.
@@ -50,22 +50,22 @@ class IName(Protocol):
     '''
 
     @property
-    def name(self) -> str | None:
+    def name(self) -> NameType | None:
         '''
             Property method for getting name.
             Note: Name is only prepared when it is set by user (not None).
 
-            :return: The name in string format | None
+            :return: The name in NameType format | None
         '''
         ...
 
     @name.setter
-    def name(self, name: str | None) -> None:
+    def name(self, name: NameType) -> None:
         '''
             Property method for setting name.
             Note: Name is only prepared when it is set by user (not None).
 
-            :param name: The name in string format | None
+            :param name: The name in NameType format
         '''
         ...
 

@@ -75,12 +75,12 @@ class InfoOk:
 
     @property
     @vreport('getting info_ok {info_ok}')
-    def info_ok(self) -> bool:
+    def info_ok(self) -> bool | None:
         '''
             Property method for getting information status.
             Note: Info status is only prepared when it is set by user (not None).
 
-            :return: The information status in bool format.
+            :return: The information status in bool format | None.
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

@@ -30,7 +30,7 @@ from ats_utilities.info.setup.bundle import InfoBundle
 from ats_utilities.info.setup.factory import InfoFactory
 from ats_utilities.info.setup.validator import InfoValidator
 from ats_utilities.info.setup.keys import InfoKeys
-from ats_utilities.exceptions import ATSAttributeError
+from ats_utilities.exceptions import ATSAttributeError, ATSValueError, ATSTypeError
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_satisfied, not_none
@@ -61,9 +61,15 @@ class InfoManager:
                 | _is_initialized - Indicates if the info manager component is initialized (default False).
             :methods:
                 | __init__ - Initializes InfoManager constructor.
+                | get_bundle - Gets current info bundle.
+                | update_bundle - Updates info bundle.
+                | _apply_bundle - Applies bundle configuration to instance attributes.
                 | get_context - Returns the context.
                 | set_info - Sets the information structure.
                 | get_info - Gets the information structure.
+                | is_registered_attribute - Checks if attribute name is a registered dependency attribute name.
+                | __getattr__ - Gets attribute by name.
+                | __setattr__ - Sets attribute by name.
                 | is_initialized - Checks if info manager is initialized.
                 | refresh_status - Refreshes status for information structure.
                 | __str__ - Returns info manager as string representation.
@@ -84,8 +90,43 @@ class InfoManager:
                 |                attributes must be instances of their respective types.
         '''
         InfoValidator.validate(own)
-        self._components = own
-        self._context = own.context_bundle
+        self._apply_bundle(own)
+
+    def get_bundle(self) -> InfoBundle:
+        '''
+            Gets current info bundle.
+
+            :return: Info bundle.
+            :exceptions: None.
+        '''
+        return self._components
+
+    def update_bundle(self, bundle: InfoBundle) -> bool:
+        '''
+            Updates info configuration bundle.
+
+            :param bundle: Info bundle with info components.
+            :return: True if configuration was successfully updated, False otherwise.
+            :exceptions: None.
+        '''
+        try:
+            InfoValidator.validate(bundle)
+            self._apply_bundle(bundle)
+
+            return True
+
+        except (ATSValueError, ATSTypeError):
+            return False
+
+    def _apply_bundle(self, bundle: InfoBundle) -> None:
+        '''
+            Applies bundle configuration to instance attributes.
+
+            :param bundle: Info bundle with info components.
+            :exceptions: None.
+        '''
+        self._components = bundle
+        self._context = bundle.context_bundle
         self._is_initialized = False
         self.refresh_status()
         self._is_initialized = True

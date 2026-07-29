@@ -35,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IInfoOk(Protocol):
+class IInfoOk[InfoOkType](Protocol):
     '''
         Defines abstract class IInfoOk with method(s).
         Interface for the info status mechanism.
@@ -50,22 +50,22 @@ class IInfoOk(Protocol):
     '''
 
     @property
-    def info_ok(self) -> bool:
+    def info_ok(self) -> InfoOkType | None:
         '''
             Property method for getting information status.
             Note: Info status is only prepared when it is set by user (not None).
 
-            :return: The information status in bool format
+            :return: The information status in InfoOkType format | None.
         '''
         ...
 
     @info_ok.setter
-    def info_ok(self, info_ok: bool) -> None:
+    def info_ok(self, info_ok: InfoOkType) -> None:
         '''
             Property method for setting information status.
             Note: Info status is only prepared when it is set by user (not None).
 
-            :param info_ok: The information status in bool format
+            :param info_ok: The information status in InfoOkType format
         '''
         ...
 

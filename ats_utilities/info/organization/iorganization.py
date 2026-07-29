@@ -35,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IOrganization(Protocol):
+class IOrganization[OrganizationType](Protocol):
     '''
         Defines abstract class IOrganization with method(s).
         Interface for the organization mechanism.
@@ -50,22 +50,22 @@ class IOrganization(Protocol):
     '''
 
     @property
-    def organization(self) -> str | None:
+    def organization(self) -> OrganizationType | None:
         '''
             Property method for getting organization.
             Note: Organization is only prepared when it is set by user (not None).
 
-            :return: The organization in string format | None.
+            :return: The organization in OrganizationType format | None.
         '''
         ...
 
     @organization.setter
-    def organization(self, organization: str) -> None:
+    def organization(self, organization: OrganizationType) -> None:
         '''
             Property method for setting organization.
             Note: Organization is only prepared when it is set by user (not None).
 
-            :param organization: The organization in string format.
+            :param organization: The organization in OrganizationType format.
         '''
         ...
 

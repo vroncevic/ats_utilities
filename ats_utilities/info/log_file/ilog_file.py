@@ -35,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class ILogFile(Protocol):
+class ILogFile[LogFileType](Protocol):
     '''
         Defines abstract class ILogFile with method(s).
         Interface for the log file path mechanism.
@@ -50,22 +50,22 @@ class ILogFile(Protocol):
     '''
 
     @property
-    def log_file(self) -> str | None:
+    def log_file(self) -> LogFileType | None:
         '''
             Property method for getting log file path.
             Note: Log file path is only prepared when it is set by user (not None).
 
-            :return: The log file path in string format | None.
+            :return: The log file path in LogFileType format | None.
         '''
         ...
 
     @log_file.setter
-    def log_file(self, log_file: str) -> None:
+    def log_file(self, log_file: LogFileType) -> None:
         '''
             Property method for setting log file path.
             Note: Log file path is only prepared when it is set by user (not None).
 
-            :param log_file: The log file path in string format.
+            :param log_file: The log file path in LogFileType format.
         '''
         ...
 

@@ -35,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IRepository(Protocol):
+class IRepository[RepositoryType](Protocol):
     '''
         Defines abstract class IRepository with method(s).
         Interface for the repository mechanism.
@@ -50,22 +50,22 @@ class IRepository(Protocol):
     '''
 
     @property
-    def repository(self) -> str | None:
+    def repository(self) -> RepositoryType | None:
         '''
             Property method for getting repository.
             Note: Repository is only prepared when it is set by user (not None).
 
-            :return: The repository in string format | None.
+            :return: The repository in RepositoryType format | None.
         '''
         ...
 
     @repository.setter
-    def repository(self, repository: str) -> None:
+    def repository(self, repository: RepositoryType) -> None:
         '''
             Property method for setting repository.
             Note: Repository is only prepared when it is set by user (not None).
 
-            :param repository: The repository in string format.
+            :param repository: The repository in RepositoryType format.
         '''
         ...
 

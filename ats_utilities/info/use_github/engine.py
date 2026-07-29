@@ -75,12 +75,12 @@ class UseGitHub:
 
     @property
     @vreport('getting use_github {use_github}')
-    def use_github(self) -> bool:
+    def use_github(self) -> bool | None:
         '''
             Property method for getting use GitHub infrastructure.
             Note: Use GitHub is only prepared when it is set by user (not None).
 
-            :return: The use GitHub infrastructure.
+            :return: The use GitHub infrastructure | None.
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

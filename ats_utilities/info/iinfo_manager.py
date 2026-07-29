@@ -35,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IInfoManager[InfoStructure, ContextEnvironment](Protocol):
+class IInfoManager[ConfigType, InfoStructure, ContextEnvironment](Protocol):
     '''
         Defines abstract class IInfoManager with method(s).
         Provides an interface for the info management.
@@ -45,6 +45,8 @@ class IInfoManager[InfoStructure, ContextEnvironment](Protocol):
         It defines:
 
             :methods:
+                | get_bundle - Gets current info configuration bundle.
+                | update_bundle - Updates info configuration bundle.
                 | get_context - Returns the context.
                 | set_info - Sets the information structure.
                 | get_info - Gets the information structure.
@@ -52,6 +54,24 @@ class IInfoManager[InfoStructure, ContextEnvironment](Protocol):
                 | refresh_status - Refreshes status for information structure.
                 | __str__ - Returns info manager as string representation.
     '''
+
+    def get_bundle(self) -> ConfigType:
+        '''
+            Gets current info configuration bundle.
+
+            :return: Info configuration bundle.
+            :exceptions: None.
+        '''
+        ...
+
+    def update_bundle(self, bundle: ConfigType) -> bool:
+        '''
+            Updates info configuration bundle.
+
+            :param bundle: Info configuration bundle.
+            :exceptions: None.
+        '''
+        ...
 
     def get_context(self) -> ContextEnvironment:
         '''

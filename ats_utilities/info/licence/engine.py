@@ -75,12 +75,12 @@ class Licence:
 
     @property
     @vreport('getting licence {licence}')
-    def licence(self) -> str:
+    def licence(self) -> str | None:
         '''
             Property method for getting licence.
             Note: Info licence is only prepared when it is set by user (not None).
 
-            :return: The licence in string format.
+            :return: The licence in string format | None.
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to

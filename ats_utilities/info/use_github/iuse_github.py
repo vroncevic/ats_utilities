@@ -35,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IUseGitHub(Protocol):
+class IUseGitHub[UseGitHubType](Protocol):
     '''
         Defines abstract class IUseGitHub with method(s).
         Interface for the use GitHub infrastructure mechanism.
@@ -50,17 +50,17 @@ class IUseGitHub(Protocol):
     '''
 
     @property
-    def use_github(self) -> bool:
+    def use_github(self) -> UseGitHubType | None:
         '''
             Property method for getting use GitHub infrastructure status.
             Note: Use GitHub is only prepared when it is set by user (not None).
 
-            :return: The use GitHub infrastructure status.
+            :return: The use GitHub infrastructure status | None.
         '''
         ...
 
     @use_github.setter
-    def use_github(self, use_github: bool) -> None:
+    def use_github(self, use_github: UseGitHubType) -> None:
         '''
             Property method for setting use GitHub infrastructure status.
             Note: Use GitHub is only prepared when it is set by user (not None).

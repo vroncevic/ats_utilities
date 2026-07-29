@@ -35,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IBuildDate(Protocol):
+class IBuildDate[BuildDateType](Protocol):
     '''
         Defines abstract class IBuildDate with method(s).
         Interface for the build date mechanism.
@@ -50,22 +50,22 @@ class IBuildDate(Protocol):
     '''
 
     @property
-    def build_date(self) -> str | None:
+    def build_date(self) -> BuildDateType | None:
         '''
             Property method for getting build date.
             Note: Build date is only prepared when it is set by user (not None).
 
-            :return: The build date in string format | None.
+            :return: The build date in BuildDateType format | None.
         '''
         ...
 
     @build_date.setter
-    def build_date(self, build_date: str) -> None:
+    def build_date(self, build_date: BuildDateType | None) -> None:
         '''
             Property method for setting build date.
             Note: Build date is only prepared when it is set by user (not None).
 
-            :param build_date: The build date in string format.
+            :param build_date: The build date in BuildDateType format.
         '''
         ...
 

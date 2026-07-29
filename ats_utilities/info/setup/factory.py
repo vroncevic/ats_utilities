@@ -61,7 +61,7 @@ class InfoFactory:
             :return: Info bundle instance.
             :exceptions:
                 | ATSValueError: Info options must be provided and have proper values.
-                | ATSTypeError:  Info options must be an instance of InfoOptions and its
+                | ATSTypeError:  Info options must be an instance of Mapping and its
                 |                attributes must be instances of their respective types.
         '''
         InfoOptionsValidator.validate(options)
