@@ -21,20 +21,21 @@ Info
 
 from __future__ import annotations
 
+from argparse import ArgumentParser
 from collections.abc import Mapping
-
 
 from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.setup.options import OptionOptions
 from ats_utilities.option.setup.dependencies import OptionDependencies
+from ats_utilities.option.setup.keys import OptionKeys
 from ats_utilities.option.setup.opt_validator import OptionOptionsValidator
 from ats_utilities.option.setup.registry import OptionRegistry
 from ats_utilities.option.strategy.engine import ParserStrategy
 from ats_utilities.option.strategy.data import StrategyData
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.parser.iarg_parser import IArgParser
-from ats_utilities.option.parser.engine import ArgParser
+from ats_utilities.option.underlying.iunderlying import IUnderlyingParser
+from ats_utilities.option.underlying.engine import ParserAdapter
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -68,7 +69,7 @@ class OptionFactory(IFactory[OptionBundle, OptionOptions]):
                 | ATSTypeError: Options must be a Mapping.
                 | ATSTypeError: Parameters must be a Mapping.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
-                | ATSTypeError: Parser class must be a class type.
+                | ATSTypeError: Parser must be an instance of IUnderlyingParser.
                 | ATSValueError: Option bundle must be provided.
                 | ATSValueError: Parameters must be provided.
                 | ATSValueError: Strategy must be provided.
@@ -80,14 +81,18 @@ class OptionFactory(IFactory[OptionBundle, OptionOptions]):
         '''
         OptionOptionsValidator.validate(options)
 
-        parameters: Mapping[str, str] = options.get('parameters')
-        context_bundle: ContextBundle = options.get('context_bundle')
-        parser_class: type[IArgParser] = options.get('parser_class', ArgParser)
+        parameters: Mapping[str, str] = options.get(OptionKeys.OPTION_PARAMETERS)
+        context_bundle: ContextBundle = options.get(OptionKeys.OPTION_CONTEXT_BUNDLE)
+        parser: IUnderlyingParser = options.get(OptionKeys.OPTION_PARSER)
+
+        if parser is None:
+            parser = ParserAdapter(parser=ArgumentParser())
+
         strategy: ParserStrategy = ParserStrategy(
             strategy_data=StrategyData(
                 parameters=parameters,
                 context_bundle=context_bundle,
-                parser_class=parser_class
+                parser=parser
             )
         )
 
@@ -104,7 +109,8 @@ class OptionFactory(IFactory[OptionBundle, OptionOptions]):
         cls,
         parameters: Mapping[str, str],
         context_bundle: ContextBundle,
-        parser_class: type[IArgParser] = ArgParser
+        parser_class: type | None = None,
+        parser: IUnderlyingParser | None = None
     ) -> OptionBundle:
         '''
             Creates an option bundle from parameters in mapping format.
@@ -112,7 +118,8 @@ class OptionFactory(IFactory[OptionBundle, OptionOptions]):
 
             :param parameters: Metadata parameters in mapping format (read only data).
             :param context_bundle: Context bundle for option bundle.
-            :param parser_class: Injected parser class type.
+            :param parser_class: Injected parser class type (legacy support).
+            :param parser: Injected parser instance.
             :return: Option bundle instance.
             :exceptions:
                 | ATSValueError: Bundle must be provided.
@@ -124,10 +131,18 @@ class OptionFactory(IFactory[OptionBundle, OptionOptions]):
                 | ATSTypeError: Strategy must be an IParserStrategy instance.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        return cls.create_bundle(
-            OptionOptions(
-                parameters=parameters,
-                context_bundle=context_bundle,
-                parser_class=parser_class
-            )
+        if parser is None:
+            if parser_class is not None:
+                if issubclass(parser_class, ArgumentParser):
+                    parser = ParserAdapter(parser=parser_class())
+                else:
+                    parser = parser_class()
+
+        options = OptionOptions(
+            parameters=parameters,
+            context_bundle=context_bundle
         )
+        if parser is not None:
+            options[OptionKeys.OPTION_PARSER] = parser
+
+        return cls.create_bundle(options)

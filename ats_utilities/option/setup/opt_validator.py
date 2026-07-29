@@ -23,9 +23,10 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
-
 from ats_utilities.option.setup.options import OptionOptions
+from ats_utilities.option.setup.keys import OptionKeys
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.option.underlying.iunderlying import IUnderlyingParser
 from ats_utilities.utils.setup.iopt_validator import IOptionsValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
@@ -61,23 +62,23 @@ class OptionOptionsValidator(IOptionsValidator[OptionOptions]):
                 | ATSTypeError: Options must be a Mapping.
                 | ATSTypeError: Parameters must be a Mapping.
                 | ATSTypeError: Context bundle must be a ContextBundle.
-                | ATSTypeError: Parser class must be a class type.
+                | ATSTypeError: Parser must be an instance of IUnderlyingParser.
         '''
         ctx: str = 'option_options_validator::validate(...)'
 
         not_none(options, ctx, 'options must be provided')
         istype(options, Mapping, ctx, 'options must be a Mapping')
 
-        parameters = options.get('parameters')
+        parameters = options.get(OptionKeys.OPTION_PARAMETERS)
         not_none(parameters, ctx, 'parameters must be provided')
         istype(parameters, Mapping, ctx, 'parameters must be a Mapping')
 
-        context_bundle = options.get('context_bundle')
+        context_bundle = options.get(OptionKeys.OPTION_CONTEXT_BUNDLE)
         not_none(context_bundle, ctx, 'context bundle must be provided')
         istype(context_bundle, ContextBundle, ctx, 'context bundle must be an instance of ContextBundle')
 
-        parser_class = options.get('parser_class')
+        parser = options.get(OptionKeys.OPTION_PARSER)
 
-        if parser_class is not None:
-            not_none(parser_class, ctx, 'parser class must be provided')
-            istype(parser_class, type, ctx, 'parser class must be a class type')
+        if parser is not None:
+            not_none(parser, ctx, 'parser must be provided')
+            istype(parser, IUnderlyingParser, ctx, 'parser must be an instance of IUnderlyingParser')

@@ -25,8 +25,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.parser.iarg_parser import IArgParser
-from ats_utilities.option.parser.engine import ArgParser
+from ats_utilities.option.underlying.iunderlying import IUnderlyingParser
 from ats_utilities.utils.reflection import instance_to_dict
 
 __author__: str = 'Vladimir Roncevic'
@@ -49,14 +48,14 @@ class StrategyData:
             :attributes:
                 | parameters - Configuration parameters.
                 | context_bundle - Context bundle for strategy.
-                | parser_class - Injected parser class type.
+                | parser - Underlying parser.
             :methods:
                 | to_dict - Converts StrategyData instance to dictionary.
     '''
 
     parameters: Mapping[str, str]
     context_bundle: ContextBundle
-    parser_class: type[IArgParser] = ArgParser
+    parser: IUnderlyingParser
 
     def to_dict(self) -> dict[str, object]:
         '''

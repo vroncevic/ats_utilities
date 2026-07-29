@@ -23,8 +23,8 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
-
 from ats_utilities.option.setup.dependencies import OptionDependencies
+from ats_utilities.option.setup.keys import OptionKeys
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.utils.setup.idep_validator import IDependenciesValidator
@@ -69,14 +69,14 @@ class OptionDependenciesValidator(IDependenciesValidator[OptionDependencies]):
         not_none(dependencies, ctx, 'dependencies must be provided')
         istype(dependencies, Mapping, ctx, 'dependencies must be a Mapping')
 
-        parameters = dependencies.get('parameters')
+        parameters = dependencies.get(OptionKeys.DEPENDENCY_PARAMETERS)
         not_none(parameters, ctx, 'parameters must be provided')
         istype(parameters, Mapping, ctx, 'parameters must be a Mapping')
 
-        strategy = dependencies.get('strategy')
+        strategy = dependencies.get(OptionKeys.DEPENDENCY_STRATEGY)
         not_none(strategy, ctx, 'strategy must be provided')
         istype(strategy, IParserStrategy, ctx, 'strategy must be an instance of IParserStrategy')
 
-        context_bundle = dependencies.get('context_bundle')
+        context_bundle = dependencies.get(OptionKeys.DEPENDENCY_CONTEXT_BUNDLE)
         not_none(context_bundle, ctx, 'context bundle must be provided')
         istype(context_bundle, ContextBundle, ctx, 'context bundle must be an instance of ContextBundle')

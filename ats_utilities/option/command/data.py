@@ -79,3 +79,29 @@ class OptionData:
             :return: Dictionary representation of the option data instance.
         '''
         return instance_to_dict(self)
+
+    def to_kwargs(self) -> dict[str, object]:
+        '''
+            Converts option properties to a dictionary of parser keyword arguments.
+
+            :return: Dictionary of parser keyword arguments.
+        '''
+        kwargs: dict[str, object] = {}
+
+        if self.action is not None:
+            kwargs['action'] = self.action
+        else:
+            if self.choices is not None:
+                kwargs['choices'] = self.choices
+
+            if self.nargs is not None:
+                kwargs['nargs'] = self.nargs
+
+        if self.default is not None:
+            kwargs['default'] = self.default
+
+        if self.required:
+            kwargs['required'] = self.required
+
+        kwargs['help'] = self.help_text
+        return kwargs

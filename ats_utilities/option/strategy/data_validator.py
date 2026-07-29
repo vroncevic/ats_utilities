@@ -24,10 +24,9 @@ from __future__ import annotations
 from collections.abc import Mapping
 
 
-from ats_utilities.utils.data.ivalidator import IDataValidator
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.parser.iarg_parser import IArgParser
 from ats_utilities.option.strategy.data import StrategyData
+from ats_utilities.option.underlying.iunderlying import IUnderlyingParser
 from ats_utilities.validation.check_value import not_none, not_satisfied
 from ats_utilities.validation.check_type import istype
 
@@ -41,7 +40,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
 
 
-class StrategyDataValidator(IDataValidator[StrategyData]):
+class StrategyDataValidator:
     '''
         Validator for StrategyData class.
 
@@ -60,10 +59,10 @@ class StrategyDataValidator(IDataValidator[StrategyData]):
             :exceptions:
                 | ATSValueError: Parameters must be provided.
                 | ATSValueError: Context bundle must be provided.
-                | ATSValueError: Parser class must be provided.
+                | ATSValueError: Parser must be provided.
                 | ATSTypeError: Parameters must be a Mapping[str, str] instance.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
-                | ATSTypeError: Parser class must be a type subclassing IArgParser.
+                | ATSTypeError: Parser must be an instance of IUnderlyingParser.
         '''
         ctx: str = 'strategy_data_validator::validate(...)'
         not_none(data, ctx, 'strategy data must be provided')
@@ -71,13 +70,8 @@ class StrategyDataValidator(IDataValidator[StrategyData]):
 
         not_none(data.parameters, ctx, 'parameters must be provided')
         not_none(data.context_bundle, ctx, 'context bundle must be provided')
-        not_none(data.parser_class, ctx, 'parser class must be provided')
+        not_none(data.parser, ctx, 'parser must be provided')
 
         istype(data.parameters, Mapping, ctx, 'parameters must be a Mapping[str, str] instance')
         istype(data.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')
-        istype(data.parser_class, type, ctx, 'parser class must be a type')
-
-        not_satisfied(
-            not issubclass(data.parser_class, IArgParser),
-            ctx, 'parser class must be a class implementing IArgParser'
-        )
+        istype(data.parser, IUnderlyingParser, ctx, 'parser must be an instance of IUnderlyingParser')

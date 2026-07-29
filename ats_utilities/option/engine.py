@@ -101,6 +101,16 @@ class OptionManager:
         '''
         return self._context
 
+    @property
+    def strategy(self) -> IParserStrategy:
+        '''
+            Returns the parser strategy.
+
+            :return: Parser strategy.
+            :exceptions: None.
+        '''
+        return self._strategy
+
     @has_attrs('_strategy')
     def add_operation(self, *args: str, **kwargs: object) -> None:
         '''

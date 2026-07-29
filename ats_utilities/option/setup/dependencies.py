@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TypedDict
+from typing import TypedDict, NotRequired
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
@@ -49,6 +49,6 @@ class OptionDependencies(TypedDict):
                 | context_bundle: Context bundle for dependency injection.
     '''
 
-    parameters: Mapping[str, str]
-    strategy: IParserStrategy
-    context_bundle: ContextBundle
+    parameters: NotRequired[Mapping[str, str]]
+    strategy: NotRequired[IParserStrategy]
+    context_bundle: NotRequired[ContextBundle]

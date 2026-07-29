@@ -28,16 +28,14 @@ from types import MappingProxyType
 
 from ats_utilities.option.strategy.data import StrategyData
 from ats_utilities.option.strategy.data_validator import StrategyDataValidator
-from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.parser.iarg_parser import IArgParser
-from ats_utilities.option.parser.data import ParserData
 from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 from ats_utilities.option.option_namespace import KnownArgs
 from ats_utilities.option.command.ioption_command import IOptionCommand
-from ats_utilities.option.command.data_validator import OptionDataValidator
+from ats_utilities.option.command.ioption import IOption
+from ats_utilities.option.underlying.iunderlying import IUnderlyingParser
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
@@ -52,7 +50,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ParserStrategy(IParserStrategy):
+class ParserStrategy:
     '''
         Defines class ParserStrategy with attribute(s) and method(s).
         Default built-in strategy using Python's standard argparse module.
@@ -65,7 +63,6 @@ class ParserStrategy(IParserStrategy):
             :attributes:
                 | _context - Shared context for components.
                 | _parser - Options parser.
-                | _parser_class - Injected parser class.
                 | _subparsers - Subparsers instance.
             :methods:
                 | __init__ - Initials ParserStrategy constructor.
@@ -79,8 +76,7 @@ class ParserStrategy(IParserStrategy):
     '''
 
     _context: ContextBundle
-    _parser: IArgParser
-    _parser_class: type[IArgParser]
+    _parser: IUnderlyingParser
     _subparsers: object
 
     def __init__(self, strategy_data: StrategyData) -> None:
@@ -91,23 +87,14 @@ class ParserStrategy(IParserStrategy):
             :exceptions:
                 | ATSValueError: Strategy data must be provided.
                 | ATSTypeError: Strategy data must be a StrategyData instance.
-                | ATSTypeError: Parser class must be an IArgParser subclass.
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
-                | ATSTypeError: Parser must be an IArgParser instance.
+                | ATSValueError: Parser must be provided.
+                | ATSTypeError: Parser must be an instance of IUnderlyingParser.
         '''
         StrategyDataValidator.validate(strategy_data)
         self._context = strategy_data.context_bundle
-        self._parser_class = strategy_data.parser_class
-        parser_data = ParserData(
-            context_bundle=self._context,
-            prog=f"{strategy_data.parameters.get(InfoKeys.ATS_NAME, '')} {strategy_data.parameters.get(InfoKeys.ATS_VERSION, '')}",
-            epilog=f"{strategy_data.parameters.get(InfoKeys.ATS_NAME, '')} copyright (c) {strategy_data.parameters.get(InfoKeys.ATS_LICENCE, '')}",
-            description=f"{strategy_data.parameters.get(InfoKeys.ATS_NAME, '')} build date {strategy_data.parameters.get(InfoKeys.ATS_BUILD_DATE, '')}"
-        )
-        self._parser = self._parser_class(own=parser_data)
-        context: str = 'parser_strategy::init(...)'
-        istype(self._parser, IArgParser, context, 'parser must be an IArgParser instance')
+        self._parser = strategy_data.parser
 
     @has_attrs('_parser')
     def add_argument(self, *args: str, **kwargs: object) -> None:
@@ -167,26 +154,7 @@ class ParserStrategy(IParserStrategy):
             cmd_parser = self._subparsers.add_parser(cmd.name, help=cmd.help_text)
 
             for opt in cmd.options:
-                OptionDataValidator.validate(opt)
-                kwargs: dict[str, object] = {}
-
-                if getattr(opt, 'action', None) is not None:
-                    kwargs['action'] = opt.action
-                else:
-                    if opt.choices is not None:
-                        kwargs['choices'] = opt.choices
-
-                    if getattr(opt, 'nargs', None) is not None:
-                        kwargs['nargs'] = opt.nargs
-
-                if opt.default is not None:
-                    kwargs['default'] = opt.default
-
-                if opt.required:
-                    kwargs['required'] = opt.required
-
-                kwargs['help'] = opt.help_text
-                cmd_parser.add_argument(opt.name, **kwargs)
+                cmd_parser.add_argument(opt.name, **opt.to_kwargs())
 
     @has_attrs('_parser')
     def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, object]]:

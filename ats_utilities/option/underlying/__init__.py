@@ -2,7 +2,7 @@
 
 '''
 Module
-    options.py
+    __init__.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,16 +16,10 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Option options for option bundle creation.
+    Initialize ats_utilities.option.underlying package.
 '''
 
 from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TypedDict, NotRequired
-
-from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.underlying.iunderlying import IUnderlyingParser
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -35,20 +29,3 @@ __version__ = '3.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
-
-
-class OptionOptions(TypedDict):
-    '''
-        Option options for option bundle creation.
-
-        It defines:
-
-            :attributes:
-                | parameters: Configuration parameters.
-                | context_bundle: Context bundle for dependency injection.
-                | parser: Injected parser instance.
-    '''
-
-    parameters: NotRequired[Mapping[str, str]]
-    context_bundle: NotRequired[ContextBundle]
-    parser: NotRequired[IUnderlyingParser]

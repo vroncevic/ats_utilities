@@ -1,0 +1,79 @@
+# -*- coding: UTF-8 -*-
+
+'''
+Module
+    iunderlying.py
+Copyright
+    Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines abstract class IUnderlyingParser with method(s).
+    Provides an interface for the underlying parser.
+'''
+
+from __future__ import annotations
+
+from typing import Protocol, runtime_checkable
+from ats_utilities.option.option_namespace import OptionNamespace, OptArgs
+
+
+@runtime_checkable
+class IUnderlyingParser(Protocol):
+    '''
+        Defines abstract class IUnderlyingParser with method(s).
+        Provides an interface for the underlying parser.
+
+        It defines:
+
+            :methods:
+                | add_argument - Adds an operational argument/flag to the parser.
+                | add_subparsers - Adds subparsers to the parser.
+                | parse_args - Parses the input arguments and returns an OptionNamespace.
+                | parse_known_args - Parses known input arguments.
+    '''
+
+    def add_argument(self, *args: str, **kwargs: object) -> object:
+        '''
+            Adds an operational argument/flag to the parser.
+
+            :param args: Flags/arguments.
+            :param kwargs: Arguments as dictionary.
+            :return: The added action object.
+        '''
+        ...
+
+    def add_subparsers(self, **kwargs: object) -> object:
+        '''
+            Adds subparsers to the parser.
+
+            :param kwargs: Arguments as dictionary.
+            :return: The subparsers action object.
+        '''
+        ...
+
+    def parse_args(self, args: OptArgs = None) -> OptionNamespace:
+        '''
+            Parses the input arguments and returns an OptionNamespace.
+
+            :param args: Sequence of arguments.
+            :return: Option namespace object.
+        '''
+        ...
+
+    def parse_known_args(self, args: OptArgs = None) -> tuple[OptionNamespace, list[str]]:
+        '''
+            Parses known input arguments.
+
+            :param args: Sequence of arguments.
+            :return: Tuple containing option namespace and unknown arguments.
+        '''
+        ...

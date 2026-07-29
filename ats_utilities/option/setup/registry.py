@@ -21,11 +21,10 @@ Info
 
 from __future__ import annotations
 
-
-
 from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.setup.dependencies import OptionDependencies
+from ats_utilities.option.setup.keys import OptionKeys
 from ats_utilities.option.setup.validator import OptionValidator
 from ats_utilities.option.setup.dep_validator import OptionDependenciesValidator
 
@@ -74,9 +73,9 @@ class OptionRegistry(IRegistry[OptionBundle, OptionDependencies]):
         OptionDependenciesValidator.validate(dependencies)
 
         bundle: OptionBundle = OptionBundle(
-            parameters=dependencies.get('parameters'),
-            strategy=dependencies.get('strategy'),
-            context_bundle=dependencies.get('context_bundle')
+            parameters=dependencies.get(OptionKeys.DEPENDENCY_PARAMETERS) if dependencies else None,
+            strategy=dependencies.get(OptionKeys.DEPENDENCY_STRATEGY) if dependencies else None,
+            context_bundle=dependencies.get(OptionKeys.DEPENDENCY_CONTEXT_BUNDLE) if dependencies else None
         )
 
         OptionValidator.validate(bundle)
