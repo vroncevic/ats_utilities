@@ -43,15 +43,15 @@ def raise_error(
     '''
         Raises a contextual exception using caller context.
 
-        :param fallback_context: Fallback prefix to use in the exception message if no message is provided.
-        :param fallback_msg: Fallback message to include in the exception message if no message is provided.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
-        :param exc_class: The exception class to raise.
+        :param fallback_context: Fallback prefix for exception.
+        :param fallback_msg: Fallback suffix for exception.
+        :param exc_context: Contextual prefix for exception.
+        :param exc_message: Contextual suffix for exception.
+        :param exc_class: Exception class to be raised.
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
     '''
-    if exc_message is None or exc_context is None:
-        raise exc_class(f'{fallback_context} - {fallback_msg}')
+    context: str = exc_context if exc_context is not None else fallback_context
+    message: str = exc_message if exc_message is not None else fallback_msg
 
-    raise exc_class(f'{exc_context} - {exc_message}')
+    raise exc_class(f'{context} - {message}')

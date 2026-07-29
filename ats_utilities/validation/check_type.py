@@ -102,7 +102,7 @@ def istype(
 
     if not isinstance(instance, check_types):
         raise_error(
-            fallback_context=r'check_type::istype(...)',
+            fallback_context='check_type::istype(...)',
             fallback_msg=f'expected {class_or_tuple} for instance, got {type(instance).__name__}',
             exc_context=exc_context,
             exc_message=exc_message,

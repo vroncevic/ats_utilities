@@ -43,15 +43,15 @@ class IFactory[BundleType, OptionsType](Protocol):
         It defines:
 
             :methods:
-                | create_bundle - Creates a bundle with pre-configured options.
+                | create_bundle - Creates a bundle instance.
     '''
 
     @classmethod
     def create_bundle(cls, options: OptionsType) -> BundleType:
         '''
-            Creates a bundle with pre-configured options.
+            Creates a bundle instance.
 
-            :param options: Creation options/parameters for the bundle.
+            :param options: Bundle options.
             :return: Bundle instance.
         '''
         ...

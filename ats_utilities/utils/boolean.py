@@ -34,6 +34,36 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
+TRUE: frozenset[str] = frozenset(
+    {
+        'True',
+        'TRUE',
+        'true',
+        'T',
+        't',
+        'Yes',
+        'y',
+        'On',
+        'on'
+    }
+)
+
+
+FALSE: frozenset[str] = frozenset(
+    {
+        'False',
+        'FALSE',
+        'false',
+        'F',
+        'f',
+        'No',
+        'n',
+        'Off',
+        'off'
+    }
+)
+
+
 def str_bool_to_bool(
     value: str,
     exc_context: str | None = None,
