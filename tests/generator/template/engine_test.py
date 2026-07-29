@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, patch
 from collections.abc import Mapping
 
 # Adjust imports according to your project structure
-from ats_utilities.generator.template.engine import TemplateProcessor
+from ats_utilities.generation.template.engine import TemplateProcessor
 from ats_utilities.context.bundle import ContextBundle
 
 
@@ -60,7 +60,7 @@ class TestTemplateProcessor(unittest.TestCase):
         self.assertIsInstance(result, bytes)
         self.assertEqual(result, corrupted_binary_data)
 
-    @patch("ats_utilities.generator.template.engine.to_str")
+    @patch("ats_utilities.generation.template.engine.to_str")
     def test_string_representation(self, mock_to_str: MagicMock) -> None:
         """Test that __str__ delegates tracking cleanly to reflection serialization utilities."""
         processor = TemplateProcessor(self.mock_context_bundle)

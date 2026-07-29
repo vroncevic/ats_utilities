@@ -22,10 +22,10 @@ Info
 import os
 import tempfile
 
-from ats_utilities.generator.engine import Generator
-from ats_utilities.generator.setup.bundle import GeneratorBundle
-from ats_utilities.generator.setup.factory import GeneratorFactory
-from ats_utilities.generator.gen_params_registry import GenParamsRegistry
+from ats_utilities.generation.engine import GeneratorManager
+from ats_utilities.generation.setup.bundle import GeneratorBundle
+from ats_utilities.generation.setup.factory import GeneratorFactory
+from ats_utilities.generation.gen_params_registry import GenParamsRegistry
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.factory import ContextFactory
 
@@ -43,12 +43,12 @@ dir_path = os.path.dirname(os.path.abspath(__file__))
 context_bundle: ContextBundle = ContextFactory.create_default_bundle()
 
 #
-# Use Case 1: High-level generation using Generator orchestrator
+# Use Case 1: High-level generation using GeneratorManager orchestrator
 # ==============================================================
 #
-print("Use Case 1: High-level generation using Generator orchestrator:")
+print("Use Case 1: High-level generation using GeneratorManager orchestrator:")
 generator_bundle: GeneratorBundle = GeneratorFactory.create_default_generator_bundle(context_bundle)
-generator = Generator(own=generator_bundle)
+generator = GeneratorManager(own=generator_bundle)
 status: bool = False
 
 # Archive and scheme paths for use case 1

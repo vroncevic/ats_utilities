@@ -24,8 +24,8 @@ from __future__ import annotations
 import unittest
 from dataclasses import FrozenInstanceError
 
-from ats_utilities.generator.tar.data import TarData
-from ats_utilities.generator.tar.data_validator import TarDataValidator
+from ats_utilities.generation.tar.data import TarData
+from ats_utilities.generation.tar.data_validator import TarDataValidator
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'

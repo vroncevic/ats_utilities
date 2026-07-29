@@ -5,20 +5,20 @@ from unittest.mock import MagicMock, patch
 from collections.abc import Mapping
 
 # Adjust imports according to your project structure
-from ats_utilities.generator.engine import Generator
+from ats_utilities.generation.engine import GeneratorManager
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.generator.setup.bundle import GeneratorBundle
-from ats_utilities.generator.data import GeneratorData
-from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
-from ats_utilities.generator.tar.itar_processor import ITarProcessor
+from ats_utilities.generation.setup.bundle import GeneratorBundle
+from ats_utilities.generation.data import GeneratorData
+from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
+from ats_utilities.generation.tar.itar_processor import ITarProcessor
 
 
 class TestGenerator(unittest.TestCase):
-    """Unit tests for the primary Generator orchestrator engine."""
+    """Unit tests for the primary GeneratorManager orchestrator engine."""
 
     def setUp(self) -> None:
-        """Set up standard mocks and parameter bundles for Generator execution."""
-        self.file_exist_patcher = patch("ats_utilities.generator.data_validator.check_file_exists")
+        """Set up standard mocks and parameter bundles for GeneratorManager execution."""
+        self.file_exist_patcher = patch("ats_utilities.generation.data_validator.check_file_exists")
         self.file_exist_patcher.start()
 
         self.mock_context = MagicMock(spec=ContextBundle)
@@ -44,7 +44,7 @@ class TestGenerator(unittest.TestCase):
 
     def test_initialization_success(self) -> None:
         """Test successful initialization and structural property mapping bindings."""
-        generator = Generator(self.mock_component_bundle)
+        generator = GeneratorManager(self.mock_component_bundle)
 
         self.assertEqual(generator.get_context(), self.mock_context)
         self.assertEqual(generator._scheme_loader, self.mock_scheme_loader)
@@ -54,14 +54,14 @@ class TestGenerator(unittest.TestCase):
     def test_initialization_invalid_bundle(self) -> None:
         """Test initialization failure when passing an invalid object configuration type."""
         with self.assertRaises(Exception):
-            Generator(None)  # type: ignore
+            GeneratorManager(None)  # type: ignore
 
         with self.assertRaises(Exception):
-            Generator(MagicMock())  # type: ignore
+            GeneratorManager(MagicMock())  # type: ignore
 
     def test_prepare_template_values_case_variations(self) -> None:
         """Test computing and formatting name case alterations from input template dictionary configurations."""
-        generator = Generator(self.mock_component_bundle)
+        generator = GeneratorManager(self.mock_component_bundle)
         input_values = {"project_name": "sample_project_module"}
 
         expected_output = {
@@ -76,7 +76,7 @@ class TestGenerator(unittest.TestCase):
 
     def test_prepare_template_values_with_predefined_variations(self) -> None:
         """Test prepare_template_values when case variations are already present in values."""
-        generator = Generator(self.mock_component_bundle)
+        generator = GeneratorManager(self.mock_component_bundle)
         input_values = {
             "project_name": "sample_project",
             "project_name_dashed": "predefined-dashed",
@@ -91,7 +91,7 @@ class TestGenerator(unittest.TestCase):
 
     def test_prepare_template_values_missing_project_name(self) -> None:
         """Test validation check errors when missing key field designations inside inputs."""
-        generator = Generator(self.mock_component_bundle)
+        generator = GeneratorManager(self.mock_component_bundle)
         
         with self.assertRaises(Exception):
             generator.prepare_template_values({"version": "1.0.0"})
@@ -99,11 +99,11 @@ class TestGenerator(unittest.TestCase):
         with self.assertRaises(Exception):
             generator.prepare_template_values({"project_name": ""})
 
-    @patch("ats_utilities.generator.engine.TarData")
+    @patch("ats_utilities.generation.engine.TarData")
     def test_generate_success_flow(self, mock_tar_bundle_cls: MagicMock) -> None:
         """Test a clean execution flow where processing and template rendering map perfectly."""
         # Arrange
-        generator = Generator(self.mock_component_bundle)
+        generator = GeneratorManager(self.mock_component_bundle)
         
         resolved_scheme_mock = {
             "python_pkg": {
@@ -135,7 +135,7 @@ class TestGenerator(unittest.TestCase):
 
     def test_generate_fails_when_template_key_missing_in_scheme(self) -> None:
         """Test that missing template keys stop processing loops immediately."""
-        generator = Generator(self.mock_component_bundle)
+        generator = GeneratorManager(self.mock_component_bundle)
         self.mock_scheme_loader.load.return_value = {"different_key": {}}
 
         with self.assertRaises(Exception):
@@ -143,7 +143,7 @@ class TestGenerator(unittest.TestCase):
 
     def test_generate_fails_when_source_dir_missing_in_scheme(self) -> None:
         """Test that missing internal structural fields like source_dir raise operation faults."""
-        generator = Generator(self.mock_component_bundle)
+        generator = GeneratorManager(self.mock_component_bundle)
         self.mock_scheme_loader.load.return_value = {"python_pkg": {"exclude": []}}
 
         with self.assertRaises(Exception):
@@ -151,7 +151,7 @@ class TestGenerator(unittest.TestCase):
 
     def test_generate_handles_processing_exceptions_gracefully(self) -> None:
         """Test that exceptions encountered in lower execution layers raise unified validation failures."""
-        generator = Generator(self.mock_component_bundle)
+        generator = GeneratorManager(self.mock_component_bundle)
         self.mock_scheme_loader.load.return_value = {"python_pkg": {"source_dir": "templates"}}
         self.mock_tar_processor.process.side_effect = RuntimeError("Disk full or archive bad")
 
@@ -160,7 +160,7 @@ class TestGenerator(unittest.TestCase):
 
     def test_is_initialized_propagation(self) -> None:
         """Test that initialization checks accurately propagate sub-component readiness flags."""
-        generator = Generator(self.mock_component_bundle)
+        generator = GeneratorManager(self.mock_component_bundle)
 
         # Both sub-components operational
         self.mock_scheme_loader.is_initialized.return_value = True
@@ -172,16 +172,16 @@ class TestGenerator(unittest.TestCase):
         self.mock_tar_processor.is_initialized.return_value = True
         self.assertFalse(generator.is_initialized())
 
-    @patch("ats_utilities.generator.engine.to_str")
+    @patch("ats_utilities.generation.engine.to_str")
     def test_string_representation(self, mock_to_str: MagicMock) -> None:
         """Test string casting reflection invocation properties mapping."""
-        generator = Generator(self.mock_component_bundle)
-        mock_to_str.return_value = "Generator{_context=ContextBundle}"
+        generator = GeneratorManager(self.mock_component_bundle)
+        mock_to_str.return_value = "GeneratorManager{_context=ContextBundle}"
 
         result = str(generator)
 
         mock_to_str.assert_called_once_with(generator)
-        self.assertEqual(result, "Generator{_context=ContextBundle}")
+        self.assertEqual(result, "GeneratorManager{_context=ContextBundle}")
 
 
 if __name__ == '__main__':

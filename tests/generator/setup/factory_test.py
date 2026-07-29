@@ -24,12 +24,12 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock, patch
 
-from ats_utilities.generator.setup.factory import GeneratorFactory
+from ats_utilities.generation.setup.factory import GeneratorFactory
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.generator.setup.bundle import GeneratorBundle
-from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
-from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
-from ats_utilities.generator.tar.itar_processor import ITarProcessor
+from ats_utilities.generation.setup.bundle import GeneratorBundle
+from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
+from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
+from ats_utilities.generation.tar.itar_processor import ITarProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -48,10 +48,10 @@ class TestGeneratorFactory(unittest.TestCase):
         """Set up standard context bundle dependency mock."""
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
 
-    @patch("ats_utilities.generator.setup.factory.GeneratorRegistry")
-    @patch("ats_utilities.generator.setup.factory.TarProcessor")
-    @patch("ats_utilities.generator.setup.factory.SchemeLoader")
-    @patch("ats_utilities.generator.setup.factory.TemplateProcessor")
+    @patch("ats_utilities.generation.setup.factory.GeneratorRegistry")
+    @patch("ats_utilities.generation.setup.factory.TarProcessor")
+    @patch("ats_utilities.generation.setup.factory.SchemeLoader")
+    @patch("ats_utilities.generation.setup.factory.TemplateProcessor")
     def test_create_default_generator_bundle_orchestration(
         self, mock_template_cls: MagicMock, mock_scheme_cls: MagicMock,
         mock_tar_cls: MagicMock, mock_registry_cls: MagicMock
@@ -82,10 +82,10 @@ class TestGeneratorFactory(unittest.TestCase):
         mock_registry_cls.create_bundle.assert_called_once()
         self.assertEqual(result, mock_bundle_inst)
 
-    @patch("ats_utilities.generator.setup.factory.TarProcessor")
-    @patch("ats_utilities.generator.setup.factory.SchemeLoader")
-    @patch("ats_utilities.generator.setup.factory.TemplateProcessor")
-    @patch("ats_utilities.generator.setup.factory.GeneratorRegistry")
+    @patch("ats_utilities.generation.setup.factory.TarProcessor")
+    @patch("ats_utilities.generation.setup.factory.SchemeLoader")
+    @patch("ats_utilities.generation.setup.factory.TemplateProcessor")
+    @patch("ats_utilities.generation.setup.factory.GeneratorRegistry")
     def test_create_default_generator_bundle_integration(
         self, mock_registry_cls: MagicMock, mock_template_cls: MagicMock,
         mock_scheme_cls: MagicMock, mock_tar_cls: MagicMock

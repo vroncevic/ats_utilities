@@ -24,9 +24,9 @@ from __future__ import annotations
 import unittest
 
 from ats_utilities.context.factory import ContextFactory
-from ats_utilities.generator.project.setup.bundle import ProjectBundle
-from ats_utilities.generator.project.setup.factory import ProjectFactory
-from ats_utilities.generator.project.setup.dependencies import ProjectOptions
+from ats_utilities.generation.project.setup.bundle import ProjectBundle
+from ats_utilities.generation.project.setup.factory import ProjectFactory
+from ats_utilities.generation.project.setup.dependencies import ProjectOptions
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

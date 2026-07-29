@@ -31,7 +31,7 @@ from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.splasher.isplasher import ISplashManager
-from ats_utilities.generator.igenerator import IGenerator
+from ats_utilities.generation.igenerator import IGeneratorManager
 from ats_utilities.context.bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
@@ -55,7 +55,7 @@ class BaseValidatorTest(unittest.TestCase):
         self.mock_info_manager = MagicMock(spec=IInfoManager)
         self.mock_options_parser = MagicMock(spec=IOptionManager)
         self.mock_splasher = MagicMock(spec=ISplashManager)
-        self.mock_generator = MagicMock(spec=IGenerator)
+        self.mock_generator = MagicMock(spec=IGeneratorManager)
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
         
         self.valid_params = {
@@ -106,7 +106,7 @@ class BaseValidatorTest(unittest.TestCase):
             "splasher": MagicMock(spec=IOptionManager),
             "use_generator": "True",
             "generator": MagicMock(spec=ContextBundle),
-            "context_bundle": MagicMock(spec=IGenerator)
+            "context_bundle": MagicMock(spec=IGeneratorManager)
         }
 
         for field, bad_value in type_mismatches.items():

@@ -16,19 +16,17 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates base runtime components for simplification of base bundle creation.
+    Encapsulates generator runtime components for simplification of generator bundle creation.
 '''
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 
-from ats_utilities.config_io.loader.iloader import ILoader
-from ats_utilities.info.imanager import IInfoManager
-from ats_utilities.option.imanager import IOptionManager
-from ats_utilities.splash.imanager import ISplashManager
-from ats_utilities.generation.imanager import IGeneratorManager
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
+from ats_utilities.generation.tar.itar_processor import ITarProcessor
+from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
 from ats_utilities.utils.reflection import instance_to_dict
 
 __author__ = 'Vladimir Roncevic'
@@ -42,39 +40,31 @@ __status__ = 'Development'
 
 
 @dataclass(slots=True, frozen=True, kw_only=True)
-class BaseBundle:
+class GeneratorBundle:
     '''
-        Encapsulates base runtime components for simplification of base bundle creation.
+        Encapsulates generator runtime components for simplification of generator bundle creation.
 
         It defines:
 
             :attributes:
-                | info_file - Information file path for App/Tool/Script.
-                | config_loader - Configuration loader instance.
-                | info_manager - Information manager instance.
-                | options_parser - Options parser instance.
-                | splasher - SplashManager instance.
-                | generator - GeneratorManager instance or None.
-                | use_generator - Enable/Disable generator usage flag.
-                | context_bundle - Context bundle instance.
+                | scheme_loader - Loader/resolver for scheme configuration.
+                | tar_processor - Processor for archive extraction and template rendering.
+                | template_processor - Processor for template rendering.
+                | context_bundle - Context bundle for generator.
             :methods:
-                | to_dict - Converts base bundle to a dictionary.
+                | to_dict - Converts generator bundle to a dictionary.
     '''
 
-    info_file: str
-    config_loader: ILoader
-    info_manager: IInfoManager
-    options_parser: IOptionManager
-    splasher: ISplashManager
-    generator: IGeneratorManager | None
-    use_generator: bool
+    scheme_loader: ISchemeLoader
+    tar_processor: ITarProcessor
+    template_processor: ITemplateProcessor
     context_bundle: ContextBundle
 
     def to_dict(self) -> dict[str, object]:
         '''
-            Converts base bundle to a dictionary.
+            Converts generator bundle to a dictionary.
 
-            :return: Dictionary representation of the base bundle.
+            :return: Dictionary representation of the generator bundle.
             :exceptions:
                 | ATSValueError: Instance must be provided.
                 | ATSValueError: Instance must be a dataclass instance.

@@ -69,7 +69,7 @@ class BaseRegistry(IRegistry[BaseBundle, BaseDependencies]):
                 | ATSTypeError: Options parser must be an instance of IOptionManager.
                 | ATSTypeError: SplashManager must be an instance of ISplashManager.
                 | ATSTypeError: Use generator flag must be an instance of bool.
-                | ATSTypeError: Generator must be an instance of IGenerator or None.
+                | ATSTypeError: GeneratorManager must be an instance of IGeneratorManager or None.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
         bundle: BaseBundle = BaseBundle(

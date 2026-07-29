@@ -25,10 +25,10 @@ from typing import TypedDict, NotRequired
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.iloader import ILoader
-from ats_utilities.info.iinfo_manager import IInfoManager
-from ats_utilities.option.ioption_manager import IOptionManager
-from ats_utilities.splash.isplash_manager import ISplashManager
-from ats_utilities.generator.igenerator import IGenerator
+from ats_utilities.info.imanager import IInfoManager
+from ats_utilities.option.imanager import IOptionManager
+from ats_utilities.splash.imanager import ISplashManager
+from ats_utilities.generation.imanager import IGeneratorManager
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,7 +52,7 @@ class BaseDependencies(TypedDict):
                 | info_manager: Information manager instance.
                 | options_parser: Options parser instance.
                 | splasher: SplashManager instance.
-                | generator: Generator instance or None.
+                | generator: GeneratorManager instance or None.
                 | use_generator: Enable/Disable generator usage flag.
                 | context_bundle: Context bundle instance.
     '''
@@ -61,7 +61,7 @@ class BaseDependencies(TypedDict):
     info_manager: IInfoManager
     options_parser: IOptionManager
     splasher: ISplashManager
-    generator: IGenerator | None
+    generator: IGeneratorManager | None
     use_generator: bool
     context_bundle: ContextBundle
 

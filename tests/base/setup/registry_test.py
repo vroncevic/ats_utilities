@@ -32,7 +32,7 @@ from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.splasher.isplasher import ISplashManager
-from ats_utilities.generator.igenerator import IGenerator
+from ats_utilities.generation.igenerator import IGeneratorManager
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -56,7 +56,7 @@ class TestBaseRegistry(unittest.TestCase):
         info_manager = MagicMock(spec=IInfoManager)
         options_parser = MagicMock(spec=IOptionManager)
         splasher = MagicMock(spec=ISplashManager)
-        generator = MagicMock(spec=IGenerator)
+        generator = MagicMock(spec=IGeneratorManager)
 
         bundle = BaseRegistry.create_bundle(
             BaseDependencies(

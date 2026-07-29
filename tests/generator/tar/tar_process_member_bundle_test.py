@@ -26,8 +26,8 @@ from dataclasses import FrozenInstanceError
 from tarfile import TarFile, TarInfo
 from unittest.mock import MagicMock
 
-from ats_utilities.generator.tar.data import TarMemberData
-from ats_utilities.generator.tar.data_validator import TarMemberDataValidator
+from ats_utilities.generation.tar.data import TarMemberData
+from ats_utilities.generation.tar.data_validator import TarMemberDataValidator
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 

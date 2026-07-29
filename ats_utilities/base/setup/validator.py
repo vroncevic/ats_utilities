@@ -21,16 +21,13 @@ Info
 
 from __future__ import annotations
 
-
-
 from ats_utilities.base.setup.bundle import BaseBundle
 from ats_utilities.config_io.loader.iloader import ILoader
-from ats_utilities.info.iinfo_manager import IInfoManager
-from ats_utilities.option.ioption_manager import IOptionManager
-from ats_utilities.splash.isplash_manager import ISplashManager
-from ats_utilities.generator.igenerator import IGenerator
+from ats_utilities.info.imanager import IInfoManager
+from ats_utilities.option.imanager import IOptionManager
+from ats_utilities.splash.imanager import ISplashManager
+from ats_utilities.generation.imanager import IGeneratorManager
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -44,7 +41,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class BaseValidator(IValidator[BaseBundle]):
+class BaseValidator:
     '''
         Validator for base bundle instance.
 
@@ -76,7 +73,7 @@ class BaseValidator(IValidator[BaseBundle]):
                 | ATSTypeError: Options parser must be an instance of IOptionManager.
                 | ATSTypeError: SplashManager must be an instance of ISplashManager.
                 | ATSTypeError: Use generator flag must be an instance of bool.
-                | ATSTypeError: Generator must be an instance of IGenerator or None.
+                | ATSTypeError: GeneratorManager must be an instance of IGeneratorManager or None.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
         ctx: str = 'base_validator::validate(...)'
@@ -98,5 +95,5 @@ class BaseValidator(IValidator[BaseBundle]):
         istype(bundle.options_parser, IOptionManager, ctx, 'options parser must be an IOptionManager interface')
         istype(bundle.splasher, ISplashManager, ctx, 'splasher must be an ISplashManager interface')
         istype(bundle.use_generator, bool, ctx, 'use generator flag must be a bool')
-        istype(bundle.generator, (IGenerator, type(None)), ctx, 'generator must be an IGenerator interface or None')
+        istype(bundle.generator, (IGeneratorManager, type(None)), ctx, 'generator must be an IGeneratorManager interface or None')
         istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')

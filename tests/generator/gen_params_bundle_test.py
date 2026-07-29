@@ -25,8 +25,8 @@ import unittest
 from unittest.mock import MagicMock, patch
 from dataclasses import FrozenInstanceError
 
-from ats_utilities.generator.data import GeneratorData
-from ats_utilities.generator.data_validator import GeneratorDataValidator
+from ats_utilities.generation.data import GeneratorData
+from ats_utilities.generation.data_validator import GeneratorDataValidator
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 
@@ -50,7 +50,7 @@ class TestGenParamsBundle(unittest.TestCase):
             "template_values": self.template_values
         }
 
-    @patch("ats_utilities.generator.data_validator.check_file_exists")
+    @patch("ats_utilities.generation.data_validator.check_file_exists")
     def test_successful_initialization_with_dict_scheme(self, mock_check_file: MagicMock) -> None:
         """Test successful validation with a dictionary scheme mapping."""
         bundle = GeneratorData(**self.valid_params_with_dict_scheme)
@@ -68,7 +68,7 @@ class TestGenParamsBundle(unittest.TestCase):
             f"archive file does not exist: {self.archive_path}"
         )
 
-    @patch("ats_utilities.generator.data_validator.check_file_exists")
+    @patch("ats_utilities.generation.data_validator.check_file_exists")
     def test_successful_initialization_with_string_scheme(self, mock_check_file: MagicMock) -> None:
         """Test successful validation and secondary file existence validation for string schemes."""
         params = self.valid_params_with_dict_scheme.copy()
@@ -108,7 +108,7 @@ class TestGenParamsBundle(unittest.TestCase):
                 self.template_values
             )
 
-    @patch("ats_utilities.generator.data_validator.check_file_exists")
+    @patch("ats_utilities.generation.data_validator.check_file_exists")
     def test_validation_missing_or_none_fields(self, mock_check_file: MagicMock) -> None:
         """Test that passing None for any attribute triggers a validation hook exception."""
         fields = ["archive_path", "target_dir", "template_key", "scheme", "template_values"]
@@ -122,7 +122,7 @@ class TestGenParamsBundle(unittest.TestCase):
                 with self.assertRaises(ATSValueError):
                     GeneratorDataValidator.validate(bundle)
 
-    @patch("ats_utilities.generator.data_validator.check_file_exists")
+    @patch("ats_utilities.generation.data_validator.check_file_exists")
     def test_validation_type_mismatches(self, mock_check_file: MagicMock) -> None:
         """Test that providing an incorrect type fails the type check constraints."""
         type_mismatches = {

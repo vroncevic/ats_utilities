@@ -31,7 +31,7 @@ from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.info.engine import InfoManager
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.splasher.engine import SplashManager
-from ats_utilities.generator.engine import Generator
+from ats_utilities.generation.engine import GeneratorManager
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -99,7 +99,7 @@ class TestBaseFactory(unittest.TestCase):
             )
 
     @patch("ats_utilities.base.setup.factory.BaseRegistry")
-    @patch("ats_utilities.base.setup.factory.Generator")
+    @patch("ats_utilities.base.setup.factory.GeneratorManager")
     @patch("ats_utilities.base.setup.factory.GeneratorFactory")
     @patch("ats_utilities.base.setup.factory.OptionManager")
     @patch("ats_utilities.base.setup.factory.OptionFactory")
@@ -186,7 +186,7 @@ class TestBaseFactory(unittest.TestCase):
         )
         mock_opt_cls.assert_called_once_with(own=mock_opt_bundle)
 
-        # Generator boundary configurations
+        # GeneratorManager boundary configurations
         mock_gen_reg.create_default_generator_bundle.assert_not_called()
         mock_gen_cls.assert_not_called()
         self.mock_logger.stop_buffering.assert_called_once()
@@ -206,7 +206,7 @@ class TestBaseFactory(unittest.TestCase):
         self.assertEqual(result, mock_bundle_inst)
 
     @patch("ats_utilities.base.setup.factory.BaseRegistry")
-    @patch("ats_utilities.base.setup.factory.Generator")
+    @patch("ats_utilities.base.setup.factory.GeneratorManager")
     @patch("ats_utilities.base.setup.factory.GeneratorFactory")
     @patch("ats_utilities.base.setup.factory.OptionManager")
     @patch("ats_utilities.base.setup.factory.OptionFactory")
@@ -237,7 +237,7 @@ class TestBaseFactory(unittest.TestCase):
 
         mock_gen_bundle = MagicMock()
         mock_gen_reg.create_default_generator_bundle.return_value = mock_gen_bundle
-        mock_gen_inst = MagicMock(spec=Generator)
+        mock_gen_inst = MagicMock(spec=GeneratorManager)
         mock_gen_cls.return_value = mock_gen_inst
 
         # Act
@@ -247,7 +247,7 @@ class TestBaseFactory(unittest.TestCase):
             use_generator=True
         )
 
-        # Assert Generator bindings are called cleanly
+        # Assert GeneratorManager bindings are called cleanly
         mock_gen_reg.create_default_generator_bundle.assert_called_once_with(
             context_bundle=self.mock_context_bundle
         )

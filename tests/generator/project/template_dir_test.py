@@ -25,7 +25,7 @@ import unittest
 
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError
-from ats_utilities.generator.project.template_dir import TemplateDir
+from ats_utilities.generation.project.template_dir import TemplateDir
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

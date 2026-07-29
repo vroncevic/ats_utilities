@@ -5,10 +5,10 @@ from unittest.mock import MagicMock, patch, mock_open
 from tarfile import TarFile, TarInfo
 
 # Adjust imports according to your project structure
-from ats_utilities.generator.tar.engine import TarProcessor
+from ats_utilities.generation.tar.engine import TarProcessor
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
-from ats_utilities.generator.tar.data import TarData, TarMemberData
+from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
+from ats_utilities.generation.tar.data import TarData, TarMemberData
 from ats_utilities.exceptions import ATSGeneratorError
 
 
@@ -49,7 +49,7 @@ class TestTarProcessor(unittest.TestCase):
         with self.assertRaises(Exception):
             TarProcessor(self.mock_context_bundle, MagicMock())  # type: ignore
 
-    @patch("ats_utilities.generator.tar.engine.makedirs")
+    @patch("ats_utilities.generation.tar.engine.makedirs")
     def test_process_tar_member_directory(self, mock_makedirs: MagicMock) -> None:
         """Test that process_tar_member constructs directory layouts for directory members."""
         processor = TarProcessor(self.mock_context_bundle, self.mock_template_processor)
@@ -60,8 +60,8 @@ class TestTarProcessor(unittest.TestCase):
 
         mock_makedirs.assert_called_once_with("/target/path/file.txt", exist_ok=True)
 
-    @patch("ats_utilities.generator.tar.engine.write_content")
-    @patch("ats_utilities.generator.tar.engine.makedirs")
+    @patch("ats_utilities.generation.tar.engine.write_content")
+    @patch("ats_utilities.generation.tar.engine.makedirs")
     def test_process_tar_member_file(
         self, mock_makedirs: MagicMock, mock_write: MagicMock
     ) -> None:
@@ -97,7 +97,7 @@ class TestTarProcessor(unittest.TestCase):
         processor.process_tar_member(self.mock_member_bundle)
         self.mock_member_bundle.tar.extractfile.assert_not_called()
 
-    @patch("ats_utilities.generator.tar.engine.makedirs")
+    @patch("ats_utilities.generation.tar.engine.makedirs")
     def test_process_tar_member_file_object_is_none(self, mock_makedirs: MagicMock) -> None:
         """Test process_tar_member when extractfile returns None."""
         processor = TarProcessor(self.mock_context_bundle, self.mock_template_processor)
@@ -110,13 +110,13 @@ class TestTarProcessor(unittest.TestCase):
         self.mock_template_processor.render.assert_not_called()
         mock_makedirs.assert_called_once_with("/target/path", exist_ok=True)
 
-    @patch("ats_utilities.generator.tar.engine.TarMemberData")
-    @patch("ats_utilities.generator.tar.engine.open")
-    @patch("ats_utilities.generator.tar.engine.normalize_path")
-    @patch("ats_utilities.generator.tar.engine.resolve_relative_path")
-    @patch("ats_utilities.generator.tar.engine.is_excluded_path")
-    @patch("ats_utilities.generator.tar.engine.apply_path_replacements")
-    @patch("ats_utilities.generator.tar.engine.makedirs")
+    @patch("ats_utilities.generation.tar.engine.TarMemberData")
+    @patch("ats_utilities.generation.tar.engine.open")
+    @patch("ats_utilities.generation.tar.engine.normalize_path")
+    @patch("ats_utilities.generation.tar.engine.resolve_relative_path")
+    @patch("ats_utilities.generation.tar.engine.is_excluded_path")
+    @patch("ats_utilities.generation.tar.engine.apply_path_replacements")
+    @patch("ats_utilities.generation.tar.engine.makedirs")
     def test_process_success_loop(
         self, mock_makedirs: MagicMock, mock_apply_repl: MagicMock,
         mock_is_excluded: MagicMock, mock_resolve_rel: MagicMock, mock_normalize: MagicMock,
@@ -149,8 +149,8 @@ class TestTarProcessor(unittest.TestCase):
             mock_tar_open.assert_called_once_with("/archive.tgz", "r:gz")
             mock_process_member.assert_called_once_with(mock_member_bundle_instance)
 
-    @patch("ats_utilities.generator.tar.engine.open")
-    @patch("ats_utilities.generator.tar.engine.makedirs")
+    @patch("ats_utilities.generation.tar.engine.open")
+    @patch("ats_utilities.generation.tar.engine.makedirs")
     def test_process_skips_out_of_scope_or_excluded_paths(
         self, mock_makedirs: MagicMock, mock_tar_open: MagicMock
     ) -> None:
@@ -165,8 +165,8 @@ class TestTarProcessor(unittest.TestCase):
         mock_tar_instance.getmembers.return_value = [mock_member1, mock_member2]
         mock_tar_open.return_value.__enter__.return_value = mock_tar_instance
 
-        with patch("ats_utilities.generator.tar.engine.resolve_relative_path") as mock_resolve, \
-             patch("ats_utilities.generator.tar.engine.is_excluded_path", return_value=True), \
+        with patch("ats_utilities.generation.tar.engine.resolve_relative_path") as mock_resolve, \
+             patch("ats_utilities.generation.tar.engine.is_excluded_path", return_value=True), \
              patch.object(processor, "process_tar_member") as mock_process_member:
             
             mock_resolve.side_effect = [None, "excluded_file.txt"]
@@ -174,8 +174,8 @@ class TestTarProcessor(unittest.TestCase):
             processor.process(self.mock_process_bundle)
             mock_process_member.assert_not_called()
 
-    @patch("ats_utilities.generator.tar.engine.format_error_raw")
-    @patch("ats_utilities.generator.tar.engine.open")
+    @patch("ats_utilities.generation.tar.engine.format_error_raw")
+    @patch("ats_utilities.generation.tar.engine.open")
     def test_process_wraps_exceptions_safely(
         self, mock_tar_open: MagicMock, mock_format_error: MagicMock
     ) -> None:
@@ -197,7 +197,7 @@ class TestTarProcessor(unittest.TestCase):
         self.mock_template_processor.is_initialized.return_value = False
         self.assertFalse(processor.is_initialized())
 
-    @patch("ats_utilities.generator.tar.engine.to_str")
+    @patch("ats_utilities.generation.tar.engine.to_str")
     def test_string_representation(self, mock_to_str: MagicMock) -> None:
         """Test reflection serialization mappings upon string requests."""
         processor = TarProcessor(self.mock_context_bundle, self.mock_template_processor)

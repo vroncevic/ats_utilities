@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, patch
 from collections.abc import Mapping
 
 # Adjust imports according to your project structure
-from ats_utilities.generator.scheme.engine import SchemeLoader
+from ats_utilities.generation.scheme.engine import SchemeLoader
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.exceptions import ATSGeneratorError
@@ -49,7 +49,7 @@ class TestSchemeLoader(unittest.TestCase):
         with self.assertRaises(Exception):
             loader.load(12345)  # type: ignore
 
-    @patch("ats_utilities.generator.scheme.engine.exists", return_value=False)
+    @patch("ats_utilities.generation.scheme.engine.exists", return_value=False)
     def test_load_with_nonexistent_file_path_raises(
         self, mock_exists: MagicMock
     ) -> None:
@@ -61,7 +61,7 @@ class TestSchemeLoader(unittest.TestCase):
             
         mock_exists.assert_called_once_with(self.valid_file_path)
 
-    @patch("ats_utilities.generator.scheme.engine.exists", return_value=True)
+    @patch("ats_utilities.generation.scheme.engine.exists", return_value=True)
     def test_load_with_unsupported_file_extension_raises(
         self, mock_exists: MagicMock
     ) -> None:
@@ -72,9 +72,9 @@ class TestSchemeLoader(unittest.TestCase):
         with self.assertRaises(Exception):
             loader.load(invalid_extension_path)
 
-    @patch("ats_utilities.generator.scheme.engine.Loader")
-    @patch("ats_utilities.generator.scheme.engine.ConfigIORegistry")
-    @patch("ats_utilities.generator.scheme.engine.exists", return_value=True)
+    @patch("ats_utilities.generation.scheme.engine.Loader")
+    @patch("ats_utilities.generation.scheme.engine.ConfigIORegistry")
+    @patch("ats_utilities.generation.scheme.engine.exists", return_value=True)
     def test_load_from_json_file_success(
         self, mock_exists: MagicMock, 
         mock_registry: MagicMock, mock_loader_cls: MagicMock
@@ -103,9 +103,9 @@ class TestSchemeLoader(unittest.TestCase):
         mock_config_loader.load_configuration.assert_called_once()
         self.assertEqual(result, self.valid_dict_scheme)
 
-    @patch("ats_utilities.generator.scheme.engine.Loader", return_value=None)
-    @patch("ats_utilities.generator.scheme.engine.ConfigIORegistry")
-    @patch("ats_utilities.generator.scheme.engine.exists", return_value=True)
+    @patch("ats_utilities.generation.scheme.engine.Loader", return_value=None)
+    @patch("ats_utilities.generation.scheme.engine.ConfigIORegistry")
+    @patch("ats_utilities.generation.scheme.engine.exists", return_value=True)
     def test_load_fails_when_config_loader_setup_is_none(
         self, mock_exists: MagicMock, 
         mock_registry: MagicMock, mock_loader_cls: MagicMock
@@ -116,9 +116,9 @@ class TestSchemeLoader(unittest.TestCase):
         with self.assertRaises(Exception):
             loader.load(self.valid_file_path)
 
-    @patch("ats_utilities.generator.scheme.engine.format_error_raw")
-    @patch("ats_utilities.generator.scheme.engine.ConfigIORegistry")
-    @patch("ats_utilities.generator.scheme.engine.exists", return_value=True)
+    @patch("ats_utilities.generation.scheme.engine.format_error_raw")
+    @patch("ats_utilities.generation.scheme.engine.ConfigIORegistry")
+    @patch("ats_utilities.generation.scheme.engine.exists", return_value=True)
     def test_load_catches_internal_exceptions_and_raises_generator_error(
         self, mock_exists: MagicMock, 
         mock_registry: MagicMock, mock_format_error: MagicMock
@@ -135,7 +135,7 @@ class TestSchemeLoader(unittest.TestCase):
             
         mock_format_error.assert_called_once()
 
-    @patch("ats_utilities.generator.scheme.engine.to_str")
+    @patch("ats_utilities.generation.scheme.engine.to_str")
     def test_string_representation(self, mock_to_str: MagicMock) -> None:
         """Test that __str__ delegates representation tracking cleanly to reflection utilities."""
         loader = SchemeLoader(self.mock_context_bundle)

@@ -26,11 +26,11 @@ from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
-from ats_utilities.generator.setup.bundle import GeneratorBundle
-from ats_utilities.generator.setup.validator import GeneratorValidator
-from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
-from ats_utilities.generator.tar.itar_processor import ITarProcessor
-from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
+from ats_utilities.generation.setup.bundle import GeneratorBundle
+from ats_utilities.generation.setup.validator import GeneratorValidator
+from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
+from ats_utilities.generation.tar.itar_processor import ITarProcessor
+from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

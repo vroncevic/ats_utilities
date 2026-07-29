@@ -26,11 +26,11 @@ from ats_utilities.base.setup.bundle import BaseBundle
 from ats_utilities.base.ibase import ArgSeq
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.generator.igenerator import IGenerator
-from ats_utilities.info.iinfo_manager import IInfoManager
-from ats_utilities.option.ioption_manager import IOptionManager
+from ats_utilities.generation.imanager import IGeneratorManager
+from ats_utilities.info.imanager import IInfoManager
+from ats_utilities.option.imanager import IOptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
-from ats_utilities.splash.isplash_manager import ISplashManager
+from ats_utilities.splash.imanager import ISplashManager
 from ats_utilities.utils.reflection import to_str, has_attrs
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
@@ -59,7 +59,7 @@ class Base:
                 | _info_manager - Manager for info property (default InfoManager).
                 | _splasher - Manager for splash screen (default SplashManager).
                 | _options_parser - Manager for options parser (default OptionManager).
-                | _generator - Generator manager (default Generator).
+                | _generator - GeneratorManager manager (default GeneratorManager).
             :methods:
                 | __init__ - Initializes Base constructor.
                 | get_context - Returns the context.
@@ -76,7 +76,7 @@ class Base:
     _info_manager: IInfoManager
     _splasher: ISplashManager
     _options_parser: IOptionManager
-    _generator: IGenerator
+    _generator: IGeneratorManager
 
     def __init__(self, own: BaseBundle) -> None:
         '''

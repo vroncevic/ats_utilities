@@ -230,7 +230,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   ├── data.py
          │   ├── data_validator.py
          │   ├── engine.py
-         │   ├── igenerator.py
+         │   ├── imanager.py
          │   ├── __init__.py
          │   ├── project/
          │   │   ├── __init__.py
@@ -274,7 +274,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   │   ├── ibuild_date.py
          │   │   └── __init__.py
          │   ├── engine.py
-         │   ├── iinfo_manager.py
+         │   ├── imanager.py
          │   ├── info_ok/
          │   │   ├── engine.py
          │   │   ├── iinfo_ok.py
@@ -359,7 +359,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   │   └── ioption_command.py
          │   ├── engine.py
          │   ├── __init__.py
-         │   ├── ioption_manager.py
+         │   ├── imanager.py
          │   ├── option_namespace.py
          │   ├── parser/
          │   │   ├── data.py
@@ -415,7 +415,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
          │   │   ├── iext_infrastructure.py
          │   │   └── __init__.py
          │   ├── __init__.py
-         │   ├── isplasher.py
+         │   ├── imanager.py
          │   ├── progressbar/
          │   │   ├── __init__.py
          │   │   ├── iprogress_bar.py
@@ -567,7 +567,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/generator/data.py` | 22 | 0 | 100%|
 | `ats_utilities/generator/data_validator.py` | 36 | 0 | 100%|
 | `ats_utilities/generator/engine.py` | 76 | 0 | 100%|
-| `ats_utilities/generator/igenerator.py` | 13 | 0 | 100%|
+| `ats_utilities/generator/imanager.py` | 13 | 0 | 100%|
 | `ats_utilities/generator/project/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/generator/project/ipro_config.py` | 13 | 0 | 100%|
 | `ats_utilities/generator/project/ipro_name.py` | 11 | 0 | 100%|
@@ -603,7 +603,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/info/build_date/engine.py` | 41 | 0 | 100%|
 | `ats_utilities/info/build_date/ibuild_date.py` | 11 | 0 | 100%|
 | `ats_utilities/info/engine.py` | 105 | 63 | 32%|
-| `ats_utilities/info/iinfo_manager.py` | 11 | 0 | 100%|
+| `ats_utilities/info/imanager.py` | 11 | 0 | 100%|
 | `ats_utilities/info/info_ok/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/info_ok/engine.py` | 41 | 0 | 100%|
 | `ats_utilities/info/info_ok/iinfo_ok.py` | 11 | 0 | 100%|
@@ -669,7 +669,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/option/command/data_validator.py` | 34 | 0 | 93%|
 | `ats_utilities/option/command/ioption_command.py` | 12 | 0 | 100%|
 | `ats_utilities/option/engine.py` | 68 | 0 | 100%|
-| `ats_utilities/option/ioption_manager.py` | 16 | 0 | 100%|
+| `ats_utilities/option/imanager.py` | 16 | 0 | 100%|
 | `ats_utilities/option/option_namespace.py` | 15 | 0 | 100%|
 | `ats_utilities/option/parser/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/parser/data.py` | 21 | 0 | 100%|
@@ -716,7 +716,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/splasher/external/ext_infrastructure.py` | 68 | 0 | 100%|
 | `ats_utilities/splasher/external/github_infrastructure.py` | 77 | 0 | 100%|
 | `ats_utilities/splasher/external/iext_infrastructure.py` | 13 | 0 | 100%|
-| `ats_utilities/splasher/isplasher.py` | 11 | 0 | 100%|
+| `ats_utilities/splasher/imanager.py` | 11 | 0 | 100%|
 | `ats_utilities/splasher/progressbar/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/progressbar/iprogress_bar.py` | 11 | 0 | 100%|
 | `ats_utilities/splasher/progressbar/progress_bar.py` | 60 | 0 | 100%|

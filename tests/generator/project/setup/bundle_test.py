@@ -26,10 +26,10 @@ from dataclasses import FrozenInstanceError
 from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.generator.project.ipro_config import IProConfig
-from ats_utilities.generator.project.ipro_name import IProName
-from ats_utilities.generator.project.itemplate_dir import ITemplateDir
-from ats_utilities.generator.project.setup.bundle import ProjectBundle
+from ats_utilities.generation.project.ipro_config import IProConfig
+from ats_utilities.generation.project.ipro_name import IProName
+from ats_utilities.generation.project.itemplate_dir import ITemplateDir
+from ats_utilities.generation.project.setup.bundle import ProjectBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

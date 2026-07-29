@@ -12,7 +12,7 @@ from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.splasher.isplasher import ISplashManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
-from ats_utilities.generator.igenerator import IGenerator
+from ats_utilities.generation.igenerator import IGeneratorManager
 
 
 class ConcreteBase(Base):
@@ -34,7 +34,7 @@ class TestBaseEngine(unittest.TestCase):
         self.mock_info_manager = MagicMock(spec=IInfoManager)
         self.mock_splasher = MagicMock(spec=ISplashManager)
         self.mock_options_parser = MagicMock(spec=IOptionManager)
-        self.mock_generator = MagicMock(spec=IGenerator)
+        self.mock_generator = MagicMock(spec=IGeneratorManager)
 
         # By default, configure components to report they are initialized
         self.mock_info_manager.is_initialized.return_value = True

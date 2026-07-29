@@ -31,18 +31,18 @@ from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.info.engine import InfoManager
-from ats_utilities.info.iinfo_manager import IInfoManager
+from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.option.engine import OptionManager
-from ats_utilities.option.ioption_manager import IOptionManager
+from ats_utilities.option.imanager import IOptionManager
 from ats_utilities.splash.engine import SplashManager
-from ats_utilities.splash.isplash_manager import ISplashManager
-from ats_utilities.generator.engine import Generator
-from ats_utilities.generator.igenerator import IGenerator
+from ats_utilities.splash.imanager import ISplashManager
+from ats_utilities.generation.engine import GeneratorManager
+from ats_utilities.generation.imanager import IGeneratorManager
 from ats_utilities.config_io.setup.registry import ConfigIORegistry
 from ats_utilities.info.setup.factory import InfoFactory
 from ats_utilities.option.setup.factory import OptionFactory
 from ats_utilities.splash.setup.factory import SplashFactory
-from ats_utilities.generator.setup.factory import GeneratorFactory
+from ats_utilities.generation.setup.factory import GeneratorFactory
 from ats_utilities.utils.dicts import get_first_available
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
@@ -95,7 +95,7 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
                 | ATSTypeError: Options parser must be an instance of IOptionManager.
                 | ATSTypeError: SplashManager must be an instance of ISplashManager.
                 | ATSTypeError: Use generator flag must be an instance of bool.
-                | ATSTypeError: Generator must be an instance of IGenerator or None.
+                | ATSTypeError: GeneratorManager must be an instance of IGeneratorManager or None.
         '''
         ctx: str = 'base_factory::create_default_bundle(...)'
         not_none(options, ctx, 'options must be provided')
@@ -145,7 +145,7 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
                 context_bundle=context_bundle
             )
         )
-        generator: IGenerator[ContextBundle] | None = Generator(
+        generator: IGeneratorManager[ContextBundle] | None = GeneratorManager(
             own=GeneratorFactory.create_default_generator_bundle(
                 context_bundle=context_bundle
             )
@@ -202,7 +202,7 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
                 | ATSTypeError: Options parser must be an instance of IOptionManager.
                 | ATSTypeError: SplashManager must be an instance of ISplashManager.
                 | ATSTypeError: Use generator flag must be an instance of bool.
-                | ATSTypeError: Generator must be an instance of IGenerator or None.
+                | ATSTypeError: GeneratorManager must be an instance of IGeneratorManager or None.
         '''
         return cls.create_default_bundle(
             BaseOptions(

@@ -16,19 +16,17 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates base runtime components for simplification of base bundle creation.
+    Encapsulates project runtime components for simplification of project bundle creation.
 '''
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 
-from ats_utilities.config_io.loader.iloader import ILoader
-from ats_utilities.info.imanager import IInfoManager
-from ats_utilities.option.imanager import IOptionManager
-from ats_utilities.splash.imanager import ISplashManager
-from ats_utilities.generation.imanager import IGeneratorManager
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.generation.project.ipro_config import IProConfig
+from ats_utilities.generation.project.ipro_name import IProName
+from ats_utilities.generation.project.itemplate_dir import ITemplateDir
 from ats_utilities.utils.reflection import instance_to_dict
 
 __author__ = 'Vladimir Roncevic'
@@ -42,39 +40,31 @@ __status__ = 'Development'
 
 
 @dataclass(slots=True, frozen=True, kw_only=True)
-class BaseBundle:
+class ProjectBundle:
     '''
-        Encapsulates base runtime components for simplification of base bundle creation.
+        Encapsulates project runtime components for simplification of project bundle creation.
 
         It defines:
 
             :attributes:
-                | info_file - Information file path for App/Tool/Script.
-                | config_loader - Configuration loader instance.
-                | info_manager - Information manager instance.
-                | options_parser - Options parser instance.
-                | splasher - SplashManager instance.
-                | generator - GeneratorManager instance or None.
-                | use_generator - Enable/Disable generator usage flag.
-                | context_bundle - Context bundle instance.
+                | pro_name - Project name mechanism.
+                | pro_config - Project configuration mechanism.
+                | template_dir - Project template directory mechanism.
+                | context_bundle - The context bundle.
             :methods:
-                | to_dict - Converts base bundle to a dictionary.
+                | to_dict - Converts project bundle to a dictionary.
     '''
 
-    info_file: str
-    config_loader: ILoader
-    info_manager: IInfoManager
-    options_parser: IOptionManager
-    splasher: ISplashManager
-    generator: IGeneratorManager | None
-    use_generator: bool
+    pro_name: IProName
+    pro_config: IProConfig
+    template_dir: ITemplateDir
     context_bundle: ContextBundle
 
     def to_dict(self) -> dict[str, object]:
         '''
-            Converts base bundle to a dictionary.
+            Converts project bundle to a dictionary.
 
-            :return: Dictionary representation of the base bundle.
+            :return: Dictionary representation of the project bundle.
             :exceptions:
                 | ATSValueError: Instance must be provided.
                 | ATSValueError: Instance must be a dataclass instance.
