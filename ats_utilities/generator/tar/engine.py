@@ -96,14 +96,14 @@ class TarProcessor:
         not_none(context_bundle, ctx, 'context bundle must be provided')
         istype(
             context_bundle, ContextBundle, ctx,
-            r'context bundle must be an instance of ContextBundle'
+            'context bundle must be an instance of ContextBundle'
         )
         self._context = context_bundle
 
         not_none(template_processor, ctx, 'template processor must be provided')
         istype(
             template_processor, ITemplateProcessor, ctx,
-            r'template processor must be an instance of ITemplateProcessor'
+            'template processor must be an instance of ITemplateProcessor'
         )
         self._template_processor = template_processor
 

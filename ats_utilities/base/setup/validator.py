@@ -27,7 +27,7 @@ from ats_utilities.base.setup.bundle import BaseBundle
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
-from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.splash.isplash_manager import ISplashManager
 from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.setup.ivalidator import IValidator
@@ -66,7 +66,7 @@ class BaseValidator(IValidator[BaseBundle]):
                 | ATSValueError: Config loader must be provided.
                 | ATSValueError: Info manager must be provided.
                 | ATSValueError: Options parser must be provided.
-                | ATSValueError: Splasher must be provided.
+                | ATSValueError: SplashManager must be provided.
                 | ATSValueError: Use generator flag must be provided.
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Bundle must be an instance of BaseBundle.
@@ -74,7 +74,7 @@ class BaseValidator(IValidator[BaseBundle]):
                 | ATSTypeError: Config loader must be an instance of ILoader.
                 | ATSTypeError: Info manager must be an instance of IInfoManager.
                 | ATSTypeError: Options parser must be an instance of IOptionManager.
-                | ATSTypeError: Splasher must be an instance of ISplasher.
+                | ATSTypeError: SplashManager must be an instance of ISplashManager.
                 | ATSTypeError: Use generator flag must be an instance of bool.
                 | ATSTypeError: Generator must be an instance of IGenerator or None.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
@@ -96,7 +96,7 @@ class BaseValidator(IValidator[BaseBundle]):
         istype(bundle.config_loader, ILoader, ctx, 'config loader must be an ILoader interface')
         istype(bundle.info_manager, IInfoManager, ctx, 'info manager must be an IInfoManager interface')
         istype(bundle.options_parser, IOptionManager, ctx, 'options parser must be an IOptionManager interface')
-        istype(bundle.splasher, ISplasher, ctx, 'splasher must be an ISplasher interface')
+        istype(bundle.splasher, ISplashManager, ctx, 'splasher must be an ISplashManager interface')
         istype(bundle.use_generator, bool, ctx, 'use generator flag must be a bool')
         istype(bundle.generator, (IGenerator, type(None)), ctx, 'generator must be an IGenerator interface or None')
         istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')

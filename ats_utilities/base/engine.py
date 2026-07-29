@@ -30,7 +30,7 @@ from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
-from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.splash.isplash_manager import ISplashManager
 from ats_utilities.utils.reflection import to_str, has_attrs
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
@@ -57,7 +57,7 @@ class Base:
                 | _context - Context for components.
                 | _config_loader - Manager for configuration loading (default ConfigLoader).
                 | _info_manager - Manager for info property (default InfoManager).
-                | _splasher - Manager for splash screen (default Splasher).
+                | _splasher - Manager for splash screen (default SplashManager).
                 | _options_parser - Manager for options parser (default OptionManager).
                 | _generator - Generator manager (default Generator).
             :methods:
@@ -72,11 +72,11 @@ class Base:
 
     _is_initialized: bool
     _context: ContextBundle
-    _config_loader: ILoader[ContextBundle]
-    _info_manager: IInfoManager[ContextBundle]
-    _splasher: ISplasher[ContextBundle, object]
-    _options_parser: IOptionManager[ContextBundle]
-    _generator: IGenerator[ContextBundle]
+    _config_loader: ILoader
+    _info_manager: IInfoManager
+    _splasher: ISplashManager
+    _options_parser: IOptionManager
+    _generator: IGenerator
 
     def __init__(self, own: BaseBundle) -> None:
         '''
@@ -84,27 +84,14 @@ class Base:
 
             :param own: Component bundle for base package.
             :exceptions:
-                | ATSValueError: Component bundle must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSValueError: Information file must be provided.
-                | ATSValueError: Config loader must be provided.
-                | ATSValueError: Info manager must be provided.
-                | ATSValueError: Options parser must be provided.
-                | ATSValueError: Splasher must be provided.
-                | ATSValueError: Use generator must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Information file must be str.
-                | ATSTypeError: Config loader must be IConfigLoadManager interface.
-                | ATSTypeError: Info manager must be IInfoManager interface.
-                | ATSTypeError: Options parser must be IOptionManager interface.
-                | ATSTypeError: Splasher must be ISplasher interface.
-                | ATSTypeError: Use generator must be bool.
-                | ATSTypeError: Generator must be IGenerator interface or None.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSValueError: Base bundle must be provided and have proper values.
+                | ATSTypeError:  Base bundle must be an instance of BaseBundle
+                |                and its attributes must be instances of their
+                |                respective interfaces and types.
         '''
-        context: str = r'base::init(...)'
-        not_none(own, context, r'component bundle must be provided')
-        istype(own, BaseBundle, context, r'component bundle must be an instance of BaseBundle')
+        context: str = 'base::init(...)'
+        not_none(own, context, 'component bundle must be provided')
+        istype(own, BaseBundle, context, 'component bundle must be an instance of BaseBundle')
         self._context = own.context_bundle
         self._config_loader = own.config_loader
         self._info_manager = own.info_manager

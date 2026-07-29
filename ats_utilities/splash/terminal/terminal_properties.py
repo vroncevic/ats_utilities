@@ -54,10 +54,10 @@ class TerminalProperties:
                 | _window_size - Terminal window size (default None).
             :methods:
                 | __init__ - Initials TerminalProperties constructor.
-                | ioctl_get_window_size - Gets size for file descriptor.
+                | ioctl_get_window_size - Gets terminal window size for a file descriptor.
                 | ioctl_for_all_descriptors - Tries to get and set terminal window size.
                 | size - Gets terminal window size.
-                | __str__ - Returns the string representation of TerminalProperties.
+                | __str__ - Returns terminal properties as string representation.
     '''
 
     _window_size: tuple[object, ...] | None
@@ -69,16 +69,10 @@ class TerminalProperties:
 
             :param context_bundle: Context bundle for terminal properties.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Checker must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSValueError: Reporter must be provided.
-                | ATSValueError: Verbose must be provided.
-                | ATSTypeError: Bundle must be an instance of ContextBundle.
-                | ATSTypeError: Checker must be an instance of IChecker.
-                | ATSTypeError: Logger must be an instance of ILogger.
-                | ATSTypeError: Reporter must be an instance of IReporter.
-                | ATSTypeError: Verbose must be a boolean.
+                | ATSValueError:  Context bundle must be provided and have proper values.
+                | ATSTypeError:   Context bundle must be an instance of ContextBundle
+                |                 and its attributes must be instances of their
+                |                 respective types.
         '''
         ContextValidator.validate(context_bundle)
         self._context = context_bundle
@@ -88,17 +82,17 @@ class TerminalProperties:
     @vreport('ioctl get window size {window_size}')
     def ioctl_get_window_size(self, file_descriptor: int) -> tuple[object, ...]:
         '''
-            Gets size for file descriptor.
+            Gets terminal window size for a file descriptor.
 
             :param file_descriptor: File descriptor.
-            :return: Window size of terminal.
+            :return: Terminal window size.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
-                | ATSTypeError: Parameter type validation failed.
-                | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSTypeError:      Parameter type validation failed.
+                | ATSValueError:     Parameter format validation failed.
+                | ATSRuntimeError:   Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._window_size = unpack('HHHH', ioctl(file_descriptor, TIOCGWINSZ, pack('HHHH', 0, 0, 0, 0)))
@@ -112,7 +106,7 @@ class TerminalProperties:
             It stops and returns on the first successfully queried descriptor.
 
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
@@ -133,7 +127,7 @@ class TerminalProperties:
 
             :return: Terminal window size.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
@@ -159,9 +153,9 @@ class TerminalProperties:
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of TerminalProperties.
+            Returns terminal properties as string representation.
 
-            :return: The TerminalProperties as string representation.
+            :return: Terminal properties as string representation.
             :exceptions: None.
         '''
         return to_str(self)

@@ -25,7 +25,8 @@ from __future__ import annotations
 from collections.abc import Mapping
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.splasher.setup.splash_keys import SplashKeys
+from ats_utilities.context.validator import ContextValidator
+from ats_utilities.splash.setup.keys import SplashKeys
 from ats_utilities.utils.dicts import has_required_keys, require_keys
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import mcheck
@@ -55,7 +56,7 @@ class SplashProperty:
                 | __init__ - Initials SplashProperty constructor.
                 | splash_keys - Property method for get/set splash keys.  
                 | validates - Validates splash keys.
-                | __str__ - Returns the splash property as string representation.
+                | __str__ - Returns splash property as string representation.
     '''
 
     _splash_keys: SplashKeys | None
@@ -67,9 +68,12 @@ class SplashProperty:
 
             :param context_bundle: Context bundle for splash screen property.
             :exceptions:
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSValueError:  Context bundle must be provided and have proper values.
+                | ATSTypeError:   Context bundle must be an instance of ContextBundle
+                |                 and its attributes must be instances of their
+                |                 respective types.
         '''
+        ContextValidator.validate(context_bundle)
         self._context = context_bundle
         self._splash_keys = None
 
@@ -82,7 +86,7 @@ class SplashProperty:
 
             :return: Formatted splash screen property in Mapping format (read only data).
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
@@ -98,23 +102,23 @@ class SplashProperty:
 
             :param setup: Project splash property in Mapping format (read only data).
             :exceptions:
-                | ATSTypeError: splash property setup is not a Mapping.
-                | ATSValueError: splash property setup is missing required keys.
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSTypeError:      Infrastructure property setup is not a Mapping.
+                | ATSValueError:     Infrastructure property setup is missing required keys.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
-                | ATSTypeError: Parameter type validation failed.
-                | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSTypeError:      Parameter type validation failed.
+                | ATSValueError:     Parameter format validation failed.
+                | ATSRuntimeError:   Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         is_enabled = bool(setup.get('enabled', True))
 
         if is_enabled:
-            context: str = r'splash_property::splash_keys(...)'
+            context: str = 'splash_property::splash_keys(...)'
             require_keys(
                 setup, frozenset(SplashKeys.get_all_keys()),
-                context, r'splash property setup is missing required keys'
+                context, 'splash property setup is missing required keys'
             )
 
         self._splash_keys = SplashKeys.from_dict(setup)
@@ -128,8 +132,8 @@ class SplashProperty:
 
             :return: True (success) else False (fail).
             :exceptions:
-                | ATSValueError: Missing or empty attribute: '_splash_keys'.
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSValueError:     Missing or empty attribute: '_splash_keys'.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
@@ -140,9 +144,9 @@ class SplashProperty:
 
     def __str__(self) -> str:
         '''
-            Returns the splash property as string representation.
+            Returns splash property as string representation.
 
-            :return: The splash property as string representation.
+            :return: Splash property as string representation.
             :exceptions: None.
         '''
         return to_str(self)

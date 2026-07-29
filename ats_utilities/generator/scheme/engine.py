@@ -89,8 +89,8 @@ class SchemeLoader:
                 | ATSValueError: Failed to setup config loader.
                 | ATSGeneratorError: Loading scheme file fails.
         '''
-        context: str = r'scheme_loader::load(...)'
-        istype(scheme, (str, Mapping), context, r'scheme must be of type str or Mapping')
+        context: str = 'scheme_loader::load(...)'
+        istype(scheme, (str, Mapping), context, 'scheme must be of type str or Mapping')
 
         if isinstance(scheme, str):
             not_satisfied(

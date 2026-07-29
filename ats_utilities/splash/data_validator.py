@@ -21,10 +21,7 @@ Info
 
 from __future__ import annotations
 
-
-
-from ats_utilities.utils.data.ivalidator import IDataValidator
-from ats_utilities.splasher.data import CenterData
+from ats_utilities.splash.data import CenterData
 from ats_utilities.validation.check_value import not_none, not_satisfied
 from ats_utilities.validation.check_type import istype
 
@@ -38,7 +35,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
 
 
-class CenterDataValidator(IDataValidator[CenterData]):
+class CenterDataValidator:
     '''
         Validator for CenterData class.
 

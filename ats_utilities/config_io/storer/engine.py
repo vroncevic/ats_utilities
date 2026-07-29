@@ -87,9 +87,9 @@ class Storer(IStorer[ContextBundle]):
                 | ATSValueError: Extension is not supported.
                 | ATSTypeError: Validation of processor instance failed.
         '''
-        context: str = r'storer::init(...)'
-        not_none(own, context, r'component bundle must be provided')
-        istype(own, ConfigIOBundle, context, r'component bundle must be of type ConfigIOBundle')
+        context: str = 'storer::init(...)'
+        not_none(own, context, 'component bundle must be provided')
+        istype(own, ConfigIOBundle, context, 'component bundle must be of type ConfigIOBundle')
         self._context = own.context_bundle
         self._processor = own.processor
         self._conf_file = ConfFile(

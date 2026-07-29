@@ -101,11 +101,11 @@ class ConfFile(IConfFile):
                 | ATSValueError: File does not exist (when opening in read mode).
                 | ATSTypeError: File path and mode must be strings.
         '''
-        context: str = r'conf_file::enter(...)'
-        not_none(self._file_path, context, r'file path must be provided')
-        not_none(self._file_mode, context, r'file mode must be provided')
-        istype(self._file_path, str, context, r'file path must be a string')
-        istype(self._file_mode, str, context, r'file mode must be a string')
+        context: str = 'conf_file::enter(...)'
+        not_none(self._file_path, context, 'file path must be provided')
+        not_none(self._file_mode, context, 'file mode must be provided')
+        istype(self._file_path, str, context, 'file path must be a string')
+        istype(self._file_mode, str, context, 'file mode must be a string')
 
         if 'r' in self._file_mode:
             check_file_exists(self._file_path, context, f'file {self._file_path} does not exist')

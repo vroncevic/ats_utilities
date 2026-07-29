@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for Splasher class.
+    Unit tests for SplashManager class.
 '''
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ from unittest.mock import patch, MagicMock
 
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
-from ats_utilities.splasher.engine import Splasher
+from ats_utilities.splasher.engine import SplashManager
 from ats_utilities.splasher.data import CenterData
 from ats_utilities.splasher.setup.splash_keys import SplashKeys
 from ats_utilities.splasher.setup.factory import SplashFactory
@@ -47,14 +47,14 @@ __status__: str = 'Development'
 class EngineTest(unittest.TestCase):
     '''
         Defines class EngineTest with attribute(s) and method(s).
-        Tests Splasher logic.
+        Tests SplashManager logic.
 
         It defines:
 
             :attributes: None.
             :methods:
                 | test_init_invalid - Tests error cases with None/wrong argument types.
-                | test_splasher_disabled - Tests Splasher when enabled=False.
+                | test_splasher_disabled - Tests SplashManager when enabled=False.
                 | test_splasher_github_valid - Tests GitHub infrastructure and logo rendering.
                 | test_splasher_github_invalid_logo - Tests error when reading invalid logo file.
                 | test_splasher_external_valid - Tests external infrastructure rendering.
@@ -92,17 +92,17 @@ class EngineTest(unittest.TestCase):
 
     def test_init_invalid(self) -> None:
         with self.assertRaises(ATSValueError):
-            Splasher(None)  # type: ignore
+            SplashManager(None)  # type: ignore
 
         with self.assertRaises(ATSTypeError):
-            Splasher(object())  # type: ignore
+            SplashManager(object())  # type: ignore
 
     @patch("sys.stdout.write")
     @patch("sys.stdout.flush")
     def test_splasher_disabled(self, mock_flush: MagicMock, mock_write: MagicMock) -> None:
         prop = {"enabled": False}
         bundle = SplashFactory.create_splash_bundle_from_dict(prop, self.context_bundle)
-        splasher = Splasher(bundle)
+        splasher = SplashManager(bundle)
         self.assertTrue(splasher.is_initialized())
         self.assertIs(splasher.get_context(), self.context_bundle)
         mock_write.assert_not_called()
@@ -113,7 +113,7 @@ class EngineTest(unittest.TestCase):
     def test_splasher_github_valid(self, mock_sleep: MagicMock, mock_flush: MagicMock, mock_write: MagicMock) -> None:
         prop = self._get_valid_prop()
         bundle = SplashFactory.create_splash_bundle_from_dict(prop, self.context_bundle)
-        splasher = Splasher(bundle)
+        splasher = SplashManager(bundle)
         self.assertTrue(splasher.is_initialized())
 
         # Check logo lines and infrastructure texts are printed
@@ -132,7 +132,7 @@ class EngineTest(unittest.TestCase):
         prop = self._get_valid_prop()
         bundle = SplashFactory.create_splash_bundle_from_dict(prop, self.context_bundle)
         with self.assertRaises(ATSValueError):
-            Splasher(bundle)
+            SplashManager(bundle)
 
     @patch("sys.stdout.write")
     @patch("sys.stdout.flush")
@@ -141,7 +141,7 @@ class EngineTest(unittest.TestCase):
         prop = self._get_valid_prop()
         prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE] = False
         bundle = SplashFactory.create_splash_bundle_from_dict(prop, self.context_bundle)
-        splasher = Splasher(bundle)
+        splasher = SplashManager(bundle)
         self.assertTrue(splasher.is_initialized())
 
         # Check external texts are printed
@@ -154,21 +154,21 @@ class EngineTest(unittest.TestCase):
     def test_center_disabled_splash(self, mock_write: MagicMock) -> None:
         prop = {"enabled": False}
         bundle = SplashFactory.create_splash_bundle_from_dict(prop, self.context_bundle)
-        splasher = Splasher(bundle)
+        splasher = SplashManager(bundle)
         center_data = CenterData(columns=80, additional_shifter=2)
         splasher.center(center_data, "won't show")
         mock_write.assert_not_called()
 
     def test_splasher_property_not_validated(self) -> None:
         bundle = SplashFactory.create_splash_bundle_from_dict(None, self.context_bundle)  # type: ignore
-        splasher = Splasher(bundle)
+        splasher = SplashManager(bundle)
         self.assertTrue(splasher.is_initialized())
 
     def test_str(self) -> None:
         prop = {"enabled": False}
         bundle = SplashFactory.create_splash_bundle_from_dict(prop, self.context_bundle)
-        splasher = Splasher(bundle)
-        self.assertIn("Splasher", str(splasher))
+        splasher = SplashManager(bundle)
+        self.assertIn("SplashManager", str(splasher))
 
 
 if __name__ == "__main__":

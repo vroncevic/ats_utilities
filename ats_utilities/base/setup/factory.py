@@ -34,14 +34,14 @@ from ats_utilities.info.engine import InfoManager
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.ioption_manager import IOptionManager
-from ats_utilities.splasher.engine import Splasher
-from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.splash.engine import SplashManager
+from ats_utilities.splash.isplash_manager import ISplashManager
 from ats_utilities.generator.engine import Generator
 from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.config_io.setup.registry import ConfigIORegistry
 from ats_utilities.info.setup.factory import InfoFactory
 from ats_utilities.option.setup.factory import OptionFactory
-from ats_utilities.splasher.setup.factory import SplashFactory
+from ats_utilities.splash.setup.factory import SplashFactory
 from ats_utilities.generator.setup.factory import GeneratorFactory
 from ats_utilities.utils.dicts import get_first_available
 from ats_utilities.validation.check_value import not_none
@@ -87,13 +87,13 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
                 | ATSValueError: Config loader must be provided.
                 | ATSValueError: Info manager must be provided.
                 | ATSValueError: Options parser must be provided.
-                | ATSValueError: Splasher must be provided.
+                | ATSValueError: SplashManager must be provided.
                 | ATSValueError: Use generator flag must be provided.
                 | ATSTypeError: Bundle must be an instance of BaseBundle.
                 | ATSTypeError: Config loader must be an instance of ILoader.
                 | ATSTypeError: Info manager must be an instance of IInfoManager.
                 | ATSTypeError: Options parser must be an instance of IOptionManager.
-                | ATSTypeError: Splasher must be an instance of ISplasher.
+                | ATSTypeError: SplashManager must be an instance of ISplashManager.
                 | ATSTypeError: Use generator flag must be an instance of bool.
                 | ATSTypeError: Generator must be an instance of IGenerator or None.
         '''
@@ -133,7 +133,7 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
         logo_path: str = info_manager.logo
         info_manager.logo = f'{dirname(info_file)}/{logo_path}'
 
-        splasher: ISplasher[ContextBundle, object] = Splasher(
+        splasher: ISplashManager[ContextBundle, object] = SplashManager(
             own=SplashFactory.create_splash_bundle_from_dict(
                 prop=info_manager.get_info(),
                 context_bundle=context_bundle
@@ -194,13 +194,13 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
                 | ATSValueError: Config loader must be provided.
                 | ATSValueError: Info manager must be provided.
                 | ATSValueError: Options parser must be provided.
-                | ATSValueError: Splasher must be provided.
+                | ATSValueError: SplashManager must be provided.
                 | ATSValueError: Use generator flag must be provided.
                 | ATSTypeError: Bundle must be an instance of BaseBundle.
                 | ATSTypeError: Config loader must be an instance of ILoader.
                 | ATSTypeError: Info manager must be an instance of IInfoManager.
                 | ATSTypeError: Options parser must be an instance of IOptionManager.
-                | ATSTypeError: Splasher must be an instance of ISplasher.
+                | ATSTypeError: SplashManager must be an instance of ISplashManager.
                 | ATSTypeError: Use generator flag must be an instance of bool.
                 | ATSTypeError: Generator must be an instance of IGenerator or None.
         '''

@@ -24,10 +24,10 @@ from __future__ import annotations
 
 
 from ats_utilities.utils.setup.iregistry import IRegistry
-from ats_utilities.splasher.setup.bundle import SplashBundle
-from ats_utilities.splasher.setup.dependencies import SplashDependencies
-from ats_utilities.splasher.setup.validator import SplashValidator
-from ats_utilities.splasher.setup.dep_validator import SplashDependenciesValidator
+from ats_utilities.splash.setup.bundle import SplashBundle
+from ats_utilities.splash.setup.dependencies import SplashDependencies
+from ats_utilities.splash.setup.validator import SplashValidator
+from ats_utilities.splash.setup.dep_validator import SplashDependenciesValidator
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'

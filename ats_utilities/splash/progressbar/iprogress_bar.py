@@ -2,7 +2,7 @@
 
 '''
 Module
-    iterminal_properties.py
+    iprogress_bar.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ITerminalProperties with method(s).
-    Interface for getting terminal properties.
+    Defines abstract class IProgressBar with method(s).
+    Interface for progress bar component.
 '''
 
 from __future__ import annotations
@@ -35,47 +35,50 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class ITerminalProperties(Protocol):
+class IProgressBar(Protocol):
     '''
-        Defines abstract class ITerminalProperties with method(s).
-        Interface for getting terminal properties.
+        Defines abstract class IProgressBar with method(s).
+        Interface for progress bar component.
 
         It defines:
 
             :methods:
-                | ioctl_get_window_size - Gets size for file descriptor.
-                | ioctl_for_all_descriptors - Sets size for all file descriptors.
-                | size - Gets terminal window size.
-                | __str__ - Returns the terminal properties as string representation.
+                | set_level - Sets level of progress.
+                | plot_progress - Plots progress.
+                | set_and_plot - Sets and plots progress.
+                | __str__ - Returns progress bar as string representation.
     '''
 
-    def ioctl_get_window_size(self, file_descriptor: int) -> tuple[object, ...]:
+    def set_level(self, level: int) -> None:
         '''
-            Gets size for file descriptor.
+            Sets level of progress.
 
-            :param file_descriptor: File descriptor.
-            :return: Window size of terminal.
+            :param level: Level of progress.
+            :exceptions: None.
         '''
         ...
 
-    def ioctl_for_all_descriptors(self) -> None:
+    def plot_progress(self, columns: int) -> None:
         '''
-            Sets size for all file descriptors.
+            Plots progress.
+
+            :param columns: Columns for open console session.
         '''
         ...
 
-    def size(self) -> tuple[object, ...]:
+    def set_and_plot(self, level: int, columns: int) -> None:
         '''
-            Gets terminal window size.
+            Sets and plots progress.
 
-            :return: Terminal window size.
+            :param level: Level of progress.
+            :param columns: Columns for open console session.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the terminal properties as string representation.
+            Returns progress bar as string representation.
 
-            :return: The terminal properties as string representation.
+            :return: Progress bar as string representation.
         '''
         ...

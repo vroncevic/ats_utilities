@@ -22,7 +22,6 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 from typing import Protocol, runtime_checkable
 
 __author__ = 'Vladimir Roncevic'
@@ -36,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IExtInfrastructure(Protocol):
+class IExtInfrastructure[PropertyType, InfoTextType, IssueTextType, AuthorTextType](Protocol):
     '''
         Defines abstract class IExtInfrastructure with method(s).
         Interface for processing hyperlinks for splash screen.
@@ -49,60 +48,60 @@ class IExtInfrastructure(Protocol):
                 | get_info_text - Pre-processes info text for splash screen.
                 | get_issue_text - Pre-processes issue text for splash screen.
                 | get_author_text - Pre-processes author text for splash screen.
-                | __str__ - Returns the external infrastructure as string representation.
+                | __str__ - Returns external infrastructure as string representation.
     '''
 
     @property
-    def infrastructure_property(self) -> Mapping[str, object]:
+    def infrastructure_property(self) -> PropertyType:
         '''
             Property method for getting infrastructure property.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :return: Formatted infrastructure property in Mapping format (read only data).
+            :return: Formatted infrastructure property in PropertyType format (read only data).
         '''
         ...
 
     @infrastructure_property.setter
-    def infrastructure_property(self, setup: Mapping[str, object]) -> None:
+    def infrastructure_property(self, setup: PropertyType) -> None:
         '''
             Property method for setting project infrastructure property.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :param setup: Project infrastructure property in Mapping format (read only data).
+            :param setup: Project infrastructure property in PropertyType format (read only data).
         '''
         ...
 
-    def get_info_text(self) -> str:
+    def get_info_text(self) -> InfoTextType:
         '''
             Pre-processes info text for splash screen.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :return: Hyperlink with info text.
+            :return: Formatted info text in InfoTextType format (read only data).
         '''
         ...
 
-    def get_issue_text(self) -> str:
+    def get_issue_text(self) -> IssueTextType:
         '''
             Pre-processes issue text for splash screen.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :return: Hyperlink with issue info.
+            :return: Formatted issue text in IssueTextType format (read only data).
         '''
         ...
 
-    def get_author_text(self) -> str:
+    def get_author_text(self) -> AuthorTextType:
         '''
             Pre-processes author text for splash screen.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :return: Hyperlink with author info.
+            :return: Formatted author text in AuthorTextType format (read only data).
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the external infrastructure as string representation.
+            Returns external infrastructure as string representation.
 
-            :return: The external infrastructure as string representation.
+            :return: External infrastructure as string representation.
         '''
         ...

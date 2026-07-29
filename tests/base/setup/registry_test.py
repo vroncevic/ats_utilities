@@ -31,7 +31,7 @@ from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
-from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.splasher.isplasher import ISplashManager
 from ats_utilities.generator.igenerator import IGenerator
 
 __author__: str = 'Vladimir Roncevic'
@@ -55,7 +55,7 @@ class TestBaseRegistry(unittest.TestCase):
         config_loader = MagicMock(spec=ILoader)
         info_manager = MagicMock(spec=IInfoManager)
         options_parser = MagicMock(spec=IOptionManager)
-        splasher = MagicMock(spec=ISplasher)
+        splasher = MagicMock(spec=ISplashManager)
         generator = MagicMock(spec=IGenerator)
 
         bundle = BaseRegistry.create_bundle(

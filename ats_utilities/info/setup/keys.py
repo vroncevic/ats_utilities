@@ -72,7 +72,7 @@ class InfoKeys:
             | - option keys are used to define options of the class
             | - information (configuration) keys are used to define behavior of:
             |   - Info class instance
-            |   - Splasher class instance
+            |   - SplashManager class instance
             |   - Logging class instance
             |   - Option class instance
 
@@ -117,33 +117,33 @@ class InfoKeys:
     '''
 
     # Dependency Keys
-    DEPENDENCY_NAME: ClassVar[str] = r'name'
-    DEPENDENCY_VERSION: ClassVar[str] = r'version'
-    DEPENDENCY_BUILD_DATE: ClassVar[str] = r'build_date'
-    DEPENDENCY_LICENCE: ClassVar[str] = r'licence'
-    DEPENDENCY_REPOSITORY: ClassVar[str] = r'repository'
-    DEPENDENCY_ORGANIZATION: ClassVar[str] = r'organization'
-    DEPENDENCY_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = r'use_github'
-    DEPENDENCY_LOGO_PATH: ClassVar[str] = r'logo'
-    DEPENDENCY_LOG_FILE: ClassVar[str] = r'log_file'
-    DEPENDENCY_INFO_OK: ClassVar[str] = r'info_ok'
-    DEPENDENCY_CONTEXT_BUNDLE: ClassVar[str] = r'context_bundle'
+    DEPENDENCY_NAME: ClassVar[str] = 'name'
+    DEPENDENCY_VERSION: ClassVar[str] = 'version'
+    DEPENDENCY_BUILD_DATE: ClassVar[str] = 'build_date'
+    DEPENDENCY_LICENCE: ClassVar[str] = 'licence'
+    DEPENDENCY_REPOSITORY: ClassVar[str] = 'repository'
+    DEPENDENCY_ORGANIZATION: ClassVar[str] = 'organization'
+    DEPENDENCY_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = 'use_github'
+    DEPENDENCY_LOGO_PATH: ClassVar[str] = 'logo'
+    DEPENDENCY_LOG_FILE: ClassVar[str] = 'log_file'
+    DEPENDENCY_INFO_OK: ClassVar[str] = 'info_ok'
+    DEPENDENCY_CONTEXT_BUNDLE: ClassVar[str] = 'context_bundle'
 
     # Option Keys
-    OPTION_INFO: ClassVar[str] = r'info'
-    OPTION_CONTEXT_BUNDLE: ClassVar[str] = r'context_bundle'
+    OPTION_INFO: ClassVar[str] = 'info'
+    OPTION_CONTEXT_BUNDLE: ClassVar[str] = 'context_bundle'
 
     # Information Keys
-    ATS_NAME: ClassVar[str] = r'ats_name'
-    ATS_VERSION: ClassVar[str] = r'ats_version'
-    ATS_BUILD_DATE: ClassVar[str] = r'ats_build_date'
-    ATS_LICENCE: ClassVar[str] = r'ats_licence'
-    ATS_REPOSITORY: ClassVar[str] = r'ats_repository'
-    ATS_ORGANIZATION: ClassVar[str] = r'ats_organization'
-    ATS_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = r'ats_use_github_infrastructure'
-    ATS_LOGO_PATH: ClassVar[str] = r'ats_logo_path'
-    ATS_LOG_FILE: ClassVar[str] = r'ats_log_file'
-    ATS_INFO_OK: ClassVar[str] = r'ats_info_ok'
+    ATS_NAME: ClassVar[str] = 'ats_name'
+    ATS_VERSION: ClassVar[str] = 'ats_version'
+    ATS_BUILD_DATE: ClassVar[str] = 'ats_build_date'
+    ATS_LICENCE: ClassVar[str] = 'ats_licence'
+    ATS_REPOSITORY: ClassVar[str] = 'ats_repository'
+    ATS_ORGANIZATION: ClassVar[str] = 'ats_organization'
+    ATS_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = 'ats_use_github_infrastructure'
+    ATS_LOGO_PATH: ClassVar[str] = 'ats_logo_path'
+    ATS_LOG_FILE: ClassVar[str] = 'ats_log_file'
+    ATS_INFO_OK: ClassVar[str] = 'ats_info_ok'
 
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:

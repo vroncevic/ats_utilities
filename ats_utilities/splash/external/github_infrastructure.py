@@ -26,7 +26,7 @@ from collections.abc import Mapping
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
-from ats_utilities.splasher.setup.splash_keys import SplashKeys
+from ats_utilities.splash.setup.keys import SplashKeys
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -53,13 +53,13 @@ class GitHubInfrastructure:
 
             :attributes:
                 | _REQUIRED_KEYS - Required keys for infrastructure property (default frozenset).
-                | _infrastructure_property - Splasher GitHub hyperlinks property (default None).
+                | _infrastructure_property - SplashManager GitHub hyperlinks property (default None).
             :methods:
-                | __init__ - Initials GitHubInfrastructure constructor.
+                | __init__ - Initials git hub infrastructure.
                 | get_info_text - Pre-processes info text.
                 | get_issue_text - Pre-processes issue text.
                 | get_author_text - Pre-processes author text.
-                | __str__ - Returns the string representation of GitHubInfrastructure.
+                | __str__ - Returns git hub infrastructure as string representation.
     '''
 
     _REQUIRED_KEYS: frozenset[str] = frozenset([SplashKeys.ATS_ORGANIZATION, SplashKeys.ATS_REPOSITORY])
@@ -68,20 +68,14 @@ class GitHubInfrastructure:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initials GitHubInfrastructure constructor.
+            Initials git hub infrastructure.
 
-            :param context_bundle: Context bundle for GitHub infrastructure.
+            :param context_bundle: Context bundle for git hub infrastructure.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Checker must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSValueError: Reporter must be provided.
-                | ATSValueError: Verbose must be provided.
-                | ATSTypeError: Bundle must be an instance of ContextBundle.
-                | ATSTypeError: Checker must be an instance of IChecker.
-                | ATSTypeError: Logger must be an instance of ILogger.
-                | ATSTypeError: Reporter must be an instance of IReporter.
-                | ATSTypeError: Verbose must be a boolean.
+                | ATSValueError:  Context bundle must be provided and have proper values.
+                | ATSTypeError:   Context bundle must be an instance of ContextBundle
+                |                 and its attributes must be instances of their
+                |                 respective types.
         '''
         ContextValidator.validate(context_bundle)
         self._context = context_bundle
@@ -96,7 +90,7 @@ class GitHubInfrastructure:
 
             :return: Formatted infrastructure property in Mapping format (read only data).
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
@@ -112,18 +106,18 @@ class GitHubInfrastructure:
 
             :param setup: Project infrastructure property in Mapping format (read only data).
             :exceptions:
-                | ATSTypeError: infrastructure property setup is not a Mapping.
-                | ATSValueError: infrastructure property setup is missing required keys.
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSTypeError:      Infrastructure property setup is not a Mapping.
+                | ATSValueError:     Infrastructure property setup is missing required keys.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
-                | ATSTypeError: Parameter type validation failed.
-                | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSTypeError:      Parameter type validation failed.
+                | ATSValueError:     Parameter format validation failed.
+                | ATSRuntimeError:   Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        context: str = r'github_infrastructure::infrastructure_property(...)'
-        require_keys(setup, self._REQUIRED_KEYS, context, r'infrastructure property setup is missing required keys')
+        context: str = 'github_infrastructure::infrastructure_property(...)'
+        require_keys(setup, self._REQUIRED_KEYS, context, 'infrastructure property setup is missing required keys')
         self._infrastructure_property = cherry_pick_dict(setup, self._REQUIRED_KEYS)
 
     @vreport('getting info text {infrastructure_property}')
@@ -135,17 +129,17 @@ class GitHubInfrastructure:
 
             :return: Hyperlink with info text.
             :exceptions:
-                | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
-                | ATSValueError: Target property name value is missing or empty.
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSValueError:     Missing or empty attribute: '_infrastructure_property'.
+                | ATSValueError:     Target property name value is missing or empty.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        context: str = r'github_infrastructure::get_info_text(...)'
+        context: str = 'github_infrastructure::get_info_text(...)'
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        not_empty(org, context, r'info property organization is missing or empty')
+        not_empty(org, context, 'info property organization is missing or empty')
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
-        not_empty(repo, context, r'info property repository is missing or empty')
+        not_empty(repo, context, 'info property repository is missing or empty')
         url_short: str = f'github.io/{repo}'
         url_long: str = f'https://{org}.github.io/{repo}'
 
@@ -160,17 +154,17 @@ class GitHubInfrastructure:
 
             :return: Hyperlink with issue info.
             :exceptions:
-                | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
-                | ATSValueError: Target property name value is missing or empty.
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSValueError:     Missing or empty attribute: '_infrastructure_property'.
+                | ATSValueError:     Target property name value is missing or empty.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        context: str = r'github_infrastructure::get_issue_text(...)'
+        context: str = 'github_infrastructure::get_issue_text(...)'
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        not_empty(org, context, r'issue property organization is missing or empty')
+        not_empty(org, context, 'issue property organization is missing or empty')
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
-        not_empty(repo, context, r'issue property repository is missing or empty')
+        not_empty(repo, context, 'issue property repository is missing or empty')
         url: str = f'https://github.com/{org}/{repo}/issues/new/choose'
 
         return f'\x1b]8;;{url}\agithub.io/issue\x1b]8;;\a'
@@ -184,15 +178,15 @@ class GitHubInfrastructure:
 
             :return: Hyperlink with author info.
             :exceptions:
-                | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
-                | ATSValueError: Target property name value is missing or empty.
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSValueError:     Missing or empty attribute: '_infrastructure_property'.
+                | ATSValueError:     Target property name value is missing or empty.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        context: str = r'github_infrastructure::get_author_text(...)'
+        context: str = 'github_infrastructure::get_author_text(...)'
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        not_empty(org, context, r'author property organization is missing or empty')
+        not_empty(org, context, 'author property organization is missing or empty')
         org_short: str = f'{org}.github.io'
         org_long: str = f'https://{org}.github.io/bio/'
 
@@ -200,9 +194,9 @@ class GitHubInfrastructure:
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of GitHubInfrastructure.
+            Returns git hub infrastructure as string representation.
 
-            :return: The GitHubInfrastructure as string representation.
+            :return: Git hub infrastructure as string representation.
             :exceptions: None.
         '''
         return to_str(self)

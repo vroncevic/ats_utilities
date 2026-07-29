@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Splasher with method(s).
+    Defines class SplashManager with method(s).
     Implements a splash screen with hyperlinks.
 '''
 
@@ -26,11 +26,11 @@ from time import sleep
 from sys import stdout
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.splasher.setup.bundle import SplashBundle
-from ats_utilities.splasher.setup.validator import SplashValidator
-from ats_utilities.splasher.data import CenterData
-from ats_utilities.splasher.data_validator import CenterDataValidator
-from ats_utilities.splasher.setup.splash_keys import SplashKeys
+from ats_utilities.splash.setup.bundle import SplashBundle
+from ats_utilities.splash.setup.validator import SplashValidator
+from ats_utilities.splash.data import CenterData
+from ats_utilities.splash.data_validator import CenterDataValidator
+from ats_utilities.splash.setup.keys import SplashKeys
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_satisfied
 
@@ -44,9 +44,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class Splasher:
+class SplashManager:
     '''
-        Defines class Splasher with attribute(s) and method(s).
+        Defines class SplashManager with attribute(s) and method(s).
         Implements a splash screen with hyperlinks.
 
         It defines:
@@ -56,7 +56,7 @@ class Splasher:
                 | _show_splash - Indicates if splasher should be shown.
                 | _context - Context bundle with core components.
             :methods:
-                | __init__ - Initializes Splasher.
+                | __init__ - Initializes SplashManager.
                 | get_context - Returns context bundle.
                 | center - Centers console line and places text.
                 | is_initialized - Checks if splasher is initialized.
@@ -69,36 +69,14 @@ class Splasher:
 
     def __init__(self, own: SplashBundle) -> None:
         '''
-            Initializes Splasher.
+            Initializes SplashManager.
 
             :param own: Splash screen component bundle.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Properties dictionary must be provided.
-                | ATSValueError: Splash property must be provided.
-                | ATSValueError: Property validated flag must be provided.
-                | ATSValueError: Terminal properties must be provided.
-                | ATSValueError: External infrastructure must be provided.
-                | ATSValueError: Progress bar must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Bundle must be an instance of SplashBundle.
-                | ATSTypeError: Properties dictionary must be an instance of Mapping.
-                | ATSTypeError: Splash property must be an instance of ISplashProperty.
-                | ATSTypeError: Property validated flag must be an instance of bool.
-                | ATSTypeError: Terminal properties must be an instance of ITerminalProperties.
-                | ATSTypeError: External infrastructure must be an instance of IExtInfrastructure.
-                | ATSTypeError: Progress bar must be an instance of IProgressBar.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
-                | ATSValueError: Checker must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSValueError: Reporter must be provided.
-                | ATSValueError: Verbose must be provided.
-                | ATSTypeError: Checker must be an instance of IChecker.
-                | ATSTypeError: Logger must be an instance of ILogger.
-                | ATSTypeError: Reporter must be an instance of IReporter.
-                | ATSTypeError: Verbose must be a boolean.
-                | ATSValueError: App/Tool/Script logo file path not correct.
-                | ATSValueError: Logo file content is invalid.
+                | ATSValueError: Splash bundle must be provided and have proper values.
+                | ATSTypeError:  Splash bundle must be an instance of SplashBundle
+                |                and its attributes must be instances of their
+                |                respective interfaces and types.
         '''
         SplashValidator.validate(own)
         self._is_initialized = False
@@ -190,7 +168,7 @@ class Splasher:
         '''
             Returns splasher as string representation.
 
-            :return: Splasher as string representation.
+            :return: SplashManager as string representation.
             :exceptions: None.
         '''
         return to_str(self)

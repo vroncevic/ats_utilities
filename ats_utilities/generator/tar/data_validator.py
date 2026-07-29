@@ -73,24 +73,24 @@ class TarDataValidator:
                 | ATSValueError: Values must be provided.
                 | ATSTypeError: Values must be a mapping.
         '''
-        context: str = r'tar_data_validator::validate(...)'
+        context: str = 'tar_data_validator::validate(...)'
 
-        not_none(data, context, r'data must be provided.')
-        istype(data, TarData, context, r'data must be an instance of TarData.')
+        not_none(data, context, 'data must be provided.')
+        istype(data, TarData, context, 'data must be an instance of TarData.')
         
-        not_none(data.archive_path, context, r'archive path must be provided.')
-        not_none(data.target_dir, context, r'target dir must be provided.')
-        not_none(data.source_dir, context, r'source dir must be provided.')
-        not_none(data.path_replacements, context, r'path replacements must be provided.')
-        not_none(data.exclude_patterns, context, r'exclude patterns must be provided.')
-        not_none(data.vals, context, r'vals must be provided.')
+        not_none(data.archive_path, context, 'archive path must be provided.')
+        not_none(data.target_dir, context, 'target dir must be provided.')
+        not_none(data.source_dir, context, 'source dir must be provided.')
+        not_none(data.path_replacements, context, 'path replacements must be provided.')
+        not_none(data.exclude_patterns, context, 'exclude patterns must be provided.')
+        not_none(data.vals, context, 'vals must be provided.')
 
-        istype(data.archive_path, str, context, r'archive path must be a string.')
-        istype(data.target_dir, str, context, r'target dir must be a string.')
-        istype(data.source_dir, str, context, r'source dir must be a string.')
-        istype(data.path_replacements, Mapping, context, r'path replacements must be a mapping.')
-        istype(data.exclude_patterns, Sequence, context, r'exclude patterns must be a sequence.')
-        istype(data.vals, Mapping, context, r'vals must be a mapping.')
+        istype(data.archive_path, str, context, 'archive path must be a string.')
+        istype(data.target_dir, str, context, 'target dir must be a string.')
+        istype(data.source_dir, str, context, 'source dir must be a string.')
+        istype(data.path_replacements, Mapping, context, 'path replacements must be a mapping.')
+        istype(data.exclude_patterns, Sequence, context, 'exclude patterns must be a sequence.')
+        istype(data.vals, Mapping, context, 'vals must be a mapping.')
 
 
 class TarMemberDataValidator:
@@ -124,17 +124,17 @@ class TarMemberDataValidator:
                 | ATSTypeError: dest_full_path must be a string.
                 | ATSTypeError: vals must be a mapping.
         '''
-        context: str = r'tar_member_data_validator::validate(...)'
+        context: str = 'tar_member_data_validator::validate(...)'
 
-        not_none(data, context, r'data must be provided.')
-        istype(data, TarMemberData, context, r'data must be an instance of TarMemberData.')
+        not_none(data, context, 'data must be provided.')
+        istype(data, TarMemberData, context, 'data must be an instance of TarMemberData.')
         
-        not_none(data.tar, context, r'tar must be provided.')
-        not_none(data.member, context, r'member must be provided.')
-        not_none(data.dest_full_path, context, r'dest full path must be provided.')
-        not_none(data.vals, context, r'vals must be provided.')
+        not_none(data.tar, context, 'tar must be provided.')
+        not_none(data.member, context, 'member must be provided.')
+        not_none(data.dest_full_path, context, 'dest full path must be provided.')
+        not_none(data.vals, context, 'vals must be provided.')
 
-        istype(data.tar, TarFile, context, r'tar must be a TarFile instance.')
-        istype(data.member, TarInfo, context, r'member must be a TarInfo instance.')
-        istype(data.dest_full_path, str, context, r'dest full path must be a string.')
-        istype(data.vals, Mapping, context, r'vals must be a mapping.')
+        istype(data.tar, TarFile, context, 'tar must be a TarFile instance.')
+        istype(data.member, TarInfo, context, 'member must be a TarInfo instance.')
+        istype(data.dest_full_path, str, context, 'dest full path must be a string.')
+        istype(data.vals, Mapping, context, 'vals must be a mapping.')

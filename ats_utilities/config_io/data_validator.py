@@ -63,14 +63,14 @@ class FileDataValidator(IDataValidator[FileData]):
                 | ATSTypeError: File mode must be a string.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        context: str = r'file_data_validator::validate(...)'
-        not_none(data, context, r'file data must be provided')
-        istype(data, FileData, context, r'file data must be an instance of FileData')
+        context: str = 'file_data_validator::validate(...)'
+        not_none(data, context, 'file data must be provided')
+        istype(data, FileData, context, 'file data must be an instance of FileData')
 
-        not_none(data.file_path, context, r'file path must be provided')
-        not_none(data.file_mode, context, r'file mode must be provided')
-        not_none(data.context_bundle, context, r'context bundle must be provided')
+        not_none(data.file_path, context, 'file path must be provided')
+        not_none(data.file_mode, context, 'file mode must be provided')
+        not_none(data.context_bundle, context, 'context bundle must be provided')
 
-        istype(data.file_path, str, context, r'file path must be a string')
-        istype(data.file_mode, str, context, r'file mode must be a string')
-        istype(data.context_bundle, ContextBundle, context, r'context bundle must be a ContextBundle instance')
+        istype(data.file_path, str, context, 'file path must be a string')
+        istype(data.file_mode, str, context, 'file mode must be a string')
+        istype(data.context_bundle, ContextBundle, context, 'context bundle must be a ContextBundle instance')

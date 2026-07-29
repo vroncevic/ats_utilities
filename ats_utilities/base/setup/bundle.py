@@ -26,7 +26,7 @@ from dataclasses import dataclass
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
-from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.splash.isplash_manager import ISplashManager
 from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import instance_to_dict
@@ -53,7 +53,7 @@ class BaseBundle:
                 | config_loader - Configuration loader instance.
                 | info_manager - Information manager instance.
                 | options_parser - Options parser instance.
-                | splasher - Splasher instance.
+                | splasher - SplashManager instance.
                 | generator - Generator instance or None.
                 | use_generator - Enable/Disable generator usage flag.
                 | context_bundle - Context bundle instance.
@@ -62,11 +62,11 @@ class BaseBundle:
     '''
 
     info_file: str
-    config_loader: ILoader[ContextBundle]
-    info_manager: IInfoManager[ContextBundle]
-    options_parser: IOptionManager[ContextBundle]
-    splasher: ISplasher[ContextBundle, object]
-    generator: IGenerator[ContextBundle] | None
+    config_loader: ILoader
+    info_manager: IInfoManager
+    options_parser: IOptionManager
+    splasher: ISplashManager
+    generator: IGenerator | None
     use_generator: bool
     context_bundle: ContextBundle
 

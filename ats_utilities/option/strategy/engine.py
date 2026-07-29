@@ -106,8 +106,8 @@ class ParserStrategy(IParserStrategy):
             description=f"{strategy_data.parameters.get(InfoKeys.ATS_NAME, '')} build date {strategy_data.parameters.get(InfoKeys.ATS_BUILD_DATE, '')}"
         )
         self._parser = self._parser_class(own=parser_data)
-        context: str = r'parser_strategy::init(...)'
-        istype(self._parser, IArgParser, context, r'parser must be an IArgParser instance')
+        context: str = 'parser_strategy::init(...)'
+        istype(self._parser, IArgParser, context, 'parser must be an IArgParser instance')
 
     @has_attrs('_parser')
     def add_argument(self, *args: str, **kwargs: object) -> None:

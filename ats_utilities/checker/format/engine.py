@@ -68,9 +68,9 @@ class FormatValidator:
         Examples:
             >>> from ats_utilities.checker.format.format_validator import FormatValidator
             >>> fv = FormatValidator()
-            >>> fv.is_valid(r'str:name')
+            >>> fv.is_valid('str:name')
             True
-            >>> fv.split(r'str:name')
+            >>> fv.split('str:name')
             ('str', 'name')
     '''
 

@@ -89,9 +89,9 @@ class Generator:
                 | ATSTypeError: Component bundle must be of type GeneratorBundle.
                 | ATSTypeError: Context bundle must be of type ContextBundle.
         '''
-        context: str = r'generator::init(...)'
-        not_none(own, context, r'component bundle must not be provided')
-        istype(own, GeneratorBundle, context, r'component bundle must be of type GeneratorBundle')
+        context: str = 'generator::init(...)'
+        not_none(own, context, 'component bundle must not be provided')
+        istype(own, GeneratorBundle, context, 'component bundle must be of type GeneratorBundle')
         self._context = own.context_bundle
         self._scheme_loader = own.scheme_loader
         self._tar_processor = own.tar_processor
@@ -117,11 +117,11 @@ class Generator:
                 | ATSTypeError: Template values must be a mapping.
                 | ATSValueError: Template values is missing or empty.
         '''
-        context: str = r'generator::prepare_template_values(...)'
-        not_none(template_values, context, r'template_values must be provided')
-        istype(template_values, Mapping, context, r'template_values must be a mapping')
+        context: str = 'generator::prepare_template_values(...)'
+        not_none(template_values, context, 'template_values must be provided')
+        istype(template_values, Mapping, context, 'template_values must be a mapping')
         project_name = template_values.get('project_name')
-        not_empty(project_name, context, r'template_values must contain a non-empty project_name')
+        not_empty(project_name, context, 'template_values must contain a non-empty project_name')
 
         values = template_values.copy()
         if 'project_name_dashed' not in values:

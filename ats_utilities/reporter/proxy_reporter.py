@@ -59,9 +59,9 @@ def vreport[F: Callable[..., object]](templates: str | list[str]) -> Callable[[F
 
     if not message_templates:
         raise_error(
-            fallback_context=r'vreport::decorator',
-            fallback_msg=r'Decorator @vreport requires at least one argument',
-            exc_context=r'vreport::decorator',
+            fallback_context='vreport::decorator',
+            fallback_msg='Decorator @vreport requires at least one argument',
+            exc_context='vreport::decorator',
             exc_message=None,
             exc_class=ATSValueError
         )
@@ -73,9 +73,9 @@ def vreport[F: Callable[..., object]](templates: str | list[str]) -> Callable[[F
 
             if self_instance is None:
                 raise_error(
-                    fallback_context=r'vreport::decorator',
+                    fallback_context='vreport::decorator',
                     fallback_msg=f'Decorator @vreport on {func.__name__} can only be used on class methods',
-                    exc_context=r'vreport::decorator',
+                    exc_context='vreport::decorator',
                     exc_message=None,
                     exc_class=ATSRuntimeError
                 )
@@ -102,7 +102,7 @@ def vreport[F: Callable[..., object]](templates: str | list[str]) -> Callable[[F
 
             if reporter is None:
                 raise_error(
-                    fallback_context=r'vreport::decorator',
+                    fallback_context='vreport::decorator',
                     fallback_msg=f'Class {class_name} must provide a reporter to use @vreport decorator',
                     exc_context=context,
                     exc_message=None,

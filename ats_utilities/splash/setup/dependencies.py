@@ -25,10 +25,10 @@ from collections.abc import Mapping
 from typing import TypedDict
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.splasher.property.isplash_property import ISplashProperty
-from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
-from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
-from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
+from ats_utilities.splash.property.isplash_property import ISplashProperty
+from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
+from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
+from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'

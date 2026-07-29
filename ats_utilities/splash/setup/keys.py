@@ -64,11 +64,11 @@ class SplashKeys:
                 | to_dict - Converts the SplashKeys instance to a dictionary.
     '''
 
-    ATS_NAME: ClassVar[str] = r'ats_name'
-    ATS_REPOSITORY: ClassVar[str] = r'ats_repository'
-    ATS_ORGANIZATION: ClassVar[str] = r'ats_organization'
-    ATS_LOGO_PATH: ClassVar[str] = r'ats_logo_path'
-    ATS_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = r'ats_use_github_infrastructure'
+    ATS_NAME: ClassVar[str] = 'ats_name'
+    ATS_REPOSITORY: ClassVar[str] = 'ats_repository'
+    ATS_ORGANIZATION: ClassVar[str] = 'ats_organization'
+    ATS_LOGO_PATH: ClassVar[str] = 'ats_logo_path'
+    ATS_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = 'ats_use_github_infrastructure'
 
     name: str | None = None
     repository: str | None = None

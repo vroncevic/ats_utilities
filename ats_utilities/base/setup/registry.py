@@ -59,7 +59,7 @@ class BaseRegistry(IRegistry[BaseBundle, BaseDependencies]):
                 | ATSValueError: Config loader must be provided.
                 | ATSValueError: Info manager must be provided.
                 | ATSValueError: Options parser must be provided.
-                | ATSValueError: Splasher must be provided.
+                | ATSValueError: SplashManager must be provided.
                 | ATSValueError: Use generator flag must be provided.
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Bundle must be an instance of BaseBundle.
@@ -67,20 +67,20 @@ class BaseRegistry(IRegistry[BaseBundle, BaseDependencies]):
                 | ATSTypeError: Config loader must be an instance of ILoader.
                 | ATSTypeError: Info manager must be an instance of IInfoManager.
                 | ATSTypeError: Options parser must be an instance of IOptionManager.
-                | ATSTypeError: Splasher must be an instance of ISplasher.
+                | ATSTypeError: SplashManager must be an instance of ISplashManager.
                 | ATSTypeError: Use generator flag must be an instance of bool.
                 | ATSTypeError: Generator must be an instance of IGenerator or None.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
         bundle: BaseBundle = BaseBundle(
-            info_file=dependencies.get('info_file'),
-            config_loader=dependencies.get('config_loader'),
-            info_manager=dependencies.get('info_manager'),
-            options_parser=dependencies.get('options_parser'),
-            splasher=dependencies.get('splasher'),
-            generator=dependencies.get('generator'),
-            use_generator=dependencies.get('use_generator', False),
-            context_bundle=dependencies.get('context_bundle')
+            info_file=dependencies.get('info_file') if dependencies else None,
+            config_loader=dependencies.get('config_loader') if dependencies else None,
+            info_manager=dependencies.get('info_manager') if dependencies else None,
+            options_parser=dependencies.get('options_parser') if dependencies else None,
+            splasher=dependencies.get('splasher') if dependencies else None,
+            generator=dependencies.get('generator') if dependencies else None,
+            use_generator=dependencies.get('use_generator') if dependencies else None,
+            context_bundle=dependencies.get('context_bundle') if dependencies else None
         )
 
         BaseValidator.validate(bundle)

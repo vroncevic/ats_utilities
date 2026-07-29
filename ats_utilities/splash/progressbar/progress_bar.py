@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ProgressBar with attribute(s) and method(s).
-    Implements a progressbar as part of splash screen.
+    Provides a API for progressbar as part of splash screen.
 '''
 
 from __future__ import annotations
@@ -39,7 +39,7 @@ __status__ = 'Development'
 class ProgressBar:
     '''
         Defines class ProgressBar with attribute(s) and method(s).
-        Implements a progressbar as part of splash screen.
+        Provides a API for progressbar as part of splash screen.
 
         It defines:
 
@@ -59,7 +59,7 @@ class ProgressBar:
                 | plot_progress - Plots progress bar.
                 | set_and_plot - Sets and plots progress bar.
                 | __del__ - Dunder del method for progress bar.
-                | __str__ - Returns the string representation of ProgressBar.
+                | __str__ - Returns progress bar as string representation.
     '''
 
     DEFAULT_BAR_LENGTH: int = 60
@@ -152,9 +152,9 @@ class ProgressBar:
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of ProgressBar.
+            Returns progress bar as string representation.
 
-            :return: The ProgressBar as string representation.
+            :return: Progress bar as string representation.
             :exceptions: None.
         '''
         return to_str(self)

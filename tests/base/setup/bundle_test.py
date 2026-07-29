@@ -29,7 +29,7 @@ from ats_utilities.base.setup.bundle import BaseBundle
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
-from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.splasher.isplasher import ISplashManager
 from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.context.bundle import ContextBundle
 
@@ -51,7 +51,7 @@ class TestBaseBundle(unittest.TestCase):
         self.mock_config_loader = MagicMock(spec=ILoader)
         self.mock_info_manager = MagicMock(spec=IInfoManager)
         self.mock_options_parser = MagicMock(spec=IOptionManager)
-        self.mock_splasher = MagicMock(spec=ISplasher)
+        self.mock_splasher = MagicMock(spec=ISplashManager)
         self.mock_generator = MagicMock(spec=IGenerator)
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
         

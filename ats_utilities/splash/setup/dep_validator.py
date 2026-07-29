@@ -23,14 +23,13 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
-
-from ats_utilities.splasher.setup.dependencies import SplashDependencies
-from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.splasher.property.isplash_property import ISplashProperty
-from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
-from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
-from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
+from ats_utilities.splash.setup.dependencies import SplashDependencies
+from ats_utilities.splash.property.isplash_property import ISplashProperty
+from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
+from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
+from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
 from ats_utilities.utils.setup.idep_validator import IDependenciesValidator
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -61,15 +60,9 @@ class SplashDependenciesValidator(IDependenciesValidator[SplashDependencies]):
 
             :param dependencies: Splash dependencies instance to be validated.
             :exceptions:
-                | ATSValueError: Dependencies must be provided.
-                | ATSTypeError: Dependencies must be a Mapping.
-                | ATSTypeError: Properties dictionary must be a Mapping.
-                | ATSTypeError: Splash property must be an instance of ISplashProperty.
-                | ATSTypeError: Property validated flag must be a boolean.
-                | ATSTypeError: Terminal properties must be an instance of ITerminalProperties.
-                | ATSTypeError: External infrastructure must be an instance of IExtInfrastructure.
-                | ATSTypeError: Progress bar must be an instance of IProgressBar.
-                | ATSTypeError: Context bundle must be a ContextBundle.
+                | ATSValueError: Dependencies must be provided and have proper attributes.
+                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
         ctx: str = 'splash_dependencies_validator::validate(...)'
 

@@ -20,7 +20,7 @@ Info
 '''
 
 from os.path import dirname, realpath
-from ats_utilities.splasher.engine import Splasher
+from ats_utilities.splasher.engine import SplashManager
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.splasher.setup.factory import SplashFactory
 from ats_utilities.context.bundle import ContextBundle
@@ -50,7 +50,7 @@ mytool_property_github: dict[object, object] = {
     SplashKeys.ATS_LOGO_PATH: logo_path,
     SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
 }
-ats_splash_with_github: Splasher = Splasher(
+ats_splash_with_github: SplashManager = SplashManager(
     own=SplashFactory.create_splash_bundle_from_dict(
         mytool_property_github, context_bundle=context_bundle
     )
@@ -69,7 +69,7 @@ mytool_property_no_github: dict[object, object] = {
     SplashKeys.ATS_LOGO_PATH: logo_path,
     SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: False
 }
-ats_splash_without_github = Splasher(
+ats_splash_without_github = SplashManager(
     own=SplashFactory.create_splash_bundle_from_dict(
         mytool_property_no_github, context_bundle=context_bundle
     )
@@ -84,7 +84,7 @@ print(100 * '=')
 mytool_property_disabled: dict[object, object] = {
     'enabled': False
 }
-ats_splash_disabled: Splasher = Splasher(
+ats_splash_disabled: SplashManager = SplashManager(
     own=SplashRegistry.create_splash_bundle_from_dict(
         mytool_property_disabled, context_bundle=context_bundle
     )

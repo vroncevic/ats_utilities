@@ -22,7 +22,6 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 from typing import Protocol, runtime_checkable
 
 __author__ = 'Vladimir Roncevic'
@@ -36,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class ISplashProperty(Protocol):
+class ISplashProperty[PropertyType](Protocol):
     '''
         Defines abstract class ISplashProperty with method(s).
         Interface for checking splash screen property.
@@ -51,22 +50,22 @@ class ISplashProperty(Protocol):
     '''
 
     @property
-    def splash_keys(self) -> Mapping[str, object]:
+    def splash_keys(self) -> PropertyType:
         '''
             Property method for getting splash keys.
             Note: Splash screen property comes from info configuration file as read only data.
 
-            :return: Formatted splash screen property in Mapping format (read only data).
+            :return: Formatted splash screen property in PropertyType format (read only data).
         '''
         ...
 
     @splash_keys.setter
-    def splash_keys(self, setup: Mapping[str, object]) -> None:
+    def splash_keys(self, setup: PropertyType) -> None:
         '''
             Property method for setting project splash keys.
             Note: Splash screen property comes from info configuration file as read only data.
 
-            :param setup: Project splash keys in Mapping format (read only data).
+            :param setup: Project splash keys in PropertyType format (read only data).
         '''
         ...
 

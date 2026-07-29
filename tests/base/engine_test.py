@@ -9,7 +9,7 @@ from ats_utilities.base.setup.bundle import BaseBundle
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.info.iinfo_manager import IInfoManager
-from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.splasher.isplasher import ISplashManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.generator.igenerator import IGenerator
@@ -32,7 +32,7 @@ class TestBaseEngine(unittest.TestCase):
         
         # Core sub-managers
         self.mock_info_manager = MagicMock(spec=IInfoManager)
-        self.mock_splasher = MagicMock(spec=ISplasher)
+        self.mock_splasher = MagicMock(spec=ISplashManager)
         self.mock_options_parser = MagicMock(spec=IOptionManager)
         self.mock_generator = MagicMock(spec=IGenerator)
 

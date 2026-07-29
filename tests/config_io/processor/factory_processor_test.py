@@ -54,7 +54,7 @@ class TestConfigProcessorFactory(unittest.TestCase):
             mock_validate.assert_called_once_with(
                 instance=self.mock_processor,
                 expected_class=IConfigProcessor,
-                exc_context=r'config_processor_factory::create_from_extension(...)',
+                exc_context='config_processor_factory::create_from_extension(...)',
                 exc_message='provided processor must implement IConfigProcessor'
             )
             self.assertEqual(result, self.mock_processor)
@@ -86,7 +86,7 @@ class TestConfigProcessorFactory(unittest.TestCase):
         mock_validate.assert_called_once_with(
             instance=mock_resolved_instance,
             expected_class=IConfigProcessor,
-            exc_context=r'config_processor_factory::create_from_extension(...)',
+            exc_context='config_processor_factory::create_from_extension(...)',
             exc_message='processor for extension .json must implement IConfigProcessor'
         )
         self.assertEqual(result, mock_resolved_instance)
@@ -116,7 +116,7 @@ class TestConfigProcessorFactory(unittest.TestCase):
         # Assert
         mock_check_exists.assert_called_once_with(
             file_path,
-            r'config_processor_factory::create_from_file_path(...)',
+            'config_processor_factory::create_from_file_path(...)',
             f"file at {file_path} does not exist"
         )
         mock_create_ext.assert_called_once_with(

@@ -67,24 +67,24 @@ class OptionDataValidator(IDataValidator[OptionData]):
                 | ATSTypeError: Choices must be a sequence.
                 | ATSTypeError: Nargs must be a string or an integer.
         '''
-        context: str = r'option_data_validator::validate(...)'
-        not_none(data, context, r'data must be provided')
-        istype(data, OptionData, context, r'data must be an instance of OptionData')
+        context: str = 'option_data_validator::validate(...)'
+        not_none(data, context, 'data must be provided')
+        istype(data, OptionData, context, 'data must be an instance of OptionData')
 
-        not_none(data.name, context, r'name must be provided')
-        istype(data.name, str, context, r'name must be a string')
+        not_none(data.name, context, 'name must be provided')
+        istype(data.name, str, context, 'name must be a string')
 
-        not_none(data.help_text, context, r'help text must be provided')
-        istype(data.help_text, str, context, r'help text must be a string')
+        not_none(data.help_text, context, 'help text must be provided')
+        istype(data.help_text, str, context, 'help text must be a string')
 
         if data.action is not None:
-            istype(data.action, str, context, r'action must be a string')
+            istype(data.action, str, context, 'action must be a string')
 
         if data.required is not None:
-            istype(data.required, bool, context, r'required must be a boolean')
+            istype(data.required, bool, context, 'required must be a boolean')
 
         if data.choices is not None:
-            istype(data.choices, Sequence, context, r'choices must be a sequence')
+            istype(data.choices, Sequence, context, 'choices must be a sequence')
 
         if data.nargs is not None:
-            istype(data.nargs, (str, int), context, r'nargs must be a string or an integer')
+            istype(data.nargs, (str, int), context, 'nargs must be a string or an integer')

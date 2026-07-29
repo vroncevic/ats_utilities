@@ -83,9 +83,9 @@ class Loader:
                 | ATSValueError: Extension is not supported.
                 | ATSTypeError: Validation of processor instance failed.
         '''
-        context: str = r'loader::init(...)'
-        not_none(own, context, r'component bundle must be provided')
-        istype(own, ConfigIOBundle, context, r'component bundle must be an instance of ConfigIOBundle')
+        context: str = 'loader::init(...)'
+        not_none(own, context, 'component bundle must be provided')
+        istype(own, ConfigIOBundle, context, 'component bundle must be an instance of ConfigIOBundle')
         self._context = own.context_bundle
         self._processor = own.processor
         self._conf_file = ConfFile(

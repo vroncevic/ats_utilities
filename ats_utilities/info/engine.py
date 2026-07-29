@@ -255,7 +255,7 @@ class InfoManager:
 
             :exceptions: None.
         '''
-        if not hasattr(self, r'_components') or self._components is None:
+        if not hasattr(self, '_components') or self._components is None:
             return
 
         required_dep_names = InfoKeys.get_names_of_required_config_keys()

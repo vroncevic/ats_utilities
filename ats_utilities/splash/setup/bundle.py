@@ -24,10 +24,10 @@ from __future__ import annotations
 from collections.abc import Mapping
 from dataclasses import dataclass
 
-from ats_utilities.splasher.property.isplash_property import ISplashProperty
-from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
-from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
-from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
+from ats_utilities.splash.property.isplash_property import ISplashProperty
+from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
+from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
+from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import instance_to_dict
 

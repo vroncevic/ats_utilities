@@ -2,7 +2,7 @@
 
 '''
 Module
-    isplasher.py
+    isplash_manager.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ISplasher with method(s).
-    Provides an interface for splash screen.
+    Defines abstract class ISplashManager with method(s).
+    Provides an interface for splash screen manager.
 '''
 
 from __future__ import annotations
@@ -35,19 +35,39 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class ISplasher[ContextEnvironment, PositionData](Protocol):
+class ISplashManager[ConfigType, ContextEnvironment, PositionData](Protocol):
     '''
-        Defines abstract class ISplasher with method(s).
-        Provides an interface for splash screen.
+        Defines abstract class ISplashManager with method(s).
+        Provides an interface for splash screen manager.
 
         It defines:
 
             :methods:
+                | get_bundle - Gets current splash screen configuration bundle.
+                | update_bundle - Updates splash screen configuration bundle.
                 | get_context - Returns the context environment.
                 | center - Centers console line and places text.
-                | is_initialized - Checks if splasher is initialized.
-                | __str__ - Returns the splash screen as string representation.
+                | is_initialized - Checks if splash screen manager is initialized.
+                | __str__ - Returns the splash screen manager as string representation.
     '''
+
+    def get_bundle(self) -> ConfigType:
+        '''
+            Gets current splash screen configuration bundle.
+
+            :return: Splash screen configuration bundle.
+            :exceptions: None.
+        '''
+        ...
+
+    def update_bundle(self, bundle: ConfigType) -> bool:
+        '''
+            Updates splash screen configuration bundle.
+
+            :param bundle: Splash screen configuration bundle.
+            :exceptions: None.
+        '''
+        ...
 
     def get_context(self) -> ContextEnvironment:
         '''
@@ -68,7 +88,7 @@ class ISplasher[ContextEnvironment, PositionData](Protocol):
 
     def is_initialized(self) -> bool:
         '''
-            Checks if splasher is initialized.
+            Checks if splash screen manager is initialized.
 
             :return: True if successfully, otherwise False.
         '''
@@ -76,8 +96,8 @@ class ISplasher[ContextEnvironment, PositionData](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns the splash screen as string representation.
+            Returns the splash screen manager as string representation.
 
-            :return: Splash screen as string representation.
+            :return: Splash screen manager as string representation.
         '''
         ...

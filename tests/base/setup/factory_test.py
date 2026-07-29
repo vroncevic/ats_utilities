@@ -30,7 +30,7 @@ from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.info.engine import InfoManager
 from ats_utilities.option.engine import OptionManager
-from ats_utilities.splasher.engine import Splasher
+from ats_utilities.splasher.engine import SplashManager
 from ats_utilities.generator.engine import Generator
 
 __author__: str = 'Vladimir Roncevic'
@@ -103,7 +103,7 @@ class TestBaseFactory(unittest.TestCase):
     @patch("ats_utilities.base.setup.factory.GeneratorFactory")
     @patch("ats_utilities.base.setup.factory.OptionManager")
     @patch("ats_utilities.base.setup.factory.OptionFactory")
-    @patch("ats_utilities.base.setup.factory.Splasher")
+    @patch("ats_utilities.base.setup.factory.SplashManager")
     @patch("ats_utilities.base.setup.factory.SplashFactory")
     @patch("ats_utilities.base.setup.factory.InfoManager")
     @patch("ats_utilities.base.setup.factory.InfoFactory")
@@ -139,7 +139,7 @@ class TestBaseFactory(unittest.TestCase):
 
         mock_splash_bundle = MagicMock()
         mock_splash_reg.create_splash_bundle_from_dict.return_value = mock_splash_bundle
-        mock_splash_inst = MagicMock(spec=Splasher)
+        mock_splash_inst = MagicMock(spec=SplashManager)
         mock_splash_cls.return_value = mock_splash_inst
 
         mock_opt_bundle = MagicMock()
@@ -210,7 +210,7 @@ class TestBaseFactory(unittest.TestCase):
     @patch("ats_utilities.base.setup.factory.GeneratorFactory")
     @patch("ats_utilities.base.setup.factory.OptionManager")
     @patch("ats_utilities.base.setup.factory.OptionFactory")
-    @patch("ats_utilities.base.setup.factory.Splasher")
+    @patch("ats_utilities.base.setup.factory.SplashManager")
     @patch("ats_utilities.base.setup.factory.SplashFactory")
     @patch("ats_utilities.base.setup.factory.InfoManager")
     @patch("ats_utilities.base.setup.factory.InfoFactory")
@@ -271,7 +271,7 @@ class TestBaseFactory(unittest.TestCase):
     @patch("ats_utilities.base.setup.factory.InfoFactory")
     @patch("ats_utilities.base.setup.factory.InfoManager")
     @patch("ats_utilities.base.setup.factory.SplashFactory")
-    @patch("ats_utilities.base.setup.factory.Splasher")
+    @patch("ats_utilities.base.setup.factory.SplashManager")
     @patch("ats_utilities.base.setup.factory.OptionFactory")
     @patch("ats_utilities.base.setup.factory.OptionManager")
     @patch("ats_utilities.base.setup.factory.BaseRegistry")

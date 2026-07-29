@@ -24,21 +24,21 @@ from __future__ import annotations
 from collections.abc import Mapping
 
 from ats_utilities.utils.setup.ifactory import IFactory
-from ats_utilities.splasher.setup.bundle import SplashBundle
-from ats_utilities.splasher.setup.options import SplashOptions
-from ats_utilities.splasher.setup.opt_validator import SplashOptionsValidator
-from ats_utilities.splasher.setup.dependencies import SplashDependencies
-from ats_utilities.splasher.setup.registry import SplashRegistry
-from ats_utilities.splasher.property.isplash_property import ISplashProperty
-from ats_utilities.splasher.property.splash_property import SplashProperty
-from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
-from ats_utilities.splasher.terminal.terminal_properties import TerminalProperties
-from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
-from ats_utilities.splasher.external.ext_infrastructure import ExtInfrastructure
-from ats_utilities.splasher.external.github_infrastructure import GitHubInfrastructure
-from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
-from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
-from ats_utilities.splasher.setup.splash_keys import SplashKeys
+from ats_utilities.splash.setup.bundle import SplashBundle
+from ats_utilities.splash.setup.options import SplashOptions
+from ats_utilities.splash.setup.opt_validator import SplashOptionsValidator
+from ats_utilities.splash.setup.dependencies import SplashDependencies
+from ats_utilities.splash.setup.registry import SplashRegistry
+from ats_utilities.splash.property.isplash_property import ISplashProperty
+from ats_utilities.splash.property.splash_property import SplashProperty
+from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
+from ats_utilities.splash.terminal.terminal_properties import TerminalProperties
+from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
+from ats_utilities.splash.external.ext_infrastructure import ExtInfrastructure
+from ats_utilities.splash.external.github_infrastructure import GitHubInfrastructure
+from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
+from ats_utilities.splash.progressbar.progress_bar import ProgressBar
+from ats_utilities.splash.setup.keys import SplashKeys
 from ats_utilities.context.bundle import ContextBundle
 
 __author__ = 'Vladimir Roncevic'

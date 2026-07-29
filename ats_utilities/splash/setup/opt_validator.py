@@ -23,8 +23,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
-
-from ats_utilities.splasher.setup.options import SplashOptions
+from ats_utilities.splash.setup.options import SplashOptions
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.setup.iopt_validator import IOptionsValidator
 from ats_utilities.validation.check_type import istype

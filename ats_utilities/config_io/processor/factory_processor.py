@@ -85,9 +85,9 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
                 | ATSTypeError: Extension must be a string.
                 | ATSValueError: Extension is not supported.
         '''
-        context: str = r'config_processor_factory::get_processor_class(...)'
-        not_none(extension, context, r'extension must be provided.')
-        istype(extension, str, context, r'extension must be a string.')
+        context: str = 'config_processor_factory::get_processor_class(...)'
+        not_none(extension, context, 'extension must be provided.')
+        istype(extension, str, context, 'extension must be a string.')
 
         formatted_ext: str = extension.lower()
 
@@ -122,14 +122,14 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
                 | ATSValueError: Extension is not supported.
                 | ATSTypeError: Validation of processor instance failed.
         '''
-        context: str = r'config_processor_factory::create_from_extension(...)'
+        context: str = 'config_processor_factory::create_from_extension(...)'
 
         if processor is not None:
             validate_component(
                 instance=processor,
                 expected_class=IConfigProcessor,
                 exc_context=context,
-                exc_message=r'provided processor must implement IConfigProcessor'
+                exc_message='provided processor must implement IConfigProcessor'
             )
 
             return processor
@@ -180,9 +180,9 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
         if processor is not None:
             return cls.create_from_extension(processor=processor)
 
-        context: str = r'config_processor_factory::create_from_file_path(...)'
-        not_none(file_path, context, r'file path must be provided when processor is None')
-        istype(file_path, str, context, r'file path must be a string')
+        context: str = 'config_processor_factory::create_from_file_path(...)'
+        not_none(file_path, context, 'file path must be provided when processor is None')
+        istype(file_path, str, context, 'file path must be a string')
         check_file_exists(file_path, context, f'file at {file_path} does not exist')
 
         return cls.create_from_extension(
