@@ -23,11 +23,10 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
-
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
-from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -41,7 +40,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ConfigIOValidator(IValidator[ConfigIOBundle]):
+class ConfigIOValidator:
     '''
         Validator for config I/O bundle instance.
 
@@ -83,3 +82,5 @@ class ConfigIOValidator(IValidator[ConfigIOBundle]):
         istype(bundle.scheme, Mapping, ctx, 'scheme must be an instance of Mapping interface')
         istype(bundle.processor, IConfigProcessor, ctx, 'processor must be an instance of IConfigProcessor interface')
         istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be an instance of ContextBundle interface')
+
+        ContextValidator.validate(bundle.context_bundle)

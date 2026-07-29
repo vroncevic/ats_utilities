@@ -25,12 +25,11 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.config_io.data import FileData
 from ats_utilities.config_io.data_validator import FileDataValidator
-from ats_utilities.config_io.iconf_file import File
-from ats_utilities.reporter.proxy_reporter import vreport
+from ats_utilities.config_io.setup.types import File
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.reporter.proxy_reporter import vreport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.utils.files import check_file_exists
 from ats_utilities.validation.check_value import not_none
@@ -46,7 +45,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ConfFile(IConfFile):
+class ConfFile:
     '''
         Defines class ConfFile with attribute(s) and method(s).
         Provides an API for configuration file context manager.
@@ -62,7 +61,7 @@ class ConfFile(IConfFile):
                 | __init__ - Initializes ConfFile constructor.
                 | __enter__ - Opens configuration file in mode.
                 | __exit__ - Closes configuration file.
-                | __str__ - Returns the ConfFile as string representation.
+                | __str__ - Returns configuration context manager as string.
     '''
 
     _file: File | None
@@ -76,10 +75,9 @@ class ConfFile(IConfFile):
 
             :param file_data: File data.
             :exceptions:
-                | ATSValueError: File data must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: File data must be an instance of FileData.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSValueError: File data must be provided and have proper values.
+                | ATSTypeError:  File data must be an instance of FileData and its
+                |                attributes must be instances of their respective types.
         '''
         FileDataValidator.validate(file_data)
         self._context = file_data.context_bundle
@@ -101,14 +99,14 @@ class ConfFile(IConfFile):
                 | ATSValueError: File does not exist (when opening in read mode).
                 | ATSTypeError: File path and mode must be strings.
         '''
-        context: str = 'conf_file::enter(...)'
-        not_none(self._file_path, context, 'file path must be provided')
-        not_none(self._file_mode, context, 'file mode must be provided')
-        istype(self._file_path, str, context, 'file path must be a string')
-        istype(self._file_mode, str, context, 'file mode must be a string')
+        ctx: str = 'conf_file::enter(...)'
+        not_none(self._file_path, ctx, 'file path must be provided')
+        not_none(self._file_mode, ctx, 'file mode must be provided')
+        istype(self._file_path, str, ctx, 'file path must be a string')
+        istype(self._file_mode, str, ctx, 'file mode must be a string')
 
         if 'r' in self._file_mode:
-            check_file_exists(self._file_path, context, f'file {self._file_path} does not exist')
+            check_file_exists(self._file_path, ctx, f'file {self._file_path} does not exist')
 
         self._file = open(self._file_path, self._file_mode, encoding='utf-8')
 
@@ -122,7 +120,7 @@ class ConfFile(IConfFile):
             :param args: List of arguments.
             :param kwargs: Dictionary of mapped arguments.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
@@ -137,9 +135,9 @@ class ConfFile(IConfFile):
 
     def __str__(self) -> str:
         '''
-            Returns the ConfFile as string representation.
+            Returns configuration context manager as string representation.
 
-            :return: The ConfFile as string representation.
+            :return: Configuration context manager as string representation.
             :exceptions: None.
         '''
         return to_str(self)

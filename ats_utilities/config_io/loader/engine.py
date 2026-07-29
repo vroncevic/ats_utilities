@@ -30,8 +30,6 @@ from ats_utilities.config_io.data import FileData
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.validation.check_value import not_none
-from ats_utilities.validation.check_type import istype
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -83,9 +81,6 @@ class Loader:
                 | ATSValueError: Extension is not supported.
                 | ATSTypeError: Validation of processor instance failed.
         '''
-        context: str = 'loader::init(...)'
-        not_none(own, context, 'component bundle must be provided')
-        istype(own, ConfigIOBundle, context, 'component bundle must be an instance of ConfigIOBundle')
         self._context = own.context_bundle
         self._processor = own.processor
         self._conf_file = ConfFile(

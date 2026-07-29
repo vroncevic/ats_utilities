@@ -27,7 +27,6 @@ from collections.abc import Mapping
 from re import match
 
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -39,7 +38,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class CFGProcessor(IConfigProcessor):
+class CFGProcessor:
     '''
         Defines class CFGProcessor with attribute(s) and method(s).
         Provides an API to process configuration in CFG format.

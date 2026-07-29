@@ -24,7 +24,8 @@ from __future__ import annotations
 from collections.abc import Mapping
 
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
-from ats_utilities.config_io.setup.dependencies import ConfigIOOptions, ConfigIODependencies
+from ats_utilities.config_io.setup.dependencies import ConfigIODependencies
+from ats_utilities.config_io.setup.options import ConfigIOOptions
 from ats_utilities.config_io.setup.registry import ConfigIORegistry
 from ats_utilities.config_io.processor.factory_processor import ConfigProcessorFactory
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor

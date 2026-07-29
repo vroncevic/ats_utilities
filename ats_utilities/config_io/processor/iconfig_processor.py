@@ -23,7 +23,6 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 from typing import Protocol, runtime_checkable
 
 __author__ = 'Vladimir Roncevic'
@@ -37,7 +36,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IConfigProcessor(Protocol):
+class IConfigProcessor[DataType](Protocol):
     '''
         Defines abstract class IConfigProcessor with method(s).
         Provides an interface for processing configuration content.
@@ -72,52 +71,46 @@ class IConfigProcessor(Protocol):
 
             :param content: Raw configuration data (str, stream, or sequence).
             :return: True if successfully, otherwise False.
-            :exceptions: None.
         '''
         ...
 
     def serialize(self) -> str:
         '''
-            Converts the internal configuration structure back to a formatted string representation.
+            Converts internal configuration structure back to a formatted string representation.
 
             :return: Configuration content as string.
-            :exceptions: None.
         '''
         ...
 
-    def update_data(self, new_data: Mapping[str, str]) -> bool:
+    def update_data(self, new_data: DataType) -> bool:
         '''
-            Updates the internal configuration data and validates it against the scheme.
+            Updates internal configuration data and validates it against the scheme.
 
-            :param new_data: Mapping containing configuration keys and values.
+            :param new_data: Configuration data.
             :return: True if successfully, otherwise False.
-            :exceptions: None.
         '''
         ...
 
-    def to_dict(self) -> dict[str, str]:
+    def to_dict(self) -> DataType:
         '''
-            Returns the parsed configuration as a flat or structured dictionary.
+            Returns parsed configuration as a flat or structured dictionary.
 
-            :return: Dictionary with configuration information.
-            :exceptions: None.
+            :return: Configuration.
         '''
         ...
 
     def validate_by_scheme(self) -> bool:
         '''
-            Validates the internal parsed data structure against the provided scheme.
+            Validates internal parsed data structure against the provided scheme.
 
             :return: True if successfully, otherwise False.
-            :exceptions: None.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the configuration processor as string representation.
+            Returns configuration processor as string representation.
 
-            :return: The configuration processor as string representation.
-            :exceptions: None.
+            :return: Configuration processor as string representation.
         '''
         ...

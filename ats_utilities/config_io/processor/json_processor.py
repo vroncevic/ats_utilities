@@ -26,7 +26,6 @@ from __future__ import annotations
 from collections.abc import Mapping
 from json import loads, dumps, JSONDecodeError
 
-from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
@@ -38,7 +37,7 @@ __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
-class JSONProcessor(IConfigProcessor):
+class JSONProcessor:
     '''
         Defines class JSONProcessor with attribute(s) and method(s).
         Provides an API to process configuration in JSON format.

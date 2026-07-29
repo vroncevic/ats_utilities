@@ -24,9 +24,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from sys import stderr
 
-from ats_utilities.config_io.storer.istorer import IStorer
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.config_io.iconf_file import IConfFile
@@ -34,8 +32,6 @@ from ats_utilities.config_io.data import FileData
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.validation.check_value import not_none
-from ats_utilities.validation.check_type import istype
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -47,7 +43,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class Storer(IStorer[ContextBundle]):
+class Storer:
     '''
         Provides an API for storing the configuration from mapping format to configuration file.
         2nd level of configuration storer implementation.
@@ -87,9 +83,6 @@ class Storer(IStorer[ContextBundle]):
                 | ATSValueError: Extension is not supported.
                 | ATSTypeError: Validation of processor instance failed.
         '''
-        context: str = 'storer::init(...)'
-        not_none(own, context, 'component bundle must be provided')
-        istype(own, ConfigIOBundle, context, 'component bundle must be of type ConfigIOBundle')
         self._context = own.context_bundle
         self._processor = own.processor
         self._conf_file = ConfFile(

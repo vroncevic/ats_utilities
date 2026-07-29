@@ -2,7 +2,7 @@
 
 '''
 Module
-    bundle.py
+    options.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,18 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates config I/O components for simplification of config I/O bundle creation.
+    Config I/O options for config I/O bundle creation.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
-from dataclasses import dataclass
-from typing import ClassVar
+from typing import TypedDict, NotRequired
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
-from ats_utilities.utils.reflection import instance_to_dict
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -39,36 +37,20 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-@dataclass(slots=True, frozen=True, kw_only=True)
-class ConfigIOBundle:
+class ConfigIOOptions(TypedDict):
     '''
-        Encapsulates config I/O components for simplification of config I/O bundle creation.
+        Config I/O options for config I/O bundle creation.
 
         It defines:
 
             :attributes:
-                | READ_MODE - Default file opening mode (class variable, default 'r').
-                | WRITE_MODE - Default file opening mode (class variable, default 'w').
-                | file_path - Configuration file path.
-                | scheme - Configuration scheme.
-                | processor - Configuration processor.
-                | context_bundle - Context bundle.
-            :methods:
-                | to_dict - Converts config I/O bundle to a dictionary.
+                | file_path: Configuration file path.
+                | scheme: Configuration scheme.
+                | processor: Configuration processor.
+                | context_bundle: Context bundle.
     '''
 
-    READ_MODE: ClassVar[str] = 'r'
-    WRITE_MODE: ClassVar[str] = 'w'
-    file_path: str
-    scheme: Mapping[str, str]
-    processor: IConfigProcessor
+    file_path: NotRequired[str]
+    scheme: NotRequired[Mapping[str, str] | None]
+    processor: NotRequired[IConfigProcessor | None]
     context_bundle: ContextBundle
-
-    def to_dict(self) -> dict[str, object]:
-        '''
-            Converts config I/O bundle to a dictionary.
-
-            :return: Dictionary representation of the config I/O bundle.
-            :exceptions: None.
-        '''
-        return instance_to_dict(self)

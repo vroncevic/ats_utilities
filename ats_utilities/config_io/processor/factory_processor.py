@@ -26,7 +26,6 @@ from __future__ import annotations
 from collections.abc import Mapping
 from pathlib import Path
 
-from ats_utilities.config_io.processor.ifactory_processor import IConfigProcessorFactory
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.config_io.processor.cfg_processor import CFGProcessor
 from ats_utilities.config_io.processor.ini_processor import INIProcessor
@@ -48,7 +47,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ConfigProcessorFactory(IConfigProcessorFactory):
+class ConfigProcessorFactory:
     '''
         Defines class ConfigProcessorFactory with attribute(s) and method(s).
         Provides an API for creating an file processor instance based on the file extension.

@@ -24,8 +24,6 @@ Info
 from __future__ import annotations
 
 from typing import Protocol, runtime_checkable
-from collections.abc import Mapping
-from io import TextIOBase
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,12 +34,9 @@ __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
-# Optional bytes, str IO type
-type File = TextIOBase | None
-
 
 @runtime_checkable
-class IConfFile(Protocol):
+class IConfFile[FileType, ArgType, KwargType](Protocol):
     '''
         Defines abstract class IConfFile with method(s).
         Provides an interface for configuration file context manager.
@@ -50,35 +45,32 @@ class IConfFile(Protocol):
         It defines:
 
             :methods:
-                | __enter__ - Opens configuration context manager and opens the file.
-                | __exit__ - Closes configuration context manager and closes the file.
-                | __str__ - Returns the file context manager instance as string representation.
+                | __enter__ - Opens configuration context manager.
+                | __exit__ - Closes configuration context manager.
+                | __str__ - Returns configuration context manager as string representation.
     '''
 
-    def __enter__(self) -> File | None:
+    def __enter__(self) -> FileType:
         '''
-            Opens configuration context manager and opens the file.
+            Opens configuration context manager.
 
-            :return: File IO object | None.
-            :exceptions: None.
+            :return: File type.
         '''
         ...
 
-    def __exit__(self, *args: tuple[object, ...], **kwargs: Mapping[object, object]) -> None:
+    def __exit__(self, *args: ArgType, **kwargs: KwargType) -> None:
         '''
-            Closes configuration context manager and closes the file.
+            Closes configuration context manager.
 
             :param args: Tuple of arguments.
             :param kwargs: Mapping of arguments.
-            :exceptions: None.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the IConfFile as string representation.
+            Returns configuration context manager instance as string representation.
 
-            :return: The IConfFile as string representation.
-            :exceptions: None.
+            :return: Configuration context manager instance as string representation.
         '''
         ...

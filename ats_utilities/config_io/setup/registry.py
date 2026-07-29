@@ -23,8 +23,6 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
-
-from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.config_io.setup.dependencies import ConfigIODependencies
 from ats_utilities.config_io.setup.validator import ConfigIOValidator
@@ -42,7 +40,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ConfigIORegistry(IRegistry[ConfigIOBundle, ConfigIODependencies]):
+class ConfigIORegistry:
     '''
         Encapsulates core config I/O components for simplification of ConfigIOBundle creation.
 
@@ -73,11 +71,11 @@ class ConfigIORegistry(IRegistry[ConfigIOBundle, ConfigIODependencies]):
                 | ATSTypeError: Processor must be an instance of IConfigProcessor interface.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle interface.
         '''
-        bundle = ConfigIOBundle(
-            file_path=dependencies.get('file_path'),
-            scheme=dependencies.get('scheme'),
-            processor=dependencies.get('processor'),
-            context_bundle=dependencies.get('context_bundle')
+        bundle: ConfigIOBundle = ConfigIOBundle(
+            file_path=dependencies.get('file_path') if dependencies else None,
+            scheme=dependencies.get('scheme') if dependencies else None,
+            processor=dependencies.get('processor') if dependencies else None,
+            context_bundle=dependencies.get('context_bundle') if dependencies else None
         )
 
         ConfigIOValidator.validate(bundle)

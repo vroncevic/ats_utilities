@@ -16,17 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for FileData class.
+    Validator for file data.
 '''
 
 from __future__ import annotations
 
-
-
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.utils.data.ivalidator import IDataValidator
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.config_io.data import FileData
-from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_value import not_none, not_empty
 from ats_utilities.validation.check_type import istype
 
 __author__: str = 'Vladimir Roncevic'
@@ -39,29 +37,26 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
 
 
-class FileDataValidator(IDataValidator[FileData]):
+class FileDataValidator:
     '''
-        Validator for FileData class.
+        Validator for file data.
 
         It defines:
 
             :methods:
-                | validate - Validates FileData instance.
+                | validate - Validates file data.
     '''
 
     @classmethod
     def validate(cls, data: FileData) -> None:
         '''
-            Validates FileData instance.
+            Validates file data.
 
-            :param data: FileData instance to be validated.
+            :param data: File data to be validated.
             :exceptions:
-                | ATSValueError: File path must be provided.
-                | ATSValueError: File mode must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: File path must be a string.
-                | ATSTypeError: File mode must be a string.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSValueError: File data must be provided and have proper values.
+                | ATSTypeError:  File data must be an instance of FileData and its
+                |                attributes must be instances of their respective types.
         '''
         context: str = 'file_data_validator::validate(...)'
         not_none(data, context, 'file data must be provided')
@@ -74,3 +69,7 @@ class FileDataValidator(IDataValidator[FileData]):
         istype(data.file_path, str, context, 'file path must be a string')
         istype(data.file_mode, str, context, 'file mode must be a string')
         istype(data.context_bundle, ContextBundle, context, 'context bundle must be a ContextBundle instance')
+
+        not_empty(data.file_path, context, 'file path must not be empty')
+        not_empty(data.file_mode, context, 'file mode must not be empty')
+        ContextValidator.validate(data.context_bundle)

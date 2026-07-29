@@ -23,7 +23,6 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 from typing import Protocol, runtime_checkable
 
 __author__ = 'Vladimir Roncevic'
@@ -37,7 +36,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IStorer[ContextEnvironment](Protocol):
+class IStorer[ContextEnvironment, ConfigurationType](Protocol):
     '''
         Defines abstract class IStorer with method(s).
         Provides an interface for storing the configuration to writer.
@@ -47,34 +46,31 @@ class IStorer[ContextEnvironment](Protocol):
 
             :methods:
                 | get_context - Returns the context.
-                | store_configuration - Stores configuration content from mapping to configuration file.
-                | __str__ - Returns the storer instance as string representation.
+                | store_configuration - Stores configuration to configuration file.
+                | __str__ - Returns storer instance as string representation.
     '''
 
     def get_context(self) -> ContextEnvironment:
         '''
-            Returns the context.
+            Returns context.
 
             :return: Context.
-            :exceptions: None.
         '''
         ...
 
-    def store_configuration(self, config: Mapping[str, str]) -> bool:
+    def store_configuration(self, config: ConfigurationType) -> bool:
         '''
-            Stores configuration content from mapping to configuration file.
+            Stores configuration to configuration file.
 
-            :param config: Mapping with configuration information (read only data).
+            :param config: Configuration.
             :return: True if successfully, otherwise False.
-            :exceptions: None.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the storer instance as string representation.
+            Returns storer instance as string representation.
 
-            :return: The storer instance as string representation.
-            :exceptions: None.
+            :return: Storer instance as string representation.
         '''
         ...

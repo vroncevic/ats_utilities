@@ -36,7 +36,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class ILoader[ContextEnvironment](Protocol):
+class ILoader[ContextEnvironment, ConfigurationType](Protocol):
     '''
         Defines abstract class ILoader with method(s).
         Provides an interface for loading the configuration from configuration reader.
@@ -46,8 +46,8 @@ class ILoader[ContextEnvironment](Protocol):
 
             :methods:
                 | get_context - Returns the context.
-                | load_configuration - Loads configuration from file and returns dictionary with configuration content.
-                | __str__ - Returns the loader instance as string representation.
+                | load_configuration - Loads configuration from file and returns configuration.
+                | __str__ - Returns loader instance as string representation.
     '''
 
     def get_context(self) -> ContextEnvironment:
@@ -55,24 +55,21 @@ class ILoader[ContextEnvironment](Protocol):
             Returns the context.
 
             :return: Context.
-            :exceptions: None.
         '''
         ...
 
-    def load_configuration(self) -> dict[str, object]:
+    def load_configuration(self) -> ConfigurationType:
         '''
-            Loads configuration from file and returns dictionary with configuration content.
+            Loads configuration from file and returns configuration.
 
-            :return: Dictionary with configuration content.
-            :exceptions: None.
+            :return: Configuration.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the loader instance as string representation.
+            Returns loader instance as string representation.
 
-            :return: The loader instance as string representation.
-            :exceptions: None.
+            :return: Loader instance as string representation.
         '''
         ...

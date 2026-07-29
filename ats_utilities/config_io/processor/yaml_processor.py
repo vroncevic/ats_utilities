@@ -26,7 +26,6 @@ from __future__ import annotations
 from collections.abc import Mapping
 import yaml
 
-from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
@@ -38,7 +37,7 @@ __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
-class YAMLProcessor(IConfigProcessor):
+class YAMLProcessor:
     '''
         Defines class YAMLProcessor with attribute(s) and method(s).
         Provides an API to process configuration in YAML format.

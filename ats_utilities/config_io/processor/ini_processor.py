@@ -29,7 +29,6 @@ from collections.abc import Mapping
 from configparser import ConfigParser, Error as ConfigParserError
 from io import StringIO
 
-from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
@@ -42,7 +41,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class INIProcessor(IConfigProcessor):
+class INIProcessor:
     '''
         Defines class INIProcessor with attribute(s) and method(s).
         Provides an API to process configuration in INI format.
