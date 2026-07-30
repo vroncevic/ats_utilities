@@ -48,6 +48,7 @@ from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
 from ats_utilities.info.info_ok.engine import InfoOk
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.validation.check_value import not_satisfied, not_none
+from ats_utilities.utils.dicts import is_present_required_key
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -223,7 +224,7 @@ class InfoKeys:
         return name in cls.get_config_keys()
 
     @classmethod
-    def get_config_keys(cls) -> MappingProxyType[str, str]:
+    def get_config_keys_to_dependency_keys(cls) -> MappingProxyType[str, str]:
         '''
             Returns a mapping of all config keys to their dependency keys.
 
@@ -242,7 +243,6 @@ class InfoKeys:
             cls.ATS_LOG_FILE: cls.DEPENDENCY_LOG_FILE,
             cls.ATS_INFO_OK: cls.DEPENDENCY_INFO_OK,
         })
-
 
     @classmethod
     def get_optional_config_keys(cls) -> Sequence[str]:
@@ -306,11 +306,11 @@ class InfoKeys:
         ctx: str = 'info_keys::get_name_of_config_key(...)'
         is_registered: bool = cls.is_registered_config_key(config_key)
         not_satisfied(not is_registered, ctx, f'{config_key} is not registered as a config key')
-        config_key_to_key: Mapping[str, str] = cls.get_config_keys()
-        key: str = config_key_to_key.get(config_key)
-        not_none(key, ctx, f'instance key for {config_key} is not defined')
+        config_key_to_name: Mapping[str, str] = cls.get_config_keys_to_dependency_keys()
+        name: str | None = config_key_to_name.get(config_key)
+        not_none(name, ctx, f'instance key for {config_key} is not defined')
 
-        return key
+        return name
 
     @classmethod
     def get_names_of_optional_config_keys(cls) -> Sequence[str]:
@@ -364,111 +364,161 @@ class InfoKeys:
         })
 
     @classmethod
-    def get_name(cls, config: Mapping[str, str]) -> str | None:
+    def get_name(cls, config: Mapping[str, str]) -> str:
         '''
             Returns the name of the application from config.
 
             :param config: Configuration mapping.
             :return: Name of the application if defined, otherwise None.
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Key ATS_NAME is not present in config.
         '''
-        return config.get(cls.ATS_NAME) if cls.ATS_NAME in config else None
+        ctx: str = 'info_keys::get_name(...)'
+        msg: str = f'{cls.ATS_NAME} is not present in config'
+        is_present_required_key(config, cls.ATS_NAME, ctx, msg)
+
+        return config.get(cls.ATS_NAME)
 
     @classmethod
-    def get_version(cls, config: Mapping[str, str]) -> str | None:
+    def get_version(cls, config: Mapping[str, str]) -> str:
         '''
             Returns the version of the application from config.
 
             :param config: Configuration mapping.
             :return: Version of the application if defined, otherwise None.
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Key ATS_VERSION is not present in config.
         '''
-        return config.get(cls.ATS_VERSION) if cls.ATS_VERSION in config else None
+        ctx: str = 'info_keys::get_version(...)'
+        msg: str = f'{cls.ATS_VERSION} is not present in config'
+        is_present_required_key(config, cls.ATS_VERSION, ctx, msg)
+
+        return config.get(cls.ATS_VERSION)
 
     @classmethod
-    def get_build_date(cls, config: Mapping[str, str]) -> str | None:
+    def get_build_date(cls, config: Mapping[str, str]) -> str:
         '''
             Returns the build date of the application from config.
 
             :param config: Configuration mapping.
             :return: Build date of the application if defined, otherwise None.
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Key ATS_BUILD_DATE is not present in config.
         '''
-        return config.get(cls.ATS_BUILD_DATE) if cls.ATS_BUILD_DATE in config else None
+        ctx: str = 'info_keys::get_build_date(...)'
+        msg: str = f'{cls.ATS_BUILD_DATE} is not present in config'
+        is_present_required_key(config, cls.ATS_BUILD_DATE, ctx, msg)
+
+        return config.get(cls.ATS_BUILD_DATE)
 
     @classmethod
-    def get_licence(cls, config: Mapping[str, str]) -> str | None:
+    def get_licence(cls, config: Mapping[str, str]) -> str:
         '''
             Returns the licence of the application from config.
 
             :param config: Configuration mapping.
             :return: Licence of the application if defined, otherwise None.
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Key ATS_LICENCE is not present in config.
         '''
-        return config.get(cls.ATS_LICENCE) if cls.ATS_LICENCE in config else None
+        ctx: str = 'info_keys::get_licence(...)'
+        msg: str = f'{cls.ATS_LICENCE} is not present in config'
+        is_present_required_key(config, cls.ATS_LICENCE, ctx, msg)
+
+        return config.get(cls.ATS_LICENCE)
 
     @classmethod
-    def get_repository(cls, config: Mapping[str, str]) -> str | None:
+    def get_repository(cls, config: Mapping[str, str]) -> str:
         '''
             Returns the repository of the application from config.
 
             :param config: Configuration mapping.
             :return: Repository of the application if defined, otherwise None.
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Key ATS_REPOSITORY is not present in config.
         '''
-        return config.get(cls.ATS_REPOSITORY) if cls.ATS_REPOSITORY in config else None
+        ctx: str = 'info_keys::get_repository(...)'
+        msg: str = f'{cls.ATS_REPOSITORY} is not present in config'
+        is_present_required_key(config, cls.ATS_REPOSITORY, ctx, msg)
+
+        return config.get(cls.ATS_REPOSITORY)
 
     @classmethod
-    def get_organization(cls, config: Mapping[str, str]) -> str | None:
+    def get_organization(cls, config: Mapping[str, str]) -> str:
         '''
             Returns the organization of the application from config.
 
             :param config: Configuration mapping.
             :return: Organization of the application if defined, otherwise None.
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Key ATS_ORGANIZATION is not present in config.
         '''
-        return config.get(cls.ATS_ORGANIZATION) if cls.ATS_ORGANIZATION in config else None
+        ctx: str = 'info_keys::get_organization(...)'
+        msg: str = f'{cls.ATS_ORGANIZATION} is not present in config'
+        is_present_required_key(config, cls.ATS_ORGANIZATION, ctx, msg)
+
+        return config.get(cls.ATS_ORGANIZATION)
 
     @classmethod
-    def get_use_github_infrastructure(cls, config: Mapping[str, str]) -> bool | None:
+    def get_use_github_infrastructure(cls, config: Mapping[str, str]) -> bool:
         '''
             Returns the use github infrastructure of the application from config.
 
             :param config: Configuration mapping.
             :return: Use github infrastructure of the application if defined, otherwise None.
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Key ATS_USE_GITHUB_INFRASTRUCTURE is not present in config.
         '''
-        return config.get(cls.ATS_USE_GITHUB_INFRASTRUCTURE) if cls.ATS_USE_GITHUB_INFRASTRUCTURE in config else None
+        ctx: str = 'info_keys::get_use_github_infrastructure(...)'
+        msg: str = f'{cls.ATS_USE_GITHUB_INFRASTRUCTURE} is not present in config'
+        is_present_required_key(config, cls.ATS_USE_GITHUB_INFRASTRUCTURE, ctx, msg)
+
+        return config.get(cls.ATS_USE_GITHUB_INFRASTRUCTURE)
 
     @classmethod
-    def get_logo_path(cls, config: Mapping[str, str]) -> str | None:
+    def get_logo_path(cls, config: Mapping[str, str]) -> str:
         '''
             Returns the logo path of the application from config.
 
             :param config: Configuration mapping.
             :return: Logo path of the application if defined, otherwise None.
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Key ATS_LOGO_PATH is not present in config.
         '''
-        return config.get(cls.ATS_LOGO_PATH) if cls.ATS_LOGO_PATH in config else None
+        ctx: str = 'info_keys::get_logo_path(...)'
+        msg: str = f'{cls.ATS_LOGO_PATH} is not present in config'
+        is_present_required_key(config, cls.ATS_LOGO_PATH, ctx, msg)
+
+        return config.get(cls.ATS_LOGO_PATH)
 
     @classmethod
-    def get_log_file(cls, config: Mapping[str, str]) -> str | None:
+    def get_log_file(cls, config: Mapping[str, str]) -> str:
         '''
             Returns the log file of the application from config.
 
             :param config: Configuration mapping.
             :return: Log file of the application if defined, otherwise None.
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Key ATS_LOG_FILE is not present in config.
         '''
-        return config.get(cls.ATS_LOG_FILE) if cls.ATS_LOG_FILE in config else None
+        ctx: str = 'info_keys::get_log_file(...)'
+        msg: str = f'{cls.ATS_LOG_FILE} is not present in config'
+        is_present_required_key(config, cls.ATS_LOG_FILE, ctx, msg)
+
+        return config.get(cls.ATS_LOG_FILE)
 
     @classmethod
-    def get_info_ok(cls, config: Mapping[str, str]) -> bool | None:
+    def get_info_ok(cls, config: Mapping[str, str]) -> bool:
         '''
             Returns the info ok of the application from config.
 
             :param config: Configuration mapping.
             :return: Info ok of the application if defined, otherwise None.
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Key ATS_INFO_OK is not present in config.
         '''
-        return config.get(cls.ATS_INFO_OK) if cls.ATS_INFO_OK in config else None
+        ctx: str = 'info_keys::get_info_ok(...)'
+        msg: str = f'{cls.ATS_INFO_OK} is not present in config'
+        is_present_required_key(config, cls.ATS_INFO_OK, ctx, msg)
+
+        return config.get(cls.ATS_INFO_OK)

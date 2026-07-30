@@ -28,6 +28,7 @@ from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.setup.options import OptionOptions
 from ats_utilities.option.setup.dependencies import OptionDependencies
 from ats_utilities.option.setup.keys import OptionKeys
+from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.option.setup.opt_validator import OptionOptionsValidator
 from ats_utilities.option.setup.registry import OptionRegistry
 from ats_utilities.option.strategy.engine import ParserStrategy
@@ -73,9 +74,9 @@ class OptionFactory:
         context_bundle: ContextBundle = options.get(OptionKeys.OPTION_CONTEXT_BUNDLE)
         parser: ParserAdapter = ParserAdapter(
             parser=ArgumentParser(
-                prog=f'{OptionKeys.GET_NAME(parameters)} {OptionKeys.GET_VERSION(parameters)}',
-                epilog=f'{OptionKeys.GET_NAME(parameters)} copyright (c) {OptionKeys.GET_LICENCE(parameters)}',
-                description=f'{OptionKeys.GET_NAME(parameters)} build date {OptionKeys.GET_BUILD_DATE(parameters)}'
+                prog=f'{InfoKeys.get_name(parameters)} {InfoKeys.get_version(parameters)}',
+                epilog=f'{InfoKeys.get_name(parameters)} copyright (c) {InfoKeys.get_licence(parameters)}',
+                description=f'{InfoKeys.get_name(parameters)} build date {InfoKeys.get_build_date(parameters)}'
             )
         )
 

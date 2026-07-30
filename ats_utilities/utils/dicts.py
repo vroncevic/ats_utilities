@@ -52,7 +52,7 @@ def cherry_pick_dict[K, V](source: Mapping[K, V] | None, keys: Container[object]
     return {key: source[key] for key in keys if key in source}
 
 
-def has_required_keys(source: Mapping[object, object], keys: frozenset[str]) -> bool:
+def has_required_keys[K, V](source: Mapping[K, V], keys: Container[object] | None) -> bool:
     '''
         Checks if all required keys are present in the source dictionary.
 
@@ -62,6 +62,58 @@ def has_required_keys(source: Mapping[object, object], keys: frozenset[str]) -> 
         :exceptions: None.
     '''
     return keys.issubset(source or {})
+
+
+def is_present_key[K, V](mapping: Mapping[K, V], key: K) -> bool:
+    '''
+        Checks if a key is present in a mapping.
+
+        :param mapping: Mapping to check.
+        :param key: Key to check.
+        :return: True if the key is present in the mapping, False otherwise.
+        :exceptions: None.
+    '''
+    return key in mapping
+
+
+def is_present_required_key[K, V](
+    mapping: Mapping[K, V],
+    key: K,
+    exc_context: str | None = None,
+    exc_message: str | None = None,
+    exc_class: type[BaseException] = ATSValueError
+) -> None:
+    '''
+        Raises an exception if a key is not present or is None in a mapping.
+
+        :param mapping: Mapping to check.
+        :param key: Key to check.
+        :param exc_context: Context representation in string format.
+        :param exc_message: Message to include in the exception message.
+        :param exc_class: The exception class to raise if the key is not present or is None.
+        :exceptions:
+            | ATSTypeError: Parameters (mapping and key) types validation failed.
+            | Dynamically raises the provided exc_class (e.g., ATSValueError).
+    '''
+    istype(mapping, Mapping, exc_context, exc_message)
+
+    if key not in mapping:
+        raise_error(
+            fallback_context='dicts::is_present_required_key(...)',
+            fallback_msg=f'mapping is missing required key: {key}',
+            exc_context=exc_context,
+            exc_message=exc_message,
+            exc_class=exc_class
+        )
+
+    if mapping[key] is None:
+        raise_error(
+            fallback_context='dicts::is_present_required_key(...)',
+            fallback_msg=f'mapping key {key} is None',
+            exc_context=exc_context,
+            exc_message=exc_message,
+            exc_class=exc_class
+        )
 
 
 def require_keys(

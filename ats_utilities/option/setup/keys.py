@@ -51,10 +51,6 @@ class OptionKeys:
                 | OPTION_PARAMETERS: Parameters option constant.
                 | OPTION_CONTEXT_BUNDLE: Context bundle option constant.
                 | REQUIRED_CONFIG_KEYS_SET - Set of required information keys.
-                | GET_NAME: Callable that retrieves name from the parameters.
-                | GET_VERSION: Callable that retrieves version from the parameters.
-                | GET_BUILD_DATE: Callable that retrieves build date from the parameters.
-                | GET_LICENCE: Callable that retrieves licence from the parameters.
             :methods:
                 | get_dependency_to_type - Returns mapping of option dependencies to their types.
                 | get_option_to_type - Returns mapping of option options to their types.
@@ -72,11 +68,6 @@ class OptionKeys:
     REQUIRED_CONFIG_KEYS_SET: ClassVar[frozenset[str]] = frozenset(
         InfoKeys.get_required_config_keys()
     )
-
-    GET_NAME: ClassVar[Callable[[Mapping[str, str]], str]] = InfoKeys.get_name
-    GET_VERSION: ClassVar[Callable[[Mapping[str, str]], str]] = InfoKeys.get_version
-    GET_BUILD_DATE: ClassVar[Callable[[Mapping[str, str]], str]] = InfoKeys.get_build_date
-    GET_LICENCE: ClassVar[Callable[[Mapping[str, str]], str]] = InfoKeys.get_licence
 
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
