@@ -26,9 +26,9 @@ from collections.abc import Mapping
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
-from ats_utilities.splash.setup.keys import SplashKeys
-from ats_utilities.utils.dicts import has_required_keys, require_keys
-from ats_utilities.utils.reflection import has_attrs, to_str
+from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.utils.dicts import is_present_key
+from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
@@ -51,15 +51,14 @@ class SplashProperty:
         It defines:
 
             :attributes:
-                | _splash_keys - Splash keys for App/Tool/Script splash screen (default None).
+                | _settings - Splash keys for App/Tool/Script splash screen (default None).
             :methods:
                 | __init__ - Initials SplashProperty constructor.
-                | splash_keys - Property method for get/set splash keys.  
-                | validates - Validates splash keys.
+                | settings - Property method for get/set splash keys.  
                 | __str__ - Returns splash property as string representation.
     '''
 
-    _splash_keys: SplashKeys | None
+    _settings: Mapping[str, object]
     _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
@@ -75,11 +74,18 @@ class SplashProperty:
         '''
         ContextValidator.validate(context_bundle)
         self._context = context_bundle
-        self._splash_keys = None
+        self._settings = {
+            'enabled' : False,
+            'name' : None,
+            'repository' : None,
+            'organization' : None,
+            'logo' : None,
+            'use_github_infrastructure' : False
+        }
 
     @property
-    @vreport('getting splash property {splash_keys}')
-    def splash_keys(self) -> Mapping[str, object]:
+    @vreport('getting splash property {settings}')
+    def settings(self) -> Mapping[str, object]:
         '''
             Property method for getting splash screen property.
             Note: Splash screen property comes from info configuration file as read only data.
@@ -90,20 +96,19 @@ class SplashProperty:
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        return self._splash_keys.to_dict() if self._splash_keys is not None else {}
+        return self._settings
 
-    @splash_keys.setter
-    @mcheck([('Mapping:setup', None)])
-    @vreport('setting splash property {splash_keys}')
-    def splash_keys(self, setup: Mapping[str, object]) -> None:
+    @settings.setter
+    @mcheck([('Mapping:settings', None)])
+    @vreport('setting splash property {settings}')
+    def settings(self, settings: Mapping[str, object]) -> None:
         '''
             Property method for setting project splash screen property.
             Note: Splash screen property comes from info configuration file as read only data.
 
-            :param setup: Project splash property in Mapping format (read only data).
+            :param settings: Project splash property in Mapping format (read only data).
             :exceptions:
-                | ATSTypeError:      Infrastructure property setup is not a Mapping.
-                | ATSValueError:     Infrastructure property setup is missing required keys.
+                | ATSTypeError:      Infrastructure property settings is not a Mapping.
                 | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
@@ -112,35 +117,17 @@ class SplashProperty:
                 | ATSRuntimeError:   Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        is_enabled = bool(setup.get('enabled', True))
+        is_name_present: bool = is_present_key(settings, InfoKeys.ATS_NAME)
+        is_repository_present: bool = is_present_key(settings, InfoKeys.ATS_REPOSITORY)
+        is_organization_present: bool = is_present_key(settings, InfoKeys.ATS_ORGANIZATION)
+        is_logo_present: bool = is_present_key(settings, InfoKeys.ATS_LOGO_PATH)
+        is_github_present: bool = is_present_key(settings, InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE)
 
-        if is_enabled:
-            context: str = 'splash_property::splash_keys(...)'
-            require_keys(
-                setup, frozenset(SplashKeys.get_all_keys()),
-                context, 'splash property setup is missing required keys'
-            )
-
-        self._splash_keys = SplashKeys.from_dict(setup)
-
-    @vreport('validation or splash property {splash_keys}')
-    @has_attrs('_splash_keys')
-    def validates(self) -> bool:
-        '''
-            Validates splash screen property.
-            Note: Splash screen property comes from info configuration file as read only data.
-
-            :return: True (success) else False (fail).
-            :exceptions:
-                | ATSValueError:     Missing or empty attribute: '_splash_keys'.
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @vreport decorator.
-        '''
-        if not self._splash_keys.enabled:
-            return True
-
-        return has_required_keys(self.splash_keys, frozenset(SplashKeys.get_all_keys()))
+        self._settings['name'] = InfoKeys.get_name(settings) if is_name_present else None
+        self._settings['repository'] = InfoKeys.get_repository(settings) if is_repository_present else None
+        self._settings['organization'] = InfoKeys.get_organization(settings) if is_organization_present else None
+        self._settings['logo'] = InfoKeys.get_logo(settings) if is_logo_present else None
+        self._settings['github'] = InfoKeys.get_use_github_infrastructure(settings) if is_github_present else None
 
     def __str__(self) -> str:
         '''

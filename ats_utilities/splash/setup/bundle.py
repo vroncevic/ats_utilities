@@ -21,7 +21,6 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 from dataclasses import dataclass
 
 from ats_utilities.splash.property.isplash_property import ISplashProperty
@@ -49,7 +48,6 @@ class SplashBundle:
         It defines:
 
             :attributes:
-                | prop - Splash screen properties in dict format.
                 | splash_property - Splash screen property instance.
                 | property_validated - Property validated flag.
                 | terminal_property - Terminal properties instance.
@@ -60,7 +58,6 @@ class SplashBundle:
                 | to_dict - Converts splash bundle to a dictionary.
     '''
 
-    prop: Mapping[str, object]
     splash_property: ISplashProperty
     property_validated: bool
     terminal_property: ITerminalProperties

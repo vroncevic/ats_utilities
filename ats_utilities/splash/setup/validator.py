@@ -21,8 +21,6 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
-
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
 from ats_utilities.splash.setup.bundle import SplashBundle
@@ -31,7 +29,6 @@ from ats_utilities.splash.property.isplash_property import ISplashProperty
 from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
 from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
-from ats_utilities.utils.setup.ivalidator import IValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.utils.files import check_file_exists
@@ -46,7 +43,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class SplashValidator(IValidator[SplashBundle]):
+class SplashValidator:
     '''
         Validator for splash bundle instance.
 
@@ -63,52 +60,46 @@ class SplashValidator(IValidator[SplashBundle]):
 
             :param bundle: Splash bundle instance to be validated.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Properties dictionary must be provided.
-                | ATSValueError: Splash property must be provided.
-                | ATSValueError: Property validated flag must be provided.
-                | ATSValueError: Terminal properties must be provided.
-                | ATSValueError: External infrastructure must be provided.
-                | ATSValueError: Progress bar must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Bundle must be an instance of SplashBundle.
-                | ATSTypeError: Properties dictionary must be an instance of Mapping.
-                | ATSTypeError: Splash property must be an instance of ISplashProperty.
-                | ATSTypeError: Property validated flag must be an instance of bool.
-                | ATSTypeError: Terminal properties must be an instance of ITerminalProperties.
-                | ATSTypeError: External infrastructure must be an instance of IExtInfrastructure.
-                | ATSTypeError: Progress bar must be an instance of IProgressBar.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
-                | ATSValueError: App/Tool/Script logo file path not correct.
+                | ATSValueError: Option bundle must be provided and have proper values.
+                | ATSTypeError:  Option bundle must be an instance of OptionBundle and its
+                |                attributes must be instances of their respective types.
         '''
         ctx: str = 'splash_validator::validate(...)'
+        msg_bundle_none: str = 'bundle must be provided'
+        msg_bundle_type: str = 'bundle must be an instance of SplashBundle'
+        msg_splash_property_none: str = 'splash property must be provided'
+        msg_splash_property_type: str = 'splash property must be an ISplashProperty instance'
+        msg_property_validated_none: str = 'property validated flag must be provided'
+        msg_property_validated_type: str = 'property validated flag must be an instance of bool'
+        msg_terminal_property_none: str = 'terminal properties must be provided'
+        msg_terminal_property_type: str = 'terminal properties must be an ITerminalProperties instance'
+        msg_ext_none: str = 'external infrastructure must be provided'
+        msg_ext_type: str = 'external infrastructure must be an IExtInfrastructure instance'
+        msg_pb_none: str = 'progress bar must be provided'
+        msg_pb_type: str = 'progress bar must be an IProgressBar instance'
+        msg_context_bundle_none: str = 'context bundle must be provided'
+        msg_context_bundle_type: str = 'context bundle must be a ContextBundle instance'
+        msg_logo_path: str = 'App/Tool/Script logo file path not correct'
 
-        not_none(bundle, ctx, 'bundle must be provided')
-        istype(bundle, SplashBundle, ctx, 'bundle must be an instance of SplashBundle')
+        not_none(bundle, ctx, msg_bundle_none)
+        istype(bundle, SplashBundle, ctx, msg_bundle_type)
 
-        not_none(bundle.prop, ctx, 'properties dictionary must be provided')
-        not_none(bundle.splash_property, ctx, 'splash property must be provided')
-        not_none(bundle.property_validated, ctx, 'property validated flag must be provided')
-        not_none(bundle.terminal_property, ctx, 'terminal properties must be provided')
-        not_none(bundle.ext, ctx, 'external infrastructure must be provided')
-        not_none(bundle.pb, ctx, 'progress bar must be provided')
-        not_none(bundle.context_bundle, ctx, 'context bundle must be provided')
+        not_none(bundle.splash_property, ctx, msg_splash_property_none)
+        not_none(bundle.property_validated, ctx, msg_property_validated_none)
+        not_none(bundle.terminal_property, ctx, msg_terminal_property_none)
+        not_none(bundle.ext, ctx, msg_ext_none)
+        not_none(bundle.pb, ctx, msg_pb_none)
+        not_none(bundle.context_bundle, ctx, msg_context_bundle_none)
 
-        istype(bundle.prop, Mapping, ctx, 'properties dictionary must be a Mapping[str, object] instance')
-        istype(bundle.splash_property, ISplashProperty, ctx, 'splash property must be an ISplashProperty instance')
-        istype(bundle.property_validated, bool, ctx, 'property validated flag must be an instance of bool')
-        istype(bundle.terminal_property, ITerminalProperties, ctx, 'terminal properties must be an ITerminalProperties instance')
-        istype(bundle.ext, IExtInfrastructure, ctx, 'external infrastructure must be an IExtInfrastructure instance')
-        istype(bundle.pb, IProgressBar, ctx, 'progress bar must be an IProgressBar instance')
-        istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')
+        istype(bundle.splash_property, ISplashProperty, ctx, msg_splash_property_type)
+        istype(bundle.property_validated, bool, ctx, msg_property_validated_type)
+        istype(bundle.terminal_property, ITerminalProperties, ctx, msg_terminal_property_type)
+        istype(bundle.ext, IExtInfrastructure, ctx, msg_ext_type)
+        istype(bundle.pb, IProgressBar, ctx, msg_pb_type)
+        istype(bundle.context_bundle, ContextBundle, ctx, msg_context_bundle_type)
 
         ContextValidator.validate(bundle.context_bundle)
 
-        is_enabled: bool = bool(bundle.prop.get('enabled', True))
-
-        if bundle.property_validated and is_enabled:
-            check_file_exists(
-                bundle.prop.get(SplashKeys.ATS_LOGO_PATH), ctx,
-                'App/Tool/Script logo file path not correct'
-            )
-
+        if bundle.property_validated:
+            # TODO get logo from bundle.splash_property not from bundle.prop
+            check_file_exists(bundle.prop.get(SplashKeys.ATS_LOGO_PATH), ctx, msg_logo_path)

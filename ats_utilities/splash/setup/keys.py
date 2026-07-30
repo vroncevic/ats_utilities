@@ -23,8 +23,14 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import ClassVar, Self
+from typing import ClassVar
 from types import MappingProxyType
+
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.splash.property.isplash_property import ISplashProperty
+from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
+from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
+from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -44,119 +50,57 @@ class SplashKeys:
         It defines:
 
             :attributes:
-                | ATS_NAME - Name of the application.
-                | ATS_REPOSITORY - Repository URL for the application.
-                | ATS_ORGANIZATION - Organization URL for the application.
-                | ATS_LOGO_PATH - Path to the logo image.
-                | ATS_USE_GITHUB_INFRASTRUCTURE - Use GitHub infrastructure (True/False).
-                | name - Name of the application (default None).
-                | repository - Repository URL for the application (default None).
-                | organization - Organization URL for the application (default None).
-                | logo_path - Path to the logo image (default None).
-                | use_github_infrastructure - Use GitHub infrastructure (default None).
-                | enabled - Enable/disable splash screen (default True).
-                | _key_to_attr - Mapping of constant keys to instance attributes (default None).
+                | DEPENDENCY_SPLASH_PROPERTY - Dependency key for splash property instance.
+                | DEPENDENCY_PROPERTY_VALIDATED - Dependency key for property validated flag.
+                | DEPENDENCY_TERMINAL_PROPERTY - Dependency key for terminal properties instance.
+                | DEPENDENCY_EXT - Dependency key for external infrastructure instance.
+                | DEPENDENCY_PB - Dependency key for progress bar instance.
+                | DEPENDENCY_CONTEXT_BUNDLE - Dependency key for context bundle instance.
+                | OPTION_PROP - Option key for splash properties.
+                | OPTION_CONTEXT_BUNDLE - Option key for context bundle instance.
             :methods:
-                | get_key_to_attr - Returns a read-only mapping of constant keys to instance attributes.
-                | __post_init__ - Post initials SplashKeys constructor.
-                | from_dict - Factory method to safely create a SplashKeys instance from a dictionary.
-                | get_all_keys - Returns an immutable tuple of all defined ClassVar keys for the splash screen.
-                | to_dict - Converts the SplashKeys instance to a dictionary.
+                | get_dependency_to_type - Returns mapping of splash dependencies to their types.
+                | get_option_to_type - Returns mapping of splash options to their types.
     '''
 
-    ATS_NAME: ClassVar[str] = 'ats_name'
-    ATS_REPOSITORY: ClassVar[str] = 'ats_repository'
-    ATS_ORGANIZATION: ClassVar[str] = 'ats_organization'
-    ATS_LOGO_PATH: ClassVar[str] = 'ats_logo_path'
-    ATS_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = 'ats_use_github_infrastructure'
+    # Dependency Keys
+    DEPENDENCY_SPLASH_PROPERTY: ClassVar[str] = 'splash_property'
+    DEPENDENCY_PROPERTY_VALIDATED: ClassVar[str] = 'property_validated'
+    DEPENDENCY_TERMINAL_PROPERTY: ClassVar[str] = 'terminal_property'
+    DEPENDENCY_EXT: ClassVar[str] = 'ext'
+    DEPENDENCY_PB: ClassVar[str] = 'pb'
+    DEPENDENCY_CONTEXT_BUNDLE: ClassVar[str] = 'context_bundle'
 
-    name: str | None = None
-    repository: str | None = None
-    organization: str | None = None
-    logo_path: str | None = None
-    use_github_infrastructure: bool | None = None
-    enabled: bool = True
-    _key_to_attr: ClassVar[MappingProxyType[str, str] | None] = None
-
-    def __post_init__(self) -> None:
-        '''
-            Post initials SplashKeys constructor.
-            Safely bypasses frozen restriction via object.__setattr__.
-
-            :exceptions: None.
-        '''
-        if not self.enabled:
-            attr_name: str
-
-            for attr_name in self.get_key_to_attr().values():
-                object.__setattr__(self, attr_name, None)
+    # Option Keys
+    OPTION_PROP: ClassVar[str] = 'prop'
+    OPTION_CONTEXT_BUNDLE: ClassVar[str] = 'context_bundle'
 
     @classmethod
-    def get_key_to_attr(cls) -> MappingProxyType[str, str]:
+    def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns a read-only mapping of constant keys to instance attributes.
+            Returns mapping of splash dependencies to their types.
 
-            :return: Read-only mapping of constant keys to instance attributes.
+            :return: Mapping of splash dependencies to their types.
             :exceptions: None.
         '''
-        if cls._key_to_attr is None:
-            mapping: dict[str, str] = {}
-
-            attr: str
-            for attr in dir(cls):
-                if attr.startswith('ATS_'):
-                    key: str = getattr(cls, attr)
-                    attr_name: str = key.replace('ats_', '', 1)
-                    mapping[key] = attr_name
-
-            cls._key_to_attr = MappingProxyType(mapping)
-
-        return cls._key_to_attr
+        return MappingProxyType({
+            cls.DEPENDENCY_SPLASH_PROPERTY: ISplashProperty,
+            cls.DEPENDENCY_PROPERTY_VALIDATED: bool,
+            cls.DEPENDENCY_TERMINAL_PROPERTY: ITerminalProperties,
+            cls.DEPENDENCY_EXT: IExtInfrastructure,
+            cls.DEPENDENCY_PB: IProgressBar,
+            cls.DEPENDENCY_CONTEXT_BUNDLE: ContextBundle,
+        })
 
     @classmethod
-    def from_dict(cls, config: Mapping[str, object]) -> Self:
+    def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Factory method to safely parse a dictionary into a SplashKeys instance.
+            Returns mapping of splash options to their types.
 
-            :param config: Configuration mapping.
-            :return: Fully initialized SplashKeys instance.
+            :return: Mapping of splash options to their types.
             :exceptions: None.
         '''
-        is_enabled: bool = bool(config.get('enabled', True))
-        kwargs: dict[str, object] = {'enabled': is_enabled}
-        key: str
-        attr_name: str
-
-        for key, attr_name in cls.get_key_to_attr().items():
-            kwargs[attr_name] = config.get(key, None) if is_enabled else None
-
-        return cls(**kwargs)
-
-    @classmethod
-    def get_all_keys(cls) -> tuple[str, ...]:
-        '''
-            Returns an immutable tuple of all defined ClassVar keys for the splash screen.
-
-            :return: Immutable tuple of all defined ClassVar keys for the splash screen.
-            :exceptions: None.
-        '''
-        return tuple(cls.get_key_to_attr().keys())
-
-    def to_dict(self) -> dict[str, object]:
-        '''
-            Converts the SplashKeys instance to a dictionary.
-
-            :return: SplashKeys instance in dict format.
-            :exceptions: None.
-        '''
-        if not self.enabled:
-            return {'enabled': False}
-
-        data: dict[str, object] = {}
-        key: str
-        attr_name: str
-
-        for key, attr_name in self.get_key_to_attr().items():
-            data[key] = getattr(self, attr_name)
-
-        return data
+        return MappingProxyType({
+            cls.OPTION_PROP: Mapping,
+            cls.OPTION_CONTEXT_BUNDLE: ContextBundle,
+        })

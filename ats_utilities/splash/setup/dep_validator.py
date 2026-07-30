@@ -24,12 +24,9 @@ from __future__ import annotations
 from collections.abc import Mapping
 
 from ats_utilities.splash.setup.dependencies import SplashDependencies
-from ats_utilities.splash.property.isplash_property import ISplashProperty
-from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
-from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
-from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
+from ats_utilities.splash.setup.keys import SplashKeys
 from ats_utilities.utils.setup.idep_validator import IDependenciesValidator
-from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -65,34 +62,20 @@ class SplashDependenciesValidator(IDependenciesValidator[SplashDependencies]):
                 |                must be instances of their respective types.
         '''
         ctx: str = 'splash_dependencies_validator::validate(...)'
+        msg_dependencies_none: str = 'dependencies must be provided'
+        msg_dependencies_istype: str = 'dependencies must be a Mapping'
 
-        not_none(dependencies, ctx, 'dependencies must be provided')
-        istype(dependencies, Mapping, ctx, 'dependencies must be a Mapping')
+        not_none(dependencies, ctx, msg_dependencies_none)
+        istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
-        prop = dependencies.get('prop')
-        not_none(prop, ctx, 'prop must be provided')
-        istype(prop, Mapping, ctx, 'prop must be a Mapping')
+        for attr_name, expected_type in SplashKeys.get_dependency_to_type().items():
+            msg_attr_none: str = f'{attr_name.replace("_", " ")} must be provided'
+            msg_attr_istype: str = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
-        splash_property = dependencies.get('splash_property')
-        not_none(splash_property, ctx, 'splash_property must be provided')
-        istype(splash_property, ISplashProperty, ctx, 'splash_property must be an instance of ISplashProperty')
+            attribute: object = dependencies.get(attr_name)
 
-        property_validated = dependencies.get('property_validated')
-        not_none(property_validated, ctx, 'property_validated must be provided')
-        istype(property_validated, bool, ctx, 'property_validated must be a boolean')
+            not_none(attribute, ctx, msg_attr_none)
+            istype(attribute, expected_type, ctx, msg_attr_istype)
 
-        terminal_property = dependencies.get('terminal_property')
-        not_none(terminal_property, ctx, 'terminal_property must be provided')
-        istype(terminal_property, ITerminalProperties, ctx, 'terminal_property must be an instance of ITerminalProperties')
-
-        ext = dependencies.get('ext')
-        not_none(ext, ctx, 'ext must be provided')
-        istype(ext, IExtInfrastructure, ctx, 'ext must be an instance of IExtInfrastructure')
-
-        pb = dependencies.get('pb')
-        not_none(pb, ctx, 'pb must be provided')
-        istype(pb, IProgressBar, ctx, 'pb must be an instance of IProgressBar')
-
-        context_bundle = dependencies.get('context_bundle')
-        not_none(context_bundle, ctx, 'context bundle must be provided')
-        istype(context_bundle, ContextBundle, ctx, 'context bundle must be an instance of ContextBundle')
+            if attr_name == SplashKeys.DEPENDENCY_CONTEXT_BUNDLE:
+                ContextValidator.validate(attribute)

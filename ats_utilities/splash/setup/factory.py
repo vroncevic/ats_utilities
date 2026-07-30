@@ -23,7 +23,6 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.utils.setup.ifactory import IFactory
 from ats_utilities.splash.setup.bundle import SplashBundle
 from ats_utilities.splash.setup.options import SplashOptions
 from ats_utilities.splash.setup.opt_validator import SplashOptionsValidator
@@ -39,6 +38,7 @@ from ats_utilities.splash.external.github_infrastructure import GitHubInfrastruc
 from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
 from ats_utilities.splash.progressbar.progress_bar import ProgressBar
 from ats_utilities.splash.setup.keys import SplashKeys
+from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.context.bundle import ContextBundle
 
 __author__ = 'Vladimir Roncevic'
@@ -51,7 +51,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class SplashFactory(IFactory[SplashBundle, SplashOptions]):
+class SplashFactory:
     '''
         Factory for creating splash bundle instance.
 
@@ -70,27 +70,14 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
             :param options: Creation options/parameters for the bundle.
             :return: Splash bundle instance.
             :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a Mapping.
-                | ATSTypeError: Properties must be a Mapping.
-                | ATSTypeError: Context bundle must be a ContextBundle.
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Splash property must be provided.
-                | ATSValueError: Property validated flag must be provided.
-                | ATSValueError: Terminal properties must be provided.
-                | ATSValueError: External infrastructure must be provided.
-                | ATSValueError: Progress bar must be provided.
-                | ATSTypeError: Bundle must be an instance of SplashBundle.
-                | ATSTypeError: Splash property must be an instance of ISplashProperty.
-                | ATSTypeError: Property validated flag must be an instance of bool.
-                | ATSTypeError: Terminal properties must be an instance of ITerminalProperties.
-                | ATSTypeError: External infrastructure must be an instance of IExtInfrastructure.
-                | ATSTypeError: Progress bar must be an instance of IProgressBar.
+                | ATSValueError: Splash options must be provided and have proper values.
+                | ATSTypeError:  Splash options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
         SplashOptionsValidator.validate(options)
 
-        prop: Mapping[str, object] | None = options.get('prop')
-        context_bundle: ContextBundle = options.get('context_bundle')
+        prop: Mapping[str, object] = options.get(SplashKeys.PROP)
+        context_bundle: ContextBundle = options.get(SplashKeys.CONTEXT_BUNDLE)
 
         splash_property: ISplashProperty = SplashProperty(context_bundle)
         property_validated: bool = False
@@ -124,36 +111,3 @@ class SplashFactory(IFactory[SplashBundle, SplashOptions]):
                 context_bundle=context_bundle
             )
         )
-
-    @classmethod
-    def create_splash_bundle_from_dict(
-        cls,
-        prop: Mapping[str, object],
-        context_bundle: ContextBundle
-    ) -> SplashBundle:
-        '''
-            Creates a default splash bundle.
-            Kept for backward compatibility.
-
-            :param prop: Properties.
-            :param context_bundle: Context bundle.
-            :return: Splash bundle instance.
-            :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a Mapping.
-                | ATSTypeError: Properties must be a Mapping.
-                | ATSTypeError: Context bundle must be a ContextBundle.
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Splash property must be provided.
-                | ATSValueError: Property validated flag must be provided.
-                | ATSValueError: Terminal properties must be provided.
-                | ATSValueError: External infrastructure must be provided.
-                | ATSValueError: Progress bar must be provided.
-                | ATSTypeError: Bundle must be an instance of SplashBundle.
-                | ATSTypeError: Splash property must be an instance of ISplashProperty.
-                | ATSTypeError: Property validated flag must be an instance of bool.
-                | ATSTypeError: Terminal properties must be an instance of ITerminalProperties.
-                | ATSTypeError: External infrastructure must be an instance of IExtInfrastructure.
-                | ATSTypeError: Progress bar must be an instance of IProgressBar.
-        '''
-        return cls.create_bundle(options=SplashOptions(prop=prop, context_bundle=context_bundle))

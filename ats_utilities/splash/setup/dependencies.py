@@ -21,7 +21,6 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 from typing import TypedDict
 
 from ats_utilities.context.bundle import ContextBundle
@@ -47,7 +46,6 @@ class SplashDependencies(TypedDict):
         It defines:
 
             :attributes:
-                | prop: Splash screen properties in dict format.
                 | splash_property: Splash screen property instance.
                 | property_validated: Property validated flag.
                 | terminal_property: Terminal properties instance.
@@ -56,7 +54,6 @@ class SplashDependencies(TypedDict):
                 | context_bundle: Context bundle instance.
     '''
 
-    prop: Mapping[str, object]
     splash_property: ISplashProperty
     property_validated: bool
     terminal_property: ITerminalProperties

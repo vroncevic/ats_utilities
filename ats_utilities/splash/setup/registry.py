@@ -21,11 +21,9 @@ Info
 
 from __future__ import annotations
 
-
-
-from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.splash.setup.bundle import SplashBundle
 from ats_utilities.splash.setup.dependencies import SplashDependencies
+from ats_utilities.splash.setup.keys import SplashKeys
 from ats_utilities.splash.setup.validator import SplashValidator
 from ats_utilities.splash.setup.dep_validator import SplashDependenciesValidator
 
@@ -39,7 +37,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class SplashRegistry(IRegistry[SplashBundle, SplashDependencies]):
+class SplashRegistry:
     '''
         Encapsulates core runtime components for simplification of splash bundle creation.
 
@@ -57,42 +55,19 @@ class SplashRegistry(IRegistry[SplashBundle, SplashDependencies]):
             :param dependencies: Registry-specific orchestration dependencies.
             :return: Splash bundle instance.
             :exceptions:
-                | ATSValueError: Dependencies must be provided.
-                | ATSTypeError: Dependencies must be a Mapping.
-                | ATSTypeError: Properties dictionary must be a Mapping.
-                | ATSTypeError: Splash property must be an instance of ISplashProperty.
-                | ATSTypeError: Property validated flag must be a boolean.
-                | ATSTypeError: Terminal properties must be an instance of ITerminalProperties.
-                | ATSTypeError: External infrastructure must be an instance of IExtInfrastructure.
-                | ATSTypeError: Progress bar must be an instance of IProgressBar.
-                | ATSTypeError: Context bundle must be a ContextBundle.
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Properties dictionary must be provided.
-                | ATSValueError: Splash property must be provided.
-                | ATSValueError: Property validated flag must be provided.
-                | ATSValueError: Terminal properties must be provided.
-                | ATSValueError: External infrastructure must be provided.
-                | ATSValueError: Progress bar must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Bundle must be an instance of SplashBundle.
-                | ATSTypeError: Properties dictionary must be an instance of Mapping.
-                | ATSTypeError: Splash property must be an instance of ISplashProperty.
-                | ATSTypeError: Property validated flag must be an instance of bool.
-                | ATSTypeError: Terminal properties must be an instance of ITemplateDir.
-                | ATSTypeError: External infrastructure must be an instance of IExtInfrastructure.
-                | ATSTypeError: Progress bar must be an instance of IProgressBar.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSValueError: Dependencies must be provided and have proper attributes.
+                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
         SplashDependenciesValidator.validate(dependencies)
 
         bundle: SplashBundle = SplashBundle(
-            prop=dependencies.get('prop'),
-            splash_property=dependencies.get('splash_property'),
-            property_validated=dependencies.get('property_validated'),
-            terminal_property=dependencies.get('terminal_property'),
-            ext=dependencies.get('ext'),
-            pb=dependencies.get('pb'),
-            context_bundle=dependencies.get('context_bundle')
+            splash_property=dependencies.get(SplashKeys.DEPENDENCY_SPLASH_PROPERTY) if dependencies else None,
+            property_validated=dependencies.get(SplashKeys.DEPENDENCY_PROPERTY_VALIDATED) if dependencies else None,
+            terminal_property=dependencies.get(SplashKeys.DEPENDENCY_TERMINAL_PROPERTY) if dependencies else None,
+            ext=dependencies.get(SplashKeys.DEPENDENCY_EXT) if dependencies else None,
+            pb=dependencies.get(SplashKeys.DEPENDENCY_PB) if dependencies else None,
+            context_bundle=dependencies.get(SplashKeys.DEPENDENCY_CONTEXT_BUNDLE) if dependencies else None
         )
 
         SplashValidator.validate(bundle)

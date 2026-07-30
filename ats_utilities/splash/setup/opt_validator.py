@@ -24,8 +24,8 @@ from __future__ import annotations
 from collections.abc import Mapping
 
 from ats_utilities.splash.setup.options import SplashOptions
-from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.utils.setup.iopt_validator import IOptionsValidator
+from ats_utilities.splash.setup.keys import SplashKeys
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -39,37 +39,39 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class SplashOptionsValidator(IOptionsValidator[SplashOptions]):
+class SplashOptionsValidator:
     '''
         Validator for splash options.
 
         It defines:
 
             :methods:
-                | validate - Validates splash options instance.
+                | validate - Validates splash options.
     '''
 
     @classmethod
     def validate(cls, options: SplashOptions) -> None:
         '''
-            Validates splash options instance.
+            Validates splash options.
 
-            :param options: Splash options instance to be validated.
+            :param options: Splash options to be validated.
             :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a Mapping.
-                | ATSTypeError: Properties must be a Mapping.
-                | ATSTypeError: Context bundle must be a ContextBundle.
+                | ATSValueError: Options must be provided and have proper attributes.
+                | ATSTypeError:  Options must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
         ctx: str = 'splash_options_validator::validate(...)'
+        msg_options_none: str = 'options must be provided'
+        msg_options_istype: str = 'options must be a Mapping'
 
-        not_none(options, ctx, 'options must be provided')
-        istype(options, Mapping, ctx, 'options must be a Mapping')
+        not_none(options, ctx, msg_options_none)
+        istype(options, Mapping, ctx, msg_options_istype)
 
-        prop = options.get('prop')
-        if prop is not None:
-            istype(prop, Mapping, ctx, 'prop must be a Mapping')
+        for attribute_name, expected_type in SplashKeys.get_option_to_type().items():
+            msg_attribute_istype: str = f'{attribute_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
-        context_bundle = options.get('context_bundle')
-        not_none(context_bundle, ctx, 'context bundle must be provided')
-        istype(context_bundle, ContextBundle, ctx, 'context bundle must be an instance of ContextBundle')
+            attribute: object = options.get(attribute_name)
+            istype(attribute, expected_type, ctx, msg_attribute_istype)
+
+            if attribute_name == SplashKeys.OPTION_CONTEXT_BUNDLE:
+                ContextValidator.validate(attribute)
