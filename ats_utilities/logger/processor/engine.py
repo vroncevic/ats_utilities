@@ -46,7 +46,7 @@ class MessageProcessor:
         Provides an API for processing/sanitizing log messages.
 
         :attributes:
-            | _ANSI_ESCAPE - Regex pattern for ANSI escape codes.
+            | DEFAULT_ESCAPE - Regex pattern for ANSI escape codes.
             | _pattern - Regex pattern for message processing.
         :methods:
             | __init__ - Initializes a message processor.
@@ -56,7 +56,7 @@ class MessageProcessor:
             | __str__ - Returns message processor as string representation.
     '''
 
-    _ANSI_ESCAPE: Pattern[str] = compile(r'\x1B(?:[@-Z\\-_]|[\[0-?]*[ -/]*[@-~])')
+    DEFAULT_ESCAPE: Pattern[str] = compile(r'\x1B(?:[@-Z\\-_]|[\[0-?]*[ -/]*[@-~])')
     _pattern: Pattern[str]
 
     def __init__(self, pattern: Pattern[str] | None = None) -> None:
@@ -69,11 +69,15 @@ class MessageProcessor:
         '''
         if pattern is not None:
             ctx: str = 'message_processor::init(...)'
-            not_none(pattern, ctx, 'pattern must be provided')
-            istype(pattern, Pattern[str], ctx, 'pattern must be a compiled regex pattern')
+            msg_pattern_none: str = 'pattern must be provided'
+            msg_pattern_istype: str = 'pattern must be a compiled regex pattern'
+
+            not_none(pattern, ctx, msg_pattern_none)
+            istype(pattern, Pattern[str], ctx, msg_pattern_istype)
+
             self._pattern = pattern
         else:
-            self._pattern = self._ANSI_ESCAPE
+            self._pattern = self.DEFAULT_ESCAPE
 
     def get_pattern(self) -> Pattern[str]:
         '''
@@ -92,8 +96,12 @@ class MessageProcessor:
                 | ATSTypeError: Pattern must be a compiled regex pattern.
         '''
         ctx: str = 'message_processor::set_pattern(...)'
-        not_none(pattern, ctx, 'pattern must be provided')
-        istype(pattern, Pattern[str], ctx, 'pattern must be a compiled regex pattern')
+        msg_pattern_none: str = 'pattern must be provided'
+        msg_pattern_istype: str = 'pattern must be a compiled regex pattern'
+
+        not_none(pattern, ctx, msg_pattern_none)
+        istype(pattern, Pattern[str], ctx, msg_pattern_istype)
+
         self._pattern = pattern
 
     def process(self, message: str) -> str:
@@ -109,7 +117,7 @@ class MessageProcessor:
         is_terminal: bool = stdout.isatty()
 
         if no_color or (not is_terminal and not force_color):
-            message = self._ANSI_ESCAPE.sub('', message)
+            message = self._pattern.sub('', message)
 
         return message
 

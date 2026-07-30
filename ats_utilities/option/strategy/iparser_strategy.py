@@ -23,11 +23,7 @@ Info
 from __future__ import annotations
 
 from typing import Protocol, runtime_checkable
-from collections.abc import Sequence, Mapping
-
-from ats_utilities.option.command.ioption_command import IOptionCommand
-from ats_utilities.option.option_namespace import OptionNamespace
-from ats_utilities.option.option_namespace import OptArgs
+from collections.abc import Sequence
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,7 +36,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IParserStrategy(Protocol):
+class IParserStrategy[CommandType, NamespaceType, ArgsType, ParsedCommandType](Protocol):
     '''
         Defines abstract class IParserStrategy with method(s).
         Interface for concrete parsing engines (Strategy Pattern).
@@ -75,17 +71,17 @@ class IParserStrategy(Protocol):
         '''
         ...
 
-    def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
+    def parse(self, arguments: ArgsType, known_only: bool = False) -> NamespaceType:
         '''
-            Parses the input arguments and returns an OptionNamespace.
+            Parses the input arguments and returns a NamespaceType.
 
-            :param arguments: Sequence of arguments | None.
+            :param arguments: Sequence of arguments.
             :param known_only: Parse only known arguments.
             :return: Option namespace object.
         '''
         ...
 
-    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+    def register_commands(self, commands: Sequence[CommandType]) -> None:
         '''
             Register a sequence of commands with the parser.
 
@@ -93,15 +89,14 @@ class IParserStrategy(Protocol):
         '''
         ...
 
-    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, object]]:
+    def parse_command(self, arguments: ArgsType = ...) -> ParsedCommandType:
         '''
             Parses CLI arguments for subcommands and returns command name and parameters.
 
-            :param arguments: Sequence of arguments | None.
-            :return: Tuple containing command name and parsed parameters (read only data).
+            :param arguments: Sequence of arguments.
+            :return: Parsed command result.
         '''
         ...
-
 
     def is_initialized(self) -> bool:
         '''

@@ -38,17 +38,18 @@ __status__ = 'Development'
 # default [based on argparse]
 # =============================
 #
-opt_parser: dict[str, str] = {
-    'name': 'mytool',
-    'epilog': 'mytool is simple',
-    'description': 'mytool is simple cli tool',
-    'version': '1.2.4'
+opt_parser: dict[str, object] = {
+    'ats_name': 'mytool',
+    'ats_version': '1.2.4',
+    'ats_licence': 'mytool is simple',
+    'ats_build_date': '2026-07-30',
+    'ats_info_ok': True
 }
 OPS: list[str] = ['-n', '--name', '-v', '--verbose']
-own = OptionFactory.create_option_bundle_from_dict(
-    parameters=opt_parser,
-    context_bundle=ContextFactory.create_default_bundle()
-)
+own = OptionFactory.create_bundle({
+    'parameters': opt_parser,
+    'context_bundle': ContextFactory.create_bundle()
+})
 parser: OptionManager = OptionManager(own=own)
 parser.add_version_operation('1.2.4')
 parser.add_operation(OPS[0], OPS[1], dest='name', help='generate project (provide name)')

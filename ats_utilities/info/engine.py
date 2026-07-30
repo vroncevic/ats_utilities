@@ -89,8 +89,10 @@ class InfoManager:
                 | ATSTypeError:  Info bundle must be an instance of InfoBundle and its
                 |                attributes must be instances of their respective types.
         '''
+        self._is_initialized = False
         InfoValidator.validate(own)
         self._apply_bundle(own)
+        self._is_initialized = True
 
     def get_bundle(self) -> InfoBundle:
         '''
@@ -110,8 +112,10 @@ class InfoManager:
             :exceptions: None.
         '''
         try:
+            self._is_initialized = False
             InfoValidator.validate(bundle)
             self._apply_bundle(bundle)
+            self._is_initialized = True
 
             return True
 
@@ -127,9 +131,7 @@ class InfoManager:
         '''
         self._components = bundle
         self._context = bundle.context_bundle
-        self._is_initialized = False
         self.refresh_status()
-        self._is_initialized = True
 
     def get_context(self) -> ContextBundle:
         '''
@@ -150,8 +152,11 @@ class InfoManager:
                 | ATSTypeError:  Info mapping must be an instance of Mapping.
         '''
         ctx: str = 'info_manager::set_info(...)'
-        not_none(info, ctx, 'info mapping must be provided')
-        istype(info, Mapping, ctx, 'info must be a Mapping')
+        msg_info_none: str = 'info mapping must be provided'
+        msg_info_istype: str = 'info must be a Mapping'
+
+        not_none(info, ctx, msg_info_none)
+        istype(info, Mapping, ctx, msg_info_istype)
 
         self._components = InfoFactory.create_bundle({
             InfoKeys.OPTION_INFO: info,
@@ -208,7 +213,9 @@ class InfoManager:
             return getattr(component, name, None) if component else None
 
         ctx: str = 'info_manager::getattr(...)'
-        not_satisfied(True, ctx, f'{type(self).__name__} has no attribute {name}', ATSAttributeError)
+        msg_attr_not_registered: str = f'{type(self).__name__} has no attribute {name}'
+
+        not_satisfied(True, ctx, msg_attr_not_registered, ATSAttributeError)
 
     def __setattr__(self, name: str, value: str | bool | None) -> None:
         '''
@@ -234,7 +241,9 @@ class InfoManager:
                 return
 
         ctx: str = 'info_manager::setattr(...)'
-        not_satisfied(True, ctx, f'{type(self).__name__} has no registered attribute {name}', ATSAttributeError)
+        msg_attr_not_registered: str = f'{type(self).__name__} has no registered attribute {name}'
+
+        not_satisfied(True, ctx, msg_attr_not_registered, ATSAttributeError)
 
     def is_initialized(self) -> bool:
         '''
@@ -247,6 +256,7 @@ class InfoManager:
             return False
 
         info_ok_component = getattr(self._components, InfoKeys.DEPENDENCY_INFO_OK, None)
+
         return bool(info_ok_component and getattr(info_ok_component, InfoKeys.DEPENDENCY_INFO_OK, False))
 
     def refresh_status(self) -> None:

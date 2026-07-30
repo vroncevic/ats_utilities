@@ -48,7 +48,7 @@ class TypeValidator:
         It defines:
 
             :attributes:
-                | _DEFAULT_TYPES - Mapping of abstract type names to their implementations.
+                | DEFAULT_TYPES - Mapping of abstract type names to their implementations.
                 | _abstract_types - Mapping of abstract type names to their implementations.
             :methods:
                 | __init__ - Initializes type validator.
@@ -58,7 +58,7 @@ class TypeValidator:
                 | __str__ - Returns type validator as string representation.
     '''
 
-    _DEFAULT_TYPES: Final[Mapping[str, type]] = MappingProxyType({
+    DEFAULT_TYPES: Final[MappingProxyType[str, type]] = MappingProxyType({
         'Mapping': Mapping,
         'Sequence': Sequence,
         'Iterable': Iterable,
@@ -76,11 +76,15 @@ class TypeValidator:
         '''
         if abstract_types is not None:
             ctx: str = 'type_validator::init(...)'
-            istype(abstract_types, Mapping, ctx, 'abstract types must be a mapping of names to types')
-            not_empty(abstract_types, ctx, 'abstract types must not be empty (names to types)')
+            msg_abstract_types_istype: str = 'abstract types must be a mapping of names to types'
+            msg_abstract_types_empty: str = 'abstract types must not be empty (names to types)'
+
+            istype(abstract_types, Mapping, ctx, msg_abstract_types_istype)
+            not_empty(abstract_types, ctx, msg_abstract_types_empty)
+
             self._abstract_types = MappingProxyType(abstract_types)
         else:
-            self._abstract_types = self._DEFAULT_TYPES
+            self._abstract_types = self.DEFAULT_TYPES
 
     def is_match(self, instance: object, expected_type_name: str) -> bool:
         '''
@@ -94,11 +98,19 @@ class TypeValidator:
                 | ATSValueError: Instance must be provided.
                 | ATSValueError: Expected type name must be provided.
                 | ATSTypeError:  Expected type name must be a string.
+                | ATSValueError: Expected type name must not be empty.
         '''
         ctx: str = 'type_validator::is_match(...)'
-        not_none(instance, ctx, 'instance must be provided')
-        not_none(expected_type_name, ctx, 'expected type name must be provided')
-        istype(expected_type_name, str, ctx, 'expected type name must be a string')
+        msg_instance_none: str = 'instance must be provided'
+        msg_expected_type_name_none: str = 'expected type name must be provided'
+        msg_expected_type_name_istype: str = 'expected type name must be a string'
+        msg_expected_type_name_empty: str = 'expected type name must not be empty'
+
+        not_none(instance, ctx, msg_instance_none)
+        not_none(expected_type_name, ctx, msg_expected_type_name_none)
+        istype(expected_type_name, str, ctx, msg_expected_type_name_istype)
+        not_empty(expected_type_name, ctx, msg_expected_type_name_empty)
+
         base_type_name = expected_type_name.split('[')[0]
 
         if base_type_name in self._abstract_types:
@@ -118,11 +130,20 @@ class TypeValidator:
                 | ATSValueError: Instance must be provided.
                 | ATSValueError: Expected type name must be provided.
                 | ATSTypeError:  Expected type name must be a string.
+                | ATSValueError: Expected type name must not be empty.
         '''
         ctx: str = 'type_validator::is_subtype(...)'
-        not_none(instance, ctx, 'instance must be provided')
-        not_none(expected_type_name, ctx, 'expected type name must be provided')
-        istype(expected_type_name, str, ctx, 'expected type name must be a string')
+
+        msg_instance_none: str = 'instance must be provided'
+        msg_expected_type_name_none: str = 'expected type name must be provided'
+        msg_expected_type_name_istype: str = 'expected type name must be a string'
+        msg_expected_type_name_empty: str = 'expected type name must not be empty'
+
+        not_none(instance, ctx, msg_instance_none)
+        not_none(expected_type_name, ctx, msg_expected_type_name_none)
+        istype(expected_type_name, str, ctx, msg_expected_type_name_istype)
+        not_empty(expected_type_name, ctx, msg_expected_type_name_empty)
+
         base_type_name = expected_type_name.split('[')[0]
 
         if base_type_name in self._abstract_types:

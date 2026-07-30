@@ -23,7 +23,7 @@ from __future__ import annotations
 
 from typing import ClassVar
 from types import MappingProxyType
-from collections.abc import Callable, Mapping
+from collections.abc import Mapping
 
 from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy

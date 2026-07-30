@@ -104,4 +104,5 @@ class OptionData:
             kwargs['required'] = self.required
 
         kwargs['help'] = self.help_text
+
         return kwargs

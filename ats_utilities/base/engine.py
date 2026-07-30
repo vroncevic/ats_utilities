@@ -29,7 +29,7 @@ from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generation.imanager import IGeneratorManager
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.option.imanager import IOptionManager
-from ats_utilities.option.option_namespace import OptionNamespace
+from ats_utilities.option.setup.types import OptionNamespace
 from ats_utilities.splash.imanager import ISplashManager
 from ats_utilities.utils.reflection import to_str, has_attrs
 from ats_utilities.validation.check_value import not_none

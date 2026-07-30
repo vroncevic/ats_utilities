@@ -44,9 +44,9 @@ class ContextOptions(TypedDict):
         It defines:
 
             :attributes:
-                | checker: Pre-configured checker options.
-                | logger: Pre-configured logger options.
-                | reporter: Pre-configured reporter options.
+                | checker: Checker setup options.
+                | logger: Logger setup options.
+                | reporter: Reporter setup options.
                 | verbose: Verbose output flag.
     '''
 

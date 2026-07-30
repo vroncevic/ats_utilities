@@ -60,37 +60,37 @@ class InfoOptionsValidator:
                 |                attributes must be instances of their respective types.
         '''
         ctx: str = 'info_options_validator::validate(...)'
+        msg_options_none: str = 'options must be provided and have proper values'
+        msg_options_not_mapping: str = 'options must be a Mapping'
 
-        not_none(options, ctx, 'options must be provided and have proper values')
-        istype(options, Mapping, ctx, 'options must be a Mapping')
+        not_none(options, ctx, msg_options_none)
+        istype(options, Mapping, ctx, msg_options_not_mapping)
 
-        for opt_name, expected_type in InfoKeys.get_option_to_type().items():
-            not_satisfied(opt_name not in options, ctx, f'{opt_name} must be provided')
-            value = options.get(opt_name)
-            not_none(value, ctx, f'{opt_name} must be provided and have proper value')
-            istype(
-                value, expected_type, ctx,
-                f'{opt_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
-            )
+        for attr_name, expected_type in InfoKeys.get_option_to_type().items():
+            msg_opt_not_provided: str = f'{attr_name} must be provided'
+            msg_opt_none: str = f'{attr_name} must be provided and have proper attribute'
+            msg_opt_not_instance: str = f'{attr_name} must be an instance of {expected_type.__name__}'
 
-            if opt_name is InfoKeys.OPTION_INFO:
-                info_structure: Mapping[str, object] = value
+            not_satisfied(attr_name not in options, ctx, msg_opt_not_provided)
+
+            attribute = options.get(attr_name)
+
+            not_none(attribute, ctx, msg_opt_none)
+            istype(attribute, expected_type, ctx, msg_opt_not_instance)
+
+            if attr_name is InfoKeys.OPTION_INFO:
+                info_structure: Mapping[str, object] = attribute
                 required_config_keys: Sequence[str] = InfoKeys.get_required_config_keys()
-                not_satisfied(
-                    not all(key in info_structure for key in required_config_keys),
-                    ctx, 'info structure must contain all required keys'
-                )
+                msg_required_keys_missing: str = 'info structure must contain all required keys'
+                msg_invalid_key: str = 'is not a valid info configuration key'
+                msg_optional_none: str = 'info attribute for required key must be provided'
+
+                not_satisfied(not all(key in info_structure for key in required_config_keys), ctx, msg_required_keys_missing)
 
                 for key in info_structure.keys():
-                    not_satisfied(
-                        key not in InfoKeys.get_config_keys(),
-                        ctx, f'{key} is not a valid info configuration key'
-                    )
+                    not_satisfied(key not in InfoKeys.get_config_keys(), ctx, msg_invalid_key)
 
                     if InfoKeys.is_optional_config_key(key):
                         continue
 
-                    not_satisfied(
-                        info_structure[key] is None, ctx,
-                        f'info value for required key {key} must be provided'
-                    )
+                    not_satisfied(info_structure[key] is None, ctx, msg_optional_none)

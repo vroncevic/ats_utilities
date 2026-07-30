@@ -37,9 +37,15 @@ VERBOSE: bool = False
 #
 # default [without DI]
 # ====================
-#
-context_bundle = ContextFactory.create_default_bundle()
-default_bundle = InfoFactory.create_info_bundle_from_dict({}, context_bundle)
+context_bundle = ContextFactory.create_bundle()
+default_info = {
+    'ats_name': 'mydefaulttool',
+    'ats_version': '1.0.0',
+    'ats_licence': 'gplv3',
+    'ats_build_date': 'Sun Jun 14 03:06:10 PM CEST 2026',
+    'ats_info_ok': True
+}
+default_bundle = InfoFactory.create_bundle({'info': default_info, 'context_bundle': context_bundle})
 ats_info_manager_without_di = InfoManager(own=default_bundle)
 print(ats_info_manager_without_di)
 
@@ -54,7 +60,7 @@ info_dict_overwrite = {
     'ats_build_date': 'Sun Jun 14 03:06:11 PM CEST 2026',
     'ats_info_ok': True
 }
-bundle_overwrite = InfoFactory.create_info_bundle_from_dict(info_dict_overwrite, context_bundle)
+bundle_overwrite = InfoFactory.create_bundle({'info': info_dict_overwrite, 'context_bundle': context_bundle})
 ats_info_manager_with_di_and_case_overwrite = InfoManager(
     own=bundle_overwrite, 
 )
@@ -71,7 +77,7 @@ info_dict_no_overwrite = {
     'ats_build_date': 'Sun Jun 14 03:06:13 PM CEST 2026',
     'ats_info_ok': True
 }
-bundle_no_overwrite = InfoFactory.create_info_bundle_from_dict(info_dict_no_overwrite, context_bundle)
+bundle_no_overwrite = InfoFactory.create_bundle({'info': info_dict_no_overwrite, 'context_bundle': context_bundle})
 ats_info_manager_with_di_and_without_case_overwrite = InfoManager(
     own=bundle_no_overwrite, 
 )

@@ -32,7 +32,7 @@ __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
-reporter: Reporter = Reporter(own=ReporterFactory.create_default_bundle())
+reporter: Reporter = Reporter(own=ReporterFactory.create_bundle())
 reporter.set_level(DEBUG)
 
 reporter.warning(['Warning'])

@@ -55,24 +55,28 @@ class ReporterValidator:
 
             :param bundle: Reporter bundle instance to be validated.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Checker must be provided.
-                | ATSValueError: Theme must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSTypeError: Bundle must be an instance of ReporterBundle.
-                | ATSTypeError: Checker must be an instance of IChecker interface.
-                | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
-                | ATSTypeError: Logger must be an instance of ILogger interface.
+                | ATSValueError: Reporter bundle must be provided and have proper values.
+                | ATSTypeError:  Reporter bundle must be an instance of ReporterBundle
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         ctx: str = 'reporter_validator::validate(...)'
+        msg_bundle_none: str = f'bundle must be provided'
+        msg_bundle_istype: str = f'bundle must be an instance of ReporterBundle'
+        msg_checker_none: str = f'checker must be provided'
+        msg_checker_istype: str = f'checker must be an instance of IChecker interface'
+        msg_theme_none: str = f'theme must be provided'
+        msg_theme_istype: str = f'theme must be an instance of IConsoleTheme interface'
+        msg_logger_none: str = f'logger must be provided'
+        msg_logger_istype: str = f'logger must be an instance of ILogger interface'
 
-        not_none(bundle, ctx, 'bundle must be provided')
-        istype(bundle, ReporterBundle, ctx, 'bundle must be an instance of ReporterBundle')
+        not_none(bundle, ctx, msg_bundle_none)
+        istype(bundle, ReporterBundle, ctx, msg_bundle_istype)
 
-        not_none(bundle.checker, ctx, 'checker must be provided')
-        not_none(bundle.theme, ctx, 'theme must be provided')
-        not_none(bundle.logger, ctx, 'logger must be provided')
+        not_none(bundle.checker, ctx, msg_checker_none)
+        not_none(bundle.theme, ctx, msg_theme_none)
+        not_none(bundle.logger, ctx, msg_logger_none)
 
-        istype(bundle.checker, IChecker, ctx, 'checker must be an IChecker instance')
-        istype(bundle.theme, IConsoleTheme, ctx, 'theme must be an IConsoleTheme instance')
-        istype(bundle.logger, ILogger, ctx, 'logger must be an ILogger instance')
+        istype(bundle.checker, IChecker, ctx, msg_checker_istype)
+        istype(bundle.theme, IConsoleTheme, ctx, msg_theme_istype)
+        istype(bundle.logger, ILogger, ctx, msg_logger_istype)

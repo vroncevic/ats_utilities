@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for StrategyData class.
+    Validator for strategy data.
 '''
 
 from __future__ import annotations
@@ -40,18 +40,18 @@ __status__: str = 'Development'
 
 class StrategyDataValidator:
     '''
-        Validator for StrategyData class.
+        Validator for strategy data.
 
         It defines:
 
             :methods:
-                | validate - Validates StrategyData instance.
+                | validate - Validates strategy data.
     '''
 
     @classmethod
     def validate(cls, data: StrategyData) -> None:
         '''
-            Validates StrategyData instance.
+            Validates strategy data instance.
 
             :param data: StrategyData instance to be validated.
             :exceptions:
@@ -60,13 +60,19 @@ class StrategyDataValidator:
                 |                attributes must be instances of their respective types.
         '''
         ctx: str = 'strategy_data_validator::validate(...)'
-        not_none(data, ctx, 'strategy data must be provided')
-        istype(data, StrategyData, ctx, 'strategy data must be an instance of StrategyData')
+        msg_data_none: str = 'strategy data must be provided'
+        msg_data_istype: str = 'strategy data must be an instance of StrategyData'
+        msg_context_bundle_none: str = 'context bundle must be provided'
+        msg_parser_none: str = 'parser must be provided'
+        msg_context_bundle_istype: str = 'context bundle must be a ContextBundle instance'
+        msg_parser_istype: str = 'parser must be an instance of IUnderlyingParser'
 
-        not_none(data.context_bundle, ctx, 'context bundle must be provided')
-        not_none(data.parser, ctx, 'parser must be provided')
+        not_none(data, ctx, msg_data_none)
+        not_none(data.context_bundle, ctx, msg_context_bundle_none)
+        not_none(data.parser, ctx, msg_parser_none)
 
-        istype(data.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')
-        istype(data.parser, IUnderlyingParser, ctx, 'parser must be an instance of IUnderlyingParser')
+        istype(data, StrategyData, ctx, msg_data_istype)
+        istype(data.context_bundle, ContextBundle, ctx, msg_context_bundle_istype)
+        istype(data.parser, IUnderlyingParser, ctx, msg_parser_istype)
 
         ContextValidator.validate(data.context_bundle)

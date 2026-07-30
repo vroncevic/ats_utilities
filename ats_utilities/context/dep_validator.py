@@ -60,13 +60,17 @@ class ContextDependenciesValidator:
                 |                must be instances of their respective types.
         '''
         ctx: str = 'context_dependencies_validator::validate(...)'
+        msg_dependencies_none: str = 'dependencies must be provided'
+        msg_dependencies_istype: str = 'dependencies must be a Mapping'
 
-        not_none(dependencies, ctx, 'dependencies must be provided')
-        istype(dependencies, Mapping, ctx, 'dependencies must be a Mapping')
+        not_none(dependencies, ctx, msg_dependencies_none)
+        istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
         for attr_name, expected_type in ContextKeys.get_dependency_to_type().items():
-            value = dependencies.get(attr_name)
+            msg_attr_name_none: str = f'{attr_name.replace("_", " ")} must be provided'
+            msg_attr_name_istype: str = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
-            if value is not None:
-                err_msg = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
-                istype(value, expected_type, ctx, err_msg)
+            attribute = dependencies.get(attr_name)
+
+            not_none(attribute, ctx, msg_attr_name_none)
+            istype(attribute, expected_type, ctx, msg_attr_name_istype)

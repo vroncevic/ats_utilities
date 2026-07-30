@@ -143,7 +143,10 @@ def instance_to_dict(instance: object) -> dict[str, object]:
             | ATSValueError: Instance must be a dataclass instance.
     '''
     ctx: str = 'reflection::instance_to_dict(...)'
-    not_none(instance, ctx, 'instance must be provided')
-    not_satisfied(not is_dataclass(instance), ctx, 'instance must be a dataclass instance')
+    msg_instance_none: str = 'instance must be provided'
+    msg_instance_istype: str = 'instance must be a dataclass instance'
+
+    not_none(instance, ctx, msg_instance_none)
+    not_satisfied(not is_dataclass(instance), ctx, msg_instance_istype)
 
     return {field: getattr(instance, field) for field in instance.__dataclass_fields__}

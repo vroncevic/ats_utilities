@@ -48,7 +48,7 @@ class CheckerRegistry:
     '''
 
     @classmethod
-    def create_bundle(cls, dependencies: CheckerDependencies | None = None) -> CheckerBundle:
+    def create_bundle(cls, dependencies: CheckerDependencies) -> CheckerBundle:
         '''
             Orchestrates dependency injection and creates a checker bundle instance.
 
@@ -60,14 +60,13 @@ class CheckerRegistry:
                 |                and its attributes must be instances of their
                 |                respective interfaces and types.
         '''
-        if dependencies is not None:
-            CheckerDependenciesValidator.validate(dependencies)
+        CheckerDependenciesValidator.validate(dependencies)
 
         bundle: CheckerBundle = CheckerBundle(
-            format_validator=dependencies.get(CheckerKeys.DEPENDENCY_FORMAT_VALIDATOR) if dependencies else None,
-            type_validator=dependencies.get(CheckerKeys.DEPENDENCY_TYPE_VALIDATOR) if dependencies else None,
-            context_provider=dependencies.get(CheckerKeys.DEPENDENCY_CONTEXT_PROVIDER) if dependencies else None,
-            check_reporter=dependencies.get(CheckerKeys.DEPENDENCY_CHECK_REPORTER) if dependencies else None
+            format_validator=dependencies.get(CheckerKeys.DEPENDENCY_FORMAT_VALIDATOR),
+            type_validator=dependencies.get(CheckerKeys.DEPENDENCY_TYPE_VALIDATOR),
+            context_provider=dependencies.get(CheckerKeys.DEPENDENCY_CONTEXT_PROVIDER),
+            check_reporter=dependencies.get(CheckerKeys.DEPENDENCY_CHECK_REPORTER)
         )
 
         CheckerValidator.validate(bundle)

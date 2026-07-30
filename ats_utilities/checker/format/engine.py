@@ -88,8 +88,12 @@ class FormatValidator:
         '''
         if separator is not None:
             ctx: str = 'format_validator::init(...)'
-            istype(separator, str, ctx, 'separator must be a string')
-            not_empty(separator, ctx, 'separator must not be empty')
+            msg_separator_istype: str = 'separator must be a string'
+            msg_separator_empty: str = 'separator must not be empty'
+
+            istype(separator, str, ctx, msg_separator_istype)
+            not_empty(separator, ctx, msg_separator_empty)
+
             self._separator = separator
         else:
             self._separator = self.EXPECTED_SEPARATOR
@@ -104,8 +108,12 @@ class FormatValidator:
                 | ATSValueError: Separator must not be empty.
         '''
         ctx: str = 'format_validator::set_separator(...)'
-        istype(separator, str, ctx, 'separator must be a string')
-        not_empty(separator, ctx, 'separator must not be empty')
+        msg_separator_istype: str = 'separator must be a string'
+        msg_separator_empty: str = 'separator must not be empty'
+
+        istype(separator, str, ctx, msg_separator_istype)
+        not_empty(separator, ctx, msg_separator_empty)
+
         self._separator = separator
 
     def get_separator(self) -> str:
@@ -129,8 +137,11 @@ class FormatValidator:
                 | ATSValueError: Format to be validated must contain the separator.
         '''
         ctx: str = 'format_validator::is_valid(...)'
-        not_none(format_to_check, ctx, 'format to be validated must be provided')
-        istype(format_to_check, str, ctx, 'format to be validated must be a string')
+        msg_format_to_check_none: str = 'format to be validated must be provided'
+        msg_format_to_check_istype: str = 'format to be validated must be a string'
+
+        not_none(format_to_check, ctx, msg_format_to_check_none)
+        istype(format_to_check, str, ctx, msg_format_to_check_istype)
 
         return len(self.split(format_to_check)) == self.EXPECTED_FORMAT_PARTS
 
@@ -146,12 +157,13 @@ class FormatValidator:
                 | ATSValueError: Format to be validated must contain the separator.
         '''
         ctx: str = 'format_validator::split(...)'
-        not_none(format_to_split, ctx, 'format to split must be provided')
-        istype(format_to_split, str, ctx, 'format to split must be a string')
-        not_satisfied(
-            self._separator not in format_to_split, ctx,
-            f'format to split must contain the separator "{self._separator}"'
-        )
+        msg_format_to_split_none: str = 'format to split must be provided'
+        msg_format_to_split_istype: str = 'format to split must be a string'
+        msg_format_to_split_separator: str = f'format to split must contain the separator "{self._separator}"'
+
+        not_none(format_to_split, ctx, msg_format_to_split_none)
+        istype(format_to_split, str, ctx, msg_format_to_split_istype)
+        not_satisfied(self._separator not in format_to_split, ctx, msg_format_to_split_separator)
 
         return tuple(format_to_split.split(sep=self._separator))
 

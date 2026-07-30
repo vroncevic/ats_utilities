@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from typing import TypedDict, NotRequired
+from typing import TypedDict
 
 from ats_utilities.checker.type.itype_validator import ITypeValidator
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
@@ -51,7 +51,7 @@ class CheckerDependencies(TypedDict):
                 | check_reporter: Formatter for message reports.
     '''
 
-    format_validator: NotRequired[IFormatValidator]
-    type_validator: NotRequired[ITypeValidator]
-    context_provider: NotRequired[IContextProvider]
-    check_reporter: NotRequired[ICheckReporter]
+    format_validator: IFormatValidator
+    type_validator: ITypeValidator
+    context_provider: IContextProvider
+    check_reporter: ICheckReporter

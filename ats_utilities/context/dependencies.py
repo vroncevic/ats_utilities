@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from typing import TypedDict, NotRequired
+from typing import TypedDict
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
@@ -50,7 +50,7 @@ class ContextDependencies(TypedDict):
                 | verbose: Verbose output flag.
     '''
 
-    checker: NotRequired[IChecker]
-    logger: NotRequired[ILogger]
-    reporter: NotRequired[IReporter]
-    verbose: NotRequired[bool]
+    checker: IChecker
+    logger: ILogger
+    reporter: IReporter
+    verbose: bool

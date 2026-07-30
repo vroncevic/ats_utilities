@@ -88,8 +88,10 @@ class Reporter:
                 |                and its attributes must be instances of their
                 |                respective types.
         '''
+        self._is_initialized = False
         ReporterValidator.validate(own)
         self._apply_bundle(own)
+        self._is_initialized = True
 
     def get_bundle(self) -> ReporterBundle:
         '''
@@ -115,6 +117,7 @@ class Reporter:
         try:
             ReporterValidator.validate(bundle)
             self._apply_bundle(bundle)
+            self._is_initialized = True
 
             return True
 
@@ -131,7 +134,6 @@ class Reporter:
         self._checker = bundle.checker
         self._theme = bundle.theme
         self._logger = bundle.logger
-        self._is_initialized = True
 
     def _report(self, message: Sequence[object], color: str, ctrl: int) -> None:
         '''

@@ -24,6 +24,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from types import MappingProxyType
+from typing import Final
 
 from ats_utilities.checker.reporter.data import CheckReporterData
 from ats_utilities.checker.reporter.data_validator import CheckReporterValidator
@@ -49,7 +50,7 @@ class CheckReporter:
         It defines:
 
             :attributes:
-                | _DEFAULT_MESSAGES - Default messages used to report findings.
+                | DEFAULT_MESSAGES - Default messages used to report findings.
                 | _message_provider - Messages used to report findings.
             :methods:
                 | __init__ - Initializes check reporter.
@@ -57,7 +58,7 @@ class CheckReporter:
                 | __str__ - Returns check reporter as string representation.
     '''
 
-    _DEFAULT_MESSAGES: Mapping[str, str] = MappingProxyType({
+    DEFAULT_MESSAGES: Final[MappingProxyType[str, str]] = MappingProxyType({
         'param_entry': '\n    expected {pname} <{ptype}> object at {inst}',
         'wrong_type': ' wrong type',
         'format_wrong_during_checking_parameters_meta': ' format wrong during checking parameters_meta'
@@ -75,14 +76,15 @@ class CheckReporter:
         '''
         if message_provider is not None:
             ctx: str = 'check_reporter::init(...)'
-            istype(message_provider, Mapping, ctx, 'message_provider must be a mapping')
-            not_empty(
-                message_provider, ctx,
-                'message_provider must not be empty (key and value must be strings)'
-            )
+            msg_param_istype: str = 'message provider must be a mapping'
+            msg_param_empty: str = 'message provider must not be empty (key and value must be strings)'
+
+            istype(message_provider, Mapping, ctx, msg_param_istype)
+            not_empty(message_provider, ctx, msg_param_empty)
+
             self._message_provider = MappingProxyType(message_provider)
         else:
-            self._message_provider = self._DEFAULT_MESSAGES
+            self._message_provider = self.DEFAULT_MESSAGES
 
     def build_message(self, data: CheckReporterData) -> str:
         '''
@@ -102,15 +104,15 @@ class CheckReporter:
 
         param_fmt: str = self._message_provider.get(
             'param_entry',
-            self._DEFAULT_MESSAGES['param_entry']
+            self.DEFAULT_MESSAGES['param_entry']
         )
         wrong_type_msg: str = self._message_provider.get(
             'wrong_type',
-            self._DEFAULT_MESSAGES['wrong_type']
+            self.DEFAULT_MESSAGES['wrong_type']
         )
         fmt_err_msg: str = self._message_provider.get(
             'format_wrong_during_checking_parameters_meta',
-            self._DEFAULT_MESSAGES['format_wrong_during_checking_parameters_meta']
+            self.DEFAULT_MESSAGES['format_wrong_during_checking_parameters_meta']
         )
 
         for i, (pname, ptype, inst) in enumerate(data.parameters_meta):

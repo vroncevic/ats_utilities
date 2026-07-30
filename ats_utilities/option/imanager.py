@@ -24,6 +24,9 @@ from __future__ import annotations
 
 from typing import Protocol, runtime_checkable
 
+from ats_utilities.option.ioption_configurator import IOptionConfigurator
+from ats_utilities.option.ioption_parser import IOptionParser
+
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
@@ -35,7 +38,19 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IOptionManager[ContextEnvironment, Strategy](Protocol):
+class IOptionManager[
+    ConfigType,
+    ContextEnvironment,
+    Strategy,
+    CommandType,
+    NamespaceType,
+    ArgsType,
+    ParsedCommandType
+](
+    IOptionConfigurator[CommandType],
+    IOptionParser[NamespaceType, ArgsType, ParsedCommandType],
+    Protocol
+):
     '''
         Defines abstract class IOptionManager with method(s).
         Provides an interface for option parsing.
@@ -43,11 +58,32 @@ class IOptionManager[ContextEnvironment, Strategy](Protocol):
         It defines:
 
             :methods:
+                | get_bundle - Gets current option configuration bundle.
+                | update_bundle - Updates option configuration bundle.
                 | get_context - Returns the context.
                 | strategy - Returns the parser strategy.
                 | is_initialized - Checks if option manager is initialized.
                 | __str__ - Returns option manager as string representation.
     '''
+
+    def get_bundle(self) -> ConfigType:
+        '''
+            Gets current option configuration bundle.
+
+            :return: Option configuration bundle.
+            :exceptions: None.
+        '''
+        ...
+
+    def update_bundle(self, bundle: ConfigType) -> bool:
+        '''
+            Updates option configuration bundle.
+
+            :param bundle: Option configuration bundle.
+            :return: True if option configuration bundle is updated successfully.
+            :exceptions: None.
+        '''
+        ...
 
     def get_context(self) -> ContextEnvironment:
         '''

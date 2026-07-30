@@ -29,9 +29,8 @@ from ats_utilities.context.factory import ContextFactory
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.option.engine import OptionManager
-from ats_utilities.option.option_namespace import OptionNamespace, OptArgs
+from ats_utilities.option.setup.types import OptionNamespace, OptArgs
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
-from ats_utilities.option.strategy.parser_strategy_bundle import ParserStrategyBundle
 from ats_utilities.option.setup.bundle import OptionBundle
 
 __author__ = 'Vladimir Roncevic'
@@ -62,11 +61,10 @@ class MyAppFireStrategy(IParserStrategy):
                 | is_initialized - check if the parser is initialized.
                 | __str__ - return string representation of the parser.
     '''
-    def __init__(self, own: ParserStrategyBundle) -> None:
+    def __init__(self) -> None:
         '''
             Initializes MyAppFireStrategy.
 
-            :param own: Bundle with components for strategy.
             :exceptions: None.
         '''
         self._target = types.SimpleNamespace()
@@ -115,17 +113,16 @@ class MyAppFireStrategy(IParserStrategy):
 
 
 opt_parser = {
-    'name': 'mytool'
+    'ats_name': 'mytool',
+    'ats_version': '1.2.5',
+    'ats_licence': 'mytool is simple',
+    'ats_build_date': '2026-07-30',
+    'ats_info_ok': True
 }
 OPS: list[str] = ['-n', '--name', '-v', '--verbose']
-context_bundle = ContextFactory.create_default_bundle()
-strategy_bundle = ParserStrategyBundle(
-    parameters=opt_parser,
-    context_bundle=context_bundle
-)
-fire_strategy = MyAppFireStrategy(own=strategy_bundle)
+context_bundle = ContextFactory.create_bundle()
+fire_strategy = MyAppFireStrategy()
 bundle: OptionBundle = OptionBundle(
-    parameters=opt_parser,
     strategy=fire_strategy,
     context_bundle=context_bundle
 )

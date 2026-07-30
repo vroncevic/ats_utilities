@@ -63,9 +63,8 @@ class CheckerFactory:
             :return: Checker bundle instance.
             :exceptions:
                 | ATSValueError: Options must be provided and have proper values.
-                | ATSTypeError:  Options must be an instance of CheckerOptions
-                |                and its attributes must be instances of their
-                |                respective interfaces and types.
+                | ATSTypeError:  Options must be an instance of Mapping and its attributes
+                |                must be instances of their respective interfaces and types.
         '''
         if options is not None:
             CheckerOptionsValidator.validate(options)

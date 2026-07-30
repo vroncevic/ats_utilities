@@ -25,7 +25,7 @@ from __future__ import annotations
 from typing import Protocol, runtime_checkable
 from collections.abc import Sequence
 
-from ats_utilities.option.option_namespace import OptionNamespace
+from ats_utilities.option.setup.types import OptionNamespace
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'

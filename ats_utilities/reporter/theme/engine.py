@@ -49,7 +49,7 @@ class ConsoleTheme:
         It defines:
 
             :attributes:
-                | _DEFAULT_PALETTE_COLORS - Final default palette colors for different message types.
+                | DEFAULT_PALETTE_COLORS - Final default palette colors for different message types.
                 | _palette - Final mapping with color codes for different message types.
             :methods:
                 | __init__ - Initializes ConsoleTheme constructor.
@@ -57,7 +57,7 @@ class ConsoleTheme:
                 | __str__ - Returns console theme as string representation.
     '''
 
-    _DEFAULT_PALETTE_COLORS: Final[Mapping[str, str]] = MappingProxyType({
+    DEFAULT_PALETTE_COLORS: Final[MappingProxyType[str, str]] = MappingProxyType({
         MessageKey.VERBOSE: '\x1b[34m', # ANSI blue
         MessageKey.SUCCESS: '\x1b[32m', # ANSI green
         MessageKey.WARNING: '\x1b[33m', # ANSI yellow
@@ -76,12 +76,15 @@ class ConsoleTheme:
                 | ATSTypeError: Palette must be a mapping.
         '''
         if palette is not None:
-            ctx: str = 'console_theme::init(...)',
-            istype(palette, Mapping, ctx, 'palette must be a mapping')
+            ctx: str = 'console_theme::init(...)'
+            msg_pallete_istype: str = f'{ctx} palette must be a mapping'
+
+            istype(palette, Mapping, ctx, msg_pallete_istype)
+
             self._palette = MappingProxyType(palette)
         else:
             # No dependency injection then use default ones.
-            self._palette = self._DEFAULT_PALETTE_COLORS
+            self._palette = self.DEFAULT_PALETTE_COLORS
 
     @has_attrs('_palette')
     def get_color(self, color_type: str) -> str:
@@ -96,12 +99,13 @@ class ConsoleTheme:
                 | ATSValueError: Color type not found in palette.
         '''
         ctx: str = 'console_theme::get_color(...)'
-        not_none(color_type, ctx, 'color type must be provided')
-        istype(color_type, str, ctx, 'color type must be a string')
-        not_satisfied(
-            color_type not in self._palette, ctx,
-            f'color type {color_type} not found in palette'
-        )
+        msg_color_type_none: str = f'{ctx} color type must be provided'
+        msg_color_type_istype: str = f'{ctx} color type must be a string'
+        msg_color_type_not_found: str = f'{ctx} color type {color_type} not found in palette'
+
+        not_none(color_type, ctx, msg_color_type_none)
+        istype(color_type, str, ctx, msg_color_type_istype)
+        not_satisfied(color_type not in self._palette, ctx, msg_color_type_not_found)
 
         return self._palette[color_type]
 

@@ -69,37 +69,65 @@ class InfoValidator:
                 |                attributes must be instances of their respective types.
         '''
         ctx: str = 'info_validator::validate(...)'
+        msg_bundle_not_provided: str = 'bundle must be provided and have proper values'
+        msg_bundle_not_instance: str = 'bundle must be an instance of InfoBundle'
+        msg_name_not_provided: str = 'name must be provided'
+        msg_version_not_provided: str = 'version must be provided'
+        msg_licence_not_provided: str = 'licence must be provided'
+        msg_build_date_not_provided: str = 'build date must be provided'
+        msg_repository_not_provided: str = 'repository must be provided'
+        msg_organization_not_provided: str = 'organization must be provided'
+        msg_use_github_not_provided: str = 'use github must be provided'
+        msg_logo_not_provided: str = 'logo must be provided'
+        msg_log_file_not_provided: str = 'log file must be provided'
+        msg_info_ok_not_provided: str = 'info ok must be provided'
+        msg_context_bundle_not_provided: str = 'context bundle must be provided'
+        msg_name_not_empty: str = 'name must be not empty'
+        msg_version_not_empty: str = 'version must be not empty'
+        msg_licence_not_empty: str = 'licence must be not empty'
+        msg_build_date_not_empty: str = 'build date must be not empty'
+        msg_name_not_instance: str = 'name must be an instance of IName'
+        msg_version_not_instance: str = 'version must be an instance of IVersion'
+        msg_licence_not_instance: str = 'licence must be an instance of ILicence'
+        msg_build_date_not_instance: str = 'build date must be an instance of IBuildDate'
+        msg_repository_not_instance: str = 'repository must be an instance of IRepository'
+        msg_organization_not_instance: str = 'organization must be an instance of IOrganization'
+        msg_use_github_not_instance: str = 'use github must be an instance of IUseGitHub'
+        msg_logo_not_instance: str = 'logo must be an instance of ILogo'
+        msg_log_file_not_instance: str = 'log file must be an instance of ILogFile'
+        msg_info_ok_not_instance: str = 'info ok must be an instance of IInfoOk'
+        msg_context_bundle_not_instance: str = 'context bundle must be an instance of ContextBundle'
 
-        not_none(bundle, ctx, 'bundle must be provided and have proper values')
-        istype(bundle, InfoBundle, ctx, 'bundle must be an instance of InfoBundle')
+        not_none(bundle, ctx, msg_bundle_not_provided)
+        istype(bundle, InfoBundle, ctx, msg_bundle_not_instance)
 
-        not_none(bundle.name, ctx, 'name must be provided')
-        not_none(bundle.version, ctx, 'version must be provided')
-        not_none(bundle.licence, ctx, 'licence must be provided')
-        not_none(bundle.build_date, ctx, 'build date must be provided')
-        not_none(bundle.repository, ctx, 'repository must be provided')
-        not_none(bundle.organization, ctx, 'organization must be provided')
-        not_none(bundle.use_github, ctx, 'use github must be provided')
-        not_none(bundle.logo, ctx, 'logo must be provided')
-        not_none(bundle.log_file, ctx, 'log file must be provided')
-        not_none(bundle.info_ok, ctx, 'info ok must be provided')
-        not_none(bundle.context_bundle, ctx, 'context bundle must be provided')
+        not_none(bundle.name, ctx, msg_name_not_provided)
+        not_none(bundle.version, ctx, msg_version_not_provided)
+        not_none(bundle.licence, ctx, msg_licence_not_provided)
+        not_none(bundle.build_date, ctx, msg_build_date_not_provided)
+        not_none(bundle.repository, ctx, msg_repository_not_provided)
+        not_none(bundle.organization, ctx, msg_organization_not_provided)
+        not_none(bundle.use_github, ctx, msg_use_github_not_provided)
+        not_none(bundle.logo, ctx, msg_logo_not_provided)
+        not_none(bundle.log_file, ctx, msg_log_file_not_provided)
+        not_none(bundle.info_ok, ctx, msg_info_ok_not_provided)
+        not_none(bundle.context_bundle, ctx, msg_context_bundle_not_provided)
 
-        not_empty(bundle.name, ctx, 'name must be not empty')
-        not_empty(bundle.version, ctx, 'version must be not empty')
-        not_empty(bundle.licence, ctx, 'licence must be not empty')
-        not_empty(bundle.build_date, ctx, 'build date must be not empty')
+        not_empty(bundle.name, ctx, msg_name_not_empty)
+        not_empty(bundle.version, ctx, msg_version_not_empty)
+        not_empty(bundle.licence, ctx, msg_licence_not_empty)
+        not_empty(bundle.build_date, ctx, msg_build_date_not_empty)
 
-        istype(bundle.name, IName, ctx, 'name must be an instance of IName')
-        istype(bundle.version, IVersion, ctx, 'version must be an instance of IVersion')
-        istype(bundle.licence, ILicence, ctx, 'licence must be an instance of ILicence')
-        istype(bundle.build_date, IBuildDate, ctx, 'build date must be an instance of IBuildDate')
-        istype(bundle.repository, IRepository, ctx, 'repository must be an instance of IRepository')
-        istype(bundle.organization, IOrganization, ctx, 'organization must be an instance of IOrganization')
-        istype(bundle.use_github, IUseGitHub, ctx, 'use github must be an instance of IUseGitHub')
-        istype(bundle.logo, ILogo, ctx, 'logo must be an instance of ILogo')
-        istype(bundle.log_file, ILogFile, ctx, 'log file must be an instance of ILogFile')
-        istype(bundle.info_ok, IInfoOk, ctx, 'info ok must be an instance of IInfoOk')
-        istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be an instance of ContextBundle')
+        istype(bundle.name, IName, ctx, msg_name_not_instance)
+        istype(bundle.version, IVersion, ctx, msg_version_not_instance)
+        istype(bundle.licence, ILicence, ctx, msg_licence_not_instance)
+        istype(bundle.build_date, IBuildDate, ctx, msg_build_date_not_instance)
+        istype(bundle.repository, IRepository, ctx, msg_repository_not_instance)
+        istype(bundle.organization, IOrganization, ctx, msg_organization_not_instance)
+        istype(bundle.use_github, IUseGitHub, ctx, msg_use_github_not_instance)
+        istype(bundle.logo, ILogo, ctx, msg_logo_not_instance)
+        istype(bundle.log_file, ILogFile, ctx, msg_log_file_not_instance)
+        istype(bundle.info_ok, IInfoOk, ctx, msg_info_ok_not_instance)
+        istype(bundle.context_bundle, ContextBundle, ctx, msg_context_bundle_not_instance)
 
         ContextValidator.validate(bundle.context_bundle)

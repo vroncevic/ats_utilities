@@ -22,16 +22,14 @@ Info
 
 from __future__ import annotations
 
-import sys
-from collections.abc import Sequence, Mapping
+from sys import argv
+from collections.abc import Sequence
 from types import MappingProxyType
 
 from ats_utilities.option.strategy.data import StrategyData
 from ats_utilities.option.strategy.data_validator import StrategyDataValidator
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.option_namespace import OptionNamespace
-from ats_utilities.option.option_namespace import OptArgs
-from ats_utilities.option.option_namespace import KnownArgs
+from ats_utilities.option.setup.types import OptionNamespace, OptArgs, KnownArgs, ParsedCommand
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.underlying.iunderlying import IUnderlyingParser
 from ats_utilities.utils.reflection import has_attrs, to_str
@@ -153,17 +151,17 @@ class ParserStrategy:
                 cmd_parser.add_argument(opt.name, **opt.to_kwargs())
 
     @has_attrs('_parser')
-    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, object]]:
+    def parse_command(self, arguments: OptArgs = None) -> ParsedCommand:
         '''
             Parses the input arguments and returns command name and parameters.
 
             :param arguments: Sequence of arguments | None.
-            :return: Tuple containing command name and parsed parameters (read only data).
+            :return: Parsed command result.
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
         if arguments is None:
-            arguments: OptArgs = sys.argv[1:]
+            arguments: OptArgs = argv[1:]
 
         option_namespace: OptionNamespace = self._parser.parse_args(arguments)
         params: dict[str, object] = vars(option_namespace)

@@ -45,7 +45,7 @@ class ITypeValidator[NameType, ValidType](Protocol):
             :methods:
                 | is_match - Compares instance type with expected type name.
                 | is_subtype - Checks if instance is a subtype of expected type name.
-                | get_type_name - Returns type name representation of an instance type.
+                | get_type_name - Returns type name of an instance.
                 | __str__ - Returns type validator as string representation.
     '''
 
@@ -53,9 +53,9 @@ class ITypeValidator[NameType, ValidType](Protocol):
         '''
             Compares instance type with expected type name.
 
-            :param instance: The instance whose type is to be checked.
-            :param expected_type_name: The expected type name.
-            :return: The result of the comparison.
+            :param instance: Instance whose type is to be checked.
+            :param expected_type_name: Expected type name.
+            :return: Result of the comparison.
         '''
         ...
 
@@ -63,9 +63,9 @@ class ITypeValidator[NameType, ValidType](Protocol):
         '''
             Checks if instance is a subtype of expected type name.
 
-            :param instance: The instance whose type is to be checked.
-            :param expected_type_name: The expected parent type name.
-            :return: The result of the comparison.
+            :param instance: Instance whose type is to be checked.
+            :param expected_type_name: Expected parent type name.
+            :return: Result of the comparison.
         '''
         ...
 
@@ -73,8 +73,8 @@ class ITypeValidator[NameType, ValidType](Protocol):
         '''
             Returns type name of an instance.
 
-            :param instance: The instance to inspect.
-            :return: The type name of the instance.
+            :param instance: Instance to inspect.
+            :return: Type name of the instance.
         '''
         ...
 

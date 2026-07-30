@@ -57,7 +57,7 @@ class InfoFactory:
         '''
             Creates a info bundle with pre-configured options.
 
-            :param options: Dictionary containing options.
+            :param options: Dictionary containing info options.
             :return: Info bundle instance.
             :exceptions:
                 | ATSValueError: Info options must be provided and have proper values.
@@ -66,7 +66,7 @@ class InfoFactory:
         '''
         InfoOptionsValidator.validate(options)
 
-        info: Mapping[str, object] = options.get(InfoKeys.OPTION_INFO)
+        info_configuration: Mapping[str, object] = options.get(InfoKeys.OPTION_INFO)
         context_bundle: ContextBundle = options.get(InfoKeys.OPTION_CONTEXT_BUNDLE)
 
         key_to_type: MappingProxyType[str, type] = InfoKeys.get_config_key_to_type()
@@ -75,14 +75,14 @@ class InfoFactory:
         for key, engine_class in key_to_type.items():
             engine_instance: object = engine_class(context_bundle=context_bundle)
             attr_name: str = InfoKeys.get_name_of_config_key(key)
-            val: object = info.get(key)
+            attribute: object = info_configuration.get(key)
 
-            if val is not None and key is InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE:
-                if isinstance(val, str):
-                    val = True if val == 'True' else False
+            if attribute is not None and key is InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE:
+                if isinstance(attribute, str):
+                    attribute = True if attribute == 'True' else False
 
-            if val is not None:
-                setattr(engine_instance, attr_name, val)
+            if attribute is not None:
+                setattr(engine_instance, attr_name, attribute)
 
             bundle_kwargs[attr_name] = engine_instance
 

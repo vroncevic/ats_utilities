@@ -33,8 +33,8 @@ from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.setup.bundle import CheckerBundle
 from ats_utilities.checker.setup.validator import CheckerValidator
 from ats_utilities.checker.reporter.data import CheckReporterData
-from ats_utilities.utils.reflection import to_str
 from ats_utilities.exceptions import ATSValueError, ATSTypeError
+from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -61,7 +61,7 @@ class Checker:
                 | _context_provider - Provider for call context (default ContextProvider).
                 | _check_reporter - Formatter for message reports (default CheckReporter).
             :methods:
-                | __init__ - Initializes Checker constructor.
+                | __init__ - Initializes checker instance.
                 | get_bundle - Gets current checker configuration bundle.
                 | update_bundle - Updates checker configuration bundle.
                 | _apply_bundle - Applies bundle configuration to instance attributes.
@@ -82,7 +82,7 @@ class Checker:
 
     def __init__(self, own: CheckerBundle) -> None:
         '''
-            Initializes Checker constructor.
+            Initializes checker instance.
 
             :param own: Checker bundle with components.
             :exceptions:
@@ -91,6 +91,7 @@ class Checker:
                 |                and its attributes must be instances of their
                 |                respective interfaces and types.
         '''
+        self._is_initialized = False
         CheckerValidator.validate(own)
         self._apply_bundle(own)
         self._is_initialized = True
@@ -120,6 +121,7 @@ class Checker:
         try:
             CheckerValidator.validate(bundle)
             self._apply_bundle(bundle)
+            self._is_initialized = True
 
             return True
 

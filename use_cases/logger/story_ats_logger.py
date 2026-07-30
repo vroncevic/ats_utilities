@@ -11,7 +11,7 @@ Info
 
 from logging import DEBUG, INFO, WARNING, ERROR, CRITICAL
 from loguru import logger as loguru_native
-from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.logger.underlying.iunderlying import IUnderlyingLogger
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.setup.factory import LoggerFactory
 from ats_utilities.logger.engine import Logger
@@ -20,12 +20,12 @@ from ats_utilities.logger.engine import Logger
 # default logging [logging]
 # ==========================
 #
-logger_default: Logger = Logger(own=LoggerFactory.create_default_bundle())
-logger_default.write_log("debug test", DEBUG)
-logger_default.write_log("info test", INFO)
-logger_default.write_log("warning test", WARNING)
-logger_default.write_log("error test", ERROR)
-logger_default.write_log("critical test", CRITICAL)
+logger_default: Logger = Logger(own=LoggerFactory.create_bundle())
+logger_default.write_log(DEBUG, "debug test")
+logger_default.write_log(INFO, "info test")
+logger_default.write_log(WARNING, "warning test")
+logger_default.write_log(ERROR, "error test")
+logger_default.write_log(CRITICAL, "critical test")
 
 #
 # 3rd party [loguru]
@@ -33,8 +33,8 @@ logger_default.write_log("critical test", CRITICAL)
 #
 
 
-class LoguruATSAdapter(ILogger):
-    '''Loguru adapter implementing ILogger interface.'''
+class LoguruATSAdapter:
+    '''Loguru adapter implementing IUnderlyingLogger interface.'''
 
     def __init__(self, verbose: bool = False):
         self.verbose = verbose
@@ -46,32 +46,40 @@ class LoguruATSAdapter(ILogger):
             CRITICAL: loguru_native.critical,
         }
 
-    def write_log(self, message: str, ctrl: int) -> None:
-        log_func = self._map.get(ctrl)
+    def log(self, level: int, message: str) -> None:
+        log_func = self._map.get(level)
         if log_func and message:
             log_func(message)
-
-    def is_initialized(self) -> bool:
-        return True
 
     def set_level(self, level: int) -> None:
         ...
 
-    def set_log_file(self, log_file: str) -> None:
-        ...
+    def has_handlers(self) -> bool:
+        return True
 
-    def stop_buffering(self) -> None:
-        ...
+    def add_file_handler(self, log_file: str) -> bool:
+        return True
+
+    def add_stdout_handler(self) -> bool:
+        return True
 
     def __str__(self) -> str:
         return 'LoguruATSAdapter'
 
 
 custom_logger = LoguruATSAdapter()
-bundle: LoggerBundle = LoggerBundle(logger=custom_logger, log_file='run.log', log_level=DEBUG)
+default_bundle = LoggerFactory.create_bundle()
+bundle = LoggerBundle(
+    logger=custom_logger,
+    has_file_handler=default_bundle.has_file_handler,
+    formatter=default_bundle.formatter,
+    buffer=default_bundle.buffer,
+    handler_manager=default_bundle.handler_manager,
+    message_processor=default_bundle.message_processor
+)
 logger_custom: Logger = Logger(own=bundle)
-logger_custom.write_log("debug test", DEBUG)
-logger_custom.write_log("info test", INFO)
-logger_custom.write_log("warning test", WARNING)
-logger_custom.write_log("error test", ERROR)
-logger_custom.write_log("critical test", CRITICAL)
+logger_custom.write_log(DEBUG, "debug test")
+logger_custom.write_log(INFO, "info test")
+logger_custom.write_log(WARNING, "warning test")
+logger_custom.write_log(ERROR, "error test")
+logger_custom.write_log(CRITICAL, "critical test")

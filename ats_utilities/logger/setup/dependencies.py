@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from typing import TypedDict, NotRequired
+from typing import TypedDict
 
 from ats_utilities.logger.underlying.iunderlying import IUnderlyingLogger
 from ats_utilities.logger.formatter.iformatter import ILogFormatter
@@ -54,9 +54,9 @@ class LoggerDependencies(TypedDict):
                 | message_processor: Processor for log messages.
     '''
 
-    logger: NotRequired[IUnderlyingLogger]
-    has_file_handler: NotRequired[bool]
-    formatter: NotRequired[ILogFormatter]
-    buffer: NotRequired[ILogBuffer]
-    handler_manager: NotRequired[ILogHandlerManager]
-    message_processor: NotRequired[IMessageProcessor]
+    logger: IUnderlyingLogger
+    has_file_handler: bool
+    formatter: ILogFormatter
+    buffer: ILogBuffer
+    handler_manager: ILogHandlerManager
+    message_processor: IMessageProcessor

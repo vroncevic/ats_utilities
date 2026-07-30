@@ -49,22 +49,27 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-def validate_specs(specs: Parameters, ctx: str) -> None:
+def validate_specs(specs: Parameters, context: str) -> None:
     '''
         Validates specifications list structure.
 
         :param specs: Parameter specification list to validate.
-        :param ctx: Context string for error reporting.
+        :param context: Context string for error reporting.
         :exceptions:
             | ATSValueError: Specs must be provided.
             | ATSTypeError:  Specs must be a list of (str, object) tuples.
     '''
+    ctx: str = context if context else 'validate_specs(...)'
     fmt_msg: str = "expected format: [('expected_type:param_name', default_value), ...]"
-    not_none(specs, ctx, f'specs must be provided, {fmt_msg}')
-    istype(specs, Sequence, ctx, f'specs must be a Sequence, {fmt_msg}')
+    msg_not_none: str = f'specs must be provided, {fmt_msg}'
+    msg_specs_istype: str = f'specs must be a Sequence, {fmt_msg}'
+
+    not_none(specs, ctx, msg_not_none)
+    istype(specs, Sequence, ctx, msg_specs_istype)
 
     for index, item in enumerate(specs):
-        istype(item, tuple, ctx, f'spec item at index {index} must be a list/tuple, {fmt_msg}')
+        msg_item_istype: str = f'spec item at index {index} must be a list/tuple, {fmt_msg}'
+        istype(item, tuple, ctx, msg_item_istype)
 
         if len(item) != 2:
             raise_error(
@@ -111,7 +116,7 @@ def validate_args(
 
     # Iterate through specs and map them to actual arguments dynamically
     for exp_type, _ in specs:
-        separator: str = checker.get_separator()
+        separator: str = checker.get_format_validator().get_separator()
 
         if separator not in exp_type:
             raise_error(
@@ -122,7 +127,7 @@ def validate_args(
                 exc_class=ATSValueError
             )
 
-        raw_type, pname = checker.split_parameter(exp_type)
+        raw_type, pname = checker.get_format_validator().split(exp_type)
 
         # Validate only if the specified parameter is bound to the function
         if pname in actual_params_dict:

@@ -23,7 +23,7 @@ Info
 from __future__ import annotations
 
 from argparse import ArgumentParser
-from ats_utilities.option.option_namespace import OptionNamespace, OptArgs
+from ats_utilities.option.setup.types import OptionNamespace, OptArgs, KnownArgs
 from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
@@ -96,7 +96,7 @@ class ParserAdapter:
         '''
         return self._parser.parse_args(args)
 
-    def parse_known_args(self, args: OptArgs = None) -> tuple[OptionNamespace, list[str]]:
+    def parse_known_args(self, args: OptArgs = None) -> KnownArgs:
         '''
             Parses known input arguments.
 

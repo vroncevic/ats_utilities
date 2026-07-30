@@ -55,28 +55,31 @@ class ContextValidator:
 
             :param bundle: Context bundle instance to be validated.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Checker must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSValueError: Reporter must be provided.
-                | ATSValueError: Verbose must be provided.
-                | ATSTypeError:  Bundle must be an instance of ContextBundle.
-                | ATSTypeError:  Checker must be an instance of IChecker.
-                | ATSTypeError:  Logger must be an instance of ILogger.
-                | ATSTypeError:  Reporter must be an instance of IReporter.
-                | ATSTypeError:  Verbose must be a boolean.
+                | ATSValueError: Context bundle must be provided and have proper values.
+                | ATSTypeError:  Context bundle must be an instance of ContextBundle and its attributes
+                |                must be instances of their respective types.
         '''
         ctx: str = 'context_validator::validate(...)'
+        msg_bundle_none: str = 'bundle must be provided'
+        msg_bundle_istype: str = 'bundle must be an instance of ContextBundle'
+        msg_checker_none: str = 'checker must be provided'
+        msg_logger_none: str = 'logger must be provided'
+        msg_reporter_none: str = 'reporter must be provided'
+        msg_verbose_none: str = 'verbose flag must be provided'
+        msg_checker_istype: str = 'checker must be an instance of IChecker'
+        msg_logger_istype: str = 'logger must be an instance of ILogger'
+        msg_reporter_istype: str = 'reporter must be an instance of IReporter'
+        msg_verbose_istype: str = 'verbose flag must be a boolean'
 
-        not_none(bundle, ctx, 'bundle must be provided')
-        istype(bundle, ContextBundle, ctx, 'bundle must be an instance of ContextBundle')
+        not_none(bundle, ctx, msg_bundle_none)
+        istype(bundle, ContextBundle, ctx, msg_bundle_istype)
 
-        not_none(bundle.checker, ctx, 'checker must be provided')
-        not_none(bundle.logger, ctx, 'logger must be provided')
-        not_none(bundle.reporter, ctx, 'reporter must be provided')
-        not_none(bundle.verbose, ctx, 'verbose must be provided')
+        not_none(bundle.checker, ctx, msg_checker_none)
+        not_none(bundle.logger, ctx, msg_logger_none)
+        not_none(bundle.reporter, ctx, msg_reporter_none)
+        not_none(bundle.verbose, ctx, msg_verbose_none)
 
-        istype(bundle.checker, IChecker, ctx, 'checker must be an instance of IChecker')
-        istype(bundle.logger, ILogger, ctx, 'logger must be an instance of ILogger')
-        istype(bundle.reporter, IReporter, ctx, 'reporter must be an instance of IReporter')
-        istype(bundle.verbose, bool, ctx, 'verbose must be a boolean')
+        istype(bundle.checker, IChecker, ctx, msg_checker_istype)
+        istype(bundle.logger, ILogger, ctx, msg_logger_istype)
+        istype(bundle.reporter, IReporter, ctx, msg_reporter_istype)
+        istype(bundle.verbose, bool, ctx, msg_verbose_istype)

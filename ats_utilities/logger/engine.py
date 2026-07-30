@@ -90,8 +90,10 @@ class Logger:
                 |                and its attributes must be instances of their
                 |                respective interfaces and types.
         '''
+        self._is_initialized = False
         LoggerValidator.validate(own)
         self._apply_bundle(own)
+        self._is_initialized = self._logger.has_handlers()
 
     def get_bundle(self) -> LoggerBundle:
         '''
@@ -128,6 +130,7 @@ class Logger:
         try:
             LoggerValidator.validate(bundle)
             self._apply_bundle(bundle)
+            self._is_initialized = self._logger.has_handlers()
 
             return True
 
@@ -147,7 +150,6 @@ class Logger:
         self._handler_manager = bundle.handler_manager
         self._message_processor = bundle.message_processor
         self._has_file_handler = bundle.has_file_handler
-        self._is_initialized = self._logger.has_handlers()
 
     def set_level(self, level: int) -> None:
         '''
@@ -226,9 +228,9 @@ class Logger:
 
     def __str__(self) -> str:
         '''
-            Returns the logger as string representation.
+            Returns logger as string representation.
 
-            :return: The logger as string representation.
+            :return: Logger as string representation.
             :exceptions: None.
         '''
         return to_str(self)

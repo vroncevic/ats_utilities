@@ -40,13 +40,13 @@ class LoggerOptions(TypedDict):
         It defines:
 
             :attributes:
-                | log_file: Path to the log file (default None).
-                | log_level: Log level (default 20 - INFO).
-                | log_format: Format string for the log messages (default None).
-                | log_datefmt: Date format string for the log messages (default None).
+                | log_file: Path to the log file.
+                | log_level: Log level.
+                | log_format: Format string for the log messages.
+                | log_datefmt: Date format string for the log messages.
     '''
 
     log_file: NotRequired[str | None]
-    log_level: NotRequired[int]
+    log_level: NotRequired[int | None]
     log_format: NotRequired[str | None]
     log_datefmt: NotRequired[str | None]

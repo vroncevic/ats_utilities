@@ -61,12 +61,16 @@ class LoggerOptionsValidator:
         '''
         ctx: str = 'logger_options_validator::validate(...)'
 
-        not_none(options, ctx, 'options must be provided')
-        istype(options, Mapping, ctx, 'options must be a Mapping')
+        msg_options_none: str = 'options must be provided'
+        msg_options_istype: str = 'options must be a Mapping'
 
-        for opt_name, expected_type in LoggerKeys.get_option_to_type().items():
-            value = options.get(opt_name)
+        not_none(options, ctx, msg_options_none)
+        istype(options, Mapping, ctx, msg_options_istype)
 
-            if value is not None:
-                err_msg = f'{opt_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
-                istype(value, expected_type, ctx, err_msg)
+        for attribute_name, expected_type in LoggerKeys.get_option_to_type().items():
+            msg_attribute_istype: str = f'{attribute_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+
+            attribute = options.get(attribute_name)
+
+            if attribute is not None:
+                istype(attribute, expected_type, ctx, msg_attribute_istype)

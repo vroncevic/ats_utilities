@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from typing import TypedDict, NotRequired
+from typing import TypedDict
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
@@ -49,6 +49,6 @@ class ReporterDependencies(TypedDict):
                 | logger: Logger for messages logging.
     '''
 
-    checker: NotRequired[IChecker]
-    theme: NotRequired[IConsoleTheme]
-    logger: NotRequired[ILogger]
+    checker: IChecker
+    theme: IConsoleTheme
+    logger: ILogger

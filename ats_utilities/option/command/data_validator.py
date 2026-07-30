@@ -23,9 +23,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 
-
 from ats_utilities.option.command.data import OptionData
-from ats_utilities.utils.data.ivalidator import IDataValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -39,7 +37,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class OptionDataValidator(IDataValidator[OptionData]):
+class OptionDataValidator:
     '''
         Validator for option data.
 
@@ -56,35 +54,39 @@ class OptionDataValidator(IDataValidator[OptionData]):
 
             :param data: option data instance to be validated.
             :exceptions:
-                | ATSValueError: Data must be provided.
-                | ATSTypeError: Data must be an instance of OptionData.
-                | ATSValueError: Name must be provided.
-                | ATSTypeError: Name must be a string.
-                | ATSValueError: Help text must be provided.
-                | ATSTypeError: Help text must be a string.
-                | ATSTypeError: Action must be a string.
-                | ATSTypeError: Required must be a boolean.
-                | ATSTypeError: Choices must be a sequence.
-                | ATSTypeError: Nargs must be a string or an integer.
+                | ATSValueError: Option data must be provided and have proper values.
+                | ATSTypeError:  Option data must be an instance of OptionData and its
+                |                attributes must be instances of their respective types.
         '''
-        context: str = 'option_data_validator::validate(...)'
-        not_none(data, context, 'data must be provided')
-        istype(data, OptionData, context, 'data must be an instance of OptionData')
+        ctx: str = 'option_data_validator::validate(...)'
+        msg_data_none: str = 'data must be provided'
+        msg_data_istype: str = 'data must be an instance of OptionData'
+        msg_name_none: str = 'name must be provided'
+        msg_name_istype: str = 'name must be a string'
+        msg_help_text_none: str = 'help text must be provided'
+        msg_help_text_istype: str = 'help text must be a string'
+        msg_action_istype: str = 'action must be a string'
+        msg_required_istype: str = 'required must be a boolean'
+        msg_choices_istype: str = 'choices must be a sequence'
+        msg_nargs_istype: str = 'nargs must be a string or an integer'
 
-        not_none(data.name, context, 'name must be provided')
-        istype(data.name, str, context, 'name must be a string')
+        not_none(data, ctx, msg_data_none)
+        istype(data, OptionData, ctx, msg_data_istype)
 
-        not_none(data.help_text, context, 'help text must be provided')
-        istype(data.help_text, str, context, 'help text must be a string')
+        not_none(data.name, ctx, msg_name_none)
+        istype(data.name, str, ctx, msg_name_istype)
+
+        not_none(data.help_text, ctx, msg_help_text_none)
+        istype(data.help_text, str, ctx, msg_help_text_istype)
 
         if data.action is not None:
-            istype(data.action, str, context, 'action must be a string')
+            istype(data.action, str, ctx, msg_action_istype)
 
         if data.required is not None:
-            istype(data.required, bool, context, 'required must be a boolean')
+            istype(data.required, bool, ctx, msg_required_istype)
 
         if data.choices is not None:
-            istype(data.choices, Sequence, context, 'choices must be a sequence')
+            istype(data.choices, Sequence, ctx, msg_choices_istype)
 
         if data.nargs is not None:
-            istype(data.nargs, (str, int), context, 'nargs must be a string or an integer')
+            istype(data.nargs, (str, int), ctx, msg_nargs_istype)

@@ -22,17 +22,18 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Sequence, Mapping
+from collections.abc import Sequence
 
-from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.utils.reflection import to_str, has_attrs
 from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.setup.validator import OptionValidator
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
-from ats_utilities.option.option_namespace import OptArgs, OptionNamespace
+from ats_utilities.option.setup.types import OptArgs, OptionNamespace, ParsedCommand
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.reporter.proxy_reporter import vreport
+from ats_utilities.checker.proxy_validator import mcheck
+from ats_utilities.utils.reflection import to_str, has_attrs
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,11 +53,14 @@ class OptionManager:
         It defines:
 
             :attributes:
-                | _context - Context bundle with context.
                 | _is_initialized - Indicates if the option manager component is initialized (default False).
+                | _bundle - Bundle with components for option manager.
+                | _context - Context bundle with context.
                 | _strategy - Strategy for argument parsing (default ParserStrategy).
             :methods:
                 | __init__ - Initials OptionManager constructor.
+                | get_bundle - Gets current option configuration bundle.
+                | update_bundle - Updates option configuration bundle.
                 | get_context - Returns the context.
                 | add_operation - Adds an option to the parser.
                 | add_version_operation - Adds version option to the parser.
@@ -69,6 +73,7 @@ class OptionManager:
     '''
 
     _is_initialized: bool
+    _bundle: OptionBundle
     _context: ContextBundle
     _strategy: IParserStrategy
 
@@ -78,19 +83,53 @@ class OptionManager:
 
             :param own: Bundle with components for option manager.
             :exceptions:
-                | ATSValueError: Option bundle must be provided.
-                | ATSValueError: Parameters must be provided.
-                | ATSValueError: Strategy must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Option bundle must be an instance of OptionBundle.
-                | ATSTypeError: Parameters must be a Mapping[str, str] instance.
-                | ATSTypeError: Strategy must be an IParserStrategy instance.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSValueError: Option bundle must be provided and have proper values.
+                | ATSTypeError:  Option bundle must be an instance of OptionBundle and its
+                |                attributes must be instances of their respective types.
         '''
+        self._is_initialized = False
         OptionValidator.validate(own)
-        self._context = own.context_bundle
-        self._strategy = own.strategy
+        self._apply_bundle(own)
         self._is_initialized = True
+
+    def get_bundle(self) -> OptionBundle:
+        '''
+            Gets current option configuration bundle.
+
+            :return: Option configuration bundle.
+            :exceptions: None.
+        '''
+        return self._bundle
+
+    def update_bundle(self, bundle: OptionBundle) -> bool:
+        '''
+            Updates option configuration bundle.
+
+            :param bundle: Option configuration bundle.
+            :return: True if option configuration bundle is updated successfully.
+            :exceptions: None.
+        '''
+        try:
+            self._is_initialized = False
+            OptionValidator.validate(bundle)
+            self._apply_bundle(bundle)
+            self._is_initialized = True
+
+            return True
+
+        except (ATSValueError, ATSTypeError):
+            return False
+
+    def _apply_bundle(self, bundle: OptionBundle) -> None:
+        '''
+            Applies the option configuration bundle.
+
+            :param bundle: Option configuration bundle.
+            :exceptions: None.
+        '''
+        self._bundle = bundle
+        self._context = bundle.context_bundle
+        self._strategy = bundle.strategy
 
     def get_context(self) -> ContextBundle:
         '''
@@ -131,12 +170,12 @@ class OptionManager:
 
             :param version: The version in string format | None.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
-                | ATSTypeError: Parameter type validation failed.
-                | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSTypeError:      Parameter type validation failed.
+                | ATSValueError:     Parameter format validation failed.
+                | ATSRuntimeError:   Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         if version:
@@ -151,8 +190,8 @@ class OptionManager:
             :param arguments: Sequence of arguments | None.
             :return: Option namespace object.
             :exceptions:
-                | ATSValueError: Missing or empty attribute: '_strategy'.
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSValueError:     Missing or empty attribute: '_strategy'.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
@@ -167,8 +206,8 @@ class OptionManager:
             :param arguments: Sequence of arguments | None.
             :return: Option namespace object.
             :exceptions:
-                | ATSValueError: Missing or empty attribute: '_strategy'.
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSValueError:     Missing or empty attribute: '_strategy'.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
@@ -186,12 +225,12 @@ class OptionManager:
         self._strategy.register_commands(commands)
 
     @has_attrs('_strategy')
-    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, object]]:
+    def parse_command(self, arguments: OptArgs = None) -> ParsedCommand:
         '''
             Parses arguments as a command.
 
             :param arguments: Sequence of arguments | None.
-            :return: Tuple of (command name, command arguments) (read only data).
+            :return: Parsed command result.
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
@@ -210,9 +249,9 @@ class OptionManager:
 
     def __str__(self) -> str:
         '''
-            Returns the option manager as string representation.
+            Returns option manager as string representation.
 
-            :return: The option manager as string representation.
+            :return: Option manager as string representation.
             :exceptions: None.
         '''
         return to_str(self)

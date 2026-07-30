@@ -61,12 +61,17 @@ class CheckerDependenciesValidator:
         '''
         ctx: str = 'checker_dependencies_validator::validate(...)'
 
-        not_none(dependencies, ctx, 'dependencies must be provided')
-        istype(dependencies, Mapping, ctx, 'dependencies must be a Mapping')
+        msg_dependencies_none: str = 'dependencies must be provided'
+        msg_dependencies_istype: str = 'dependencies must be a Mapping'
+
+        not_none(dependencies, ctx, msg_dependencies_none)
+        istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
         for attr_name, expected_type in CheckerKeys.get_dependency_to_type().items():
-            value: object | None = dependencies.get(attr_name)
+            msg_attribute_none: str = f'{attr_name.replace("_", " ")} must be provided'
+            msg_attribute_istype: str = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
-            if value is not None:
-                err_msg: str = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
-                istype(value, expected_type, ctx, err_msg)
+            attribute: object = dependencies.get(attr_name)
+
+            not_none(attribute, ctx, msg_attribute_none)
+            istype(attribute, expected_type, ctx, msg_attribute_istype)

@@ -26,9 +26,7 @@ from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.logger.engine import Logger
 from ats_utilities.logger.setup.factory import LoggerFactory
 from ats_utilities.reporter.engine import Reporter
-from ats_utilities.reporter.setup.registry import ReporterRegistry
-from ats_utilities.reporter.setup.dependencies import ReporterDependencies
-from ats_utilities.reporter.theme.engine import ConsoleTheme
+from ats_utilities.reporter.setup.factory import ReporterFactory
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.registry import ContextRegistry
 from ats_utilities.context.dependencies import ContextDependencies
@@ -73,20 +71,12 @@ class ContextFactory:
 
         checker_opts = options.get(ContextKeys.OPTION_CHECKER) if options else None
         logger_opts = options.get(ContextKeys.OPTION_LOGGER) if options else None
+        reporter_opts = options.get(ContextKeys.OPTION_REPORTER) if options else None
         verbose = options.get(ContextKeys.OPTION_VERBOSE) if options else False
 
         checker: Checker = Checker(own=CheckerFactory.create_bundle(checker_opts))
         logger: Logger = Logger(own=LoggerFactory.create_bundle(logger_opts))
-        theme: ConsoleTheme = ConsoleTheme()
-        reporter: Reporter = Reporter(
-            own=ReporterRegistry.create_bundle(
-                dependencies=ReporterDependencies(
-                    checker=checker,
-                    theme=theme,
-                    logger=logger
-                )
-            )
-        )
+        reporter: Reporter = Reporter(own=ReporterFactory.create_bundle(reporter_opts))
 
         return ContextRegistry.create_bundle(
             dependencies=ContextDependencies(

@@ -24,6 +24,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from inspect import FrameInfo, stack
+from typing import Final
 
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_value import not_none
@@ -47,7 +48,7 @@ class ContextProvider:
         It defines:
 
             :attributes:
-                | _DEFAULT_STACK_INDEX_CALLER - Default index in the call stack to identify the caller.
+                | DEFAULT_STACK_INDEX_CALLER - Default index in the call stack to identify the caller.
                 | _stack_index_caller - Index in the call stack to identify the caller.
             :methods:
                 | __init__ - Initializes context provider.
@@ -57,7 +58,7 @@ class ContextProvider:
                 | __str__ - Returns context provider as string representation.
     '''
 
-    _DEFAULT_STACK_INDEX_CALLER: int = 2
+    DEFAULT_STACK_INDEX_CALLER: Final[int] = 2
     _stack_index_caller: int | None
 
     def __init__(self, stack_index_caller: int | None = None) -> None:
@@ -70,10 +71,13 @@ class ContextProvider:
         '''
         if stack_index_caller is not None:
             ctx: str = 'context_provider::init(...)'
-            istype(stack_index_caller, int, ctx, 'stack index caller must be an integer')
+            msg_stack_index_caller_istype: str = 'stack index caller must be an integer'
+
+            istype(stack_index_caller, int, ctx, msg_stack_index_caller_istype)
+
             self._stack_index_caller = stack_index_caller
         else:
-            self._stack_index_caller = self._DEFAULT_STACK_INDEX_CALLER
+            self._stack_index_caller = self.DEFAULT_STACK_INDEX_CALLER
 
     def set_stack_index_caller(self, stack_index_caller: int) -> None:
         '''
@@ -85,8 +89,12 @@ class ContextProvider:
                 | ATSTypeError:  Stack index caller must be an integer.
         '''
         ctx: str = 'context_provider::set_stack_index_caller(...)'
-        not_none(stack_index_caller, ctx, 'stack index caller must be provided')
-        istype(stack_index_caller, int, ctx, 'stack index caller must be an integer')
+        msg_stack_index_caller_none: str = 'stack index caller must be provided'
+        msg_stack_index_caller_istype: str = 'stack index caller must be an integer'
+
+        not_none(stack_index_caller, ctx, msg_stack_index_caller_none)
+        istype(stack_index_caller, int, ctx, msg_stack_index_caller_istype)
+
         self._stack_index_caller = stack_index_caller
 
     def get_stack_index_caller(self) -> int:

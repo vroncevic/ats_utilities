@@ -23,11 +23,10 @@ Info
 from __future__ import annotations
 
 from typing import Protocol, runtime_checkable
-from ats_utilities.option.option_namespace import OptionNamespace, OptArgs
 
 
 @runtime_checkable
-class IUnderlyingParser(Protocol):
+class IUnderlyingParser[NamespaceType, ArgsType, ActionType, SubparsersActionType, KnownArgsType](Protocol):
     '''
         Defines abstract class IUnderlyingParser with method(s).
         Provides an interface for the underlying parser.
@@ -37,43 +36,43 @@ class IUnderlyingParser(Protocol):
             :methods:
                 | add_argument - Adds an operational argument/flag to the parser.
                 | add_subparsers - Adds subparsers to the parser.
-                | parse_args - Parses the input arguments and returns an OptionNamespace.
+                | parse_args - Parses the input arguments.
                 | parse_known_args - Parses known input arguments.
     '''
 
-    def add_argument(self, *args: str, **kwargs: object) -> object:
+    def add_argument(self, *args: str, **kwargs: object) -> ActionType:
         '''
             Adds an operational argument/flag to the parser.
 
             :param args: Flags/arguments.
             :param kwargs: Arguments as dictionary.
-            :return: The added action object.
+            :return: Added argument/flag.
         '''
         ...
 
-    def add_subparsers(self, **kwargs: object) -> object:
+    def add_subparsers(self, **kwargs: object) -> SubparsersActionType:
         '''
             Adds subparsers to the parser.
 
             :param kwargs: Arguments as dictionary.
-            :return: The subparsers action object.
+            :return: Added subparsers container.
         '''
         ...
 
-    def parse_args(self, args: OptArgs = None) -> OptionNamespace:
+    def parse_args(self, args: ArgsType) -> NamespaceType:
         '''
-            Parses the input arguments and returns an OptionNamespace.
+            Parses the input arguments.
 
             :param args: Sequence of arguments.
-            :return: Option namespace object.
+            :return: Container with parsed arguments.
         '''
         ...
 
-    def parse_known_args(self, args: OptArgs = None) -> tuple[OptionNamespace, list[str]]:
+    def parse_known_args(self, args: ArgsType) -> KnownArgsType:
         '''
             Parses known input arguments.
-
+ 
             :param args: Sequence of arguments.
-            :return: Tuple containing option namespace and unknown arguments.
+            :return: Container with parsed known arguments.
         '''
         ...

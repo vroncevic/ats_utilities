@@ -57,36 +57,40 @@ class LoggerValidator:
 
             :param bundle: Logger bundle instance to be validated.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Logger must be provided.
-                | ATSValueError: Has file handler flag must be provided.
-                | ATSValueError: Formatter must be provided.
-                | ATSValueError: Buffer must be provided.
-                | ATSValueError: Handler manager must be provided.
-                | ATSValueError: Message processor must be provided.
-                | ATSTypeError: Bundle must be an instance of LoggerBundle.
-                | ATSTypeError: Logger must be an instance of IUnderlyingLogger.
-                | ATSTypeError: Has file handler flag must be a boolean instance.
-                | ATSTypeError: Formatter must be an instance of ILogFormatter.
-                | ATSTypeError: Buffer must be an instance of ILogBuffer.
-                | ATSTypeError: Handler manager must be an instance of ILogHandlerManager.
-                | ATSTypeError: Message processor must be an instance of IMessageProcessor.
+                | ATSValueError: Bundle must be provided and have proper values.
+                | ATSTypeError:  Bundle must be an instance of LoggerBundle and its attributes
+                |                must be instances of their respective types.
         '''
         ctx: str = 'logger_validator::validate(...)'
 
-        not_none(bundle, ctx, 'bundle must be provided')
-        istype(bundle, LoggerBundle, ctx, 'bundle must be an instance of LoggerBundle')
+        msg_bundle_none: str = 'bundle must be provided'
+        msg_bundle_istype: str = 'bundle must be an instance of LoggerBundle'
+        msg_logger_none: str = 'logger must be provided'
+        msg_logger_istype: str = 'logger must be an instance of IUnderlyingLogger'
+        msg_has_file_handler_none: str = 'has file handler flag must be provided'
+        msg_has_file_handler_istype: str = 'has file handler flag must be a boolean instance'
+        msg_formatter_none: str = 'formatter must be provided'
+        msg_formatter_istype: str = 'formatter must be an instance of ILogFormatter'
+        msg_buffer_none: str = 'buffer must be provided'
+        msg_buffer_istype: str = 'buffer must be an instance of ILogBuffer'
+        msg_handler_manager_none: str = 'handler manager must be provided'
+        msg_handler_manager_istype: str = 'handler manager must be an instance of ILogHandlerManager'
+        msg_message_processor_none: str = 'message processor must be provided'
+        msg_message_processor_istype: str = 'message processor must be an instance of IMessageProcessor'
 
-        not_none(bundle.logger, ctx, 'logger must be provided')
-        not_none(bundle.has_file_handler, ctx, 'has file handler flag must be provided')
-        not_none(bundle.formatter, ctx, 'formatter must be provided')
-        not_none(bundle.buffer, ctx, 'buffer must be provided')
-        not_none(bundle.handler_manager, ctx, 'handler manager must be provided')
-        not_none(bundle.message_processor, ctx, 'message processor must be provided')
+        not_none(bundle, ctx, msg_bundle_none)
+        istype(bundle, LoggerBundle, ctx, msg_bundle_istype)
 
-        istype(bundle.logger, IUnderlyingLogger, ctx, 'logger must be an instance of IUnderlyingLogger')
-        istype(bundle.has_file_handler, bool, ctx, 'has file handler flag must be a boolean instance')
-        istype(bundle.formatter, ILogFormatter, ctx, 'formatter must be an instance of ILogFormatter')
-        istype(bundle.buffer, ILogBuffer, ctx, 'buffer must be an instance of ILogBuffer')
-        istype(bundle.handler_manager, ILogHandlerManager, ctx, 'handler manager must be an instance of ILogHandlerManager')
-        istype(bundle.message_processor, IMessageProcessor, ctx, 'message processor must be an instance of IMessageProcessor')
+        not_none(bundle.logger, ctx, msg_logger_none)
+        not_none(bundle.has_file_handler, ctx, msg_has_file_handler_none)
+        not_none(bundle.formatter, ctx, msg_formatter_none)
+        not_none(bundle.buffer, ctx, msg_buffer_none)
+        not_none(bundle.handler_manager, ctx, msg_handler_manager_none)
+        not_none(bundle.message_processor, ctx, msg_message_processor_none)
+
+        istype(bundle.logger, IUnderlyingLogger, ctx, msg_logger_istype)
+        istype(bundle.has_file_handler, bool, ctx, msg_has_file_handler_istype)
+        istype(bundle.formatter, ILogFormatter, ctx, msg_formatter_istype)
+        istype(bundle.buffer, ILogBuffer, ctx, msg_buffer_istype)
+        istype(bundle.handler_manager, ILogHandlerManager, ctx, msg_handler_manager_istype)
+        istype(bundle.message_processor, IMessageProcessor, ctx, msg_message_processor_istype)

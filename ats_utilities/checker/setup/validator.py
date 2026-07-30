@@ -69,15 +69,26 @@ class CheckerValidator:
         '''
         ctx: str = 'checker_validator::validate(...)'
 
-        not_none(bundle, ctx, 'bundle must be provided')
-        istype(bundle, CheckerBundle, ctx, 'bundle must be an instance of CheckerBundle')
+        msg_bundle_none: str = 'bundle must be provided'
+        msg_bundle_istype: str = 'bundle must be an instance of CheckerBundle'
+        msg_context_provider_none: str = 'context provider must be provided'
+        msg_check_reporter_none: str = 'check reporter must be provided'
+        msg_format_validator_none: str = 'format validator must be provided'
+        msg_type_validator_none: str = 'type validator must be provided'
+        msg_context_provider_istype: str = 'context provider must be an instance of IContextProvider'
+        msg_check_reporter_istype: str = 'check reporter must be an instance of ICheckReporter'
+        msg_format_validator_istype: str = 'format validator must be an instance of IFormatValidator'
+        msg_type_validator_istype: str = 'type validator must be an instance of ITypeValidator'
 
-        not_none(bundle.context_provider, ctx, 'context provider must be provided')
-        not_none(bundle.check_reporter, ctx, 'check reporter must be provided')
-        not_none(bundle.format_validator, ctx, 'format validator must be provided')
-        not_none(bundle.type_validator, ctx, 'type validator must be provided')
+        not_none(bundle, ctx, msg_bundle_none)
+        istype(bundle, CheckerBundle, ctx, msg_bundle_istype)
 
-        istype(bundle.context_provider, IContextProvider, ctx, 'context provider must be an instance of IContextProvider')
-        istype(bundle.check_reporter, ICheckReporter, ctx, 'check reporter must be an instance of ICheckReporter')
-        istype(bundle.format_validator, IFormatValidator, ctx, 'format validator must be an instance of IFormatValidator')
-        istype(bundle.type_validator, ITypeValidator, ctx, 'type validator must be an instance of ITypeValidator')
+        not_none(bundle.context_provider, ctx, msg_context_provider_none)
+        not_none(bundle.check_reporter, ctx, msg_check_reporter_none)
+        not_none(bundle.format_validator, ctx, msg_format_validator_none)
+        not_none(bundle.type_validator, ctx, msg_type_validator_none)
+
+        istype(bundle.context_provider, IContextProvider, ctx, msg_context_provider_istype)
+        istype(bundle.check_reporter, ICheckReporter, ctx, msg_check_reporter_istype)
+        istype(bundle.format_validator, IFormatValidator, ctx, msg_format_validator_istype)
+        istype(bundle.type_validator, ITypeValidator, ctx, msg_type_validator_istype)

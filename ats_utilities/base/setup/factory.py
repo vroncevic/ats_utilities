@@ -140,10 +140,10 @@ class BaseFactory(IFactory[BaseBundle, BaseOptions]):
             )
         )
         options_parser: IOptionManager[ContextBundle] = OptionManager(
-            own=OptionFactory.create_option_bundle_from_dict(
-                parameters=info_manager.get_info(),
-                context_bundle=context_bundle
-            )
+            own=OptionFactory.create_bundle({
+                'parameters': info_manager.get_info(),
+                'context_bundle': context_bundle
+            })
         )
         generator: IGeneratorManager[ContextBundle] | None = GeneratorManager(
             own=GeneratorFactory.create_default_generator_bundle(

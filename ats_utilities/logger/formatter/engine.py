@@ -76,15 +76,23 @@ class LogFormatter:
         ctx: str = 'log_formatter::init(...)'
 
         if log_format is not None:
-            istype(log_format, str, ctx, 'log format must be a string')
-            not_empty(log_format, ctx, 'log format cannot be empty')
+            msg_log_format_istype: str = 'log format must be a string'
+            msg_log_format_empty: str = 'log format cannot be empty'
+
+            istype(log_format, str, ctx, msg_log_format_istype)
+            not_empty(log_format, ctx, msg_log_format_empty)
+
             self._log_format = log_format
         else:
             self._log_format = self.DEFAULT_LOG_FORMAT
 
         if log_datefmt is not None:
-            istype(log_datefmt, str, ctx, 'log date format must be a string')
-            not_empty(log_datefmt, ctx, 'log date format cannot be empty')
+            msg_log_datefmt_istype: str = 'log date format must be a string'
+            msg_log_datefmt_empty: str = 'log date format cannot be empty'
+
+            istype(log_datefmt, str, ctx, msg_log_datefmt_istype)
+            not_empty(log_datefmt, ctx, msg_log_datefmt_empty)
+
             self._log_datefmt = log_datefmt
         else:
             self._log_datefmt = self.DEFAULT_LOG_DATEFMT
@@ -99,9 +107,15 @@ class LogFormatter:
                 | ATSTypeError:  Log format must be a string.
         '''
         ctx: str = 'log_formatter::set_format(...)'
-        not_none(log_format, ctx, 'log format must be provided')
-        istype(log_format, str, ctx, 'log format must be a string')
-        not_empty(log_format, ctx, 'log format cannot be empty')
+
+        msg_log_format_none: str = 'log format must be provided'
+        msg_log_format_istype: str = 'log format must be a string'
+        msg_log_format_empty: str = 'log format cannot be empty'
+
+        not_none(log_format, ctx, msg_log_format_none)
+        istype(log_format, str, ctx, msg_log_format_istype)
+        not_empty(log_format, ctx, msg_log_format_empty)
+
         self._log_format = log_format
 
     def get_format(self) -> str:
@@ -123,9 +137,15 @@ class LogFormatter:
                 | ATSTypeError:  Log date format must be a string.
         '''
         ctx: str = 'log_formatter::set_date_format(...)'
-        not_none(log_datefmt, ctx, 'log date format must be provided')
-        istype(log_datefmt, str, ctx, 'log date format must be a string')
-        not_empty(log_datefmt, ctx, 'log date format cannot be empty')
+
+        msg_log_datefmt_none: str = 'log date format must be provided'
+        msg_log_datefmt_istype: str = 'log date format must be a string'
+        msg_log_datefmt_empty: str = 'log date format cannot be empty'
+
+        not_none(log_datefmt, ctx, msg_log_datefmt_none)
+        istype(log_datefmt, str, ctx, msg_log_datefmt_istype)
+        not_empty(log_datefmt, ctx, msg_log_datefmt_empty)
+
         self._log_datefmt = log_datefmt
 
     def get_date_format(self) -> str:
