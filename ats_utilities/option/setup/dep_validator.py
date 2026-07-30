@@ -61,18 +61,20 @@ class OptionDependenciesValidator:
                 |                attributes must be instances of their respective types.
         '''
         ctx: str = 'option_dependencies_validator::validate(...)'
+        msg_dependencies_none: str = 'dependencies must be provided'
+        msg_dependencies_istype: str = 'dependencies must be a Mapping'
 
-        not_none(dependencies, ctx, 'dependencies must be provided')
-        istype(dependencies, Mapping, ctx, 'dependencies must be a Mapping')
+        not_none(dependencies, ctx, msg_dependencies_none)
+        istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
         for attr_name, expected_type in OptionKeys.get_dependency_to_type().items():
+            msg_attr_none: str = f'{attr_name.replace("_", " ")} must be provided'
+            msg_attr_istype: str = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+
             attribute: object = dependencies.get(attr_name)
 
-            not_none(attribute, ctx, f'{attr_name.replace("_", " ")} must be provided')
-            istype(
-                attribute, expected_type, ctx,
-                f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
-            )
+            not_none(attribute, ctx, msg_attr_none)
+            istype(attribute, expected_type, ctx, msg_attr_istype)
 
             if attr_name == OptionKeys.DEPENDENCY_CONTEXT_BUNDLE:
                 ContextValidator.validate(attribute)

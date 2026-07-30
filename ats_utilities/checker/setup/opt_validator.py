@@ -60,7 +60,6 @@ class CheckerOptionsValidator:
                 |                must be instances of their respective types.
         '''
         ctx: str = 'checker_options_validator::validate(...)'
-
         msg_options_none: str = 'options must be provided'
         msg_options_istype: str = 'options must be a Mapping'
 
