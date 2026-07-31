@@ -2,7 +2,7 @@
 
 '''
 Module
-    dependencies.py
+    options.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Base dependencies for base bundle.
+    Base options for base bundle.
 '''
 
 from __future__ import annotations
@@ -24,10 +24,6 @@ from __future__ import annotations
 from typing import TypedDict
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.info.imanager import IInfoManager
-from ats_utilities.option.imanager import IOptionManager
-from ats_utilities.splash.imanager import ISplashManager
-from ats_utilities.generation.imanager import IGeneratorManager
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -39,22 +35,16 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class BaseDependencies(TypedDict):
+class BaseOptions(TypedDict):
     '''
-        Base dependencies for base bundle.
+        Base options for base bundle.
 
         It defines:
 
             :attributes:
+                | info_file: Information file path for App/Tool/Script.
                 | context_bundle: Context bundle.
-                | info_manager: Information manager.
-                | option_manager: Options parser.
-                | splash_manager: SplashManager.
-                | generation_manager: GeneratorManager.
     '''
 
+    info_file: str
     context_bundle: ContextBundle
-    info_manager: IInfoManager
-    option_manager: IOptionManager
-    splash_manager: ISplashManager
-    generation_manager: IGeneratorManager

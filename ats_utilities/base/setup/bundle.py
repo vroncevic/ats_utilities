@@ -23,12 +23,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.option.imanager import IOptionManager
 from ats_utilities.splash.imanager import ISplashManager
 from ats_utilities.generation.imanager import IGeneratorManager
-from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import instance_to_dict
 
 __author__ = 'Vladimir Roncevic'
@@ -49,26 +49,20 @@ class BaseBundle:
         It defines:
 
             :attributes:
-                | info_file - Information file path for App/Tool/Script.
-                | config_loader - Configuration loader instance.
-                | info_manager - Information manager instance.
-                | options_parser - Options parser instance.
-                | splasher - SplashManager instance.
-                | generator - GeneratorManager instance or None.
-                | use_generator - Enable/Disable generator usage flag.
-                | context_bundle - Context bundle instance.
+                | context_bundle - Context bundle.
+                | info_manager - Information manager.
+                | option_manager - Option manager.
+                | splash_manager - Splash manager.
+                | generation_manager - Generation manager.
             :methods:
                 | to_dict - Converts base bundle to a dictionary.
     '''
 
-    info_file: str
-    config_loader: ILoader
-    info_manager: IInfoManager
-    options_parser: IOptionManager
-    splasher: ISplashManager
-    generator: IGeneratorManager | None
-    use_generator: bool
     context_bundle: ContextBundle
+    info_manager: IInfoManager
+    option_manager: IOptionManager
+    splash_manager: ISplashManager
+    generation_manager: IGeneratorManager
 
     def to_dict(self) -> dict[str, object]:
         '''

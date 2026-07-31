@@ -23,9 +23,6 @@ Info
 from __future__ import annotations
 
 from typing import Protocol, runtime_checkable
-from collections.abc import Sequence
-
-from ats_utilities.option.setup.types import OptionNamespace
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,12 +33,9 @@ __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
-# Optional string sequence type
-type ArgSeq = Sequence[str] | None
-
 
 @runtime_checkable
-class IBase[ContextEnvironment](Protocol):
+class IBase[ConfigType, ContextEnvironment](Protocol):
     '''
         Defines abstract class IBase with method(s).
         Interface for ATS base setup.
@@ -49,19 +43,38 @@ class IBase[ContextEnvironment](Protocol):
         It defines:
 
             :methods:
+                | get_bundle - Gets current configuration bundle.
+                | update_bundle - Updates configuration bundle.
                 | get_context - Returns the context.
                 | is_initialized - Checks if App/Tool/Script base engine is initialized.
-                | add_new_option - Adds a new option for App/Tool/Script.
-                | parse_args - Parses App/Tool/Script arguments.
                 | process - Processes and runs App/Tool/Script (Abstract).
                 | __str__ - Returns the App/Tool/Script base as string representation.
     '''
+
+    def get_bundle(self) -> ConfigType:
+        '''
+            Gets current configuration bundle.
+
+            :return: Configuration bundle.
+            :exceptions: None.
+        '''
+        ...
+
+    def update_bundle(self, bundle: ConfigType) -> bool:
+        '''
+            Updates configuration bundle.
+
+            :param bundle: Configuration bundle.
+            :return: True if configuration bundle is updated successfully.
+            :exceptions: None.
+        '''
+        ...
+
     def get_context(self) -> ContextEnvironment:
         '''
             Returns the context.
 
             :return: Context.
-            :exceptions: None.
         '''
         ...
 
@@ -70,37 +83,15 @@ class IBase[ContextEnvironment](Protocol):
             Checks if App/Tool/Script base engine is initialized.
 
             :return: True if successfully, otherwise False.
-            :exceptions: None.
-        '''
-        ...
-
-    def add_new_option(self, *args: str, **kwargs: object) -> None:
-        '''
-            Adds a new option for App/Tool/Script.
-
-            :param args: Arguments in string format.
-            :param kwargs: Arguments in object format.
-            :exceptions: None.
-        '''
-        ...
-
-    def parse_args(self, argv: ArgSeq) -> OptionNamespace | None:
-        '''
-            Parses App/Tool/Script arguments.
-
-            :param argv: Sequence of arguments.
-            :return: Options and arguments | None
-            :exceptions: None.
         '''
         ...
 
     def process(self, verbose: bool = False) -> bool:
         '''
-            Processes and runs App/Tool/Script (Abstract).
+            Processes and runs App/Tool/Script.
 
             :param verbose: Enable/Disable verbose option (default False).
             :return: True if successfully, otherwise False.
-            :exceptions: None.
         '''
         ...
 
@@ -108,7 +99,6 @@ class IBase[ContextEnvironment](Protocol):
         '''
             Returns the App/Tool/Script base as string representation.
 
-            :return: The App/Tool/Script base as string representation.
-            :exceptions: None.
+            :return: App/Tool/Script base as string representation.
         '''
         ...

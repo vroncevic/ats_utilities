@@ -52,13 +52,13 @@ class GeneratorFactory:
         It defines:
 
             :methods:
-                | create_default_bundle - Creates a default generator bundle using configuration options.
+                | create_bundle - Creates a default generator bundle using configuration options.
     '''
 
     @classmethod
-    def create_default_bundle(cls, options: GeneratorOptions) -> GeneratorBundle:
+    def create_bundle(cls, options: GeneratorOptions) -> GeneratorBundle:
         '''
-            Creates a default generator bundle using configuration options.
+            Creates a generator bundle using configuration options.
 
             :param options: Creation options/parameters for the bundle.
             :return: Generator bundle.

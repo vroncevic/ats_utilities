@@ -49,13 +49,13 @@ class ConfigIOFactory:
         It defines:
 
             :methods:
-                | create_default_bundle - Creates a default config I/O bundle using configuration options.
+                | create_bundle - Creates a config I/O bundle using configuration options.
     '''
 
     @classmethod
-    def create_default_bundle(cls, options: ConfigIOOptions) -> ConfigIOBundle:
+    def create_bundle(cls, options: ConfigIOOptions) -> ConfigIOBundle:
         '''
-            Creates a default config I/O bundle using configuration options.
+            Creates a config I/O bundle using configuration options.
 
             :param options: Creation options/parameters for the bundle.
             :return: Config I/O bundle instance.

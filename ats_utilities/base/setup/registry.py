@@ -16,14 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of base bundle creation.
+    Encapsulates core runtime components for simplification of base bundle.
 '''
 
 from __future__ import annotations
 
-from ats_utilities.utils.setup.iregistry import IRegistry
 from ats_utilities.base.setup.bundle import BaseBundle
 from ats_utilities.base.setup.dependencies import BaseDependencies
+from ats_utilities.base.setup.dep_validator import BaseDependenciesValidator
+from ats_utilities.base.setup.keys import BaseKeys
 from ats_utilities.base.setup.validator import BaseValidator
 
 __author__ = 'Vladimir Roncevic'
@@ -36,51 +37,36 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class BaseRegistry(IRegistry[BaseBundle, BaseDependencies]):
+class BaseRegistry:
     '''
         Encapsulates core runtime components for simplification of base bundle creation.
 
         It defines:
 
             :methods:
-                | create_bundle - Orchestrates dependency injection and creates a base bundle instance.
+                | create_bundle - Orchestrates dependency injection and creates a base bundle.
     '''
 
     @classmethod
     def create_bundle(cls, dependencies: BaseDependencies) -> BaseBundle:
         '''
-            Orchestrates dependency injection and creates a base bundle instance.
+            Orchestrates dependency injection and creates a base bundle.
 
             :param dependencies: Registry-specific orchestration dependencies.
-            :return: Base bundle instance.
+            :return: Base bundle.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Information file must be provided.
-                | ATSValueError: Config loader must be provided.
-                | ATSValueError: Info manager must be provided.
-                | ATSValueError: Options parser must be provided.
-                | ATSValueError: SplashManager must be provided.
-                | ATSValueError: Use generator flag must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Bundle must be an instance of BaseBundle.
-                | ATSTypeError: Information file must be an instance of str.
-                | ATSTypeError: Config loader must be an instance of ILoader.
-                | ATSTypeError: Info manager must be an instance of IInfoManager.
-                | ATSTypeError: Options parser must be an instance of IOptionManager.
-                | ATSTypeError: SplashManager must be an instance of ISplashManager.
-                | ATSTypeError: Use generator flag must be an instance of bool.
-                | ATSTypeError: GeneratorManager must be an instance of IGeneratorManager or None.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSValueError: Dependencies must be provided and have proper values.
+                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
+        BaseDependenciesValidator.validate(dependencies)
+
         bundle: BaseBundle = BaseBundle(
-            info_file=dependencies.get('info_file') if dependencies else None,
-            config_loader=dependencies.get('config_loader') if dependencies else None,
-            info_manager=dependencies.get('info_manager') if dependencies else None,
-            options_parser=dependencies.get('options_parser') if dependencies else None,
-            splasher=dependencies.get('splasher') if dependencies else None,
-            generator=dependencies.get('generator') if dependencies else None,
-            use_generator=dependencies.get('use_generator') if dependencies else None,
-            context_bundle=dependencies.get('context_bundle') if dependencies else None
+            context_bundle=dependencies.get(BaseKeys.DEPENDENCY_CONTEXT_BUNDLE) if dependencies else None,
+            info_manager=dependencies.get(BaseKeys.DEPENDENCY_INFO_MANAGER) if dependencies else None,
+            option_manager=dependencies.get(BaseKeys.DEPENDENCY_OPTION_MANAGER) if dependencies else None,
+            splash_manager=dependencies.get(BaseKeys.DEPENDENCY_SPLASH_MANAGER) if dependencies else None,
+            generation_manager=dependencies.get(BaseKeys.DEPENDENCY_GENERATION_MANAGER) if dependencies else None
         )
 
         BaseValidator.validate(bundle)

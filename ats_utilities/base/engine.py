@@ -17,23 +17,20 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Base with attribute(s) and method(s).
-    Provides an API for setup (application, tool, script).
+    Provides an API for base engine (application, tool, script).
 '''
 
 from __future__ import annotations
 
 from ats_utilities.base.setup.bundle import BaseBundle
-from ats_utilities.base.ibase import ArgSeq
-from ats_utilities.config_io.loader.iloader import ILoader
+from ats_utilities.base.setup.validator import BaseValidator
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generation.imanager import IGeneratorManager
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.option.imanager import IOptionManager
-from ats_utilities.option.setup.types import OptionNamespace
 from ats_utilities.splash.imanager import ISplashManager
-from ats_utilities.utils.reflection import to_str, has_attrs
-from ats_utilities.validation.check_value import not_none
-from ats_utilities.validation.check_type import istype
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
+from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -48,126 +45,137 @@ __status__ = 'Development'
 class Base:
     '''
         Defines class Base with attribute(s) and method(s).
-        Provides an API for setup (App/Tool/Script).
+        Provides an API for base engine (application, tool, script).
 
         It defines:
 
             :attributes:
-                | _is_initialized - Indicates if the base is initialized (default False).
-                | _context - Context for components.
-                | _config_loader - Manager for configuration loading (default ConfigLoader).
-                | _info_manager - Manager for info property (default InfoManager).
-                | _splasher - Manager for splash screen (default SplashManager).
-                | _options_parser - Manager for options parser (default OptionManager).
-                | _generator - GeneratorManager manager (default GeneratorManager).
+                | _is_initialized - Indicates if the base is initialized.
+                | _context - Context with core utilities.
+                | _info_manager - Manager for application/tool/script information.
+                | _splash_manager - Manager for application/tool/script splash screen.
+                | _option_manager - Manager for application/tool/script command line arguments parsing.
+                | _generation_manager - Manager for application/tool/script outputs generation.
             :methods:
-                | __init__ - Initializes Base constructor.
+                | __init__ - Initializes base engine.
+                | get_bundle - Gets current configuration bundle.
+                | update_bundle - Updates configuration bundle.
+                | _apply_bundle - Applies bundle configuration to instance attributes.
                 | get_context - Returns the context.
-                | is_initialized - Checks if App/Tool/Script base engine is initialized.
-                | add_new_option - Adds a new option for App/Tool/Script.
-                | parse_args - Parses App/Tool/Script arguments.
-                | process - Processes and runs App/Tool/Script (Abstract).
-                | __str__ - Returns the Base as string representation.
+                | is_initialized - Checks if base engine is initialized.
+                | process - Processes and runs application/tool/script.
+                | __str__ - Returns base engine as string representation.
     '''
 
     _is_initialized: bool
     _context: ContextBundle
-    _config_loader: ILoader
     _info_manager: IInfoManager
-    _splasher: ISplashManager
-    _options_parser: IOptionManager
-    _generator: IGeneratorManager
+    _splash_manager: ISplashManager
+    _option_manager: IOptionManager
+    _generation_manager: IGeneratorManager
 
     def __init__(self, own: BaseBundle) -> None:
         '''
-            Initializes Base constructor.
+            Initializes base engine.
 
-            :param own: Component bundle for base package.
+            :param own: Base bundle containing core components for base package.
             :exceptions:
                 | ATSValueError: Base bundle must be provided and have proper values.
                 | ATSTypeError:  Base bundle must be an instance of BaseBundle
                 |                and its attributes must be instances of their
                 |                respective interfaces and types.
         '''
-        context: str = 'base::init(...)'
-        not_none(own, context, 'component bundle must be provided')
-        istype(own, BaseBundle, context, 'component bundle must be an instance of BaseBundle')
-        self._context = own.context_bundle
-        self._config_loader = own.config_loader
-        self._info_manager = own.info_manager
-        self._splasher = own.splasher
-        self._options_parser = own.options_parser
-        components: list[object] = [self._info_manager, self._splasher, self._options_parser]
+        self._is_initialized = False
+        BaseValidator.validate(own)
+        self._apply_bundle(own)
 
-        if own.use_generator:
-            self._generator = own.generator
-            components.append(self._generator)
-
+        components: list[object] = [self._info_manager, self._splash_manager, self._option_manager]
         self._is_initialized = all(
             component is not None and component.is_initialized() for component in components
         )
 
+    def get_bundle(self) -> BaseBundle:
+        '''
+            Gets current base configuration bundle.
+
+            :return: Base configuration bundle.
+            :exceptions: None.
+        '''
+        return BaseBundle(
+            context_bundle=self._context,
+            info_manager=self._info_manager,
+            splash_manager=self._splash_manager,
+            option_manager=self._option_manager,
+            generation_manager=self._generation_manager
+        )
+
+    def update_bundle(self, bundle: BaseBundle) -> bool:
+        '''
+            Updates base configuration bundle.
+
+            :param bundle: Base configuration bundle.
+            :return: True if configuration was successfully updated, False otherwise.
+            :exceptions: None.
+        '''
+        try:
+            BaseValidator.validate(bundle)
+            self._apply_bundle(bundle)
+
+            components: list[object] = [self._info_manager, self._splash_manager, self._option_manager]
+            self._is_initialized = all(
+                component is not None and component.is_initialized() for component in components
+            )
+
+            return self._is_initialized
+
+        except (ATSValueError, ATSTypeError):
+            return False
+
+    def _apply_bundle(self, bundle: BaseBundle) -> None:
+        '''
+            Applies bundle configuration to instance attributes.
+
+            :param bundle: Base bundle with components.
+            :exceptions: None.
+        '''
+        self._context = bundle.context_bundle
+        self._info_manager = bundle.info_manager
+        self._splash_manager = bundle.splash_manager
+        self._option_manager = bundle.option_manager
+        self._generation_manager = bundle.generation_manager
+
     def get_context(self) -> ContextBundle:
         '''
-            Returns the context.
+            Returns current context.
 
-            :return: Context.
+            :return: Current context.
             :exceptions: None.
         '''
         return self._context
 
     def is_initialized(self) -> bool:
         '''
-            Checks if App/Tool/Script base engine is initialized.
+            Checks if base engine is initialized.
 
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
         return self._is_initialized
 
-    @has_attrs('_options_parser')
-    def add_new_option(self, *args: str, **kwargs: object) -> None:
-        '''
-            Adds a new option for App/Tool/Script.
-
-            :param args: Arguments in string format.
-            :param kwargs: Arguments in object format.
-            :exceptions:
-                | ATSValueError: Missing or None attribute: '_options_parser'.
-        '''
-        if self.is_initialized():
-            self._options_parser.add_operation(*args, **kwargs)
-
-    @has_attrs('_options_parser')
-    def parse_args(self, argv: ArgSeq) -> OptionNamespace | None:
-        '''
-            Parses App/Tool/Script arguments.
-
-            :param argv: Sequence of arguments | None.
-            :return: Options and arguments.
-            :exceptions:
-                | ATSValueError: Missing or None attribute: '_options_parser'.
-        '''
-        if self.is_initialized():
-            return self._options_parser.parse_args(argv)
-
-        return None
-
     def process(self, verbose: bool = False) -> bool:
         '''
-            Processes and runs App/Tool/Script (Abstract).
+            Processes and runs App/Tool/Script.
 
             :param verbose: Enable/Disable verbose option (default False).
             :return: True if successfully, otherwise False.
-            :exceptions: None.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the Base as string representation.
+            Returns base engine as string representation.
 
-            :return: The Base as string representation.
+            :return: Base engine as string representation.
             :exceptions: None.
         '''
         return to_str(self)

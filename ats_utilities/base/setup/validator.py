@@ -16,18 +16,17 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for base bundle instance.
+    Validator for base bundle.
 '''
 
 from __future__ import annotations
 
 from ats_utilities.base.setup.bundle import BaseBundle
-from ats_utilities.config_io.loader.iloader import ILoader
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.option.imanager import IOptionManager
 from ats_utilities.splash.imanager import ISplashManager
 from ats_utilities.generation.imanager import IGeneratorManager
-from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -43,57 +42,49 @@ __status__ = 'Development'
 
 class BaseValidator:
     '''
-        Validator for base bundle instance.
+        Validator for base bundle.
 
         It defines:
 
             :methods:
-                | validate - Validates base bundle instance.
+                | validate - Validates base bundle.
     '''
 
     @classmethod
     def validate(cls, bundle: BaseBundle) -> None:
         '''
-            Validates base bundle instance.
+            Validates base bundle.
 
-            :param bundle: Base bundle instance to be validated.
+            :param bundle: Base bundle to be validated.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Information file must be provided.
-                | ATSValueError: Config loader must be provided.
-                | ATSValueError: Info manager must be provided.
-                | ATSValueError: Options parser must be provided.
-                | ATSValueError: SplashManager must be provided.
-                | ATSValueError: Use generator flag must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Bundle must be an instance of BaseBundle.
-                | ATSTypeError: Information file must be an instance of str.
-                | ATSTypeError: Config loader must be an instance of ILoader.
-                | ATSTypeError: Info manager must be an instance of IInfoManager.
-                | ATSTypeError: Options parser must be an instance of IOptionManager.
-                | ATSTypeError: SplashManager must be an instance of ISplashManager.
-                | ATSTypeError: Use generator flag must be an instance of bool.
-                | ATSTypeError: GeneratorManager must be an instance of IGeneratorManager or None.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSValueError: Base bundle must be provided and have proper values.
+                | ATSTypeError:  Base bundle must be an instance of BaseBundle
+                |                and its attributes must be instances of their
+                |                respective interfaces and types.
         '''
         ctx: str = 'base_validator::validate(...)'
+        msg_bundle_none: str = 'base bundle must be provided'
+        msg_bundle_istype: str = 'base bundle must be an instance of BaseBundle'
+        msg_info_manager_none: str = 'info manager must be provided'
+        msg_info_manager_istype: str = 'info manager must be an IInfoManager'
+        msg_option_manager_none: str = 'option manager must be provided'
+        msg_option_manager_istype: str = 'option manager must be an IOptionManager'
+        msg_splash_manager_none: str = 'splash manager must be provided'
+        msg_splash_manager_istype: str = 'splash manager must be an ISplashManager'
+        msg_generation_manager_istype: str = 'generation manager must be an IGeneratorManager or None'
 
-        not_none(bundle, ctx, 'bundle must be provided')
-        istype(bundle, BaseBundle, ctx, 'bundle must be an instance of BaseBundle')
+        not_none(bundle, ctx, msg_bundle_none)
+        istype(bundle, BaseBundle, ctx, msg_bundle_istype)
 
-        not_none(bundle.info_file, ctx, 'information file must be provided')
-        not_none(bundle.config_loader, ctx, 'config loader must be provided')
-        not_none(bundle.info_manager, ctx, 'info manager must be provided')
-        not_none(bundle.options_parser, ctx, 'options parser must be provided')
-        not_none(bundle.splasher, ctx, 'splasher must be provided')
-        not_none(bundle.use_generator, ctx, 'use_generator must be provided')
-        not_none(bundle.context_bundle, ctx, 'context bundle must be provided')
+        ContextValidator.validate(bundle.context_bundle)
 
-        istype(bundle.info_file, str, ctx, 'information file must be str')
-        istype(bundle.config_loader, ILoader, ctx, 'config loader must be an ILoader interface')
-        istype(bundle.info_manager, IInfoManager, ctx, 'info manager must be an IInfoManager interface')
-        istype(bundle.options_parser, IOptionManager, ctx, 'options parser must be an IOptionManager interface')
-        istype(bundle.splasher, ISplashManager, ctx, 'splasher must be an ISplashManager interface')
-        istype(bundle.use_generator, bool, ctx, 'use generator flag must be a bool')
-        istype(bundle.generator, (IGeneratorManager, type(None)), ctx, 'generator must be an IGeneratorManager interface or None')
-        istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')
+        not_none(bundle.info_manager, ctx, msg_info_manager_none)
+        not_none(bundle.option_manager, ctx, msg_option_manager_none)
+        not_none(bundle.splash_manager, ctx, msg_splash_manager_none)
+
+        istype(bundle.info_manager, IInfoManager, ctx, msg_info_manager_istype)
+        istype(bundle.option_manager, IOptionManager, ctx, msg_option_manager_istype)
+        istype(bundle.splash_manager, ISplashManager, ctx, msg_splash_manager_istype)
+
+        if bundle.generation_manager is not None:
+            istype(bundle.generation_manager, IGeneratorManager, ctx, msg_generation_manager_istype)
