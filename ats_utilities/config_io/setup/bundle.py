@@ -21,7 +21,6 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import ClassVar
 
@@ -47,10 +46,9 @@ class ConfigIOBundle:
         It defines:
 
             :attributes:
-                | READ_MODE - Default file opening mode (class variable, default 'r').
-                | WRITE_MODE - Default file opening mode (class variable, default 'w').
+                | READ_MODE - Default file opening mode.
+                | WRITE_MODE - Default file opening mode.
                 | file_path - Configuration file path.
-                | scheme - Configuration scheme.
                 | processor - Configuration processor.
                 | context_bundle - Context bundle.
             :methods:
@@ -60,7 +58,6 @@ class ConfigIOBundle:
     READ_MODE: ClassVar[str] = 'r'
     WRITE_MODE: ClassVar[str] = 'w'
     file_path: str
-    scheme: Mapping[str, str]
     processor: IConfigProcessor
     context_bundle: ContextBundle
 

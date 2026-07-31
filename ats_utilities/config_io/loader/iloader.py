@@ -45,9 +45,9 @@ class ILoader[ContextEnvironment, ConfigurationType](Protocol):
         It defines:
 
             :methods:
-                | get_context - Returns the context.
+                | get_context - Returns context.
                 | load_configuration - Loads configuration from file and returns configuration.
-                | __str__ - Returns loader instance as string representation.
+                | __str__ - Returns loader as string representation.
     '''
 
     def get_context(self) -> ContextEnvironment:
@@ -68,8 +68,8 @@ class ILoader[ContextEnvironment, ConfigurationType](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns loader instance as string representation.
+            Returns loader as string representation.
 
-            :return: Loader instance as string representation.
+            :return: Loader as string representation.
         '''
         ...

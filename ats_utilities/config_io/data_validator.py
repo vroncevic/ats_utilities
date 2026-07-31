@@ -58,18 +58,30 @@ class FileDataValidator:
                 | ATSTypeError:  File data must be an instance of FileData and its
                 |                attributes must be instances of their respective types.
         '''
-        context: str = 'file_data_validator::validate(...)'
-        not_none(data, context, 'file data must be provided')
-        istype(data, FileData, context, 'file data must be an instance of FileData')
+        ctx: str = 'file_data_validator::validate(...)'
+        msg_data_none: str = 'file data must be provided'
+        msg_data_istype: str = 'file data must be an instance of FileData'
+        msg_path_none: str = 'file path must be provided'
+        msg_mode_none: str = 'file mode must be provided'
+        msg_context_none: str = 'context bundle must be provided'
+        msg_path_istype: str = 'file path must be a string'
+        msg_mode_istype: str = 'file mode must be a string'
+        msg_context_istype: str = 'context bundle must be a ContextBundle instance'
+        msg_path_empty: str = 'file path must not be empty'
+        msg_mode_empty: str = 'file mode must not be empty'
 
-        not_none(data.file_path, context, 'file path must be provided')
-        not_none(data.file_mode, context, 'file mode must be provided')
-        not_none(data.context_bundle, context, 'context bundle must be provided')
+        not_none(data, ctx, msg_data_none)
+        istype(data, FileData, ctx, msg_data_istype)
 
-        istype(data.file_path, str, context, 'file path must be a string')
-        istype(data.file_mode, str, context, 'file mode must be a string')
-        istype(data.context_bundle, ContextBundle, context, 'context bundle must be a ContextBundle instance')
+        not_none(data.file_path, ctx, msg_path_none)
+        not_none(data.file_mode, ctx, msg_mode_none)
+        not_none(data.context_bundle, ctx, msg_context_none)
 
-        not_empty(data.file_path, context, 'file path must not be empty')
-        not_empty(data.file_mode, context, 'file mode must not be empty')
+        istype(data.file_path, str, ctx, msg_path_istype)
+        istype(data.file_mode, str, ctx, msg_mode_istype)
+        istype(data.context_bundle, ContextBundle, ctx, msg_context_istype)
+
+        not_empty(data.file_path, ctx, msg_path_empty)
+        not_empty(data.file_mode, ctx, msg_mode_empty)
+
         ContextValidator.validate(data.context_bundle)

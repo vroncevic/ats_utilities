@@ -22,10 +22,9 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TypedDict, NotRequired
+from typing import TypedDict
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -46,11 +45,9 @@ class ConfigIOOptions(TypedDict):
             :attributes:
                 | file_path: Configuration file path.
                 | scheme: Configuration scheme.
-                | processor: Configuration processor.
                 | context_bundle: Context bundle.
     '''
 
-    file_path: NotRequired[str]
-    scheme: NotRequired[Mapping[str, str] | None]
-    processor: NotRequired[IConfigProcessor | None]
+    file_path: str
+    scheme: Mapping[str, str]
     context_bundle: ContextBundle

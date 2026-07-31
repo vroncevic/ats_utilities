@@ -25,6 +25,7 @@ from __future__ import annotations
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
+from ats_utilities.config_io.setup.validator import ConfigIOValidator
 from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.config_io.data import FileData
 from ats_utilities.config_io.conf_file import ConfFile
@@ -55,8 +56,9 @@ class Loader:
 
             :methods:
                 | __init__ - Constructor.
-                | get_context - Gets the context.
+                | get_context - Gets context.
                 | load_configuration - Loads configuration from file.
+                | __str__ - Returns loader as string representation.
     '''
 
     _context: ContextBundle
@@ -69,18 +71,11 @@ class Loader:
 
             :param own: ConfigIOBundle instance.
             :exceptions:
-                | ATSValueError: Component bundle must be provided.
-                | ATSTypeError: Component bundle must be ConfigIOBundle instance.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
-                | ATSValueError: File path must be provided when processor is None.
-                | ATSTypeError: File path must be a string.
-                | ATSValueError: File does not exist.
-                | ATSValueError: Extension must be provided.
-                | ATSTypeError: Extension must be a string.
-                | ATSValueError: Extension is not supported.
-                | ATSTypeError: Validation of processor instance failed.
+                | ATSValueError: ConfigIOBundle must be provided and have proper values.
+                | ATSTypeError:  ConfigIOBundle must be an instance of ConfigIOBundle and its
+                |                attributes must be instances of their respective types.
         '''
+        ConfigIOValidator.validate(own)
         self._context = own.context_bundle
         self._processor = own.processor
         self._conf_file = ConfFile(
@@ -127,9 +122,9 @@ class Loader:
 
     def __str__(self) -> str:
         '''
-            Returns the Loader as string representation.
+            Returns loader as string representation.
 
-            :return: The Loader as string representation.
+            :return: Loader as string representation.
             :exceptions: None.
         '''
         return to_str(self)

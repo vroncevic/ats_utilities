@@ -29,6 +29,7 @@ from ats_utilities.config_io.data import FileData
 from ats_utilities.config_io.data_validator import FileDataValidator
 from ats_utilities.config_io.setup.types import File
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.exceptions import ATSValueError
 from ats_utilities.reporter.proxy_reporter import vreport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.utils.files import check_file_exists
@@ -92,23 +93,36 @@ class ConfFile:
 
             :return: File IO object.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
-                | ATSValueError: File path must be provided.
-                | ATSValueError: File does not exist (when opening in read mode).
-                | ATSTypeError: File path and mode must be strings.
+                | ATSValueError:     File path must be provided.
+                | ATSValueError:     File does not exist (when opening in read mode).
+                | ATSTypeError:      File path and mode must be strings.
         '''
         ctx: str = 'conf_file::enter(...)'
-        not_none(self._file_path, ctx, 'file path must be provided')
-        not_none(self._file_mode, ctx, 'file mode must be provided')
-        istype(self._file_path, str, ctx, 'file path must be a string')
-        istype(self._file_mode, str, ctx, 'file mode must be a string')
+        msg_file_path_none: str = 'file path must be provided'
+        msg_file_mode_none: str = 'file mode must be provided'
+        msg_file_path_istype: str = 'file path must be a string'
+        msg_file_mode_istype: str = 'file mode must be a string'
+        msg_file_path_not_exist: str = 'file path does not exist'
 
-        if 'r' in self._file_mode:
-            check_file_exists(self._file_path, ctx, f'file {self._file_path} does not exist')
+        not_none(self._file_path, ctx, msg_file_path_none)
+        not_none(self._file_mode, ctx, msg_file_mode_none)
+        istype(self._file_path, str, ctx, msg_file_path_istype)
+        istype(self._file_mode, str, ctx, msg_file_mode_istype)
 
-        self._file = open(self._file_path, self._file_mode, encoding='utf-8')
+        try:
+            if 'r' in self._file_mode:
+                check_file_exists(self._file_path, ctx, msg_file_path_not_exist)
+
+            self._file = open(self._file_path, self._file_mode, encoding='utf-8')
+
+        except ATSValueError:
+            self._file = None
+
+        except Exception:
+            self._file = None
 
         return self._file
 
@@ -125,7 +139,7 @@ class ConfFile:
                 |                    use the @vreport decorator.
         '''
         try:
-            if self._file is not None and hasattr(self._file, 'closed') and not self._file.closed:
+            if self._file is not None and not self._file.closed:
                 self._file.close()
 
         except Exception:

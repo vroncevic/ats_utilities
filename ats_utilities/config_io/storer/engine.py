@@ -27,6 +27,7 @@ from collections.abc import Mapping
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
+from ats_utilities.config_io.setup.validator import ConfigIOValidator
 from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.config_io.data import FileData
 from ats_utilities.config_io.conf_file import ConfFile
@@ -45,6 +46,7 @@ __status__ = 'Development'
 
 class Storer:
     '''
+        Defines class Storer with attribute(s) and method(s).
         Provides an API for storing the configuration from mapping format to configuration file.
         2nd level of configuration storer implementation.
 
@@ -56,9 +58,10 @@ class Storer:
                 | _conf_file - Configuration file interface instance.
 
             :methods:
-                | __init__ - Constructor.
-                | get_context - Gets the context.
+                | __init__ - Initializes storer.
+                | get_context - Gets context.
                 | store_configuration - Stores configuration to file.
+                | __str__ - Returns storer as string representation.
     '''
 
     _context: ContextBundle
@@ -67,22 +70,15 @@ class Storer:
 
     def __init__(self, own: ConfigIOBundle) -> None:
         '''
-            Constructor.
+            Initializes storer.
 
             :param own: ConfigIOBundle instance.
             :exceptions:
-                | ATSValueError: Component bundle must be provided.
-                | ATSTypeError: Component bundle must be ConfigIOBundle instance.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
-                | ATSValueError: File path must be provided when processor is None.
-                | ATSTypeError: File path must be a string.
-                | ATSValueError: File does not exist.
-                | ATSValueError: Extension must be provided.
-                | ATSTypeError: Extension must be a string.
-                | ATSValueError: Extension is not supported.
-                | ATSTypeError: Validation of processor instance failed.
+                | ATSValueError: ConfigIOBundle must be provided and have proper values.
+                | ATSTypeError:  ConfigIOBundle must be an instance of ConfigIOBundle and its
+                |                attributes must be instances of their respective types.
         '''
+        ConfigIOValidator.validate(own)
         self._context = own.context_bundle
         self._processor = own.processor
         self._conf_file = ConfFile(
@@ -95,7 +91,7 @@ class Storer:
 
     def get_context(self) -> ContextBundle:
         '''
-            Returns the context.
+            Returns context.
 
             :return: Context.
             :exceptions: None.
@@ -104,7 +100,7 @@ class Storer:
 
     def store_configuration(self, config: Mapping[str, str]) -> bool:
         '''
-            Writes configuration to a file.
+            Writes configuration to file.
 
             :param config: Configuration object.
             :return: True if successfully, otherwise False.
@@ -131,9 +127,9 @@ class Storer:
 
     def __str__(self) -> str:
         '''
-            Returns the Storer instance as string representation.
+            Returns storer as string representation.
 
-            :return: The Storer instance as string representation.
+            :return: Storer as string representation.
             :exceptions: None.
         '''
         return to_str(self)

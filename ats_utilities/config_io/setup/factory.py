@@ -26,12 +26,11 @@ from collections.abc import Mapping
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.config_io.setup.dependencies import ConfigIODependencies
 from ats_utilities.config_io.setup.options import ConfigIOOptions
+from ats_utilities.config_io.setup.opt_validator import ConfigIOOptionsValidator
+from ats_utilities.config_io.setup.keys import ConfigIOKeys
 from ats_utilities.config_io.setup.registry import ConfigIORegistry
 from ats_utilities.config_io.processor.factory_processor import ConfigProcessorFactory
-from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.validation.check_type import istype
-from ats_utilities.validation.check_value import not_none
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -61,41 +60,23 @@ class ConfigIOFactory:
             :param options: Creation options/parameters for the bundle.
             :return: Config I/O bundle instance.
             :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a dictionary.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: File path must be provided.
-                | ATSValueError: Scheme must be provided.
-                | ATSValueError: Processor must be provided.
-                | ATSTypeError: Bundle must be an instance of ConfigIOBundle.
-                | ATSTypeError: File path must be a string.
-                | ATSTypeError: Scheme must be an instance of Mapping interface.
-                | ATSTypeError: Processor must be an instance of IConfigProcessor interface.
+                | ATSValueError: Options must be provided and have proper values.
+                | ATSTypeError:  Options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'config_io_factory::create_default_bundle(...)'
-        not_none(options, ctx, 'options must be provided')
-        istype(options, dict, ctx, 'options must be a dictionary')
+        ConfigIOOptionsValidator.validate(options)
 
-        context_bundle: ContextBundle = options.get('context_bundle')
-        not_none(context_bundle, ctx, 'context_bundle must be provided')
-        istype(context_bundle, ContextBundle, ctx, 'context_bundle must be a ContextBundle instance')
-
-        file_path: str = options.get('file_path', '')
-        scheme: Mapping[str, str] = options.get('scheme', {})
-        processor: IConfigProcessor | None = options.get('processor')
-
-        if processor is None:
-            processor = ConfigProcessorFactory.create_from_file_path(
-                file_path=file_path,
-                scheme=scheme
-            )
+        file_path: str = options.get(ConfigIOKeys.OPTION_FILE_PATH)
+        scheme: Mapping[str, str] = options.get(ConfigIOKeys.OPTION_SCHEME)
+        context_bundle: ContextBundle = options.get(ConfigIOKeys.OPTION_CONTEXT_BUNDLE)
+        processor = ConfigProcessorFactory.create_from_file_path(
+            file_path=file_path,
+            scheme=scheme
+        )
 
         return ConfigIORegistry.create_bundle(
             ConfigIODependencies(
                 file_path=file_path,
-                scheme=scheme,
                 processor=processor,
                 context_bundle=context_bundle
             )

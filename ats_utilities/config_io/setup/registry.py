@@ -16,19 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core config I/O components for simplification of ConfigIOBundle creation.
+    Encapsulates core config I/O components for ConfigIOBundle creation.
 '''
 
 from __future__ import annotations
 
-from collections.abc import Mapping
-
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.config_io.setup.dependencies import ConfigIODependencies
+from ats_utilities.config_io.setup.dep_validator import ConfigIODependenciesValidator
+from ats_utilities.config_io.setup.keys import ConfigIOKeys
 from ats_utilities.config_io.setup.validator import ConfigIOValidator
-from ats_utilities.config_io.processor.factory_processor import ConfigProcessorFactory
-from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
-from ats_utilities.context.bundle import ContextBundle
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -42,109 +39,34 @@ __status__ = 'Development'
 
 class ConfigIORegistry:
     '''
-        Encapsulates core config I/O components for simplification of ConfigIOBundle creation.
+        Encapsulates core config I/O components for ConfigIOBundle creation.
 
         It defines:
 
             :methods:
-                | create_bundle - Orchestrates dependency injection and creates a ConfigIOBundle instance.
-                | create_config_io_bundle_by_file_path_and_scheme - Creates a ConfigIOBundle based on file path and scheme.
-                | create_config_io_bundle_by_injected_processor - Creates a ConfigIOBundle with injected processor.
+                | create_bundle - Orchestrates dependency injection and creates a ConfigIOBundle.
     '''
 
     @classmethod
     def create_bundle(cls, dependencies: ConfigIODependencies) -> ConfigIOBundle:
         '''
-            Orchestrates dependency injection and creates a ConfigIOBundle instance.
+            Orchestrates dependency injection and creates a ConfigIOBundle.
 
             :param dependencies: Registry-specific orchestration dependencies.
-            :return: ConfigIOBundle instance.
+            :return: ConfigIOBundle.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: File path must be provided.
-                | ATSValueError: Scheme must be provided.
-                | ATSValueError: Processor must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Bundle must be an instance of ConfigIOBundle.
-                | ATSTypeError: File path must be a string.
-                | ATSTypeError: Scheme must be an instance of Mapping interface.
-                | ATSTypeError: Processor must be an instance of IConfigProcessor interface.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle interface.
+                | ATSValueError: Dependencies must be provided and have proper values.
+                | ATSTypeError:  Dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
+        ConfigIODependenciesValidator.validate(dependencies)
+
         bundle: ConfigIOBundle = ConfigIOBundle(
-            file_path=dependencies.get('file_path') if dependencies else None,
-            scheme=dependencies.get('scheme') if dependencies else None,
-            processor=dependencies.get('processor') if dependencies else None,
-            context_bundle=dependencies.get('context_bundle') if dependencies else None
+            file_path=dependencies.get(ConfigIOKeys.DEPENDENCY_FILE_PATH) if dependencies else None,
+            processor=dependencies.get(ConfigIOKeys.DEPENDENCY_PROCESSOR) if dependencies else None,
+            context_bundle=dependencies.get(ConfigIOKeys.DEPENDENCY_CONTEXT_BUNDLE) if dependencies else None
         )
 
         ConfigIOValidator.validate(bundle)
 
         return bundle
-
-    @classmethod
-    def create_config_io_bundle_by_file_path_and_scheme(
-        cls,
-        file_path: str,
-        scheme: Mapping[str, str],
-        context_bundle: ContextBundle
-    ) -> ConfigIOBundle:
-        '''
-            Creates a ConfigIOBundle with pre-configured components based on file path and scheme.
-            Kept for backward compatibility.
-
-            :param file_path: Config file path.
-            :param scheme: Config scheme.
-            :param context_bundle: Context bundle for dependency injection.
-            :return: ConfigIOBundle instance.
-            :exceptions:
-                | ATSValueError: File path must be provided.
-                | ATSValueError: Scheme must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: File path must be a string.
-                | ATSTypeError: Scheme must be an instance of Mapping interface.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle interface.
-        '''
-        processor: IConfigProcessor = ConfigProcessorFactory.create_from_file_path(
-            file_path=file_path,
-            scheme=scheme
-        )
-
-        return cls.create_bundle(
-            ConfigIODependencies(
-                file_path=file_path,
-                scheme=scheme,
-                processor=processor,
-                context_bundle=context_bundle
-            )
-        )
-
-    @classmethod
-    def create_config_io_bundle_by_injected_processor(
-        cls,
-        processor: IConfigProcessor,
-        context_bundle: ContextBundle
-    ) -> ConfigIOBundle:
-        '''
-            Creates a ConfigIOBundle with injected processor.
-            Kept for backward compatibility.
-
-            :param processor: Config processor.
-            :param context_bundle: Context bundle for dependency injection.
-            :return: ConfigIOBundle instance.
-            :exceptions:
-                | ATSValueError: File path must be provided.
-                | ATSValueError: Scheme must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: File path must be a string.
-                | ATSTypeError: Scheme must be an instance of Mapping interface.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle interface.
-        '''
-        return cls.create_bundle(
-            ConfigIODependencies(
-                file_path='',
-                scheme={},
-                processor=processor,
-                context_bundle=context_bundle
-            )
-        )

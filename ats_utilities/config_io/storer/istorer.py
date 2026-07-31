@@ -47,7 +47,7 @@ class IStorer[ContextEnvironment, ConfigurationType](Protocol):
             :methods:
                 | get_context - Returns the context.
                 | store_configuration - Stores configuration to configuration file.
-                | __str__ - Returns storer instance as string representation.
+                | __str__ - Returns storer as string representation.
     '''
 
     def get_context(self) -> ContextEnvironment:
@@ -69,8 +69,8 @@ class IStorer[ContextEnvironment, ConfigurationType](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns storer instance as string representation.
+            Returns storer as string representation.
 
-            :return: Storer instance as string representation.
+            :return: Storer as string representation.
         '''
         ...

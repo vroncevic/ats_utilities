@@ -21,7 +21,6 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 from typing import TypedDict
 
 from ats_utilities.context.bundle import ContextBundle
@@ -45,12 +44,10 @@ class ConfigIODependencies(TypedDict):
 
             :attributes:
                 | file_path: Configuration file path.
-                | scheme: Configuration scheme.
                 | processor: Configuration processor.
                 | context_bundle: Context bundle.
     '''
 
     file_path: str
-    scheme: Mapping[str, str]
     processor: IConfigProcessor
     context_bundle: ContextBundle

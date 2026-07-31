@@ -69,8 +69,8 @@ class IConfFile[FileType, ArgType, KwargType](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns configuration context manager instance as string representation.
+            Returns configuration context manager as string representation.
 
-            :return: Configuration context manager instance as string representation.
+            :return: Configuration context manager as string representation.
         '''
         ...

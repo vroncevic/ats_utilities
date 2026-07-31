@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines FileData DTO class.
+    Defines FileData DTO for config I/O operations.
 '''
 
 from __future__ import annotations
@@ -39,7 +39,7 @@ __status__: str = 'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class FileData:
     '''
-        Defines FileData DTO class for config I/O operations.
+        Defines FileData DTO for config I/O operations.
 
         It defines:
 
@@ -48,7 +48,7 @@ class FileData:
                 | file_mode - File mode.
                 | context_bundle - Context bundle for dependency injection.
             :methods:
-                | to_dict - Converts the file data instance to a dictionary.
+                | to_dict - Converts file data instance to a dictionary.
     '''
 
     file_path: str
@@ -57,9 +57,9 @@ class FileData:
 
     def to_dict(self) -> dict[str, object]:
         '''
-            Converts the file data instance to a dictionary.
+            Converts file data instance to a dictionary.
 
-            :return: Dictionary representation of the file data.
+            :return: Dictionary representation of file data.
             :exceptions: None.
         '''
         return instance_to_dict(self)

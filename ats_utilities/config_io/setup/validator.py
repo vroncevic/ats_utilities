@@ -57,30 +57,33 @@ class ConfigIOValidator:
 
             :param bundle: Config I/O bundle instance to be validated.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: File path must be provided.
-                | ATSValueError: Scheme must be provided.
-                | ATSValueError: Processor must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Bundle must be an instance of ConfigIOBundle.
-                | ATSTypeError: File path must be a string.
-                | ATSTypeError: Scheme must be an instance of Mapping interface.
-                | ATSTypeError: Processor must be an instance of IConfigProcessor interface.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle interface.
+                | ATSValueError: ConfigIOBundle must be provided and have proper values.
+                | ATSTypeError:  ConfigIOBundle must be an instance of ConfigIOBundle and its
+                |                attributes must be instances of their respective types.
         '''
         ctx: str = 'config_io_validator::validate(...)'
+        msg_bundle_none: str = 'ConfigIOBundle must be provided'
+        msg_bundle_istype: str = 'ConfigIOBundle must be an instance of ConfigIOBundle'
+        msg_file_path_none: str = 'File path must be provided'
+        msg_scheme_none: str = 'Scheme must be provided'
+        msg_processor_none: str = 'Processor must be provided'
+        msg_context_bundle_none: str = 'Context bundle must be provided'
+        msg_file_path_istype: str = 'File path must be a string'
+        msg_scheme_istype: str = 'Scheme must be an instance of Mapping interface'
+        msg_processor_istype: str = 'Processor must be an instance of IConfigProcessor interface'
+        msg_context_bundle_istype: str = 'Context bundle must be an instance of ContextBundle interface'
 
-        not_none(bundle, ctx, 'bundle must be provided')
-        istype(bundle, ConfigIOBundle, ctx, 'bundle must be an instance of ConfigIOBundle')
+        not_none(bundle, ctx, msg_bundle_none)
+        istype(bundle, ConfigIOBundle, ctx, msg_bundle_istype)
 
-        not_none(bundle.file_path, ctx, 'file path must be provided')
-        not_none(bundle.scheme, ctx, 'scheme must be provided')
-        not_none(bundle.processor, ctx, 'processor must be provided')
-        not_none(bundle.context_bundle, ctx, 'context bundle must be provided')
+        not_none(bundle.file_path, ctx, msg_file_path_none)
+        not_none(bundle.scheme, ctx, msg_scheme_none)
+        not_none(bundle.processor, ctx, msg_processor_none)
+        not_none(bundle.context_bundle, ctx, msg_context_bundle_none)
 
-        istype(bundle.file_path, str, ctx, 'file path must be a string')
-        istype(bundle.scheme, Mapping, ctx, 'scheme must be an instance of Mapping interface')
-        istype(bundle.processor, IConfigProcessor, ctx, 'processor must be an instance of IConfigProcessor interface')
-        istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be an instance of ContextBundle interface')
+        istype(bundle.file_path, str, ctx, msg_file_path_istype)
+        istype(bundle.scheme, Mapping, ctx, msg_scheme_istype)
+        istype(bundle.processor, IConfigProcessor, ctx, msg_processor_istype)
+        istype(bundle.context_bundle, ContextBundle, ctx, msg_context_bundle_istype)
 
         ContextValidator.validate(bundle.context_bundle)
