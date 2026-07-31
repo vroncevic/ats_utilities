@@ -17,15 +17,13 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class GeneratorManager with attribute(s) and method(s).
-    Template-based file generation from .tgz archives.
+    Provides an API for template-based generation of project files from .tgz archives.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.utils.reflection import to_str
 from ats_utilities.generation.setup.bundle import GeneratorBundle
 from ats_utilities.generation.setup.validator import GeneratorValidator
 from ats_utilities.generation.data import GeneratorData
@@ -33,8 +31,11 @@ from ats_utilities.generation.data_validator import GeneratorDataValidator
 from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generation.tar.itar_processor import ITarProcessor
 from ats_utilities.generation.tar.data import TarData
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.validation.check_value import not_satisfied, not_empty, not_none
 from ats_utilities.validation.check_type import istype
+from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -49,7 +50,7 @@ __status__ = 'Development'
 class GeneratorManager:
     '''
         Defines class GeneratorManager with attribute(s) and method(s).
-        Template-based file generation from .tgz archives.
+        Provides an API for template-based generation of project files from .tgz archives.
 
         It defines:
 
@@ -57,13 +58,16 @@ class GeneratorManager:
                 | _context - Bundle of context.
                 | _scheme_loader - Loader/resolver for scheme configuration.
                 | _tar_processor - Processor for archive extraction and template rendering.
-                | _is_initialized - Flag indicating if the generator is initialized.
+                | _is_initialized - Flag indicating if the generator manager is initialized.
             :methods:
-                | __init__ - Initializes GeneratorManager constructor.
-                | get_context - Returns the context.
+                | __init__ - Initializes generator manager.
+                | get_bundle - Returns current generator configuration bundle.
+                | update_bundle - Updates current generator configuration bundle.
+                | _apply_bundle - Applies the generator configuration bundle.
+                | get_context - Returns current context.
                 | generate - Generates project modules/files from a .tgz archive.
-                | is_initialized - Checks if the generator component is initialized.
-                | __str__ - Returns the string representation of GeneratorManager.
+                | is_initialized - Checks if the generator manager is initialized.
+                | __str__ - Returns generator manager as string representation.
     '''
 
     _context: ContextBundle
@@ -73,34 +77,67 @@ class GeneratorManager:
 
     def __init__(self, own: GeneratorBundle) -> None:
         '''
-            Initializes GeneratorManager constructor.
+            Initializes generator manager.
 
-            :param own: GeneratorManager component bundle for generator.
+            :param own: Generator manager component bundle for generator.
             :exceptions:
-                | ATSValueError: Component bundle must be provided.
-                | ATSValueError: Component bundle must not be provided.
-                | ATSValueError: Context bundle must not be provided.
-                | ATSValueError: Scheme loader must be provided.
-                | ATSValueError: Tar processor must be provided.
-                | ATSValueError: Template processor must be provided.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
-                | ATSTypeError: Scheme loader must be an ISchemeLoader instance.
-                | ATSTypeError: Tar processor must be an ITarProcessor instance.
-                | ATSTypeError: Template processor must be an ITemplateProcessor instance.
-                | ATSTypeError: Component bundle must be of type GeneratorBundle.
-                | ATSTypeError: Context bundle must be of type ContextBundle.
+                | ATSValueError: Generator manager component bundle must be provided and have proper values.
+                | ATSTypeError:  Generator manager component bundle must be an instance of GeneratorBundle
+                |                and its attributes must be instances of their respective types.
         '''
+        self._is_initialized = False
         GeneratorValidator.validate(own)
-        self._context = own.context_bundle
-        self._scheme_loader = own.scheme_loader
-        self._tar_processor = own.tar_processor
+        self._apply_bundle(own)
         self._is_initialized = True
+
+    def get_bundle(self) -> GeneratorBundle:
+        '''
+            Gets current generator configuration bundle.
+
+            :return: Generator configuration bundle.
+            :exceptions: None.
+        '''
+        return GeneratorBundle(
+            context_bundle=self._context,
+            scheme_loader=self._scheme_loader,
+            tar_processor=self._tar_processor
+        )
+
+    def update_bundle(self, bundle: GeneratorBundle) -> bool:
+        '''
+            Updates generator configuration bundle.
+
+            :param bundle: Generator configuration bundle.
+            :return: True if generator configuration bundle is updated successfully.
+            :exceptions: None.
+        '''
+        try:
+            self._is_initialized = False
+            GeneratorValidator.validate(bundle)
+            self._apply_bundle(bundle)
+            self._is_initialized = True
+
+            return True
+
+        except (ATSValueError, ATSTypeError):
+            return False
+
+    def _apply_bundle(self, bundle: GeneratorBundle) -> None:
+        '''
+            Applies generator configuration bundle.
+
+            :param bundle: Generator configuration bundle.
+            :exceptions: None.
+        '''
+        self._context = bundle.context_bundle
+        self._scheme_loader = bundle.scheme_loader
+        self._tar_processor = bundle.tar_processor
 
     def get_context(self) -> ContextBundle:
         '''
-            Returns the context.
+            Gets current context.
 
-            :return: Context.
+            :return: Current context.
             :exceptions: None.
         '''
         return self._context
@@ -110,25 +147,32 @@ class GeneratorManager:
             Validates and computes name case variations from template values.
 
             :param template_values: Input replacement values.
-            :return: The updated template values dictionary.
+            :return: Updated template values dictionary.
             :exceptions:
                 | ATSValueError: Template values must be provided.
-                | ATSTypeError: Template values must be a mapping.
+                | ATSTypeError:  Template values must be a mapping.
                 | ATSValueError: Template values is missing or empty.
         '''
-        context: str = 'generator::prepare_template_values(...)'
-        not_none(template_values, context, 'template_values must be provided')
-        istype(template_values, Mapping, context, 'template_values must be a mapping')
-        project_name = template_values.get('project_name')
-        not_empty(project_name, context, 'template_values must contain a non-empty project_name')
+        ctx: str = 'generator::prepare_template_values(...)'
+        msg_template_values_none: str = 'template_values must be provided'
+        msg_template_values_istype: str = 'template_values must be a mapping'
+        msg_project_name_empty: str = 'template_values must contain a non-empty project_name'
+
+        not_none(template_values, ctx, msg_template_values_none)
+        istype(template_values, Mapping, ctx, msg_template_values_istype)
+        project_name: str = template_values.get('project_name')
+        not_empty(project_name, ctx, msg_project_name_empty)
 
         values = template_values.copy()
+
         if 'project_name_dashed' not in values:
             values['project_name_dashed'] = project_name.replace('_', '-')
+
         if 'project_name_camel' not in values:
             values['project_name_camel'] = ''.join(
                 word.capitalize() for word in project_name.replace('-', '_').split('_')
             )
+
         if 'project_name_upper' not in values:
             values['project_name_upper'] = project_name.upper().replace('-', '_')
 
@@ -141,40 +185,27 @@ class GeneratorManager:
             :param data: GeneratorManager data containing template generation parameters.
             :return: True if successfully, otherwise False.
             :exceptions:
-                | ATSValueError: GeneratorManager data must be provided.
-                | ATSTypeError: GeneratorManager data must be an instance of GeneratorData.
-                | ATSValueError: Archive path must be provided.
-                | ATSValueError: Target directory must be provided.
-                | ATSValueError: Template key must be provided.
-                | ATSValueError: Scheme must be provided.
-                | ATSValueError: Template values must be provided.
-                | ATSTypeError: Archive path must be a string.
-                | ATSTypeError: Target directory must be a string.
-                | ATSTypeError: Template key must be a string.
-                | ATSTypeError: Scheme must be a string or a mapping.
-                | ATSTypeError: Template values must be a mapping.
-                | ATSValueError: Archive file does not exist.
-                | ATSValueError: Scheme file does not exist.
-                | ATSValueError: Template key not found in scheme.
-                | ATSValueError: Source directory not specified for template key.
-                | ATSGeneratorError: Archive parsing or template rendering fails.
+                | ATSValueError: Generator data must be provided and have proper values.
+                | ATSTypeError:  Generator data must be an instance of GeneratorData and its attributes
+                |                must be instances of their respective types.
         '''
         GeneratorDataValidator.validate(data)
         resolved_scheme = self._scheme_loader.load(data.scheme)
         project_scheme = resolved_scheme.get(data.template_key)
+
         ctx: str = 'generator::generate(...)'
-        not_satisfied(
-            not project_scheme, ctx,
-            f'template_key {data.template_key} not found in scheme configuration'
-        )
-        source_dir = project_scheme.get('source_dir')
-        not_satisfied(
-            not source_dir, ctx,
-            f'source_dir not specified for template_key {data.template_key}'
-        )
+        msg_template_key_not_found: str = f'template_key {data.template_key} not found in scheme configuration'
+        msg_source_dir_not_specified: str = f'source_dir not specified for template_key {data.template_key}'
+
+        not_satisfied(not project_scheme, ctx, msg_template_key_not_found)
+
+        source_dir: str = project_scheme.get('source_dir')
+        not_satisfied(not source_dir, ctx, msg_source_dir_not_specified)
+
         path_replacements: dict[str, str] = project_scheme.get('path_replacements', {})
         exclude_patterns: list[str] = project_scheme.get('exclude', [])
-        vals = self.prepare_template_values(data.template_values)
+
+        vals: dict[str, str] = self.prepare_template_values(data.template_values)
 
         try:
             self._tar_processor.process(
@@ -195,7 +226,7 @@ class GeneratorManager:
 
     def is_initialized(self) -> bool:
         '''
-            Checks if generator component is initialized.
+            Checks if generator manager is initialized.
 
             :return: True if successfully, otherwise False.
             :exceptions: None.
@@ -208,9 +239,9 @@ class GeneratorManager:
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of GeneratorManager.
+            Returns generator manager as string representation.
 
-            :return: The GeneratorManager as string representation.
+            :return: Generator manager as string representation.
             :exceptions: None.
         '''
         return to_str(self)

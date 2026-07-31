@@ -71,6 +71,7 @@ class TarData:
         '''
         return instance_to_dict(self)
 
+
 @dataclass(slots=True, frozen=True, kw_only=True)
 class TarMemberData:
     '''

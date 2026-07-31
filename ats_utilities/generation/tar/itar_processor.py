@@ -24,8 +24,6 @@ from __future__ import annotations
 
 from typing import Protocol, runtime_checkable
 
-from ats_utilities.generation.tar.data import TarData, TarMemberData
-
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
@@ -37,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class ITarProcessor(Protocol):
+class ITarProcessor[TarDataType, TarMemberDataType](Protocol):
     '''
         Defines abstract class ITarProcessor with method(s).
         Interface for tar archive extraction and template rendering.
@@ -47,42 +45,38 @@ class ITarProcessor(Protocol):
             :methods:
                 | process_tar_member - Processes a single tar archive member.
                 | process - Processes the tar archive members.
-                | is_initialized - Checks if the processor is initialized.
-                | __str__ - Returns the processor as string representation.
+                | is_initialized - Checks if tar processor is initialized.
+                | __str__ - Returns tar processor as string representation.
     '''
 
-    def process_tar_member(self, tar_process_member_bundle: TarMemberData) -> None:
+    def process_tar_member(self, tar_process_member_bundle: TarMemberDataType) -> None:
         '''
             Extracts and processes a single tar member (creates dirs or renders files).
 
-            :param tar_process_member_bundle: Parameters defining what to do with the tar archive member.
-            :exceptions: None.
+            :param tar_process_member_bundle: Parameters defining what to do with tar archive member.
         '''
         ...
 
-    def process(self, tar_process_bundle: TarData) -> None:
+    def process(self, tar_process_bundle: TarDataType) -> None:
         '''
-            Processes the tar archive members.
+            Processes tar archive members.
 
-            :param tar_process_bundle: Parameters defining what to do with the tar archive.
-            :exceptions: None.
+            :param tar_process_bundle: Parameters defining what to do with tar archive.
         '''
         ...
 
     def is_initialized(self) -> bool:
         '''
-            Checks if component is initialized.
+            Checks if tar processor is initialized.
 
             :return: True if successfully, otherwise False.
-            :exceptions: None.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the component as string representation.
+            Returns tar processor as string representation.
 
-            :return: String representation.
-            :exceptions: None.
+            :return: Tar processor as string representation.
         '''
         ...

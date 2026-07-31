@@ -35,7 +35,7 @@ __status__ = 'Development'
 
 
 @runtime_checkable
-class IGeneratorManager[GeneratorTemplatesType, GeneratorDataType, ContextEnvironment](Protocol):
+class IGeneratorManager[ConfigType, GeneratorTemplatesType, GeneratorDataType, ContextEnvironment](Protocol):
     '''
         Defines abstract class IGeneratorManager with method(s).
         Provides an interface for template-based file generation from .tgz archives.
@@ -43,12 +43,33 @@ class IGeneratorManager[GeneratorTemplatesType, GeneratorDataType, ContextEnviro
         It defines:
 
             :methods:
+                | get_bundle - Gets current generator configuration bundle.
+                | update_bundle - Updates generator configuration bundle.
                 | get_context - Returns the context.
                 | prepare_template_values - Prepares template values.
                 | generate - Generates project modules/files from a .tgz archive.
                 | is_initialized - Checks if the generator manager is initialized.
                 | __str__ - Returns generator manager as string representation.
     '''
+
+    def get_bundle(self) -> ConfigType:
+        '''
+            Gets current generator configuration bundle.
+
+            :return: Generator configuration bundle.
+            :exceptions: None.
+        '''
+        ...
+
+    def update_bundle(self, bundle: ConfigType) -> bool:
+        '''
+            Updates generator configuration bundle.
+
+            :param bundle: Generator configuration bundle.
+            :return: True if generator configuration bundle is updated successfully.
+            :exceptions: None.
+        '''
+        ...
 
     def get_context(self) -> ContextEnvironment:
         '''

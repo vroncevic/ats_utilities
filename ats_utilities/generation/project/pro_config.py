@@ -25,6 +25,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -53,10 +54,10 @@ class ProConfig:
                 | FORMAT - Format for template file extension.
                 | _config - Tool configuration in dictionary format (default None).
             :methods:
-                | __init__ - Initializes ProConfig constructor.
+                | __init__ - Initializes project configuration.
                 | config - Property methods for set/get operations.
                 | not_none - Checks project configuration is not None.
-                | __str__ - Returns the ATS project configuration as string representation.
+                | __str__ - Returns ATS project configuration as string representation.
     '''
 
     TEMPLATES: str = 'templates'
@@ -67,13 +68,15 @@ class ProConfig:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes ProConfig constructor.
+            Initializes project configuration.
 
             :param context_bundle: Context bundle for project configuration.
             :exceptions:
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSValueError: Context bundle must be provided and have proper values.
+                | ATSTypeError:  Context bundle must be an instance of ContextBundle and
+                |                its attributes must be instances of their respective types.
         '''
+        ContextValidator.validate(context_bundle)
         self._context = context_bundle
         self._config = None
 
@@ -85,7 +88,7 @@ class ProConfig:
 
             :return: Formatted project configuration in dict format.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
@@ -100,12 +103,12 @@ class ProConfig:
 
             :param pro_config: Project configuration in Mapping format.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
-                | ATSTypeError: Parameter type validation failed.
-                | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSTypeError:      Parameter type validation failed.
+                | ATSValueError:     Parameter format validation failed.
+                | ATSRuntimeError:   Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._config = pro_config
@@ -117,7 +120,7 @@ class ProConfig:
 
             :return: True if successfully, otherwise False.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
@@ -125,9 +128,9 @@ class ProConfig:
 
     def __str__(self) -> str:
         '''
-            Returns the ATS project configuration as string representation.
+            Returns ATS project configuration as string representation.
 
-            :return: The ATS project configuration as string representation.
+            :return: ATS project configuration as string representation.
             :exceptions: None.
         '''
         return to_str(self)

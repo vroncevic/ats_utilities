@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class ISchemeLoader with method(s).
-    Interface for loading/resolving generation scheme.
+    Provides an interface for loading and resolving generation scheme.
 '''
 
 from __future__ import annotations
@@ -39,14 +39,14 @@ __status__ = 'Development'
 class ISchemeLoader(Protocol):
     '''
         Defines abstract class ISchemeLoader with method(s).
-        Interface for loading/resolving generation scheme.
+        Provides an interface for loading and resolving generation scheme.
 
         It defines:
 
             :methods:
                 | load - Loads and resolves the scheme from dict or path.
-                | is_initialized - Checks if the loader is initialized.
-                | __str__ - Returns the loader as string representation.
+                | is_initialized - Checks if scheme loader is initialized.
+                | __str__ - Returns scheme loader as string representation.
     '''
 
     def load(self, scheme: str | Mapping[str, object]) -> dict[str, object]:
@@ -54,14 +54,14 @@ class ISchemeLoader(Protocol):
             Loads and resolves the scheme.
 
             :param scheme: Generation scheme file path or preloaded scheme.
-            :return: The resolved scheme dictionary.
+            :return: Resolved scheme dictionary.
             :exceptions: None.
         '''
         ...
 
     def is_initialized(self) -> bool:
         '''
-            Checks if component is initialized.
+            Checks if scheme loader is initialized.
 
             :return: True if successfully, otherwise False.
             :exceptions: None.
@@ -70,9 +70,9 @@ class ISchemeLoader(Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns the component as string representation.
+            Returns scheme loader as string representation.
 
-            :return: String representation.
+            :return: Scheme loader as string representation.
             :exceptions: None.
         '''
         ...

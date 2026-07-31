@@ -63,7 +63,7 @@ class GeneratorData:
         '''
             Converts the generator data instance to a dictionary.
 
-            :return: Dictionary representation of the generator data instance.
+            :return: Dictionary representation of the generator data.
             :exceptions: None.
         '''
         return instance_to_dict(self)

@@ -26,6 +26,7 @@ from collections.abc import Mapping
 from string import Template
 
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
@@ -50,8 +51,8 @@ class TemplateProcessor:
             :methods:
                 | __init__ - Initializes TemplateProcessor constructor.
                 | render - Decodes and renders template placeholders.
-                | is_initialized - Checks if the processor is initialized.
-                | __str__ - Returns the processor as string representation.
+                | is_initialized - Checks if the template processor is initialized.
+                | __str__ - Returns template processor as string representation.
     '''
 
     _initialized: bool
@@ -63,9 +64,11 @@ class TemplateProcessor:
 
             :param context_bundle: Context bundle for template processor | None.
             :exceptions:
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSValueError: Context bundle must be provided and have proper values.
+                | ATSTypeError:  Context bundle must be an instance of ContextBundle and
+                |                its attributes must be instances of their respective types.
         '''
+        ContextValidator.validate(context_bundle)
         self._context = context_bundle
         self._initialized = True
 
@@ -89,7 +92,7 @@ class TemplateProcessor:
 
     def is_initialized(self) -> bool:
         '''
-            Checks if template processor component is initialized.
+            Checks if template processor is initialized.
 
             :return: True if successfully, otherwise False.
             :exceptions: None.
@@ -98,9 +101,9 @@ class TemplateProcessor:
 
     def __str__(self) -> str:
         '''
-            Returns the TemplateProcessor as string representation.
+            Returns template processor as string representation.
 
-            :return: The TemplateProcessor as string representation.
+            :return: Template processor as string representation.
             :exceptions: None.
         '''
         return to_str(self)

@@ -45,7 +45,7 @@ class IProName(Protocol):
             :methods:
                 | pro_name - Property methods for set/get operations.
                 | not_none - Checks if project name is not None.
-                | __str__ - Returns the ATS project name as string representation.
+                | __str__ - Returns ATS project name as string representation.
     '''
 
     @property
@@ -53,8 +53,7 @@ class IProName(Protocol):
         '''
             Property method for getting project name.
 
-            :return: Formatted project name in string format | None
-            :exceptions: None.
+            :return: Formatted project name in string format | None.
         '''
         ...
 
@@ -63,8 +62,7 @@ class IProName(Protocol):
         '''
             Property method for setting project name.
 
-            :param name: Project name in string format | None
-            :exceptions: None.
+            :param name: Project name in string format | None.
         '''
         ...
 
@@ -73,15 +71,13 @@ class IProName(Protocol):
             Checks if project name is not None.
 
             :return: True if successfully, otherwise False.
-            :exceptions: None.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the ATS project name as string representation.
+            Returns ATS project name as string representation.
 
-            :return: The ATS project name as string representation.
-            :exceptions: None.
+            :return: ATS project name as string representation.
         '''
         ...

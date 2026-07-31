@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class TarProcessor with method(s).
-    Handles tar archive extraction and template rendering.
+    Defines class TarProcessor with attribute(s) and method(s).
+    Provides an API for tar archive extraction and template rendering.
 '''
 
 from __future__ import annotations
@@ -31,7 +31,6 @@ from ats_utilities.generation.tar.data_validator import (
     TarDataValidator, TarMemberDataValidator
 )
 from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
-from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.utils.files import (
     normalize_path,
@@ -40,6 +39,8 @@ from ats_utilities.utils.files import (
     apply_path_replacements,
     write_content
 )
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.exceptions import ATSGeneratorError
 from ats_utilities.validation.check_value import not_satisfied, not_none
 from ats_utilities.validation.check_type import istype
@@ -57,8 +58,8 @@ __status__ = 'Development'
 
 class TarProcessor:
     '''
-        Defines class TarProcessor with method(s).
-        Handles tar archive extraction and template rendering.
+        Defines class TarProcessor with attribute(s) and method(s).
+        Provides an API for tar archive extraction and template rendering.
 
         It defines:
 
@@ -67,44 +68,37 @@ class TarProcessor:
             :methods:
                 | __init__ - Initializes TarProcessor constructor.
                 | process_tar_member - Processes a single tar archive member.
-                | process - Processes the tar archive members.
-                | is_initialized - Checks if the processor is initialized.
-                | __str__ - Returns the processor as string representation.
+                | process - Processes tar archive members.
+                | is_initialized - Checks if tar processor is initialized.
+                | __str__ - Returns tar processor as string representation.
     '''
 
     _context: ContextBundle
     _template_processor: ITemplateProcessor
 
-    def __init__(
-        self,
-        context_bundle: ContextBundle,
-        template_processor: ITemplateProcessor
-    ) -> None:
+    def __init__(self, context_bundle: ContextBundle, template_processor: ITemplateProcessor) -> None:
         '''
             Initializes TarProcessor constructor.
 
             :param context_bundle: Context bundle for tar processor.
             :param template_processor: Custom template rendering component.
             :exceptions:
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSValueError: Context bundle must be provided and have proper values.
+                | ATSTypeError:  Context bundle must be an instance of ContextBundle and
+                |                its attributes must be instances of their respective types.
                 | ATSValueError: Template processor must be provided.
-                | ATSTypeError: Template processor must be an instance of ITemplateProcessor.   
+                | ATSTypeError:  Template processor must be an instance of ITemplateProcessor.   
         '''
-        ctx: str = 'tar_processor::init(...)'
-
-        not_none(context_bundle, ctx, 'context bundle must be provided')
-        istype(
-            context_bundle, ContextBundle, ctx,
-            'context bundle must be an instance of ContextBundle'
-        )
+        ContextValidator.validate(context_bundle)
         self._context = context_bundle
 
-        not_none(template_processor, ctx, 'template processor must be provided')
-        istype(
-            template_processor, ITemplateProcessor, ctx,
-            'template processor must be an instance of ITemplateProcessor'
-        )
+        ctx: str = 'tar_processor::init(...)'
+        msg_template_processor_none: str = 'template processor must be provided'
+        msg_template_processor_istype: str = 'template processor must be an instance of ITemplateProcessor'
+
+        not_none(template_processor, ctx, msg_template_processor_none)
+        istype(template_processor, ITemplateProcessor, ctx, msg_template_processor_istype)
+
         self._template_processor = template_processor
 
     def process_tar_member(self, data: TarMemberData) -> None:
@@ -113,17 +107,9 @@ class TarProcessor:
 
             :param data: Parameters defining what to do with the tar archive member.
             :exceptions:
-                | ATSValueError: data must be provided.
-                | ATSTypeError: data must be an instance of TarMemberData.
-                | ATSValueError: tar must be provided.
-                | ATSValueError: member must be provided.
-                | ATSValueError: dest_full_path must be provided.
-                | ATSValueError: vals must be provided.
-                | ATSTypeError: tar must be a TarFile instance.
-                | ATSTypeError: member must be a TarInfo instance.
-                | ATSTypeError: dest_full_path must be a string.
-                | ATSTypeError: vals must be a mapping.
-                | ATSValueError: Error writing to file.
+                | ATSValueError: Tar member data must be provided and have proper values.
+                | ATSTypeError:  Tar member data must be an instance of TarMemberData and
+                |                its attributes must be instances of their respective types.
         '''
         TarMemberDataValidator.validate(data)
 
@@ -149,26 +135,9 @@ class TarProcessor:
 
             :param data: Parameters defining what to do with the tar archive.
             :exceptions:
-                | ATSValueError: data must be provided.
-                | ATSTypeError: data must be an instance of TarData.
-                | ATSValueError: archive path must be provided.
-                | ATSTypeError: archive path must be a string.
-                | ATSValueError: target directory must be provided.
-                | ATSTypeError: target directory must be a string.
-                | ATSValueError: source directory must be provided.
-                | ATSTypeError: source directory must be a string.
-                | ATSValueError: path replacements must be provided.
-                | ATSTypeError: path replacements must be a mapping.
-                | ATSValueError: exclude patterns must be provided.
-                | ATSTypeError: exclude patterns must be a sequence.
-                | ATSValueError: vals must be provided.
-                | ATSTypeError: vals must be a mapping.
-                | ATSValueError: Error writing to file.
-                | ATSValueError: Error normalizing path.
-                | ATSValueError: Error resolving relative path.
-                | ATSValueError: Error checking for excluded path.
-                | ATSValueError: Error applying path replacements.
-                | ATSGeneratorError: Process execution failed.
+                | ATSValueError: Tar data must be provided and have proper values.
+                | ATSTypeError:  Tar data must be an instance of TarData and
+                |                its attributes must be instances of their respective types.
         '''
         ctx: str = 'tar_processor::process(...)'
         try:
@@ -179,49 +148,44 @@ class TarProcessor:
                 source_dir_clean = normalize_path(data.source_dir, ctx)
 
                 for member in tar.getmembers():
-                    normalized_name = normalize_path(
-                        member.name, ctx,
-                        f'error normalizing path {member.name} in tar {data.archive_path}'
-                    )
+                    msg_path_err: str = f'error normalizing path {member.name} in tar {data.archive_path}'
+                    normalized_name = normalize_path(member.name, ctx, msg_path_err)
+
+                    msg_resolve_path_err: str = f'error resolving relative path {normalized_name}'
+                    msg_resolve_path_err_with_source: str = f'{msg_resolve_path_err} with source dir {source_dir_clean}'
                     rel_path = resolve_relative_path(
-                        normalized_name, source_dir_clean, ctx,
-                        f'error resolving relative path {normalized_name}'
-                        f' with source dir {source_dir_clean}'
+                        normalized_name, source_dir_clean, ctx, msg_resolve_path_err_with_source
                     )
 
                     if rel_path is None or not rel_path:
                         continue
 
-                    if is_excluded_path(
-                        rel_path, data.exclude_patterns, ctx,
-                        f'error checking for excluded path {rel_path}'
-                        f' with patterns {data.exclude_patterns}'
-                    ):
+                    msg_exclude_path_err: str = f'error checking for excluded path {rel_path}'
+                    msg_exclude_path_err_with_patterns: str = f'{msg_exclude_path_err} with patterns {data.exclude_patterns}'
+
+                    if is_excluded_path(rel_path, data.exclude_patterns, ctx, msg_exclude_path_err_with_patterns):
                         continue
 
+                    msg_path_replace_err: str = f'error applying path replacements to {rel_path}'
+                    msg_path_replace_err_with_patterns: str = f'{msg_path_replace_err} with patterns {data.path_replacements}'
                     dest_rel_path = apply_path_replacements(
-                        rel_path, data.path_replacements, data.vals, ctx,
-                        f'error applying path replacements to {rel_path}'
-                        f' with replacements {data.path_replacements}'
+                        rel_path, data.path_replacements, data.vals, ctx, msg_path_replace_err_with_patterns
                     )
+
                     dest_full_path = join(data.target_dir, dest_rel_path)
 
                     self.process_tar_member(
-                        TarMemberData(
-                            tar=tar,
-                            member=member,
-                            dest_full_path=dest_full_path,
-                            vals=data.vals
-                        )
+                        TarMemberData(tar=tar, member=member, dest_full_path=dest_full_path, vals=data.vals)
                     )
 
         except Exception as exc:
             msg: str = format_error_raw(exc, self._context.verbose)
-            not_satisfied(True, ctx, f'process execution failed: {msg}', ATSGeneratorError)
+            msg_fail: str = f'process execution failed: {msg}'
+            not_satisfied(True, ctx, msg_fail, ATSGeneratorError)
 
     def is_initialized(self) -> bool:
         '''
-            Checks if tar processor component is initialized.
+            Checks if tar processor is initialized.
 
             :return: True if successfully, otherwise False.
             :exceptions: None.
@@ -230,9 +194,9 @@ class TarProcessor:
 
     def __str__(self) -> str:
         '''
-            Returns the TarProcessor as string representation.
+            Returns tar processor as string representation.
 
-            :return: The TarProcessor as string representation.
+            :return: Tar processor as string representation.
             :exceptions: None.
         '''
         return to_str(self)

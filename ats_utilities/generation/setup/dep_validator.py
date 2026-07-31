@@ -2,7 +2,7 @@
 
 '''
 Module
-    registry.py
+    dep_validator.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,16 +16,18 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of generator bundle creation.
+    Validator for generator dependencies.
 '''
 
 from __future__ import annotations
 
-from ats_utilities.generation.setup.bundle import GeneratorBundle
+from collections.abc import Mapping
+
 from ats_utilities.generation.setup.dependencies import GeneratorDependencies
-from ats_utilities.generation.setup.dep_validator import GeneratorDependenciesValidator
 from ats_utilities.generation.setup.keys import GeneratorKeys
-from ats_utilities.generation.setup.validator import GeneratorValidator
+from ats_utilities.context.validator import ContextValidator
+from ats_utilities.validation.check_type import istype
+from ats_utilities.validation.check_value import not_none
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,36 +39,42 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class GeneratorRegistry:
+class GeneratorDependenciesValidator:
     '''
-        Encapsulates core runtime components for simplification of generator bundle creation.
+        Validator for generator dependencies.
 
         It defines:
 
             :methods:
-                | create_bundle - Orchestrates dependency injection and creates a generator bundle.
+                | validate - Validates generator dependencies.
     '''
 
     @classmethod
-    def create_bundle(cls, dependencies: GeneratorDependencies) -> GeneratorBundle:
+    def validate(cls, dependencies: GeneratorDependencies) -> None:
         '''
-            Orchestrates dependency injection and creates a generator bundle.
+            Validates generator dependencies.
 
-            :param dependencies: Registry-specific orchestration dependencies.
-            :return: Generator bundle.
+            :param dependencies: Generator dependencies instance to be validated.
             :exceptions:
                 | ATSValueError: Generator dependencies must be provided and have proper values.
                 | ATSTypeError:  Generator dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
-        GeneratorDependenciesValidator.validate(dependencies)
+        ctx: str = 'generator_dependencies_validator::validate(...)'
+        msg_dependencies_none: str = 'dependencies must be provided'
+        msg_dependencies_istype: str = 'dependencies must be a Mapping'
 
-        bundle: GeneratorBundle = GeneratorBundle(
-            scheme_loader=dependencies.get(GeneratorKeys.SCHEME_LOADER) if dependencies else None,
-            tar_processor=dependencies.get(GeneratorKeys.TAR_PROCESSOR) if dependencies else None,
-            context_bundle=dependencies.get(GeneratorKeys.CONTEXT_BUNDLE) if dependencies else None
-        )
+        not_none(dependencies, ctx, msg_dependencies_none)
+        istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
-        GeneratorValidator.validate(bundle)
+        for attr_name, expected_type in GeneratorKeys.get_dependency_to_type().items():
+            msg_attr_name_none: str = f'{attr_name.replace("_", " ")} must be provided'
+            msg_attr_name_istype: str = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
-        return bundle
+            attribute = dependencies.get(attr_name)
+
+            not_none(attribute, ctx, msg_attr_name_none)
+            istype(attribute, expected_type, ctx, msg_attr_name_istype)
+
+            if attr_name == GeneratorKeys.DEPENDENCY_CONTEXT_BUNDLE:
+                ContextValidator.validate(attribute)

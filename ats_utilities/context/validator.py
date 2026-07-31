@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for context bundle instance.
+    Validator for context bundle.
 '''
 
 from __future__ import annotations
@@ -40,24 +40,24 @@ __status__ = 'Development'
 
 class ContextValidator:
     '''
-        Validator for context bundle instance.
+        Validator for context bundle.
 
         It defines:
 
             :methods:
-                | validate - Validates context bundle instance.
+                | validate - Validates context bundle.
     '''
 
     @classmethod
     def validate(cls, bundle: ContextBundle) -> None:
         '''
-            Validates context bundle instance.
+            Validates context bundle.
 
-            :param bundle: Context bundle instance to be validated.
+            :param bundle: Context bundle to be validated.
             :exceptions:
                 | ATSValueError: Context bundle must be provided and have proper values.
-                | ATSTypeError:  Context bundle must be an instance of ContextBundle and its attributes
-                |                must be instances of their respective types.
+                | ATSTypeError:  Context bundle must be an instance of ContextBundle and
+                |                its attributes must be instances of their respective types.
         '''
         ctx: str = 'context_validator::validate(...)'
         msg_bundle_none: str = 'bundle must be provided'

@@ -45,7 +45,7 @@ class ITemplateDir(Protocol):
             :methods:
                 | template_dir - Property methods for set/get operations.
                 | not_none - Checks if project template directory is not None.
-                | __str__ - Returns the ATS project template directory as string representation.
+                | __str__ - Returns ATS project template directory as string representation.
     '''
 
     @property
@@ -53,8 +53,7 @@ class ITemplateDir(Protocol):
         '''
             Property method for getting template dir.
 
-            :return: Formatted template dir in string format | None
-            :exceptions: None.
+            :return: Formatted template dir in string format | None.
         '''
         ...
 
@@ -63,8 +62,7 @@ class ITemplateDir(Protocol):
         '''
             Property method for setting project template dir.
 
-            :param dir_path: Project template dir path in string format | None
-            :exceptions: None.
+            :param dir_path: Project template dir path in string format | None.
         '''
         ...
 
@@ -73,15 +71,13 @@ class ITemplateDir(Protocol):
             Checks if project template directory is not None.
 
             :return: True if successfully, otherwise False.
-            :exceptions: None.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the ATS project template directory as string representation.
+            Returns ATS project template directory as string representation.
 
-            :return: The ATS project template directory as string representation.
-            :exceptions: None.
+            :return: ATS project template directory as string representation.
         '''
         ...

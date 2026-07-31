@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for generator bundle instance.
+    Validator for generator bundle.
 '''
 
 from __future__ import annotations
 
-from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generation.setup.bundle import GeneratorBundle
 from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generation.tar.itar_processor import ITarProcessor
-from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -41,43 +41,44 @@ __status__ = 'Development'
 
 class GeneratorValidator:
     '''
-        Validator for generator bundle instance.
+        Validator for generator bundle.
 
         It defines:
 
             :methods:
-                | validate - Validates generator bundle instance.
+                | validate - Validates generator bundle.
     '''
 
     @classmethod
     def validate(cls, bundle: GeneratorBundle) -> None:
         '''
-            Validates generator bundle instance.
+            Validates generator bundle.
 
-            :param bundle: GeneratorManager bundle instance to be validated.
+            :param bundle: Generator bundle instance to be validated.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSValueError: Scheme loader must be provided.
-                | ATSValueError: Tar processor must be provided.
-                | ATSValueError: Template processor must be provided.
-                | ATSTypeError: Bundle must be an instance of GeneratorBundle.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
-                | ATSTypeError: Scheme loader must be an ISchemeLoader instance.
-                | ATSTypeError: Tar processor must be an ITarProcessor instance.
-                | ATSTypeError: Template processor must be an ITemplateProcessor instance.
+                | ATSValueError: Generator bundle must be provided and have proper values.
+                | ATSTypeError:  Generator bundle must be an instance of GeneratorBundle and its attributes
+                |                must be instances of their respective types.
         '''
         ctx: str = 'generator_validator::validate(...)'
+        msg_bundle_none: str = 'bundle must be provided'
+        msg_bundle_istype: str = 'bundle must be an instance of GeneratorBundle'
+        msg_scheme_loader_none: str = 'scheme loader must be provided'
+        msg_tar_processor_none: str = 'tar processor must be provided'
+        msg_context_bundle_none: str = 'context bundle must be provided'
+        msg_scheme_loader_istype: str = 'scheme loader must be an ISchemeLoader instance'
+        msg_tar_processor_istype: str = 'tar processor must be an ITarProcessor instance'
+        msg_context_bundle_istype: str = 'context bundle must be a ContextBundle instance'
 
-        not_none(bundle, ctx, 'bundle must be provided')
-        istype(bundle, GeneratorBundle, ctx, 'bundle must be an instance of GeneratorBundle')
+        not_none(bundle, ctx, msg_bundle_none)
+        istype(bundle, GeneratorBundle, ctx, msg_bundle_istype)
 
-        not_none(bundle.scheme_loader, ctx, 'scheme loader must be provided')
-        not_none(bundle.tar_processor, ctx, 'tar processor must be provided')
-        not_none(bundle.template_processor, ctx, 'template processor must be provided')
-        not_none(bundle.context_bundle, ctx, 'context bundle must be provided')
+        not_none(bundle.scheme_loader, ctx, msg_scheme_loader_none)
+        not_none(bundle.tar_processor, ctx, msg_tar_processor_none)
+        not_none(bundle.context_bundle, ctx, msg_context_bundle_none)
 
-        istype(bundle.scheme_loader, ISchemeLoader, ctx, 'scheme loader must be an ISchemeLoader instance')
-        istype(bundle.tar_processor, ITarProcessor, ctx, 'tar processor must be an ITarProcessor instance')
-        istype(bundle.template_processor, ITemplateProcessor, ctx, 'template processor must be an ITemplateProcessor instance')
-        istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')
+        istype(bundle.scheme_loader, ISchemeLoader, ctx, msg_scheme_loader_istype)
+        istype(bundle.tar_processor, ITarProcessor, ctx, msg_tar_processor_istype)
+        istype(bundle.context_bundle, ContextBundle, ctx, msg_context_bundle_istype)
+
+        ContextValidator.validate(bundle.context_bundle)

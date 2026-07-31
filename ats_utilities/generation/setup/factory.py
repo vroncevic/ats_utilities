@@ -16,25 +16,24 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory for creating generator bundle instance.
+    Factory for creating generator bundle.
 '''
 
 from __future__ import annotations
 
 from ats_utilities.generation.setup.bundle import GeneratorBundle
-from ats_utilities.generation.setup.dependencies import (
-    GeneratorOptions, GeneratorDependencies
-)
+from ats_utilities.generation.setup.options import GeneratorOptions
+from ats_utilities.generation.setup.opt_validator import GeneratorOptionsValidator
+from ats_utilities.generation.setup.dependencies import GeneratorDependencies
+from ats_utilities.generation.setup.keys import GeneratorKeys
 from ats_utilities.generation.setup.registry import GeneratorRegistry
 from ats_utilities.generation.scheme.engine import SchemeLoader
 from ats_utilities.generation.tar.engine import TarProcessor
 from ats_utilities.generation.template.engine import TemplateProcessor
-from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generation.tar.itar_processor import ITarProcessor
 from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
-from ats_utilities.validation.check_value import not_none
-from ats_utilities.validation.check_type import istype
+from ats_utilities.context.bundle import ContextBundle
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -48,13 +47,12 @@ __status__ = 'Development'
 
 class GeneratorFactory:
     '''
-        Factory for creating generator bundle instance.
+        Factory for creating generator bundle.
 
         It defines:
 
             :methods:
                 | create_default_bundle - Creates a default generator bundle using configuration options.
-                | create_default_generator_bundle - Creates a default generator bundle using configuration options.
     '''
 
     @classmethod
@@ -63,28 +61,15 @@ class GeneratorFactory:
             Creates a default generator bundle using configuration options.
 
             :param options: Creation options/parameters for the bundle.
-            :return: GeneratorManager bundle instance.
+            :return: Generator bundle.
             :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a dictionary.
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSValueError: Scheme loader must be provided.
-                | ATSValueError: Tar processor must be provided.
-                | ATSValueError: Template processor must be provided.
-                | ATSTypeError: Bundle must be an instance of GeneratorBundle.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
-                | ATSTypeError: Scheme loader must be an ISchemeLoader instance.
-                | ATSTypeError: Tar processor must be an ITarProcessor instance.
-                | ATSTypeError: Template processor must be an ITemplateProcessor instance.
+                | ATSValueError: Generator options must be provided and have proper values.
+                | ATSTypeError:  Generator options must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
         '''
-        ctx: str = 'generator_factory::create_default_bundle(...)'
-        not_none(options, ctx, 'options must be provided')
-        istype(options, dict, ctx, 'options must be a dictionary')
+        GeneratorOptionsValidator.validate(options)
 
-        context_bundle: ContextBundle = options.get('context_bundle')
-        not_none(context_bundle, ctx, 'context_bundle must be provided')
-        istype(context_bundle, ContextBundle, ctx, 'context_bundle must be ContextBundle instance')
+        context_bundle: ContextBundle = options.get(GeneratorKeys.CONTEXT_BUNDLE)
 
         scheme_loader: ISchemeLoader = SchemeLoader(context_bundle=context_bundle)
         template_processor: ITemplateProcessor = TemplateProcessor(context_bundle=context_bundle)
@@ -97,33 +82,6 @@ class GeneratorFactory:
             GeneratorDependencies(
                 scheme_loader=scheme_loader,
                 tar_processor=tar_processor,
-                template_processor=template_processor,
                 context_bundle=context_bundle
             )
-        )
-
-    @classmethod
-    def create_default_generator_bundle(cls, context_bundle: ContextBundle) -> GeneratorBundle:
-        '''
-            Creates a default generator bundle.
-            Kept for backward compatibility.
-
-            :param context_bundle: Context bundle for generator.
-            :return: GeneratorManager bundle instance.
-            :exceptions:
-                | ATSValueError: Options must be provided.
-                | ATSTypeError: Options must be a dictionary.
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSValueError: Scheme loader must be provided.
-                | ATSValueError: Tar processor must be provided.
-                | ATSValueError: Template processor must be provided.
-                | ATSTypeError: Bundle must be an instance of GeneratorBundle.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
-                | ATSTypeError: Scheme loader must be an ISchemeLoader instance.
-                | ATSTypeError: Tar processor must be an ITarProcessor instance.
-                | ATSTypeError: Template processor must be an ITemplateProcessor instance.
-        '''
-        return cls.create_default_bundle(
-            GeneratorOptions(context_bundle=context_bundle)
         )

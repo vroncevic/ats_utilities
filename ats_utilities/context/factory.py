@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory for creating context bundle instance.
+    Factory for creating context bundle.
 '''
 
 from __future__ import annotations
@@ -46,7 +46,7 @@ __status__ = 'Development'
 
 class ContextFactory:
     '''
-        Factory for creating context bundle instance.
+        Factory for creating context bundle.
 
         It defines:
 

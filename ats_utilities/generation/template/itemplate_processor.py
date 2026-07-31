@@ -44,8 +44,8 @@ class ITemplateProcessor(Protocol):
 
             :methods:
                 | render - Decodes and renders template placeholders.
-                | is_initialized - Checks if component is initialized.
-                | __str__ - Returns the component as string representation.
+                | is_initialized - Checks if template processor is initialized.
+                | __str__ - Returns template processor as string representation.
     '''
 
     def render(self, raw_content: bytes, vals: dict[str, str]) -> str | bytes:
@@ -61,7 +61,7 @@ class ITemplateProcessor(Protocol):
 
     def is_initialized(self) -> bool:
         '''
-            Checks if component is initialized.
+            Checks if template processor is initialized.
 
             :return: True if successfully, otherwise False.
             :exceptions: None.
@@ -70,9 +70,9 @@ class ITemplateProcessor(Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns the component as string representation.
+            Returns template processor as string representation.
 
-            :return: String representation.
+            :return: Template processor as string representation.
             :exceptions: None.
         '''
         ...

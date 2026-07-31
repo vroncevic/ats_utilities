@@ -23,6 +23,7 @@ Info
 from __future__ import annotations
 
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -48,10 +49,10 @@ class TemplateDir:
             :attributes:
                 | _template_dir - Project template dir path (default None).
             :methods:
-                | __init__ - Initializes TemplateDir constructor.
+                | __init__ - Initializes template dir.
                 | template_dir - Property methods for set/get operations.
                 | not_none - Checks template dir is not None.
-                | __str__ - Returns the ATS project template directory as string representation.
+                | __str__ - Returns ATS project template directory as string representation.
     '''
 
     _template_dir: str | None
@@ -59,13 +60,15 @@ class TemplateDir:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes TemplateDir constructor.
+            Initializes template dir.
 
             :param context_bundle: Context bundle for template dir.
             :exceptions:
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSValueError: Context bundle must be provided and have proper values.
+                | ATSTypeError:  Context bundle must be an instance of ContextBundle and
+                |                its attributes must be instances of their respective types.
         '''
+        ContextValidator.validate(context_bundle)
         self._context = context_bundle
         self._template_dir = None
 
@@ -77,7 +80,7 @@ class TemplateDir:
 
             :return: Formatted template dir in string format.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
@@ -92,12 +95,12 @@ class TemplateDir:
 
             :param dir_path: Project template dir path in string format.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
-                | ATSTypeError: Parameter type validation failed.
-                | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSTypeError:      Parameter type validation failed.
+                | ATSValueError:     Parameter format validation failed.
+                | ATSRuntimeError:   Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._template_dir = dir_path
@@ -109,7 +112,7 @@ class TemplateDir:
 
             :return: True if successfully, otherwise False.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
@@ -117,9 +120,9 @@ class TemplateDir:
 
     def __str__(self) -> str:
         '''
-            Returns the ATS project template directory as string representation.
+            Returns ATS project template directory as string representation.
 
-            :return: The ATS project template directory as string representation.
+            :return: ATS project template directory as string representation.
             :exceptions: None.
         '''
         return to_str(self)

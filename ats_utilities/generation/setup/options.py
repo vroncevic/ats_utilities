@@ -2,7 +2,7 @@
 
 '''
 Module
-    __init__.py
+    options.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,10 +16,14 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Initialize ats_utilities.generation.project.setup package.
+    Generator options.
 '''
 
 from __future__ import annotations
+
+from typing import TypedDict
+
+from ats_utilities.context.bundle import ContextBundle
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -29,3 +33,16 @@ __version__ = '3.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
+
+
+class GeneratorOptions(TypedDict):
+    '''
+        Generator options.
+
+        It defines:
+
+            :attributes:
+                | context_bundle: Context bundle.
+    '''
+
+    context_bundle: ContextBundle

@@ -23,10 +23,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generation.tar.itar_processor import ITarProcessor
-from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.utils.reflection import instance_to_dict
 
 __author__ = 'Vladimir Roncevic'
@@ -49,7 +48,6 @@ class GeneratorBundle:
             :attributes:
                 | scheme_loader - Loader/resolver for scheme configuration.
                 | tar_processor - Processor for archive extraction and template rendering.
-                | template_processor - Processor for template rendering.
                 | context_bundle - Context bundle for generator.
             :methods:
                 | to_dict - Converts generator bundle to a dictionary.
@@ -57,7 +55,6 @@ class GeneratorBundle:
 
     scheme_loader: ISchemeLoader
     tar_processor: ITarProcessor
-    template_processor: ITemplateProcessor
     context_bundle: ContextBundle
 
     def to_dict(self) -> dict[str, object]:

@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class SchemeLoader with method(s).
-    Resolves generation scheme from dict or file path using config_io.
+    Defines class SchemeLoader with attribute(s) and method(s).
+    Provides an API for loading generation scheme from dict or file path using config_io.
 '''
 
 from __future__ import annotations
@@ -25,10 +25,11 @@ from __future__ import annotations
 from os.path import exists
 from collections.abc import Mapping
 
-from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.config_io.setup.registry import ConfigIORegistry
 from ats_utilities.exceptions import ATSGeneratorError
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_satisfied
@@ -46,8 +47,8 @@ __status__ = 'Development'
 
 class SchemeLoader:
     '''
-        Defines class SchemeLoader with method(s).
-        Resolves generation scheme from dict or file path using config_io.
+        Defines class SchemeLoader with attribute(s) and method(s).
+        Provides an API for loading generation scheme from dict or file path using config_io.
 
         It defines:
 
@@ -55,10 +56,10 @@ class SchemeLoader:
                 | _initialized - Indicates if loader is initialized.
                 | _context - Context bundle for loader.
             :methods:
-                | __init__ - Initializes SchemeLoader constructor.
+                | __init__ - Initializes scheme loader.
                 | load - Loads and resolves the scheme from file path.
-                | is_initialized - Checks if the loader is initialized.
-                | __str__ - Returns the loader as string representation.
+                | is_initialized - Checks if the scheme loader is initialized.
+                | __str__ - Returns scheme loader as string representation.
     '''
 
     _initialized: bool
@@ -66,13 +67,15 @@ class SchemeLoader:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes SchemeLoader constructor.
+            Initializes scheme loader.
 
-            :param context_bundle: Context bundle for scheme loader.
+            :param context_bundle: Context bundle.
             :exceptions:
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSValueError: Context bundle must be provided and have proper values.
+                | ATSTypeError:  Context bundle must be an instance of ContextBundle and
+                |                its attributes must be instances of their respective types.
         '''
+        ContextValidator.validate(context_bundle)
         self._context = context_bundle
         self._initialized = True
 
@@ -81,23 +84,26 @@ class SchemeLoader:
             Loads and resolves the scheme.
 
             :param scheme: Generation scheme file path or preloaded scheme.
-            :return: The resolved scheme dictionary.
+            :return: Resolved scheme dictionary.
             :exceptions:
-                | ATSTypeError: Scheme is not a string or mapping.
-                | ATSValueError: Scheme file path does not exist.
-                | ATSValueError: Unsupported scheme file format.
-                | ATSValueError: Failed to setup config loader.
+                | ATSTypeError:      Scheme is not a string or mapping.
+                | ATSValueError:     Scheme file path does not exist.
+                | ATSValueError:     Unsupported scheme file format.
+                | ATSValueError:     Failed to setup config loader.
                 | ATSGeneratorError: Loading scheme file fails.
         '''
         context: str = 'scheme_loader::load(...)'
-        istype(scheme, (str, Mapping), context, 'scheme must be of type str or Mapping')
+        msg_scheme_istype: str = 'scheme must be of type str or Mapping'
+        istype(scheme, (str, Mapping), context, msg_scheme_istype)
 
         if isinstance(scheme, str):
+            msg_scheme_path: str = f'scheme file at the provided path does not exist: {scheme}'
+            msg_scheme_format: str = f'unsupported scheme file format for: {scheme}. Only .json is supported.'
+            msg_config_loader_none: str = f'failed to setup config loader for: {scheme}'
+
+            not_satisfied(not exists(scheme), context, msg_scheme_path)
             not_satisfied(
-                not exists(scheme), context, f'scheme file at the provided path does not exist: {scheme}'
-            )
-            not_satisfied(
-                not scheme.endswith('.json'), context, f'unsupported scheme file format for: {scheme}. Only .json is supported.'
+                not scheme.endswith('.json'), context, msg_scheme_format
             )
 
             try:
@@ -108,19 +114,20 @@ class SchemeLoader:
                         context_bundle=self._context
                     )
                 )
-                not_satisfied(config_loader is None, context, f'failed to setup config loader for: {scheme}')
+                not_satisfied(config_loader is None, context, msg_config_loader_none)
 
                 return config_loader.load_configuration()
 
             except Exception as exc:
                 msg: str = format_error_raw(exc, self._context.verbose)
-                not_satisfied(True, context, f'failed to load scheme file {scheme}: {msg}', ATSGeneratorError)
+                msg_failed_to_load_scheme: str = f'failed to load scheme file {scheme}: {msg}'
+                not_satisfied(True, context, msg_failed_to_load_scheme, ATSGeneratorError)
 
         return dict(scheme)
 
     def is_initialized(self) -> bool:
         '''
-            Checks if scheme loader component is initialized.
+            Checks if scheme loader is initialized.
 
             :return: True if successfully, otherwise False.
             :exceptions: None.
@@ -129,9 +136,9 @@ class SchemeLoader:
 
     def __str__(self) -> str:
         '''
-            Returns the SchemeLoader as string representation.
+            Returns scheme loader as string representation.
 
-            :return: The SchemeLoader as string representation.
+            :return: Scheme loader as string representation.
             :exceptions: None.
         '''
         return to_str(self)
