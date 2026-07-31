@@ -26,12 +26,11 @@ from collections.abc import Mapping
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
-from ats_utilities.splash.setup.keys import SplashKeys
+from ats_utilities.splash.property.splash_property import SplashProperty
 from ats_utilities.utils.dicts import cherry_pick_dict, require_keys
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.validation.check_value import not_empty
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,8 +51,9 @@ class ExtInfrastructure:
         It defines:
 
             :attributes:
-                | _REQUIRED_KEYS - Required keys for external infrastructure (default frozenset).
-                | _infrastructure_property - External infrastructure property (default None).
+                | _REQUESTED_KEYS - Requested keys from infrastructure property.
+                | _infrastructure_property - External infrastructure settings.
+                | _context - Context bundle.
             :methods:
                 | __init__ - Initials external infrastructure.
                 | infrastructure_property - Property method for get/set external infrastructure.
@@ -63,8 +63,10 @@ class ExtInfrastructure:
                 | __str__ - Returns external infrastructure as string representation.
     '''
 
-    _REQUIRED_KEYS: frozenset[str] = frozenset([
-        SplashKeys.ATS_NAME, SplashKeys.ATS_ORGANIZATION, SplashKeys.ATS_REPOSITORY
+    _REQUESTED_KEYS: frozenset[str] = frozenset([
+        SplashProperty.NAME_SETTING,
+        SplashProperty.ORGANIZATION_SETTING,
+        SplashProperty.REPOSITORY_SETTING
     ])
     _infrastructure_property: Mapping[str, object] | None
     _context: ContextBundle
@@ -100,17 +102,16 @@ class ExtInfrastructure:
         return self._infrastructure_property or {}
 
     @infrastructure_property.setter
-    @mcheck([('Mapping:setup', None)])
+    @mcheck([('Mapping:settings', None)])
     @vreport('setting infrastructure property {infrastructure_property}')
-    def infrastructure_property(self, setup: Mapping[str, object]) -> None:
+    def infrastructure_property(self, settings: Mapping[str, object]) -> None:
         '''
             Property method for setting project infrastructure property.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :param setup: Project infrastructure property in Mapping format (read only data).
+            :param settings: Project infrastructure property in Mapping format (read only data).
             :exceptions:
-                | ATSTypeError:      Infrastructure property setup is not a Mapping.
-                | ATSValueError:     Infrastructure property setup is missing required keys.
+                | ATSValueError:     Infrastructure property settings is missing required keys.
                 | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
@@ -119,72 +120,73 @@ class ExtInfrastructure:
                 | ATSRuntimeError:   Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        context: str = 'ext_infrastructure::infrastructure_property(...)'
-        require_keys(
-            setup, self._REQUIRED_KEYS, context, 'infrastructure property setup is missing required keys'
-        )
-        self._infrastructure_property = cherry_pick_dict(setup, self._REQUIRED_KEYS)
+        ctx: str = 'ext_infrastructure::infrastructure_property(...)'
+        msg: str = 'infrastructure property settings is missing required keys'
+
+        require_keys(settings, self._REQUESTED_KEYS, ctx, msg)
+
+        self._infrastructure_property = cherry_pick_dict(settings, self._REQUESTED_KEYS)
 
     @vreport('getting info text {infrastructure_property}')
     @has_attrs('_infrastructure_property')
-    def get_info_text(self) -> str:
+    def get_info_text(self) -> str | None:
         '''
             Pre-processes info text for splash.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :return: Hyperlink with info text.
+            :return: Hyperlink with info text | None.
             :exceptions:
                 | ATSValueError:     Missing or empty attribute: '_infrastructure_property'.
-                | ATSValueError:     Target property name value is missing or empty.
                 | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        context: str = 'ext_infrastructure::get_info_text(...)'
-        name: str = self._infrastructure_property.get(SplashKeys.ATS_NAME)
-        not_empty(name, context, 'info property name is missing or empty')
+        name: str = self._infrastructure_property.get(SplashProperty.NAME_SETTING)
+
+        if not name:
+            return None
 
         return f'\x1b]8;;{name}\a{name}\x1b]8;;\a'
 
     @vreport('getting issue text {infrastructure_property}')
     @has_attrs('_infrastructure_property')
-    def get_issue_text(self) -> str:
+    def get_issue_text(self) -> str | None:
         '''
             Pre-processes issue text for splash.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :return: Hyperlink with issue info.
+            :return: Hyperlink with issue info | None.
             :exceptions:
                 | ATSValueError:     Missing or empty attribute: '_infrastructure_property'.
-                | ATSValueError:     Target property name value is missing or empty.
                 | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        context: str = 'ext_infrastructure::get_issue_text(...)'
-        repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
-        not_empty(repo, context, 'issue property repository is missing or empty')
+        repo: str = self._infrastructure_property.get(SplashProperty.REPOSITORY_SETTING)
+
+        if not repo:
+            return None
 
         return f'\x1b]8;;{repo}\a{repo}\x1b]8;;\a'
 
     @vreport('getting author text {infrastructure_property}')
     @has_attrs('_infrastructure_property')
-    def get_author_text(self) -> str:
+    def get_author_text(self) -> str | None:
         '''
             Pre-processes author text for splash.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :return: Hyperlink with author info.
+            :return: Hyperlink with author info | None.
             :exceptions:
                 | ATSValueError:     Missing or empty attribute: '_infrastructure_property'.
-                | ATSValueError:     Target property name value is missing or empty.
                 | ATSRuntimeError:   Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        context: str = 'ext_infrastructure::get_author_text(...)'
-        organization: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        not_empty(organization, context, 'author property organization is missing or empty')
+        organization: str = self._infrastructure_property.get(SplashProperty.ORGANIZATION_SETTING)
+
+        if not organization:
+            return None
 
         return f'\x1b]8;;{organization}\a{organization}\x1b]8;;\a'
 

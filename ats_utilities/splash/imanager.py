@@ -43,37 +43,46 @@ class ISplashManager[ConfigType, ContextEnvironment, PositionData](Protocol):
         It defines:
 
             :methods:
-                | get_bundle - Gets current splash screen configuration bundle.
-                | update_bundle - Updates splash screen configuration bundle.
-                | get_context - Returns the context environment.
+                | get_bundle - Gets current splash manager bundle.
+                | update_bundle - Updates splash manager bundle.
+                | get_context - Returns context environment.
+                | show - Shows splash screen.
                 | center - Centers console line and places text.
                 | is_initialized - Checks if splash screen manager is initialized.
-                | __str__ - Returns the splash screen manager as string representation.
+                | __str__ - Returns splash screen manager as string representation.
     '''
 
     def get_bundle(self) -> ConfigType:
         '''
-            Gets current splash screen configuration bundle.
+            Gets current splash manager bundle.
 
-            :return: Splash screen configuration bundle.
+            :return: Splash manager bundle.
             :exceptions: None.
         '''
         ...
 
     def update_bundle(self, bundle: ConfigType) -> bool:
         '''
-            Updates splash screen configuration bundle.
+            Updates splash manager bundle.
 
-            :param bundle: Splash screen configuration bundle.
+            :param bundle: Splash manager bundle.
             :exceptions: None.
         '''
         ...
 
     def get_context(self) -> ContextEnvironment:
         '''
-            Returns the context environment.
+            Returns context environment.
 
             :return: Context environment.
+        '''
+        ...
+
+    def show(self) -> None:
+        '''
+            Shows splash screen.
+
+            :exceptions: None.
         '''
         ...
 
@@ -96,8 +105,8 @@ class ISplashManager[ConfigType, ContextEnvironment, PositionData](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns the splash screen manager as string representation.
+            Returns splash manager as string representation.
 
-            :return: Splash screen manager as string representation.
+            :return: Splash manager as string representation.
         '''
         ...

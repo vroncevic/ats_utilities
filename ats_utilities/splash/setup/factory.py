@@ -38,7 +38,6 @@ from ats_utilities.splash.external.github_infrastructure import GitHubInfrastruc
 from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
 from ats_utilities.splash.progressbar.progress_bar import ProgressBar
 from ats_utilities.splash.setup.keys import SplashKeys
-from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.context.bundle import ContextBundle
 
 __author__ = 'Vladimir Roncevic'
@@ -80,31 +79,21 @@ class SplashFactory:
         context_bundle: ContextBundle = options.get(SplashKeys.CONTEXT_BUNDLE)
 
         splash_property: ISplashProperty = SplashProperty(context_bundle)
-        property_validated: bool = False
+        splash_property.settings = prop
 
-        if prop is not None:
-            splash_property.splash_keys = prop
-            property_validated = splash_property.validates()
-
-        if prop is not None and prop.get(SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE, False):
+        if splash_property.settings.get(SplashProperty.GITHUB_SETTING):
             ext: IExtInfrastructure = GitHubInfrastructure(context_bundle)
         else:
             ext: IExtInfrastructure = ExtInfrastructure(context_bundle)
 
+        ext.infrastructure_property = splash_property.settings
         terminal_property: ITerminalProperties = TerminalProperties(context_bundle)
-
-        if property_validated and prop is not None:
-            if prop.get('enabled', True):
-                ext.infrastructure_property = prop
-
         size: tuple[object, ...] = terminal_property.size()
         pb: IProgressBar = ProgressBar(int(size[1]) - int(int(size[1]) / 2))
 
         return SplashRegistry.create_bundle(
             dependencies=SplashDependencies(
-                prop=prop if prop is not None else {},
                 splash_property=splash_property,
-                property_validated=property_validated,
                 terminal_property=terminal_property,
                 ext=ext,
                 pb=pb,

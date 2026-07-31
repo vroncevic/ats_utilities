@@ -63,7 +63,6 @@ class SplashRegistry:
 
         bundle: SplashBundle = SplashBundle(
             splash_property=dependencies.get(SplashKeys.DEPENDENCY_SPLASH_PROPERTY) if dependencies else None,
-            property_validated=dependencies.get(SplashKeys.DEPENDENCY_PROPERTY_VALIDATED) if dependencies else None,
             terminal_property=dependencies.get(SplashKeys.DEPENDENCY_TERMINAL_PROPERTY) if dependencies else None,
             ext=dependencies.get(SplashKeys.DEPENDENCY_EXT) if dependencies else None,
             pb=dependencies.get(SplashKeys.DEPENDENCY_PB) if dependencies else None,

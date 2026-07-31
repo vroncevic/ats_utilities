@@ -49,7 +49,6 @@ class SplashBundle:
 
             :attributes:
                 | splash_property - Splash screen property instance.
-                | property_validated - Property validated flag.
                 | terminal_property - Terminal properties instance.
                 | ext - Generic external infrastructure instance.
                 | pb - Progress bar component instance.
@@ -59,7 +58,6 @@ class SplashBundle:
     '''
 
     splash_property: ISplashProperty
-    property_validated: bool
     terminal_property: ITerminalProperties
     ext: IExtInfrastructure
     pb: IProgressBar

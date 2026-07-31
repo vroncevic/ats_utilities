@@ -44,37 +44,36 @@ class ISplashProperty[PropertyType](Protocol):
         It defines:
 
             :methods:
-                | splash_keys - Property methods for set/get splash keys.
-                | validates - Validates splash keys.
+                | settings - Property methods for set/get splash keys.
+                | is_settings_enabled - Checks if settings are enabled.
                 | __str__ - Returns the splash keys as string representation.
     '''
 
     @property
-    def splash_keys(self) -> PropertyType:
+    def settings(self) -> PropertyType:
         '''
-            Property method for getting splash keys.
+            Property method for getting splash screen property.
             Note: Splash screen property comes from info configuration file as read only data.
 
             :return: Formatted splash screen property in PropertyType format (read only data).
         '''
         ...
 
-    @splash_keys.setter
-    def splash_keys(self, setup: PropertyType) -> None:
+    @settings.setter
+    def settings(self, setup: PropertyType) -> None:
         '''
-            Property method for setting project splash keys.
+            Property method for setting project splash screen property.
             Note: Splash screen property comes from info configuration file as read only data.
 
-            :param setup: Project splash keys in PropertyType format (read only data).
+            :param setup: Project splash screen property in PropertyType format (read only data).
         '''
         ...
 
-    def validates(self) -> bool:
+    def is_settings_enabled(self) -> bool:
         '''
-            Validates splash keys.
-            Note: Splash screen property comes from info configuration file as read only data.
+            Checks if settings are enabled.
 
-            :return: True (success) else False (fail).
+            :return: True if settings are enabled, False otherwise.
         '''
         ...
 

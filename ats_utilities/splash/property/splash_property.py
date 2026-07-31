@@ -51,13 +51,25 @@ class SplashProperty:
         It defines:
 
             :attributes:
+                | NAME_SETTING - Key for application/tool/script name.
+                | REPOSITORY_SETTING - Key for application/tool/script repository.
+                | ORGANIZATION_SETTING - Key for application/tool/script organization.
+                | LOGO_SETTING - Key for application/tool/script logo.
+                | GITHUB_SETTING - Key for application/tool/script github.
                 | _settings - Splash keys for App/Tool/Script splash screen (default None).
             :methods:
                 | __init__ - Initials SplashProperty constructor.
-                | settings - Property method for get/set splash keys.  
+                | settings - Property method for get/set splash keys.
+                | is_settings_enabled - Checks if settings are enabled.
                 | __str__ - Returns splash property as string representation.
     '''
 
+    ENABLED_SETTING: str = 'enabled'
+    NAME_SETTING: str = 'name'
+    REPOSITORY_SETTING: str = 'repository'
+    ORGANIZATION_SETTING: str = 'organization'
+    LOGO_SETTING: str = 'logo'
+    GITHUB_SETTING: str = 'github'
     _settings: Mapping[str, object]
     _context: ContextBundle
 
@@ -75,12 +87,12 @@ class SplashProperty:
         ContextValidator.validate(context_bundle)
         self._context = context_bundle
         self._settings = {
-            'enabled' : False,
-            'name' : None,
-            'repository' : None,
-            'organization' : None,
-            'logo' : None,
-            'use_github_infrastructure' : False
+            SplashProperty.ENABLED_SETTING : False,
+            SplashProperty.NAME_SETTING : None,
+            SplashProperty.REPOSITORY_SETTING : None,
+            SplashProperty.ORGANIZATION_SETTING : None,
+            SplashProperty.LOGO_SETTING : None,
+            SplashProperty.GITHUB_SETTING : False
         }
 
     @property
@@ -123,11 +135,68 @@ class SplashProperty:
         is_logo_present: bool = is_present_key(settings, InfoKeys.ATS_LOGO_PATH)
         is_github_present: bool = is_present_key(settings, InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE)
 
-        self._settings['name'] = InfoKeys.get_name(settings) if is_name_present else None
-        self._settings['repository'] = InfoKeys.get_repository(settings) if is_repository_present else None
-        self._settings['organization'] = InfoKeys.get_organization(settings) if is_organization_present else None
-        self._settings['logo'] = InfoKeys.get_logo(settings) if is_logo_present else None
-        self._settings['github'] = InfoKeys.get_use_github_infrastructure(settings) if is_github_present else None
+        self._settings[SplashProperty.NAME_SETTING] = InfoKeys.get_name(settings) if is_name_present else None
+        self._settings[SplashProperty.REPOSITORY_SETTING] = InfoKeys.get_repository(settings) if is_repository_present else None
+        self._settings[SplashProperty.ORGANIZATION_SETTING] = InfoKeys.get_organization(settings) if is_organization_present else None
+        self._settings[SplashProperty.LOGO_SETTING] = InfoKeys.get_logo(settings) if is_logo_present else None
+        self._settings[SplashProperty.GITHUB_SETTING] = InfoKeys.get_use_github_infrastructure(settings) if is_github_present else None
+
+        if self._settings[SplashProperty.NAME_SETTING] is not None:
+            self._settings[SplashProperty.ENABLED_SETTING] = True
+
+    def is_settings_enabled(self) -> bool:
+        '''
+            Checks if settings are enabled.
+
+            :return: True if settings are enabled, False otherwise.
+            :exceptions: None.
+        '''
+        return self._settings[SplashProperty.ENABLED_SETTING]
+
+    def get_name(self) -> str | None:
+        '''
+            Returns application/tool/script name.
+
+            :return: Application/tool/script name | None.
+            :exceptions: None.
+        '''
+        return self._settings[SplashProperty.NAME_SETTING]
+
+    def get_repository(self) -> str | None:
+        '''
+            Returns application/tool/script repository.
+
+            :return: Application/tool/script repository | None.
+            :exceptions: None.
+        '''
+        return self._settings[SplashProperty.REPOSITORY_SETTING]
+
+    def get_organization(self) -> str | None:
+        '''
+            Returns application/tool/script organization.
+
+            :return: Application/tool/script organization | None.
+            :exceptions: None.
+        '''
+        return self._settings[SplashProperty.ORGANIZATION_SETTING]
+
+    def get_logo(self) -> str | None:
+        '''
+            Returns application/tool/script logo path.
+
+            :return: Application/tool/script logo path | None.
+            :exceptions: None.
+        '''
+        return self._settings[SplashProperty.LOGO_SETTING]
+
+    def get_use_github_infrastructure(self) -> bool:
+        '''
+            Returns True if application/tool/script uses github infrastructure.
+
+            :return: True if application/tool/script uses github infrastructure, False otherwise.
+            :exceptions: None.
+        '''
+        return self._settings[SplashProperty.GITHUB_SETTING]
 
     def __str__(self) -> str:
         '''

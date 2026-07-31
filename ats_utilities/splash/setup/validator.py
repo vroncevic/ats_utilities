@@ -69,8 +69,6 @@ class SplashValidator:
         msg_bundle_type: str = 'bundle must be an instance of SplashBundle'
         msg_splash_property_none: str = 'splash property must be provided'
         msg_splash_property_type: str = 'splash property must be an ISplashProperty instance'
-        msg_property_validated_none: str = 'property validated flag must be provided'
-        msg_property_validated_type: str = 'property validated flag must be an instance of bool'
         msg_terminal_property_none: str = 'terminal properties must be provided'
         msg_terminal_property_type: str = 'terminal properties must be an ITerminalProperties instance'
         msg_ext_none: str = 'external infrastructure must be provided'
@@ -85,14 +83,12 @@ class SplashValidator:
         istype(bundle, SplashBundle, ctx, msg_bundle_type)
 
         not_none(bundle.splash_property, ctx, msg_splash_property_none)
-        not_none(bundle.property_validated, ctx, msg_property_validated_none)
         not_none(bundle.terminal_property, ctx, msg_terminal_property_none)
         not_none(bundle.ext, ctx, msg_ext_none)
         not_none(bundle.pb, ctx, msg_pb_none)
         not_none(bundle.context_bundle, ctx, msg_context_bundle_none)
 
         istype(bundle.splash_property, ISplashProperty, ctx, msg_splash_property_type)
-        istype(bundle.property_validated, bool, ctx, msg_property_validated_type)
         istype(bundle.terminal_property, ITerminalProperties, ctx, msg_terminal_property_type)
         istype(bundle.ext, IExtInfrastructure, ctx, msg_ext_type)
         istype(bundle.pb, IProgressBar, ctx, msg_pb_type)
