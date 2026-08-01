@@ -25,6 +25,7 @@ from collections.abc import Mapping
 from types import MappingProxyType
 
 from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.schema import InfoSchema
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.setup.bundle import InfoBundle
 from ats_utilities.info.setup.dependencies import InfoDependencies
@@ -69,12 +70,12 @@ class InfoFactory:
         info_configuration: Mapping[str, object] = options.get(InfoKeys.OPTION_INFO)
         context_bundle: ContextBundle = options.get(InfoKeys.OPTION_CONTEXT_BUNDLE)
 
-        key_to_type: MappingProxyType[str, type] = InfoKeys.get_config_key_to_type()
+        key_to_type: MappingProxyType[str, type] = InfoSchema.get_config_key_to_type()
         bundle_kwargs: dict[str, object] = {}
 
         for key, engine_class in key_to_type.items():
             engine_instance: object = engine_class(context_bundle=context_bundle)
-            attr_name: str = InfoKeys.get_name_of_config_key(key)
+            attr_name: str = InfoSchema.get_name_of_config_key(key)
             attribute: object = info_configuration.get(key)
 
             if attribute is not None and key is InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE:

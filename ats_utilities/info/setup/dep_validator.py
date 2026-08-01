@@ -25,6 +25,7 @@ from collections.abc import Mapping, Sequence
 
 from ats_utilities.info.setup.dependencies import InfoDependencies
 from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.schema import InfoSchema
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none, not_satisfied
 
@@ -66,26 +67,27 @@ class InfoDependenciesValidator:
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_not_mapping)
 
-        required_dependency_keys: Sequence[str] = [
-            InfoKeys.get_name_of_config_key(key) for key in InfoKeys.get_required_config_keys()
+        required_keys: Sequence[str] = [
+            InfoSchema.get_name_of_config_key(key) for key in InfoSchema.get_required_config_keys()
         ]
-        optional_dependency_keys: Sequence[str] = [
-            InfoKeys.get_name_of_config_key(key) for key in InfoKeys.get_optional_config_keys()
+        optional_keys: Sequence[str] = [
+            InfoSchema.get_name_of_config_key(key) for key in InfoSchema.get_optional_config_keys()
         ]
 
-        for key in required_dependency_keys:
-            not_satisfied(key not in dependencies, ctx, f'{key} must be provided in dependencies')
+        for key in required_keys:
+            msg_key_missing: str = f'the {key} must be provided in dependencies'
+            not_satisfied(key not in dependencies, ctx, msg_key_missing)
 
         for attr_name, expected_type in InfoKeys.get_dependency_to_type().items():
-            msg_attr_required_none: str = f'{attr_name} must be provided and have proper attribute'
-            msg_attr_optional_not_instance: str = f'{attr_name} must be an instance of {expected_type.__name__}'
+            msg_attr_required_none: str = f'the {attr_name} must be provided and have proper attribute'
+            msg_attr_optional_not_instance: str = f'the {attr_name} must be an instance of {expected_type.__name__}'
 
             attribute = dependencies.get(attr_name)
 
-            if attr_name in required_dependency_keys:
+            if attr_name in required_keys:
                 not_satisfied(attribute is None, ctx, msg_attr_required_none)
                 istype(attribute, expected_type, ctx, msg_attr_optional_not_instance)
                 continue
 
-            if attr_name in optional_dependency_keys and attribute is not None:
+            if attr_name in optional_keys and attribute is not None:
                 istype(attribute, expected_type, ctx, msg_attr_optional_not_instance)

@@ -28,6 +28,7 @@ from typing import Final
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
 from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.expose import InfoExpose
 from ats_utilities.utils.dicts import is_present_key
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
@@ -136,11 +137,11 @@ class SplashProperty:
         is_logo_present: bool = is_present_key(settings, InfoKeys.ATS_LOGO_PATH)
         is_github_present: bool = is_present_key(settings, InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE)
 
-        self._settings[SplashProperty.NAME_SETTING] = InfoKeys.get_name(settings) if is_name_present else None
-        self._settings[SplashProperty.REPOSITORY_SETTING] = InfoKeys.get_repository(settings) if is_repository_present else None
-        self._settings[SplashProperty.ORGANIZATION_SETTING] = InfoKeys.get_organization(settings) if is_organization_present else None
-        self._settings[SplashProperty.LOGO_SETTING] = InfoKeys.get_logo_path(settings) if is_logo_present else None
-        self._settings[SplashProperty.GITHUB_SETTING] = InfoKeys.get_use_github_infrastructure(settings) if is_github_present else None
+        self._settings[SplashProperty.NAME_SETTING] = InfoExpose.get_name(settings) if is_name_present else None
+        self._settings[SplashProperty.REPOSITORY_SETTING] = InfoExpose.get_repository(settings) if is_repository_present else None
+        self._settings[SplashProperty.ORGANIZATION_SETTING] = InfoExpose.get_organization(settings) if is_organization_present else None
+        self._settings[SplashProperty.LOGO_SETTING] = InfoExpose.get_logo_path(settings) if is_logo_present else None
+        self._settings[SplashProperty.GITHUB_SETTING] = InfoExpose.get_use_github_infrastructure(settings) if is_github_present else None
 
         if self._settings[SplashProperty.NAME_SETTING] is not None:
             self._settings[SplashProperty.ENABLED_SETTING] = True

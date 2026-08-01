@@ -25,6 +25,7 @@ from collections.abc import Mapping, Sequence
 
 from ats_utilities.info.setup.options import InfoOptions
 from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.schema import InfoSchema
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none, not_satisfied
 
@@ -80,17 +81,17 @@ class InfoOptionsValidator:
 
             if attr_name is InfoKeys.OPTION_INFO:
                 info_structure: Mapping[str, object] = attribute
-                required_config_keys: Sequence[str] = InfoKeys.get_required_config_keys()
-                msg_required_keys_missing: str = 'info structure must contain all required keys'
+                required_config_keys: Sequence[str] = InfoSchema.get_required_config_keys()
+                msg_required_keys_missing: str = 'the info structure must contain all required keys'
                 msg_invalid_key: str = 'is not a valid info configuration key'
-                msg_optional_none: str = 'info attribute for required key must be provided'
+                msg_optional_none: str = 'the info attribute for the required key must be provided'
 
                 not_satisfied(not all(key in info_structure for key in required_config_keys), ctx, msg_required_keys_missing)
 
                 for key in info_structure.keys():
-                    not_satisfied(key not in InfoKeys.get_config_keys(), ctx, msg_invalid_key)
+                    not_satisfied(key not in InfoSchema.get_config_keys(), ctx, msg_invalid_key)
 
-                    if InfoKeys.is_optional_config_key(key):
+                    if InfoSchema.is_optional_config_key(key):
                         continue
 
                     not_satisfied(info_structure[key] is None, ctx, msg_optional_none)

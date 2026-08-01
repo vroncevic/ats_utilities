@@ -1,133 +1,103 @@
 # -*- coding: UTF-8 -*-
 
-'''
-Module
-    keys_test.py
-Copyright
-    Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
-    ats_utilities is free software: you can redistribute it and/or modify it
-    under the terms of the GNU General Public License as published by the
-    Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    ats_utilities is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License along
-    with this program. If not, see <http://www.gnu.org/licenses/>.
-Info
-    Unit tests for InfoKeys class.
-'''
-
-from __future__ import annotations
-
 import unittest
 from types import MappingProxyType
+from collections.abc import Mapping
 
 from ats_utilities.info.setup.keys import InfoKeys
 from ats_utilities.info.name.iname import IName
-from ats_utilities.info.name.engine import Name
 from ats_utilities.info.version.iversion import IVersion
-from ats_utilities.info.version.engine import Version
 from ats_utilities.info.licence.ilicence import ILicence
-from ats_utilities.info.licence.engine import Licence
 from ats_utilities.info.build_date.ibuild_date import IBuildDate
-from ats_utilities.info.build_date.engine import BuildDate
 from ats_utilities.info.repository.irepository import IRepository
-from ats_utilities.info.repository.engine import Repository
 from ats_utilities.info.organization.iorganization import IOrganization
-from ats_utilities.info.organization.engine import Organization
 from ats_utilities.info.use_github.iuse_github import IUseGitHub
-from ats_utilities.info.use_github.engine import UseGitHub
 from ats_utilities.info.logo.ilogo import ILogo
-from ats_utilities.info.logo.engine import Logo
 from ats_utilities.info.log_file.ilog_file import ILogFile
-from ats_utilities.info.log_file.engine import LogFile
 from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
-from ats_utilities.info.info_ok.engine import InfoOk
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.exceptions import ATSValueError
 
 
 class TestInfoKeys(unittest.TestCase):
-    """Unit tests for the InfoKeys class."""
+    """Unit tests covering all constants and class methods of InfoKeys."""
 
-    def test_get_dependency_to_type(self) -> None:
-        """Test get_dependency_to_type returns correct MappingProxyType with all dependency classes."""
-        dep_mapping = InfoKeys.get_dependency_to_type()
-        self.assertIsInstance(dep_mapping, MappingProxyType)
+    def test_dependency_key_constants(self):
+        """Test that dependency key string constants match expected values."""
+        self.assertEqual(InfoKeys.DEPENDENCY_NAME, 'name')
+        self.assertEqual(InfoKeys.DEPENDENCY_VERSION, 'version')
+        self.assertEqual(InfoKeys.DEPENDENCY_BUILD_DATE, 'build_date')
+        self.assertEqual(InfoKeys.DEPENDENCY_LICENCE, 'licence')
+        self.assertEqual(InfoKeys.DEPENDENCY_REPOSITORY, 'repository')
+        self.assertEqual(InfoKeys.DEPENDENCY_ORGANIZATION, 'organization')
+        self.assertEqual(InfoKeys.DEPENDENCY_USE_GITHUB_INFRASTRUCTURE, 'use_github')
+        self.assertEqual(InfoKeys.DEPENDENCY_LOGO_PATH, 'logo')
+        self.assertEqual(InfoKeys.DEPENDENCY_LOG_FILE, 'log_file')
+        self.assertEqual(InfoKeys.DEPENDENCY_INFO_OK, 'info_ok')
+        self.assertEqual(InfoKeys.DEPENDENCY_CONTEXT_BUNDLE, 'context_bundle')
 
-        self.assertEqual(dep_mapping.get(InfoKeys.DEPENDENCY_NAME), IName)
-        self.assertEqual(dep_mapping.get(InfoKeys.DEPENDENCY_VERSION), IVersion)
-        self.assertEqual(dep_mapping.get(InfoKeys.DEPENDENCY_LICENCE), ILicence)
-        self.assertEqual(dep_mapping.get(InfoKeys.DEPENDENCY_BUILD_DATE), IBuildDate)
-        self.assertEqual(dep_mapping.get(InfoKeys.DEPENDENCY_REPOSITORY), IRepository)
-        self.assertEqual(dep_mapping.get(InfoKeys.DEPENDENCY_ORGANIZATION), IOrganization)
-        self.assertEqual(dep_mapping.get(InfoKeys.DEPENDENCY_USE_GITHUB_INFRASTRUCTURE), IUseGitHub)
-        self.assertEqual(dep_mapping.get(InfoKeys.DEPENDENCY_LOGO_PATH), ILogo)
-        self.assertEqual(dep_mapping.get(InfoKeys.DEPENDENCY_LOG_FILE), ILogFile)
-        self.assertEqual(dep_mapping.get(InfoKeys.DEPENDENCY_INFO_OK), IInfoOk)
-        self.assertEqual(dep_mapping.get(InfoKeys.DEPENDENCY_CONTEXT_BUNDLE), ContextBundle)
+    def test_option_key_constants(self):
+        """Test that option key string constants match expected values."""
+        self.assertEqual(InfoKeys.OPTION_INFO, 'info')
+        self.assertEqual(InfoKeys.OPTION_CONTEXT_BUNDLE, 'context_bundle')
 
-    def test_get_option_to_type(self) -> None:
-        """Test get_option_to_type returns correct MappingProxyType with all option types."""
-        opt_mapping = InfoKeys.get_option_to_type()
-        self.assertIsInstance(opt_mapping, MappingProxyType)
+    def test_information_key_constants(self):
+        """Test that information key string constants match expected values."""
+        self.assertEqual(InfoKeys.ATS_NAME, 'ats_name')
+        self.assertEqual(InfoKeys.ATS_VERSION, 'ats_version')
+        self.assertEqual(InfoKeys.ATS_BUILD_DATE, 'ats_build_date')
+        self.assertEqual(InfoKeys.ATS_LICENCE, 'ats_licence')
+        self.assertEqual(InfoKeys.ATS_REPOSITORY, 'ats_repository')
+        self.assertEqual(InfoKeys.ATS_ORGANIZATION, 'ats_organization')
+        self.assertEqual(InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE, 'ats_use_github_infrastructure')
+        self.assertEqual(InfoKeys.ATS_LOGO_PATH, 'ats_logo_path')
+        self.assertEqual(InfoKeys.ATS_LOG_FILE, 'ats_log_file')
+        self.assertEqual(InfoKeys.ATS_INFO_OK, 'ats_info_ok')
 
-        self.assertEqual(opt_mapping.get(InfoKeys.OPTION_CONTEXT_BUNDLE), ContextBundle)
+    def test_get_dependency_to_type(self):
+        """Test get_dependency_to_type returns immutable MappingProxyType with valid types."""
+        result = InfoKeys.get_dependency_to_type()
 
-    def test_get_config_keys(self) -> None:
-        """Test that get_config_keys returns all expected information keys."""
-        keys = InfoKeys.get_config_keys()
-        self.assertIn(InfoKeys.ATS_NAME, keys)
-        self.assertIn(InfoKeys.ATS_VERSION, keys)
-        self.assertIn(InfoKeys.ATS_BUILD_DATE, keys)
-        self.assertIn(InfoKeys.ATS_LICENCE, keys)
+        self.assertIsInstance(result, MappingProxyType)
+        self.assertEqual(len(result), 11)
 
-    def test_is_registered_config_key(self) -> None:
-        """Test register checks for config keys."""
-        self.assertTrue(InfoKeys.is_registered_config_key(InfoKeys.ATS_NAME))
-        self.assertFalse(InfoKeys.is_registered_config_key("not_registered"))
-
-    def test_get_optional_config_keys(self) -> None:
-        """Test get_optional_config_keys sequence matches."""
-        optional_keys = InfoKeys.get_optional_config_keys()
-        self.assertIn(InfoKeys.ATS_REPOSITORY, optional_keys)
-        self.assertNotIn(InfoKeys.ATS_NAME, optional_keys)
-
-    def test_get_required_config_keys(self) -> None:
-        """Test get_required_config_keys sequence matches."""
-        required_keys = InfoKeys.get_required_config_keys()
-        self.assertIn(InfoKeys.ATS_NAME, required_keys)
-        self.assertNotIn(InfoKeys.ATS_REPOSITORY, required_keys)
-
-    def test_get_name_of_config_key(self) -> None:
-        """Test key to dependency name mapping."""
-        self.assertEqual(
-            InfoKeys.get_name_of_config_key(InfoKeys.ATS_NAME),
-            InfoKeys.DEPENDENCY_NAME
-        )
-        with self.assertRaises(ATSValueError):
-            InfoKeys.get_name_of_config_key("not_registered")
-
-    def test_get_config_key_to_type(self) -> None:
-        """Test configuration type mappings."""
-        mapping = InfoKeys.get_config_key_to_type()
-        self.assertEqual(mapping[InfoKeys.ATS_NAME], Name)
-        self.assertEqual(mapping[InfoKeys.ATS_VERSION], Version)
-
-    def test_get_info_getters(self) -> None:
-        """Test utility config getters."""
-        config = {
-            InfoKeys.ATS_NAME: "my_app",
-            InfoKeys.ATS_VERSION: "1.0.0",
-            InfoKeys.ATS_BUILD_DATE: "2026-08-01",
-            InfoKeys.ATS_LICENCE: "GPL"
+        expected_mapping = {
+            InfoKeys.DEPENDENCY_NAME: IName,
+            InfoKeys.DEPENDENCY_VERSION: IVersion,
+            InfoKeys.DEPENDENCY_BUILD_DATE: IBuildDate,
+            InfoKeys.DEPENDENCY_LICENCE: ILicence,
+            InfoKeys.DEPENDENCY_REPOSITORY: IRepository,
+            InfoKeys.DEPENDENCY_ORGANIZATION: IOrganization,
+            InfoKeys.DEPENDENCY_USE_GITHUB_INFRASTRUCTURE: IUseGitHub,
+            InfoKeys.DEPENDENCY_LOGO_PATH: ILogo,
+            InfoKeys.DEPENDENCY_LOG_FILE: ILogFile,
+            InfoKeys.DEPENDENCY_INFO_OK: IInfoOk,
+            InfoKeys.DEPENDENCY_CONTEXT_BUNDLE: ContextBundle,
         }
 
-        self.assertEqual(InfoKeys.get_name(config), "my_app")
-        with self.assertRaises(ATSValueError):
-            InfoKeys.get_name({})
+        for key, expected_type in expected_mapping.items():
+            self.assertIn(key, result)
+            self.assertEqual(result[key], expected_type)
+
+    def test_get_option_to_type(self):
+        """Test get_option_to_type returns immutable MappingProxyType with valid types."""
+        result = InfoKeys.get_option_to_type()
+
+        self.assertIsInstance(result, MappingProxyType)
+        self.assertEqual(len(result), 2)
+
+        self.assertEqual(result[InfoKeys.OPTION_INFO], Mapping[str, object])
+        self.assertEqual(result[InfoKeys.OPTION_CONTEXT_BUNDLE], ContextBundle)
+
+    def test_mapping_immutability(self):
+        """Test that returned proxy mappings cannot be modified."""
+        dep_mapping = InfoKeys.get_dependency_to_type()
+        opt_mapping = InfoKeys.get_option_to_type()
+
+        with self.assertRaises(TypeError):
+            dep_mapping['new_key'] = str  # type: ignore
+
+        with self.assertRaises(TypeError):
+            opt_mapping['new_key'] = str  # type: ignore
 
 
 if __name__ == '__main__':

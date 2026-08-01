@@ -30,6 +30,7 @@ from ats_utilities.info.setup.bundle import InfoBundle
 from ats_utilities.info.setup.factory import InfoFactory
 from ats_utilities.info.setup.validator import InfoValidator
 from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.schema import InfoSchema
 from ats_utilities.exceptions import ATSAttributeError, ATSValueError, ATSTypeError
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_type import istype
@@ -172,7 +173,7 @@ class InfoManager:
             :exceptions: None.
         '''
         info_dict: dict[str, object] = {}
-        config_key_to_dep = InfoKeys.get_config_keys_to_dependency_keys()
+        config_key_to_dep: Mapping[str, str] = InfoSchema.get_config_keys_to_dependency_keys()
 
         for config_key, dep_attr in config_key_to_dep.items():
             component = getattr(self._components, dep_attr, None)
@@ -194,7 +195,7 @@ class InfoManager:
             :exceptions: None.
         '''
         has_components: bool = '_components' in self.__dict__
-        is_registered: bool = name in InfoKeys.get_all_names_config_keys()
+        is_registered: bool = name in InfoSchema.get_all_names_config_keys()
 
         return has_components and is_registered
 
@@ -268,7 +269,7 @@ class InfoManager:
         if not hasattr(self, '_components') or self._components is None:
             return
 
-        required_dep_names = InfoKeys.get_names_of_required_config_keys()
+        required_dep_names = InfoSchema.get_names_of_required_config_keys()
         is_all_ok: bool = True
 
         for dep_name in required_dep_names:

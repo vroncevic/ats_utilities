@@ -25,7 +25,7 @@ from typing import ClassVar
 from types import MappingProxyType
 from collections.abc import Mapping
 
-from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.schema import InfoSchema
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.context.bundle import ContextBundle
 
@@ -66,7 +66,7 @@ class OptionKeys:
 
     # Information Keys
     REQUIRED_CONFIG_KEYS_SET: ClassVar[frozenset[str]] = frozenset(
-        InfoKeys.get_required_config_keys()
+        InfoSchema.get_required_config_keys()
     )
 
     @classmethod

@@ -30,6 +30,7 @@ from ats_utilities.exceptions import ATSAttributeError, ATSTypeError, ATSValueEr
 from ats_utilities.info.engine import InfoManager
 from ats_utilities.info.setup.bundle import InfoBundle
 from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.schema import InfoSchema
 from ats_utilities.info.setup.factory import InfoFactory
 
 

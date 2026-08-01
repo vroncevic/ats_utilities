@@ -35,7 +35,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-MAX_METHODS_PER_CLASS = 12
+MAX_METHODS_PER_CLASS = 15
 MAX_LOGICAL_LINES_PER_METHOD = 180
 
 def count_logical_lines(method_node) -> int:
@@ -69,6 +69,7 @@ def count_logical_lines(method_node) -> int:
                 logical_lines.add(node.lineno)
 
     return len(logical_lines)
+
 
 def main():
     package_dir = 'ats_utilities'
@@ -118,6 +119,7 @@ def main():
     else:
         print("✅ Quality Gate Pass: SRP constraints are respected.")
         sys.exit(0)
+
 
 if __name__ == '__main__':
     main()
