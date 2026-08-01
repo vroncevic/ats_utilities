@@ -10,6 +10,9 @@ on:
     paths:
       - 'ats_utilities/**'
 
+permissions:
+  contents: read
+
 jobs:
   srp_gate:
     runs-on: ubuntu-latest
