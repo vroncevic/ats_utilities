@@ -22,6 +22,7 @@ Info
 from __future__ import annotations
 
 import unittest
+from dataclasses import FrozenInstanceError
 from unittest.mock import MagicMock
 
 from ats_utilities.checker.setup.bundle import CheckerBundle
@@ -29,15 +30,6 @@ from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.type.itype_validator import ITypeValidator
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__ = 'Vladimir Roncevic'
-__email__ = 'elektron.ronca@gmail.com'
-__status__ = 'Development'
 
 
 class BundleTest(unittest.TestCase):
@@ -62,6 +54,36 @@ class BundleTest(unittest.TestCase):
         self.assertIs(bundle.type_validator, mock_type)
         self.assertIs(bundle.context_provider, mock_context)
         self.assertIs(bundle.check_reporter, mock_reporter)
+
+    def test_frozen(self) -> None:
+        mock_format = MagicMock(spec=IFormatValidator)
+        mock_type = MagicMock(spec=ITypeValidator)
+        mock_context = MagicMock(spec=IContextProvider)
+        mock_reporter = MagicMock(spec=ICheckReporter)
+
+        bundle = CheckerBundle(
+            format_validator=mock_format,
+            type_validator=mock_type,
+            context_provider=mock_context,
+            check_reporter=mock_reporter
+        )
+        with self.assertRaises(FrozenInstanceError):
+            bundle.format_validator = mock_format  # type: ignore
+
+    def test_slots(self) -> None:
+        mock_format = MagicMock(spec=IFormatValidator)
+        mock_type = MagicMock(spec=ITypeValidator)
+        mock_context = MagicMock(spec=IContextProvider)
+        mock_reporter = MagicMock(spec=ICheckReporter)
+
+        bundle = CheckerBundle(
+            format_validator=mock_format,
+            type_validator=mock_type,
+            context_provider=mock_context,
+            check_reporter=mock_reporter
+        )
+        with self.assertRaises(AttributeError):
+            bundle.__dict__  # type: ignore
 
     def test_to_dict(self) -> None:
         mock_format = MagicMock(spec=IFormatValidator)

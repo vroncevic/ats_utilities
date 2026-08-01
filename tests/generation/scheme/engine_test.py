@@ -17,6 +17,13 @@ class TestSchemeLoader(unittest.TestCase):
     def setUp(self) -> None:
         """Set up standard mocked dependencies for SchemeLoader instances."""
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
+        from ats_utilities.checker.ichecker import IChecker
+        from ats_utilities.logger.ilogger import ILogger
+        from ats_utilities.reporter.ireporter import IReporter
+        self.mock_context_bundle.checker = MagicMock(spec=IChecker)
+        self.mock_context_bundle.logger = MagicMock(spec=ILogger)
+        self.mock_context_bundle.reporter = MagicMock(spec=IReporter)
+        self.mock_context_bundle.verbose = True
         self.valid_dict_scheme = {"param1": "value1", "param2": 42}
         self.valid_file_path = "/path/to/scheme.json"
 

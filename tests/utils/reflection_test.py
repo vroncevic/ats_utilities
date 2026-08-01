@@ -126,7 +126,7 @@ class ReflectionTest(unittest.TestCase):
         '''
         instance = DummyClass(None, "val2")
         with self.assertRaises(ATSValueError) as ctx:
-           .decorated_method()
+            instance.decorated_method()
         self.assertIn("missing or empty attribute _attr1", str(ctx.exception))
 
         instance2 = DummyClass("", "val2")

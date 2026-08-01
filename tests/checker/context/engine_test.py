@@ -2,7 +2,7 @@
 
 '''
 Module
-    context_provider_test.py
+    engine_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -23,34 +23,14 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.checker.context.context_provider import ContextProvider
+from ats_utilities.checker.context.engine import ContextProvider
 from ats_utilities.exceptions import ATSTypeError
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
 
 
 class ContextProviderTest(unittest.TestCase):
     '''
         Defines class ContextProviderTest with attribute(s) and method(s).
         Tests ContextProvider component logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_init_default - Tests default ContextProvider initialization.
-                | test_set_stack_index_caller - Tests setting stack index caller.
-                | test_get_context - Tests getting calling context.
-                | test_get_context_overflow - Tests get_context when index exceeds stack depth.
-                | test_get_context_decorated_wrapper - Tests get_context resolution inside decorator wrapper.
-                | test_str - Tests __str__ representation.
     '''
 
     def test_init_default(self) -> None:
@@ -65,17 +45,17 @@ class ContextProviderTest(unittest.TestCase):
             provider.set_stack_index_caller("invalid")  # type: ignore
 
     def test_get_context(self) -> None:
-        provider = ContextProvider(index_caller=1)
+        provider = ContextProvider(stack_index_caller=1)
         ctx = provider.get_context()
         self.assertIn("test_get_context", ctx)
 
     def test_get_context_overflow(self) -> None:
-        provider = ContextProvider(index_caller=9999)
+        provider = ContextProvider(stack_index_caller=9999)
         ctx = provider.get_context()
         self.assertIsNotNone(ctx)
 
     def test_get_context_decorated_wrapper(self) -> None:
-        provider = ContextProvider(index_caller=1)
+        provider = ContextProvider(stack_index_caller=1)
 
         def my_real_function() -> str:
             return provider.get_context()
@@ -88,7 +68,7 @@ class ContextProviderTest(unittest.TestCase):
         self.assertIn("my_real_function", ctx)
 
     def test_get_context_decorated_wrapper_no_name(self) -> None:
-        provider = ContextProvider(index_caller=1)
+        provider = ContextProvider(stack_index_caller=1)
 
         def wrapper() -> str:
             func = object()  # Has no __name__
@@ -98,7 +78,7 @@ class ContextProviderTest(unittest.TestCase):
         self.assertIn("wrapper", ctx)
 
     def test_get_context_decorated_wrapper_has_name(self) -> None:
-        provider = ContextProvider(index_caller=1)
+        provider = ContextProvider(stack_index_caller=1)
 
         def my_func() -> None:
             ...

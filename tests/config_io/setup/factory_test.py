@@ -25,19 +25,13 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.config_io.setup.factory import ConfigIOFactory
-from ats_utilities.config_io.setup.dependencies import ConfigIOOptions
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.config_io.setup.options import ConfigIOOptions
 
 
 class ConfigIOFactoryTest(unittest.TestCase):
@@ -46,40 +40,26 @@ class ConfigIOFactoryTest(unittest.TestCase):
         Tests ConfigIOFactory logic.
     '''
 
-    def test_create_default_bundle_with_injected_processor(self) -> None:
-        mock_processor = MagicMock(spec=IConfigProcessor)
-        mock_context = MagicMock(spec=ContextBundle)
-
-        bundle = ConfigIOFactory.create_default_bundle(
-            ConfigIOOptions(
-                processor=mock_processor,
-                context_bundle=mock_context
-            )
-        )
-
-        self.assertIsInstance(bundle, ConfigIOBundle)
-        self.assertEqual(bundle.file_path, "")
-        self.assertEqual(bundle.scheme, {})
-        self.assertIs(bundle.processor, mock_processor)
-        self.assertIs(bundle.context_bundle, mock_context)
-
     @patch("ats_utilities.config_io.setup.factory.ConfigProcessorFactory")
-    def test_create_default_bundle_with_path_and_scheme(self, mock_factory: MagicMock) -> None:
+    def test_create_bundle(self, mock_factory: MagicMock) -> None:
         mock_processor = MagicMock(spec=IConfigProcessor)
         mock_factory.create_from_file_path.return_value = mock_processor
-        mock_context = MagicMock(spec=ContextBundle)
 
-        bundle = ConfigIOFactory.create_default_bundle(
-            ConfigIOOptions(
-                file_path="/tmp/config.json",
-                scheme={"key": "val"},
-                context_bundle=mock_context
-            )
+        mock_context = MagicMock(spec=ContextBundle)
+        mock_context.checker = MagicMock(spec=IChecker)
+        mock_context.logger = MagicMock(spec=ILogger)
+        mock_context.reporter = MagicMock(spec=IReporter)
+        mock_context.verbose = True
+
+        options = ConfigIOOptions(
+            file_path="/tmp/config.json",
+            scheme={"key": "val"},
+            context_bundle=mock_context
         )
+        bundle = ConfigIOFactory.create_bundle(options)
 
         self.assertIsInstance(bundle, ConfigIOBundle)
         self.assertEqual(bundle.file_path, "/tmp/config.json")
-        self.assertEqual(bundle.scheme, {"key": "val"})
         self.assertIs(bundle.processor, mock_processor)
         self.assertIs(bundle.context_bundle, mock_context)
 

@@ -10,7 +10,9 @@ from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
 from ats_utilities.generation.tar.data import TarData, TarMemberData
 from ats_utilities.exceptions import ATSGeneratorError
-
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.ireporter import IReporter
 
 class TestTarProcessor(unittest.TestCase):
     """Unit tests for the TarProcessor engine class."""
@@ -18,6 +20,10 @@ class TestTarProcessor(unittest.TestCase):
     def setUp(self) -> None:
         """Set up standard mocked dependencies for TarProcessor test instances."""
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
+        self.mock_context_bundle.checker = MagicMock(spec=IChecker)
+        self.mock_context_bundle.logger = MagicMock(spec=ILogger)
+        self.mock_context_bundle.reporter = MagicMock(spec=IReporter)
+        self.mock_context_bundle.verbose = True
         self.mock_template_processor = MagicMock(spec=ITemplateProcessor)
         
         # Valid bundles

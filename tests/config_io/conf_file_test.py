@@ -8,6 +8,8 @@ from collections.abc import Mapping
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.data import FileData
 from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.context.bundle import ContextBundle
 
 
@@ -21,6 +23,11 @@ class TestConfFile(unittest.TestCase):
         
         # Build mock bundle dependencies
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
+        self.mock_context_bundle.checker = MagicMock(spec=IChecker)
+        self.mock_context_bundle.logger = MagicMock(spec=ILogger)
+        self.mock_context_bundle.reporter = MagicMock(spec=IReporter)
+        self.mock_context_bundle.verbose = True
+        
         self.mock_bundle = FileData(
             file_path=self.mock_file_path,
             file_mode=self.mock_file_mode,
@@ -65,7 +72,7 @@ class TestConfFile(unittest.TestCase):
 
         # Assert
         mock_check_exists.assert_called_once_with(
-            self.mock_file_path, 'conf_file::enter(...)', f'file {self.mock_file_path} does not exist'
+            self.mock_file_path, 'conf_file::enter(...)', 'the file path does not exist'
         )
         mock_file_open.assert_called_once_with(self.mock_file_path, "r", encoding="utf-8")
         self.assertEqual(result, mock_file_open.return_value)

@@ -26,18 +26,9 @@ from unittest.mock import MagicMock
 
 from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.ichecker import ErrorChecker
+from ats_utilities.checker.setup.types import CheckerErrorType
 from ats_utilities.checker.proxy_validator import mcheck, fcheck
-from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.exceptions import ATSRuntimeError, ATSTypeError, ATSValueError
 
 
 class DummyClass:
@@ -83,26 +74,6 @@ class ProxyValidatorTest(unittest.TestCase):
     '''
         Defines class ProxyValidatorTest with attribute(s) and method(s).
         Tests mcheck and fcheck decorators logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_vcheck_valid - Tests successful mcheck usage.
-                | test_vcheck_invalid_type - Tests mcheck raising ATSTypeError.
-                | test_vcheck_invalid_format - Tests mcheck raising ATSValueError.
-                | test_vcheck_non_class_method - Tests mcheck on free function.
-                | test_vcheck_missing_checker - Tests mcheck on class without _checker.
-                | test_vcheck_unbound_param - Tests mcheck with parameter not in function signature.
-                | test_vcheck_required_param_none - Tests mcheck with required parameter set to None.
-                | test_vcheck_mocked_format_error - Tests mcheck format error path via mocking.
-                | test_fcheck_valid - Tests successful fcheck usage.
-                | test_fcheck_invalid_type - Tests fcheck raising ATSTypeError.
-                | test_fcheck_invalid_format - Tests fcheck raising ATSValueError.
-                | test_fcheck_optional - Tests fcheck with optional parameter.
-                | test_fcheck_unbound_param - Tests fcheck with parameter not in function signature.
-                | test_fcheck_required_param_none - Tests fcheck with required parameter set to None.
-                | test_fcheck_mocked_format_error - Tests fcheck format error path via mocking.
     '''
 
     def test_vcheck_valid(self) -> None:
@@ -156,7 +127,7 @@ class ProxyValidatorTest(unittest.TestCase):
         obj = DummyClass()
         # Mock validates_parameters to return FORMAT_ERROR
         obj._checker.validates_parameters = MagicMock(
-            return_value=("Mock format error", ErrorChecker.FORMAT_ERROR)
+            return_value=("Mock format error", CheckerErrorType.FORMAT_ERROR)
         )
         with self.assertRaises(ATSValueError):
             obj.my_method("test", 123)
@@ -204,7 +175,7 @@ class ProxyValidatorTest(unittest.TestCase):
 
         original_validates = checker.validates_parameters
         checker.validates_parameters = MagicMock(
-            return_value=("Mock format error", ErrorChecker.FORMAT_ERROR)
+            return_value=("Mock format error", CheckerErrorType.FORMAT_ERROR)
         )
         try:
             with self.assertRaises(ATSValueError):

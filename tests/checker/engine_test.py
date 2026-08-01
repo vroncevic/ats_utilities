@@ -22,42 +22,18 @@ Info
 from __future__ import annotations
 
 import unittest
-from unittest.mock import MagicMock
 
 from ats_utilities.checker.setup.bundle import CheckerBundle
 from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.ichecker import ErrorChecker
+from ats_utilities.checker.setup.types import CheckerErrorType
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
 
 
 class EngineTest(unittest.TestCase):
     '''
         Defines class EngineTest with attribute(s) and method(s).
         Tests Checker component logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_init_valid - Tests successful Checker initialization.
-                | test_init_invalid_none - Tests Checker initialization with None bundle.
-                | test_init_invalid_type - Tests Checker initialization with wrong type.
-                | test_validates_parameters_valid - Tests validates_parameters with valid parameters.
-                | test_validates_parameters_none - Tests validates_parameters with None parameters list.
-                | test_validates_parameters_format_error - Tests validates_parameters with format error.
-                | test_validates_parameters_type_error - Tests validates_parameters with type error.
-                | test_is_initialized - Tests is_initialized method.
-                | test_str - Tests __str__ representation.
     '''
 
     def test_init_valid(self) -> None:
@@ -77,28 +53,28 @@ class EngineTest(unittest.TestCase):
         bundle = CheckerFactory.create_bundle()
         checker = Checker(bundle)
         msg, err_id = checker.validates_parameters([("str:param1", "test"), ("int:param2", 123)])
-        self.assertEqual(err_id, ErrorChecker.NO_ERROR)
+        self.assertEqual(err_id, CheckerErrorType.NO_ERROR)
         self.assertIn("param1", msg)
 
     def test_validates_parameters_none(self) -> None:
         bundle = CheckerFactory.create_bundle()
         checker = Checker(bundle)
         msg, err_id = checker.validates_parameters(None)  # type: ignore
-        self.assertEqual(err_id, ErrorChecker.FORMAT_ERROR)
+        self.assertEqual(err_id, CheckerErrorType.FORMAT_ERROR)
         self.assertIn("format wrong", msg)
 
     def test_validates_parameters_format_error(self) -> None:
         bundle = CheckerFactory.create_bundle()
         checker = Checker(bundle)
         msg, err_id = checker.validates_parameters([("invalid_format", "test")])
-        self.assertEqual(err_id, ErrorChecker.FORMAT_ERROR)
+        self.assertEqual(err_id, CheckerErrorType.FORMAT_ERROR)
         self.assertIn("format wrong", msg)
 
     def test_validates_parameters_type_error(self) -> None:
         bundle = CheckerFactory.create_bundle()
         checker = Checker(bundle)
         msg, err_id = checker.validates_parameters([("int:param", "not_an_int")])
-        self.assertEqual(err_id, ErrorChecker.TYPE_ERROR)
+        self.assertEqual(err_id, CheckerErrorType.TYPE_ERROR)
         self.assertIn("wrong type", msg)
 
     def test_validates_parameters_multiple_type_errors(self) -> None:
@@ -108,7 +84,7 @@ class EngineTest(unittest.TestCase):
             ("int:param1", "not_an_int"),
             ("str:param2", 123)
         ])
-        self.assertEqual(err_id, ErrorChecker.TYPE_ERROR)
+        self.assertEqual(err_id, CheckerErrorType.TYPE_ERROR)
         self.assertIn("wrong type", msg)
 
     def test_is_initialized(self) -> None:

@@ -29,15 +29,6 @@ from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
-
 
 class ConfigIOBundleTest(unittest.TestCase):
     '''
@@ -51,7 +42,6 @@ class ConfigIOBundleTest(unittest.TestCase):
 
         self.valid_params = {
             "file_path": "/tmp/config.json",
-            "scheme": {"key": "value"},
             "processor": self.mock_processor,
             "context_bundle": self.mock_context
         }
@@ -59,7 +49,6 @@ class ConfigIOBundleTest(unittest.TestCase):
     def test_init_valid(self) -> None:
         bundle = ConfigIOBundle(**self.valid_params)
         self.assertEqual(bundle.file_path, "/tmp/config.json")
-        self.assertEqual(bundle.scheme, {"key": "value"})
         self.assertIs(bundle.processor, self.mock_processor)
         self.assertIs(bundle.context_bundle, self.mock_context)
 
@@ -74,8 +63,6 @@ class ConfigIOBundleTest(unittest.TestCase):
                 # pyrefly: ignore [unexpected-positional-argument]
                 "/tmp/config.json",
                 # pyrefly: ignore [unexpected-positional-argument]
-                {"key": "value"},
-                # pyrefly: ignore [unexpected-positional-argument]
                 self.mock_processor,
                 # pyrefly: ignore [unexpected-positional-argument]
                 self.mock_context
@@ -86,7 +73,6 @@ class ConfigIOBundleTest(unittest.TestCase):
         exported_dict = bundle.to_dict()
         self.assertIsInstance(exported_dict, dict)
         self.assertEqual(exported_dict["file_path"], "/tmp/config.json")
-        self.assertEqual(exported_dict["scheme"], {"key": "value"})
         self.assertEqual(exported_dict["processor"], self.mock_processor)
         self.assertEqual(exported_dict["context_bundle"], self.mock_context)
 

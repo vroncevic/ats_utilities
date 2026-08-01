@@ -21,25 +21,17 @@ Info
 
 from __future__ import annotations
 
-import logging
 import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.setup.registry import LoggerRegistry
 from ats_utilities.logger.setup.dependencies import LoggerDependencies
-from ats_utilities.logger.iformatter import ILogFormatter
-from ats_utilities.logger.ibuffer import ILogBuffer
-from ats_utilities.logger.ihandler_manager import ILogHandlerManager
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.logger.underlying.iunderlying import IUnderlyingLogger
+from ats_utilities.logger.formatter.iformatter import ILogFormatter
+from ats_utilities.logger.buffer.ibuffer import ILogBuffer
+from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
+from ats_utilities.logger.processor.imessage_processor import IMessageProcessor
 
 
 class RegistryTest(unittest.TestCase):
@@ -49,28 +41,29 @@ class RegistryTest(unittest.TestCase):
     '''
 
     def test_create_bundle(self) -> None:
-        mock_logger = logging.getLogger("test_logger")
+        mock_logger = MagicMock(spec=IUnderlyingLogger)
         mock_formatter = MagicMock(spec=ILogFormatter)
         mock_buffer = MagicMock(spec=ILogBuffer)
         mock_handler_manager = MagicMock(spec=ILogHandlerManager)
+        mock_message_processor = MagicMock(spec=IMessageProcessor)
 
-        bundle = LoggerRegistry.create_bundle(
-            LoggerDependencies(
-                log_file="test_registry.log",
-                log_level=logging.WARNING,
-                logger=mock_logger,
-                formatter=mock_formatter,
-                buffer=mock_buffer,
-                handler_manager=mock_handler_manager
-            )
+        dependencies = LoggerDependencies(
+            logger=mock_logger,
+            has_file_handler=True,
+            formatter=mock_formatter,
+            buffer=mock_buffer,
+            handler_manager=mock_handler_manager,
+            message_processor=mock_message_processor
         )
+
+        bundle = LoggerRegistry.create_bundle(dependencies)
         self.assertIsInstance(bundle, LoggerBundle)
-        self.assertEqual(bundle.log_file, "test_registry.log")
-        self.assertEqual(bundle.log_level, logging.WARNING)
         self.assertIs(bundle.logger, mock_logger)
+        self.assertTrue(bundle.has_file_handler)
         self.assertIs(bundle.formatter, mock_formatter)
         self.assertIs(bundle.buffer, mock_buffer)
         self.assertIs(bundle.handler_manager, mock_handler_manager)
+        self.assertIs(bundle.message_processor, mock_message_processor)
 
 
 if __name__ == "__main__":

@@ -69,7 +69,7 @@ class LogHandlerManager:
         msg_logger_istype: str = 'the logger must be an instance of IUnderlyingLogger'
 
         not_none(logger, ctx, msg_logger_none)
-        istype(logger, ctx, IUnderlyingLogger, msg_logger_istype)
+        istype(logger, IUnderlyingLogger, ctx, msg_logger_istype)
 
         self._logger = logger
 

@@ -2,7 +2,7 @@
 
 '''
 Module
-    type_validator_test.py
+    engine_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -24,35 +24,14 @@ from __future__ import annotations
 import unittest
 from collections.abc import Set
 
-from ats_utilities.checker.type.type_validator import TypeValidator
+from ats_utilities.checker.type.engine import TypeValidator
 from ats_utilities.exceptions import ATSTypeError
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
 
 
 class TypeValidatorTest(unittest.TestCase):
     '''
         Defines class TypeValidatorTest with attribute(s) and method(s).
         Tests TypeValidator component logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_init_default - Tests default initialization.
-                | test_init_custom - Tests initialization with custom abstract types mapping.
-                | test_init_invalid_type - Tests initialization with invalid type.
-                | test_is_match - Tests is_match comparison.
-                | test_is_subtype - Tests is_subtype comparison.
-                | test_get_type_name - Tests get_type_name method.
-                | test_str - Tests __str__ representation.
     '''
 
     def test_init_default(self) -> None:

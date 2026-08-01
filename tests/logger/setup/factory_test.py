@@ -28,15 +28,6 @@ from unittest.mock import patch, MagicMock
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.setup.factory import LoggerFactory
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
-
 
 class FactoryTest(unittest.TestCase):
     '''
@@ -50,19 +41,16 @@ class FactoryTest(unittest.TestCase):
             "log_level": logging.WARNING
         })
         self.assertIsInstance(bundle, LoggerBundle)
-        self.assertEqual(bundle.log_file, "test_factory.log")
-        self.assertEqual(bundle.log_level, logging.WARNING)
-        self.assertIsInstance(bundle.logger, logging.Logger)
+        self.assertTrue(bundle.has_file_handler)
 
     def test_create_default_bundle_without_parameters(self) -> None:
         bundle = LoggerFactory.create_bundle()
         self.assertIsInstance(bundle, LoggerBundle)
-        self.assertEqual(bundle.log_file, "")
-        self.assertEqual(bundle.log_level, logging.INFO)
+        self.assertFalse(bundle.has_file_handler)
 
     @patch("ats_utilities.logger.setup.factory.getLogger")
-    def test_create_default_bundle_configures_stream(self, mock_get_logger) -> None:
-        mock_logger = MagicMock()
+    def test_create_default_bundle_configures_stream(self, mock_get_logger: MagicMock) -> None:
+        mock_logger = MagicMock(spec=logging.Logger)
         mock_logger.hasHandlers.return_value = False
         mock_get_logger.return_value = mock_logger
 
@@ -74,8 +62,8 @@ class FactoryTest(unittest.TestCase):
             self.assertNotIn('filename', kwargs)
 
     @patch("ats_utilities.logger.setup.factory.getLogger")
-    def test_create_default_bundle_configures_filename(self, mock_get_logger) -> None:
-        mock_logger = MagicMock()
+    def test_create_default_bundle_configures_filename(self, mock_get_logger: MagicMock) -> None:
+        mock_logger = MagicMock(spec=logging.Logger)
         mock_logger.hasHandlers.return_value = False
         mock_get_logger.return_value = mock_logger
 

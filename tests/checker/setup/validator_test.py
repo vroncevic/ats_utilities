@@ -32,15 +32,6 @@ from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.type.itype_validator import ITypeValidator
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__ = 'Vladimir Roncevic'
-__email__ = 'elektron.ronca@gmail.com'
-__status__ = 'Development'
-
 
 class ValidatorTest(unittest.TestCase):
     '''
@@ -60,7 +51,6 @@ class ValidatorTest(unittest.TestCase):
             context_provider=mock_context,
             check_reporter=mock_reporter
         )
-        # Should not raise any exceptions
         CheckerValidator.validate(bundle)
 
     def test_validation_invalid_none(self) -> None:

@@ -2,7 +2,7 @@
 
 '''
 Module
-    check_reporter_test.py
+    engine_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -22,36 +22,16 @@ Info
 from __future__ import annotations
 
 import unittest
-from unittest.mock import MagicMock
 
-from ats_utilities.checker.reporter.check_reporter import CheckReporter
+from ats_utilities.checker.reporter.engine import CheckReporter
 from ats_utilities.checker.reporter.data import CheckReporterData
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
 
 
 class CheckReporterTest(unittest.TestCase):
     '''
         Defines class CheckReporterTest with attribute(s) and method(s).
         Tests CheckReporter component logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_build_message_format_valid - Tests build_message with valid bundle.
-                | test_build_message_format_with_errors - Tests message formatting with errors.
-                | test_build_message_format_invalid_none - Tests build_message with None bundle.
-                | test_build_message_format_invalid_type - Tests build_message with wrong type.
-                | test_str - Tests __str__ representation.
     '''
 
     def test_build_message_format_valid(self) -> None:

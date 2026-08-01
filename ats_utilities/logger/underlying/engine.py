@@ -85,8 +85,8 @@ class LoggerAdapter:
         not_none(logger, ctx, msg_logger_none)
         not_none(formatter, ctx, msg_formatter_none)
 
-        istype(logger, ctx, Logger, msg_logger_istype)
-        istype(formatter, ctx, ILogFormatter, msg_formatter_istype)
+        istype(logger, Logger, ctx, msg_logger_istype)
+        istype(formatter, ILogFormatter, ctx, msg_formatter_istype)
 
         self._logger = logger
         self._formatter = formatter

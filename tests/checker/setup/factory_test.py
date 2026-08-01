@@ -22,22 +22,16 @@ Info
 from __future__ import annotations
 
 import unittest
+from collections.abc import Set
 
 from ats_utilities.checker.setup.bundle import CheckerBundle
 from ats_utilities.checker.setup.factory import CheckerFactory
-from ats_utilities.checker.context.context_provider import ContextProvider
-from ats_utilities.checker.format.format_validator import FormatValidator
-from ats_utilities.checker.reporter.check_reporter import CheckReporter
-from ats_utilities.checker.type.type_validator import TypeValidator
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__ = 'Vladimir Roncevic'
-__email__ = 'elektron.ronca@gmail.com'
-__status__ = 'Development'
+from ats_utilities.checker.setup.options import CheckerOptions
+from ats_utilities.checker.context.engine import ContextProvider
+from ats_utilities.checker.format.engine import FormatValidator
+from ats_utilities.checker.reporter.engine import CheckReporter
+from ats_utilities.checker.type.engine import TypeValidator
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 
 class FactoryTest(unittest.TestCase):
@@ -53,6 +47,27 @@ class FactoryTest(unittest.TestCase):
         self.assertIsInstance(bundle.type_validator, TypeValidator)
         self.assertIsInstance(bundle.context_provider, ContextProvider)
         self.assertIsInstance(bundle.check_reporter, CheckReporter)
+
+    def test_create_bundle_with_options(self) -> None:
+        options = CheckerOptions(
+            separator="-",
+            abstract_types={"MySet": Set},
+            stack_index_caller=4,
+            messages_provider={"some": "msg"}
+        )
+        bundle = CheckerFactory.create_bundle(options)
+        self.assertIsInstance(bundle, CheckerBundle)
+        self.assertEqual(bundle.format_validator._separator, "-")
+        self.assertIn("MySet", bundle.type_validator._abstract_types)
+        self.assertEqual(bundle.context_provider._stack_index_caller, 4)
+        self.assertEqual(bundle.check_reporter._message_provider, {"some": "msg"})
+
+    def test_create_bundle_invalid_options(self) -> None:
+        with self.assertRaises(ATSTypeError):
+            CheckerFactory.create_bundle("invalid")  # type: ignore
+
+        with self.assertRaises(ATSTypeError):
+            CheckerFactory.create_bundle(CheckerOptions(separator=123))  # type: ignore
 
 
 if __name__ == "__main__":

@@ -62,9 +62,9 @@ class GeneratorRegistry:
         GeneratorDependenciesValidator.validate(dependencies)
 
         bundle: GeneratorBundle = GeneratorBundle(
-            scheme_loader=dependencies.get(GeneratorKeys.SCHEME_LOADER) if dependencies else None,
-            tar_processor=dependencies.get(GeneratorKeys.TAR_PROCESSOR) if dependencies else None,
-            context_bundle=dependencies.get(GeneratorKeys.CONTEXT_BUNDLE) if dependencies else None
+            scheme_loader=dependencies.get(GeneratorKeys.DEPENDENCY_SCHEME_LOADER) if dependencies else None,
+            tar_processor=dependencies.get(GeneratorKeys.DEPENDENCY_TAR_PROCESSOR) if dependencies else None,
+            context_bundle=dependencies.get(GeneratorKeys.DEPENDENCY_CONTEXT_BUNDLE) if dependencies else None
         )
 
         GeneratorValidator.validate(bundle)

@@ -108,6 +108,7 @@ class Logger:
             formatter=self._formatter,
             buffer=self._buffer,
             handler_manager=self._handler_manager,
+            message_processor=self._message_processor,
             has_file_handler=self._has_file_handler
         )
 

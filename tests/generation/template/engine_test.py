@@ -7,7 +7,9 @@ from collections.abc import Mapping
 # Adjust imports according to your project structure
 from ats_utilities.generation.template.engine import TemplateProcessor
 from ats_utilities.context.bundle import ContextBundle
-
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.ireporter import IReporter
 
 class TestTemplateProcessor(unittest.TestCase):
     """Unit tests for the TemplateProcessor class."""
@@ -15,6 +17,10 @@ class TestTemplateProcessor(unittest.TestCase):
     def setUp(self) -> None:
         """Set up standard mocked dependencies and sample template variants."""
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
+        self.mock_context_bundle.checker = MagicMock(spec=IChecker)
+        self.mock_context_bundle.logger = MagicMock(spec=ILogger)
+        self.mock_context_bundle.reporter = MagicMock(spec=IReporter)
+        self.mock_context_bundle.verbose = True
         self.sample_text_bytes = b"Hello, $name! Welcome to $project."
         self.sample_vals = {"name": "Alice", "project": "ATS"}
 

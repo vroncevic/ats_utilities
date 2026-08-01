@@ -26,20 +26,13 @@ from unittest.mock import MagicMock
 
 from ats_utilities.generation.setup.registry import GeneratorRegistry
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.generation.setup.bundle import GeneratorBundle
 from ats_utilities.generation.setup.dependencies import GeneratorDependencies
 from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generation.tar.itar_processor import ITarProcessor
-from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
 
 
 class TestGeneratorRegistry(unittest.TestCase):
@@ -48,24 +41,25 @@ class TestGeneratorRegistry(unittest.TestCase):
     def setUp(self) -> None:
         """Set up standard context bundle dependency mock."""
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
+        self.mock_context_bundle.checker = MagicMock(spec=IChecker)
+        self.mock_context_bundle.logger = MagicMock(spec=ILogger)
+        self.mock_context_bundle.reporter = MagicMock(spec=IReporter)
+        self.mock_context_bundle.verbose = True
 
     def test_create_bundle(self) -> None:
         """Test create_bundle on GeneratorRegistry."""
-        template_proc = MagicMock(spec=ITemplateProcessor)
         scheme_load = MagicMock(spec=ISchemeLoader)
         tar_proc = MagicMock(spec=ITarProcessor)
 
         result = GeneratorRegistry.create_bundle(
             GeneratorDependencies(
                 context_bundle=self.mock_context_bundle,
-                template_processor=template_proc,
                 scheme_loader=scheme_load,
                 tar_processor=tar_proc
             )
         )
         self.assertIsInstance(result, GeneratorBundle)
         self.assertEqual(result.context_bundle, self.mock_context_bundle)
-        self.assertEqual(result.template_processor, template_proc)
         self.assertEqual(result.scheme_loader, scheme_load)
         self.assertEqual(result.tar_processor, tar_proc)
 

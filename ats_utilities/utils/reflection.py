@@ -98,7 +98,7 @@ def cls_name(instance: object) -> str:
         :return: The class name in string format.
         :exceptions: None.
     '''
-    return.__class__.__name__
+    return instance.__class__.__name__
 
 
 def to_str(instance: object) -> str:
@@ -110,10 +110,10 @@ def to_str(instance: object) -> str:
         :return: The string representation of the.
         :exceptions: None.
     '''
-    class_name: str =.__class__.__name__
+    class_name: str = instance.__class__.__name__
 
     formatted_lines: list[str] = []
-    for k, v in.__dict__.items():
+    for k, v in instance.__dict__.items():
         clean_key: str = k[1:] if k.startswith('_') and not k.startswith('__') else k
         val_str: str = str(v).replace('\n', '\n    ')
 
@@ -149,4 +149,4 @@ def instance_to_dict(instance: object) -> dict[str, object]:
     not_none(instance, ctx, msg_instance_none)
     not_satisfied(not is_dataclass(instance), ctx, msg_instance_istype)
 
-    return {field: getattr(instance, field) for field in.__dataclass_fields__}
+    return {field: getattr(instance, field) for field in instance.__dataclass_fields__}

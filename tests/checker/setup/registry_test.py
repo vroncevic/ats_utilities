@@ -26,19 +26,11 @@ import unittest
 from ats_utilities.checker.setup.bundle import CheckerBundle
 from ats_utilities.checker.setup.registry import CheckerRegistry
 from ats_utilities.checker.setup.dependencies import CheckerDependencies
-from ats_utilities.checker.context.context_provider import ContextProvider
-from ats_utilities.checker.format.format_validator import FormatValidator
-from ats_utilities.checker.reporter.check_reporter import CheckReporter
-from ats_utilities.checker.type.type_validator import TypeValidator
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__ = 'Vladimir Roncevic'
-__email__ = 'elektron.ronca@gmail.com'
-__status__ = 'Development'
+from ats_utilities.checker.context.engine import ContextProvider
+from ats_utilities.checker.format.engine import FormatValidator
+from ats_utilities.checker.reporter.engine import CheckReporter
+from ats_utilities.checker.type.engine import TypeValidator
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 
 class RegistryTest(unittest.TestCase):
@@ -54,7 +46,7 @@ class RegistryTest(unittest.TestCase):
         check_reporter = CheckReporter()
 
         bundle = CheckerRegistry.create_bundle(
-            CheckerDependencies(
+            dependencies=CheckerDependencies(
                 format_validator=format_validator,
                 type_validator=type_validator,
                 context_provider=context_provider,
@@ -66,6 +58,13 @@ class RegistryTest(unittest.TestCase):
         self.assertIs(bundle.type_validator, type_validator)
         self.assertIs(bundle.context_provider, context_provider)
         self.assertIs(bundle.check_reporter, check_reporter)
+
+    def test_create_bundle_invalid(self) -> None:
+        with self.assertRaises(ATSValueError):
+            CheckerRegistry.create_bundle(None)  # type: ignore
+
+        with self.assertRaises(ATSTypeError):
+            CheckerRegistry.create_bundle("invalid")  # type: ignore
 
 
 if __name__ == "__main__":

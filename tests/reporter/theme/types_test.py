@@ -2,7 +2,7 @@
 
 '''
 Module
-    __init__.py
+    types_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,16 +16,29 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Initialize tests.generator.project.setup package.
+    Unit tests for MessageKey enum.
 '''
 
 from __future__ import annotations
 
-__author__ = 'Vladimir Roncevic'
-__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.4.4'
-__maintainer__ = 'Vladimir Roncevic'
-__email__ = 'elektron.ronca@gmail.com'
-__status__ = 'Development'
+import unittest
+
+from ats_utilities.reporter.theme.types import MessageKey
+
+
+class TypesTest(unittest.TestCase):
+    '''
+        Defines class TypesTest with attribute(s) and method(s).
+        Tests MessageKey enum logic.
+    '''
+
+    def test_message_keys(self) -> None:
+        self.assertEqual(MessageKey.VERBOSE, "verbose")
+        self.assertEqual(MessageKey.SUCCESS, "success")
+        self.assertEqual(MessageKey.WARNING, "warning")
+        self.assertEqual(MessageKey.ERROR, "error")
+        self.assertEqual(MessageKey.RESET, "reset")
+
+
+if __name__ == "__main__":
+    unittest.main()

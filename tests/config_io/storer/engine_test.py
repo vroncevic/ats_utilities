@@ -8,6 +8,9 @@ from ats_utilities.config_io.storer.engine import Storer
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.ireporter import IReporter
 
 
 class TestStorer(unittest.TestCase):
@@ -16,6 +19,10 @@ class TestStorer(unittest.TestCase):
     def setUp(self) -> None:
         """Set up standard mocked dependencies for Storer instances."""
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
+        self.mock_context_bundle.checker = MagicMock(spec=IChecker)
+        self.mock_context_bundle.logger = MagicMock(spec=ILogger)
+        self.mock_context_bundle.reporter = MagicMock(spec=IReporter)
+        self.mock_context_bundle.verbose = True
         self.mock_processor = MagicMock(spec=IConfigProcessor)
         
         # Build a valid ConfigIOBundle mock

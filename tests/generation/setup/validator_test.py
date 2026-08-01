@@ -25,21 +25,14 @@ import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.generation.setup.bundle import GeneratorBundle
 from ats_utilities.generation.setup.validator import GeneratorValidator
 from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generation.tar.itar_processor import ITarProcessor
-from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
 
 
 class GeneratorValidatorTest(unittest.TestCase):
@@ -50,20 +43,22 @@ class GeneratorValidatorTest(unittest.TestCase):
 
     def setUp(self) -> None:
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
+        self.mock_context_bundle.checker = MagicMock(spec=IChecker)
+        self.mock_context_bundle.logger = MagicMock(spec=ILogger)
+        self.mock_context_bundle.reporter = MagicMock(spec=IReporter)
+        self.mock_context_bundle.verbose = True
+
         self.mock_scheme_loader = MagicMock(spec=ISchemeLoader)
         self.mock_tar_processor = MagicMock(spec=ITarProcessor)
-        self.mock_template_processor = MagicMock(spec=ITemplateProcessor)
 
         self.valid_params = {
             "context_bundle": self.mock_context_bundle,
             "scheme_loader": self.mock_scheme_loader,
-            "tar_processor": self.mock_tar_processor,
-            "template_processor": self.mock_template_processor
+            "tar_processor": self.mock_tar_processor
         }
 
     def test_validate_valid(self) -> None:
         bundle = GeneratorBundle(**self.valid_params)
-        # Should validate successfully
         GeneratorValidator.validate(bundle)
 
     def test_validate_invalid_bundle(self) -> None:
@@ -74,7 +69,7 @@ class GeneratorValidatorTest(unittest.TestCase):
             GeneratorValidator.validate(object())  # type: ignore
 
     def test_validate_invalid_none(self) -> None:
-        fields = ["context_bundle", "scheme_loader", "tar_processor", "template_processor"]
+        fields = ["context_bundle", "scheme_loader", "tar_processor"]
 
         for field in fields:
             with self.subTest(field=field):
@@ -88,8 +83,7 @@ class GeneratorValidatorTest(unittest.TestCase):
         type_mismatches = {
             "context_bundle": MagicMock(spec=ISchemeLoader),
             "scheme_loader": MagicMock(spec=ContextBundle),
-            "tar_processor": MagicMock(spec=ITemplateProcessor),
-            "template_processor": MagicMock(spec=ITarProcessor)
+            "tar_processor": MagicMock(spec=ContextBundle)
         }
 
         for field, bad_value in type_mismatches.items():

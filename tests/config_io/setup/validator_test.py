@@ -21,24 +21,17 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.config_io.setup.validator import ConfigIOValidator
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
 
 
 class ConfigIOValidatorTest(unittest.TestCase):
@@ -50,17 +43,19 @@ class ConfigIOValidatorTest(unittest.TestCase):
     def setUp(self) -> None:
         self.mock_processor = MagicMock(spec=IConfigProcessor)
         self.mock_context = MagicMock(spec=ContextBundle)
+        self.mock_context.checker = MagicMock(spec=IChecker)
+        self.mock_context.logger = MagicMock(spec=ILogger)
+        self.mock_context.reporter = MagicMock(spec=IReporter)
+        self.mock_context.verbose = True
 
         self.valid_params = {
             "file_path": "/tmp/config.json",
-            "scheme": {"key": "value"},
             "processor": self.mock_processor,
             "context_bundle": self.mock_context
         }
 
     def test_validate_valid(self) -> None:
         bundle = ConfigIOBundle(**self.valid_params)
-        # Should validate successfully
         ConfigIOValidator.validate(bundle)
 
     def test_validate_invalid_bundle(self) -> None:
@@ -71,12 +66,13 @@ class ConfigIOValidatorTest(unittest.TestCase):
             ConfigIOValidator.validate(object())  # type: ignore
 
     def test_validate_invalid_none(self) -> None:
-        fields = ["file_path", "scheme", "processor", "context_bundle"]
+        fields = ["file_path", "processor", "context_bundle"]
 
         for field in fields:
             with self.subTest(field=field):
                 invalid_params = self.valid_params.copy()
                 invalid_params[field] = None  # type: ignore
+                # Note: ConfigIOBundle constructor might not validate on init, so we test validator
                 bundle = ConfigIOBundle(**invalid_params)
                 with self.assertRaises(ATSValueError):
                     ConfigIOValidator.validate(bundle)
@@ -84,7 +80,6 @@ class ConfigIOValidatorTest(unittest.TestCase):
     def test_validate_invalid_type(self) -> None:
         type_mismatches = {
             "file_path": 123,
-            "scheme": "not_a_mapping",
             "processor": MagicMock(spec=ContextBundle),
             "context_bundle": MagicMock(spec=IConfigProcessor)
         }

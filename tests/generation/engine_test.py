@@ -22,6 +22,13 @@ class TestGenerator(unittest.TestCase):
         self.file_exist_patcher.start()
 
         self.mock_context = MagicMock(spec=ContextBundle)
+        from ats_utilities.checker.ichecker import IChecker
+        from ats_utilities.logger.ilogger import ILogger
+        from ats_utilities.reporter.ireporter import IReporter
+        self.mock_context.checker = MagicMock(spec=IChecker)
+        self.mock_context.logger = MagicMock(spec=ILogger)
+        self.mock_context.reporter = MagicMock(spec=IReporter)
+        self.mock_context.verbose = True
         self.mock_scheme_loader = MagicMock(spec=ISchemeLoader)
         self.mock_tar_processor = MagicMock(spec=ITarProcessor)
 

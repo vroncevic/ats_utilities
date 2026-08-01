@@ -21,23 +21,15 @@ Info
 
 from __future__ import annotations
 
-import logging
 import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.logger.setup.bundle import LoggerBundle
-from ats_utilities.logger.iformatter import ILogFormatter
-from ats_utilities.logger.ibuffer import ILogBuffer
-from ats_utilities.logger.ihandler_manager import ILogHandlerManager
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.logger.underlying.iunderlying import IUnderlyingLogger
+from ats_utilities.logger.formatter.iformatter import ILogFormatter
+from ats_utilities.logger.buffer.ibuffer import ILogBuffer
+from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
+from ats_utilities.logger.processor.imessage_processor import IMessageProcessor
 
 
 class BundleTest(unittest.TestCase):
@@ -46,50 +38,41 @@ class BundleTest(unittest.TestCase):
         Tests LoggerBundle dataclass logic.
     '''
 
-    def test_init_valid(self) -> None:
-        mock_logger = MagicMock()
-        mock_formatter = MagicMock(spec=ILogFormatter)
-        mock_buffer = MagicMock(spec=ILogBuffer)
-        mock_handler_manager = MagicMock(spec=ILogHandlerManager)
+    def setUp(self) -> None:
+        self.mock_logger = MagicMock(spec=IUnderlyingLogger)
+        self.mock_formatter = MagicMock(spec=ILogFormatter)
+        self.mock_buffer = MagicMock(spec=ILogBuffer)
+        self.mock_handler_manager = MagicMock(spec=ILogHandlerManager)
+        self.mock_message_processor = MagicMock(spec=IMessageProcessor)
 
-        bundle = LoggerBundle(
-            logger=mock_logger,
-            log_file="test.log",
-            log_level=logging.INFO,
-            formatter=mock_formatter,
-            buffer=mock_buffer,
-            handler_manager=mock_handler_manager
-        )
-        self.assertIs(bundle.logger, mock_logger)
-        self.assertEqual(bundle.log_file, "test.log")
-        self.assertEqual(bundle.log_level, logging.INFO)
-        self.assertIs(bundle.formatter, mock_formatter)
-        self.assertIs(bundle.buffer, mock_buffer)
-        self.assertIs(bundle.handler_manager, mock_handler_manager)
+        self.valid_params = {
+            "logger": self.mock_logger,
+            "has_file_handler": True,
+            "formatter": self.mock_formatter,
+            "buffer": self.mock_buffer,
+            "handler_manager": self.mock_handler_manager,
+            "message_processor": self.mock_message_processor
+        }
+
+    def test_init_valid(self) -> None:
+        bundle = LoggerBundle(**self.valid_params)
+        self.assertIs(bundle.logger, self.mock_logger)
+        self.assertTrue(bundle.has_file_handler)
+        self.assertIs(bundle.formatter, self.mock_formatter)
+        self.assertIs(bundle.buffer, self.mock_buffer)
+        self.assertIs(bundle.handler_manager, self.mock_handler_manager)
+        self.assertIs(bundle.message_processor, self.mock_message_processor)
 
     def test_to_dict(self) -> None:
-        mock_logger = MagicMock()
-        mock_formatter = MagicMock(spec=ILogFormatter)
-        mock_buffer = MagicMock(spec=ILogBuffer)
-        mock_handler_manager = MagicMock(spec=ILogHandlerManager)
-
-        bundle = LoggerBundle(
-            logger=mock_logger,
-            log_file="test.log",
-            log_level=logging.INFO,
-            formatter=mock_formatter,
-            buffer=mock_buffer,
-            handler_manager=mock_handler_manager
-        )
-        expected = {
-            "logger": mock_logger,
-            "log_file": "test.log",
-            "log_level": logging.INFO,
-            "formatter": mock_formatter,
-            "buffer": mock_buffer,
-            "handler_manager": mock_handler_manager
-        }
-        self.assertEqual(bundle.to_dict(), expected)
+        bundle = LoggerBundle(**self.valid_params)
+        exported_dict = bundle.to_dict()
+        self.assertIsInstance(exported_dict, dict)
+        self.assertEqual(exported_dict["logger"], self.mock_logger)
+        self.assertEqual(exported_dict["has_file_handler"], True)
+        self.assertEqual(exported_dict["formatter"], self.mock_formatter)
+        self.assertEqual(exported_dict["buffer"], self.mock_buffer)
+        self.assertEqual(exported_dict["handler_manager"], self.mock_handler_manager)
+        self.assertEqual(exported_dict["message_processor"], self.mock_message_processor)
 
 
 if __name__ == "__main__":

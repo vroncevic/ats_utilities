@@ -37,7 +37,7 @@ class TestDirsUtility(unittest.TestCase):
 
         mock_raise_error.assert_called_once_with(
             fallback_context="dirs::check_dir_exists(...)",
-            fallback_msg="directory path must be provided",
+            fallback_msg="the directory path must be provided",
             exc_context="testdirsutility::test_check_dir_exists_empty_string",
             exc_message="Custom empty path error message",
             exc_class=ATSValueError
@@ -54,7 +54,7 @@ class TestDirsUtility(unittest.TestCase):
         mock_is_dir.assert_called_once()
         mock_raise_error.assert_called_once_with(
             fallback_context="dirs::check_dir_exists(...)",
-            fallback_msg=f"directory at the provided path does not exist: {missing_path}",
+            fallback_msg=f"the directory at the provided path does not exist: {missing_path}",
             exc_context="testdirsutility::test_check_dir_exists_missing_directory",
             exc_message="Missing directory context",
             exc_class=ATSValueError
@@ -78,7 +78,7 @@ class TestDirsUtility(unittest.TestCase):
         mock_is_dir.assert_called_once()
         mock_raise_error.assert_called_once_with(
             fallback_context="dirs::check_dir_exists(...)",
-            fallback_msg=f"directory at the provided path does not exist: {missing_path}",
+            fallback_msg=f"the directory at the provided path does not exist: {missing_path}",
             exc_context="testdirsutility::test_check_dir_exists_custom_exception_class",
             exc_message="Custom exception testing",
             exc_class=CustomTestException

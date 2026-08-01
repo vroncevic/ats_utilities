@@ -69,7 +69,7 @@ class GeneratorFactory:
         '''
         GeneratorOptionsValidator.validate(options)
 
-        context_bundle: ContextBundle = options.get(GeneratorKeys.CONTEXT_BUNDLE)
+        context_bundle: ContextBundle = options.get(GeneratorKeys.OPTION_CONTEXT_BUNDLE)
 
         scheme_loader: ISchemeLoader = SchemeLoader(context_bundle=context_bundle)
         template_processor: ITemplateProcessor = TemplateProcessor(context_bundle=context_bundle)

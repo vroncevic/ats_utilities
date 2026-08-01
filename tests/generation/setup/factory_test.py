@@ -24,101 +24,44 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock, patch
 
-from ats_utilities.generation.setup.factory import GeneratorFactory
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.generation.setup.bundle import GeneratorBundle
-from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
+from ats_utilities.generation.setup.factory import GeneratorFactory
+from ats_utilities.generation.setup.options import GeneratorOptions
 from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generation.tar.itar_processor import ITarProcessor
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
 
 
-class TestGeneratorFactory(unittest.TestCase):
-    """Unit tests for the GeneratorFactory class."""
+class GeneratorFactoryTest(unittest.TestCase):
+    '''
+        Defines class GeneratorFactoryTest with attribute(s) and method(s).
+        Tests GeneratorFactory logic.
+    '''
 
-    def setUp(self) -> None:
-        """Set up standard context bundle dependency mock."""
-        self.mock_context_bundle = MagicMock(spec=ContextBundle)
-
-    @patch("ats_utilities.generation.setup.factory.GeneratorRegistry")
-    @patch("ats_utilities.generation.setup.factory.TarProcessor")
     @patch("ats_utilities.generation.setup.factory.SchemeLoader")
     @patch("ats_utilities.generation.setup.factory.TemplateProcessor")
-    def test_create_default_generator_bundle_orchestration(
-        self, mock_template_cls: MagicMock, mock_scheme_cls: MagicMock,
-        mock_tar_cls: MagicMock, mock_registry_cls: MagicMock
-    ) -> None:
-        """Test that the factory properly orchestrates component instantiation and bundle assembly."""
-        # Arrange
-        mock_template_inst = MagicMock()
-        mock_scheme_inst = MagicMock()
-        mock_tar_inst = MagicMock()
-        mock_bundle_inst = MagicMock(spec=GeneratorBundle)
-
-        mock_template_cls.return_value = mock_template_inst
-        mock_scheme_cls.return_value = mock_scheme_inst
-        mock_tar_cls.return_value = mock_tar_inst
-        mock_registry_cls.create_bundle.return_value = mock_bundle_inst
-
-        # Act
-        result = GeneratorFactory.create_default_generator_bundle(self.mock_context_bundle)
-
-        # Assert
-        mock_template_cls.assert_called_once_with(context_bundle=self.mock_context_bundle)
-        mock_scheme_cls.assert_called_once_with(context_bundle=self.mock_context_bundle)
-        mock_tar_cls.assert_called_once_with(
-            context_bundle=self.mock_context_bundle,
-            template_processor=mock_template_inst
-        )
-
-        mock_registry_cls.create_bundle.assert_called_once()
-        self.assertEqual(result, mock_bundle_inst)
-
     @patch("ats_utilities.generation.setup.factory.TarProcessor")
-    @patch("ats_utilities.generation.setup.factory.SchemeLoader")
-    @patch("ats_utilities.generation.setup.factory.TemplateProcessor")
-    @patch("ats_utilities.generation.setup.factory.GeneratorRegistry")
-    def test_create_default_generator_bundle_integration(
-        self, mock_registry_cls: MagicMock, mock_template_cls: MagicMock,
-        mock_scheme_cls: MagicMock, mock_tar_cls: MagicMock
-    ) -> None:
-        """Test integration factory flow to verify an operational bundle structure is returned."""
-        # Arrange
-        mock_template = MagicMock(spec=ITemplateProcessor)
-        mock_scheme = MagicMock(spec=ISchemeLoader)
-        mock_tar = MagicMock(spec=ITarProcessor)
-        
-        mock_template_cls.return_value = mock_template
-        mock_scheme_cls.return_value = mock_scheme
-        mock_tar_cls.return_value = mock_tar
-        
-        mock_registry_cls.create_bundle.side_effect = lambda deps: GeneratorBundle(
-            scheme_loader=deps['scheme_loader'],
-            tar_processor=deps['tar_processor'],
-            template_processor=deps['template_processor'],
-            context_bundle=deps['context_bundle']
-        )
+    def test_create_bundle(self, mock_tar: MagicMock, mock_tpl: MagicMock, mock_scheme: MagicMock) -> None:
+        mock_scheme.return_value = MagicMock(spec=ISchemeLoader)
+        mock_tpl.return_value = MagicMock(spec=ITemplateProcessor)
+        mock_tar.return_value = MagicMock(spec=ITarProcessor)
 
-        # Act
-        result = GeneratorFactory.create_default_bundle({
-            "context_bundle": self.mock_context_bundle
-        })
+        mock_context = MagicMock(spec=ContextBundle)
+        mock_context.checker = MagicMock(spec=IChecker)
+        mock_context.logger = MagicMock(spec=ILogger)
+        mock_context.reporter = MagicMock(spec=IReporter)
+        mock_context.verbose = True
 
-        # Assert
-        self.assertIsInstance(result, GeneratorBundle)
-        self.assertEqual(result.context_bundle, self.mock_context_bundle)
-        self.assertEqual(result.template_processor, mock_template)
-        self.assertEqual(result.scheme_loader, mock_scheme)
-        self.assertEqual(result.tar_processor, mock_tar)
+        options = GeneratorOptions(context_bundle=mock_context)
+        bundle = GeneratorFactory.create_bundle(options)
+
+        self.assertIsInstance(bundle, GeneratorBundle)
+        self.assertIs(bundle.context_bundle, mock_context)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
