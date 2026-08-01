@@ -2,7 +2,7 @@
 
 '''
 Module
-    option_namespace_test.py
+    types_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,23 +16,14 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for OptionNamespace protocol.
+    Unit tests for OptionNamespace protocol and type aliases.
 '''
 
 from __future__ import annotations
 
 import unittest
 
-from ats_utilities.option.option_namespace import OptionNamespace
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.option.setup.types import OptionNamespace
 
 
 class DummyNamespace:
@@ -43,24 +34,13 @@ class DummyNamespace:
         self.__dict__.update(kwargs)
 
 
-class OptionNamespaceTest(unittest.TestCase):
+class TypesTest(unittest.TestCase):
     '''
-        Defines class OptionNamespaceTest with attribute(s) and method(s).
+        Defines class TypesTest with attribute(s) and method(s).
         Tests OptionNamespace protocol compatibility.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_protocol_implementation - Tests protocol implementation.
     '''
 
     def test_protocol_implementation(self) -> None:
-        '''
-            Tests protocol implementation.
-
-            :exceptions: None.
-        '''
         instance: OptionNamespace = DummyNamespace(arg1="val1", arg2=123)
         self.assertEqual(instance.__dict__["arg1"], "val1")
         self.assertEqual(instance.__dict__["arg2"], 123)

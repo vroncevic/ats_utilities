@@ -29,15 +29,9 @@ from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.setup.validator import OptionValidator
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.ireporter import IReporter
 
 
 class OptionValidatorTest(unittest.TestCase):
@@ -46,59 +40,54 @@ class OptionValidatorTest(unittest.TestCase):
         Tests OptionValidator logic.
     '''
 
-    def test_validate_valid(self) -> None:
-        mock_strategy = MagicMock(spec=IParserStrategy)
-        mock_context = MagicMock(spec=ContextBundle)
-        params = {"name": "test_app"}
+    def setUp(self) -> None:
+        self.mock_strategy = MagicMock(spec=IParserStrategy)
+        self.mock_strategy.is_initialized.return_value = True
+        
+        self.mock_context = MagicMock(spec=ContextBundle)
+        self.mock_context.checker = MagicMock(spec=IChecker)
+        self.mock_context.logger = MagicMock(spec=ILogger)
+        self.mock_context.reporter = MagicMock(spec=IReporter)
+        self.mock_context.verbose = True
 
+    def test_validate_valid(self) -> None:
         bundle = OptionBundle(
-            parameters=params,
-            strategy=mock_strategy,
-            context_bundle=mock_context
+            strategy=self.mock_strategy,
+            context_bundle=self.mock_context
         )
         # Should validate successfully
         OptionValidator.validate(bundle)
 
     def test_validate_invalid_bundle(self) -> None:
-        with self.assertRaises(ATSValueError):
+        with self.assertRaises(ATSValueError) as context:
             OptionValidator.validate(None)  # type: ignore
+        self.assertEqual(str(context.exception), "option_validator::validate(...) - option bundle must be provided")
 
-        with self.assertRaises(ATSTypeError):
+        with self.assertRaises(ATSTypeError) as context:
             OptionValidator.validate(object())  # type: ignore
+        self.assertEqual(str(context.exception), "option_validator::validate(...) - option bundle must be an instance of OptionBundle")
 
     def test_validate_invalid_none(self) -> None:
-        mock_strategy = MagicMock(spec=IParserStrategy)
-        mock_context = MagicMock(spec=ContextBundle)
-        params = {"name": "test_app"}
-
-        with self.assertRaises(ATSValueError):
-            bundle = OptionBundle(parameters=None, strategy=mock_strategy, context_bundle=mock_context)  # type: ignore
+        with self.assertRaises(ATSValueError) as context:
+            bundle = OptionBundle(strategy=None, context_bundle=self.mock_context)  # type: ignore
             OptionValidator.validate(bundle)
+        self.assertEqual(str(context.exception), "option_validator::validate(...) - strategy must be provided")
 
-        with self.assertRaises(ATSValueError):
-            bundle = OptionBundle(parameters=params, strategy=None, context_bundle=mock_context)  # type: ignore
+        with self.assertRaises(ATSValueError) as context:
+            bundle = OptionBundle(strategy=self.mock_strategy, context_bundle=None)  # type: ignore
             OptionValidator.validate(bundle)
-
-        with self.assertRaises(ATSValueError):
-            bundle = OptionBundle(parameters=params, strategy=mock_strategy, context_bundle=None)  # type: ignore
-            OptionValidator.validate(bundle)
+        self.assertEqual(str(context.exception), "option_validator::validate(...) - context bundle must be provided")
 
     def test_validate_invalid_type(self) -> None:
-        mock_strategy = MagicMock(spec=IParserStrategy)
-        mock_context = MagicMock(spec=ContextBundle)
-        params = {"name": "test_app"}
-
-        with self.assertRaises(ATSTypeError):
-            bundle = OptionBundle(parameters="not a dict", strategy=mock_strategy, context_bundle=mock_context)  # type: ignore
+        with self.assertRaises(ATSTypeError) as context:
+            bundle = OptionBundle(strategy="not a strategy", context_bundle=self.mock_context)  # type: ignore
             OptionValidator.validate(bundle)
+        self.assertEqual(str(context.exception), "option_validator::validate(...) - strategy must be an IParserStrategy instance")
 
-        with self.assertRaises(ATSTypeError):
-            bundle = OptionBundle(parameters=params, strategy="not a strategy", context_bundle=mock_context)  # type: ignore
+        with self.assertRaises(ATSTypeError) as context:
+            bundle = OptionBundle(strategy=self.mock_strategy, context_bundle="not a context")  # type: ignore
             OptionValidator.validate(bundle)
-
-        with self.assertRaises(ATSTypeError):
-            bundle = OptionBundle(parameters=params, strategy=mock_strategy, context_bundle="not a context")  # type: ignore
-            OptionValidator.validate(bundle)
+        self.assertEqual(str(context.exception), "option_validator::validate(...) - context bundle must be a ContextBundle instance")
 
 
 if __name__ == "__main__":

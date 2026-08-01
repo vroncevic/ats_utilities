@@ -29,7 +29,7 @@ from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.setup.bundle import OptionBundle
-from ats_utilities.option.option_namespace import OptionNamespace
+from ats_utilities.option.setup.types import OptionNamespace
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 
 __author__: str = 'Vladimir Roncevic'
@@ -73,7 +73,6 @@ class EngineTest(unittest.TestCase):
         mock_strategy = MagicMock(spec=IParserStrategy)
         context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
-            parameters={"name": "test"},
             strategy=mock_strategy,
             context_bundle=context_bundle
         )
@@ -104,7 +103,6 @@ class EngineTest(unittest.TestCase):
         mock_strategy = MagicMock(spec=IParserStrategy)
         context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
-            parameters={"name": "test"},
             strategy=mock_strategy,
             context_bundle=context_bundle
         )
@@ -120,7 +118,6 @@ class EngineTest(unittest.TestCase):
         mock_strategy = MagicMock(spec=IParserStrategy)
         context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
-            parameters={"name": "test"},
             strategy=mock_strategy,
             context_bundle=context_bundle
         )
@@ -137,7 +134,6 @@ class EngineTest(unittest.TestCase):
         mock_strategy = MagicMock(spec=IParserStrategy)
         context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
-            parameters={"name": "test"},
             strategy=mock_strategy,
             context_bundle=context_bundle
         )
@@ -164,7 +160,6 @@ class EngineTest(unittest.TestCase):
 
         context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
-            parameters={"name": "test"},
             strategy=mock_strategy,
             context_bundle=context_bundle
         )
@@ -185,7 +180,6 @@ class EngineTest(unittest.TestCase):
 
         context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
-            parameters={"name": "test"},
             strategy=mock_strategy,
             context_bundle=context_bundle
         )
@@ -203,7 +197,6 @@ class EngineTest(unittest.TestCase):
         mock_strategy = MagicMock(spec=IParserStrategy)
         context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
-            parameters={"name": "test"},
             strategy=mock_strategy,
             context_bundle=context_bundle
         )
@@ -223,7 +216,6 @@ class EngineTest(unittest.TestCase):
 
         context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
-            parameters={"name": "test"},
             strategy=mock_strategy,
             context_bundle=context_bundle
         )
@@ -243,7 +235,6 @@ class EngineTest(unittest.TestCase):
 
         context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
-            parameters={"name": "test"},
             strategy=mock_strategy,
             context_bundle=context_bundle
         )
@@ -263,7 +254,6 @@ class EngineTest(unittest.TestCase):
         mock_strategy = MagicMock(spec=IParserStrategy)
         context_bundle = ContextFactory.create_bundle()
         bundle = OptionBundle(
-            parameters={"name": "test"},
             strategy=mock_strategy,
             context_bundle=context_bundle
         )

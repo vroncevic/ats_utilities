@@ -23,137 +23,57 @@ from __future__ import annotations
 
 import unittest
 from dataclasses import FrozenInstanceError
-from types import MappingProxyType
+from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.parser.iarg_parser import IArgParser
-from ats_utilities.option.parser.engine import ArgParser
 from ats_utilities.option.strategy.data import StrategyData
-from ats_utilities.option.strategy.data_validator import StrategyDataValidator
-from ats_utilities.exceptions.ats_value_error import ATSValueError
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.option.underlying.iunderlying import IUnderlyingParser
 
 
 class StrategyDataTest(unittest.TestCase):
-    """Unit tests for StrategyData and StrategyDataValidator classes."""
+    '''
+        Defines class StrategyDataTest with attribute(s) and method(s).
+        Tests StrategyData class.
+    '''
 
     def setUp(self) -> None:
-        """Set up context mock dependencies."""
-        self.mock_context = unittest.mock.MagicMock(spec=ContextBundle)
-        self.valid_params = MappingProxyType({"verbose": "store_true"})
+        self.mock_context = MagicMock(spec=ContextBundle)
+        self.mock_parser = MagicMock(spec=IUnderlyingParser)
+
+    def test_init_valid(self) -> None:
+        data = StrategyData(
+            context_bundle=self.mock_context,
+            parser=self.mock_parser
+        )
+        self.assertIs(data.context_bundle, self.mock_context)
+        self.assertIs(data.parser, self.mock_parser)
 
     def test_slots(self) -> None:
-        """Tests that StrategyData has slots and cannot have dynamic attributes."""
         data = StrategyData(
-            parameters=self.valid_params,
             context_bundle=self.mock_context,
-            parser_class=ArgParser
+            parser=self.mock_parser
         )
-        self.assertFalse(hasattr(data, "__dict__"))
+        with self.assertRaises(AttributeError):
+            data.__dict__  # type: ignore
 
-    def test_immutability(self) -> None:
-        """Tests that StrategyData is frozen and cannot be modified."""
+    def test_frozen(self) -> None:
         data = StrategyData(
-            parameters=self.valid_params,
             context_bundle=self.mock_context,
-            parser_class=ArgParser
+            parser=self.mock_parser
         )
         with self.assertRaises(FrozenInstanceError):
-            data.parameters = MappingProxyType({})  # type: ignore
-        with self.assertRaises(FrozenInstanceError):
-            data.parser_class = object  # type: ignore
+            data.parser = MagicMock(spec=IUnderlyingParser)  # type: ignore
 
     def test_to_dict(self) -> None:
-        """Tests StrategyData to_dict method."""
         data = StrategyData(
-            parameters=self.valid_params,
             context_bundle=self.mock_context,
-            parser_class=ArgParser
+            parser=self.mock_parser
         )
         expected = {
-            "parameters": self.valid_params,
             "context_bundle": self.mock_context,
-            "parser_class": ArgParser
+            "parser": self.mock_parser
         }
         self.assertEqual(data.to_dict(), expected)
-
-    def test_validation_success(self) -> None:
-        """Tests StrategyDataValidator with valid input data."""
-        data = StrategyData(
-            parameters=self.valid_params,
-            context_bundle=self.mock_context,
-            parser_class=ArgParser
-        )
-        # Should not raise any exception
-        StrategyDataValidator.validate(data)
-
-    def test_validation_invalid_none(self) -> None:
-        """Tests StrategyDataValidator with None values."""
-        with self.assertRaises(ATSValueError):
-            StrategyDataValidator.validate(
-                StrategyData(
-                    parameters=None,  # type: ignore
-                    context_bundle=self.mock_context,
-                    parser_class=ArgParser
-                )
-            )
-        with self.assertRaises(ATSValueError):
-            StrategyDataValidator.validate(
-                StrategyData(
-                    parameters=self.valid_params,
-                    context_bundle=None,  # type: ignore
-                    parser_class=ArgParser
-                )
-            )
-        with self.assertRaises(ATSValueError):
-            StrategyDataValidator.validate(
-                StrategyData(
-                    parameters=self.valid_params,
-                    context_bundle=self.mock_context,
-                    parser_class=None  # type: ignore
-                )
-            )
-
-    def test_validation_invalid_type(self) -> None:
-        """Tests StrategyDataValidator with wrong types."""
-        with self.assertRaises(ATSTypeError):
-            StrategyDataValidator.validate(
-                StrategyData(
-                    parameters="not-a-mapping",  # type: ignore
-                    context_bundle=self.mock_context,
-                    parser_class=ArgParser
-                )
-            )
-        with self.assertRaises(ATSTypeError):
-            StrategyDataValidator.validate(
-                StrategyData(
-                    parameters=self.valid_params,
-                    context_bundle="not-a-bundle",  # type: ignore
-                    parser_class=ArgParser
-                )
-            )
-        with self.assertRaises(ATSTypeError):
-            StrategyDataValidator.validate(
-                StrategyData(
-                    parameters=self.valid_params,
-                    context_bundle=self.mock_context,
-                    parser_class="not-a-class"  # type: ignore
-                )
-            )
-
-    def test_validation_invalid_parser_subclass(self) -> None:
-        """Tests StrategyDataValidator with class that is not subclass of IArgParser."""
-        class DummyClass:
-            ...
-
-        with self.assertRaises(ATSValueError):
-            StrategyDataValidator.validate(
-                StrategyData(
-                    parameters=self.valid_params,
-                    context_bundle=self.mock_context,
-                    parser_class=DummyClass  # type: ignore
-                )
-            )
 
 
 if __name__ == "__main__":

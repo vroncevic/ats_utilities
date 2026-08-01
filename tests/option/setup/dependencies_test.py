@@ -2,7 +2,7 @@
 
 '''
 Module
-    registry_test.py
+    dependencies_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for OptionRegistry class.
+    Unit tests for OptionDependencies TypedDict.
 '''
 
 from __future__ import annotations
@@ -25,38 +25,26 @@ import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.setup.bundle import OptionBundle
-from ats_utilities.option.setup.registry import OptionRegistry
 from ats_utilities.option.setup.dependencies import OptionDependencies
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.ireporter import IReporter
 
 
-class OptionRegistryTest(unittest.TestCase):
+class DependenciesTest(unittest.TestCase):
     '''
-        Defines class OptionRegistryTest with attribute(s) and method(s).
-        Tests OptionRegistry logic.
+        Defines class DependenciesTest with attribute(s) and method(s).
+        Tests OptionDependencies structure.
     '''
 
-    def test_create_bundle(self) -> None:
+    def test_dependencies_structure(self) -> None:
         mock_strategy = MagicMock(spec=IParserStrategy)
         mock_context = MagicMock(spec=ContextBundle)
-        mock_context.checker = MagicMock(spec=IChecker)
-        mock_context.logger = MagicMock(spec=ILogger)
-        mock_context.reporter = MagicMock(spec=IReporter)
-        mock_context.verbose = True
 
-        deps = OptionDependencies(
-            strategy=mock_strategy,
-            context_bundle=mock_context
-        )
-
-        bundle = OptionRegistry.create_bundle(deps)
-        self.assertIsInstance(bundle, OptionBundle)
-        self.assertIs(bundle.strategy, mock_strategy)
-        self.assertIs(bundle.context_bundle, mock_context)
+        deps: OptionDependencies = {
+            "strategy": mock_strategy,
+            "context_bundle": mock_context
+        }
+        self.assertIs(deps["strategy"], mock_strategy)
+        self.assertIs(deps["context_bundle"], mock_context)
 
 
 if __name__ == "__main__":

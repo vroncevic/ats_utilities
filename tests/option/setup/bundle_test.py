@@ -47,30 +47,24 @@ class OptionBundleTest(unittest.TestCase):
     def test_init_valid(self) -> None:
         mock_strategy = MagicMock(spec=IParserStrategy)
         mock_context = MagicMock(spec=ContextBundle)
-        params = {"name": "test_app"}
 
         bundle = OptionBundle(
-            parameters=params,
             strategy=mock_strategy,
             context_bundle=mock_context
         )
-        self.assertEqual(bundle.parameters, params)
         self.assertIs(bundle.strategy, mock_strategy)
         self.assertIs(bundle.context_bundle, mock_context)
 
     def test_to_dict(self) -> None:
         mock_strategy = MagicMock(spec=IParserStrategy)
         mock_context = MagicMock(spec=ContextBundle)
-        params = {"name": "test_app"}
 
         bundle = OptionBundle(
-            parameters=params,
             strategy=mock_strategy,
             context_bundle=mock_context
         )
 
         expected = {
-            "parameters": params,
             "strategy": mock_strategy,
             "context_bundle": mock_context
         }
