@@ -54,7 +54,7 @@ class ProgressBar:
                 | _plotted - The plotted progress.
                 | _level_chars - The level progress chars.
             :methods:
-                | __init__ - Initializes the ProgressBar instance.
+                | __init__ - Initializes the ProgressBar.
                 | set_level - Sets level for progress bar.
                 | plot_progress - Plots progress bar.
                 | set_and_plot - Sets and plots progress bar.
@@ -75,7 +75,7 @@ class ProgressBar:
 
     def __init__(self, end: int, start: int = 0) -> None:
         '''
-            Initializes the ProgressBar instance.
+            Initializes the ProgressBar.
 
             :param end: The end level of progress.
             :param start: The start level of progress (default 0).

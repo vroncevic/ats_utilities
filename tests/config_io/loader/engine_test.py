@@ -55,7 +55,7 @@ class TestLoader(unittest.TestCase):
             Loader(MagicMock())  # type: ignore
 
     def test_get_context(self) -> None:
-        """Test that get_context cleanly returns the assigned context bundle instance."""
+        """Test that get_context cleanly returns the assigned context bundle."""
         loader = Loader(self.mock_component_bundle)
         self.assertEqual(loader.get_context(), self.mock_context_bundle)
 

@@ -56,8 +56,8 @@ class BaseKeys:
                 | OPTION_USE_GENERATOR - The use generator constant.
                 | OPTION_CONTEXT_BUNDLE - The context bundle constant.
             :methods:
-                | get_dependency_to_type - Returns mapping of base bundle dependencies to their types.
-                | get_option_to_type - Returns mapping of base bundle options to their types.
+                | get_dependency_to_type - Returns the mapping of the base bundle dependencies to their types.
+                | get_option_to_type - Returns the mapping of the base bundle options to their types.
     '''
 
     # Dependency Keys
@@ -75,9 +75,9 @@ class BaseKeys:
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of base bundle dependencies to their types.
+            Returns the mapping of the base bundle dependencies to their types.
 
-            :return: The mapping of base bundle dependencies to their types.
+            :return: The mapping of the base bundle dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -91,9 +91,9 @@ class BaseKeys:
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of base bundle options to their types.
+            Returns the mapping of the base bundle options to their types.
 
-            :return: The mapping of base bundle options to their types.
+            :return: The mapping of the base bundle options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

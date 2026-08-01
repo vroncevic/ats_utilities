@@ -49,7 +49,7 @@ class Version:
             :attributes:
                 | _version - The version for the App/Tool/Script (default: None).
             :methods:
-                | __init__ - Initializes the Version instance.
+                | __init__ - Initializes the Version.
                 | version - Property methods for setting and getting the version.
                 | not_none - Checks if the version is not None.
                 | __str__ - Returns the version as a string representation.
@@ -60,7 +60,7 @@ class Version:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the Version instance.
+            Initializes the Version.
 
             :param context_bundle: The context bundle for version.
             :exceptions:

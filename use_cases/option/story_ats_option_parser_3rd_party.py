@@ -54,7 +54,7 @@ class MyAppFireStrategy(IParserStrategy):
                 | _target - target object for option parsing.
                 | _parameters - dict of parameters for the parser.
             :methods:
-                | __init__ - initialize the instance.
+                | __init__ - initialize the.
                 | add_argument - add argument to the parser.
                 | add_version - add version to the parser.
                 | parse - parse the arguments.

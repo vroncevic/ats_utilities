@@ -52,8 +52,8 @@ class ConfigIOKeys:
                 | OPTION_SCHEME - The scheme option constant.
                 | OPTION_CONTEXT_BUNDLE - The context bundle option constant.
             :methods:
-                | get_dependency_to_type - Returns mapping of Config I/O dependencies to their types.
-                | get_option_to_type - Returns mapping of Config I/O options to their types.
+                | get_dependency_to_type - Returns the mapping of the config I/O dependencies to their types.
+                | get_option_to_type - Returns the mapping of the config I/O options to their types.
     '''
 
     # Dependency Keys
@@ -69,9 +69,9 @@ class ConfigIOKeys:
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of Config I/O dependencies to their types.
+            Returns the mapping of the config I/O dependencies to their types.
 
-            :return: The mapping of Config I/O dependencies to their types.
+            :return: The mapping of the config I/O dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -83,9 +83,9 @@ class ConfigIOKeys:
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of Config I/O options to their types.
+            Returns the mapping of the config I/O options to their types.
 
-            :return: The mapping of Config I/O options to their types.
+            :return: The mapping of the config I/O options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

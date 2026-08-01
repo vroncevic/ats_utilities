@@ -66,7 +66,7 @@ class TarProcessor:
             :attributes:
                 | _template_processor - The renders placeholders inside template files.
             :methods:
-                | __init__ - Initializes the TarProcessor instance.
+                | __init__ - Initializes the TarProcessor.
                 | process_tar_member - Processes a single tar archive member.
                 | process - Processes tar archive members.
                 | is_initialized - Checks if tar processor is initialized.
@@ -78,7 +78,7 @@ class TarProcessor:
 
     def __init__(self, context_bundle: ContextBundle, template_processor: ITemplateProcessor) -> None:
         '''
-            Initializes the TarProcessor instance.
+            Initializes the TarProcessor.
 
             :param context_bundle: The context bundle for tar processor.
             :param template_processor: The custom template rendering component.

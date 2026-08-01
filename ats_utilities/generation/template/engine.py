@@ -49,7 +49,7 @@ class TemplateProcessor:
             :attributes:
                 | _initialized - The status of the template processor.
             :methods:
-                | __init__ - Initializes the TemplateProcessor instance.
+                | __init__ - Initializes the TemplateProcessor.
                 | render - Decodes and renders template placeholders.
                 | is_initialized - Checks if the template processor is initialized.
                 | __str__ - Returns the template processor as a string representation.
@@ -60,7 +60,7 @@ class TemplateProcessor:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the TemplateProcessor instance.
+            Initializes the TemplateProcessor.
 
             :param context_bundle: Context bundle for template processor | None.
             :exceptions:

@@ -52,8 +52,8 @@ class OptionKeys:
                 | OPTION_CONTEXT_BUNDLE - The context bundle option constant.
                 | REQUIRED_CONFIG_KEYS_SET - The set of required information keys.
             :methods:
-                | get_dependency_to_type - Returns mapping of option dependencies to their types.
-                | get_option_to_type - Returns mapping of option options to their types.
+                | get_dependency_to_type - Returns the mapping of the option dependencies to their types.
+                | get_option_to_type - Returns the mapping of the option options to their types.
     '''
 
     # Dependency Keys
@@ -72,9 +72,9 @@ class OptionKeys:
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of option dependencies to their types.
+            Returns the mapping of the option dependencies to their types.
 
-            :return: The mapping of option dependencies to their types.
+            :return: The mapping of the option dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -85,9 +85,9 @@ class OptionKeys:
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of option options to their types.
+            Returns the mapping of the option options to their types.
 
-            :return: The mapping of option options to their types.
+            :return: The mapping of the option options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

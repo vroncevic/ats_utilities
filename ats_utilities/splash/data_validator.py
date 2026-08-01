@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the CenterData class instance.
+    A validator for the center data.
 '''
 
 from __future__ import annotations
@@ -37,36 +37,42 @@ __status__: str = 'Development'
 
 class CenterDataValidator:
     '''
-        A validator for the CenterData class instance.
+        A validator for the center data.
 
         It defines:
 
             :methods:
-                | validate - Validates the CenterData instance.
+                | validate - Validates the center data.
     '''
 
     @classmethod
     def validate(cls, data: CenterData) -> None:
         '''
-            Validates the CenterData instance.
+            Validates the center data.
 
-            :param data: The CenterData instance to be validated.
+            :param data: The center data to be validated.
             :exceptions:
-                | ATSValueError: Columns count must be provided.
-                | ATSTypeError: Columns count is not an integer.
-                | ATSValueError: Columns count cannot be negative.
-                | ATSValueError: Additional shifter must be provided.
-                | ATSTypeError: Additional shifter is not an integer.
-                | ATSValueError: Additional shifter cannot be negative.
+                | ATSValueError: Columns count must be provided and have proper values.
+                | ATSTypeError:  Columns count must be an instance of CenterData and its 
+                |                attributes must be instances of their respective types.
         '''
         ctx: str = 'center_data_validator::validate(...)'
-        not_none(data, ctx, 'center data must be provided')
-        istype(data, CenterData, ctx, 'center data must be an instance of CenterData')
+        msg_data_none: str = 'the center data must be provided'
+        msg_data_type: str = 'the center data must be an instance of CenterData'
+        msg_columns_none: str = 'the columns count must be provided'
+        msg_columns_type: str = 'the columns count must be an integer'
+        msg_columns_value: str = 'the columns count cannot be negative'
+        msg_shifter_none: str = 'the additional shifter must be provided'
+        msg_shifter_type: str = 'the additional shifter must be an integer'
+        msg_shifter_value: str = 'the additional shifter cannot be negative'
 
-        not_none(data.columns, ctx, 'columns count must be provided')
-        istype(data.columns, int, ctx, 'columns count must be an integer')
-        not_satisfied(data.columns < 0, ctx, 'columns count cannot be negative')
+        not_none(data, ctx, msg_data_none)
+        istype(data, CenterData, ctx, msg_data_type)
 
-        not_none(data.additional_shifter, ctx, 'additional shifter must be provided')
-        istype(data.additional_shifter, int, ctx, 'additional shifter must be an integer')
-        not_satisfied(data.additional_shifter < 0, ctx, 'additional shifter cannot be negative')
+        not_none(data.columns, ctx, msg_columns_none)
+        istype(data.columns, int, ctx, msg_columns_type)
+        not_satisfied(data.columns < 0, ctx, msg_columns_value)
+
+        not_none(data.additional_shifter, ctx, msg_shifter_none)
+        istype(data.additional_shifter, int, ctx, msg_shifter_type)
+        not_satisfied(data.additional_shifter < 0, ctx, msg_shifter_value)

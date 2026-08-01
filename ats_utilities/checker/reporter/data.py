@@ -62,9 +62,9 @@ class CheckReporterData:
         '''
             Converts the check reporter data instance to a dictionary.
 
-            :return: The dictionary representation of the check reporter data instance.
+            :return: The dictionary representation of the check reporter data.
             :exceptions:
                 | ATSValueError: The instance must be provided.
-                | ATSValueError: The instance must be a dataclass instance.
+                | ATSValueError: The instance must be a dataclass.
         '''
         return instance_to_dict(self)

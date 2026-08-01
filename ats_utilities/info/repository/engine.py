@@ -49,7 +49,7 @@ class Repository:
             :attributes:
                 | _repository - The repository for the App/Tool/Script (default: None).
             :methods:
-                | __init__ - Initializes the Repository instance.
+                | __init__ - Initializes the Repository.
                 | repository - Property methods for setting and getting the repository.
                 | not_none - Checks if the repository is not None.
                 | __str__ - Returns the repository as a string representation.
@@ -60,7 +60,7 @@ class Repository:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the Repository instance.
+            Initializes the Repository.
 
             :param context_bundle: The context bundle for repository.
             :exceptions:

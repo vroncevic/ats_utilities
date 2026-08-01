@@ -49,7 +49,7 @@ class InfoOk:
             :attributes:
                 | _info_ok - The info status for the App/Tool/Script is OK (default: False).
             :methods:
-                | __init__ - Initializes the InfoOk instance.
+                | __init__ - Initializes the InfoOk.
                 | info_ok - Property methods for setting and getting the information status.
                 | not_none - Checks if the info status is not None.
                 | __str__ - Returns the InfoOk as a string representation.
@@ -60,7 +60,7 @@ class InfoOk:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the InfoOk instance.
+            Initializes the InfoOk.
 
             :param context_bundle: The context bundle for info ok status.
             :exceptions:

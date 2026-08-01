@@ -44,19 +44,19 @@ class SplashRegistry:
         It defines:
 
             :methods:
-                | create_bundle - Orchestrates dependency injection and creates a splash bundle instance.
+                | create_bundle - Orchestrates dependency injection and creates a splash bundle.
     '''
 
     @classmethod
     def create_bundle(cls, dependencies: SplashDependencies) -> SplashBundle:
         '''
-            Orchestrates dependency injection and creates a splash bundle instance.
+            Orchestrates dependency injection and creates a splash bundle.
 
             :param dependencies: The registry-specific orchestration dependencies.
-            :return: The splash bundle instance.
+            :return: The splash bundle.
             :exceptions:
-                | ATSValueError: Dependencies must be provided and have proper attributes.
-                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                | ATSValueError: The dependencies must be provided and have proper attributes.
+                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
         SplashDependenciesValidator.validate(dependencies)

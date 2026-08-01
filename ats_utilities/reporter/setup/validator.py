@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the reporter bundle instance.
+    A validator for the reporter bundle.
 '''
 
 from __future__ import annotations
@@ -40,18 +40,18 @@ __status__ = 'Development'
 
 class ReporterValidator:
     '''
-        A validator for the reporter bundle instance.
+        A validator for the reporter bundle.
 
         It defines:
 
             :methods:
-                | validate - Validates the reporter bundle instance.
+                | validate - Validates the reporter bundle.
     '''
 
     @classmethod
     def validate(cls, bundle: ReporterBundle) -> None:
         '''
-            Validates the reporter bundle instance.
+            Validates the reporter bundle.
 
             :param bundle: The reporter bundle to be validated.
             :exceptions:

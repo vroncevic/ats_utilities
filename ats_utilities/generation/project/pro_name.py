@@ -49,7 +49,7 @@ class ProName:
             :attributes:
                 | _pro_name - The project name.
             :methods:
-                | __init__ - Initializes the project name instance.
+                | __init__ - Initializes the project name.
                 | pro_name - Property methods for setting and getting the respective property value.
                 | not_none - Checks if the project name is not None.
                 | __str__ - Returns the ATS project name as a string representation.
@@ -60,7 +60,7 @@ class ProName:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the project name instance.
+            Initializes the project name.
 
             :param context_bundle: The context bundle for project name.
             :exceptions:

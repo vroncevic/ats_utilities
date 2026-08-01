@@ -24,6 +24,7 @@ from __future__ import annotations
 
 from os import environ
 from re import compile, Pattern
+from typing import Final
 from sys import stdout
 
 from ats_utilities.validation.check_type import istype
@@ -46,6 +47,8 @@ class MessageProcessor:
         Provides an API for processing/sanitizing log messages.
 
         :attributes:
+            | NO_COLOR - The environment variable for disabling colored output.
+            | FORCE_COLOR - The environment variable for forcing colored output.
             | DEFAULT_ESCAPE - The regex pattern for ANSI escape codes.
             | _pattern - The regex pattern for message processing.
         :methods:
@@ -56,7 +59,9 @@ class MessageProcessor:
             | __str__ - Returns the message processor as a string representation.
     '''
 
-    DEFAULT_ESCAPE: Pattern[str] = compile(r'\x1B(?:[@-Z\\-_]|[\[0-?]*[ -/]*[@-~])')
+    NO_COLOR: Final[str] = 'NO_COLOR'
+    FORCE_COLOR: Final[str] = 'FORCE_COLOR'
+    DEFAULT_ESCAPE: Final[Pattern[str]] = compile(r'\x1B(?:[@-Z\\-_]|[\[0-?]*[ -/]*[@-~])')
     _pattern: Pattern[str]
 
     def __init__(self, pattern: Pattern[str] | None = None) -> None:
@@ -112,8 +117,8 @@ class MessageProcessor:
             :return: A processed log message.
             :exceptions: None.
         '''
-        no_color: bool = 'NO_COLOR' in environ
-        force_color: bool = 'FORCE_COLOR' in environ
+        no_color: bool = self.NO_COLOR in environ
+        force_color: bool = self.FORCE_COLOR in environ
         is_terminal: bool = stdout.isatty()
 
         if no_color or (not is_terminal and not force_color):

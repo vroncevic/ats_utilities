@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Protocol interface for all bundle validators.
-    Encapsulates standard validation behavior across bundle instances.
+    Encapsulates standard validation behavior across bundle.
 '''
 
 from __future__ import annotations
@@ -38,19 +38,19 @@ __status__ = 'Development'
 class IValidator[BundleType](Protocol):
     '''
         Protocol interface for all bundle validators.
-        Encapsulates standard validation behavior across bundle instances.
+        Encapsulates standard validation behavior across bundle.
 
         It defines:
 
             :methods:
-                | validate - Validates the a bundle instance.
+                | validate - Validates the a bundle.
     '''
 
     @classmethod
     def validate(cls, bundle: BundleType) -> None:
         '''
-            Validates the a bundle instance.
+            Validates the a bundle.
 
-            :param bundle: The bundle instance to be validated.
+            :param bundle: The bundle to be validated.
         '''
         ...

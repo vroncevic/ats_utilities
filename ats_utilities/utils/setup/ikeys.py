@@ -42,24 +42,24 @@ class IKeys[AttributeType, InterfaceType](Protocol):
         Defines standard dependency-to-type and option-to-type mapping behavior.
 
         :methods:
-            | get_dependency_to_type - Returns mapping of setup dependencies to their types.
-            | get_option_to_type - Returns mapping of setup options to their types.
+            | get_dependency_to_type - Returns the mapping of the setup dependencies to their types.
+            | get_option_to_type - Returns the mapping of the setup options to their types.
     '''
 
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[AttributeType, InterfaceType]:
         '''
-            Returns mapping of setup dependencies to their types.
+            Returns the mapping of the setup dependencies to their types.
 
-            :return: The mapping of setup dependencies to their types.
+            :return: The mapping of the setup dependencies to their types.
         '''
         ...
 
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[AttributeType, InterfaceType]:
         '''
-            Returns mapping of setup options to their types.
+            Returns the mapping of the setup options to their types.
 
-            :return: The mapping of setup options to their types.
+            :return: The mapping of the setup options to their types.
         '''
         ...

@@ -48,7 +48,7 @@ class FileData:
                 | file_mode - The file mode.
                 | context_bundle - The context bundle for dependency injection.
             :methods:
-                | to_dict - Converts file data instance to a dictionary.
+                | to_dict - Converts the file data instance to a dictionary.
     '''
 
     file_path: str
@@ -57,9 +57,9 @@ class FileData:
 
     def to_dict(self) -> dict[str, object]:
         '''
-            Converts file data instance to a dictionary.
+            Converts the file data instance to a dictionary.
 
-            :return: The dictionary representation of file data.
+            :return: The dictionary representation of the file data.
             :exceptions: None.
         '''
         return instance_to_dict(self)

@@ -118,7 +118,7 @@ class ConfigProcessorFactory:
             :param extension: The file extension (e.g., '.json', '.cfg', '.xml', '.ini', '.yml', '.yaml') | None.
             :param scheme: Scheme for the processor | None.
             :param processor: Instance to be used as the processor | None.
-            :return: The processor instance.
+            :return: The processor.
             :exceptions:
                 | ATSValueError: Extension must be provided.
                 | ATSTypeError: Extension must be a string.
@@ -172,7 +172,7 @@ class ConfigProcessorFactory:
             :param file_path: Path to the configuration file | None.
             :param scheme: Scheme for the processor | None.
             :param processor: Instance to be used as the processor | None.
-            :return: The processor instance.
+            :return: The processor.
             :exceptions:
                 | ATSValueError: File path must be provided when processor is None.
                 | ATSTypeError: File path must be a string.

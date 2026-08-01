@@ -44,9 +44,9 @@ class ContextDependencies(TypedDict):
         It defines:
 
             :attributes:
-                | checker - The checker instance.
-                | logger - The logger instance.
-                | reporter - The reporter instance.
+                | checker - The checker.
+                | logger - The logger.
+                | reporter - The reporter.
                 | verbose - The verbose output flag.
     '''
 

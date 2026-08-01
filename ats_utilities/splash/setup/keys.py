@@ -50,13 +50,13 @@ class SplashKeys:
         It defines:
 
             :attributes:
-                | DEPENDENCY_SPLASH_PROPERTY - The dependency key for splash property instance.
-                | DEPENDENCY_TERMINAL_PROPERTY - The dependency key for terminal properties instance.
-                | DEPENDENCY_EXT - The dependency key for external infrastructure instance.
-                | DEPENDENCY_PB - The dependency key for progress bar instance.
-                | DEPENDENCY_CONTEXT_BUNDLE - The dependency key for context bundle instance.
+                | DEPENDENCY_SPLASH_PROPERTY - The dependency key for splash property.
+                | DEPENDENCY_TERMINAL_PROPERTY - The dependency key for terminal properties.
+                | DEPENDENCY_EXT - The dependency key for external infrastructure.
+                | DEPENDENCY_PB - The dependency key for progress bar.
+                | DEPENDENCY_CONTEXT_BUNDLE - The dependency key for context bundle.
                 | OPTION_PROP - The option key for splash properties.
-                | OPTION_CONTEXT_BUNDLE - The option key for context bundle instance.
+                | OPTION_CONTEXT_BUNDLE - The option key for context bundle.
             :methods:
                 | get_dependency_to_type - Returns mapping of splash dependencies to their types.
                 | get_option_to_type - Returns mapping of splash options to their types.

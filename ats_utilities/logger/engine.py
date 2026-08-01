@@ -50,7 +50,7 @@ class Logger:
         It defines:
 
             :attributes:
-                | _logger - The logger instance.
+                | _logger - The logger.
                 | _formatter - The formatter for log messages.
                 | _buffer - The buffer for early logs.
                 | _handler_manager - The manager for log output handlers.

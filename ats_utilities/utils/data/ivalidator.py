@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Abstract interface for all data validators.
-    Encapsulates standard validation behavior across data instances.
+    Encapsulates standard validation behavior across data.
 '''
 
 from __future__ import annotations
@@ -38,19 +38,19 @@ __status__ = 'Development'
 class IDataValidator[DataType](Protocol):
     '''
         Protocol interface for all data validators.
-        Encapsulates standard validation behavior across data instances.
+        Encapsulates standard validation behavior across data.
 
         It defines:
 
             :methods:
-                | validate - Validates the a data instance.
+                | validate - Validates the data.
     '''
 
     @classmethod
     def validate(cls, data: DataType) -> None:
         '''
-            Validates the a data instance.
+            Validates the data.
 
-            :param data: The data instance to be validated.
+            :param data: The data to be validated.
         '''
         ...

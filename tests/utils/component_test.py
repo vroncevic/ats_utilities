@@ -70,7 +70,7 @@ class ComponentTest(unittest.TestCase):
 
             :attributes: None.
             :methods:
-                | test_make_component_existing - Tests make_component with an existing instance.
+                | test_make_component_existing - Tests make_component with an existing.
                 | test_make_component_default_no_args - Tests make_component instantiating class with no arguments.
                 | test_make_component_default_with_args - Tests make_component instantiating class with arguments.
                 | test_validate_component_valid - Tests validate_component with a valid type.
@@ -81,7 +81,7 @@ class ComponentTest(unittest.TestCase):
 
     def test_make_component_existing(self) -> None:
         '''
-            Tests make_component with an existing instance.
+            Tests make_component with an existing.
 
             :exceptions: None.
         '''

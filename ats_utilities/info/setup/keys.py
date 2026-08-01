@@ -258,6 +258,7 @@ class InfoKeys:
             cls.ATS_USE_GITHUB_INFRASTRUCTURE,
             cls.ATS_LOGO_PATH,
             cls.ATS_LOG_FILE,
+            cls.ATS_INFO_OK
         )
 
     @classmethod

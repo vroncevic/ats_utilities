@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the reporter dependencies instance.
+    A validator for the reporter dependencies.
 '''
 
 from __future__ import annotations
@@ -40,18 +40,18 @@ __status__ = 'Development'
 
 class ReporterDependenciesValidator:
     '''
-        A validator for the reporter dependencies instance.
+        A validator for the reporter dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the reporter dependencies instance.
+                | validate - Validates the reporter dependencies.
     '''
 
     @classmethod
     def validate(cls, dependencies: ReporterDependencies) -> None:
         '''
-            Validates the reporter dependencies instance.
+            Validates the reporter dependencies.
 
             :param dependencies: The reporter dependencies instance to be validated.
             :exceptions:

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the generator dependencies instance.
+    A validator for the generator dependencies.
 '''
 
 from __future__ import annotations
@@ -41,18 +41,18 @@ __status__ = 'Development'
 
 class GeneratorDependenciesValidator:
     '''
-        A validator for the generator dependencies instance.
+        A validator for the generator dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the generator dependencies instance.
+                | validate - Validates the generator dependencies.
     '''
 
     @classmethod
     def validate(cls, dependencies: GeneratorDependencies) -> None:
         '''
-            Validates the generator dependencies instance.
+            Validates the generator dependencies.
 
             :param dependencies: The generator dependencies instance to be validated.
             :exceptions:

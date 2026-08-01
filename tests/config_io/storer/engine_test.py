@@ -58,7 +58,7 @@ class TestStorer(unittest.TestCase):
             Storer(MagicMock())  # type: ignore
 
     def test_get_context(self) -> None:
-        """Test that get_context correctly exposes the shared context instance."""
+        """Test that get_context correctly exposes the shared context."""
         storer = Storer(self.mock_component_bundle)
         self.assertEqual(storer.get_context(), self.mock_context_bundle)
 

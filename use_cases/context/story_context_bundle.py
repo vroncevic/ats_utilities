@@ -82,7 +82,7 @@ class ReadOnlyAttribute:
     def __get__(self, instance: object, owner: object = None) -> object:
         if instance is None:
             return self
-        return instance.__dict__.get(self.name)
+        return.__dict__.get(self.name)
 
     def __set__(self, instance: object, value: object) -> None:
         ctx: str = 'context_bundle::__setattr__(...)'

@@ -23,7 +23,9 @@ Info
 from __future__ import annotations
 
 from collections.abc import Callable
+from typing import Final
 
+from ats_utilities.validation.check_type import istype
 from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
@@ -44,6 +46,7 @@ class LogBuffer:
         It defines:
 
             :attributes:
+                | DEFAULT_LIMIT - The default limit for the buffer.
                 | _buffer - The buffer for early logs.
                 | _limit - The maximum number of messages to buffer.
                 | _enabled - The flag indicating if buffering is enabled.
@@ -56,15 +59,25 @@ class LogBuffer:
                 | __str__ - Returns the buffer as a string representation.
     '''
 
-    def __init__(self, limit: int = 200) -> None:
+    DEFAULT_LIMIT: Final[int] = 200
+
+    def __init__(self, limit: int | None) -> None:
         '''
             Initializes the buffer.
 
             :param limit: The maximum number of messages to buffer.
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: The limit must be an integer.
         '''
+        if limit is not None:
+            ctx: str = 'log_buffer::init(...)'
+            msg_limit_istype: str = 'the limit must be an integer.'
+            istype(limit, int, ctx, msg_limit_istype)
+            self._limit = limit
+        else:
+            self._limit = self.DEFAULT_LIMIT
+
         self._buffer: list[tuple[int, str]] = []
-        self._limit = limit
         self._enabled = True
 
     def add(self, level: int, message: str) -> None:

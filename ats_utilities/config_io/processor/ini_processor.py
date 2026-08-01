@@ -53,12 +53,12 @@ class INIProcessor:
                 | _config - The internal instance to store configuration data (default ConfigParser()).
                 | _scheme - The mapping with configuration scheme (default: None).
             :methods:
-                | __init__ - Initializes the INIProcessor instance.
+                | __init__ - Initializes the INIProcessor.
                 | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).
                 | serialize - Converts the internal configuration structure back to a formatted string representation.
-                | update_data - Updates the internal configuration data and Validates the it against the scheme instance.
+                | update_data - Updates the internal configuration data and Validates the it against the scheme.
                 | to_dict - Returns the parsed configuration as a flat or structured dictionary.
-                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme instance.
+                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.
                 | __str__ - Returns the INIProcessor instance as a string representation.
 
         INI Format Config Scheme
@@ -81,7 +81,7 @@ class INIProcessor:
 
     def __init__(self, scheme: Mapping[str, str] | None = None) -> None:
         '''
-            Initializes the INIProcessor instance.
+            Initializes the INIProcessor.
 
             :param scheme: Mapping with configuration scheme | None.
         '''
@@ -123,7 +123,7 @@ class INIProcessor:
 
     def update_data(self, new_data: Mapping[str, str]) -> bool:
         '''
-            Updates the internal configuration data and Validates the it against the scheme instance.
+            Updates the internal configuration data and Validates the it against the scheme.
 
             :param new_data: The mapping containing configuration keys and values.
             :return: True if successful, otherwise False.
@@ -190,7 +190,7 @@ class INIProcessor:
 
     def validate_by_scheme(self) -> bool:
         '''
-            Validates the internal parsed data structure against the provided scheme instance.
+            Validates the internal parsed data structure against the provided scheme.
 
             :return: True if successful, otherwise False.
         '''

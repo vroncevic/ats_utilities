@@ -23,6 +23,8 @@ Info
 from __future__ import annotations
 
 from ats_utilities.logger.underlying.iunderlying import IUnderlyingLogger
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
@@ -58,8 +60,17 @@ class LogHandlerManager:
             Initializes the log handler manager.
 
             :param logger: The logger to be managed.
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: The logger must be provided.
+                | ATSTypeError:  The logger must be an instance of IUnderlyingLogger.
         '''
+        ctx: str = 'log_handler_manager::init(...)'
+        msg_logger_none: str = 'the logger must be provided'
+        msg_logger_istype: str = 'the logger must be an instance of IUnderlyingLogger'
+
+        not_none(logger, ctx, msg_logger_none)
+        istype(logger, ctx, IUnderlyingLogger, msg_logger_istype)
+
         self._logger = logger
 
     def set_log_file(self, log_file: str) -> bool:

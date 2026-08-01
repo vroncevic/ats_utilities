@@ -43,7 +43,7 @@ __status__ = 'Development'
 
 def get_pvt(instance: object, attr_name: str) -> object:
     '''
-        Dynamically retrieves a private attribute from an instance.
+        Dynamically retrieves a private attribute from an.
 
         :param instance: The class instance (self) containing the attribute.
         :param attr_name: The target private attribute name (e.g., '_checker').
@@ -92,28 +92,28 @@ def has_attrs(*attr_names: str) -> Callable[[Callable[..., object]], Callable[..
 
 def cls_name(instance: object) -> str:
     '''
-        Returns the class name of an instance.
+        Returns the class name of an.
 
-        :param instance: The class instance.
+        :param instance: The class.
         :return: The class name in string format.
         :exceptions: None.
     '''
-    return instance.__class__.__name__
+    return.__class__.__name__
 
 
 def to_str(instance: object) -> str:
     '''
-        Generates a standardized string representation for any class instance.
+        Generates a standardized string representation for any class.
         Cleans private attributes and appends memory addresses in hex.
 
         :param instance: The class instance to format.
-        :return: The string representation of the instance.
+        :return: The string representation of the.
         :exceptions: None.
     '''
-    class_name: str = instance.__class__.__name__
+    class_name: str =.__class__.__name__
 
     formatted_lines: list[str] = []
-    for k, v in instance.__dict__.items():
+    for k, v in.__dict__.items():
         clean_key: str = k[1:] if k.startswith('_') and not k.startswith('__') else k
         val_str: str = str(v).replace('\n', '\n    ')
 
@@ -136,17 +136,17 @@ def instance_to_dict(instance: object) -> dict[str, object]:
     '''
         Converts a dataclass instance to a dictionary representation.
 
-        :param instance: The dataclass instance.
+        :param instance: The dataclass.
         :return: The dictionary representation of the dataclass.
         :exceptions:
             | ATSValueError: Instance must be provided.
-            | ATSValueError: Instance must be a dataclass instance.
+            | ATSValueError: Instance must be a dataclass.
     '''
     ctx: str = 'reflection::instance_to_dict(...)'
-    msg_instance_none: str = 'instance must be provided'
-    msg_instance_istype: str = 'instance must be a dataclass instance'
+    msg_instance_none: str = 'the instance must be provided'
+    msg_instance_istype: str = 'the instance must be a dataclass instance'
 
     not_none(instance, ctx, msg_instance_none)
     not_satisfied(not is_dataclass(instance), ctx, msg_instance_istype)
 
-    return {field: getattr(instance, field) for field in instance.__dataclass_fields__}
+    return {field: getattr(instance, field) for field in.__dataclass_fields__}

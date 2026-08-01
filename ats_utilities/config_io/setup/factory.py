@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory for creating config I/O bundle instance.
+    Factory for creating config I/O bundle.
 '''
 
 from __future__ import annotations
@@ -44,7 +44,7 @@ __status__ = 'Development'
 
 class ConfigIOFactory:
     '''
-        Factory for creating config I/O bundle instance.
+        Factory for creating config I/O bundle.
 
         It defines:
 
@@ -58,7 +58,7 @@ class ConfigIOFactory:
             Creates a config I/O bundle using configuration options.
 
             :param options: The creation options/parameters for the bundle.
-            :return: The config I/O bundle instance.
+            :return: The config I/O bundle.
             :exceptions:
                 | ATSValueError: Options must be provided and have proper values.
                 | ATSTypeError:  Options must be an instance of Mapping and its

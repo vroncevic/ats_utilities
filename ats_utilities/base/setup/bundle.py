@@ -24,7 +24,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.option.imanager import IOptionManager
 from ats_utilities.splash.imanager import ISplashManager
@@ -55,7 +54,7 @@ class BaseBundle:
                 | splash_manager - The splash manager.
                 | generation_manager - The generation manager.
             :methods:
-                | to_dict - Converts base bundle to a dictionary.
+                | to_dict - Converts the base bundle to a dictionary.
     '''
 
     context_bundle: ContextBundle
@@ -66,11 +65,11 @@ class BaseBundle:
 
     def to_dict(self) -> dict[str, object]:
         '''
-            Converts base bundle to a dictionary.
+            Converts the base bundle to a dictionary.
 
             :return: The dictionary representation of the base bundle.
             :exceptions:
-                | ATSValueError: Instance must be provided.
-                | ATSValueError: Instance must be a dataclass instance.
+                | ATSValueError: The instance must be provided.
+                | ATSValueError: The instance must be a dataclass.
         '''
         return instance_to_dict(self)

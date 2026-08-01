@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Protocol interface for all bundle registries.
-    Encapsulates standard orchestration behavior across bundle instances.
+    Encapsulates standard orchestration behavior across bundle.
 '''
 
 from __future__ import annotations
@@ -38,20 +38,20 @@ __status__ = 'Development'
 class IRegistry[BundleType, DependenciesType](Protocol):
     '''
         Protocol interface for all bundle registries.
-        Encapsulates standard orchestration behavior across bundle instances.
+        Encapsulates standard orchestration behavior across bundle.
 
         It defines:
 
             :methods:
-                | create_bundle - Registers and injects dependencies into a bundle instance.
+                | create_bundle - Registers and injects dependencies into a bundle.
     '''
 
     @classmethod
     def create_bundle(cls, dependencies: DependenciesType) -> BundleType:
         '''
-            Orchestrates dependency injection and creates a bundle instance.
+            Orchestrates dependency injection and creates a bundle.
 
             :param dependencies: The dependencies required to create the bundle.
-            :return: A fully constructed and validated bundle instance.
+            :return: A fully constructed and validated bundle.
         '''
         ...

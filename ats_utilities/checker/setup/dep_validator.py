@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the checker dependencies instance.
+    A validator for the checker dependencies.
 '''
 
 from __future__ import annotations
@@ -40,18 +40,18 @@ __status__ = 'Development'
 
 class CheckerDependenciesValidator:
     '''
-        A validator for the checker dependencies instance.
+        A validator for the checker dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the checker dependencies instance.
+                | validate - Validates the checker dependencies.
     '''
 
     @classmethod
     def validate(cls, dependencies: CheckerDependencies) -> None:
         '''
-            Validates the checker dependencies instance.
+            Validates the checker dependencies.
 
             :param dependencies: The checker dependencies to be validated.
             :exceptions:
@@ -60,7 +60,6 @@ class CheckerDependenciesValidator:
                 |                must be instances of their respective types.
         '''
         ctx: str = 'checker_dependencies_validator::validate(...)'
-
         msg_dependencies_none: str = 'the dependencies must be provided'
         msg_dependencies_istype: str = 'the dependencies must be a Mapping'
 

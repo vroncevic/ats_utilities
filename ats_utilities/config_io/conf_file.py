@@ -59,7 +59,7 @@ class ConfFile:
                 | _file_path - The configuration file path.
                 | _file_mode - The configuration file mode.
             :methods:
-                | __init__ - Initializes the ConfFile instance.
+                | __init__ - Initializes the ConfFile.
                 | __enter__ - Opens configuration file in mode.
                 | __exit__ - Closes configuration file.
                 | __str__ - Returns the configuration context manager as a string.
@@ -72,12 +72,12 @@ class ConfFile:
 
     def __init__(self, file_data: FileData) -> None:
         '''
-            Initializes the ConfFile instance.
+            Initializes the ConfFile.
 
             :param file_data: The file data.
             :exceptions:
-                | ATSValueError: File data must be provided and have proper values.
-                | ATSTypeError:  File data must be an instance of FileData and its
+                | ATSValueError: The file data must be provided and have proper values.
+                | ATSTypeError:  The file data must be an instance of FileData and its
                 |                attributes must be instances of their respective types.
         '''
         FileDataValidator.validate(file_data)
@@ -96,16 +96,16 @@ class ConfFile:
                 | ATSRuntimeError:   The decorator cannot be used on a standalone function.
                 | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
-                | ATSValueError:     File path must be provided.
-                | ATSValueError:     File does not exist (when opening in read mode).
-                | ATSTypeError:      File path and mode must be strings.
+                | ATSValueError:     The file path must be provided.
+                | ATSValueError:     The file does not exist (when opening in read mode).
+                | ATSTypeError:      The file path and mode must be strings.
         '''
         ctx: str = 'conf_file::enter(...)'
-        msg_file_path_none: str = 'file path must be provided'
-        msg_file_mode_none: str = 'file mode must be provided'
-        msg_file_path_istype: str = 'file path must be a string'
-        msg_file_mode_istype: str = 'file mode must be a string'
-        msg_file_path_not_exist: str = 'file path does not exist'
+        msg_file_path_none: str = 'the file path must be provided'
+        msg_file_mode_none: str = 'the file mode must be provided'
+        msg_file_path_istype: str = 'the file path must be a string'
+        msg_file_mode_istype: str = 'the file mode must be a string'
+        msg_file_path_not_exist: str = 'the file path does not exist'
 
         not_none(self._file_path, ctx, msg_file_path_none)
         not_none(self._file_mode, ctx, msg_file_mode_none)

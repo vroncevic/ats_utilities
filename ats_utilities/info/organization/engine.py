@@ -49,7 +49,7 @@ class Organization:
             :attributes:
                 | _organization - The organization for the App/Tool/Script (default: None).
             :methods:
-                | __init__ - Initializes the Organization instance.
+                | __init__ - Initializes the Organization.
                 | organization - Property methods for setting and getting the organization.
                 | not_none - Checks if the organization is not None.
                 | __str__ - Returns the organization as a string representation.
@@ -60,7 +60,7 @@ class Organization:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the Organization instance.
+            Initializes the Organization.
 
             :param context_bundle: The context bundle for organization.
             :exceptions:

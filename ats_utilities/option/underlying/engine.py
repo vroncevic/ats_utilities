@@ -44,7 +44,7 @@ class ParserAdapter:
         It defines:
 
             :attributes:
-                | _parser - The underlying parser instance.
+                | _parser - The underlying parser.
             :methods:
                 | __init__ - Initializes parser adapter.
                 | add_argument - Adds an operational argument/flag to the parser.
@@ -60,7 +60,7 @@ class ParserAdapter:
         '''
             Initializes parser adapter.
 
-            :param parser: The underlying parser instance.
+            :param parser: The underlying parser.
             :exceptions: None.
         '''
         self._parser = parser

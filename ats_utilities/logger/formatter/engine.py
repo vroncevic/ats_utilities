@@ -106,7 +106,6 @@ class LogFormatter:
                 | ATSTypeError:  The log format must be a string.
         '''
         ctx: str = 'log_formatter::set_format(...)'
-
         msg_log_format_none: str = 'the log format must be provided'
         msg_log_format_istype: str = 'the log format must be a string'
         msg_log_format_empty: str = 'the log format cannot be empty'
@@ -136,7 +135,6 @@ class LogFormatter:
                 | ATSTypeError:  The log date format must be a string.
         '''
         ctx: str = 'log_formatter::set_date_format(...)'
-
         msg_log_datefmt_none: str = 'the log date format must be provided'
         msg_log_datefmt_istype: str = 'the log date format must be a string'
         msg_log_datefmt_empty: str = 'the log date format cannot be empty'

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the splash bundle instance.
+    A validator for the splash bundle.
 '''
 
 from __future__ import annotations
@@ -44,38 +44,38 @@ __status__ = 'Development'
 
 class SplashValidator:
     '''
-        A validator for the splash bundle instance.
+        A validator for the splash bundle.
 
         It defines:
 
             :methods:
-                | validate - Validates the splash bundle instance.
+                | validate - Validates the splash bundle.
     '''
 
     @classmethod
     def validate(cls, bundle: SplashBundle) -> None:
         '''
-            Validates the splash bundle instance.
+            Validates the splash bundle.
 
-            :param bundle: The splash bundle instance to be validated.
+            :param bundle: The splash bundle to be validated.
             :exceptions:
-                | ATSValueError: Option bundle must be provided and have proper values.
-                | ATSTypeError:  Option bundle must be an instance of OptionBundle and its
+                | ATSValueError: The option bundle must be provided and have proper values.
+                | ATSTypeError:  The option bundle must be an instance of OptionBundle and its
                 |                attributes must be instances of their respective types.
         '''
         ctx: str = 'splash_validator::validate(...)'
-        msg_bundle_none: str = 'bundle must be provided'
-        msg_bundle_type: str = 'bundle must be an instance of SplashBundle'
-        msg_splash_property_none: str = 'splash property must be provided'
-        msg_splash_property_type: str = 'splash property must be an ISplashProperty instance'
-        msg_terminal_property_none: str = 'terminal properties must be provided'
-        msg_terminal_property_type: str = 'terminal properties must be an ITerminalProperties instance'
-        msg_ext_none: str = 'external infrastructure must be provided'
-        msg_ext_type: str = 'external infrastructure must be an IExtInfrastructure instance'
-        msg_pb_none: str = 'progress bar must be provided'
-        msg_pb_type: str = 'progress bar must be an IProgressBar instance'
-        msg_context_bundle_none: str = 'context bundle must be provided'
-        msg_context_bundle_type: str = 'context bundle must be a ContextBundle instance'
+        msg_bundle_none: str = 'the bundle must be provided'
+        msg_bundle_type: str = 'the bundle must be an instance of SplashBundle'
+        msg_splash_property_none: str = 'the splash property must be provided'
+        msg_splash_property_type: str = 'the splash property must be an ISplashProperty instance'
+        msg_terminal_property_none: str = 'the terminal properties must be provided'
+        msg_terminal_property_type: str = 'the terminal properties must be an ITerminalProperties instance'
+        msg_ext_none: str = 'the external infrastructure must be provided'
+        msg_ext_type: str = 'the external infrastructure must be an IExtInfrastructure instance'
+        msg_pb_none: str = 'the progress bar must be provided'
+        msg_pb_type: str = 'the progress bar must be an IProgressBar instance'
+        msg_context_bundle_none: str = 'the context bundle must be provided'
+        msg_context_bundle_type: str = 'the context bundle must be a ContextBundle instance'
         msg_logo_path: str = 'the App/Tool/Script logo file path not correct'
 
         not_none(bundle, ctx, msg_bundle_none)

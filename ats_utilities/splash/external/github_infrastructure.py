@@ -55,7 +55,7 @@ class GitHubInfrastructure:
                 | _infrastructure_property - The GitHub infrastructure settings.
                 | _context - The context bundle.
             :methods:
-                | __init__ - Initializes the git hub infrastructure instance.
+                | __init__ - Initializes the git hub infrastructure.
                 | get_info_text - Pre-processes info text.
                 | get_issue_text - Pre-processes issue text.
                 | get_author_text - Pre-processes author text.
@@ -71,7 +71,7 @@ class GitHubInfrastructure:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the git hub infrastructure instance.
+            Initializes the git hub infrastructure.
 
             :param context_bundle: The context bundle for git hub infrastructure.
             :exceptions:
@@ -119,7 +119,7 @@ class GitHubInfrastructure:
                 | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         ctx: str = 'github_infrastructure::infrastructure_property(...)'
-        msg: str = 'infrastructure property settings is missing required keys'
+        msg: str = 'the infrastructure property settings is missing required keys'
 
         require_keys(settings, GitHubInfrastructure._REQUESTED_KEYS, ctx, msg)
 

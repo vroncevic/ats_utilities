@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the info bundle instance.
+    A validator for the info bundle.
 '''
 
 from __future__ import annotations
@@ -49,18 +49,18 @@ __status__ = 'Development'
 
 class InfoValidator:
     '''
-        A validator for the info bundle instance.
+        A validator for the info bundle.
 
         It defines:
 
             :methods:
-                | validate - Validates the info bundle instance.
+                | validate - Validates the info bundle.
     '''
 
     @classmethod
     def validate(cls, bundle: InfoBundle) -> None:
         '''
-            Validates the info bundle instance.
+            Validates the info bundle.
 
             :param bundle: The info bundle instance to be validated.
             :exceptions:

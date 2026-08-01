@@ -49,7 +49,7 @@ class Name:
             :attributes:
                 | _name - The name for the App/Tool/Script (default: None).
             :methods:
-                | __init__ - Initializes the Name instance.
+                | __init__ - Initializes the Name.
                 | name - Property methods for setting and getting the name.
                 | not_none - Checks if the name is not None.
                 | __str__ - Returns the Name as a string representation.
@@ -60,7 +60,7 @@ class Name:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the Name instance.
+            Initializes the Name.
 
             :param context_bundle: The context bundle for name.
             :exceptions:

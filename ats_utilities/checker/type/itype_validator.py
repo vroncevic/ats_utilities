@@ -45,7 +45,7 @@ class ITypeValidator[NameType, ValidType](Protocol):
             :methods:
                 | is_match - Compares the type of the instance with the expected type name.
                 | is_subtype - Checks if the instance is a subtype of the expected type name.
-                | get_type_name - Returns the type name of the instance.
+                | get_type_name - Returns the type name of the.
                 | __str__ - Returns the type validator as a string representation.
     '''
 
@@ -71,10 +71,10 @@ class ITypeValidator[NameType, ValidType](Protocol):
 
     def get_type_name(self, instance: object) -> NameType:
         '''
-            Returns the type name of the instance.
+            Returns the type name of the.
 
             :param instance: The instance to inspect.
-            :return: The type name of the instance.
+            :return: The type name of the.
         '''
         ...
 

@@ -57,9 +57,9 @@ class ParserStrategy:
             :attributes:
                 | _context - The shared context for components.
                 | _parser - The options parser.
-                | _subparsers - The subparsers instance.
+                | _subparsers - The subparsers.
             :methods:
-                | __init__ - Initializes the ParserStrategy instance.
+                | __init__ - Initializes the ParserStrategy.
                 | add_argument - Adds an operational argument/flag to the parser.
                 | add_version - Adds a version display option to the parser.
                 | parse - Parses the input arguments and returns an OptionNamespace.
@@ -75,12 +75,12 @@ class ParserStrategy:
 
     def __init__(self, strategy_data: StrategyData) -> None:
         '''
-            Initializes the ParserStrategy instance.
+            Initializes the ParserStrategy.
 
             :param strategy_data: The strategy data for parser strategy.
             :exceptions:
                 | ATSValueError: Strategy data must be provided.
-                | ATSTypeError: Strategy data must be a StrategyData instance.
+                | ATSTypeError: Strategy data must be a StrategyData.
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
                 | ATSValueError: Parser must be provided.

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates config I/O components for simplification of config I/O bundle creation.
+    Encapsulates config I/O components for simplification of config I/O bundle.
 '''
 
 from __future__ import annotations
@@ -41,7 +41,7 @@ __status__ = 'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class ConfigIOBundle:
     '''
-        Encapsulates config I/O components for simplification of config I/O bundle creation.
+        Encapsulates config I/O components for simplification of config I/O bundle.
 
         It defines:
 
@@ -52,7 +52,7 @@ class ConfigIOBundle:
                 | processor - The configuration processor.
                 | context_bundle - The context bundle.
             :methods:
-                | to_dict - Converts config I/O bundle to a dictionary.
+                | to_dict - Converts the config I/O bundle to a dictionary.
     '''
 
     READ_MODE: ClassVar[str] = 'r'
@@ -63,7 +63,7 @@ class ConfigIOBundle:
 
     def to_dict(self) -> dict[str, object]:
         '''
-            Converts config I/O bundle to a dictionary.
+            Converts the config I/O bundle to a dictionary.
 
             :return: The dictionary representation of the config I/O bundle.
             :exceptions: None.

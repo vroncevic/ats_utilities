@@ -55,7 +55,7 @@ class ExtInfrastructure:
                 | _infrastructure_property - The external infrastructure settings.
                 | _context - The context bundle.
             :methods:
-                | __init__ - Initializes the external infrastructure instance.
+                | __init__ - Initializes the external infrastructure.
                 | infrastructure_property - Property method for get/set external infrastructure.
                 | get_info_text - Pre-processes info text.
                 | get_issue_text - Pre-processes issue text.
@@ -73,7 +73,7 @@ class ExtInfrastructure:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the external infrastructure instance.
+            Initializes the external infrastructure.
 
             :param context_bundle: The context bundle for external infrastructure.
             :exceptions:
@@ -121,7 +121,7 @@ class ExtInfrastructure:
                 | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         ctx: str = 'ext_infrastructure::infrastructure_property(...)'
-        msg: str = 'infrastructure property settings is missing required keys'
+        msg: str = 'the infrastructure property settings is missing required keys'
 
         require_keys(settings, self._REQUESTED_KEYS, ctx, msg)
 

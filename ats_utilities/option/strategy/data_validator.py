@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the strategy data instance.
+    A validator for the strategy data.
 '''
 
 from __future__ import annotations
@@ -40,18 +40,18 @@ __status__: str = 'Development'
 
 class StrategyDataValidator:
     '''
-        A validator for the strategy data instance.
+        A validator for the strategy data.
 
         It defines:
 
             :methods:
-                | validate - Validates the strategy data instance.
+                | validate - Validates the strategy data.
     '''
 
     @classmethod
     def validate(cls, data: StrategyData) -> None:
         '''
-            Validates the strategy data instance.
+            Validates the strategy data.
 
             :param data: The StrategyData instance to be validated.
             :exceptions:

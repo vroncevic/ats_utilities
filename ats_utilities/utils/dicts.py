@@ -100,7 +100,7 @@ def is_present_required_key[K, V](
     if key not in mapping:
         raise_error(
             fallback_context='dicts::is_present_required_key(...)',
-            fallback_msg=f'mapping is missing required key: {key}',
+            fallback_msg=f'the mapping is missing the required key: {key}',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -109,7 +109,7 @@ def is_present_required_key[K, V](
     if mapping[key] is None:
         raise_error(
             fallback_context='dicts::is_present_required_key(...)',
-            fallback_msg=f'mapping key {key} is None',
+            fallback_msg=f'the mapping key {key} is None',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -143,7 +143,7 @@ def require_keys(
 
         raise_error(
             fallback_context='dicts::require_keys(...)',
-            fallback_msg=f'mapping is missing required keys: {missing}',
+            fallback_msg=f'the mapping is missing required keys: {missing}',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class

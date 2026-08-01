@@ -60,7 +60,7 @@ def check_file_exists(
     if not file_path:
         raise_error(
             fallback_context='files::check_file_exists(...)',
-            fallback_msg='file path must be provided',
+            fallback_msg='the file path must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -71,7 +71,7 @@ def check_file_exists(
     if not Path(file_path).exists():
         raise_error(
             fallback_context='files::check_file_exists(...)',
-            fallback_msg=f'file at the provided path does not exist: {file_path}',
+            fallback_msg=f'the file at the provided path does not exist: {file_path}',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -99,7 +99,7 @@ def normalize_path(
     if not file_path:
         raise_error(
             fallback_context='files::normalize_path(...)',
-            fallback_msg='file path must be provided',
+            fallback_msg='the file path must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -146,7 +146,7 @@ def resolve_relative_path(
     if not normalized_name:
         raise_error(
             fallback_context='files::resolve_relative_path(...)',
-            fallback_msg='normalized_name must be provided',
+            fallback_msg='the normalized name must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -155,7 +155,7 @@ def resolve_relative_path(
     if not source_dir_clean:
         raise_error(
             fallback_context='files::resolve_relative_path(...)',
-            fallback_msg='source_dir_clean must be provided',
+            fallback_msg='the source directory name must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -197,7 +197,7 @@ def is_excluded_path(
     if not rel_path:
         raise_error(
             fallback_context='files::is_excluded_path(...)',
-            fallback_msg='rel_path must be provided',
+            fallback_msg='the relative path must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -206,7 +206,7 @@ def is_excluded_path(
     if not exclude_patterns:
         raise_error(
             fallback_context='files::is_excluded_path(...)',
-            fallback_msg='exclude_patterns must be provided',
+            fallback_msg='the exclude patterns must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -256,7 +256,7 @@ def format_casing_by_match(
     if not clean_str:
         raise_error(
             fallback_context='files::format_casing_by_match(...)',
-            fallback_msg='clean_str must be provided',
+            fallback_msg='the clean string must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -265,7 +265,7 @@ def format_casing_by_match(
     if not default_val:
         raise_error(
             fallback_context='files::format_casing_by_match(...)',
-            fallback_msg='default_val must be provided',
+            fallback_msg='the default value must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -274,7 +274,7 @@ def format_casing_by_match(
     if not upper_val:
         raise_error(
             fallback_context='files::format_casing_by_match(...)',
-            fallback_msg='upper_val must be provided',
+            fallback_msg='the UPPERCASE value must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -283,7 +283,7 @@ def format_casing_by_match(
     if not camel_val:
         raise_error(
             fallback_context='files::format_casing_by_match(...)',
-            fallback_msg='camel_val must be provided',
+            fallback_msg='the camelCase/PascalCase value must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -292,7 +292,7 @@ def format_casing_by_match(
     if not dashed_val:
         raise_error(
             fallback_context='files::format_casing_by_match(...)',
-            fallback_msg='dashed_val must be provided',
+            fallback_msg='the dashed-case value must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -336,7 +336,7 @@ def write_content(
     if not file_path:
         raise_error(
             fallback_context='files::write_content(...)',
-            fallback_msg='file_path must be provided',
+            fallback_msg='the file path must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -345,7 +345,7 @@ def write_content(
     if not content:
         raise_error(
             fallback_context='files::write_content(...)',
-            fallback_msg='content must be provided',
+            fallback_msg='the content must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -388,7 +388,7 @@ def apply_path_replacements(
     if not rel_path:
         raise_error(
             fallback_context='files::apply_path_replacements(...)',
-            fallback_msg='rel_path must be provided',
+            fallback_msg='the relative path must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -397,7 +397,7 @@ def apply_path_replacements(
     if not path_replacements:
         raise_error(
             fallback_context='files::apply_path_replacements(...)',
-            fallback_msg='path_replacements must be provided',
+            fallback_msg='the path replacements must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -406,7 +406,7 @@ def apply_path_replacements(
     if not vals:
         raise_error(
             fallback_context='files::apply_path_replacements(...)',
-            fallback_msg='vals must be provided',
+            fallback_msg='the vals must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class

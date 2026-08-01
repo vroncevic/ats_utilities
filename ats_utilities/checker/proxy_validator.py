@@ -51,7 +51,7 @@ __status__ = 'Development'
 
 def validate_specs(specs: Parameters, context: str) -> None:
     '''
-        Validates the specifications list structure instance.
+        Validates the specifications list structure.
 
         :param specs: The parameter specification list to validate.
         :param context: The context string for error reporting.
@@ -91,7 +91,7 @@ def validate_args(
     exc_context: str
 ) -> None:
     '''
-        Validates the argument values against parameter specification instance.
+        Validates the argument values against parameter specification.
 
         :param func: The decorated function.
         :param args: The position arguments passed.

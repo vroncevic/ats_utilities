@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Protocol interface for all dependencies validators.
-    Encapsulates standard validation behavior across dependencies instances.
+    Encapsulates standard validation behavior across dependencies.
 '''
 
 from __future__ import annotations
@@ -38,19 +38,19 @@ __status__ = 'Development'
 class IDependenciesValidator[DependenciesType](Protocol):
     '''
         Protocol interface for all dependencies validators.
-        Encapsulates standard validation behavior across dependencies instances.
+        Encapsulates standard validation behavior across dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the a dependencies instance.
+                | validate - Validates the dependencies.
     '''
 
     @classmethod
     def validate(cls, dependencies: DependenciesType) -> None:
         '''
-            Validates the a dependencies instance.
+            Validates the dependencies.
 
-            :param dependencies: The dependencies instance to be validated.
+            :param dependencies: The dependencies to be validated.
         '''
         ...

@@ -26,6 +26,8 @@ from sys import stdout
 from logging import Logger as Logger, FileHandler, StreamHandler, Formatter
 
 from ats_utilities.logger.formatter.iformatter import ILogFormatter
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
@@ -50,8 +52,8 @@ class LoggerAdapter:
         It defines:
 
             :attributes:
-                | _logger - The underlying logger instance.
-                | _formatter - The formatter instance.
+                | _logger - The underlying logger.
+                | _formatter - The formatter.
             :methods:
                 | __init__ - Initializes the logger adapter.
                 | log - Logs a message with a specific log level.
@@ -66,10 +68,26 @@ class LoggerAdapter:
         '''
             Initializes the logger adapter.
 
-            :param logger: The underlying logger instance.
-            :param formatter: The formatter instance.
-            :exceptions: None.
+            :param logger: The underlying logger.
+            :param formatter: The formatter.
+            :exceptions:
+                | ATSValueError: The logger must be provided.
+                | ATSValueError: The formatter must be provided.
+                | ATSTypeError:  The logger must be an instance of Logger.
+                | ATSTypeError:  The formatter must be an instance of ILogFormatter.
         '''
+        ctx: str = 'logger_adapter::init(...)'
+        msg_logger_none: str = 'the logger must be provided'
+        msg_formatter_none: str = 'the formatter must be provided'
+        msg_logger_istype: str = 'the logger must be an instance of Logger'
+        msg_formatter_istype: str = 'the formatter must be an instance of ILogFormatter'
+
+        not_none(logger, ctx, msg_logger_none)
+        not_none(formatter, ctx, msg_formatter_none)
+
+        istype(logger, ctx, Logger, msg_logger_istype)
+        istype(formatter, ctx, ILogFormatter, msg_formatter_istype)
+
         self._logger = logger
         self._formatter = formatter
 

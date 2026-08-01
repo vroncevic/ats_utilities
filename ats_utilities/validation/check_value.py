@@ -53,7 +53,7 @@ def not_none(
     if value is None:
         raise_error(
             fallback_context='check_value::not_none(...)',
-            fallback_msg='value must not be None',
+            fallback_msg='the value must not be None',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -116,7 +116,7 @@ def not_empty(
     if is_empty:
         raise_error(
             fallback_context='check_value::not_empty(...)',
-            fallback_msg='value must not be empty',
+            fallback_msg='the value must not be empty',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -143,7 +143,7 @@ def not_satisfied(
     if status:
         raise_error(
             fallback_context='check_value::not_satisfied(...)',
-            fallback_msg='condition not satisfied',
+            fallback_msg='the happy path condition not satisfied',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class

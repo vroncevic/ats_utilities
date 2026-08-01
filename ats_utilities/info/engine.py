@@ -60,7 +60,7 @@ class InfoManager:
                 | _context - The context bundle with context.
                 | _is_initialized - The indicates if the info manager component is initialized (default: False).
             :methods:
-                | __init__ - Initializes the InfoManager instance.
+                | __init__ - Initializes the InfoManager.
                 | get_bundle - Gets current info bundle.
                 | update_bundle - Updates info bundle.
                 | _apply_bundle - Applies bundle configuration to instance attributes.
@@ -81,7 +81,7 @@ class InfoManager:
 
     def __init__(self, own: InfoBundle) -> None:
         '''
-            Initializes the InfoManager instance.
+            Initializes the InfoManager.
 
             :param own: The bundle with components.
             :exceptions:

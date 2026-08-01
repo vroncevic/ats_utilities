@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the logger bundle instance.
+    A validator for the logger bundle.
 '''
 
 from __future__ import annotations
@@ -42,18 +42,18 @@ __status__ = 'Development'
 
 class LoggerValidator:
     '''
-        A validator for the logger bundle instance.
+        A validator for the logger bundle.
 
         It defines:
 
             :methods:
-                | validate - Validates the logger bundle instance.
+                | validate - Validates the logger bundle.
     '''
 
     @classmethod
     def validate(cls, bundle: LoggerBundle) -> None:
         '''
-            Validates the logger bundle instance.
+            Validates the logger bundle.
 
             :param bundle: The logger bundle to be validated.
             :exceptions:
@@ -62,7 +62,6 @@ class LoggerValidator:
                 |                must be instances of their respective types.
         '''
         ctx: str = 'logger_validator::validate(...)'
-
         msg_bundle_none: str = 'the bundle must be provided'
         msg_bundle_istype: str = 'the bundle must be an instance of LoggerBundle'
         msg_logger_none: str = 'the logger must be provided'

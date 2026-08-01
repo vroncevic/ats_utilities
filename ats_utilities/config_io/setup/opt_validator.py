@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for config I/O options.
+    Validator for the config I/O options.
 '''
 
 from __future__ import annotations
@@ -41,40 +41,40 @@ __status__ = 'Development'
 
 class ConfigIOOptionsValidator:
     '''
-        Validator for config I/O options.
+        Validator for the config I/O options.
 
         It defines:
 
             :methods:
-                | validate - Validates config I/O options.
+                | validate - Validates the config I/O options.
     '''
 
     @classmethod
     def validate(cls, options: ConfigIOOptions) -> None:
         '''
-            Validates config I/O options.
+            Validates the config I/O options.
 
             :param options: The config I/O options to be validated.
             :exceptions:
-                | ATSValueError: Options must be provided and have proper attributes.
-                | ATSTypeError:  Options must be an instance of Mapping and its attributes
+                | ATSValueError: The options must be provided and have proper attributes.
+                | ATSTypeError:  The options must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
         ctx: str = 'config_io_options_validator::validate(...)'
-        msg_options_none: str = 'options must be provided'
-        msg_options_istype: str = 'options must be a Mapping'
+        msg_options_none: str = 'the options must be provided'
+        msg_options_istype: str = 'the options must be a Mapping'
 
         not_none(options, ctx, msg_options_none)
         istype(options, Mapping, ctx, msg_options_istype)
 
         for attribute_name, expected_type in ConfigIOKeys.get_option_to_type().items():
-            msg_attribute_istype: str = f'{attribute_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+            msg_attribute_istype: str = f'the {attribute_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute: object | None = options.get(attribute_name)
 
             if attribute_name == ConfigIOKeys.OPTION_CONTEXT_BUNDLE:
                 istype(attribute, expected_type, ctx, msg_attribute_istype)
-                ContextValidator.validate(attribute, ctx)
+                ContextValidator.validate(attribute)
                 continue
 
             if attribute is not None:

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core config I/O components for ConfigIOBundle creation.
+    Encapsulates core config I/O components for the ConfigIOBundle.
 '''
 
 from __future__ import annotations
@@ -39,24 +39,24 @@ __status__ = 'Development'
 
 class ConfigIORegistry:
     '''
-        Encapsulates core config I/O components for ConfigIOBundle creation.
+        Encapsulates core config I/O components for the ConfigIOBundle.
 
         It defines:
 
             :methods:
-                | create_bundle - Orchestrates dependency injection and creates a ConfigIOBundle.
+                | create_bundle - Orchestrates the dependency injection and creates a ConfigIOBundle.
     '''
 
     @classmethod
     def create_bundle(cls, dependencies: ConfigIODependencies) -> ConfigIOBundle:
         '''
-            Orchestrates dependency injection and creates a ConfigIOBundle.
+            Orchestrates the dependency injection and creates a ConfigIOBundle.
 
             :param dependencies: The registry-specific orchestration dependencies.
             :return: The ConfigIOBundle.
             :exceptions:
-                | ATSValueError: Dependencies must be provided and have proper values.
-                | ATSTypeError:  Dependencies must be an instance of Mapping and its
+                | ATSValueError: The dependencies must be provided and have proper values.
+                | ATSTypeError:  The dependencies must be an instance of Mapping and its
                 |                attributes must be instances of their respective types.
         '''
         ConfigIODependenciesValidator.validate(dependencies)

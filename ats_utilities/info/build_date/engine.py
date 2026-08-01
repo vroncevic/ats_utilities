@@ -49,7 +49,7 @@ class BuildDate:
             :attributes:
                 | _build_date - The build date for the App/Tool/Script (default: None).
             :methods:
-                | __init__ - Initializes the BuildDate instance.
+                | __init__ - Initializes the BuildDate.
                 | build_date - Property methods for setting and getting the build date.
                 | not_none - Checks if the build date is not None.
                 | __str__ - Returns the BuildDate as a string representation.
@@ -60,7 +60,7 @@ class BuildDate:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the BuildDate instance.
+            Initializes the BuildDate.
 
             :param context_bundle: The context bundle for build date.
             :exceptions:

@@ -64,6 +64,6 @@ class GeneratorBundle:
             :return: The dictionary representation of the generator bundle.
             :exceptions:
                 | ATSValueError: Instance must be provided.
-                | ATSValueError: Instance must be a dataclass instance.
+                | ATSValueError: Instance must be a dataclass.
         '''
         return instance_to_dict(self)

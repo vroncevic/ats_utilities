@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the reporter options instance.
+    A validator for the reporter options.
 '''
 
 from __future__ import annotations
@@ -40,18 +40,18 @@ __status__ = 'Development'
 
 class ReporterOptionsValidator:
     '''
-        A validator for the reporter options instance.
+        A validator for the reporter options.
 
         It defines:
 
             :methods:
-                | validate - Validates the reporter options instance.
+                | validate - Validates the reporter options.
     '''
 
     @classmethod
     def validate(cls, options: ReporterOptions) -> None:
         '''
-            Validates the reporter options instance.
+            Validates the reporter options.
 
             :param options: The reporter options instance to be validated.
             :exceptions:

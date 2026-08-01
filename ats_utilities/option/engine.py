@@ -58,7 +58,7 @@ class OptionManager:
                 | _context - The context bundle with context.
                 | _strategy - The strategy for argument parsing (default ParserStrategy).
             :methods:
-                | __init__ - Initializes the OptionManager instance.
+                | __init__ - Initializes the OptionManager.
                 | get_bundle - Gets current option configuration bundle.
                 | update_bundle - Updates option configuration bundle.
                 | get_context - Returns the context.
@@ -79,7 +79,7 @@ class OptionManager:
 
     def __init__(self, own: OptionBundle) -> None:
         '''
-            Initializes the OptionManager instance.
+            Initializes the OptionManager.
 
             :param own: The bundle with components for option manager.
             :exceptions:

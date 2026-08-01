@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the option dependencies instance.
+    A validator for the option dependencies.
 '''
 
 from __future__ import annotations
@@ -41,23 +41,23 @@ __status__ = 'Development'
 
 class OptionDependenciesValidator:
     '''
-        A validator for the option dependencies instance.
+        A validator for the option dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the option dependencies instance.
+                | validate - Validates the option dependencies.
     '''
 
     @classmethod
     def validate(cls, dependencies: OptionDependencies) -> None:
         '''
-            Validates the option dependencies instance.
+            Validates the option dependencies.
 
             :param dependencies: The option dependencies instance to be validated.
             :exceptions:
-                | ATSValueError: Dependencies must be provided and have proper values.
-                | ATSTypeError:  Dependencies must be an instance of Mapping and its
+                | ATSValueError: The dependencies must be provided and have proper values.
+                | ATSTypeError:  The dependencies must be an instance of Mapping and its
                 |                attributes must be instances of their respective types.
         '''
         ctx: str = 'option_dependencies_validator::validate(...)'

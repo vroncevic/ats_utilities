@@ -49,7 +49,7 @@ class UseGitHub:
             :attributes:
                 | _use_github - The use GitHub infrastructure for the App/Tool/Script (default: False).
             :methods:
-                | __init__ - Initializes the UseGitHub instance.
+                | __init__ - Initializes the UseGitHub.
                 | use_github - Property methods for setting and getting the use_github.
                 | not_none - Checks if the use GitHub infrastructure is not None.
                 | __str__ - Returns the use GitHub infrastructure as a string representation.
@@ -60,7 +60,7 @@ class UseGitHub:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the UseGitHub instance.
+            Initializes the UseGitHub.
 
             :param context_bundle: The context bundle for use_github.
             :exceptions:

@@ -49,7 +49,7 @@ class TemplateDir:
             :attributes:
                 | _template_dir - The project template dir path (default: None).
             :methods:
-                | __init__ - Initializes the template dir instance.
+                | __init__ - Initializes the template dir.
                 | template_dir - Property methods for setting and getting the respective property value.
                 | not_none - Checks if the template dir is not None.
                 | __str__ - Returns the ATS project template directory as a string representation.
@@ -60,7 +60,7 @@ class TemplateDir:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the template dir instance.
+            Initializes the template dir.
 
             :param context_bundle: The context bundle for template dir.
             :exceptions:

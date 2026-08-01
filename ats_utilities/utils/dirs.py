@@ -59,7 +59,7 @@ def check_dir_exists(
     if not dir_path:
         raise_error(
             fallback_context='dirs::check_dir_exists(...)',
-            fallback_msg='directory path must be provided',
+            fallback_msg='the directory path must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -68,7 +68,7 @@ def check_dir_exists(
     if not Path(dir_path).is_dir():
         raise_error(
             fallback_context='dirs::check_dir_exists(...)',
-            fallback_msg=f'directory at the provided path does not exist: {dir_path}',
+            fallback_msg=f'the directory at the provided path does not exist: {dir_path}',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class

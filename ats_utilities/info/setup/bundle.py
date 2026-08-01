@@ -85,9 +85,9 @@ class InfoBundle:
         '''
             Converts the info bundle to a dictionary.
 
-            :return: The dictionary representation of the info bundle instance.
+            :return: The dictionary representation of the info bundle.
             :exceptions:
                 | ATSValueError: Instance must be provided.
-                | ATSValueError: Instance must be a dataclass instance.
+                | ATSValueError: Instance must be a dataclass.
         '''
         return instance_to_dict(self)

@@ -46,7 +46,7 @@ class LoggerDependencies(TypedDict):
         It defines:
 
             :attributes:
-                | logger - The logger instance.
+                | logger - The logger.
                 | has_file_handler - The flag indicating if the logger has a file handler.
                 | formatter - The formatter for log messages.
                 | buffer - The buffer for early log messages.

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates the checker runtime components for simplification of the checker bundle creation.
+    Encapsulates the checker runtime components for simplification of the checker bundle.
 '''
 
 from __future__ import annotations
@@ -42,7 +42,7 @@ __status__ = 'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class CheckerBundle:
     '''
-        Encapsulates the checker runtime components for the simplification of the checker bundle creation.
+        Encapsulates the checker runtime components for the simplification of the checker bundle.
 
         It defines:
 
@@ -67,6 +67,6 @@ class CheckerBundle:
             :return: The dictionary representation of the checker bundle.
             :exceptions:
                 | ATSValueError: The instance must be provided.
-                | ATSValueError: The instance must be a dataclass instance.
+                | ATSValueError: The instance must be a dataclass.
         '''
         return instance_to_dict(self)

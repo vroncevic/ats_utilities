@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the file data instance.
+    A validator for the file data.
 '''
 
 from __future__ import annotations
@@ -39,36 +39,36 @@ __status__: str = 'Development'
 
 class FileDataValidator:
     '''
-        A validator for the file data instance.
+        A validator for the file data.
 
         It defines:
 
             :methods:
-                | validate - Validates the file data instance.
+                | validate - Validates the file data.
     '''
 
     @classmethod
     def validate(cls, data: FileData) -> None:
         '''
-            Validates the file data instance.
+            Validates the file data.
 
             :param data: The file data to be validated.
             :exceptions:
-                | ATSValueError: File data must be provided and have proper values.
-                | ATSTypeError:  File data must be an instance of FileData and its
+                | ATSValueError: The file data must be provided and have proper values.
+                | ATSTypeError:  The file data must be an instance of FileData and its
                 |                attributes must be instances of their respective types.
         '''
         ctx: str = 'file_data_validator::validate(...)'
-        msg_data_none: str = 'file data must be provided'
-        msg_data_istype: str = 'file data must be an instance of FileData'
-        msg_path_none: str = 'file path must be provided'
-        msg_mode_none: str = 'file mode must be provided'
-        msg_context_none: str = 'context bundle must be provided'
-        msg_path_istype: str = 'file path must be a string'
-        msg_mode_istype: str = 'file mode must be a string'
-        msg_context_istype: str = 'context bundle must be a ContextBundle instance'
-        msg_path_empty: str = 'file path must not be empty'
-        msg_mode_empty: str = 'file mode must not be empty'
+        msg_data_none: str = 'the file data must be provided'
+        msg_data_istype: str = 'the file data must be an instance of FileData'
+        msg_path_none: str = 'the file path must be provided'
+        msg_mode_none: str = 'the file mode must be provided'
+        msg_context_none: str = 'the context bundle must be provided'
+        msg_path_istype: str = 'the file path must be a string'
+        msg_mode_istype: str = 'the file mode must be a string'
+        msg_context_istype: str = 'the context bundle must be a ContextBundle instance'
+        msg_path_empty: str = 'the file path must not be empty'
+        msg_mode_empty: str = 'the file mode must not be empty'
 
         not_none(data, ctx, msg_data_none)
         istype(data, FileData, ctx, msg_data_istype)

@@ -69,7 +69,7 @@ def validate_component(
     exc_class: type[BaseException] = ATSTypeError
 ) -> None:
     '''
-        Validates the if a component instance is of the expected class type instance.
+        Validates the if a component instance is of the expected class type.
 
         :param instance: The resolved component instance to check.
         :param expected_class: The expected concrete class type.
@@ -82,7 +82,7 @@ def validate_component(
     if not isinstance(instance, expected_class):
         raise_error(
             fallback_context='component::validate_component(...)',
-            fallback_msg=f'instance is not of expected type {expected_class}',
+            fallback_msg=f'the instance is not of expected type {expected_class}',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class

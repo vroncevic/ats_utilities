@@ -52,7 +52,7 @@ class OptionData:
                 | choices - The optional choices for this option (default: None).
                 | nargs - The optional number of arguments for this option (default: None).
             :methods:
-                | __post_init__ - Post-initializes option data instance.
+                | __post_init__ - Post-initializes option data.
                 | to_dict - Converts the option data instance to a dictionary.
     '''
 
@@ -66,7 +66,7 @@ class OptionData:
 
     def __post_init__(self) -> None:
         '''
-            Post-initializes option data instance.
+            Post-initializes option data.
             Converts choices sequence to an immutable tuple.
         '''
         if self.choices is not None:
@@ -76,7 +76,7 @@ class OptionData:
         '''
             Converts the option data instance to a dictionary.
 
-            :return: The dictionary representation of the option data instance.
+            :return: The dictionary representation of the option data.
         '''
         return instance_to_dict(self)
 

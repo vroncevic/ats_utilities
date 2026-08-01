@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates option runtime components for simplification of option bundle creation.
+    Encapsulates option runtime components for simplification of option bundle.
 '''
 
 from __future__ import annotations
@@ -40,7 +40,7 @@ __status__ = 'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class OptionBundle:
     '''
-        Encapsulates option runtime components for simplification of option bundle creation.
+        Encapsulates option runtime components for simplification of option bundle.
 
         It defines:
 
@@ -48,7 +48,7 @@ class OptionBundle:
                 | strategy - The strategy for argument parsing.
                 | context_bundle - The context bundle for dependency injection.
             :methods:
-                | to_dict - Converts option bundle to a dictionary.
+                | to_dict - Converts the option bundle to a dictionary.
     '''
 
     strategy: IParserStrategy
@@ -56,11 +56,11 @@ class OptionBundle:
 
     def to_dict(self) -> dict[str, object]:
         '''
-            Converts option bundle to a dictionary.
+            Converts the option bundle to a dictionary.
 
             :return: The dictionary representation of the option bundle.
             :exceptions:
                 | ATSValueError: Instance must be provided.
-                | ATSValueError: Instance must be a dataclass instance.
+                | ATSValueError: Instance must be a dataclass.
         '''
         return instance_to_dict(self)

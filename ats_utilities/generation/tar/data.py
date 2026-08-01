@@ -80,7 +80,7 @@ class TarMemberData:
         It defines:
 
             :attributes:
-                | tar - The open tar archive instance.
+                | tar - The open tar archive.
                 | member - The member info to process.
                 | dest_full_path - The absolute destination file path.
                 | vals - The computed template values for substitution.

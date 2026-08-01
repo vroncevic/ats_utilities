@@ -23,6 +23,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
+from typing import Final
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
@@ -58,24 +59,24 @@ class SplashProperty:
                 | GITHUB_SETTING - The key for application/tool/script github.
                 | _settings - The splash keys for the App/Tool/Script splash screen (default: None).
             :methods:
-                | __init__ - Initializes the SplashProperty instance.
+                | __init__ - Initializes the SplashProperty.
                 | settings - Property method for get/set splash keys.
                 | is_settings_enabled - Checks if settings are enabled.
                 | __str__ - Returns the splash property as a string representation.
     '''
 
-    ENABLED_SETTING: str = 'enabled'
-    NAME_SETTING: str = 'name'
-    REPOSITORY_SETTING: str = 'repository'
-    ORGANIZATION_SETTING: str = 'organization'
-    LOGO_SETTING: str = 'logo'
-    GITHUB_SETTING: str = 'github'
+    ENABLED_SETTING: Final[str] = 'enabled'
+    NAME_SETTING: Final[str] = 'name'
+    REPOSITORY_SETTING: Final[str] = 'repository'
+    ORGANIZATION_SETTING: Final[str] = 'organization'
+    LOGO_SETTING: Final[str] = 'logo'
+    GITHUB_SETTING: Final[str] = 'github'
     _settings: Mapping[str, object]
     _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the SplashProperty instance.
+            Initializes the SplashProperty.
 
             :param context_bundle: The context bundle for splash screen property.
             :exceptions:

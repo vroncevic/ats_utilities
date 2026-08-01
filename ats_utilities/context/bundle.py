@@ -66,6 +66,6 @@ class ContextBundle:
             :return: The dictionary representation of the context bundle.
             :exceptions:
                 | ATSValueError: The instance must be provided.
-                | ATSValueError: The instance must be a dataclass instance.
+                | ATSValueError: The instance must be a dataclass.
         '''
         return instance_to_dict(self)

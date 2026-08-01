@@ -49,7 +49,7 @@ class Licence:
             :attributes:
                 | _licence - The licence for the App/Tool/Script (default: None).
             :methods:
-                | __init__ - Initializes the Licence instance.
+                | __init__ - Initializes the Licence.
                 | licence - Property methods for setting and getting the respective property value.
                 | not_none - Checks if the licence is not None.
                 | __str__ - Returns the Licence as a string representation.
@@ -60,7 +60,7 @@ class Licence:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the Licence instance.
+            Initializes the Licence.
 
             :param context_bundle: The context bundle for licence.
             :exceptions:

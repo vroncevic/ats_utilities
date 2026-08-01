@@ -49,7 +49,7 @@ class Logo:
             :attributes:
                 | _logo - The logo path for the App/Tool/Script (default: None).
             :methods:
-                | __init__ - Initializes the Logo instance.
+                | __init__ - Initializes the Logo.
                 | logo - Property methods for setting and getting the logo.
                 | not_none - Checks if the logo path is not None.
                 | __str__ - Returns the Logo as a string representation.
@@ -60,7 +60,7 @@ class Logo:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the Logo instance.
+            Initializes the Logo.
 
             :param context_bundle: The context bundle for logo.
             :exceptions:

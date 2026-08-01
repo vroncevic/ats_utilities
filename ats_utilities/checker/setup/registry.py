@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of the checker bundle creation.
+    Encapsulates core runtime components for simplification of the checker bundle.
 '''
 
 from __future__ import annotations
@@ -39,7 +39,7 @@ __status__ = 'Development'
 
 class CheckerRegistry:
     '''
-        Encapsulates core runtime components for simplification of the checker bundle creation.
+        Encapsulates core runtime components for simplification of the checker bundle.
 
         It defines:
 

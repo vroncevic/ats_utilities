@@ -25,6 +25,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from re import match
+from typing import Final
 
 from ats_utilities.utils.reflection import to_str
 
@@ -51,12 +52,12 @@ class CFGProcessor:
                 | _data - The internal dict to store configuration data (default {}).
                 | _scheme - The mapping with configuration scheme (default: None).
             :methods:
-                | __init__ - Initializes the CFGProcessor instance.
+                | __init__ - Initializes the CFGProcessor.
                 | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).
                 | serialize - Converts the internal configuration structure back to a formatted string representation.
-                | update_data - Updates the internal configuration data and Validates the it against the scheme instance.
+                | update_data - Updates the internal configuration data and Validates the it against the scheme.
                 | to_dict - Returns the parsed configuration as a flat or structured dictionary.
-                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme instance.
+                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.
                 | __str__ - Returns the CFGProcessor instance as a string representation.
 
         Flat Format Config Scheme
@@ -75,13 +76,13 @@ class CFGProcessor:
             }
     '''
 
-    _REGEX_EXP: str = r'^\s*$'
+    _REGEX_EXP: Final[str] = r'^\s*$'
     _data: dict[str, str]
     _scheme: Mapping[str, str] | None
 
     def __init__(self, scheme: Mapping[str, str] | None = None) -> None:
         '''
-            Initializes the CFGProcessor instance.
+            Initializes the CFGProcessor.
 
             :param scheme: The mapping with configuration scheme (default: None).
             :exceptions: None.
@@ -119,7 +120,7 @@ class CFGProcessor:
 
     def update_data(self, new_data: Mapping[str, str]) -> bool:
         '''
-            Updates the internal configuration data and Validates the it against the scheme instance.
+            Updates the internal configuration data and Validates the it against the scheme.
 
             :param new_data: The mapping containing configuration keys and values.
             :return: True if successful, otherwise False.
@@ -147,7 +148,7 @@ class CFGProcessor:
 
     def validate_by_scheme(self) -> bool:
         '''
-            Validates the internal parsed data structure against the provided scheme instance.
+            Validates the internal parsed data structure against the provided scheme.
 
             :return: True if successful, otherwise False.
             :exceptions: None.

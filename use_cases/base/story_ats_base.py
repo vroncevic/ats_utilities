@@ -22,9 +22,9 @@ Info
 from logging import INFO, WARNING
 from os.path import dirname, realpath
 
-
 from ats_utilities.base.engine import Base
 from ats_utilities.base.setup.factory import BaseFactory
+from ats_utilities.base.setup.options import BaseOptions
 from ats_utilities.context.factory import ContextFactory
 
 __author__ = 'Vladimir Roncevic'
@@ -44,22 +44,27 @@ class MyTool(Base):
     def __init__(self):
         current_dir: str = dirname(realpath(__file__))
         super().__init__(
-            BaseFactory.create_default_base_bundle(
-                info_file=f'{current_dir}/{self._INFO_FILE}',
-                context_bundle=ContextFactory.create_default_bundle()
+            BaseFactory.create_bundle(
+                options=BaseOptions(
+                    info_file=f'{current_dir}/{self._INFO_FILE}',
+                    use_generator=False,
+                    context_bundle=ContextFactory.create_bundle()
+                )
             )
         )
 
         # Log that initialization is complete using both logger and reporter
-        context = self.get_shared_context()
+        context = self.get_context()
         my_logger = context.logger
         my_reporter = context.reporter
+
+        self._splash_manager.show()
 
         my_logger.write_log('MyTool initialized successfully', INFO)
         my_reporter.success(['MyTool initialized successfully (Reporter Success)'])
 
     def process(self, verbose: bool = True) -> bool:
-        context = self.get_shared_context()
+        context = self.get_context()
         context.logger.write_log(f'Processing starting, verbose: {verbose}', INFO)
         context.reporter.verbose(verbose, [f'Processing starting, verbose: {verbose} (Reporter Verbose)'])
         print(f'Overwrite result {verbose} ...')
@@ -67,7 +72,7 @@ class MyTool(Base):
 
     def perform_action(self) -> None:
         '''A new method showing logging and reporting with different levels and colors.'''
-        context = self.get_shared_context()
+        context = self.get_context()
         context.logger.write_log('Performing a specific tool action', INFO)
         context.logger.write_log('This is a warning log from MyTool action', WARNING)
 
@@ -85,4 +90,4 @@ if tool.is_initialized():
     tool.perform_action()
 
 print(f'Result: {result}')
-print(str(tool))
+#print(str(tool))

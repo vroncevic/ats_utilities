@@ -61,7 +61,7 @@ class Checker:
                 | _context_provider - The context provider that is used in the validation of parameters.
                 | _check_reporter - The check reporter that is used in the validation of parameters.
             :methods:
-                | __init__ - Initializes the checker instance.
+                | __init__ - Initializes the checker.
                 | get_bundle - Gets the current checker configuration bundle.
                 | update_bundle - Updates the checker configuration bundle.
                 | _apply_bundle - Applies the bundle configuration to the instance attributes.
@@ -82,7 +82,7 @@ class Checker:
 
     def __init__(self, own: CheckerBundle) -> None:
         '''
-            Initializes the checker instance.
+            Initializes the checker.
 
             :param own: The checker bundle that is used to initialize the checker.
             :exceptions:

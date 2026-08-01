@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the generator options instance.
+    A validator for the generator options.
 '''
 
 from __future__ import annotations
@@ -41,18 +41,18 @@ __status__ = 'Development'
 
 class GeneratorOptionsValidator:
     '''
-        A validator for the generator options instance.
+        A validator for the generator options.
 
         It defines:
 
             :methods:
-                | validate - Validates the generator options instance.
+                | validate - Validates the generator options.
     '''
 
     @classmethod
     def validate(cls, options: GeneratorOptions) -> None:
         '''
-            Validates the generator options instance.
+            Validates the generator options.
 
             :param options: The generator options to be validated.
             :exceptions:
@@ -74,7 +74,7 @@ class GeneratorOptionsValidator:
 
             if attr_name == GeneratorKeys.OPTION_CONTEXT_BUNDLE:
                 istype(attribute, expected_type, ctx, msg_attr_name_istype)
-                ContextValidator.validate(attribute, ctx)
+                ContextValidator.validate(attribute)
                 continue
 
             if attribute is not None:

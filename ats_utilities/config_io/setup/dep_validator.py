@@ -56,12 +56,11 @@ class ConfigIODependenciesValidator:
 
             :param dependencies: The config I/O dependencies to be validated.
             :exceptions:
-                | ATSValueError: Dependencies must be provided and have proper attributes.
-                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                | ATSValueError: The dependencies must be provided and have proper attributes.
+                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
         ctx: str = 'config_io_dependencies_validator::validate(...)'
-
         msg_dependencies_none: str = 'the dependencies must be provided'
         msg_dependencies_istype: str = 'the dependencies must be a Mapping'
 
@@ -78,4 +77,4 @@ class ConfigIODependenciesValidator:
             istype(attribute, expected_type, ctx, msg_attribute_istype)
 
             if attr_name == ConfigIOKeys.DEPENDENCY_CONTEXT_BUNDLE:
-                ContextValidator.validate(attribute, ctx)
+                ContextValidator.validate(attribute)

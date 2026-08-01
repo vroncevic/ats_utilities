@@ -47,9 +47,9 @@ class IConfigProcessor[DataType](Protocol):
             :methods:
                 | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).
                 | serialize - Converts the internal configuration structure back to a formatted string representation.
-                | update_data - Updates the internal configuration data and Validates the it against the scheme instance.
+                | update_data - Updates the internal configuration data and Validates the it against the scheme.
                 | to_dict - Returns the parsed configuration as a flat or structured dictionary.
-                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme instance.
+                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.
                 | __str__ - Returns the configuration processor as a string representation.
 
         Understanding the `scheme` Parameter
@@ -84,7 +84,7 @@ class IConfigProcessor[DataType](Protocol):
 
     def update_data(self, new_data: DataType) -> bool:
         '''
-            Updates internal configuration data and Validates the it against the scheme instance.
+            Updates internal configuration data and Validates the it against the scheme.
 
             :param new_data: The configuration data.
             :return: True if successful, otherwise False.
@@ -101,7 +101,7 @@ class IConfigProcessor[DataType](Protocol):
 
     def validate_by_scheme(self) -> bool:
         '''
-            Validates the internal parsed data structure against the provided scheme instance.
+            Validates the internal parsed data structure against the provided scheme.
 
             :return: True if successful, otherwise False.
         '''

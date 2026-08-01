@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the base dependencies instance.
+    A validator for the base dependencies.
 '''
 
 from __future__ import annotations
@@ -41,18 +41,18 @@ __status__ = 'Development'
 
 class BaseDependenciesValidator:
     '''
-        A validator for the base dependencies instance.
+        A validator for the base dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the base dependencies instance.
+                | validate - Validates the base dependencies.
     '''
 
     @classmethod
     def validate(cls, dependencies: BaseDependencies) -> None:
         '''
-            Validates the base dependencies instance.
+            Validates the base dependencies.
 
             :param dependencies: The base dependencies.
             :exceptions:

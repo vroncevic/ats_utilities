@@ -186,7 +186,7 @@ class SplashManager:
 
         except (OSError, UnicodeDecodeError) as exc:
             ctx: str = 'splasher::show(...)'
-            msg: str = f'logo file content is invalid {exc}'
+            msg: str = f'the logo file content is invalid {exc}'
             not_satisfied(True, ctx, msg)
 
         position: CenterData = CenterData(columns=int(size[1]), additional_shifter=2)

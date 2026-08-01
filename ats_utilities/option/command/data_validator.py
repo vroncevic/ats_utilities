@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the option data instance.
+    A validator for the option data.
 '''
 
 from __future__ import annotations
@@ -39,36 +39,36 @@ __status__ = 'Development'
 
 class OptionDataValidator:
     '''
-        A validator for the option data instance.
+        A validator for the option data.
 
         It defines:
 
             :methods:
-                | validate - Validates the an option data instance.
+                | validate - Validates the option data.
     '''
 
     @classmethod
     def validate(cls, data: OptionData) -> None:
         '''
-            Validates the an option data instance.
+            Validates the option data.
 
-            :param data: option data instance to be validated.
+            :param data: The option data instance to be validated.
             :exceptions:
-                | ATSValueError: Option data must be provided and have proper values.
-                | ATSTypeError:  Option data must be an instance of OptionData and its
+                | ATSValueError: The option data must be provided and have proper values.
+                | ATSTypeError:  The option data must be an instance of OptionData and its
                 |                attributes must be instances of their respective types.
         '''
         ctx: str = 'option_data_validator::validate(...)'
-        msg_data_none: str = 'data must be provided'
-        msg_data_istype: str = 'data must be an instance of OptionData'
-        msg_name_none: str = 'name must be provided'
-        msg_name_istype: str = 'name must be a string'
-        msg_help_text_none: str = 'help text must be provided'
-        msg_help_text_istype: str = 'help text must be a string'
-        msg_action_istype: str = 'action must be a string'
-        msg_required_istype: str = 'required must be a boolean'
-        msg_choices_istype: str = 'choices must be a sequence'
-        msg_nargs_istype: str = 'nargs must be a string or an integer'
+        msg_data_none: str = 'the data must be provided'
+        msg_data_istype: str = 'the data must be an instance of OptionData'
+        msg_name_none: str = 'the name must be provided'
+        msg_name_istype: str = 'the name must be a string'
+        msg_help_text_none: str = 'the help text must be provided'
+        msg_help_text_istype: str = 'the help text must be a string'
+        msg_action_istype: str = 'the action must be a string'
+        msg_required_istype: str = 'the required must be a boolean'
+        msg_choices_istype: str = 'the choices must be a sequence'
+        msg_nargs_istype: str = 'the nargs must be a string or an integer'
 
         not_none(data, ctx, msg_data_none)
         istype(data, OptionData, ctx, msg_data_istype)

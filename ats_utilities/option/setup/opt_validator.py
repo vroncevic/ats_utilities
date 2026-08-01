@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the option options instance.
+    A validator for the option options.
 '''
 
 from __future__ import annotations
@@ -42,42 +42,45 @@ __status__ = 'Development'
 
 class OptionOptionsValidator(IOptionsValidator[OptionOptions]):
     '''
-        A validator for the option options instance.
+        A validator for the option options.
 
         It defines:
 
             :methods:
-                | validate - Validates the option options instance.
+                | validate - Validates the option options.
     '''
 
     @classmethod
     def validate(cls, options: OptionOptions) -> None:
         '''
-            Validates the option options instance.
+            Validates the option options.
 
             :param options: The option options instance to be validated.
             :exceptions:
-                | ATSValueError: Options must be provided and have proper values.
-                | ATSTypeError:  Options must be an instance of Mapping and its
+                | ATSValueError: The options must be provided and have proper values.
+                | ATSTypeError:  The options must be an instance of Mapping and its
                 |                attributes must be instances of their respective types.
         '''
         ctx: str = 'option_options_validator::validate(...)'
+        msg_options_none: str = 'the options must be provided'
+        msg_options_istype: str = 'the options must be a Mapping'
 
-        not_none(options, ctx, 'options must be provided')
-        istype(options, Mapping, ctx, 'options must be a Mapping')
+        not_none(options, ctx, msg_options_none)
+        istype(options, Mapping, ctx, msg_options_istype)
 
-        for opt_name, expected_type in OptionKeys.get_option_to_type().items():
-            opt_attribute: object = options.get(opt_name)
-            not_none(opt_attribute, ctx, f'{opt_name.replace("_", " ")} must be provided')
-            istype(
-                opt_attribute, expected_type, ctx,
-                f'{opt_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
-            )
+        for attr_name, expected_type in OptionKeys.get_option_to_type().items():
+            msg_attr_none: str = f'the {attr_name.replace("_", " ")} must be provided'
+            msg_attr_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
-            if opt_name == OptionKeys.OPTION_PARAMETERS:
-                missing_keys: set[str] = OptionKeys.REQUIRED_CONFIG_KEYS_SET - opt_attribute.keys()
-                msg: str | None = f'missing configuration keys: {', '.join(sorted(missing_keys))}' if missing_keys else None
+            attribute: object = options.get(attr_name)
+
+            not_none(attribute, ctx, msg_attr_none)
+            istype(attribute, expected_type, ctx, msg_attr_istype)
+
+            if attr_name == OptionKeys.OPTION_PARAMETERS:
+                missing_keys: set[str] = OptionKeys.REQUIRED_CONFIG_KEYS_SET - attribute.keys()
+                msg: str | None = f'the missing configuration keys: {', '.join(sorted(missing_keys))}' if missing_keys else None
                 not_satisfied(bool(missing_keys), ctx, msg)
 
-            if opt_name == OptionKeys.OPTION_CONTEXT_BUNDLE:
-                ContextValidator.validate(opt_attribute)
+            if attr_name == OptionKeys.OPTION_CONTEXT_BUNDLE:
+                ContextValidator.validate(attribute)

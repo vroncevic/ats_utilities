@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the splash dependencies instance.
+    A validator for the splash dependencies.
 '''
 
 from __future__ import annotations
@@ -25,7 +25,6 @@ from collections.abc import Mapping
 
 from ats_utilities.splash.setup.dependencies import SplashDependencies
 from ats_utilities.splash.setup.keys import SplashKeys
-from ats_utilities.utils.setup.idep_validator import IDependenciesValidator
 from ats_utilities.context.validator import ContextValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
@@ -40,25 +39,25 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class SplashDependenciesValidator(IDependenciesValidator[SplashDependencies]):
+class SplashDependenciesValidator:
     '''
-        A validator for the splash dependencies instance.
+        A validator for the splash dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the splash dependencies instance.
+                | validate - Validates the splash dependencies.
     '''
 
     @classmethod
     def validate(cls, dependencies: SplashDependencies) -> None:
         '''
-            Validates the splash dependencies instance.
+            Validates the splash dependencies.
 
             :param dependencies: The splash dependencies instance to be validated.
             :exceptions:
-                | ATSValueError: Dependencies must be provided and have proper attributes.
-                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                | ATSValueError: The dependencies must be provided and have proper attributes.
+                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
         ctx: str = 'splash_dependencies_validator::validate(...)'

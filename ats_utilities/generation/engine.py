@@ -144,7 +144,7 @@ class GeneratorManager:
 
     def prepare_template_values(self, template_values: Mapping[str, str]) -> dict[str, str]:
         '''
-            Validates the and computes name case variations from template values instance.
+            Validates the and computes name case variations from template values.
 
             :param template_values: The input replacement values.
             :return: The updated template values dictionary.

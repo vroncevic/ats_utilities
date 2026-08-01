@@ -80,8 +80,8 @@ class Base:
 
             :param own: The base bundle containing core components for base package.
             :exceptions:
-                | ATSValueError: Base bundle must be provided and have proper values.
-                | ATSTypeError:  Base bundle must be an instance of BaseBundle
+                | ATSValueError: The base bundle must be provided and have proper values.
+                | ATSTypeError:  The base bundle must be an instance of BaseBundle
                 |                and its attributes must be instances of their
                 |                respective interfaces and types.
         '''
@@ -96,7 +96,7 @@ class Base:
 
     def get_bundle(self) -> BaseBundle:
         '''
-            Gets current base configuration bundle.
+            Gets the current base configuration bundle.
 
             :return: The base configuration bundle.
             :exceptions: None.
@@ -111,7 +111,7 @@ class Base:
 
     def update_bundle(self, bundle: BaseBundle) -> bool:
         '''
-            Updates base configuration bundle.
+            Updates the base configuration bundle.
 
             :param bundle: The base configuration bundle.
             :return: True if the configuration was successfully updated, False otherwise.
@@ -133,7 +133,7 @@ class Base:
 
     def _apply_bundle(self, bundle: BaseBundle) -> None:
         '''
-            Applies bundle configuration to instance attributes.
+            Applies the bundle configuration to instance attributes.
 
             :param bundle: The base bundle with components.
             :exceptions: None.

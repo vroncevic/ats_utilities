@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the generator bundle instance.
+    A validator for the generator bundle.
 '''
 
 from __future__ import annotations
@@ -41,18 +41,18 @@ __status__ = 'Development'
 
 class GeneratorValidator:
     '''
-        A validator for the generator bundle instance.
+        A validator for the generator bundle.
 
         It defines:
 
             :methods:
-                | validate - Validates the generator bundle instance.
+                | validate - Validates the generator bundle.
     '''
 
     @classmethod
     def validate(cls, bundle: GeneratorBundle) -> None:
         '''
-            Validates the generator bundle instance.
+            Validates the generator bundle.
 
             :param bundle: The generator bundle instance to be validated.
             :exceptions:

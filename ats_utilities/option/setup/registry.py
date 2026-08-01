@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of option bundle creation.
+    Encapsulates core runtime components for simplification of option bundle.
 '''
 
 from __future__ import annotations
@@ -39,24 +39,24 @@ __status__ = 'Development'
 
 class OptionRegistry:
     '''
-        Encapsulates core runtime components for simplification of option bundle creation.
+        Encapsulates core runtime components for simplification of option bundle.
 
         It defines:
 
             :methods:
-                | create_bundle - Orchestrates dependency injection and creates an option bundle instance.
+                | create_bundle - Orchestrates dependency injection and creates an option bundle.
     '''
 
     @classmethod
     def create_bundle(cls, dependencies: OptionDependencies) -> OptionBundle:
         '''
-            Orchestrates dependency injection and creates an option bundle instance.
+            Orchestrates dependency injection and creates an option bundle.
 
             :param dependencies: The registry-specific orchestration dependencies.
-            :return: The option bundle instance.
+            :return: The option bundle.
             :exceptions:
-                | ATSValueError: Option dependencies must be provided and have proper values.
-                | ATSTypeError:  Option dependencies must be an instance of Mapping and its
+                | ATSValueError: The option dependencies must be provided and have proper values.
+                | ATSTypeError:  The option dependencies must be an instance of Mapping and its
                 |                attributes must be instances of their respective types.
         '''
         OptionDependenciesValidator.validate(dependencies)

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the generator data instance.
+    A validator for the generator data.
 '''
 
 from __future__ import annotations
@@ -41,20 +41,20 @@ __status__ = 'Development'
 class TarDataValidator:
     '''
 
-        A validator for the tar data instance.
+        A validator for the tar data.
         
         It defines:
 
             :attributes:
                 | 
             :methods:
-                | validate - Validates the tar data instance.
+                | validate - Validates the tar data.
     '''
 
     @classmethod
     def validate(cls, data: TarData) -> None:
         '''
-            Validates the tar data instance.
+            Validates the tar data.
 
             :param data: The tar data to be validated.
             :exceptions:
@@ -99,20 +99,20 @@ class TarDataValidator:
 class TarMemberDataValidator:
     '''
 
-        A validator for the tar member data instance.
+        A validator for the tar member data.
         
         It defines:
 
             :attributes:
                 | 
             :methods:
-                | validate - Validates the tar member data instance.
+                | validate - Validates the tar member data.
     '''
 
     @classmethod
     def validate(cls, data: TarMemberData) -> None:
         '''
-            Validates the tar member data instance.
+            Validates the tar member data.
 
             :param data: The tar member data to be validated.
             :exceptions:

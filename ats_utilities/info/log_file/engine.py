@@ -49,7 +49,7 @@ class LogFile:
             :attributes:
                 | _log_file - The log file path for the App/Tool/Script (default: None).
             :methods:
-                | __init__ - Initializes the LogFile instance.
+                | __init__ - Initializes the LogFile.
                 | log_file - Property methods for setting and getting the log_file.
                 | not_none - Checks if the log file path is not None.
                 | __str__ - Returns the LogFile as a string representation.
@@ -60,7 +60,7 @@ class LogFile:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the LogFile instance.
+            Initializes the LogFile.
 
             :param context_bundle: The context bundle for log_file.
             :exceptions:

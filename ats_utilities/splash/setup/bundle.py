@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates splasher runtime components for simplification of splasher bundle creation.
+    Encapsulates splash runtime components for simplification of splash bundle.
 '''
 
 from __future__ import annotations
@@ -43,18 +43,18 @@ __status__ = 'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class SplashBundle:
     '''
-        Encapsulates splasher runtime components for simplification of splasher bundle creation.
+        Encapsulates splash runtime components for simplification of splash bundle.
 
         It defines:
 
             :attributes:
-                | splash_property - The splash screen property instance.
-                | terminal_property - The terminal properties instance.
-                | ext - The generic external infrastructure instance.
-                | pb - The progress bar component instance.
-                | context_bundle - The context bundle instance.
+                | splash_property - The splash screen property.
+                | terminal_property - The terminal properties.
+                | ext - The generic external infrastructure.
+                | pb - The progress bar component.
+                | context_bundle - The context bundle.
             :methods:
-                | to_dict - Converts splash bundle to a dictionary.
+                | to_dict - Converts the splash bundle to a dictionary.
     '''
 
     splash_property: ISplashProperty
@@ -65,11 +65,11 @@ class SplashBundle:
 
     def to_dict(self) -> dict[str, object]:
         '''
-            Converts splash bundle to a dictionary.
+            Converts the splash bundle to a dictionary.
 
             :return: The dictionary representation of the splash bundle.
             :exceptions:
-                | ATSValueError: Instance must be provided.
-                | ATSValueError: Instance must be a dataclass instance.
+                | ATSValueError: The instance must be provided.
+                | ATSValueError: The instance must be a dataclass.
         '''
         return instance_to_dict(self)

@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Protocol interface for all options validators.
-    Encapsulates standard validation behavior across options instances.
+    Encapsulates standard validation behavior across options.
 '''
 
 from __future__ import annotations
@@ -38,19 +38,19 @@ __status__ = 'Development'
 class IOptionsValidator[OptionsType](Protocol):
     '''
         Protocol interface for all options validators.
-        Encapsulates standard validation behavior across options instances.
+        Encapsulates standard validation behavior across options.
 
         It defines:
 
             :methods:
-                | validate - Validates the an options instance.
+                | validate - Validates the options.
     '''
 
     @classmethod
     def validate(cls, options: OptionsType) -> None:
         '''
-            Validates the an options instance.
+            Validates the options.
 
-            :param options: The options instance to be validated.
+            :param options: The options to be validated.
         '''
         ...

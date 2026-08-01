@@ -39,7 +39,7 @@ __status__ = 'Development'
 
 class BaseRegistry:
     '''
-        Encapsulates core runtime components for simplification of base bundle creation.
+        Encapsulates core runtime components for simplification of base bundle.
 
         It defines:
 
@@ -55,8 +55,8 @@ class BaseRegistry:
             :param dependencies: The registry-specific orchestration dependencies.
             :return: The base bundle.
             :exceptions:
-                | ATSValueError: Dependencies must be provided and have proper values.
-                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                | ATSValueError: The dependencies must be provided and have proper values.
+                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
         BaseDependenciesValidator.validate(dependencies)

@@ -44,16 +44,16 @@ class InfoRegistry:
         It defines:
 
             :methods:
-                | create_bundle - Orchestrates dependency injection and creates the info bundle instance.
+                | create_bundle - Orchestrates dependency injection and creates the info bundle.
     '''
 
     @classmethod
     def create_bundle(cls, dependencies: InfoDependencies) -> InfoBundle:
         '''
-            Orchestrates dependency injection and creates the info bundle instance.
+            Orchestrates dependency injection and creates the info bundle.
 
             :param dependencies: The registry-specific orchestration dependencies.
-            :return: The info bundle instance.
+            :return: The info bundle.
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper values.
                 | ATSTypeError:  Dependencies must be an instance of Mapping and its

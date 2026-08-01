@@ -51,8 +51,8 @@ class Loader:
 
             :attributes:
                 | _context - The context bundle.
-                | _processor - The processor interface instance.
-                | _conf_file - The configuration file interface instance.
+                | _processor - The processor interface.
+                | _conf_file - The configuration file interface.
 
             :methods:
                 | __init__ - Constructor.
@@ -69,10 +69,10 @@ class Loader:
         '''
             Constructor.
 
-            :param own: The ConfigIOBundle instance.
+            :param own: The ConfigIOBundle.
             :exceptions:
-                | ATSValueError: ConfigIOBundle must be provided and have proper values.
-                | ATSTypeError:  ConfigIOBundle must be an instance of ConfigIOBundle and its
+                | ATSValueError: The config bundle must be provided and have proper values.
+                | ATSTypeError:  The config bundle must be an instance of ConfigIOBundle and its
                 |                attributes must be instances of their respective types.
         '''
         ConfigIOValidator.validate(own)

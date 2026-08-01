@@ -56,7 +56,7 @@ class CenterData:
         '''
             Converts the center data instance to a dictionary.
 
-            :return: The dictionary representation of the center data instance.
+            :return: The dictionary representation of the center data.
             :exceptions: None.
         '''
         return instance_to_dict(self)

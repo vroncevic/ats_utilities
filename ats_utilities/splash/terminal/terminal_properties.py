@@ -53,7 +53,7 @@ class TerminalProperties:
             :attributes:
                 | _window_size - The terminal window size (default: None).
             :methods:
-                | __init__ - Initializes the TerminalProperties instance.
+                | __init__ - Initializes the TerminalProperties.
                 | ioctl_get_window_size - Gets terminal window size for a file descriptor.
                 | ioctl_for_all_descriptors - Tries to get and set terminal window size.
                 | size - Gets terminal window size.
@@ -65,7 +65,7 @@ class TerminalProperties:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes the TerminalProperties instance.
+            Initializes the TerminalProperties.
 
             :param context_bundle: The context bundle for terminal properties.
             :exceptions:

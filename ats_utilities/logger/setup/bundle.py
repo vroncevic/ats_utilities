@@ -48,7 +48,7 @@ class LoggerBundle:
         It defines:
 
             :attributes:
-                | logger - The logger instance.
+                | logger - The logger.
                 | has_file_handler - The flag indicating if the logger has a file handler.
                 | formatter - The formatter for log messages.
                 | buffer - The buffer for early log messages.
@@ -72,6 +72,6 @@ class LoggerBundle:
             :return: The dictionary representation of the logger bundle.
             :exceptions:
                 | ATSValueError: The instance must be provided.
-                | ATSValueError: The instance must be a dataclass instance.
+                | ATSValueError: The instance must be a dataclass.
         '''
         return instance_to_dict(self)

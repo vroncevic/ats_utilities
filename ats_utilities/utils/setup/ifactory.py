@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Protocol interface for all bundle factories.
-    Encapsulates standard creation behavior across bundle instances.
+    Encapsulates standard creation behavior across bundle.
 '''
 
 from __future__ import annotations
@@ -38,20 +38,20 @@ __status__ = 'Development'
 class IFactory[BundleType, OptionsType](Protocol):
     '''
         Protocol interface for all bundle factories.
-        Encapsulates standard creation behavior across bundle instances.
+        Encapsulates standard creation behavior across bundle.
 
         It defines:
 
             :methods:
-                | create_bundle - Creates a bundle instance.
+                | create_bundle - Creates a bundle.
     '''
 
     @classmethod
     def create_bundle(cls, options: OptionsType) -> BundleType:
         '''
-            Creates a bundle instance.
+            Creates a bundle.
 
             :param options: The bundle options.
-            :return: The bundle instance.
+            :return: The bundle.
         '''
         ...
