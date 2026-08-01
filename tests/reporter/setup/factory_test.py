@@ -52,6 +52,16 @@ class FactoryTest(unittest.TestCase):
         self.assertIsInstance(bundle.theme, ConsoleTheme)
         self.assertIsInstance(bundle.logger, Logger)
 
+    def test_create_bundle_with_options(self) -> None:
+        from ats_utilities.reporter.setup.options import ReporterOptions
+        options: ReporterOptions = {
+            "checker": {},
+            "logger": {"log_level": 20},
+            "theme": {"success": "green"}
+        }
+        bundle = ReporterFactory.create_bundle(options)
+        self.assertIsInstance(bundle, ReporterBundle)
+
 
 if __name__ == "__main__":
     unittest.main()

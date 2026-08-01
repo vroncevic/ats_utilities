@@ -71,6 +71,15 @@ class OptValidatorTest(unittest.TestCase):
             ReporterOptionsValidator.validate(opts)
         self.assertEqual(str(context.exception), "reporter_options_validator::validate(...) - the checker must be an instance of CheckerOptions")
 
+    def test_validate_none_fields(self) -> None:
+        opts: ReporterOptions = {
+            "checker": None,
+            "theme": None,
+            "logger": None
+        }
+        # Should not raise error
+        ReporterOptionsValidator.validate(opts)
+
 
 if __name__ == "__main__":
     unittest.main()

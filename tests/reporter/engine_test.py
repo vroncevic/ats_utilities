@@ -208,6 +208,44 @@ class EngineTest(unittest.TestCase):
         reporter = Reporter(bundle)
         self.assertIn("Reporter", str(reporter))
 
+    def test_get_bundle(self) -> None:
+        mock_checker = MagicMock(spec=IChecker)
+        mock_theme = MagicMock(spec=IConsoleTheme)
+        mock_logger = MagicMock(spec=ILogger)
+        bundle = ReporterBundle(
+            checker=mock_checker,
+            theme=mock_theme,
+            logger=mock_logger
+        )
+        reporter = Reporter(bundle)
+        self.assertEqual(reporter.get_bundle().checker, mock_checker)
+        self.assertEqual(reporter.get_bundle().theme, mock_theme)
+        self.assertEqual(reporter.get_bundle().logger, mock_logger)
+
+    def test_update_bundle(self) -> None:
+        mock_checker = MagicMock(spec=IChecker)
+        mock_theme = MagicMock(spec=IConsoleTheme)
+        mock_logger = MagicMock(spec=ILogger)
+        bundle = ReporterBundle(
+            checker=mock_checker,
+            theme=mock_theme,
+            logger=mock_logger
+        )
+        reporter = Reporter(bundle)
+        
+        # Valid update
+        new_logger = MagicMock(spec=ILogger)
+        new_bundle = ReporterBundle(
+            checker=mock_checker,
+            theme=mock_theme,
+            logger=new_logger
+        )
+        self.assertTrue(reporter.update_bundle(new_bundle))
+        self.assertEqual(reporter.get_bundle().logger, new_logger)
+
+        # Invalid update
+        self.assertFalse(reporter.update_bundle("invalid" * 10))  # type: ignore
+
 
 if __name__ == "__main__":
     unittest.main()

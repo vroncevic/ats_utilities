@@ -62,6 +62,14 @@ class BaseValidatorTest(unittest.TestCase):
         # Should validate successfully
         BaseValidator.validate(bundle)
 
+    def test_validate_valid_gen_manager_none(self, mock_ctx_val: MagicMock) -> None:
+        params = self.valid_params.copy()
+        params["generation_manager"] = None
+        bundle = BaseBundle(**params)
+        mock_ctx_val.validate.side_effect = None
+        # Should validate successfully
+        BaseValidator.validate(bundle)
+
     def test_validate_invalid_bundle(self, mock_ctx_val: MagicMock) -> None:
         with self.assertRaises(ATSValueError):
             BaseValidator.validate(None)  # type: ignore

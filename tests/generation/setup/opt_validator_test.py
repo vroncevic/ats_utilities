@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from ats_utilities.generation.setup.options import GeneratorOptions
 from ats_utilities.generation.setup.opt_validator import GeneratorOptionsValidator
@@ -62,6 +62,30 @@ class GeneratorOptionsValidatorTest(unittest.TestCase):
         options = GeneratorOptions(context_bundle="invalid")  # type: ignore
         with self.assertRaises(ATSTypeError):
             GeneratorOptionsValidator.validate(options)
+
+    @patch("ats_utilities.generation.setup.opt_validator.GeneratorKeys.get_option_to_type")
+    def test_validate_additional_options(self, mock_get_opt_to_type: MagicMock) -> None:
+        from types import MappingProxyType
+        mock_get_opt_to_type.return_value = MappingProxyType({
+            "context_bundle": ContextBundle,
+            "dummy_opt": str
+        })
+        
+        # When dummy_opt is None
+        options_none = GeneratorOptions(context_bundle=self.mock_context)
+        options_none["dummy_opt"] = None  # type: ignore
+        GeneratorOptionsValidator.validate(options_none)
+        
+        # When dummy_opt is not None (and matches type)
+        options_val = GeneratorOptions(context_bundle=self.mock_context)
+        options_val["dummy_opt"] = "hello"  # type: ignore
+        GeneratorOptionsValidator.validate(options_val)
+
+        # When dummy_opt has wrong type
+        options_bad = GeneratorOptions(context_bundle=self.mock_context)
+        options_bad["dummy_opt"] = 123  # type: ignore
+        with self.assertRaises(ATSTypeError):
+            GeneratorOptionsValidator.validate(options_bad)
 
 
 if __name__ == "__main__":

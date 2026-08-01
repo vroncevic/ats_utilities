@@ -176,6 +176,76 @@ class EngineTest(unittest.TestCase):
         splasher = SplashManager(bundle)
         self.assertIn("SplashManager", str(splasher))
 
+    def test_get_bundle(self) -> None:
+        prop = self._get_valid_prop()
+        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashFactory.create_bundle(options)
+        splasher = SplashManager(bundle)
+        retrieved = splasher.get_bundle()
+        self.assertIsInstance(retrieved, SplashBundle)
+        self.assertIs(retrieved.context_bundle, self.context_bundle)
+
+    def test_update_bundle(self) -> None:
+        prop = self._get_valid_prop()
+        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashFactory.create_bundle(options)
+        splasher = SplashManager(bundle)
+        
+        # Valid update
+        new_context = ContextFactory.create_bundle()
+        new_options = SplashOptions(prop=prop, context_bundle=new_context)
+        new_bundle = SplashFactory.create_bundle(new_options)
+        self.assertTrue(splasher.update_bundle(new_bundle))
+        self.assertIs(splasher.get_context(), new_context)
+
+        # Invalid update
+        self.assertFalse(splasher.update_bundle("invalid" * 10))  # type: ignore
+
+    @patch("sys.stdout.write")
+    def test_center_empty_or_none_text(self, mock_write: MagicMock) -> None:
+        prop = self._get_valid_prop()
+        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashFactory.create_bundle(options)
+        splasher = SplashManager(bundle)
+        
+        center_data = CenterData(columns=80, additional_shifter=0)
+        # Empty text
+        splasher.center(center_data, "")
+        mock_write.assert_not_called()
+        # None text
+        splasher.center(center_data, None)
+        mock_write.assert_not_called()
+
+    @patch("sys.stdout.write")
+    def test_center_invalid_position(self, mock_write: MagicMock) -> None:
+        prop = self._get_valid_prop()
+        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashFactory.create_bundle(options)
+        splasher = SplashManager(bundle)
+        
+        # Invalid CenterData (e.g. columns is string)
+        center_data = CenterData(columns="invalid", additional_shifter=0)  # type: ignore
+        splasher.center(center_data, "hello")
+        mock_write.assert_not_called()
+
+    @patch("sys.stdout.write")
+    @patch("sys.stdout.flush")
+    @patch("time.sleep")
+    def test_show_logo_path_none(self, mock_sleep: MagicMock, mock_flush: MagicMock, mock_write: MagicMock) -> None:
+        prop = self._get_valid_prop()
+        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashFactory.create_bundle(options)
+        splasher = SplashManager(bundle)
+        
+        # Mock get_logo to return None
+        splasher._splash_property.get_logo = MagicMock(return_value=None)
+        splasher.show()
+        
+        # Verify it still prints info/issue/author texts, but does not read from file
+        printed_content = "".join(call[0][0] for call in mock_write.call_args_list)
+        self.assertNotIn("LOGO LINE 1", printed_content)
+        self.assertIn("github.io/ats_utilities", printed_content)
+
 
 if __name__ == "__main__":
     unittest.main()

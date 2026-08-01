@@ -90,6 +90,10 @@ class ContextProviderTest(unittest.TestCase):
         ctx = wrapper()
         self.assertIn("my_func", ctx)
 
+    def test_get_stack_index_caller(self) -> None:
+        provider = ContextProvider(stack_index_caller=4)
+        self.assertEqual(provider.get_stack_index_caller(), 4)
+
     def test_str(self) -> None:
         provider = ContextProvider()
         self.assertIn("ContextProvider", str(provider))

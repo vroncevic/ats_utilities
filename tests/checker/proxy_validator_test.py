@@ -183,6 +183,12 @@ class ProxyValidatorTest(unittest.TestCase):
         finally:
             checker.validates_parameters = original_validates
 
+    def test_validate_specs_invalid_item_length(self) -> None:
+        with self.assertRaises(ATSValueError):
+            @fcheck([('str:name',)])  # type: ignore
+            def my_bad_func(name):
+                pass
+
 
 if __name__ == "__main__":
     unittest.main()

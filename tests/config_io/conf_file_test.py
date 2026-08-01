@@ -11,6 +11,7 @@ from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.exceptions import ATSValueError
 
 
 class TestConfFile(unittest.TestCase):
@@ -169,6 +170,35 @@ class TestConfFile(unittest.TestCase):
         # Assert
         mock_to_str.assert_called_once_with(conf_file)
         self.assertEqual(result, "ConfFile{path=/path/to/config.cfg}")
+
+    @patch("builtins.open", new_callable=mock_open)
+    @patch("ats_utilities.config_io.conf_file.check_file_exists")
+    def test_enter_value_error_exception(
+        self, mock_check_exists: MagicMock, mock_file_open: MagicMock
+    ) -> None:
+        """Test that ATSValueError raised during __enter__ is caught and sets file to None."""
+        mock_check_exists.side_effect = ATSValueError("file not found")
+        conf_file = ConfFile(self.mock_bundle)
+        conf_file._reporter = self.mock_reporter
+        
+        result = conf_file.__enter__()
+        self.assertIsNone(result)
+        self.assertIsNone(conf_file._file)
+
+    @patch("builtins.open")
+    @patch("ats_utilities.config_io.conf_file.check_file_exists")
+    def test_enter_generic_exception(
+        self, mock_check_exists: MagicMock, mock_file_open: MagicMock
+    ) -> None:
+        """Test that any generic exception raised during open in __enter__ is caught."""
+        mock_check_exists.return_value = None
+        mock_file_open.side_effect = PermissionError("no access")
+        conf_file = ConfFile(self.mock_bundle)
+        conf_file._reporter = self.mock_reporter
+        
+        result = conf_file.__enter__()
+        self.assertIsNone(result)
+        self.assertIsNone(conf_file._file)
 
 
 if __name__ == '__main__':

@@ -101,7 +101,21 @@ class GitHubInfrastructureTest(unittest.TestCase):
 
         self.assertIsNone(gh.get_info_text())
         self.assertIsNone(gh.get_issue_text())
+        self.assertIsNone(gh.get_info_text())
+        self.assertIsNone(gh.get_issue_text())
         self.assertIsNone(gh.get_author_text())
+
+    def test_hyperlinks_repo_missing(self) -> None:
+        context_bundle = ContextFactory.create_bundle()
+        gh = GitHubInfrastructure(context_bundle)
+
+        gh._infrastructure_property = {
+            SplashProperty.REPOSITORY_SETTING: None,
+            SplashProperty.ORGANIZATION_SETTING: "vroncevic",
+        }
+
+        self.assertIsNone(gh.get_info_text())
+        self.assertIsNone(gh.get_issue_text())
 
     def test_str(self) -> None:
         context_bundle = ContextFactory.create_bundle()

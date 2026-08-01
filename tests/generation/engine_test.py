@@ -190,6 +190,39 @@ class TestGenerator(unittest.TestCase):
         mock_to_str.assert_called_once_with(generator)
         self.assertEqual(result, "GeneratorManager{_context=ContextBundle}")
 
+    def test_get_bundle(self) -> None:
+        """Test getting the component bundle from GeneratorManager."""
+        generator = GeneratorManager(self.mock_component_bundle)
+        bundle = generator.get_bundle()
+        self.assertIsInstance(bundle, GeneratorBundle)
+        self.assertEqual(bundle.context_bundle, self.mock_context)
+        self.assertEqual(bundle.scheme_loader, self.mock_scheme_loader)
+        self.assertEqual(bundle.tar_processor, self.mock_tar_processor)
+
+    def test_update_bundle(self) -> None:
+        """Test updating the component bundle in GeneratorManager."""
+        generator = GeneratorManager(self.mock_component_bundle)
+        
+        # Valid update
+        new_context = MagicMock(spec=ContextBundle)
+        from ats_utilities.checker.ichecker import IChecker
+        from ats_utilities.logger.ilogger import ILogger
+        from ats_utilities.reporter.ireporter import IReporter
+        new_context.checker = MagicMock(spec=IChecker)
+        new_context.logger = MagicMock(spec=ILogger)
+        new_context.reporter = MagicMock(spec=IReporter)
+        new_context.verbose = True
+        new_bundle = MagicMock(spec=GeneratorBundle)
+        new_bundle.context_bundle = new_context
+        new_bundle.scheme_loader = self.mock_scheme_loader
+        new_bundle.tar_processor = self.mock_tar_processor
+        
+        self.assertTrue(generator.update_bundle(new_bundle))
+        self.assertEqual(generator.get_context(), new_context)
+
+        # Invalid update
+        self.assertFalse(generator.update_bundle("not_a_bundle"))  # type: ignore
+
 
 if __name__ == '__main__':
     unittest.main()

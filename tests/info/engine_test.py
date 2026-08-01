@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.factory import ContextFactory
@@ -190,6 +190,86 @@ class EngineTest(unittest.TestCase):
         manager._components = object()
         with self.assertRaises(ATSAttributeError):
             manager.name = "new_name"
+
+    def test_get_bundle(self) -> None:
+        context_bundle = ContextFactory.create_bundle()
+        bundle = self._get_bundle(context_bundle)
+        manager = InfoManager(bundle)
+        self.assertIs(manager.get_bundle(), bundle)
+
+    def test_update_bundle(self) -> None:
+        context_bundle = ContextFactory.create_bundle()
+        bundle = self._get_bundle(context_bundle)
+        manager = InfoManager(bundle)
+        
+        # Valid update
+        new_bundle = self._get_bundle(context_bundle)
+        self.assertTrue(manager.update_bundle(new_bundle))
+        self.assertIs(manager.get_bundle(), new_bundle)
+
+        # Invalid update
+        self.assertFalse(manager.update_bundle("invalid" * 10))  # type: ignore
+
+    def test_is_initialized_false(self) -> None:
+        context_bundle = ContextFactory.create_bundle()
+        bundle = self._get_bundle(context_bundle)
+        manager = InfoManager(bundle)
+        
+        manager._is_initialized = False
+        self.assertFalse(manager.is_initialized())
+        
+        manager._is_initialized = True
+        manager._components = None  # type: ignore
+        self.assertFalse(manager.is_initialized())
+
+    def test_refresh_status_none(self) -> None:
+        context_bundle = ContextFactory.create_bundle()
+        bundle = self._get_bundle(context_bundle)
+        manager = InfoManager(bundle)
+        manager._components = None  # type: ignore
+        # Should not raise exception
+        manager.refresh_status()
+
+    def test_refresh_status_info_ok_none(self) -> None:
+        context_bundle = ContextFactory.create_bundle()
+        bundle = self._get_bundle(context_bundle)
+        manager = InfoManager(bundle)
+        # Delete info_ok attribute from bundle
+        object.__delattr__(bundle, InfoKeys.DEPENDENCY_INFO_OK)
+        # Should not raise exception
+        manager.refresh_status()
+
+    def test_get_info_missing_components(self) -> None:
+        context_bundle = ContextFactory.create_bundle()
+        bundle = self._get_bundle(context_bundle)
+        manager = InfoManager(bundle)
+        
+        # Set some component to None
+        object.__setattr__(bundle, "logo", None)
+        info = manager.get_info()
+        self.assertNotIn(InfoKeys.ATS_LOGO_PATH, info)
+
+        # Set component attribute to None
+        class DummyLogo:
+            logo = None
+        object.__setattr__(bundle, "logo", DummyLogo())
+        info = manager.get_info()
+        self.assertNotIn(InfoKeys.ATS_LOGO_PATH, info)
+
+        # Required component itself is None
+        object.__setattr__(bundle, "version", None)
+        manager.refresh_status()
+        self.assertFalse(manager.is_initialized())
+
+    @patch("ats_utilities.info.engine.InfoSchema.get_names_of_required_config_keys")
+    def test_refresh_status_required_keys_contains_info_ok(self, mock_get_req_keys: MagicMock) -> None:
+        context_bundle = ContextFactory.create_bundle()
+        bundle = self._get_bundle(context_bundle)
+        manager = InfoManager(bundle)
+        
+        # Force required keys to contain info_ok to trigger the continue branch
+        mock_get_req_keys.return_value = [InfoKeys.DEPENDENCY_INFO_OK]
+        manager.refresh_status()
 
 
 if __name__ == "__main__":

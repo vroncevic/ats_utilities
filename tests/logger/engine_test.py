@@ -127,6 +127,47 @@ class EngineTest(unittest.TestCase):
         self.assertTrue(logger.update_bundle(new_bundle))
         self.assertIs(logger.get_bundle().logger, new_logger)
 
+    def test_update_bundle_invalid(self) -> None:
+        logger = Logger(self.valid_bundle)
+        self.assertFalse(logger.update_bundle("invalid" * 10))  # type: ignore
+
+    def test_set_log_file_fail(self) -> None:
+        logger = Logger(self.valid_bundle)
+        self.mock_handler_manager.set_log_file.return_value = False
+        self.assertFalse(logger.set_log_file("test.log"))
+
+    def test_set_stdout_fail(self) -> None:
+        logger = Logger(self.valid_bundle)
+        self.mock_handler_manager.set_stdout.return_value = False
+        self.assertFalse(logger.set_stdout())
+
+    def test_write_log_invalid_message(self) -> None:
+        logger = Logger(self.valid_bundle)
+        # Empty string
+        logger.write_log(logging.INFO, "")
+        self.mock_logger.log.assert_not_called()
+        # Invalid type
+        logger.write_log(logging.INFO, 123)  # type: ignore
+        self.mock_logger.log.assert_not_called()
+
+    def test_string_representation(self) -> None:
+        logger = Logger(self.valid_bundle)
+        self.assertIn("Logger", str(logger))
+
+    def test_flush_buffer_disabled(self) -> None:
+        self.mock_buffer.is_enabled = False
+        bundle = LoggerBundle(
+            logger=self.mock_logger,
+            has_file_handler=False,
+            formatter=self.mock_formatter,
+            buffer=self.mock_buffer,
+            handler_manager=self.mock_handler_manager,
+            message_processor=self.mock_message_processor
+        )
+        logger = Logger(bundle)
+        logger._flush_buffer()
+        self.mock_buffer.flush.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()

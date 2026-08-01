@@ -53,6 +53,25 @@ class FormatValidatorTest(unittest.TestCase):
         validator = FormatValidator()
         self.assertIn("FormatValidator", str(validator))
 
+    def test_custom_separator(self) -> None:
+        validator = FormatValidator(separator="-")
+        self.assertEqual(validator.get_separator(), "-")
+        self.assertTrue(validator.is_valid("str-param"))
+        ptype, pname = validator.split("str-param")
+        self.assertEqual(ptype, "str")
+        self.assertEqual(pname, "param")
+
+    def test_set_and_get_separator(self) -> None:
+        validator = FormatValidator()
+        validator.set_separator("_")
+        self.assertEqual(validator.get_separator(), "_")
+        
+        # Test setter invalid cases (type error, value error)
+        with self.assertRaises(ATSTypeError):
+            validator.set_separator(123)  # type: ignore
+        with self.assertRaises(ATSValueError):
+            validator.set_separator("")
+
 
 if __name__ == "__main__":
     unittest.main()

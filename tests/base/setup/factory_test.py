@@ -234,6 +234,71 @@ class TestBaseFactory(unittest.TestCase):
 
         mock_registry_cls.create_bundle.assert_called_once()
 
+    @patch("ats_utilities.base.setup.factory.BaseRegistry")
+    @patch("ats_utilities.base.setup.factory.GeneratorManager")
+    @patch("ats_utilities.base.setup.factory.GeneratorFactory")
+    @patch("ats_utilities.base.setup.factory.OptionManager")
+    @patch("ats_utilities.base.setup.factory.OptionFactory")
+    @patch("ats_utilities.base.setup.factory.SplashManager")
+    @patch("ats_utilities.base.setup.factory.SplashFactory")
+    @patch("ats_utilities.base.setup.factory.InfoManager")
+    @patch("ats_utilities.base.setup.factory.InfoFactory")
+    @patch("ats_utilities.base.setup.factory.get_first_available")
+    @patch("ats_utilities.base.setup.factory.Loader")
+    @patch("ats_utilities.base.setup.factory.ConfigIOFactory")
+    @patch("ats_utilities.base.setup.factory.BaseOptionsValidator")
+    def test_create_bundle_logger_missing_attributes(
+        self, mock_opt_val: MagicMock, mock_cfg_fac: MagicMock, mock_loader_cls: MagicMock,
+        mock_get_first: MagicMock, mock_info_fac: MagicMock,
+        mock_info_cls: MagicMock, mock_splash_fac: MagicMock,
+        mock_splash_cls: MagicMock, mock_opt_fac: MagicMock,
+        mock_opt_cls: MagicMock, mock_gen_fac: MagicMock,
+        mock_gen_cls: MagicMock, mock_registry_cls: MagicMock
+    ) -> None:
+        """Test orchestration when logger lacks optional attributes set_log_file/stop_buffering."""
+        class BareLogger:
+            pass
+
+        self.mock_context_bundle.logger = BareLogger()
+        
+        mock_config_bundle = MagicMock()
+        mock_cfg_fac.create_bundle.return_value = mock_config_bundle
+
+        mock_loader_inst = MagicMock(spec=Loader)
+        mock_loader_inst.load_configuration.return_value = self.config_data
+        mock_loader_cls.return_value = mock_loader_inst
+
+        mock_get_first.return_value = "/var/log/ats.log"
+
+        mock_info_bundle = MagicMock()
+        mock_info_fac.create_bundle.return_value = mock_info_bundle
+
+        mock_info_inst = MagicMock(spec=InfoManager)
+        mock_info_inst.logo = "assets/logo.png"
+        mock_info_inst.get_info.return_value = {"meta": "data"}
+        mock_info_cls.return_value = mock_info_inst
+
+        mock_splash_bundle = MagicMock()
+        mock_splash_fac.create_bundle.return_value = mock_splash_bundle
+        mock_splash_inst = MagicMock(spec=SplashManager)
+        mock_splash_cls.return_value = mock_splash_inst
+
+        mock_opt_bundle = MagicMock()
+        mock_opt_fac.create_bundle.return_value = mock_opt_bundle
+        mock_opt_inst = MagicMock(spec=OptionManager)
+        mock_opt_cls.return_value = mock_opt_inst
+
+        mock_generator_bundle = MagicMock()
+        mock_gen_fac.create_bundle.return_value = mock_generator_bundle
+        mock_generator_inst = MagicMock(spec=GeneratorManager)
+        mock_gen_cls.return_value = mock_generator_inst
+
+        mock_bundle_inst = MagicMock(spec=BaseBundle)
+        mock_registry_cls.create_bundle.return_value = mock_bundle_inst
+
+        result = BaseFactory.create_bundle(self.options)
+        self.assertIs(result, mock_bundle_inst)
+
 
 if __name__ == '__main__':
     unittest.main()

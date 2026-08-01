@@ -133,6 +133,21 @@ class CommandOptionTest(unittest.TestCase):
         with self.assertRaises(ATSTypeError):
             OptionDataValidator.validate(opt_required)
 
+    def test_validate_none_fields(self) -> None:
+        opt = OptionData(
+            name="test",
+            help_text="help",
+            action=None,
+            default=None,
+            required=None,  # type: ignore
+            choices=None,
+            nargs=None
+        )
+        try:
+            OptionDataValidator.validate(opt)
+        except (ATSValueError, ATSTypeError) as e:
+            self.fail(f"validate raised exception: {e}")
+
     def test_to_dict(self) -> None:
         '''
             Tests to_dict conversion.

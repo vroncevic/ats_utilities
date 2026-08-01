@@ -260,6 +260,47 @@ class EngineTest(unittest.TestCase):
         manager = OptionManager(bundle)
         self.assertIn("OptionManager", str(manager))
 
+    def test_get_bundle(self) -> None:
+        mock_strategy = MagicMock(spec=IParserStrategy)
+        context_bundle = ContextFactory.create_bundle()
+        bundle = OptionBundle(
+            strategy=mock_strategy,
+            context_bundle=context_bundle
+        )
+        manager = OptionManager(bundle)
+        self.assertIs(manager.get_bundle(), bundle)
+
+    def test_update_bundle(self) -> None:
+        mock_strategy = MagicMock(spec=IParserStrategy)
+        context_bundle = ContextFactory.create_bundle()
+        bundle = OptionBundle(
+            strategy=mock_strategy,
+            context_bundle=context_bundle
+        )
+        manager = OptionManager(bundle)
+        
+        # Valid update
+        new_strategy = MagicMock(spec=IParserStrategy)
+        new_bundle = OptionBundle(
+            strategy=new_strategy,
+            context_bundle=context_bundle
+        )
+        self.assertTrue(manager.update_bundle(new_bundle))
+        self.assertIs(manager.get_bundle(), new_bundle)
+
+        # Invalid update
+        self.assertFalse(manager.update_bundle("invalid" * 10))  # type: ignore
+
+    def test_strategy_property(self) -> None:
+        mock_strategy = MagicMock(spec=IParserStrategy)
+        context_bundle = ContextFactory.create_bundle()
+        bundle = OptionBundle(
+            strategy=mock_strategy,
+            context_bundle=context_bundle
+        )
+        manager = OptionManager(bundle)
+        self.assertIs(manager.strategy, mock_strategy)
+
 
 if __name__ == "__main__":
     unittest.main()
