@@ -12,6 +12,8 @@ on:
       - 'ats_utilities/**'
       - 'tests/**'
       - 'setup.py'
+permissions:
+  contents: read
 jobs:
   build:
     runs-on: ubuntu-latest

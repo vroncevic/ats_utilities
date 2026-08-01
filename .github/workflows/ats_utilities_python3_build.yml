@@ -16,6 +16,9 @@ on:
       - 'pyproject.toml'
       - 'setup.py'
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest

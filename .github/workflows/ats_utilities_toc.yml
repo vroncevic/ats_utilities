@@ -5,6 +5,9 @@ on:
     paths:
       - '**.md'
 
+permissions:
+  contents: write
+
 jobs:
   generateTOC:
     name: ats_utilities_toc
