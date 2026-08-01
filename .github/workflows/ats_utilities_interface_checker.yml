@@ -1,5 +1,8 @@
 name: ats_utilities_interface_checker
 
+permissions:
+  contents: read
+
 on:
   push:
     branches: [ master ]
