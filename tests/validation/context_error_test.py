@@ -58,7 +58,7 @@ class ContextErrorTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError) as ctx:
-            raise_error("my_prefix", "my_fallback", "some_context")
+            raise_error("my_prefix", "my_fallback")
         self.assertEqual(str(ctx.exception), "my_prefix - my_fallback")
 
     def test_raise_error_fallback_custom_exception(self) -> None:
@@ -68,7 +68,7 @@ class ContextErrorTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(RuntimeError) as ctx:
-            raise_error("my_prefix", "my_fallback", "some_context", exc_class=RuntimeError)
+            raise_error("my_prefix", "my_fallback", exc_class=RuntimeError)
         self.assertEqual(str(ctx.exception), "my_prefix - my_fallback")
 
     def test_raise_error_msg(self) -> None:

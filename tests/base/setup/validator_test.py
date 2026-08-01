@@ -22,28 +22,19 @@ Info
 from __future__ import annotations
 
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.base.setup.bundle import BaseBundle
 from ats_utilities.base.setup.validator import BaseValidator
-from ats_utilities.config_io.loader.iloader import ILoader
-from ats_utilities.info.iinfo_manager import IInfoManager
-from ats_utilities.option.ioption_manager import IOptionManager
-from ats_utilities.splasher.isplasher import ISplashManager
-from ats_utilities.generation.igenerator import IGeneratorManager
+from ats_utilities.info.imanager import IInfoManager
+from ats_utilities.option.imanager import IOptionManager
+from ats_utilities.splash.imanager import ISplashManager
+from ats_utilities.generation.imanager import IGeneratorManager
 from ats_utilities.context.bundle import ContextBundle
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
 
-
+@patch("ats_utilities.base.setup.validator.ContextValidator")
 class BaseValidatorTest(unittest.TestCase):
     '''
         Defines class BaseValidatorTest with attribute(s) and method(s).
@@ -51,40 +42,36 @@ class BaseValidatorTest(unittest.TestCase):
     '''
 
     def setUp(self) -> None:
-        self.mock_config_loader = MagicMock(spec=ILoader)
         self.mock_info_manager = MagicMock(spec=IInfoManager)
-        self.mock_options_parser = MagicMock(spec=IOptionManager)
-        self.mock_splasher = MagicMock(spec=ISplashManager)
-        self.mock_generator = MagicMock(spec=IGeneratorManager)
+        self.mock_option_manager = MagicMock(spec=IOptionManager)
+        self.mock_splash_manager = MagicMock(spec=ISplashManager)
+        self.mock_generation_manager = MagicMock(spec=IGeneratorManager)
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
-        
+
         self.valid_params = {
-            "info_file": "/path/to/info.cfg",
-            "config_loader": self.mock_config_loader,
+            "context_bundle": self.mock_context_bundle,
             "info_manager": self.mock_info_manager,
-            "options_parser": self.mock_options_parser,
-            "splasher": self.mock_splasher,
-            "generator": self.mock_generator,
-            "use_generator": True,
-            "context_bundle": self.mock_context_bundle
+            "option_manager": self.mock_option_manager,
+            "splash_manager": self.mock_splash_manager,
+            "generation_manager": self.mock_generation_manager
         }
 
-    def test_validate_valid(self) -> None:
+    def test_validate_valid(self, mock_ctx_val: MagicMock) -> None:
         bundle = BaseBundle(**self.valid_params)
+        mock_ctx_val.validate.side_effect = None
         # Should validate successfully
         BaseValidator.validate(bundle)
 
-    def test_validate_invalid_bundle(self) -> None:
+    def test_validate_invalid_bundle(self, mock_ctx_val: MagicMock) -> None:
         with self.assertRaises(ATSValueError):
             BaseValidator.validate(None)  # type: ignore
 
         with self.assertRaises(ATSTypeError):
             BaseValidator.validate(object())  # type: ignore
 
-    def test_validate_invalid_none(self) -> None:
+    def test_validate_invalid_none(self, mock_ctx_val: MagicMock) -> None:
         fields = [
-            "info_file", "config_loader", "info_manager", 
-            "options_parser", "splasher", "use_generator", "context_bundle"
+            "context_bundle", "info_manager", "option_manager", "splash_manager"
         ]
 
         for field in fields:
@@ -94,19 +81,22 @@ class BaseValidatorTest(unittest.TestCase):
                 bundle = BaseBundle.__new__(BaseBundle)
                 for k, v in mocks.items():
                     object.__setattr__(bundle, k, v)
+                
+                if field == "context_bundle":
+                    mock_ctx_val.validate.side_effect = ATSValueError("the bundle must be provided")
+                else:
+                    mock_ctx_val.validate.side_effect = None
+                    
                 with self.assertRaises(ATSValueError):
                     BaseValidator.validate(bundle)
 
-    def test_validate_invalid_type(self) -> None:
+    def test_validate_invalid_type(self, mock_ctx_val: MagicMock) -> None:
         type_mismatches = {
-            "info_file": 12345,
-            "config_loader": MagicMock(spec=IInfoManager),
-            "info_manager": MagicMock(spec=ILoader),
-            "options_parser": MagicMock(spec=ISplashManager),
-            "splasher": MagicMock(spec=IOptionManager),
-            "use_generator": "True",
-            "generator": MagicMock(spec=ContextBundle),
-            "context_bundle": MagicMock(spec=IGeneratorManager)
+            "context_bundle": MagicMock(spec=IInfoManager),
+            "info_manager": MagicMock(spec=ContextBundle),
+            "option_manager": MagicMock(spec=ISplashManager),
+            "splash_manager": MagicMock(spec=IOptionManager),
+            "generation_manager": MagicMock(spec=ContextBundle)
         }
 
         for field, bad_value in type_mismatches.items():
@@ -116,6 +106,12 @@ class BaseValidatorTest(unittest.TestCase):
                 bundle = BaseBundle.__new__(BaseBundle)
                 for k, v in mocks.items():
                     object.__setattr__(bundle, k, v)
+                
+                if field == "context_bundle":
+                    mock_ctx_val.validate.side_effect = ATSTypeError("invalid bundle type")
+                else:
+                    mock_ctx_val.validate.side_effect = None
+                    
                 with self.assertRaises(ATSTypeError):
                     BaseValidator.validate(bundle)
 

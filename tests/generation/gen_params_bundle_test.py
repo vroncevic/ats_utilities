@@ -65,7 +65,7 @@ class TestGenParamsBundle(unittest.TestCase):
         mock_check_file.assert_called_once_with(
             self.archive_path,
             "generator_data_validator::validate(...)",
-            f"archive file does not exist: {self.archive_path}"
+            "archive file does not exist"
         )
 
     @patch("ats_utilities.generation.data_validator.check_file_exists")
@@ -81,12 +81,12 @@ class TestGenParamsBundle(unittest.TestCase):
         mock_check_file.assert_any_call(
             self.archive_path,
             "generator_data_validator::validate(...)",
-            f"archive file does not exist: {self.archive_path}"
+            "archive file does not exist"
         )
         mock_check_file.assert_any_call(
             self.scheme_path,
             "generator_data_validator::validate(...)",
-            f"scheme file does not exist: {self.scheme_path}"
+            "scheme file does not exist"
         )
         self.assertEqual(mock_check_file.call_count, 2)
 

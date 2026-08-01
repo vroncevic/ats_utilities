@@ -138,7 +138,7 @@ class SplashProperty:
         self._settings[SplashProperty.NAME_SETTING] = InfoKeys.get_name(settings) if is_name_present else None
         self._settings[SplashProperty.REPOSITORY_SETTING] = InfoKeys.get_repository(settings) if is_repository_present else None
         self._settings[SplashProperty.ORGANIZATION_SETTING] = InfoKeys.get_organization(settings) if is_organization_present else None
-        self._settings[SplashProperty.LOGO_SETTING] = InfoKeys.get_logo(settings) if is_logo_present else None
+        self._settings[SplashProperty.LOGO_SETTING] = InfoKeys.get_logo_path(settings) if is_logo_present else None
         self._settings[SplashProperty.GITHUB_SETTING] = InfoKeys.get_use_github_infrastructure(settings) if is_github_present else None
 
         if self._settings[SplashProperty.NAME_SETTING] is not None:

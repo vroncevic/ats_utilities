@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
@@ -39,16 +39,8 @@ from ats_utilities.info.repository.irepository import IRepository
 from ats_utilities.info.use_github.iuse_github import IUseGitHub
 from ats_utilities.info.version.iversion import IVersion
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
 
-
+@patch("ats_utilities.info.setup.validator.ContextValidator")
 class ValidatorTest(unittest.TestCase):
     '''
         Defines class ValidatorTest with attribute(s) and method(s).
@@ -70,27 +62,46 @@ class ValidatorTest(unittest.TestCase):
             "context_bundle": MagicMock(spec=ContextBundle),
         }
 
-    def test_validate_valid(self) -> None:
+    def test_validate_valid(self, mock_ctx_val: MagicMock) -> None:
         mocks = self._get_mocks()
         bundle = InfoBundle(**mocks)
+        mock_ctx_val.validate.side_effect = None
         # Should not raise any exception
         InfoValidator.validate(bundle)
 
-    def test_validate_invalid_none(self) -> None:
+    def test_validate_invalid_none(self, mock_ctx_val: MagicMock) -> None:
         for key in self._get_mocks().keys():
-            mocks = self._get_mocks()
-            mocks[key] = None  # type: ignore
-            bundle = InfoBundle(**mocks)
-            with self.assertRaises(ATSValueError):
-                InfoValidator.validate(bundle)
+            with self.subTest(key=key):
+                mocks = self._get_mocks()
+                mocks[key] = None  # type: ignore
+                bundle = InfoBundle.__new__(InfoBundle)
+                for k, v in mocks.items():
+                    object.__setattr__(bundle, k, v)
+                
+                if key == "context_bundle":
+                    mock_ctx_val.validate.side_effect = ATSValueError("context bundle error")
+                else:
+                    mock_ctx_val.validate.side_effect = None
+                
+                with self.assertRaises(ATSValueError):
+                    InfoValidator.validate(bundle)
 
-    def test_validate_invalid_type(self) -> None:
+    def test_validate_invalid_type(self, mock_ctx_val: MagicMock) -> None:
         for key in self._get_mocks().keys():
-            mocks = self._get_mocks()
-            mocks[key] = object()  # type: ignore
-            bundle = InfoBundle(**mocks)
-            with self.assertRaises(ATSTypeError):
-                InfoValidator.validate(bundle)
+            with self.subTest(key=key):
+                mocks = self._get_mocks()
+                mocks[key] = object()  # type: ignore
+                bundle = InfoBundle.__new__(InfoBundle)
+                for k, v in mocks.items():
+                    object.__setattr__(bundle, k, v)
+
+                if key == "context_bundle":
+                    mock_ctx_val.validate.side_effect = ATSTypeError("context bundle type error")
+                else:
+                    mock_ctx_val.validate.side_effect = None
+
+                with self.assertRaises(ATSTypeError):
+                    InfoValidator.validate(bundle)
 
 
 if __name__ == "__main__":

@@ -172,7 +172,7 @@ class InfoManager:
             :exceptions: None.
         '''
         info_dict: dict[str, object] = {}
-        config_key_to_dep = InfoKeys.get_config_keys()
+        config_key_to_dep = InfoKeys.get_config_keys_to_dependency_keys()
 
         for config_key, dep_attr in config_key_to_dep.items():
             component = getattr(self._components, dep_attr, None)

@@ -26,21 +26,11 @@ from dataclasses import FrozenInstanceError
 from unittest.mock import MagicMock
 
 from ats_utilities.base.setup.bundle import BaseBundle
-from ats_utilities.config_io.loader.iloader import ILoader
-from ats_utilities.info.iinfo_manager import IInfoManager
-from ats_utilities.option.ioption_manager import IOptionManager
-from ats_utilities.splasher.isplasher import ISplashManager
-from ats_utilities.generation.igenerator import IGeneratorManager
+from ats_utilities.info.imanager import IInfoManager
+from ats_utilities.option.imanager import IOptionManager
+from ats_utilities.splash.imanager import ISplashManager
+from ats_utilities.generation.imanager import IGeneratorManager
 from ats_utilities.context.bundle import ContextBundle
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
 
 
 class TestBaseBundle(unittest.TestCase):
@@ -48,72 +38,54 @@ class TestBaseBundle(unittest.TestCase):
 
     def setUp(self) -> None:
         """Set up valid mock objects and parameters for bundle instantiation."""
-        self.mock_config_loader = MagicMock(spec=ILoader)
-        self.mock_info_manager = MagicMock(spec=IInfoManager)
-        self.mock_options_parser = MagicMock(spec=IOptionManager)
-        self.mock_splasher = MagicMock(spec=ISplashManager)
-        self.mock_generator = MagicMock(spec=IGeneratorManager)
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
-        
+        self.mock_info_manager = MagicMock(spec=IInfoManager)
+        self.mock_option_manager = MagicMock(spec=IOptionManager)
+        self.mock_splash_manager = MagicMock(spec=ISplashManager)
+        self.mock_generation_manager = MagicMock(spec=IGeneratorManager)
+
         self.valid_params = {
-            "info_file": "/path/to/info.cfg",
-            "config_loader": self.mock_config_loader,
+            "context_bundle": self.mock_context_bundle,
             "info_manager": self.mock_info_manager,
-            "options_parser": self.mock_options_parser,
-            "splasher": self.mock_splasher,
-            "generator": self.mock_generator,
-            "use_generator": True,
-            "context_bundle": self.mock_context_bundle
+            "option_manager": self.mock_option_manager,
+            "splash_manager": self.mock_splash_manager,
+            "generation_manager": self.mock_generation_manager
         }
 
     def test_successful_initialization(self) -> None:
         """Test successful initialization when all parameters match types and constraints."""
         bundle = BaseBundle(**self.valid_params)
 
-        self.assertEqual(bundle.info_file, "/path/to/info.cfg")
-        self.assertEqual(bundle.config_loader, self.mock_config_loader)
-        self.assertEqual(bundle.info_manager, self.mock_info_manager)
-        self.assertEqual(bundle.options_parser, self.mock_options_parser)
-        self.assertEqual(bundle.splasher, self.mock_splasher)
-        self.assertEqual(bundle.generator, self.mock_generator)
-        self.assertTrue(bundle.use_generator)
         self.assertEqual(bundle.context_bundle, self.mock_context_bundle)
+        self.assertEqual(bundle.info_manager, self.mock_info_manager)
+        self.assertEqual(bundle.option_manager, self.mock_option_manager)
+        self.assertEqual(bundle.splash_manager, self.mock_splash_manager)
+        self.assertEqual(bundle.generation_manager, self.mock_generation_manager)
 
     def test_successful_initialization_with_optional_generator_none(self) -> None:
-        """Test successful initialization when generator attribute is explicitly set to None."""
+        """Test successful initialization when generation_manager attribute is set to None."""
         params = self.valid_params.copy()
-        params["generator"] = None
-        
+        params["generation_manager"] = None
+
         bundle = BaseBundle(**params)
-        self.assertIsNone(bundle.generator)
+        self.assertIsNone(bundle.generation_manager)
 
     def test_immutability_frozen_slots(self) -> None:
         """Test that altering an attribute post-initialization throws a FrozenInstanceError."""
         bundle = BaseBundle(**self.valid_params)
-        
+
         with self.assertRaises(FrozenInstanceError):
-            bundle.info_file = "/attempt/new/path.cfg"  # type: ignore
+            bundle.context_bundle = MagicMock(spec=ContextBundle)  # type: ignore
 
     def test_keyword_only_initialization(self) -> None:
         """Test that positional arguments are barred under kw_only configuration rules."""
         with self.assertRaises(TypeError):
             BaseBundle(
-                # pyrefly: ignore [unexpected-positional-argument]
-                "/path/to/info.cfg",
-                # pyrefly: ignore [unexpected-positional-argument]
-                self.mock_config_loader,
-                # pyrefly: ignore [unexpected-positional-argument]
+                self.mock_context_bundle,
                 self.mock_info_manager,
-                # pyrefly: ignore [unexpected-positional-argument]
-                self.mock_options_parser,
-                # pyrefly: ignore [unexpected-positional-argument]
-                self.mock_splasher,
-                # pyrefly: ignore [unexpected-positional-argument]
-                self.mock_generator,
-                # pyrefly: ignore [unexpected-positional-argument]
-                True,
-                # pyrefly: ignore [unexpected-positional-argument]
-                self.mock_context_bundle
+                self.mock_option_manager,
+                self.mock_splash_manager,
+                self.mock_generation_manager
             )
 
     def test_to_dict(self) -> None:

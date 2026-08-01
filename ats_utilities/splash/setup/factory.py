@@ -58,7 +58,6 @@ class SplashFactory:
 
             :methods:
                 | create_bundle - Creates a splash bundle using configuration options.
-                | create_splash_bundle_from_dict - Creates a default splash bundle using configuration options.
     '''
 
     @classmethod
@@ -75,8 +74,8 @@ class SplashFactory:
         '''
         SplashOptionsValidator.validate(options)
 
-        prop: Mapping[str, object] = options.get(SplashKeys.PROP)
-        context_bundle: ContextBundle = options.get(SplashKeys.CONTEXT_BUNDLE)
+        prop: Mapping[str, object] = options.get(SplashKeys.OPTION_PROP)
+        context_bundle: ContextBundle = options.get(SplashKeys.OPTION_CONTEXT_BUNDLE)
 
         splash_property: ISplashProperty = SplashProperty(context_bundle)
         splash_property.settings = prop

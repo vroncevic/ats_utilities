@@ -25,22 +25,14 @@ import unittest
 from unittest.mock import patch, MagicMock
 
 from ats_utilities.context.factory import ContextFactory
-from ats_utilities.exceptions import ATSTypeError, ATSValueError
-from ats_utilities.splasher.setup.bundle import SplashBundle
-from ats_utilities.splasher.setup.splash_keys import SplashKeys
-from ats_utilities.splasher.setup.factory import SplashFactory
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.exceptions import ATSTypeError
+from ats_utilities.splash.setup.bundle import SplashBundle
+from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.splash.setup.factory import SplashFactory
+from ats_utilities.splash.setup.options import SplashOptions
 
 
-@patch("ats_utilities.splasher.setup.validator.check_file_exists")
+@patch("ats_utilities.splash.setup.validator.check_file_exists")
 class SplashFactoryTest(unittest.TestCase):
     '''
         Defines class SplashFactoryTest with attribute(s) and method(s).
@@ -50,59 +42,56 @@ class SplashFactoryTest(unittest.TestCase):
     def _get_valid_prop(self) -> dict[str, object]:
         return {
             "enabled": True,
-            SplashKeys.ATS_NAME: "ats_utilities",
-            SplashKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
-            SplashKeys.ATS_ORGANIZATION: "vroncevic",
-            SplashKeys.ATS_LOGO_PATH: "/path/to/logo.png",
-            SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
+            InfoKeys.ATS_NAME: "ats_utilities",
+            InfoKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
+            InfoKeys.ATS_ORGANIZATION: "vroncevic",
+            InfoKeys.ATS_LOGO_PATH: "/path/to/logo.png",
+            InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
         }
 
-    @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.size")
+    @patch("ats_utilities.splash.terminal.terminal_properties.TerminalProperties.size")
     def test_create_splash_bundle_github(self, mock_size: MagicMock, mock_check: MagicMock) -> None:
         mock_size.return_value = (24, 80, 0, 0)
         context_bundle = ContextFactory.create_bundle()
         prop = self._get_valid_prop()
-        bundle = SplashFactory.create_splash_bundle_from_dict(prop, context_bundle)
+        options = SplashOptions(prop=prop, context_bundle=context_bundle)
+
+        bundle = SplashFactory.create_bundle(options)
         self.assertIsInstance(bundle, SplashBundle)
-        self.assertTrue(bundle.property_validated)
+        self.assertTrue(bundle.splash_property.is_settings_enabled())
         self.assertTrue(bundle.ext.infrastructure_property)
 
-    @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.size")
+    @patch("ats_utilities.splash.terminal.terminal_properties.TerminalProperties.size")
     def test_create_splash_bundle_external(self, mock_size: MagicMock, mock_check: MagicMock) -> None:
         mock_size.return_value = (24, 80, 0, 0)
         context_bundle = ContextFactory.create_bundle()
         prop = self._get_valid_prop()
-        prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE] = False
-        bundle = SplashFactory.create_splash_bundle_from_dict(prop, context_bundle)
+        prop[InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE] = False
+        options = SplashOptions(prop=prop, context_bundle=context_bundle)
+
+        bundle = SplashFactory.create_bundle(options)
         self.assertIsInstance(bundle, SplashBundle)
-        self.assertTrue(bundle.property_validated)
+        self.assertTrue(bundle.splash_property.is_settings_enabled())
         self.assertTrue(bundle.ext.infrastructure_property)
 
-    @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.size")
+    @patch("ats_utilities.splash.terminal.terminal_properties.TerminalProperties.size")
     def test_create_splash_bundle_disabled(self, mock_size: MagicMock, mock_check: MagicMock) -> None:
         mock_size.return_value = (24, 80, 0, 0)
         context_bundle = ContextFactory.create_bundle()
         prop = {"enabled": False}
-        bundle = SplashFactory.create_splash_bundle_from_dict(prop, context_bundle)
-        self.assertIsInstance(bundle, SplashBundle)
-        self.assertTrue(bundle.property_validated)
+        options = SplashOptions(prop=prop, context_bundle=context_bundle)
 
-    @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.size")
-    def test_create_splash_bundle_none_prop(self, mock_size: MagicMock, mock_check: MagicMock) -> None:
-        mock_size.return_value = (24, 80, 0, 0)
-        context_bundle = ContextFactory.create_bundle()
-        bundle = SplashFactory.create_splash_bundle_from_dict(None, context_bundle)  # type: ignore
+        bundle = SplashFactory.create_bundle(options)
         self.assertIsInstance(bundle, SplashBundle)
-        self.assertFalse(bundle.property_validated)
-        self.assertEqual(bundle.prop, {})
+        self.assertFalse(bundle.splash_property.is_settings_enabled())
 
     def test_create_splash_bundle_invalid_context(self, mock_check: MagicMock) -> None:
         prop = self._get_valid_prop()
-        with self.assertRaises(ATSValueError):
-            SplashFactory.create_splash_bundle_from_dict(prop, None)  # type: ignore
+        with self.assertRaises(ATSTypeError):
+            SplashFactory.create_bundle(SplashOptions(prop=prop, context_bundle=None))  # type: ignore
 
         with self.assertRaises(ATSTypeError):
-            SplashFactory.create_splash_bundle_from_dict(prop, object())  # type: ignore
+            SplashFactory.create_bundle(SplashOptions(prop=prop, context_bundle=object()))  # type: ignore
 
 
 if __name__ == "__main__":

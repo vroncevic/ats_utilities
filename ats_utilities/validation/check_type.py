@@ -63,6 +63,15 @@ def _resolve_type(type_to_resolve: object) -> object:
 
         return tuple(resolved_args)
 
+    is_typed_dict: bool = (
+        isinstance(type_to_resolve, type) and
+        issubclass(type_to_resolve, dict) and
+        hasattr(type_to_resolve, '__total__')
+    )
+
+    if is_typed_dict:
+        return dict
+
     return origin or type_to_resolve
 
 

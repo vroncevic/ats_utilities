@@ -77,6 +77,46 @@ class ISplashProperty[PropertyType](Protocol):
         '''
         ...
 
+    def get_name(self) -> str | None:
+        '''
+            Returns application/tool/script name.
+
+            :return: Application/tool/script name | None.
+        '''
+        ...
+
+    def get_repository(self) -> str | None:
+        '''
+            Returns application/tool/script repository.
+
+            :return: Application/tool/script repository | None.
+        '''
+        ...
+
+    def get_organization(self) -> str | None:
+        '''
+            Returns application/tool/script organization.
+
+            :return: Application/tool/script organization | None.
+        '''
+        ...
+
+    def get_logo(self) -> str | None:
+        '''
+            Returns application/tool/script logo path.
+
+            :return: Application/tool/script logo path | None.
+        '''
+        ...
+
+    def get_use_github_infrastructure(self) -> bool:
+        '''
+            Returns True if application/tool/script uses github infrastructure.
+
+            :return: True if application/tool/script uses github infrastructure, False otherwise.
+        '''
+        ...
+
     def __str__(self) -> str:
         '''
             Returns the splash keys as a string representation.

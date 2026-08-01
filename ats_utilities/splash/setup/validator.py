@@ -24,7 +24,6 @@ from __future__ import annotations
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
 from ats_utilities.splash.setup.bundle import SplashBundle
-from ats_utilities.splash.setup.keys import SplashKeys
 from ats_utilities.splash.property.isplash_property import ISplashProperty
 from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
 from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
@@ -96,6 +95,5 @@ class SplashValidator:
 
         ContextValidator.validate(bundle.context_bundle)
 
-        if bundle.property_validated:
-            # TODO get logo from bundle.splash_property not from bundle.prop
-            check_file_exists(bundle.prop.get(SplashKeys.ATS_LOGO_PATH), ctx, msg_logo_path)
+        if bundle.splash_property.is_settings_enabled():
+            check_file_exists(bundle.splash_property.get_logo(), ctx, msg_logo_path)

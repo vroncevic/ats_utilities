@@ -26,34 +26,13 @@ from unittest.mock import patch, MagicMock
 
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError
-from ats_utilities.splasher.terminal.terminal_properties import TerminalProperties
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.splash.terminal.terminal_properties import TerminalProperties
 
 
 class TerminalPropertiesTest(unittest.TestCase):
     '''
         Defines class TerminalPropertiesTest with attribute(s) and method(s).
         Tests TerminalProperties logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_init - Tests initialization.
-                | test_ioctl_get_window_size_valid - Tests getting window size with a mock ioctl.
-                | test_ioctl_get_window_size_invalid_type - Tests type error with wrong argument.
-                | test_size_standard_descriptors - Tests size querying with standard descriptors.
-                | test_size_ctermid - Tests size querying using ctermid.
-                | test_size_fallback - Tests fallback to default size on failure.
-                | test_str - Tests __str__ method.
     '''
 
     def test_init(self) -> None:
@@ -61,8 +40,8 @@ class TerminalPropertiesTest(unittest.TestCase):
         tp = TerminalProperties(context_bundle)
         self.assertIsNone(tp._window_size)
 
-    @patch("ats_utilities.splasher.terminal.terminal_properties.ioctl")
-    @patch("ats_utilities.splasher.terminal.terminal_properties.unpack")
+    @patch("ats_utilities.splash.terminal.terminal_properties.ioctl")
+    @patch("ats_utilities.splash.terminal.terminal_properties.unpack")
     def test_ioctl_get_window_size_valid(self, mock_unpack: MagicMock, mock_ioctl: MagicMock) -> None:
         mock_unpack.return_value = (40, 100, 0, 0)
         context_bundle = ContextFactory.create_bundle()
@@ -77,8 +56,8 @@ class TerminalPropertiesTest(unittest.TestCase):
         with self.assertRaises(ATSTypeError):
             tp.ioctl_get_window_size("not an int")  # type: ignore
 
-    @patch("ats_utilities.splasher.terminal.terminal_properties.ioctl")
-    @patch("ats_utilities.splasher.terminal.terminal_properties.unpack")
+    @patch("ats_utilities.splash.terminal.terminal_properties.ioctl")
+    @patch("ats_utilities.splash.terminal.terminal_properties.unpack")
     def test_size_standard_descriptors(self, mock_unpack: MagicMock, mock_ioctl: MagicMock) -> None:
         mock_unpack.return_value = (30, 90, 0, 0)
         context_bundle = ContextFactory.create_bundle()
@@ -86,10 +65,10 @@ class TerminalPropertiesTest(unittest.TestCase):
         res = tp.size()
         self.assertEqual(res, (30, 90, 0, 0))
 
-    @patch("ats_utilities.splasher.terminal.terminal_properties.ioctl")
-    @patch("ats_utilities.splasher.terminal.terminal_properties.open")
-    @patch("ats_utilities.splasher.terminal.terminal_properties.close")
-    @patch("ats_utilities.splasher.terminal.terminal_properties.unpack")
+    @patch("ats_utilities.splash.terminal.terminal_properties.ioctl")
+    @patch("ats_utilities.splash.terminal.terminal_properties.open")
+    @patch("ats_utilities.splash.terminal.terminal_properties.close")
+    @patch("ats_utilities.splash.terminal.terminal_properties.unpack")
     def test_size_ctermid(self, mock_unpack: MagicMock, mock_close: MagicMock, mock_open: MagicMock, mock_ioctl: MagicMock) -> None:
         # Standard descriptors fail (raise OSError), but ctermid works
         mock_ioctl.side_effect = [
@@ -105,8 +84,8 @@ class TerminalPropertiesTest(unittest.TestCase):
         mock_open.assert_called_once()
         mock_close.assert_called_once_with(10)
 
-    @patch("ats_utilities.splasher.terminal.terminal_properties.ioctl")
-    @patch("ats_utilities.splasher.terminal.terminal_properties.open")
+    @patch("ats_utilities.splash.terminal.terminal_properties.ioctl")
+    @patch("ats_utilities.splash.terminal.terminal_properties.open")
     def test_size_fallback(self, mock_open: MagicMock, mock_ioctl: MagicMock) -> None:
         # Everything fails
         mock_ioctl.side_effect = OSError("ioctl failed")
@@ -117,8 +96,8 @@ class TerminalPropertiesTest(unittest.TestCase):
         res = tp.size()
         self.assertEqual(res, (24, 80, 0, 0))
 
-    @patch("ats_utilities.splasher.terminal.terminal_properties.ioctl")
-    @patch("ats_utilities.splasher.terminal.terminal_properties.unpack")
+    @patch("ats_utilities.splash.terminal.terminal_properties.ioctl")
+    @patch("ats_utilities.splash.terminal.terminal_properties.unpack")
     def test_ioctl_for_all_descriptors_loops(self, mock_unpack: MagicMock, mock_ioctl: MagicMock) -> None:
         mock_unpack.side_effect = [None, (30, 90, 0, 0)]
         context_bundle = ContextFactory.create_bundle()
@@ -126,8 +105,8 @@ class TerminalPropertiesTest(unittest.TestCase):
         tp.ioctl_for_all_descriptors()
         self.assertEqual(tp._window_size, (30, 90, 0, 0))
 
-    @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.ioctl_for_all_descriptors")
-    @patch("ats_utilities.splasher.terminal.terminal_properties.open")
+    @patch("ats_utilities.splash.terminal.terminal_properties.TerminalProperties.ioctl_for_all_descriptors")
+    @patch("ats_utilities.splash.terminal.terminal_properties.open")
     def test_size_ioctl_all_raises_oserror(self, mock_open: MagicMock, mock_ioctl_all: MagicMock) -> None:
         mock_ioctl_all.side_effect = OSError("mocked oserror")
         mock_open.side_effect = OSError("open failed")
@@ -136,8 +115,8 @@ class TerminalPropertiesTest(unittest.TestCase):
         res = tp.size()
         self.assertEqual(res, (24, 80, 0, 0))
 
-    @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.ioctl_for_all_descriptors")
-    @patch("ats_utilities.splasher.terminal.terminal_properties.open")
+    @patch("ats_utilities.splash.terminal.terminal_properties.TerminalProperties.ioctl_for_all_descriptors")
+    @patch("ats_utilities.splash.terminal.terminal_properties.open")
     def test_size_open_ctermid_raises_oserror_with_preexisting_window_size(self, mock_open: MagicMock, mock_ioctl_all: MagicMock) -> None:
         context_bundle = ContextFactory.create_bundle()
         tp = TerminalProperties(context_bundle)

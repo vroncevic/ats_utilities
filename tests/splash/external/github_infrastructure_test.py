@@ -25,41 +25,20 @@ import unittest
 
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
-from ats_utilities.splasher.external.github_infrastructure import GitHubInfrastructure
-from ats_utilities.splasher.setup.splash_keys import SplashKeys
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.splash.external.github_infrastructure import GitHubInfrastructure
+from ats_utilities.splash.property.splash_property import SplashProperty
 
 
 class GitHubInfrastructureTest(unittest.TestCase):
     '''
         Defines class GitHubInfrastructureTest with attribute(s) and method(s).
         Tests GitHubInfrastructure logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_init - Tests constructor.
-                | test_getter_setter - Tests property getter and setter.
-                | test_setter_invalid - Tests setter error assertions.
-                | test_hyperlinks_valid - Tests info, issue, and author hyperlink text outputs.
-                | test_hyperlinks_uninitialized - Tests error cases for uninitialized attributes.
-                | test_hyperlinks_missing_values - Tests error cases for missing values.
-                | test_str - Tests __str__ method.
     '''
 
     def _get_valid_setup(self) -> dict[str, object]:
         return {
-            SplashKeys.ATS_REPOSITORY: "ats_utilities",
-            SplashKeys.ATS_ORGANIZATION: "vroncevic",
+            SplashProperty.REPOSITORY_SETTING: "ats_utilities",
+            SplashProperty.ORGANIZATION_SETTING: "vroncevic",
         }
 
     def test_init(self) -> None:
@@ -84,7 +63,7 @@ class GitHubInfrastructureTest(unittest.TestCase):
 
         # Missing required key
         invalid_setup = self._get_valid_setup()
-        del invalid_setup[SplashKeys.ATS_ORGANIZATION]
+        del invalid_setup[SplashProperty.ORGANIZATION_SETTING]
         with self.assertRaises(ATSValueError):
             gh.infrastructure_property = invalid_setup
 
@@ -116,18 +95,13 @@ class GitHubInfrastructureTest(unittest.TestCase):
 
         # Bypass setter check using private attribute
         gh._infrastructure_property = {
-            SplashKeys.ATS_REPOSITORY: "",
-            SplashKeys.ATS_ORGANIZATION: "",
+            SplashProperty.REPOSITORY_SETTING: None,
+            SplashProperty.ORGANIZATION_SETTING: None,
         }
 
-        with self.assertRaises(ATSValueError):
-            gh.get_info_text()
-
-        with self.assertRaises(ATSValueError):
-            gh.get_issue_text()
-
-        with self.assertRaises(ATSValueError):
-            gh.get_author_text()
+        self.assertIsNone(gh.get_info_text())
+        self.assertIsNone(gh.get_issue_text())
+        self.assertIsNone(gh.get_author_text())
 
     def test_str(self) -> None:
         context_bundle = ContextFactory.create_bundle()

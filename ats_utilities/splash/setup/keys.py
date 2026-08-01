@@ -51,7 +51,6 @@ class SplashKeys:
 
             :attributes:
                 | DEPENDENCY_SPLASH_PROPERTY - The dependency key for splash property instance.
-                | DEPENDENCY_PROPERTY_VALIDATED - The dependency key for property validated flag.
                 | DEPENDENCY_TERMINAL_PROPERTY - The dependency key for terminal properties instance.
                 | DEPENDENCY_EXT - The dependency key for external infrastructure instance.
                 | DEPENDENCY_PB - The dependency key for progress bar instance.
@@ -65,7 +64,6 @@ class SplashKeys:
 
     # Dependency Keys
     DEPENDENCY_SPLASH_PROPERTY: ClassVar[str] = 'splash_property'
-    DEPENDENCY_PROPERTY_VALIDATED: ClassVar[str] = 'property_validated'
     DEPENDENCY_TERMINAL_PROPERTY: ClassVar[str] = 'terminal_property'
     DEPENDENCY_EXT: ClassVar[str] = 'ext'
     DEPENDENCY_PB: ClassVar[str] = 'pb'
@@ -85,7 +83,6 @@ class SplashKeys:
         '''
         return MappingProxyType({
             cls.DEPENDENCY_SPLASH_PROPERTY: ISplashProperty,
-            cls.DEPENDENCY_PROPERTY_VALIDATED: bool,
             cls.DEPENDENCY_TERMINAL_PROPERTY: ITerminalProperties,
             cls.DEPENDENCY_EXT: IExtInfrastructure,
             cls.DEPENDENCY_PB: IProgressBar,

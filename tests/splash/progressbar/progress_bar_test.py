@@ -24,33 +24,13 @@ from __future__ import annotations
 import unittest
 from unittest.mock import patch, MagicMock
 
-from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.splash.progressbar.progress_bar import ProgressBar
 
 
 class ProgressBarTest(unittest.TestCase):
     '''
         Defines class ProgressBarTest with attribute(s) and method(s).
         Tests ProgressBar rendering and logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_init - Tests initialization.
-                | test_set_level_clamping - Tests level setting clamping logic.
-                | test_plot_progress - Tests progressbar plotting to stdout.
-                | test_set_and_plot - Tests plotting only on changes.
-                | test_del - Tests dunder del method writing newline.
-                | test_str - Tests __str__ method.
     '''
 
     def test_init(self) -> None:

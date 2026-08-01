@@ -22,64 +22,52 @@ Info
 from __future__ import annotations
 
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
-from ats_utilities.context.factory import ContextFactory
-from ats_utilities.splasher.setup.bundle import SplashBundle
-from ats_utilities.splasher.setup.splash_keys import SplashKeys
-from ats_utilities.splasher.setup.registry import SplashRegistry
-from ats_utilities.splasher.setup.dependencies import SplashDependencies
-from ats_utilities.splasher.setup.factory import SplashFactory
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.splash.setup.bundle import SplashBundle
+from ats_utilities.splash.setup.registry import SplashRegistry
+from ats_utilities.splash.setup.dependencies import SplashDependencies
+from ats_utilities.splash.property.isplash_property import ISplashProperty
+from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
+from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
+from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
 
 
-@patch("ats_utilities.splasher.setup.validator.check_file_exists")
+@patch("ats_utilities.splash.setup.registry.SplashValidator")
+@patch("ats_utilities.splash.setup.registry.SplashDependenciesValidator")
 class SplashRegistryTest(unittest.TestCase):
     '''
         Defines class SplashRegistryTest with attribute(s) and method(s).
         Tests SplashRegistry.
     '''
 
-    def _get_valid_prop(self) -> dict[str, object]:
-        return {
-            "enabled": True,
-            SplashKeys.ATS_NAME: "ats_utilities",
-            SplashKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
-            SplashKeys.ATS_ORGANIZATION: "vroncevic",
-            SplashKeys.ATS_LOGO_PATH: "/path/to/logo.png",
-            SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
-        }
-
-    @patch("ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.size")
-    def test_create_bundle(self, mock_size: MagicMock, mock_check: MagicMock) -> None:
+    def test_create_bundle(self, mock_dep_val: MagicMock, mock_val: MagicMock) -> None:
         """Tests create_bundle on SplashRegistry."""
-        mock_size.return_value = (24, 80, 0, 0)
-        context_bundle = ContextFactory.create_bundle()
-        prop = self._get_valid_prop()
-        factory_bundle = SplashFactory.create_splash_bundle_from_dict(prop, context_bundle)
+        context_bundle = MagicMock(spec=ContextBundle)
+        mock_prop = MagicMock(spec=ISplashProperty)
+        mock_term = MagicMock(spec=ITerminalProperties)
+        mock_ext = MagicMock(spec=IExtInfrastructure)
+        mock_pb = MagicMock(spec=IProgressBar)
 
-        bundle = SplashRegistry.create_bundle(
-            SplashDependencies(
-                context_bundle=context_bundle,
-                property_validated=factory_bundle.property_validated,
-                prop=factory_bundle.prop,
-                splash_property=factory_bundle.splash_property,
-                terminal_property=factory_bundle.terminal_property,
-                ext=factory_bundle.ext,
-                pb=factory_bundle.pb
-            )
+        params = SplashDependencies(
+            context_bundle=context_bundle,
+            splash_property=mock_prop,
+            terminal_property=mock_term,
+            ext=mock_ext,
+            pb=mock_pb
         )
+
+        bundle = SplashRegistry.create_bundle(params)
         self.assertIsInstance(bundle, SplashBundle)
-        self.assertTrue(bundle.property_validated)
-        self.assertTrue(bundle.ext.infrastructure_property)
+        self.assertEqual(bundle.context_bundle, context_bundle)
+        self.assertEqual(bundle.splash_property, mock_prop)
+        self.assertEqual(bundle.terminal_property, mock_term)
+        self.assertEqual(bundle.ext, mock_ext)
+        self.assertEqual(bundle.pb, mock_pb)
+
+        mock_dep_val.validate.assert_called_once_with(params)
+        mock_val.validate.assert_called_once_with(bundle)
 
 
 if __name__ == "__main__":

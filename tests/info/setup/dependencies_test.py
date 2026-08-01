@@ -2,7 +2,7 @@
 
 '''
 Module
-    registry_test.py
+    dependencies_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,16 +16,14 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for InfoRegistry class.
+    Unit tests for InfoDependencies TypedDict.
 '''
 
 from __future__ import annotations
 
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
-from ats_utilities.info.setup.registry import InfoRegistry
-from ats_utilities.info.setup.bundle import InfoBundle
 from ats_utilities.info.setup.dependencies import InfoDependencies
 from ats_utilities.info.name.iname import IName
 from ats_utilities.info.version.iversion import IVersion
@@ -35,42 +33,33 @@ from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
 from ats_utilities.context.bundle import ContextBundle
 
 
-@patch("ats_utilities.info.setup.registry.InfoValidator")
-@patch("ats_utilities.info.setup.registry.InfoDependenciesValidator")
-class InfoRegistryTest(unittest.TestCase):
-    '''
-        Defines class InfoRegistryTest with attribute(s) and method(s).
-        Tests InfoRegistry logic.
-    '''
+class TestInfoDependencies(unittest.TestCase):
+    """Unit tests for the InfoDependencies TypedDict structure."""
 
-    def test_create_bundle(self, mock_dep_val: MagicMock, mock_val: MagicMock) -> None:
-        mock_context_bundle = MagicMock(spec=ContextBundle)
+    def test_info_dependencies_dict(self) -> None:
+        """Test creating and accessing InfoDependencies structure."""
         mock_name = MagicMock(spec=IName)
         mock_version = MagicMock(spec=IVersion)
         mock_licence = MagicMock(spec=ILicence)
         mock_build_date = MagicMock(spec=IBuildDate)
         mock_info_ok = MagicMock(spec=IInfoOk)
+        mock_context_bundle = MagicMock(spec=ContextBundle)
 
-        params = InfoDependencies(
-            name=mock_name,
-            version=mock_version,
-            licence=mock_licence,
-            build_date=mock_build_date,
-            info_ok=mock_info_ok,
-            context_bundle=mock_context_bundle
-        )
+        deps: InfoDependencies = {
+            "name": mock_name,
+            "version": mock_version,
+            "licence": mock_licence,
+            "build_date": mock_build_date,
+            "info_ok": mock_info_ok,
+            "context_bundle": mock_context_bundle
+        }
 
-        bundle = InfoRegistry.create_bundle(params)
-        self.assertIsInstance(bundle, InfoBundle)
-        self.assertEqual(bundle.name, mock_name)
-        self.assertEqual(bundle.version, mock_version)
-        self.assertEqual(bundle.licence, mock_licence)
-        self.assertEqual(bundle.build_date, mock_build_date)
-        self.assertEqual(bundle.info_ok, mock_info_ok)
-        self.assertEqual(bundle.context_bundle, mock_context_bundle)
-
-        mock_dep_val.validate.assert_called_once_with(params)
-        mock_val.validate.assert_called_once_with(bundle)
+        self.assertEqual(deps["name"], mock_name)
+        self.assertEqual(deps["version"], mock_version)
+        self.assertEqual(deps["licence"], mock_licence)
+        self.assertEqual(deps["build_date"], mock_build_date)
+        self.assertEqual(deps["info_ok"], mock_info_ok)
+        self.assertEqual(deps["context_bundle"], mock_context_bundle)
 
 
 if __name__ == '__main__':

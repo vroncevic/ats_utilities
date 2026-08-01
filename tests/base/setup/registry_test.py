@@ -22,63 +22,49 @@ Info
 from __future__ import annotations
 
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from ats_utilities.base.setup.registry import BaseRegistry
 from ats_utilities.base.setup.bundle import BaseBundle
 from ats_utilities.base.setup.dependencies import BaseDependencies
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.config_io.loader.iloader import ILoader
-from ats_utilities.info.iinfo_manager import IInfoManager
-from ats_utilities.option.ioption_manager import IOptionManager
-from ats_utilities.splasher.isplasher import ISplashManager
-from ats_utilities.generation.igenerator import IGeneratorManager
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.info.imanager import IInfoManager
+from ats_utilities.option.imanager import IOptionManager
+from ats_utilities.splash.imanager import ISplashManager
+from ats_utilities.generation.imanager import IGeneratorManager
 
 
+@patch("ats_utilities.base.setup.registry.BaseValidator")
+@patch("ats_utilities.base.setup.registry.BaseDependenciesValidator")
 class TestBaseRegistry(unittest.TestCase):
     """Unit tests for the BaseRegistry class."""
 
-    def test_create_bundle(self) -> None:
+    def test_create_bundle(self, mock_dep_val: MagicMock, mock_val: MagicMock) -> None:
         """Test create_bundle delegates correctly."""
-        info_file = "/opt/ats/config/info.json"
         mock_context_bundle = MagicMock(spec=ContextBundle)
-
-        config_loader = MagicMock(spec=ILoader)
         info_manager = MagicMock(spec=IInfoManager)
-        options_parser = MagicMock(spec=IOptionManager)
-        splasher = MagicMock(spec=ISplashManager)
-        generator = MagicMock(spec=IGeneratorManager)
+        option_manager = MagicMock(spec=IOptionManager)
+        splash_manager = MagicMock(spec=ISplashManager)
+        generation_manager = MagicMock(spec=IGeneratorManager)
 
         bundle = BaseRegistry.create_bundle(
             BaseDependencies(
-                info_file=info_file,
                 context_bundle=mock_context_bundle,
-                use_generator=True,
-                config_loader=config_loader,
                 info_manager=info_manager,
-                options_parser=options_parser,
-                splasher=splasher,
-                generator=generator
+                option_manager=option_manager,
+                splash_manager=splash_manager,
+                generation_manager=generation_manager
             )
         )
         self.assertIsInstance(bundle, BaseBundle)
-        self.assertEqual(bundle.info_file, info_file)
         self.assertIs(bundle.context_bundle, mock_context_bundle)
-        self.assertIs(bundle.config_loader, config_loader)
         self.assertIs(bundle.info_manager, info_manager)
-        self.assertIs(bundle.options_parser, options_parser)
-        self.assertIs(bundle.splasher, splasher)
-        self.assertIs(bundle.generator, generator)
-        self.assertTrue(bundle.use_generator)
+        self.assertIs(bundle.option_manager, option_manager)
+        self.assertIs(bundle.splash_manager, splash_manager)
+        self.assertIs(bundle.generation_manager, generation_manager)
+
+        mock_dep_val.validate.assert_called_once()
+        mock_val.validate.assert_called_once_with(bundle)
 
 
 if __name__ == '__main__':

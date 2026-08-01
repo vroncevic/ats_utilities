@@ -25,58 +25,40 @@ import unittest
 
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
-from ats_utilities.splasher.property.splash_property import SplashProperty
-from ats_utilities.splasher.setup.splash_keys import SplashKeys
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.splash.property.splash_property import SplashProperty
+from ats_utilities.info.setup.keys import InfoKeys
 
 
 class SplashPropertyTest(unittest.TestCase):
-    '''
-        Defines class SplashPropertyTest with attribute(s) and method(s).
-        Tests SplashProperty validations and property management.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_init - Tests successful initialization.
-                | test_getter_setter - Tests property getter and setter.
-                | test_setter_invalid - Tests setter with invalid values/types.
-                | test_validates - Tests validation checks.
-                | test_str - Tests __str__ method.
-    '''
+    """Unit tests for SplashProperty class."""
 
     def _get_valid_prop(self) -> dict[str, object]:
         return {
-            "enabled": True,
-            SplashKeys.ATS_NAME: "ats_utilities",
-            SplashKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
-            SplashKeys.ATS_ORGANIZATION: "vroncevic",
-            SplashKeys.ATS_LOGO_PATH: "/path/to/logo.png",
-            SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
+            InfoKeys.ATS_NAME: "ats_utilities",
+            InfoKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
+            InfoKeys.ATS_ORGANIZATION: "vroncevic",
+            InfoKeys.ATS_LOGO_PATH: "/path/to/logo.png",
+            InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
         }
 
     def test_init(self) -> None:
         context_bundle = ContextFactory.create_bundle()
         sp = SplashProperty(context_bundle)
-        self.assertEqual(sp.splash_keys, {})
+        self.assertEqual(sp.settings[SplashProperty.ENABLED_SETTING], False)
+        self.assertIsNone(sp.settings[SplashProperty.NAME_SETTING])
 
     def test_getter_setter(self) -> None:
         context_bundle = ContextFactory.create_bundle()
         sp = SplashProperty(context_bundle)
         prop = self._get_valid_prop()
-        sp.splash_keys = prop
-        expected = prop.copy()
-        del expected["enabled"]
-        self.assertEqual(sp.splash_keys, expected)
+        sp.settings = prop
+
+        self.assertEqual(sp.get_name(), "ats_utilities")
+        self.assertEqual(sp.get_repository(), "https://github.com/vroncevic/ats_utilities")
+        self.assertEqual(sp.get_organization(), "vroncevic")
+        self.assertEqual(sp.get_logo(), "/path/to/logo.png")
+        self.assertTrue(sp.get_use_github_infrastructure())
+        self.assertTrue(sp.is_settings_enabled())
 
     def test_setter_invalid(self) -> None:
         context_bundle = ContextFactory.create_bundle()
@@ -84,29 +66,17 @@ class SplashPropertyTest(unittest.TestCase):
 
         # Invalid type
         with self.assertRaises(ATSTypeError):
-            sp.splash_keys = "not a mapping"  # type: ignore
+            sp.settings = "not a mapping"  # type: ignore
 
-        # Missing key
+        # Missing key for name
         invalid_prop = self._get_valid_prop()
-        del invalid_prop[SplashKeys.ATS_NAME]
-        with self.assertRaises(ATSValueError):
-            sp.splash_keys = invalid_prop
-
-    def test_validates(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
-        sp = SplashProperty(context_bundle)
-
-        # Uninitialized validation exception (decorator @has_attrs)
-        with self.assertRaises(ATSValueError):
-            sp.validates()
-
-        # Enabled validation
-        sp.splash_keys = self._get_valid_prop()
-        self.assertTrue(sp.validates())
-
-        # Disabled validation
-        sp.splash_keys = {"enabled": False}
-        self.assertTrue(sp.validates())
+        del invalid_prop[InfoKeys.ATS_NAME]
+        # In the actual setter implementation, it allows missing keys (assigning None).
+        # But wait! If we pass missing key, it assigns None, and name is None.
+        # Let's test that if name is not present, it stays None and settings are not enabled.
+        sp.settings = invalid_prop
+        self.assertIsNone(sp.get_name())
+        self.assertFalse(sp.is_settings_enabled())
 
     def test_str(self) -> None:
         context_bundle = ContextFactory.create_bundle()

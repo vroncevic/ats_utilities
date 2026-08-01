@@ -26,20 +26,11 @@ from dataclasses import FrozenInstanceError
 from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
-from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
-from ats_utilities.splasher.property.isplash_property import ISplashProperty
-from ats_utilities.splasher.setup.bundle import SplashBundle
-from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
-
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.4'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Development'
+from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
+from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
+from ats_utilities.splash.property.isplash_property import ISplashProperty
+from ats_utilities.splash.setup.bundle import SplashBundle
+from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
 
 
 class SplashBundleTest(unittest.TestCase):
@@ -50,9 +41,7 @@ class SplashBundleTest(unittest.TestCase):
 
     def _get_mocks(self) -> dict[str, object]:
         return {
-            "prop": {"enabled": True},
             "splash_property": MagicMock(spec=ISplashProperty),
-            "property_validated": True,
             "terminal_property": MagicMock(spec=ITerminalProperties),
             "ext": MagicMock(spec=IExtInfrastructure),
             "pb": MagicMock(spec=IProgressBar),
@@ -76,11 +65,7 @@ class SplashBundleTest(unittest.TestCase):
         with self.assertRaises(TypeError):
             SplashBundle(
                 # pyrefly: ignore [unexpected-positional-argument]
-                mocks["prop"],
-                # pyrefly: ignore [unexpected-positional-argument]
                 mocks["splash_property"],
-                # pyrefly: ignore [unexpected-positional-argument]
-                mocks["property_validated"],
                 # pyrefly: ignore [unexpected-positional-argument]
                 mocks["terminal_property"],
                 # pyrefly: ignore [unexpected-positional-argument]

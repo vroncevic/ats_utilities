@@ -24,8 +24,8 @@ from __future__ import annotations
 import unittest
 from dataclasses import FrozenInstanceError
 
-from ats_utilities.splasher.data import CenterData
-from ats_utilities.splasher.data_validator import CenterDataValidator
+from ats_utilities.splash.data import CenterData
+from ats_utilities.splash.data_validator import CenterDataValidator
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
