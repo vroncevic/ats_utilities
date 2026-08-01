@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class BuildDate with attribute(s) and method(s).
+    Defines the BuildDate class with attribute(s) and method(s).
     Provides an API for the build date in one property object.
 '''
 
@@ -40,19 +40,19 @@ __status__ = 'Development'
 
 class BuildDate:
     '''
-        Defines class BuildDate with attribute(s) and method(s).
+        Defines the BuildDate class with attribute(s) and method(s).
         Provides an API for the build date in one property object.
-        Note: Build date is only prepared when it is set by user (not None).
+        Note: The build date is only prepared when it is set by the user (not None).
 
         It defines:
 
             :attributes:
-                | _build_date - The build date for App/Tool/Script (default None).
+                | _build_date - The build date for the App/Tool/Script (default: None).
             :methods:
-                | __init__ - Initializes BuildDate constructor.
-                | build_date - Property methods for set/get build date.
-                | not_none - Checks is build date not None.
-                | __str__ - Returns the BuildDate as string representation.
+                | __init__ - Initializes the BuildDate instance.
+                | build_date - Property methods for setting and getting the build date.
+                | not_none - Checks if the build date is not None.
+                | __str__ - Returns the BuildDate as a string representation.
     '''
 
     _build_date: str | None
@@ -60,9 +60,9 @@ class BuildDate:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes BuildDate constructor.
+            Initializes the BuildDate instance.
 
-            :param context_bundle: Context bundle for build date.
+            :param context_bundle: The context bundle for build date.
             :exceptions:
                 | ATSValueError:  Context bundle must be provided and have proper values.
                 | ATSTypeError:   Context bundle must be an instance of ContextBundle
@@ -77,13 +77,13 @@ class BuildDate:
     @vreport('getting build_date {build_date}')
     def build_date(self) -> str | None:
         '''
-            Property method for getting build date.
-            Note: Build date is only prepared when it is set by user (not None).
+            Property method for getting the build date.
+            Note: The build date is only prepared when it is set by the user (not None).
 
             :return: The build date in string format | None.
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._build_date
@@ -93,40 +93,40 @@ class BuildDate:
     @vreport('setting build_date {build_date}')
     def build_date(self, build_date: str) -> None:
         '''
-            Property method for setting build date.
-            Note: Build date is only prepared when it is set by user (not None).
+            Property method for setting the build date.
+            Note: The build date is only prepared when it is set by the user (not None).
 
             :param build_date: The build date in string format.
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSTypeError:      Parameter type validation failed.
                 | ATSValueError:     Parameter format validation failed.
-                | ATSRuntimeError:   Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSRuntimeError:   The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         self._build_date = build_date
 
     @vreport('checking build_date {build_date}')
     def not_none(self) -> bool:
         '''
-            Checks is build date not None.
-            Note: Build date is only prepared when it is set by user (not None).
+            Checks if the build date is not None.
+            Note: The build date is only prepared when it is set by the user (not None).
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._build_date is not None
 
     def __str__(self) -> str:
         '''
-            Returns the BuildDate as string representation.
+            Returns the BuildDate as a string representation.
 
-            :return: The BuildDate as string representation.
+            :return: The BuildDate as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

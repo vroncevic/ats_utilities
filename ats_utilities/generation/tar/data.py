@@ -45,12 +45,12 @@ class TarData:
         It defines:
 
             :attributes:
-                | archive_path - Path to the .tgz archive containing templates.
-                | target_dir - Target directory where output should be written.
-                | source_dir - Source directory in tar to extract.
-                | path_replacements - String replacements mapping.
-                | exclude_patterns - Patterns of files/directories to exclude.
-                | vals - Computed template values for substitution.
+                | archive_path - The path to the .tgz archive containing templates.
+                | target_dir - The target directory where output should be written.
+                | source_dir - The source directory in tar to extract.
+                | path_replacements - The string replacements mapping.
+                | exclude_patterns - The patterns of files/directories to exclude.
+                | vals - The computed template values for substitution.
             :methods:
                 | to_dict - Converts the tar process data to a dictionary.
     '''
@@ -66,7 +66,7 @@ class TarData:
         '''
             Converts the tar process data to a dictionary.
 
-            :return: Dictionary representation of the tar process data.
+            :return: The dictionary representation of the tar process data.
             :exceptions: None.
         '''
         return instance_to_dict(self)
@@ -82,8 +82,8 @@ class TarMemberData:
             :attributes:
                 | tar - The open tar archive instance.
                 | member - The member info to process.
-                | dest_full_path - Absolute destination file path.
-                | vals - Computed template values for substitution.
+                | dest_full_path - The absolute destination file path.
+                | vals - The computed template values for substitution.
             :methods:
                 | to_dict - Converts the tar member data to a dictionary.
     '''
@@ -97,7 +97,7 @@ class TarMemberData:
         '''
             Converts the tar member data to a dictionary.
 
-            :return: Dictionary representation of the tar member data.
+            :return: The dictionary representation of the tar member data.
             :exceptions: None.
         '''
         return instance_to_dict(self)

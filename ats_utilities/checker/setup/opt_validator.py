@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for the checker options.
+    A validator for the checker options instance.
 '''
 
 from __future__ import annotations
@@ -40,18 +40,18 @@ __status__ = 'Development'
 
 class CheckerOptionsValidator:
     '''
-        Validator for the checker options.
+        A validator for the checker options instance.
 
         It defines:
 
             :methods:
-                | validate - Validates the checker options.
+                | validate - Validates the checker options instance.
     '''
 
     @classmethod
     def validate(cls, options: CheckerOptions) -> None:
         '''
-            Validates the checker options.
+            Validates the checker options instance.
 
             :param options: The checker options to be validated.
             :exceptions:

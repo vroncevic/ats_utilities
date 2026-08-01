@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Name with attribute(s) and method(s).
+    Defines the Name class with attribute(s) and method(s).
     Provides an API for the name in one property object.
 '''
 
@@ -40,19 +40,19 @@ __status__ = 'Development'
 
 class Name:
     '''
-        Defines class Name with attribute(s) and method(s).
+        Defines the Name class with attribute(s) and method(s).
         Provides an API for the name in one property object.
-        Note: Name is only prepared when it is set by user (not None).
+        Note: The name is only prepared when it is set by the user (not None).
 
         It defines:
 
             :attributes:
-                | _name - The name for App/Tool/Script (default None).
+                | _name - The name for the App/Tool/Script (default: None).
             :methods:
-                | __init__ - Initializes Name constructor.
-                | name - Property methods for set/get name.
-                | not_none - Checks is name not None.
-                | __str__ - Returns the Name as string representation.
+                | __init__ - Initializes the Name instance.
+                | name - Property methods for setting and getting the name.
+                | not_none - Checks if the name is not None.
+                | __str__ - Returns the Name as a string representation.
     '''
 
     _name: str | None
@@ -60,9 +60,9 @@ class Name:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes Name constructor.
+            Initializes the Name instance.
 
-            :param context_bundle: Context bundle for name.
+            :param context_bundle: The context bundle for name.
             :exceptions:
                 | ATSValueError:  Context bundle must be provided and have proper values.
                 | ATSTypeError:   Context bundle must be an instance of ContextBundle
@@ -77,13 +77,13 @@ class Name:
     @vreport('getting name {name}')
     def name(self) -> str | None:
         '''
-            Property method for getting name.
-            Note: Name is only prepared when it is set by user (not None).
+            Property method for getting the name.
+            Note: The name is only prepared when it is set by the user (not None).
 
             :return: The name in string format | None.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._name
@@ -93,40 +93,40 @@ class Name:
     @vreport('setting name {name}')
     def name(self, name: str) -> None:
         '''
-            Property method for setting name.
-            Note: Name is only prepared when it is set by user (not None).
+            Property method for setting the name.
+            Note: The name is only prepared when it is set by the user (not None).
 
             :param name: The name in string format.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSRuntimeError: The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         self._name = name
 
     @vreport('checking name {name}')
     def not_none(self) -> bool:
         '''
-            Checks is name not None.
-            Note: Name is only prepared when it is set by user (not None).
+            Checks if the name is not None.
+            Note: The name is only prepared when it is set by the user (not None).
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._name is not None
 
     def __str__(self) -> str:
         '''
-            Returns the Name as string representation.
+            Returns the Name as a string representation.
 
-            :return: The Name as string representation.
+            :return: The Name as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

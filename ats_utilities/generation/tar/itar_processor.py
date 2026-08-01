@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ITarProcessor with method(s).
+    Defines the ITarProcessor abstract class with method(s).
     Interface for tar archive extraction and template rendering.
 '''
 
@@ -37,7 +37,7 @@ __status__ = 'Development'
 @runtime_checkable
 class ITarProcessor[TarDataType, TarMemberDataType](Protocol):
     '''
-        Defines abstract class ITarProcessor with method(s).
+        Defines the ITarProcessor abstract class with method(s).
         Interface for tar archive extraction and template rendering.
 
         It defines:
@@ -46,14 +46,14 @@ class ITarProcessor[TarDataType, TarMemberDataType](Protocol):
                 | process_tar_member - Processes a single tar archive member.
                 | process - Processes the tar archive members.
                 | is_initialized - Checks if tar processor is initialized.
-                | __str__ - Returns tar processor as string representation.
+                | __str__ - Returns the tar processor as a string representation.
     '''
 
     def process_tar_member(self, tar_process_member_bundle: TarMemberDataType) -> None:
         '''
             Extracts and processes a single tar member (creates dirs or renders files).
 
-            :param tar_process_member_bundle: Parameters defining what to do with tar archive member.
+            :param tar_process_member_bundle: The parameters defining what to do with tar archive member.
         '''
         ...
 
@@ -61,7 +61,7 @@ class ITarProcessor[TarDataType, TarMemberDataType](Protocol):
         '''
             Processes tar archive members.
 
-            :param tar_process_bundle: Parameters defining what to do with tar archive.
+            :param tar_process_bundle: The parameters defining what to do with tar archive.
         '''
         ...
 
@@ -69,14 +69,14 @@ class ITarProcessor[TarDataType, TarMemberDataType](Protocol):
         '''
             Checks if tar processor is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns tar processor as string representation.
+            Returns the tar processor as a string representation.
 
-            :return: Tar processor as string representation.
+            :return: The Tar processor as a string representation.
         '''
         ...

@@ -77,7 +77,7 @@ class CheckerKeys:
         '''
             Returns mapping of the checker dependencies to their types.
 
-            :return: Mapping of the checker dependencies to their types.
+            :return: The mapping of the checker dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -92,7 +92,7 @@ class CheckerKeys:
         '''
             Returns mapping of the checker options to their types.
 
-            :return: Mapping of the checker options to their types.
+            :return: The mapping of the checker options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

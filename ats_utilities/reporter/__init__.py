@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Initialize ats_utilities.reporter package.
+    Initializes the ats_utilities.reporter package.
 '''
 
 from __future__ import annotations

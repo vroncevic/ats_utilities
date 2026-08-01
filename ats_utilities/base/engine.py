@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Base with attribute(s) and method(s).
+    Defines the Base class with attribute(s) and method(s).
     Provides an API for base engine (application, tool, script).
 '''
 
@@ -44,27 +44,27 @@ __status__ = 'Development'
 
 class Base:
     '''
-        Defines class Base with attribute(s) and method(s).
+        Defines the Base class with attribute(s) and method(s).
         Provides an API for base engine (application, tool, script).
 
         It defines:
 
             :attributes:
-                | _is_initialized - Indicates if the base is initialized.
-                | _context - Context with core utilities.
-                | _info_manager - Manager for application/tool/script information.
-                | _splash_manager - Manager for application/tool/script splash screen.
-                | _option_manager - Manager for application/tool/script command line arguments parsing.
-                | _generation_manager - Manager for application/tool/script outputs generation.
+                | _is_initialized - The indicates if the base is initialized.
+                | _context - The context with core utilities.
+                | _info_manager - The manager for application/tool/script information.
+                | _splash_manager - The manager for application/tool/script splash screen.
+                | _option_manager - The manager for application/tool/script command line arguments parsing.
+                | _generation_manager - The manager for application/tool/script outputs generation.
             :methods:
                 | __init__ - Initializes base engine.
-                | get_bundle - Gets current configuration bundle.
-                | update_bundle - Updates configuration bundle.
+                | get_bundle - Gets the current configuration bundle.
+                | update_bundle - Updates the configuration bundle.
                 | _apply_bundle - Applies bundle configuration to instance attributes.
                 | get_context - Returns the context.
-                | is_initialized - Checks if base engine is initialized.
+                | is_initialized - Checks if the base engine is initialized.
                 | process - Processes and runs application/tool/script.
-                | __str__ - Returns base engine as string representation.
+                | __str__ - Returns the base engine as a string representation.
     '''
 
     _is_initialized: bool
@@ -78,7 +78,7 @@ class Base:
         '''
             Initializes base engine.
 
-            :param own: Base bundle containing core components for base package.
+            :param own: The base bundle containing core components for base package.
             :exceptions:
                 | ATSValueError: Base bundle must be provided and have proper values.
                 | ATSTypeError:  Base bundle must be an instance of BaseBundle
@@ -98,7 +98,7 @@ class Base:
         '''
             Gets current base configuration bundle.
 
-            :return: Base configuration bundle.
+            :return: The base configuration bundle.
             :exceptions: None.
         '''
         return BaseBundle(
@@ -113,8 +113,8 @@ class Base:
         '''
             Updates base configuration bundle.
 
-            :param bundle: Base configuration bundle.
-            :return: True if configuration was successfully updated, False otherwise.
+            :param bundle: The base configuration bundle.
+            :return: True if the configuration was successfully updated, False otherwise.
             :exceptions: None.
         '''
         try:
@@ -135,7 +135,7 @@ class Base:
         '''
             Applies bundle configuration to instance attributes.
 
-            :param bundle: Base bundle with components.
+            :param bundle: The base bundle with components.
             :exceptions: None.
         '''
         self._context = bundle.context_bundle
@@ -146,36 +146,36 @@ class Base:
 
     def get_context(self) -> ContextBundle:
         '''
-            Returns current context.
+            Returns the current context.
 
-            :return: Current context.
+            :return: The current context.
             :exceptions: None.
         '''
         return self._context
 
     def is_initialized(self) -> bool:
         '''
-            Checks if base engine is initialized.
+            Checks if the base engine is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return self._is_initialized
 
     def process(self, verbose: bool = False) -> bool:
         '''
-            Processes and runs App/Tool/Script.
+            Processes and runs the App/Tool/Script.
 
-            :param verbose: Enable/Disable verbose option (default False).
-            :return: True if successfully, otherwise False.
+            :param verbose: The Enable/Disable the verbose option (default: False).
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns base engine as string representation.
+            Returns the base engine as a string representation.
 
-            :return: Base engine as string representation.
+            :return: The Base engine as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

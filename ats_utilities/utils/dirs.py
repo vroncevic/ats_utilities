@@ -46,9 +46,9 @@ def check_dir_exists(
     '''
         Checks if a directory exists.
 
-        :param dir_path: Path to the directory.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param dir_path: The path to the directory.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is None.
         :exceptions:
             | ATSTypeError: Parameter type validation failed.

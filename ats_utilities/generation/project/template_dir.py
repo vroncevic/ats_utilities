@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class TemplateDir with attribute(s) and method(s).
+    Defines the TemplateDir class with attribute(s) and method(s).
     Defines project template directory container.
 '''
 
@@ -40,19 +40,19 @@ __status__ = 'Development'
 
 class TemplateDir:
     '''
-        Defines class TemplateDir with attribute(s) and method(s).
+        Defines the TemplateDir class with attribute(s) and method(s).
         Defines project template directory container.
         Mechanism for project configuration.
 
         It defines:
 
             :attributes:
-                | _template_dir - Project template dir path (default None).
+                | _template_dir - The project template dir path (default: None).
             :methods:
-                | __init__ - Initializes template dir.
-                | template_dir - Property methods for set/get operations.
-                | not_none - Checks template dir is not None.
-                | __str__ - Returns ATS project template directory as string representation.
+                | __init__ - Initializes the template dir instance.
+                | template_dir - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the template dir is not None.
+                | __str__ - Returns the ATS project template directory as a string representation.
     '''
 
     _template_dir: str | None
@@ -60,9 +60,9 @@ class TemplateDir:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes template dir.
+            Initializes the template dir instance.
 
-            :param context_bundle: Context bundle for template dir.
+            :param context_bundle: The context bundle for template dir.
             :exceptions:
                 | ATSValueError: Context bundle must be provided and have proper values.
                 | ATSTypeError:  Context bundle must be an instance of ContextBundle and
@@ -76,12 +76,12 @@ class TemplateDir:
     @vreport('getting template dir {template_dir}')
     def template_dir(self) -> str:
         '''
-            Property method for getting template dir.
+            Property method for getting the template dir.
 
-            :return: Formatted template dir in string format.
+            :return: The formatted template dir in string format.
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._template_dir
@@ -91,38 +91,38 @@ class TemplateDir:
     @vreport('getting template dir {template_dir}')
     def template_dir(self, dir_path: str) -> None:
         '''
-            Property method for setting project template dir.
+            Property method for setting the project template dir.
 
-            :param dir_path: Project template dir path in string format.
+            :param dir_path: The project template dir path in string format.
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSTypeError:      Parameter type validation failed.
                 | ATSValueError:     Parameter format validation failed.
-                | ATSRuntimeError:   Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSRuntimeError:   The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         self._template_dir = dir_path
 
     @vreport('checking template dir {template_dir}')
     def not_none(self) -> bool:
         '''
-            Checks project template dir is not None.
+            Checks if the project template dir is not None.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._template_dir is not None
 
     def __str__(self) -> str:
         '''
-            Returns ATS project template directory as string representation.
+            Returns the ATS project template directory as a string representation.
 
-            :return: ATS project template directory as string representation.
+            :return: The ATS project template directory as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

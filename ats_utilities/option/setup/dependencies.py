@@ -43,8 +43,8 @@ class OptionDependencies(TypedDict):
         It defines:
 
             :attributes:
-                | strategy: Strategy for argument parsing.
-                | context_bundle: Context bundle for dependency injection.
+                | strategy - The strategy for argument parsing.
+                | context_bundle - The context bundle for dependency injection.
     '''
 
     strategy: IParserStrategy

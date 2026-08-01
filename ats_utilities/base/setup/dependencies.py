@@ -46,11 +46,11 @@ class BaseDependencies(TypedDict):
         It defines:
 
             :attributes:
-                | context_bundle: Context bundle.
-                | info_manager: Information manager.
-                | option_manager: Options parser.
-                | splash_manager: SplashManager.
-                | generation_manager: GeneratorManager.
+                | context_bundle - The context bundle.
+                | info_manager - The information manager.
+                | option_manager - The options parser.
+                | splash_manager - The SplashManager.
+                | generation_manager - The GeneratorManager.
     '''
 
     context_bundle: ContextBundle

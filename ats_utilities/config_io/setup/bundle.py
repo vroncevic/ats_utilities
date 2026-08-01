@@ -46,11 +46,11 @@ class ConfigIOBundle:
         It defines:
 
             :attributes:
-                | READ_MODE - Default file opening mode.
-                | WRITE_MODE - Default file opening mode.
-                | file_path - Configuration file path.
-                | processor - Configuration processor.
-                | context_bundle - Context bundle.
+                | READ_MODE - The default file opening mode.
+                | WRITE_MODE - The default file opening mode.
+                | file_path - The configuration file path.
+                | processor - The configuration processor.
+                | context_bundle - The context bundle.
             :methods:
                 | to_dict - Converts config I/O bundle to a dictionary.
     '''
@@ -65,7 +65,7 @@ class ConfigIOBundle:
         '''
             Converts config I/O bundle to a dictionary.
 
-            :return: Dictionary representation of the config I/O bundle.
+            :return: The dictionary representation of the config I/O bundle.
             :exceptions: None.
         '''
         return instance_to_dict(self)

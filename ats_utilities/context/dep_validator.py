@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for the context dependencies.
+    A validator for the context dependencies instance.
 '''
 
 from __future__ import annotations
@@ -40,18 +40,18 @@ __status__ = 'Development'
 
 class ContextDependenciesValidator:
     '''
-        Validator for the context dependencies.
+        A validator for the context dependencies instance.
 
         It defines:
 
             :methods:
-                | validate - Validates the context dependencies.
+                | validate - Validates the context dependencies instance.
     '''
 
     @classmethod
     def validate(cls, dependencies: ContextDependencies) -> None:
         '''
-            Validates the context dependencies.
+            Validates the context dependencies instance.
 
             :param dependencies: The context dependencies to be validated.
             :exceptions:

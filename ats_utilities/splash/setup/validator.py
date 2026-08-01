@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for splash bundle instance.
+    A validator for the splash bundle instance.
 '''
 
 from __future__ import annotations
@@ -45,20 +45,20 @@ __status__ = 'Development'
 
 class SplashValidator:
     '''
-        Validator for splash bundle instance.
+        A validator for the splash bundle instance.
 
         It defines:
 
             :methods:
-                | validate - Validates splash bundle instance.
+                | validate - Validates the splash bundle instance.
     '''
 
     @classmethod
     def validate(cls, bundle: SplashBundle) -> None:
         '''
-            Validates splash bundle instance.
+            Validates the splash bundle instance.
 
-            :param bundle: Splash bundle instance to be validated.
+            :param bundle: The splash bundle instance to be validated.
             :exceptions:
                 | ATSValueError: Option bundle must be provided and have proper values.
                 | ATSTypeError:  Option bundle must be an instance of OptionBundle and its
@@ -77,7 +77,7 @@ class SplashValidator:
         msg_pb_type: str = 'progress bar must be an IProgressBar instance'
         msg_context_bundle_none: str = 'context bundle must be provided'
         msg_context_bundle_type: str = 'context bundle must be a ContextBundle instance'
-        msg_logo_path: str = 'App/Tool/Script logo file path not correct'
+        msg_logo_path: str = 'the App/Tool/Script logo file path not correct'
 
         not_none(bundle, ctx, msg_bundle_none)
         istype(bundle, SplashBundle, ctx, msg_bundle_type)

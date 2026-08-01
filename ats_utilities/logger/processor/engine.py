@@ -46,8 +46,8 @@ class MessageProcessor:
         Provides an API for processing/sanitizing log messages.
 
         :attributes:
-            | DEFAULT_ESCAPE - Regex pattern for ANSI escape codes.
-            | _pattern - Regex pattern for message processing.
+            | DEFAULT_ESCAPE - The regex pattern for ANSI escape codes.
+            | _pattern - The regex pattern for message processing.
         :methods:
             | __init__ - Initializes a message processor.
             | get_pattern - Gets a regex pattern for message processing.

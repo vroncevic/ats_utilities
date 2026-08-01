@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for generator data.
+    A validator for the generator data instance.
 '''
 
 from __future__ import annotations
@@ -41,22 +41,22 @@ __status__ = 'Development'
 class GeneratorDataValidator:
     '''
 
-        Validator for generator data.
+        A validator for the generator data instance.
         
         It defines:
 
             :attributes:
                 | 
             :methods:
-                | validate - Validates generator data.
+                | validate - Validates the generator data instance.
     '''
 
     @classmethod
     def validate(cls, data: GeneratorData) -> None:
         '''
-            Validates generator data.
+            Validates the generator data instance.
 
-            :param data: Generator data to be validated.
+            :param data: The generator data to be validated.
             :exceptions:
                 | ATSValueError: Generator data must be provided and have proper values.
                 | ATSTypeError:  Generator data must be an instance of GeneratorData and

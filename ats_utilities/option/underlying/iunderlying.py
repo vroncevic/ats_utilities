@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IUnderlyingParser with method(s).
+    Defines the IUnderlyingParser abstract class with method(s).
     Provides an interface for the underlying parser.
 '''
 
@@ -28,7 +28,7 @@ from typing import Protocol, runtime_checkable
 @runtime_checkable
 class IUnderlyingParser[NamespaceType, ArgsType, ActionType, SubparsersActionType, KnownArgsType](Protocol):
     '''
-        Defines abstract class IUnderlyingParser with method(s).
+        Defines the IUnderlyingParser abstract class with method(s).
         Provides an interface for the underlying parser.
 
         It defines:
@@ -44,9 +44,9 @@ class IUnderlyingParser[NamespaceType, ArgsType, ActionType, SubparsersActionTyp
         '''
             Adds an operational argument/flag to the parser.
 
-            :param args: Flags/arguments.
-            :param kwargs: Arguments as dictionary.
-            :return: Added argument/flag.
+            :param args: The flags/arguments.
+            :param kwargs: The arguments as dictionary.
+            :return: The added argument/flag.
         '''
         ...
 
@@ -54,8 +54,8 @@ class IUnderlyingParser[NamespaceType, ArgsType, ActionType, SubparsersActionTyp
         '''
             Adds subparsers to the parser.
 
-            :param kwargs: Arguments as dictionary.
-            :return: Added subparsers container.
+            :param kwargs: The arguments as dictionary.
+            :return: The added subparsers container.
         '''
         ...
 
@@ -63,8 +63,8 @@ class IUnderlyingParser[NamespaceType, ArgsType, ActionType, SubparsersActionTyp
         '''
             Parses the input arguments.
 
-            :param args: Sequence of arguments.
-            :return: Container with parsed arguments.
+            :param args: The sequence of arguments.
+            :return: The container with parsed arguments.
         '''
         ...
 
@@ -72,7 +72,7 @@ class IUnderlyingParser[NamespaceType, ArgsType, ActionType, SubparsersActionTyp
         '''
             Parses known input arguments.
  
-            :param args: Sequence of arguments.
-            :return: Container with parsed known arguments.
+            :param args: The sequence of arguments.
+            :return: The container with parsed known arguments.
         '''
         ...

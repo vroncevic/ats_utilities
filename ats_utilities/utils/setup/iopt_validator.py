@@ -43,14 +43,14 @@ class IOptionsValidator[OptionsType](Protocol):
         It defines:
 
             :methods:
-                | validate - Validates an options instance.
+                | validate - Validates the an options instance.
     '''
 
     @classmethod
     def validate(cls, options: OptionsType) -> None:
         '''
-            Validates an options instance.
+            Validates the an options instance.
 
-            :param options: Options instance to be validated.
+            :param options: The options instance to be validated.
         '''
         ...

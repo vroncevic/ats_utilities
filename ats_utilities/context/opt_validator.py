@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for context options.
+    A validator for the context options instance.
 '''
 
 from __future__ import annotations
@@ -40,18 +40,18 @@ __status__ = 'Development'
 
 class ContextOptionsValidator:
     '''
-        Validator for context options.
+        A validator for the context options instance.
 
         It defines:
 
             :methods:
-                | validate - Validates the context options.
+                | validate - Validates the context options instance.
     '''
 
     @classmethod
     def validate(cls, options: ContextOptions) -> None:
         '''
-            Validates the context options.
+            Validates the context options instance.
 
             :param options: The context options to be validated.
             :exceptions:

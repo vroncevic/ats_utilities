@@ -60,8 +60,8 @@ class GeneratorFactory:
         '''
             Creates a generator bundle using configuration options.
 
-            :param options: Creation options/parameters for the bundle.
-            :return: Generator bundle.
+            :param options: The creation options/parameters for the bundle.
+            :return: The generator bundle.
             :exceptions:
                 | ATSValueError: Generator options must be provided and have proper values.
                 | ATSTypeError:  Generator options must be an instance of Mapping and its attributes

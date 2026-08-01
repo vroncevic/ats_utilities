@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for splash dependencies.
+    A validator for the splash dependencies instance.
 '''
 
 from __future__ import annotations
@@ -42,20 +42,20 @@ __status__ = 'Development'
 
 class SplashDependenciesValidator(IDependenciesValidator[SplashDependencies]):
     '''
-        Validator for splash dependencies.
+        A validator for the splash dependencies instance.
 
         It defines:
 
             :methods:
-                | validate - Validates splash dependencies instance.
+                | validate - Validates the splash dependencies instance.
     '''
 
     @classmethod
     def validate(cls, dependencies: SplashDependencies) -> None:
         '''
-            Validates splash dependencies instance.
+            Validates the splash dependencies instance.
 
-            :param dependencies: Splash dependencies instance to be validated.
+            :param dependencies: The splash dependencies instance to be validated.
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper attributes.
                 | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for generator options.
+    A validator for the generator options instance.
 '''
 
 from __future__ import annotations
@@ -41,20 +41,20 @@ __status__ = 'Development'
 
 class GeneratorOptionsValidator:
     '''
-        Validator for generator options.
+        A validator for the generator options instance.
 
         It defines:
 
             :methods:
-                | validate - Validates generator options.
+                | validate - Validates the generator options instance.
     '''
 
     @classmethod
     def validate(cls, options: GeneratorOptions) -> None:
         '''
-            Validates generator options.
+            Validates the generator options instance.
 
-            :param options: Generator options to be validated.
+            :param options: The generator options to be validated.
             :exceptions:
                 | ATSValueError: Generator options must be provided and have proper values.
                 | ATSTypeError:  Generator options must be an instance of Mapping and its attributes

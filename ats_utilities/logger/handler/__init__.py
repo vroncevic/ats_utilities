@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Initialize ats_utilities.logger.handler package.
+    Initializes the ats_utilities.logger.handler package.
 '''
 
 from __future__ import annotations

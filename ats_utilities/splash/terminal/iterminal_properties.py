@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ITerminalProperties with method(s).
+    Defines the ITerminalProperties abstract class with method(s).
     Interface for getting terminal properties.
 '''
 
@@ -37,7 +37,7 @@ __status__ = 'Development'
 @runtime_checkable
 class ITerminalProperties[FileDescriptorType, WindowSizeType](Protocol):
     '''
-        Defines abstract class ITerminalProperties with method(s).
+        Defines the ITerminalProperties abstract class with method(s).
         Interface for getting terminal properties.
 
         It defines:
@@ -46,15 +46,15 @@ class ITerminalProperties[FileDescriptorType, WindowSizeType](Protocol):
                 | ioctl_get_window_size - Gets size for file descriptor.
                 | ioctl_for_all_descriptors - Sets size for all file descriptors.
                 | size - Gets terminal window size.
-                | __str__ - Returns terminal properties as string representation.
+                | __str__ - Returns the terminal properties as a string representation.
     '''
 
     def ioctl_get_window_size(self, file_descriptor: FileDescriptorType) -> WindowSizeType:
         '''
             Gets size for file descriptor.
 
-            :param file_descriptor: File descriptor.
-            :return: Window size of terminal.
+            :param file_descriptor: The file descriptor.
+            :return: The window size of terminal.
         '''
         ...
 
@@ -68,14 +68,14 @@ class ITerminalProperties[FileDescriptorType, WindowSizeType](Protocol):
         '''
             Gets terminal window size.
 
-            :return: Terminal window size.
+            :return: The terminal window size.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns terminal properties as string representation.
+            Returns the terminal properties as a string representation.
 
-            :return: Terminal properties as string representation.
+            :return: The Terminal properties as a string representation.
         '''
         ...

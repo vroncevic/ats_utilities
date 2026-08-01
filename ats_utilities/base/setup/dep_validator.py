@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for base dependencies.
+    A validator for the base dependencies instance.
 '''
 
 from __future__ import annotations
@@ -41,20 +41,20 @@ __status__ = 'Development'
 
 class BaseDependenciesValidator:
     '''
-        Validator for base dependencies.
+        A validator for the base dependencies instance.
 
         It defines:
 
             :methods:
-                | validate - Validates base dependencies.
+                | validate - Validates the base dependencies instance.
     '''
 
     @classmethod
     def validate(cls, dependencies: BaseDependencies) -> None:
         '''
-            Validates base dependencies.
+            Validates the base dependencies instance.
 
-            :param dependencies: Base dependencies.
+            :param dependencies: The base dependencies.
             :exceptions:
                 | ATSValueError: Base dependencies must be provided and have proper values.
                 | ATSTypeError:  Base dependencies must be an instance of Mapping and its attributes

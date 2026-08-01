@@ -40,11 +40,11 @@ class MessageKey(StrEnum):
         It defines:
 
             :attributes:
-                | VERBOSE - Verbose message type.
-                | SUCCESS - Success message type.
-                | WARNING - Warning message type.
-                | ERROR - Error message type.
-                | RESET - Reset message type.
+                | VERBOSE - The verbose message type.
+                | SUCCESS - The success message type.
+                | WARNING - The warning message type.
+                | ERROR - The error message type.
+                | RESET - The reset message type.
     '''
 
     VERBOSE = 'verbose'

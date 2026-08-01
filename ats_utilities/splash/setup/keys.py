@@ -50,14 +50,14 @@ class SplashKeys:
         It defines:
 
             :attributes:
-                | DEPENDENCY_SPLASH_PROPERTY - Dependency key for splash property instance.
-                | DEPENDENCY_PROPERTY_VALIDATED - Dependency key for property validated flag.
-                | DEPENDENCY_TERMINAL_PROPERTY - Dependency key for terminal properties instance.
-                | DEPENDENCY_EXT - Dependency key for external infrastructure instance.
-                | DEPENDENCY_PB - Dependency key for progress bar instance.
-                | DEPENDENCY_CONTEXT_BUNDLE - Dependency key for context bundle instance.
-                | OPTION_PROP - Option key for splash properties.
-                | OPTION_CONTEXT_BUNDLE - Option key for context bundle instance.
+                | DEPENDENCY_SPLASH_PROPERTY - The dependency key for splash property instance.
+                | DEPENDENCY_PROPERTY_VALIDATED - The dependency key for property validated flag.
+                | DEPENDENCY_TERMINAL_PROPERTY - The dependency key for terminal properties instance.
+                | DEPENDENCY_EXT - The dependency key for external infrastructure instance.
+                | DEPENDENCY_PB - The dependency key for progress bar instance.
+                | DEPENDENCY_CONTEXT_BUNDLE - The dependency key for context bundle instance.
+                | OPTION_PROP - The option key for splash properties.
+                | OPTION_CONTEXT_BUNDLE - The option key for context bundle instance.
             :methods:
                 | get_dependency_to_type - Returns mapping of splash dependencies to their types.
                 | get_option_to_type - Returns mapping of splash options to their types.
@@ -80,7 +80,7 @@ class SplashKeys:
         '''
             Returns mapping of splash dependencies to their types.
 
-            :return: Mapping of splash dependencies to their types.
+            :return: The mapping of splash dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -97,7 +97,7 @@ class SplashKeys:
         '''
             Returns mapping of splash options to their types.
 
-            :return: Mapping of splash options to their types.
+            :return: The mapping of splash options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

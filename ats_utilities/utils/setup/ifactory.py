@@ -51,7 +51,7 @@ class IFactory[BundleType, OptionsType](Protocol):
         '''
             Creates a bundle instance.
 
-            :param options: Bundle options.
-            :return: Bundle instance.
+            :param options: The bundle options.
+            :return: The bundle instance.
         '''
         ...

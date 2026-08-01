@@ -44,14 +44,14 @@ class ParserAdapter:
         It defines:
 
             :attributes:
-                | _parser - Underlying parser instance.
+                | _parser - The underlying parser instance.
             :methods:
                 | __init__ - Initializes parser adapter.
                 | add_argument - Adds an operational argument/flag to the parser.
                 | add_subparsers - Adds subparsers to the parser.
                 | parse_args - Parses the input arguments and returns an OptionNamespace.
                 | parse_known_args - Parses known input arguments.
-                | __str__ - Returns parser adapter as string representation.
+                | __str__ - Returns the parser adapter as a string representation.
     '''
 
     _parser: ArgumentParser
@@ -60,7 +60,7 @@ class ParserAdapter:
         '''
             Initializes parser adapter.
 
-            :param parser: Underlying parser instance.
+            :param parser: The underlying parser instance.
             :exceptions: None.
         '''
         self._parser = parser
@@ -69,8 +69,8 @@ class ParserAdapter:
         '''
             Adds an operational argument/flag to the parser.
 
-            :param args: Flags/arguments.
-            :param kwargs: Arguments as dictionary.
+            :param args: The flags/arguments.
+            :param kwargs: The arguments as dictionary.
             :return: The added action object.
             :exceptions: None.
         '''
@@ -80,7 +80,7 @@ class ParserAdapter:
         '''
             Adds subparsers to the parser.
 
-            :param kwargs: Arguments as dictionary.
+            :param kwargs: The arguments as dictionary.
             :return: The subparsers action object.
             :exceptions: None.
         '''
@@ -90,8 +90,8 @@ class ParserAdapter:
         '''
             Parses the input arguments and returns an OptionNamespace.
 
-            :param args: Sequence of arguments.
-            :return: Option namespace object.
+            :param args: The sequence of arguments.
+            :return: The option namespace object.
             :exceptions: None.
         '''
         return self._parser.parse_args(args)
@@ -100,17 +100,17 @@ class ParserAdapter:
         '''
             Parses known input arguments.
 
-            :param args: Sequence of arguments.
-            :return: Tuple containing option namespace and unknown arguments.
+            :param args: The sequence of arguments.
+            :return: The tuple containing option namespace and unknown arguments.
             :exceptions: None.
         '''
         return self._parser.parse_known_args(args)
 
     def __str__(self) -> str:
         '''
-            Returns parser adapter as string representation.
+            Returns the parser adapter as a string representation.
 
-            :return: Parser adapter as string representation.
+            :return: The Parser adapter as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for option options.
+    A validator for the option options instance.
 '''
 
 from __future__ import annotations
@@ -42,20 +42,20 @@ __status__ = 'Development'
 
 class OptionOptionsValidator(IOptionsValidator[OptionOptions]):
     '''
-        Validator for option options.
+        A validator for the option options instance.
 
         It defines:
 
             :methods:
-                | validate - Validates option options instance.
+                | validate - Validates the option options instance.
     '''
 
     @classmethod
     def validate(cls, options: OptionOptions) -> None:
         '''
-            Validates option options instance.
+            Validates the option options instance.
 
-            :param options: Option options instance to be validated.
+            :param options: The option options instance to be validated.
             :exceptions:
                 | ATSValueError: Options must be provided and have proper values.
                 | ATSTypeError:  Options must be an instance of Mapping and its

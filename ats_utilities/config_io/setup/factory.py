@@ -57,8 +57,8 @@ class ConfigIOFactory:
         '''
             Creates a config I/O bundle using configuration options.
 
-            :param options: Creation options/parameters for the bundle.
-            :return: Config I/O bundle instance.
+            :param options: The creation options/parameters for the bundle.
+            :return: The config I/O bundle instance.
             :exceptions:
                 | ATSValueError: Options must be provided and have proper values.
                 | ATSTypeError:  Options must be an instance of Mapping and its

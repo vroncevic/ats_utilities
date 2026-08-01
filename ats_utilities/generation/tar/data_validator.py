@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for generator data.
+    A validator for the generator data instance.
 '''
 
 from __future__ import annotations
@@ -41,22 +41,22 @@ __status__ = 'Development'
 class TarDataValidator:
     '''
 
-        Validator for tar data.
+        A validator for the tar data instance.
         
         It defines:
 
             :attributes:
                 | 
             :methods:
-                | validate - Validates tar data.
+                | validate - Validates the tar data instance.
     '''
 
     @classmethod
     def validate(cls, data: TarData) -> None:
         '''
-            Validates tar data.
+            Validates the tar data instance.
 
-            :param data: Tar data to be validated.
+            :param data: The tar data to be validated.
             :exceptions:
                 | ATSValueError: Tar data must be provided and have proper values.
                 | ATSTypeError:  Tar data must be an instance of TarData and
@@ -99,22 +99,22 @@ class TarDataValidator:
 class TarMemberDataValidator:
     '''
 
-        Validator for tar member data.
+        A validator for the tar member data instance.
         
         It defines:
 
             :attributes:
                 | 
             :methods:
-                | validate - Validates tar member data.
+                | validate - Validates the tar member data instance.
     '''
 
     @classmethod
     def validate(cls, data: TarMemberData) -> None:
         '''
-            Validates tar member data.
+            Validates the tar member data instance.
 
-            :param data: Tar member data to be validated.
+            :param data: The tar member data to be validated.
             :exceptions:
                 | ATSValueError: Tar member data must be provided and have proper values.
                 | ATSTypeError:  Tar member data must be an instance of TarMemberData and

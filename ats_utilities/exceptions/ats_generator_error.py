@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSGeneratorError with attribute(s) and method(s).
+    Defines the ATSGeneratorError class with attribute(s) and method(s).
     Creates an exception for the template generator mechanism.
 '''
 
@@ -36,7 +36,7 @@ __status__ = 'Development'
 
 class ATSGeneratorError(ATSError):
     '''
-        Defines class ATSGeneratorError with attribute(s) and method(s).
+        Defines the ATSGeneratorError class with attribute(s) and method(s).
         Creates an exception for the template generator mechanism.
 
         It defines:

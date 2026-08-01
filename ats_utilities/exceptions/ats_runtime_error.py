@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSRuntimeError with attribute(s) and method(s).
+    Defines the ATSRuntimeError class with attribute(s) and method(s).
     Creates an exception mechanism (raise error for not expected runtime).
 '''
 
@@ -36,7 +36,7 @@ __status__ = 'Development'
 
 class ATSRuntimeError(ATSError, RuntimeError):
     '''
-        Defines class ATSRuntimeError with attribute(s) and method(s).
+        Defines the ATSRuntimeError class with attribute(s) and method(s).
         Creates an exception mechanism (raise error for not expected runtime).
 
         It defines:

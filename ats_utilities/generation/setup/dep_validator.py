@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for generator dependencies.
+    A validator for the generator dependencies instance.
 '''
 
 from __future__ import annotations
@@ -41,20 +41,20 @@ __status__ = 'Development'
 
 class GeneratorDependenciesValidator:
     '''
-        Validator for generator dependencies.
+        A validator for the generator dependencies instance.
 
         It defines:
 
             :methods:
-                | validate - Validates generator dependencies.
+                | validate - Validates the generator dependencies instance.
     '''
 
     @classmethod
     def validate(cls, dependencies: GeneratorDependencies) -> None:
         '''
-            Validates generator dependencies.
+            Validates the generator dependencies instance.
 
-            :param dependencies: Generator dependencies instance to be validated.
+            :param dependencies: The generator dependencies instance to be validated.
             :exceptions:
                 | ATSValueError: Generator dependencies must be provided and have proper values.
                 | ATSTypeError:  Generator dependencies must be an instance of Mapping and its attributes

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class LogFile with attribute(s) and method(s).
+    Defines the LogFile class with attribute(s) and method(s).
     Provides an API for the log file path in one property object.
 '''
 
@@ -40,19 +40,19 @@ __status__ = 'Development'
 
 class LogFile:
     '''
-        Defines class LogFile with attribute(s) and method(s).
+        Defines the LogFile class with attribute(s) and method(s).
         Provides an API for the log file path in one property object.
-        Note: Log file path is only prepared when it is set by user (not None).
+        Note: The log file path is only prepared when it is set by the user (not None).
 
         It defines:
 
             :attributes:
-                | _log_file - The log file path for App/Tool/Script (default None).
+                | _log_file - The log file path for the App/Tool/Script (default: None).
             :methods:
-                | __init__ - Initializes LogFile constructor.
-                | log_file - Property methods for set/get log_file.
-                | not_none - Checks is log file path not None.
-                | __str__ - Returns the LogFile as string representation.
+                | __init__ - Initializes the LogFile instance.
+                | log_file - Property methods for setting and getting the log_file.
+                | not_none - Checks if the log file path is not None.
+                | __str__ - Returns the LogFile as a string representation.
     '''
 
     _log_file: str | None
@@ -60,9 +60,9 @@ class LogFile:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes LogFile constructor.
+            Initializes the LogFile instance.
 
-            :param context_bundle: Context bundle for log_file.
+            :param context_bundle: The context bundle for log_file.
             :exceptions:
                 | ATSValueError:  Context bundle must be provided and have proper values.
                 | ATSTypeError:   Context bundle must be an instance of ContextBundle
@@ -77,13 +77,13 @@ class LogFile:
     @vreport('getting log file {log_file}')
     def log_file(self) -> str | None:
         '''
-            Property method for getting log file path.
-            Note: Log file path is only prepared when it is set by user (not None).
+            Property method for getting the log file path.
+            Note: The log file path is only prepared when it is set by the user (not None).
 
             :return: The log file path in string format | None.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._log_file
@@ -93,40 +93,40 @@ class LogFile:
     @vreport('setting log file {log_file}')
     def log_file(self, log_file: str) -> None:
         '''
-            Property method for setting log file path.
-            Note: Log file path is only prepared when it is set by user (not None).
+            Property method for setting the log file path.
+            Note: The log file path is only prepared when it is set by the user (not None).
 
             :param log_file: The log file path in string format.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSRuntimeError: The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         self._log_file = log_file
 
     @vreport('checking log file {log_file}')
     def not_none(self) -> bool:
         '''
-            Checks is log file path not None.
-            Note: Log file path is only prepared when it is set by user (not None).
+            Checks if the log file path is not None.
+            Note: The log file path is only prepared when it is set by the user (not None).
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._log_file is not None
 
     def __str__(self) -> str:
         '''
-            Returns the LogFile as string representation.
+            Returns the LogFile as a string representation.
 
-            :return: The LogFile as string representation.
+            :return: The LogFile as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

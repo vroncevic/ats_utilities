@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory for creating info bundle instance.
+    A factory for creating an info bundle instance.
 '''
 
 from __future__ import annotations
@@ -44,21 +44,21 @@ __status__ = 'Development'
 
 class InfoFactory:
     '''
-        Factory for creating InfoBundle instance.
+        A factory for creating an InfoBundle instance.
 
         It defines:
 
             :methods:
-                | create_bundle - Creates a info bundle with pre-configured options.
+                | create_bundle - Creates an info bundle with pre-configured options.
     '''
 
     @classmethod
     def create_bundle(cls, options: InfoOptions) -> InfoBundle:
         '''
-            Creates a info bundle with pre-configured options.
+            Creates an info bundle with pre-configured options.
 
-            :param options: Dictionary containing info options.
-            :return: Info bundle instance.
+            :param options: The dictionary containing info options.
+            :return: The info bundle instance.
             :exceptions:
                 | ATSValueError: Info options must be provided and have proper values.
                 | ATSTypeError:  Info options must be an instance of Mapping and its

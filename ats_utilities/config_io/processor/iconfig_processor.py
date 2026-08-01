@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IConfigProcessor with method(s).
+    Defines the IConfigProcessor abstract class with method(s).
     Provides an interface for processing configuration content.
     1th level of configuration loader/storer interface.
 '''
@@ -38,7 +38,7 @@ __status__ = 'Development'
 @runtime_checkable
 class IConfigProcessor[DataType](Protocol):
     '''
-        Defines abstract class IConfigProcessor with method(s).
+        Defines the IConfigProcessor abstract class with method(s).
         Provides an interface for processing configuration content.
         1th level of configuration loader/storer interface.
 
@@ -47,10 +47,10 @@ class IConfigProcessor[DataType](Protocol):
             :methods:
                 | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).
                 | serialize - Converts the internal configuration structure back to a formatted string representation.
-                | update_data - Updates the internal configuration data and validates it against the scheme.
+                | update_data - Updates the internal configuration data and Validates the it against the scheme instance.
                 | to_dict - Returns the parsed configuration as a flat or structured dictionary.
-                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.
-                | __str__ - Returns the configuration processor as string representation.
+                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme instance.
+                | __str__ - Returns the configuration processor as a string representation.
 
         Understanding the `scheme` Parameter
         ------------------------------------
@@ -69,8 +69,8 @@ class IConfigProcessor[DataType](Protocol):
         '''
             Loads and parses configuration from a raw source (string, stream, or lines).
 
-            :param content: Raw configuration data (str, stream, or sequence).
-            :return: True if successfully, otherwise False.
+            :param content: The raw configuration data (str, stream, or sequence).
+            :return: True if successful, otherwise False.
         '''
         ...
 
@@ -78,16 +78,16 @@ class IConfigProcessor[DataType](Protocol):
         '''
             Converts internal configuration structure back to a formatted string representation.
 
-            :return: Configuration content as string.
+            :return: The configuration content as a string.
         '''
         ...
 
     def update_data(self, new_data: DataType) -> bool:
         '''
-            Updates internal configuration data and validates it against the scheme.
+            Updates internal configuration data and Validates the it against the scheme instance.
 
-            :param new_data: Configuration data.
-            :return: True if successfully, otherwise False.
+            :param new_data: The configuration data.
+            :return: True if successful, otherwise False.
         '''
         ...
 
@@ -95,22 +95,22 @@ class IConfigProcessor[DataType](Protocol):
         '''
             Returns parsed configuration as a flat or structured dictionary.
 
-            :return: Configuration.
+            :return: The configuration.
         '''
         ...
 
     def validate_by_scheme(self) -> bool:
         '''
-            Validates internal parsed data structure against the provided scheme.
+            Validates the internal parsed data structure against the provided scheme instance.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns configuration processor as string representation.
+            Returns the configuration processor as a string representation.
 
-            :return: Configuration processor as string representation.
+            :return: The Configuration processor as a string representation.
         '''
         ...

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSAttributeError with attribute(s) and method(s).
+    Defines the ATSAttributeError class with attribute(s) and method(s).
     Creates an exception for the mechanism checking object attribute.
 '''
 
@@ -36,7 +36,7 @@ __status__ = 'Development'
 
 class ATSAttributeError(ATSError, AttributeError):
     '''
-        Defines class ATSAttributeError with attribute(s) and method(s).
+        Defines the ATSAttributeError class with attribute(s) and method(s).
         Creates an exception for the mechanism checking object attribute.
 
         It defines:

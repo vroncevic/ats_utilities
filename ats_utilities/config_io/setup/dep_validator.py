@@ -54,7 +54,7 @@ class ConfigIODependenciesValidator:
         '''
             Validates config I/O dependencies.
 
-            :param dependencies: Config I/O dependencies to be validated.
+            :param dependencies: The config I/O dependencies to be validated.
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper attributes.
                 | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes

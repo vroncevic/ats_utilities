@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IGeneratorManager with method(s).
+    Defines the IGeneratorManager abstract class with method(s).
     Provides an interface for template-based file generation from .tgz archives.
 '''
 
@@ -37,7 +37,7 @@ __status__ = 'Development'
 @runtime_checkable
 class IGeneratorManager[ConfigType, GeneratorTemplatesType, GeneratorDataType, ContextEnvironment](Protocol):
     '''
-        Defines abstract class IGeneratorManager with method(s).
+        Defines the IGeneratorManager abstract class with method(s).
         Provides an interface for template-based file generation from .tgz archives.
 
         It defines:
@@ -49,15 +49,14 @@ class IGeneratorManager[ConfigType, GeneratorTemplatesType, GeneratorDataType, C
                 | prepare_template_values - Prepares template values.
                 | generate - Generates project modules/files from a .tgz archive.
                 | is_initialized - Checks if the generator manager is initialized.
-                | __str__ - Returns generator manager as string representation.
+                | __str__ - Returns the generator manager as a string representation.
     '''
 
     def get_bundle(self) -> ConfigType:
         '''
             Gets current generator configuration bundle.
 
-            :return: Generator configuration bundle.
-            :exceptions: None.
+            :return: The generator configuration bundle.
         '''
         ...
 
@@ -65,9 +64,8 @@ class IGeneratorManager[ConfigType, GeneratorTemplatesType, GeneratorDataType, C
         '''
             Updates generator configuration bundle.
 
-            :param bundle: Generator configuration bundle.
+            :param bundle: The generator configuration bundle.
             :return: True if generator configuration bundle is updated successfully.
-            :exceptions: None.
         '''
         ...
 
@@ -75,7 +73,7 @@ class IGeneratorManager[ConfigType, GeneratorTemplatesType, GeneratorDataType, C
         '''
             Returns the context.
 
-            :return: Context.
+            :return: The context.
         '''
         ...
 
@@ -83,7 +81,7 @@ class IGeneratorManager[ConfigType, GeneratorTemplatesType, GeneratorDataType, C
         '''
             Prepares template values.
 
-            :param template_values: Input replacement values.
+            :param template_values: The input replacement values.
             :return: The updated template values dictionary.
         '''
         ...
@@ -92,8 +90,8 @@ class IGeneratorManager[ConfigType, GeneratorTemplatesType, GeneratorDataType, C
         '''
             Generates project modules/files from a .tgz archive.
 
-            :param data: GeneratorManager data containing template generation parameters.
-            :return: True if successfully, otherwise False.
+            :param data: The GeneratorManager data containing template generation parameters.
+            :return: True if successful, otherwise False.
         '''
         ...
 
@@ -101,14 +99,14 @@ class IGeneratorManager[ConfigType, GeneratorTemplatesType, GeneratorDataType, C
         '''
             Checks if generator manager is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns generator manager as string representation.
+            Returns the generator manager as a string representation.
 
-            :return: GeneratorManager manager as string representation.
+            :return: The GeneratorManager manager as a string representation.
         '''
         ...

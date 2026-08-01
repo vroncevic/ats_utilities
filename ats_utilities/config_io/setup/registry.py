@@ -52,8 +52,8 @@ class ConfigIORegistry:
         '''
             Orchestrates dependency injection and creates a ConfigIOBundle.
 
-            :param dependencies: Registry-specific orchestration dependencies.
-            :return: ConfigIOBundle.
+            :param dependencies: The registry-specific orchestration dependencies.
+            :return: The ConfigIOBundle.
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper values.
                 | ATSTypeError:  Dependencies must be an instance of Mapping and its

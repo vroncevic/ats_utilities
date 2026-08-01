@@ -106,7 +106,7 @@ class LoggerAdapter:
             Adds a file handler for logging.
 
             :param log_file: The log file path.
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         try:
@@ -128,7 +128,7 @@ class LoggerAdapter:
         '''
             Adds a stdout handler for logging.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         try:

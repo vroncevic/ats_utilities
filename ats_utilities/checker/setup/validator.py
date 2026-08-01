@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for the checker bundle.
+    A validator for the checker bundle instance.
 '''
 
 from __future__ import annotations
@@ -41,18 +41,18 @@ __status__ = 'Development'
 
 class CheckerValidator:
     '''
-        Validator for the checker bundle.
+        A validator for the checker bundle instance.
 
         It defines:
 
             :methods:
-                | validate - Validates the checker bundle.
+                | validate - Validates the checker bundle instance.
     '''
 
     @classmethod
     def validate(cls, bundle: CheckerBundle) -> None:
         '''
-            Validates the checker bundle.
+            Validates the checker bundle instance.
 
             :param bundle: The checker bundle to be validated.
             :exceptions:

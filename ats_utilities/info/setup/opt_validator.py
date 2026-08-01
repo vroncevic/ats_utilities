@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for info options.
+    A validator for the info options instance.
 '''
 
 from __future__ import annotations
@@ -40,20 +40,20 @@ __status__ = 'Development'
 
 class InfoOptionsValidator:
     '''
-        Validator for info options.
+        A validator for the info options instance.
 
         It defines:
 
             :methods:
-                | validate - Validates info options instance.
+                | validate - Validates the info options instance.
     '''
 
     @classmethod
     def validate(cls, options: InfoOptions) -> None:
         '''
-            Validates info options instance.
+            Validates the info options instance.
 
-            :param options: Info options instance to be validated.
+            :param options: The info options instance to be validated.
             :exceptions:
                 | ATSValueError: Options must be provided and have proper values.
                 | ATSTypeError:  Options must be an instance of Mapping and its

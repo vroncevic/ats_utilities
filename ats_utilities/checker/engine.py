@@ -55,7 +55,7 @@ class Checker:
         It defines:
 
             :attributes:
-                | _is_initialized - Indicates if the checker component is initialized.
+                | _is_initialized - The indicates if the checker component is initialized.
                 | _format_validator - The format validator that is used in the validation of parameters.
                 | _type_validator - The type validator that is used in the validation of parameters.
                 | _context_provider - The context provider that is used in the validation of parameters.
@@ -115,7 +115,7 @@ class Checker:
             Updates the checker configuration bundle.
 
             :param bundle: The checker configuration bundle.
-            :return: True if configuration was successfully updated, False otherwise.
+            :return: True if the configuration was successfully updated, False otherwise.
             :exceptions: None.
         '''
         try:
@@ -258,7 +258,7 @@ class Checker:
         '''
             Checks if the checker is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return self._is_initialized

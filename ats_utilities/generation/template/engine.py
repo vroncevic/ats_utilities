@@ -47,12 +47,12 @@ class TemplateProcessor:
         It defines:
 
             :attributes:
-                | _initialized - Status of the template processor.
+                | _initialized - The status of the template processor.
             :methods:
-                | __init__ - Initializes TemplateProcessor constructor.
+                | __init__ - Initializes the TemplateProcessor instance.
                 | render - Decodes and renders template placeholders.
                 | is_initialized - Checks if the template processor is initialized.
-                | __str__ - Returns template processor as string representation.
+                | __str__ - Returns the template processor as a string representation.
     '''
 
     _initialized: bool
@@ -60,7 +60,7 @@ class TemplateProcessor:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes TemplateProcessor constructor.
+            Initializes the TemplateProcessor instance.
 
             :param context_bundle: Context bundle for template processor | None.
             :exceptions:
@@ -77,8 +77,8 @@ class TemplateProcessor:
             Decodes and renders template placeholders.
 
             :param raw_content: The raw byte content of the file.
-            :param vals: String replacement values.
-            :return: Rendered text content, or raw bytes if binary format.
+            :param vals: The string replacement values.
+            :return: The rendered text content, or raw bytes if binary format.
             :exceptions: None.
         '''
         try:
@@ -94,16 +94,16 @@ class TemplateProcessor:
         '''
             Checks if template processor is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return self._initialized
 
     def __str__(self) -> str:
         '''
-            Returns template processor as string representation.
+            Returns the template processor as a string representation.
 
-            :return: Template processor as string representation.
+            :return: The Template processor as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

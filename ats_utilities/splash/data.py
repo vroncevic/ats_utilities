@@ -43,8 +43,8 @@ class CenterData:
         It defines:
 
             :attributes:
-                | columns - Column count for console session.
-                | additional_shifter - Additional shifters.
+                | columns - The column count for console session.
+                | additional_shifter - The additional shifters.
             :methods:
                 | to_dict - Converts the center data instance to a dictionary.
     '''
@@ -56,7 +56,7 @@ class CenterData:
         '''
             Converts the center data instance to a dictionary.
 
-            :return: Dictionary representation of the center data instance.
+            :return: The dictionary representation of the center data instance.
             :exceptions: None.
         '''
         return instance_to_dict(self)

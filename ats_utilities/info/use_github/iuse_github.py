@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IUseGitHub with method(s).
+    Defines the IUseGitHub abstract class with method(s).
     Interface for the use GitHub infrastructure mechanism.
 '''
 
@@ -37,23 +37,23 @@ __status__ = 'Development'
 @runtime_checkable
 class IUseGitHub[UseGitHubType](Protocol):
     '''
-        Defines abstract class IUseGitHub with method(s).
+        Defines the IUseGitHub abstract class with method(s).
         Interface for the use GitHub infrastructure mechanism.
-        Note: Use GitHub is only prepared when it is set by user (not None).
+        Note: The use github is only prepared when it is set by the user (not None).
 
         It defines:
 
             :methods:
-                | use_github - Property methods for set/get operations.
-                | not_none - Checks if use GitHub infrastructure is not None.
-                | __str__ - Returns the use GitHub infrastructure as string representation.
+                | use_github - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the use GitHub infrastructure is not None.
+                | __str__ - Returns the use GitHub infrastructure as a string representation.
     '''
 
     @property
     def use_github(self) -> UseGitHubType | None:
         '''
-            Property method for getting use GitHub infrastructure status.
-            Note: Use GitHub is only prepared when it is set by user (not None).
+            Property method for getting the use GitHub infrastructure status.
+            Note: The use github is only prepared when it is set by the user (not None).
 
             :return: The use GitHub infrastructure status | None.
         '''
@@ -62,8 +62,8 @@ class IUseGitHub[UseGitHubType](Protocol):
     @use_github.setter
     def use_github(self, use_github: UseGitHubType) -> None:
         '''
-            Property method for setting use GitHub infrastructure status.
-            Note: Use GitHub is only prepared when it is set by user (not None).
+            Property method for setting the use GitHub infrastructure status.
+            Note: The use github is only prepared when it is set by the user (not None).
 
             :param use_github: The use GitHub infrastructure status.
         '''
@@ -71,17 +71,17 @@ class IUseGitHub[UseGitHubType](Protocol):
 
     def not_none(self) -> bool:
         '''
-            Checks if use GitHub infrastructure status is not None.
-            Note: Use GitHub is only prepared when it is set by user (not None).
+            Checks if the use GitHub infrastructure status is not None.
+            Note: The use github is only prepared when it is set by the user (not None).
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the use GitHub infrastructure as string representation.
+            Returns the use GitHub infrastructure as a string representation.
 
-            :return: The use GitHub infrastructure as string representation.
+            :return: The use GitHub infrastructure as a string representation.
         '''
         ...

@@ -57,8 +57,8 @@ class IConfigProcessorFactory(Protocol):
         '''
             Returns the processor class for a specific file extension.
 
-            :param extension: File extension.
-            :return: Processor class.
+            :param extension: The file extension.
+            :return: The processor class.
         '''
         ...
 
@@ -75,7 +75,7 @@ class IConfigProcessorFactory(Protocol):
             :param extension: File extension | None.
             :param scheme: Scheme for the processor | None.
             :param processor: Instance to be used as the processor | None.
-            :return: Processor instance.
+            :return: The processor instance.
         '''
         ...
 
@@ -92,6 +92,6 @@ class IConfigProcessorFactory(Protocol):
             :param file_path: Path to the configuration file | None.
             :param scheme: Scheme for the processor | None.
             :param processor: Instance to be used as the processor | None.
-            :return: Processor instance.
+            :return: The processor instance.
         '''
         ...

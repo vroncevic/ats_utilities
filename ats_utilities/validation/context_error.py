@@ -43,11 +43,11 @@ def raise_error(
     '''
         Raises a contextual exception using caller context.
 
-        :param fallback_context: Fallback prefix for exception.
-        :param fallback_msg: Fallback suffix for exception.
-        :param exc_context: Contextual prefix for exception.
-        :param exc_message: Contextual suffix for exception.
-        :param exc_class: Exception class to be raised.
+        :param fallback_context: The fallback prefix for exception.
+        :param fallback_msg: The fallback suffix for exception.
+        :param exc_context: The contextual prefix for exception.
+        :param exc_message: The contextual suffix for exception.
+        :param exc_class: The exception class to be raised.
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
     '''

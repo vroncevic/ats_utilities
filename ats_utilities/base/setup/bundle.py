@@ -49,11 +49,11 @@ class BaseBundle:
         It defines:
 
             :attributes:
-                | context_bundle - Context bundle.
-                | info_manager - Information manager.
-                | option_manager - Option manager.
-                | splash_manager - Splash manager.
-                | generation_manager - Generation manager.
+                | context_bundle - The context bundle.
+                | info_manager - The information manager.
+                | option_manager - The option manager.
+                | splash_manager - The splash manager.
+                | generation_manager - The generation manager.
             :methods:
                 | to_dict - Converts base bundle to a dictionary.
     '''
@@ -68,7 +68,7 @@ class BaseBundle:
         '''
             Converts base bundle to a dictionary.
 
-            :return: Dictionary representation of the base bundle.
+            :return: The dictionary representation of the base bundle.
             :exceptions:
                 | ATSValueError: Instance must be provided.
                 | ATSValueError: Instance must be a dataclass instance.

@@ -47,8 +47,8 @@ def vreport[F: Callable[..., object]](templates: str | list[str]) -> Callable[[F
         class instance to automatically format and report status messages.
         Supports single or multiple message templates with multiple variables.
 
-        :param templates: Single template string or a list of template strings.
-        :return: Wrapped function.
+        :param templates: The single template string or a list of template strings.
+        :return: The wrapped function.
         :exceptions:
             | ATSValueError:     The decorator requires at least one argument.
             | ATSRuntimeError:   The decorator cannot be used on a standalone function.

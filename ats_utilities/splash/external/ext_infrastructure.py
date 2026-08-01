@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ExtInfrastructure with attribute(s) and method(s).
+    Defines the ExtInfrastructure class with attribute(s) and method(s).
     Provides an API for processing hyperlinks for splash screen.
 '''
 
@@ -44,23 +44,23 @@ __status__ = 'Development'
 
 class ExtInfrastructure:
     '''
-        Defines class ExtInfrastructure with attribute(s) and method(s).
+        Defines the ExtInfrastructure class with attribute(s) and method(s).
         Provides an API for processing hyperlinks for splash screen.
         Note: Splash screen infrastructure comes from info configuration file as read only data.
 
         It defines:
 
             :attributes:
-                | _REQUESTED_KEYS - Requested keys from infrastructure property.
-                | _infrastructure_property - External infrastructure settings.
-                | _context - Context bundle.
+                | _REQUESTED_KEYS - The requested keys from infrastructure property.
+                | _infrastructure_property - The external infrastructure settings.
+                | _context - The context bundle.
             :methods:
-                | __init__ - Initials external infrastructure.
+                | __init__ - Initializes the external infrastructure instance.
                 | infrastructure_property - Property method for get/set external infrastructure.
                 | get_info_text - Pre-processes info text.
                 | get_issue_text - Pre-processes issue text.
                 | get_author_text - Pre-processes author text.
-                | __str__ - Returns external infrastructure as string representation.
+                | __str__ - Returns the external infrastructure as a string representation.
     '''
 
     _REQUESTED_KEYS: frozenset[str] = frozenset([
@@ -73,9 +73,9 @@ class ExtInfrastructure:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initials external infrastructure.
+            Initializes the external infrastructure instance.
 
-            :param context_bundle: Context bundle for external infrastructure.
+            :param context_bundle: The context bundle for external infrastructure.
             :exceptions:
                 | ATSValueError:  Context bundle must be provided and have proper values.
                 | ATSTypeError:   Context bundle must be an instance of ContextBundle
@@ -90,13 +90,13 @@ class ExtInfrastructure:
     @vreport('getting infrastructure property {infrastructure_property}')
     def infrastructure_property(self) -> Mapping[str, object]:
         '''
-            Property method for getting infrastructure property.
+            Property method for getting the infrastructure property.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :return: Formatted infrastructure property in Mapping format (read only data).
+            :return: The formatted infrastructure property in Mapping format (read only data).
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._infrastructure_property or {}
@@ -106,19 +106,19 @@ class ExtInfrastructure:
     @vreport('setting infrastructure property {infrastructure_property}')
     def infrastructure_property(self, settings: Mapping[str, object]) -> None:
         '''
-            Property method for setting project infrastructure property.
+            Property method for setting the project infrastructure property.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :param settings: Project infrastructure property in Mapping format (read only data).
+            :param settings: The project infrastructure property in Mapping format (read only data).
             :exceptions:
                 | ATSValueError:     Infrastructure property settings is missing required keys.
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSTypeError:      Parameter type validation failed.
                 | ATSValueError:     Parameter format validation failed.
-                | ATSRuntimeError:   Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSRuntimeError:   The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         ctx: str = 'ext_infrastructure::infrastructure_property(...)'
         msg: str = 'infrastructure property settings is missing required keys'
@@ -137,8 +137,8 @@ class ExtInfrastructure:
             :return: Hyperlink with info text | None.
             :exceptions:
                 | ATSValueError:     Missing or empty attribute: '_infrastructure_property'.
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         name: str = self._infrastructure_property.get(SplashProperty.NAME_SETTING)
@@ -158,8 +158,8 @@ class ExtInfrastructure:
             :return: Hyperlink with issue info | None.
             :exceptions:
                 | ATSValueError:     Missing or empty attribute: '_infrastructure_property'.
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         repo: str = self._infrastructure_property.get(SplashProperty.REPOSITORY_SETTING)
@@ -179,8 +179,8 @@ class ExtInfrastructure:
             :return: Hyperlink with author info | None.
             :exceptions:
                 | ATSValueError:     Missing or empty attribute: '_infrastructure_property'.
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         organization: str = self._infrastructure_property.get(SplashProperty.ORGANIZATION_SETTING)
@@ -192,9 +192,9 @@ class ExtInfrastructure:
 
     def __str__(self) -> str:
         '''
-            Returns external infrastructure as string representation.
+            Returns the external infrastructure as a string representation.
 
-            :return: External infrastructure as string representation.
+            :return: The External infrastructure as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

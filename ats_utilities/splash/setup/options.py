@@ -43,8 +43,8 @@ class SplashOptions(TypedDict):
         It defines:
 
             :attributes:
-                | prop: Splash screen properties in dict format.
-                | context_bundle: Context bundle instance.
+                | prop - The splash screen properties in dict format.
+                | context_bundle - The context bundle instance.
     '''
 
     prop: Mapping[str, object]

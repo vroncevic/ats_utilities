@@ -45,11 +45,11 @@ class GeneratorKeys:
         It defines:
 
             :attributes:
-                | DEPENDENCY_SCHEME_LOADER: Scheme loader interface constant.
-                | DEPENDENCY_TAR_PROCESSOR: Tar processor interface constant.
-                | DEPENDENCY_TEMPLATE_PROCESSOR: Template processor interface constant.
-                | DEPENDENCY_CONTEXT_BUNDLE: Context bundle constant.
-                | OPTION_CONTEXT_BUNDLE: Context bundle option constant.
+                | DEPENDENCY_SCHEME_LOADER - The scheme loader interface constant.
+                | DEPENDENCY_TAR_PROCESSOR - The tar processor interface constant.
+                | DEPENDENCY_TEMPLATE_PROCESSOR - The template processor interface constant.
+                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle constant.
+                | OPTION_CONTEXT_BUNDLE - The context bundle option constant.
             :methods:
                 | get_dependency_to_type - Returns mapping of generator dependencies to their types.
                 | get_option_to_type - Returns mapping of generator options to their types.
@@ -68,7 +68,7 @@ class GeneratorKeys:
         '''
             Returns mapping of generator dependencies to their types.
 
-            :return: Mapping of generator dependencies to their types.
+            :return: The mapping of generator dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -82,7 +82,7 @@ class GeneratorKeys:
         '''
             Returns mapping of generator options to their types.
 
-            :return: Mapping of generator options to their types.
+            :return: The mapping of generator options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

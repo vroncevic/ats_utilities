@@ -62,8 +62,8 @@ def has_attrs(*attr_names: str) -> Callable[[Callable[..., object]], Callable[..
         In case attribute value is not defined set default value to None.
         In case attribute value is not defined and not empty, raise ATSValueError exception.
 
-        :param attr_names: Tuple of attribute names to check.
-        :return: Decorated function.
+        :param attr_names: The tuple of attribute names to check.
+        :return: The decorated function.
         :exceptions:
             | ATSValueError: Missing or empty attribute: '{attr}'.
     '''
@@ -107,7 +107,7 @@ def to_str(instance: object) -> str:
         Cleans private attributes and appends memory addresses in hex.
 
         :param instance: The class instance to format.
-        :return: String representation of the instance.
+        :return: The string representation of the instance.
         :exceptions: None.
     '''
     class_name: str = instance.__class__.__name__
@@ -137,7 +137,7 @@ def instance_to_dict(instance: object) -> dict[str, object]:
         Converts a dataclass instance to a dictionary representation.
 
         :param instance: The dataclass instance.
-        :return: Dictionary representation of the dataclass.
+        :return: The dictionary representation of the dataclass.
         :exceptions:
             | ATSValueError: Instance must be provided.
             | ATSValueError: Instance must be a dataclass instance.

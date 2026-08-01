@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ISchemeLoader with method(s).
+    Defines the ISchemeLoader abstract class with method(s).
     Provides an interface for loading and resolving generation scheme.
 '''
 
@@ -38,7 +38,7 @@ __status__ = 'Development'
 @runtime_checkable
 class ISchemeLoader(Protocol):
     '''
-        Defines abstract class ISchemeLoader with method(s).
+        Defines the ISchemeLoader abstract class with method(s).
         Provides an interface for loading and resolving generation scheme.
 
         It defines:
@@ -46,16 +46,15 @@ class ISchemeLoader(Protocol):
             :methods:
                 | load - Loads and resolves the scheme from dict or path.
                 | is_initialized - Checks if scheme loader is initialized.
-                | __str__ - Returns scheme loader as string representation.
+                | __str__ - Returns the scheme loader as a string representation.
     '''
 
     def load(self, scheme: str | Mapping[str, object]) -> dict[str, object]:
         '''
             Loads and resolves the scheme.
 
-            :param scheme: Generation scheme file path or preloaded scheme.
-            :return: Resolved scheme dictionary.
-            :exceptions: None.
+            :param scheme: The generation scheme file path or preloaded scheme.
+            :return: The resolved scheme dictionary.
         '''
         ...
 
@@ -63,16 +62,14 @@ class ISchemeLoader(Protocol):
         '''
             Checks if scheme loader is initialized.
 
-            :return: True if successfully, otherwise False.
-            :exceptions: None.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns scheme loader as string representation.
+            Returns the scheme loader as a string representation.
 
-            :return: Scheme loader as string representation.
-            :exceptions: None.
+            :return: The Scheme loader as a string representation.
         '''
         ...

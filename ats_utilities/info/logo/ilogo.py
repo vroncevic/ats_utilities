@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILogo with method(s).
+    Defines the ILogo abstract class with method(s).
     Interface for the logo path mechanism.
 '''
 
@@ -37,23 +37,23 @@ __status__ = 'Development'
 @runtime_checkable
 class ILogo[LogoType](Protocol):
     '''
-        Defines abstract class ILogo with method(s).
+        Defines the ILogo abstract class with method(s).
         Interface for the logo path mechanism.
-        Note: Logo path is only prepared when it is set by user (not None).
+        Note: The logo path is only prepared when it is set by the user (not None).
 
         It defines:
 
             :methods:
-                | logo - Property methods for set/get operations.
-                | not_none - Checks if logo path is not None.
-                | __str__ - Returns the logo as string representation.
+                | logo - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the logo path is not None.
+                | __str__ - Returns the logo as a string representation.
     '''
 
     @property
     def logo(self) -> LogoType | None:
         '''
-            Property method for getting logo path.
-            Note: Logo path is only prepared when it is set by user (not None).
+            Property method for getting the logo path.
+            Note: The logo path is only prepared when it is set by the user (not None).
 
             :return: The logo path in LogoType format | None.
         '''
@@ -62,8 +62,8 @@ class ILogo[LogoType](Protocol):
     @logo.setter
     def logo(self, logo: LogoType) -> None:
         '''
-            Property method for setting logo path.
-            Note: Logo path is only prepared when it is set by user (not None).
+            Property method for setting the logo path.
+            Note: The logo path is only prepared when it is set by the user (not None).
 
             :param logo: The logo path in LogoType format.
         '''
@@ -71,8 +71,8 @@ class ILogo[LogoType](Protocol):
 
     def not_none(self) -> bool:
         '''
-            Checks if logo path is not None.
-            Note: Logo path is only prepared when it is set by user (not None).
+            Checks if the logo path is not None.
+            Note: The logo path is only prepared when it is set by the user (not None).
 
             :return: True (Not None) | False (None).
         '''
@@ -80,8 +80,8 @@ class ILogo[LogoType](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns the Logo as string representation.
+            Returns the Logo as a string representation.
 
-            :return: The Logo as string representation.
+            :return: The Logo as a string representation.
         '''
         ...

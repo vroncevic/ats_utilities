@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IOptionCommand with method(s).
+    Defines the IOptionCommand abstract class with method(s).
     Provides an interface for command with options.
 '''
 
@@ -38,7 +38,7 @@ __status__ = 'Development'
 @runtime_checkable
 class IOptionCommand[MetaOption](Protocol):
     '''
-        Defines abstract class IOptionCommand with method(s).
+        Defines the IOptionCommand abstract class with method(s).
         Provides an interface for command with options.
 
         It defines:
@@ -47,7 +47,7 @@ class IOptionCommand[MetaOption](Protocol):
                 | name - Returns the command name.
                 | help_text - Returns the command help text.
                 | options - Returns the sequence of options for the command.
-                | __str__ - Returns the option command as string representation.
+                | __str__ - Returns the option command as a string representation.
     '''
 
     @property
@@ -55,7 +55,7 @@ class IOptionCommand[MetaOption](Protocol):
         '''
             Returns the command name.
 
-            :return: Command name.
+            :return: The command name.
         '''
         ...
 
@@ -64,7 +64,7 @@ class IOptionCommand[MetaOption](Protocol):
         '''
             Returns the command help text.
 
-            :return: Command help text.
+            :return: The command help text.
         '''
         ...
 
@@ -73,7 +73,7 @@ class IOptionCommand[MetaOption](Protocol):
         '''
             Returns the sequence of options for the command.
 
-            :return: Sequence of options for the command.
+            :return: The sequence of options for the command.
         '''
         ...
 
@@ -81,6 +81,6 @@ class IOptionCommand[MetaOption](Protocol):
         '''
             Returns the string representation of option command.
 
-            :return: String representation of option command.
+            :return: The string representation of option command.
         '''
         ...

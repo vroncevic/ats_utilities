@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ConfFile with attribute(s) and method(s).
+    Defines the ConfFile class with attribute(s) and method(s).
     Provides an API for configuration file context manager.
     0th level of configuration loader/storer implementation.
 '''
@@ -48,21 +48,21 @@ __status__ = 'Development'
 
 class ConfFile:
     '''
-        Defines class ConfFile with attribute(s) and method(s).
+        Defines the ConfFile class with attribute(s) and method(s).
         Provides an API for configuration file context manager.
         0th level of configuration loader/storer implementation.
 
         It defines:
 
             :attributes:
-                | _file - File instance (default None).
-                | _file_path - Configuration file path.
-                | _file_mode - Configuration file mode.
+                | _file - The file instance (default: None).
+                | _file_path - The configuration file path.
+                | _file_mode - The configuration file mode.
             :methods:
-                | __init__ - Initializes ConfFile constructor.
+                | __init__ - Initializes the ConfFile instance.
                 | __enter__ - Opens configuration file in mode.
                 | __exit__ - Closes configuration file.
-                | __str__ - Returns configuration context manager as string.
+                | __str__ - Returns the configuration context manager as a string.
     '''
 
     _file: File | None
@@ -72,9 +72,9 @@ class ConfFile:
 
     def __init__(self, file_data: FileData) -> None:
         '''
-            Initializes ConfFile constructor.
+            Initializes the ConfFile instance.
 
-            :param file_data: File data.
+            :param file_data: The file data.
             :exceptions:
                 | ATSValueError: File data must be provided and have proper values.
                 | ATSTypeError:  File data must be an instance of FileData and its
@@ -91,10 +91,10 @@ class ConfFile:
         '''
             Opens configuration file in mode.
 
-            :return: File IO object.
+            :return: The file IO object.
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSValueError:     File path must be provided.
                 | ATSValueError:     File does not exist (when opening in read mode).
@@ -131,11 +131,11 @@ class ConfFile:
         '''
             Closes configuration file.
 
-            :param args: List of arguments.
-            :param kwargs: Dictionary of mapped arguments.
+            :param args: The list of arguments.
+            :param kwargs: The dictionary of mapped arguments.
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         try:
@@ -149,9 +149,9 @@ class ConfFile:
 
     def __str__(self) -> str:
         '''
-            Returns configuration context manager as string representation.
+            Returns the configuration context manager as a string representation.
 
-            :return: Configuration context manager as string representation.
+            :return: The Configuration context manager as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSParameterError with attribute(s) and method(s).
+    Defines the ATSParameterError class with attribute(s) and method(s).
     Creates an exception mechanism (raise error for not expected format).
 '''
 
@@ -36,7 +36,7 @@ __status__ = 'Development'
 
 class ATSParameterError(ATSError):
     '''
-        Defines class ATSParameterError with attribute(s) and method(s).
+        Defines the ATSParameterError class with attribute(s) and method(s).
         Creates an exception mechanism (raise error for not expected format).
 
         It defines:

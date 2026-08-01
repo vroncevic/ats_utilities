@@ -46,14 +46,14 @@ class IContextProvider[StackIndexCallerType, ContextFormatType](Protocol):
                 | set_stack_index_caller - Sets the index in the call stack to identify the caller.
                 | get_stack_index_caller - Returns the index in the call stack to identify the caller.
                 | get_context - Returns the calling context.
-                | __str__ - Returns the context provider as string representation.
+                | __str__ - Returns the context provider as a string representation.
     '''
 
     def set_stack_index_caller(self, stack_index_caller: StackIndexCallerType) -> None:
         '''
             Sets the index in the call stack to identify the caller.
 
-            :param stack_index_caller: Index in the call stack to identify the caller.
+            :param stack_index_caller: The index in the call stack to identify the caller.
         '''
         ...
 
@@ -61,7 +61,7 @@ class IContextProvider[StackIndexCallerType, ContextFormatType](Protocol):
         '''
             Returns the index in the call stack to identify the caller.
 
-            :return: Index in the call stack to identify the caller.
+            :return: The index in the call stack to identify the caller.
         '''
         ...
 

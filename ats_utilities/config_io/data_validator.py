@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for file data.
+    A validator for the file data instance.
 '''
 
 from __future__ import annotations
@@ -39,20 +39,20 @@ __status__: str = 'Development'
 
 class FileDataValidator:
     '''
-        Validator for file data.
+        A validator for the file data instance.
 
         It defines:
 
             :methods:
-                | validate - Validates file data.
+                | validate - Validates the file data instance.
     '''
 
     @classmethod
     def validate(cls, data: FileData) -> None:
         '''
-            Validates file data.
+            Validates the file data instance.
 
-            :param data: File data to be validated.
+            :param data: The file data to be validated.
             :exceptions:
                 | ATSValueError: File data must be provided and have proper values.
                 | ATSTypeError:  File data must be an instance of FileData and its

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IOptionManager with method(s).
+    Defines the IOptionManager abstract class with method(s).
     Provides an interface for option parsing.
 '''
 
@@ -52,7 +52,7 @@ class IOptionManager[
     Protocol
 ):
     '''
-        Defines abstract class IOptionManager with method(s).
+        Defines the IOptionManager abstract class with method(s).
         Provides an interface for option parsing.
 
         It defines:
@@ -63,15 +63,14 @@ class IOptionManager[
                 | get_context - Returns the context.
                 | strategy - Returns the parser strategy.
                 | is_initialized - Checks if option manager is initialized.
-                | __str__ - Returns option manager as string representation.
+                | __str__ - Returns the option manager as a string representation.
     '''
 
     def get_bundle(self) -> ConfigType:
         '''
             Gets current option configuration bundle.
 
-            :return: Option configuration bundle.
-            :exceptions: None.
+            :return: The option configuration bundle.
         '''
         ...
 
@@ -79,9 +78,8 @@ class IOptionManager[
         '''
             Updates option configuration bundle.
 
-            :param bundle: Option configuration bundle.
+            :param bundle: The option configuration bundle.
             :return: True if option configuration bundle is updated successfully.
-            :exceptions: None.
         '''
         ...
 
@@ -89,7 +87,7 @@ class IOptionManager[
         '''
             Returns the context.
 
-            :return: Context.
+            :return: The context.
         '''
         ...
 
@@ -98,7 +96,7 @@ class IOptionManager[
         '''
             Returns the parser strategy.
 
-            :return: Parser strategy.
+            :return: The parser strategy.
         '''
         ...
 
@@ -106,14 +104,14 @@ class IOptionManager[
         '''
             Checks if option manager is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns option manager as string representation.
+            Returns the option manager as a string representation.
 
-            :return: Option manager as string representation.
+            :return: The Option manager as a string representation.
         '''
         ...

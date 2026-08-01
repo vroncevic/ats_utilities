@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IOption with method(s).
+    Defines the IOption abstract class with method(s).
     Provides an interface for command options.
 '''
 
@@ -38,7 +38,7 @@ __status__ = 'Development'
 @runtime_checkable
 class IOption(Protocol):
     '''
-        Defines abstract class IOption with method(s).
+        Defines the IOption abstract class with method(s).
         Provides an interface for command options.
 
         It defines:
@@ -58,7 +58,7 @@ class IOption(Protocol):
         '''
             Returns the command line option name.
 
-            :return: Option name.
+            :return: The option name.
         '''
         ...
 
@@ -67,7 +67,7 @@ class IOption(Protocol):
         '''
             Returns the command line option help text.
 
-            :return: Option help text.
+            :return: The option help text.
         '''
         ...
 
@@ -76,7 +76,7 @@ class IOption(Protocol):
         '''
             Returns the optional action for this option.
 
-            :return: Option action.
+            :return: The option action.
         '''
         ...
 
@@ -85,7 +85,7 @@ class IOption(Protocol):
         '''
             Returns the optional default value for this option.
 
-            :return: Option default value.
+            :return: The option default value.
         '''
         ...
 
@@ -103,7 +103,7 @@ class IOption(Protocol):
         '''
             Returns the optional choices for this option.
 
-            :return: Option choices.
+            :return: The option choices.
         '''
         ...
 
@@ -112,7 +112,7 @@ class IOption(Protocol):
         '''
             Returns the optional number of arguments for this option.
 
-            :return: Option nargs.
+            :return: The option nargs.
         '''
         ...
 
@@ -120,6 +120,6 @@ class IOption(Protocol):
         '''
             Converts option properties to a dictionary of parser keyword arguments.
 
-            :return: Dictionary of parser keyword arguments.
+            :return: The dictionary of parser keyword arguments.
         '''
         ...

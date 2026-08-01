@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for reporter options.
+    A validator for the reporter options instance.
 '''
 
 from __future__ import annotations
@@ -40,20 +40,20 @@ __status__ = 'Development'
 
 class ReporterOptionsValidator:
     '''
-        Validator for reporter options.
+        A validator for the reporter options instance.
 
         It defines:
 
             :methods:
-                | validate - Validates reporter options instance.
+                | validate - Validates the reporter options instance.
     '''
 
     @classmethod
     def validate(cls, options: ReporterOptions) -> None:
         '''
-            Validates reporter options instance.
+            Validates the reporter options instance.
 
-            :param options: Reporter options instance to be validated.
+            :param options: The reporter options instance to be validated.
             :exceptions:
                 | ATSValueError: Options must be provided and have proper values.
                 | ATSTypeError:  Options must be an instance of Mapping and its attributes

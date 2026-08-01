@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of info bundle creation.
+    Encapsulates the core runtime components for the simplification of the info bundle creation.
 '''
 
 from __future__ import annotations
@@ -39,21 +39,21 @@ __status__ = 'Development'
 
 class InfoRegistry:
     '''
-        Encapsulates core runtime components for simplification of info bundle creation.
+        Encapsulates the core runtime components for the simplification of the info bundle creation.
 
         It defines:
 
             :methods:
-                | create_bundle - Orchestrates dependency injection and creates an info bundle instance.
+                | create_bundle - Orchestrates dependency injection and creates the info bundle instance.
     '''
 
     @classmethod
     def create_bundle(cls, dependencies: InfoDependencies) -> InfoBundle:
         '''
-            Orchestrates dependency injection and creates an info bundle instance.
+            Orchestrates dependency injection and creates the info bundle instance.
 
-            :param dependencies: Registry-specific orchestration dependencies.
-            :return: Info bundle instance.
+            :param dependencies: The registry-specific orchestration dependencies.
+            :return: The info bundle instance.
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper values.
                 | ATSTypeError:  Dependencies must be an instance of Mapping and its

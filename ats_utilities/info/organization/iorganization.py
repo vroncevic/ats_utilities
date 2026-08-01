@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IOrganization with method(s).
+    Defines the IOrganization abstract class with method(s).
     Interface for the organization mechanism.
 '''
 
@@ -37,23 +37,23 @@ __status__ = 'Development'
 @runtime_checkable
 class IOrganization[OrganizationType](Protocol):
     '''
-        Defines abstract class IOrganization with method(s).
+        Defines the IOrganization abstract class with method(s).
         Interface for the organization mechanism.
-        Note: Organization is only prepared when it is set by user (not None).
+        Note: The organization is only prepared when it is set by the user (not None).
 
         It defines:
 
             :methods:
-                | organization - Property methods for set/get operations.
-                | not_none - Checks if organization is not None.
-                | __str__ - Returns the organization as string representation.
+                | organization - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the organization is not None.
+                | __str__ - Returns the organization as a string representation.
     '''
 
     @property
     def organization(self) -> OrganizationType | None:
         '''
-            Property method for getting organization.
-            Note: Organization is only prepared when it is set by user (not None).
+            Property method for getting the organization.
+            Note: The organization is only prepared when it is set by the user (not None).
 
             :return: The organization in OrganizationType format | None.
         '''
@@ -62,8 +62,8 @@ class IOrganization[OrganizationType](Protocol):
     @organization.setter
     def organization(self, organization: OrganizationType) -> None:
         '''
-            Property method for setting organization.
-            Note: Organization is only prepared when it is set by user (not None).
+            Property method for setting the organization.
+            Note: The organization is only prepared when it is set by the user (not None).
 
             :param organization: The organization in OrganizationType format.
         '''
@@ -71,17 +71,17 @@ class IOrganization[OrganizationType](Protocol):
 
     def not_none(self) -> bool:
         '''
-            Checks if organization is not None.
-            Note: Organization is only prepared when it is set by user (not None).
+            Checks if the organization is not None.
+            Note: The organization is only prepared when it is set by the user (not None).
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the organization as string representation.
+            Returns the organization as a string representation.
 
-            :return: The organization as string representation.
+            :return: The organization as a string representation.
         '''
         ...

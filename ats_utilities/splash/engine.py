@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class SplashManager with attribute(s) and method(s).
+    Defines the SplashManager class with attribute(s) and method(s).
     Provides an API for splash screen with hyperlinks.
 '''
 
@@ -50,29 +50,29 @@ __status__ = 'Development'
 
 class SplashManager:
     '''
-        Defines class SplashManager with attribute(s) and method(s).
+        Defines the SplashManager class with attribute(s) and method(s).
         Provides an API for splash screen with hyperlinks.
 
         It defines:
 
             :attributes:
-                | _is_initialized - Indicates if splasher component is initialized.
-                | _show_splash - Indicates if splasher should be shown.
-                | _splash_property - Splash screen property component.
-                | _terminal_property - Terminal properties component.
-                | _ext - External infrastructure component.
-                | _pb - Progress bar component.
-                | _context - Context bundle with core components.
+                | _is_initialized - The indicates if splasher component is initialized.
+                | _show_splash - The indicates if splasher should be shown.
+                | _splash_property - The splash screen property component.
+                | _terminal_property - The terminal properties component.
+                | _ext - The external infrastructure component.
+                | _pb - The progress bar component.
+                | _context - The context bundle with core components.
             :methods:
                 | __init__ - Initializes splash manager.
-                | get_bundle - Returns current splash manager configuration bundle.
+                | get_bundle - Returns the current splash manager configuration bundle.
                 | update_bundle - Updates splash manager configuration bundle.
                 | _apply_bundle - Applies bundle configuration to instance attributes.
                 | get_context - Returns context bundle.
                 | show - Shows the splash screen.
                 | center - Centers console line and places text.
                 | is_initialized - Checks if splash manager is initialized.
-                | __str__ - Returns splash manager as string representation.
+                | __str__ - Returns the splash manager as a string representation.
     '''
 
     _is_initialized: bool
@@ -87,7 +87,7 @@ class SplashManager:
         '''
             Initializes splash manager.
 
-            :param own: Splash manager bundle.
+            :param own: The splash manager bundle.
             :exceptions:
                 | ATSValueError: Splash bundle must be provided and have proper values.
                 | ATSTypeError:  Splash bundle must be an instance of SplashBundle
@@ -103,7 +103,7 @@ class SplashManager:
         '''
             Gets current splash manager configuration bundle.
 
-            :return: Splash manager bundle.
+            :return: The splash manager bundle.
             :exceptions: None.
         '''
         return SplashBundle(
@@ -118,8 +118,8 @@ class SplashManager:
         '''
             Updates splash manager configuration bundle.
 
-            :param bundle: Splash manager bundle.
-            :return: True if configuration was successfully updated, False otherwise.
+            :param bundle: The splash manager bundle.
+            :return: True if the configuration was successfully updated, False otherwise.
             :exceptions: None.
         '''
         try:
@@ -137,7 +137,7 @@ class SplashManager:
         '''
             Applies bundle to instance attributes.
 
-            :param bundle: Splash manager bundle.
+            :param bundle: The splash manager bundle.
             :exceptions: None.
         '''
         SplashValidator.validate(bundle)
@@ -154,7 +154,7 @@ class SplashManager:
         '''
             Returns context bundle.
 
-            :return: Context bundle.
+            :return: The context bundle.
             :exceptions: None.
         '''
         return self._context
@@ -205,7 +205,7 @@ class SplashManager:
         '''
             Centers console line and places text.
 
-            :param position: Position data for console output.
+            :param position: The position data for console output.
             :param text: Text to be centered | None.
             :exceptions: None.
         '''
@@ -229,16 +229,16 @@ class SplashManager:
         '''
             Checks if splash manager is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return self._is_initialized
 
     def __str__(self) -> str:
         '''
-            Returns splash manager as string representation.
+            Returns the splash manager as a string representation.
 
-            :return: Splash manager as string representation.
+            :return: The Splash manager as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

@@ -72,7 +72,7 @@ class IUnderlyingLogger[MessageType, LogFileType, LogLevelType](Protocol):
             Adds a file handler for logging.
             
             :param log_file: The log file path.
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
@@ -80,7 +80,7 @@ class IUnderlyingLogger[MessageType, LogFileType, LogLevelType](Protocol):
         '''
             Adds a stdout handler for logging.
             
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 

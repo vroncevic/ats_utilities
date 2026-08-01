@@ -50,8 +50,8 @@ class CheckReporter:
         It defines:
 
             :attributes:
-                | DEFAULT_MESSAGES - Default messages used to report findings.
-                | _message_provider - Messages used to report findings.
+                | DEFAULT_MESSAGES - The default messages used to report findings.
+                | _message_provider - The messages used to report findings.
             :methods:
                 | __init__ - Initializes the check reporter.
                 | build_message - Builds the final message.

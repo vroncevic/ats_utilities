@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ISplashProperty with method(s).
+    Defines the ISplashProperty abstract class with method(s).
     Interface for checking splash screen property.
 '''
 
@@ -37,35 +37,35 @@ __status__ = 'Development'
 @runtime_checkable
 class ISplashProperty[PropertyType](Protocol):
     '''
-        Defines abstract class ISplashProperty with method(s).
+        Defines the ISplashProperty abstract class with method(s).
         Interface for checking splash screen property.
         Note: Splash screen property comes from info configuration file as read only data.
 
         It defines:
 
             :methods:
-                | settings - Property methods for set/get splash keys.
+                | settings - Property methods for setting and getting the splash keys.
                 | is_settings_enabled - Checks if settings are enabled.
-                | __str__ - Returns the splash keys as string representation.
+                | __str__ - Returns the splash keys as a string representation.
     '''
 
     @property
     def settings(self) -> PropertyType:
         '''
-            Property method for getting splash screen property.
+            Property method for getting the splash screen property.
             Note: Splash screen property comes from info configuration file as read only data.
 
-            :return: Formatted splash screen property in PropertyType format (read only data).
+            :return: The formatted splash screen property in PropertyType format (read only data).
         '''
         ...
 
     @settings.setter
     def settings(self, setup: PropertyType) -> None:
         '''
-            Property method for setting project splash screen property.
+            Property method for setting the project splash screen property.
             Note: Splash screen property comes from info configuration file as read only data.
 
-            :param setup: Project splash screen property in PropertyType format (read only data).
+            :param setup: The project splash screen property in PropertyType format (read only data).
         '''
         ...
 
@@ -79,8 +79,8 @@ class ISplashProperty[PropertyType](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns the splash keys as string representation.
+            Returns the splash keys as a string representation.
 
-            :return: The splash keys as string representation.
+            :return: The splash keys as a string representation.
         '''
         ...

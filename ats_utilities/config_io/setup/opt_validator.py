@@ -54,7 +54,7 @@ class ConfigIOOptionsValidator:
         '''
             Validates config I/O options.
 
-            :param options: Config I/O options to be validated.
+            :param options: The config I/O options to be validated.
             :exceptions:
                 | ATSValueError: Options must be provided and have proper attributes.
                 | ATSTypeError:  Options must be an instance of Mapping and its attributes

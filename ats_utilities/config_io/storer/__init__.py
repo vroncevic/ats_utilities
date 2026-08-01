@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Initialize ats_utilities.config_io.storer package.
+    Initializes the ats_utilities.config_io.storer package.
 '''
 
 from __future__ import annotations

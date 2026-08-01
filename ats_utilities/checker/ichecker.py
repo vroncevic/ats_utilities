@@ -120,7 +120,7 @@ class IChecker[ConfigType, ParametersSpecification, ValidationResult](Protocol):
         '''
             Checks if the checker is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 

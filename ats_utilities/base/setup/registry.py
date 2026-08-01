@@ -52,8 +52,8 @@ class BaseRegistry:
         '''
             Orchestrates dependency injection and creates a base bundle.
 
-            :param dependencies: Registry-specific orchestration dependencies.
-            :return: Base bundle.
+            :param dependencies: The registry-specific orchestration dependencies.
+            :return: The base bundle.
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper values.
                 | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes

@@ -44,9 +44,9 @@ class GeneratorDependencies(TypedDict):
         It defines:
 
             :attributes:
-                | scheme_loader: Loader/resolver for scheme configuration.
-                | tar_processor: Processor for archive extraction.
-                | context_bundle: Context bundle for generator.
+                | scheme_loader - The loader/resolver for the scheme configuration.
+                | tar_processor - The processor for the archive extraction.
+                | context_bundle - The context bundle for generator.
     '''
 
     scheme_loader: ISchemeLoader

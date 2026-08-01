@@ -115,7 +115,7 @@ class Logger:
         '''
             Checks if the logger is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return self._is_initialized
@@ -175,7 +175,7 @@ class Logger:
             Sets the log file.
 
             :param log_file: The log file path.
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         if self._handler_manager.set_log_file(log_file):
@@ -190,7 +190,7 @@ class Logger:
         '''
             Configures the output handler to output to the standard output.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         if self._handler_manager.set_stdout():

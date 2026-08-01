@@ -43,14 +43,14 @@ class IValidator[BundleType](Protocol):
         It defines:
 
             :methods:
-                | validate - Validates a bundle instance.
+                | validate - Validates the a bundle instance.
     '''
 
     @classmethod
     def validate(cls, bundle: BundleType) -> None:
         '''
-            Validates a bundle instance.
+            Validates the a bundle instance.
 
-            :param bundle: Bundle instance to be validated.
+            :param bundle: The bundle instance to be validated.
         '''
         ...

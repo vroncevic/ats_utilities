@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IOptionParser with method(s).
+    Defines the IOptionParser abstract class with method(s).
     Provides an interface for option parsing.
 '''
 
@@ -37,7 +37,7 @@ __status__: str = 'Development'
 @runtime_checkable
 class IOptionParser[NamespaceType, ArgsType, ParsedCommandType](Protocol):
     '''
-        Defines abstract class IOptionParser with method(s).
+        Defines the IOptionParser abstract class with method(s).
         Provides an interface for parsing options.
 
         It defines:
@@ -52,9 +52,8 @@ class IOptionParser[NamespaceType, ArgsType, ParsedCommandType](Protocol):
         '''
             Processes arguments from the start.
 
-            :param arguments: Sequence of arguments.
-            :return: Option namespace object.
-            :exceptions: None.
+            :param arguments: The sequence of arguments.
+            :return: The option namespace object.
         '''
         ...
 
@@ -62,9 +61,8 @@ class IOptionParser[NamespaceType, ArgsType, ParsedCommandType](Protocol):
         '''
             Processes arguments from the start.
 
-            :param arguments: Sequence of arguments.
-            :return: Option namespace object.
-            :exceptions: None.
+            :param arguments: The sequence of arguments.
+            :return: The option namespace object.
         '''
         ...
 
@@ -72,8 +70,7 @@ class IOptionParser[NamespaceType, ArgsType, ParsedCommandType](Protocol):
         '''
             Parses arguments as a command.
 
-            :param arguments: Sequence of arguments.
-            :return: Parsed command result.
-            :exceptions: None.
+            :param arguments: The sequence of arguments.
+            :return: The parsed command result.
         '''
         ...

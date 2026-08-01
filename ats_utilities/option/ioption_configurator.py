@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IOptionConfigurator with method(s).
+    Defines the IOptionConfigurator abstract class with method(s).
     Provides an interface for option configuration.
 '''
 
@@ -38,7 +38,7 @@ __status__: str = 'Development'
 @runtime_checkable
 class IOptionConfigurator[CommandType](Protocol):
     '''
-        Defines abstract class IOptionConfigurator with method(s).
+        Defines the IOptionConfigurator abstract class with method(s).
         Provides an interface for option configuration.
 
         It defines:
@@ -53,8 +53,8 @@ class IOptionConfigurator[CommandType](Protocol):
         '''
             Adds an option to the parser.
 
-            :param args: List of flags.
-            :param kwargs: Arguments in shape of dictionary.
+            :param args: The list of flags.
+            :param kwargs: The arguments in shape of dictionary.
         '''
         ...
 
@@ -63,7 +63,6 @@ class IOptionConfigurator[CommandType](Protocol):
             Adds version option to the parser.
 
             :param version: The version in string format | None.
-            :exceptions: None.
         '''
         ...
 
@@ -71,6 +70,6 @@ class IOptionConfigurator[CommandType](Protocol):
         '''
             Registers a sequence of commands with the parser.
 
-            :param commands: Sequence of commands to register (read only data).
+            :param commands: The sequence of commands to register (read only data).
         '''
         ...

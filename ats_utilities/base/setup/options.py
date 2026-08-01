@@ -42,8 +42,8 @@ class BaseOptions(TypedDict):
         It defines:
 
             :attributes:
-                | info_file: Information file path for App/Tool/Script.
-                | context_bundle: Context bundle.
+                | info_file - The information file path for the App/Tool/Script.
+                | context_bundle - The context bundle.
     '''
 
     info_file: str

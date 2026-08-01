@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class SplashProperty with attribute(s) and method(s).
+    Defines the SplashProperty class with attribute(s) and method(s).
     Provides an API for checking splash screen property.
 '''
 
@@ -44,24 +44,24 @@ __status__ = 'Development'
 
 class SplashProperty:
     '''
-        Defines class SplashProperty with attribute(s) and method(s).
+        Defines the SplashProperty class with attribute(s) and method(s).
         Provides an API for checking splash screen property.
         Note: Splash screen property comes from info configuration file as read only data.
 
         It defines:
 
             :attributes:
-                | NAME_SETTING - Key for application/tool/script name.
-                | REPOSITORY_SETTING - Key for application/tool/script repository.
-                | ORGANIZATION_SETTING - Key for application/tool/script organization.
-                | LOGO_SETTING - Key for application/tool/script logo.
-                | GITHUB_SETTING - Key for application/tool/script github.
-                | _settings - Splash keys for App/Tool/Script splash screen (default None).
+                | NAME_SETTING - The key for application/tool/script name.
+                | REPOSITORY_SETTING - The key for application/tool/script repository.
+                | ORGANIZATION_SETTING - The key for application/tool/script organization.
+                | LOGO_SETTING - The key for application/tool/script logo.
+                | GITHUB_SETTING - The key for application/tool/script github.
+                | _settings - The splash keys for the App/Tool/Script splash screen (default: None).
             :methods:
-                | __init__ - Initials SplashProperty constructor.
+                | __init__ - Initializes the SplashProperty instance.
                 | settings - Property method for get/set splash keys.
                 | is_settings_enabled - Checks if settings are enabled.
-                | __str__ - Returns splash property as string representation.
+                | __str__ - Returns the splash property as a string representation.
     '''
 
     ENABLED_SETTING: str = 'enabled'
@@ -75,9 +75,9 @@ class SplashProperty:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initials SplashProperty constructor.
+            Initializes the SplashProperty instance.
 
-            :param context_bundle: Context bundle for splash screen property.
+            :param context_bundle: The context bundle for splash screen property.
             :exceptions:
                 | ATSValueError:  Context bundle must be provided and have proper values.
                 | ATSTypeError:   Context bundle must be an instance of ContextBundle
@@ -99,13 +99,13 @@ class SplashProperty:
     @vreport('getting splash property {settings}')
     def settings(self) -> Mapping[str, object]:
         '''
-            Property method for getting splash screen property.
+            Property method for getting the splash screen property.
             Note: Splash screen property comes from info configuration file as read only data.
 
-            :return: Formatted splash screen property in Mapping format (read only data).
+            :return: The formatted splash screen property in Mapping format (read only data).
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._settings
@@ -115,19 +115,19 @@ class SplashProperty:
     @vreport('setting splash property {settings}')
     def settings(self, settings: Mapping[str, object]) -> None:
         '''
-            Property method for setting project splash screen property.
+            Property method for setting the project splash screen property.
             Note: Splash screen property comes from info configuration file as read only data.
 
-            :param settings: Project splash property in Mapping format (read only data).
+            :param settings: The project splash property in Mapping format (read only data).
             :exceptions:
                 | ATSTypeError:      Infrastructure property settings is not a Mapping.
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSTypeError:      Parameter type validation failed.
                 | ATSValueError:     Parameter format validation failed.
-                | ATSRuntimeError:   Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSRuntimeError:   The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         is_name_present: bool = is_present_key(settings, InfoKeys.ATS_NAME)
         is_repository_present: bool = is_present_key(settings, InfoKeys.ATS_REPOSITORY)
@@ -200,9 +200,9 @@ class SplashProperty:
 
     def __str__(self) -> str:
         '''
-            Returns splash property as string representation.
+            Returns the splash property as a string representation.
 
-            :return: Splash property as string representation.
+            :return: The Splash property as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

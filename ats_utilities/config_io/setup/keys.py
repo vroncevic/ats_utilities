@@ -45,12 +45,12 @@ class ConfigIOKeys:
         It defines:
 
             :attributes:
-                | DEPENDENCY_FILE_PATH: File path interface constant.
-                | DEPENDENCY_PROCESSOR: Processor interface constant.
-                | DEPENDENCY_CONTEXT_BUNDLE: Context bundle interface constant.
-                | OPTION_FILE_PATH: File path option constant.
-                | OPTION_SCHEME: Scheme option constant.
-                | OPTION_CONTEXT_BUNDLE: Context bundle option constant.
+                | DEPENDENCY_FILE_PATH - The file path interface constant.
+                | DEPENDENCY_PROCESSOR - The processor interface constant.
+                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant.
+                | OPTION_FILE_PATH - The file path option constant.
+                | OPTION_SCHEME - The scheme option constant.
+                | OPTION_CONTEXT_BUNDLE - The context bundle option constant.
             :methods:
                 | get_dependency_to_type - Returns mapping of Config I/O dependencies to their types.
                 | get_option_to_type - Returns mapping of Config I/O options to their types.
@@ -71,7 +71,7 @@ class ConfigIOKeys:
         '''
             Returns mapping of Config I/O dependencies to their types.
 
-            :return: Mapping of Config I/O dependencies to their types.
+            :return: The mapping of Config I/O dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -85,7 +85,7 @@ class ConfigIOKeys:
         '''
             Returns mapping of Config I/O options to their types.
 
-            :return: Mapping of Config I/O options to their types.
+            :return: The mapping of Config I/O options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

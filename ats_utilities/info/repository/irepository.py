@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IRepository with method(s).
+    Defines the IRepository abstract class with method(s).
     Interface for the repository mechanism.
 '''
 
@@ -37,23 +37,23 @@ __status__ = 'Development'
 @runtime_checkable
 class IRepository[RepositoryType](Protocol):
     '''
-        Defines abstract class IRepository with method(s).
+        Defines the IRepository abstract class with method(s).
         Interface for the repository mechanism.
-        Note: Repository is only prepared when it is set by user (not None).
+        Note: The repository is only prepared when it is set by the user (not None).
 
         It defines:
 
             :methods:
-                | repository - Property methods for set/get operations.
-                | not_none - Checks if repository is not None.
-                | __str__ - Returns the repository as string representation.
+                | repository - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the repository is not None.
+                | __str__ - Returns the repository as a string representation.
     '''
 
     @property
     def repository(self) -> RepositoryType | None:
         '''
-            Property method for getting repository.
-            Note: Repository is only prepared when it is set by user (not None).
+            Property method for getting the repository.
+            Note: The repository is only prepared when it is set by the user (not None).
 
             :return: The repository in RepositoryType format | None.
         '''
@@ -62,8 +62,8 @@ class IRepository[RepositoryType](Protocol):
     @repository.setter
     def repository(self, repository: RepositoryType) -> None:
         '''
-            Property method for setting repository.
-            Note: Repository is only prepared when it is set by user (not None).
+            Property method for setting the repository.
+            Note: The repository is only prepared when it is set by the user (not None).
 
             :param repository: The repository in RepositoryType format.
         '''
@@ -71,17 +71,17 @@ class IRepository[RepositoryType](Protocol):
 
     def not_none(self) -> bool:
         '''
-            Checks if repository is not None.
-            Note: Repository is only prepared when it is set by user (not None).
+            Checks if the repository is not None.
+            Note: The repository is only prepared when it is set by the user (not None).
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the repository as string representation.
+            Returns the repository as a string representation.
 
-            :return: The repository as string representation.
+            :return: The repository as a string representation.
         '''
         ...

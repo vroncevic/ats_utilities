@@ -37,8 +37,8 @@ def get_debug_info(exc: BaseException) -> str:
     '''
         Get debug information about the exception.
 
-        :param exc: Exception to format.
-        :return: String with debug information.
+        :param exc: The exception to format.
+        :return: The string with debug information.
         :exceptions: None.
     '''
     summary = extract_tb(exc.__traceback__)[-1]
@@ -50,9 +50,9 @@ def format_error_raw(exc: BaseException, debug: bool = False) -> str:
     '''
         Format exception in a raw format (without prefix and without color codes).
 
-        :param exc: Exception to format.
-        :param debug: Whether to include debug information (location of the error in the code).
-        :return: Formatted error message.
+        :param exc: The exception to format.
+        :param debug: The whether to include debug information (location of the error in the code).
+        :return: The formatted error message.
         :exceptions: None.
     '''
     if debug:
@@ -65,10 +65,10 @@ def format_error(exc: BaseException, prefix: str = '', debug: bool = False) -> s
     '''
         Format exception in a human-readable format.
 
-        :param exc: Exception to format.
-        :param prefix: Prefix to add to the error message (unexpected exception).
-        :param debug: Whether to include debug information (location of the error in the code).
-        :return: Formatted error message.
+        :param exc: The exception to format.
+        :param prefix: The prefix to add to the error message (unexpected exception).
+        :param debug: The whether to include debug information (location of the error in the code).
+        :return: The formatted error message.
         :exceptions: None.
     '''
     msg = f'{prefix} {exc}' if prefix else str(exc)

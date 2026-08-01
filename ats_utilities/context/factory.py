@@ -59,7 +59,7 @@ class ContextFactory:
         '''
             Creates the context bundle with optional pre-configured options.
 
-            :param options: The pre-configured options for the bundle (default None).
+            :param options: The pre-configured options for the bundle (default: None).
             :return: The context bundle.
             :exceptions:
                 | ATSValueError: The options must be provided and have proper values.

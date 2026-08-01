@@ -62,7 +62,7 @@ class LoggerFactory:
         '''
             Creates the logger bundle with optional pre-configured options.
 
-            :param options: Pre-configured options for the bundle.
+            :param options: The pre-configured options for the bundle.
             :return: The logger bundle.
             :exceptions:
                 | ATSValueError: The options must be provided and have proper values.

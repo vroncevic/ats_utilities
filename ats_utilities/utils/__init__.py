@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Initialize ats_utilities.utils package.
+    Initializes the ats_utilities.utils package.
 '''
 
 from __future__ import annotations

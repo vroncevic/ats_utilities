@@ -58,7 +58,7 @@ class IReporter[ConfigType, MessageType](Protocol):
         '''
             Gets the current reporter configuration bundle.
 
-            :return: Reporter configuration bundle.
+            :return: The reporter configuration bundle.
         '''
         ...
 
@@ -75,8 +75,8 @@ class IReporter[ConfigType, MessageType](Protocol):
         '''
             Reports a verbose message.
 
-            :param is_verbose: Enable/Disable verbose option.
-            :param message: Message content.
+            :param is_verbose: The Enable/Disable the verbose option.
+            :param message: The message content.
         '''
         ...
 
@@ -84,7 +84,7 @@ class IReporter[ConfigType, MessageType](Protocol):
         '''
             Reports a success message.
 
-            :param message: Message content.
+            :param message: The message content.
         '''
         ...
 
@@ -92,7 +92,7 @@ class IReporter[ConfigType, MessageType](Protocol):
         '''
             Reports a warning message.
 
-            :param message: Message content.
+            :param message: The message content.
         '''
         ...
 
@@ -100,7 +100,7 @@ class IReporter[ConfigType, MessageType](Protocol):
         '''
             Reports an error message.
 
-            :param message: Message content.
+            :param message: The message content.
         '''
         ...
 
@@ -116,7 +116,7 @@ class IReporter[ConfigType, MessageType](Protocol):
         '''
             Checks if the reporter is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 

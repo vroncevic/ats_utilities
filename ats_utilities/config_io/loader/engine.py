@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Loader with attribute(s) and method(s).
+    Defines the Loader class with attribute(s) and method(s).
     Provides an API for loading configuration from file and deploying as object.
     2nd level of configuration loader implementation.
 '''
@@ -50,15 +50,15 @@ class Loader:
         It defines:
 
             :attributes:
-                | _context - Context bundle.
-                | _processor - Processor interface instance.
-                | _conf_file - Configuration file interface instance.
+                | _context - The context bundle.
+                | _processor - The processor interface instance.
+                | _conf_file - The configuration file interface instance.
 
             :methods:
                 | __init__ - Constructor.
                 | get_context - Gets context.
                 | load_configuration - Loads configuration from file.
-                | __str__ - Returns loader as string representation.
+                | __str__ - Returns the loader as a string representation.
     '''
 
     _context: ContextBundle
@@ -69,7 +69,7 @@ class Loader:
         '''
             Constructor.
 
-            :param own: ConfigIOBundle instance.
+            :param own: The ConfigIOBundle instance.
             :exceptions:
                 | ATSValueError: ConfigIOBundle must be provided and have proper values.
                 | ATSTypeError:  ConfigIOBundle must be an instance of ConfigIOBundle and its
@@ -90,7 +90,7 @@ class Loader:
         '''
             Returns the context.
 
-            :return: Context.
+            :return: The context.
             :exceptions: None.
         '''
         return self._context
@@ -99,7 +99,7 @@ class Loader:
         '''
             Loads configuration from file and returns dictionary with configuration content.
 
-            :return: Configuration dictionary.
+            :return: The configuration dictionary.
             :exceptions: None.
         '''
         content: str | None = None
@@ -122,9 +122,9 @@ class Loader:
 
     def __str__(self) -> str:
         '''
-            Returns loader as string representation.
+            Returns the loader as a string representation.
 
-            :return: Loader as string representation.
+            :return: The Loader as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

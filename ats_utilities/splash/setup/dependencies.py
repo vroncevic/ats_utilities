@@ -46,11 +46,11 @@ class SplashDependencies(TypedDict):
         It defines:
 
             :attributes:
-                | splash_property: Splash screen property instance.
-                | terminal_property: Terminal properties instance.
-                | ext: Generic external infrastructure instance.
-                | pb: Progress bar component instance.
-                | context_bundle: Context bundle instance.
+                | splash_property - The splash screen property instance.
+                | terminal_property - The terminal properties instance.
+                | ext - The generic external infrastructure instance.
+                | pb - The progress bar component instance.
+                | context_bundle - The context bundle instance.
     '''
 
     splash_property: ISplashProperty

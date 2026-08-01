@@ -48,7 +48,7 @@ class CheckReporterData:
                 | context - The message context.
                 | parameters_meta - The sequence of parameter metadata.
                 | err_indices - The sequence of error indices.
-                | is_fmt_err - Flag indicating if a format error type has been found.
+                | is_fmt_err - The flag indicating if a format error type has been found.
             :methods:
                 | to_dict - Converts the check reporter data instance to a dictionary.
     '''

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IProgressBar with method(s).
+    Defines the IProgressBar abstract class with method(s).
     Interface for progress bar component.
 '''
 
@@ -37,7 +37,7 @@ __status__ = 'Development'
 @runtime_checkable
 class IProgressBar(Protocol):
     '''
-        Defines abstract class IProgressBar with method(s).
+        Defines the IProgressBar abstract class with method(s).
         Interface for progress bar component.
 
         It defines:
@@ -46,15 +46,14 @@ class IProgressBar(Protocol):
                 | set_level - Sets level of progress.
                 | plot_progress - Plots progress.
                 | set_and_plot - Sets and plots progress.
-                | __str__ - Returns progress bar as string representation.
+                | __str__ - Returns the progress bar as a string representation.
     '''
 
     def set_level(self, level: int) -> None:
         '''
             Sets level of progress.
 
-            :param level: Level of progress.
-            :exceptions: None.
+            :param level: The level of progress.
         '''
         ...
 
@@ -62,7 +61,7 @@ class IProgressBar(Protocol):
         '''
             Plots progress.
 
-            :param columns: Columns for open console session.
+            :param columns: The columns for open console session.
         '''
         ...
 
@@ -70,15 +69,15 @@ class IProgressBar(Protocol):
         '''
             Sets and plots progress.
 
-            :param level: Level of progress.
-            :param columns: Columns for open console session.
+            :param level: The level of progress.
+            :param columns: The columns for open console session.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns progress bar as string representation.
+            Returns the progress bar as a string representation.
 
-            :return: Progress bar as string representation.
+            :return: The Progress bar as a string representation.
         '''
         ...

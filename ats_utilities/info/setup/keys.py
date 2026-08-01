@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class InfoKeys with attribute(s) and method(s).
+    Defines the InfoKeys class with attribute(s) and method(s).
     Provides constants for information keys required for setup and configuration.
 '''
 
@@ -62,7 +62,7 @@ __status__ = 'Development'
 
 class InfoKeys:
     '''
-        Defines class InfoKeys with attribute(s) and method(s).
+        Defines the InfoKeys class with attribute(s) and method(s).
         Provides constants for information keys required for setup and configuration.
         Here we have three groups of keys:
             | - dependency keys
@@ -107,24 +107,24 @@ class InfoKeys:
                 | get_dependency_to_type - Returns mapping of info dependencies to their types.
                 | get_option_to_type - Returns mapping of info options to their types.
                 | get_config_keys - Returns a sequence of all information config keys.
-                | is_registered_config_key - Checks if key name is a registered config key.
+                | is_registered_config_key - Checks if the key name is a registered config key.
                 | get_config_keys - Returns mapping of all config keys to their dependency keys.
                 | get_optional_config_keys - Returns a sequence of all optional keys.
-                | is_optional_config_key - Checks if key name is an optional key.
+                | is_optional_config_key - Checks if the key name is an optional key.
                 | get_required_config_keys - Returns a sequence of all required keys.
-                | is_required_config_key - Checks if key name is a required key.
+                | is_required_config_key - Checks if the key name is a required key.
                 | get_name_of_config_key - Returns the dependency key for the given config key.
                 | get_config_key_to_type - Returns mapping of all config keys to their types.
-                | get_name - Returns the name of the application from config.
-                | get_version - Returns the version of the application from config.
-                | get_build_date - Returns the build date of the application from config.
-                | get_licence - Returns the licence of the application from config.
-                | get_repository - Returns the repository of the application from config.
-                | get_organization - Returns the organization of the application from config.
-                | get_use_github_infrastructure - Returns the use github infrastructure of the application from config.
-                | get_logo_path - Returns the logo path of the application from config.
-                | get_log_file - Returns the log file of the application from config.
-                | get_info_ok - Returns the info ok of the application from config.
+                | get_name - Returns the name of the application from the config.
+                | get_version - Returns the version of the application from the config.
+                | get_build_date - Returns the build date of the application from the config.
+                | get_licence - Returns the licence of the application from the config.
+                | get_repository - Returns the repository of the application from the config.
+                | get_organization - Returns the organization of the application from the config.
+                | get_use_github_infrastructure - Returns the use github infrastructure of the application from the config.
+                | get_logo_path - Returns the logo path of the application from the config.
+                | get_log_file - Returns the log file of the application from the config.
+                | get_info_ok - Returns the info ok of the application from the config.
     '''
 
     # Dependency Keys
@@ -161,7 +161,7 @@ class InfoKeys:
         '''
             Returns mapping of info dependencies to their types.
 
-            :return: Mapping of info dependencies to their types.
+            :return: The mapping of info dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -183,7 +183,7 @@ class InfoKeys:
         '''
             Returns mapping of info options to their types.
 
-            :return: Mapping of info options to their types.
+            :return: The mapping of info options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -196,7 +196,7 @@ class InfoKeys:
         '''
             Returns a sequence of all information keys.
 
-            :return: Sequence of all keys.
+            :return: The sequence of all keys.
             :exceptions: None.
         '''
         return (
@@ -215,9 +215,9 @@ class InfoKeys:
     @classmethod
     def is_registered_config_key(cls, name: str) -> bool:
         '''
-            Checks if key name is a registered config key.
+            Checks if the key name is a registered config key.
 
-            :param name: Name of the key to check.
+            :param name: The name of the key to check.
             :return: True if key name is a registered config key, otherwise False.
             :exceptions: None.
         '''
@@ -228,7 +228,7 @@ class InfoKeys:
         '''
             Returns a mapping of all config keys to their dependency keys.
 
-            :return: Mapping of all config keys to their dependency keys.
+            :return: The mapping of all config keys to their dependency keys.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -249,7 +249,7 @@ class InfoKeys:
         '''
             Returns a sequence of all optional keys.
 
-            :return: Sequence of all optional keys.
+            :return: The sequence of all optional keys.
             :exceptions: None.
         '''
         return (
@@ -263,9 +263,9 @@ class InfoKeys:
     @classmethod
     def is_optional_config_key(cls, key: str) -> bool:
         '''
-            Checks if key name is an optional key.
+            Checks if the key name is an optional key.
 
-            :param name: Name of the key to check.
+            :param name: The name of the key to check.
             :return: True if key name is an optional key, otherwise False.
             :exceptions: None.
         '''
@@ -274,9 +274,9 @@ class InfoKeys:
     @classmethod
     def is_required_config_key(cls, key: str) -> bool:
         '''
-            Checks if key name is a required key.
+            Checks if the key name is a required key.
 
-            :param name: Name of the key to check.
+            :param name: The name of the key to check.
             :return: True if key name is a required key, otherwise False.
             :exceptions: None.
         '''
@@ -287,7 +287,7 @@ class InfoKeys:
         '''
             Returns a sequence of all required keys.
 
-            :return: Sequence of all required keys.
+            :return: The sequence of all required keys.
             :exceptions: None.
         '''
         return tuple(key for key in cls.get_config_keys() if cls.is_required_config_key(key))
@@ -317,7 +317,7 @@ class InfoKeys:
         '''
             Returns a sequence of all optional config keys names.
 
-            :return: Sequence of all optional config keys names.
+            :return: The sequence of all optional config keys names.
             :exceptions: None.
         '''
         return tuple(cls.get_name_of_config_key(key) for key in cls.get_optional_config_keys())
@@ -327,7 +327,7 @@ class InfoKeys:
         '''
             Returns a sequence of all required config keys names.
 
-            :return: Sequence of all required config keys names.
+            :return: The sequence of all required config keys names.
             :exceptions: None.
         '''
         return tuple(cls.get_name_of_config_key(key) for key in cls.get_required_config_keys())
@@ -337,7 +337,7 @@ class InfoKeys:
         '''
             Returns a sequence of all config keys names.
 
-            :return: Sequence of all config keys names.
+            :return: The sequence of all config keys names.
             :exceptions: None.
         '''
         return tuple(cls.get_name_of_config_key(key) for key in cls.get_config_keys())
@@ -347,7 +347,7 @@ class InfoKeys:
         '''
             Returns a mapping of all config keys to their types.
 
-            :return: Mapping of all config keys to their types.
+            :return: The mapping of all config keys to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -366,10 +366,10 @@ class InfoKeys:
     @classmethod
     def get_name(cls, config: Mapping[str, str]) -> str:
         '''
-            Returns the name of the application from config.
+            Returns the name of the application from the config.
 
-            :param config: Configuration mapping.
-            :return: Name of the application if defined, otherwise None.
+            :param config: The configuration mapping.
+            :return: The name of the application if defined, otherwise None.
             :exceptions:
                 | ATSValueError: Key ATS_NAME is not present in config.
         '''
@@ -382,10 +382,10 @@ class InfoKeys:
     @classmethod
     def get_version(cls, config: Mapping[str, str]) -> str:
         '''
-            Returns the version of the application from config.
+            Returns the version of the application from the config.
 
-            :param config: Configuration mapping.
-            :return: Version of the application if defined, otherwise None.
+            :param config: The configuration mapping.
+            :return: The version of the application if defined, otherwise None.
             :exceptions:
                 | ATSValueError: Key ATS_VERSION is not present in config.
         '''
@@ -398,10 +398,10 @@ class InfoKeys:
     @classmethod
     def get_build_date(cls, config: Mapping[str, str]) -> str:
         '''
-            Returns the build date of the application from config.
+            Returns the build date of the application from the config.
 
-            :param config: Configuration mapping.
-            :return: Build date of the application if defined, otherwise None.
+            :param config: The configuration mapping.
+            :return: The build date of the application if defined, otherwise None.
             :exceptions:
                 | ATSValueError: Key ATS_BUILD_DATE is not present in config.
         '''
@@ -414,10 +414,10 @@ class InfoKeys:
     @classmethod
     def get_licence(cls, config: Mapping[str, str]) -> str:
         '''
-            Returns the licence of the application from config.
+            Returns the licence of the application from the config.
 
-            :param config: Configuration mapping.
-            :return: Licence of the application if defined, otherwise None.
+            :param config: The configuration mapping.
+            :return: The licence of the application if defined, otherwise None.
             :exceptions:
                 | ATSValueError: Key ATS_LICENCE is not present in config.
         '''
@@ -430,10 +430,10 @@ class InfoKeys:
     @classmethod
     def get_repository(cls, config: Mapping[str, str]) -> str:
         '''
-            Returns the repository of the application from config.
+            Returns the repository of the application from the config.
 
-            :param config: Configuration mapping.
-            :return: Repository of the application if defined, otherwise None.
+            :param config: The configuration mapping.
+            :return: The repository of the application if defined, otherwise None.
             :exceptions:
                 | ATSValueError: Key ATS_REPOSITORY is not present in config.
         '''
@@ -446,10 +446,10 @@ class InfoKeys:
     @classmethod
     def get_organization(cls, config: Mapping[str, str]) -> str:
         '''
-            Returns the organization of the application from config.
+            Returns the organization of the application from the config.
 
-            :param config: Configuration mapping.
-            :return: Organization of the application if defined, otherwise None.
+            :param config: The configuration mapping.
+            :return: The organization of the application if defined, otherwise None.
             :exceptions:
                 | ATSValueError: Key ATS_ORGANIZATION is not present in config.
         '''
@@ -462,10 +462,10 @@ class InfoKeys:
     @classmethod
     def get_use_github_infrastructure(cls, config: Mapping[str, str]) -> bool:
         '''
-            Returns the use github infrastructure of the application from config.
+            Returns the use github infrastructure of the application from the config.
 
-            :param config: Configuration mapping.
-            :return: Use github infrastructure of the application if defined, otherwise None.
+            :param config: The configuration mapping.
+            :return: The use github infrastructure of the application if defined, otherwise None.
             :exceptions:
                 | ATSValueError: Key ATS_USE_GITHUB_INFRASTRUCTURE is not present in config.
         '''
@@ -478,10 +478,10 @@ class InfoKeys:
     @classmethod
     def get_logo_path(cls, config: Mapping[str, str]) -> str:
         '''
-            Returns the logo path of the application from config.
+            Returns the logo path of the application from the config.
 
-            :param config: Configuration mapping.
-            :return: Logo path of the application if defined, otherwise None.
+            :param config: The configuration mapping.
+            :return: The logo path of the application if defined, otherwise None.
             :exceptions:
                 | ATSValueError: Key ATS_LOGO_PATH is not present in config.
         '''
@@ -494,10 +494,10 @@ class InfoKeys:
     @classmethod
     def get_log_file(cls, config: Mapping[str, str]) -> str:
         '''
-            Returns the log file of the application from config.
+            Returns the log file of the application from the config.
 
-            :param config: Configuration mapping.
-            :return: Log file of the application if defined, otherwise None.
+            :param config: The configuration mapping.
+            :return: The log file of the application if defined, otherwise None.
             :exceptions:
                 | ATSValueError: Key ATS_LOG_FILE is not present in config.
         '''
@@ -510,10 +510,10 @@ class InfoKeys:
     @classmethod
     def get_info_ok(cls, config: Mapping[str, str]) -> bool:
         '''
-            Returns the info ok of the application from config.
+            Returns the info ok of the application from the config.
 
-            :param config: Configuration mapping.
-            :return: Info ok of the application if defined, otherwise None.
+            :param config: The configuration mapping.
+            :return: The info ok of the application if defined, otherwise None.
             :exceptions:
                 | ATSValueError: Key ATS_INFO_OK is not present in config.
         '''

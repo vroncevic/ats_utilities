@@ -51,7 +51,7 @@ class IRegistry[BundleType, DependenciesType](Protocol):
         '''
             Orchestrates dependency injection and creates a bundle instance.
 
-            :param dependencies: Dependencies required to create the bundle.
+            :param dependencies: The dependencies required to create the bundle.
             :return: A fully constructed and validated bundle instance.
         '''
         ...

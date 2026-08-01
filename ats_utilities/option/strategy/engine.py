@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ParserStrategy with attribute(s) and method(s).
+    Defines the ParserStrategy class with attribute(s) and method(s).
     Creates an interfaces for ATS option parsing.
 '''
 
@@ -46,7 +46,7 @@ __status__ = 'Development'
 
 class ParserStrategy:
     '''
-        Defines class ParserStrategy with attribute(s) and method(s).
+        Defines the ParserStrategy class with attribute(s) and method(s).
         Default built-in strategy using Python's standard argparse module.
         Note: If extern argument parser strategy is injected this object
         is not instantiated (then the complete strategy is provided by 
@@ -55,11 +55,11 @@ class ParserStrategy:
         It defines:
 
             :attributes:
-                | _context - Shared context for components.
-                | _parser - Options parser.
-                | _subparsers - Subparsers instance.
+                | _context - The shared context for components.
+                | _parser - The options parser.
+                | _subparsers - The subparsers instance.
             :methods:
-                | __init__ - Initials ParserStrategy constructor.
+                | __init__ - Initializes the ParserStrategy instance.
                 | add_argument - Adds an operational argument/flag to the parser.
                 | add_version - Adds a version display option to the parser.
                 | parse - Parses the input arguments and returns an OptionNamespace.
@@ -75,9 +75,9 @@ class ParserStrategy:
 
     def __init__(self, strategy_data: StrategyData) -> None:
         '''
-            Initializes ParserStrategy constructor.
+            Initializes the ParserStrategy instance.
 
-            :param strategy_data: Strategy data for parser strategy.
+            :param strategy_data: The strategy data for parser strategy.
             :exceptions:
                 | ATSValueError: Strategy data must be provided.
                 | ATSTypeError: Strategy data must be a StrategyData instance.
@@ -95,8 +95,8 @@ class ParserStrategy:
         '''
             Adds an operational argument/flag to the parser.
 
-            :param args: Sequence of flags for the ATS.
-            :param kwargs: Arguments in shape of dictionary.
+            :param args: The sequence of flags for the ATS.
+            :param kwargs: The arguments in shape of dictionary.
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -119,8 +119,8 @@ class ParserStrategy:
             Parses the input arguments and returns an OptionNamespace.
 
             :param arguments: Sequence of arguments | None.
-            :param known_only: Parse only known arguments (default False).
-            :return: Option namespace object.
+            :param known_only: The parse only known arguments (default: False).
+            :return: The option namespace object.
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -135,7 +135,7 @@ class ParserStrategy:
         '''
             Registers the list of commands with the parser.
 
-            :param commands: Sequence of commands to register (read only data).
+            :param commands: The sequence of commands to register (read only data).
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -156,7 +156,7 @@ class ParserStrategy:
             Parses the input arguments and returns command name and parameters.
 
             :param arguments: Sequence of arguments | None.
-            :return: Parsed command result.
+            :return: The parsed command result.
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -173,7 +173,7 @@ class ParserStrategy:
         '''
             Checks if the parser strategy is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return True
@@ -182,7 +182,7 @@ class ParserStrategy:
         '''
             Returns the string representation of ParserStrategy.
 
-            :return: The ParserStrategy as string representation.
+            :return: The ParserStrategy as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

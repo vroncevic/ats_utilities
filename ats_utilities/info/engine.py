@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class InfoManager with attribute(s) and method(s).
+    Defines the InfoManager class with attribute(s) and method(s).
     Provides an API for the information in one container object.
 '''
 
@@ -47,9 +47,9 @@ __status__ = 'Development'
 
 class InfoManager:
     '''
-        Defines class InfoManager with attribute(s) and method(s).
+        Defines the InfoManager class with attribute(s) and method(s).
         Provides an API for the information in one container object.
-        The information container for App/Tool/Script.
+        The information container for the App/Tool/Script.
         Note: The information is read-only data (it is provided by
         configuration file which is loaded by config loader).
 
@@ -57,22 +57,22 @@ class InfoManager:
 
             :attributes:
                 | _components - The info components (default InfoBundle).
-                | _context - Context bundle with context.
-                | _is_initialized - Indicates if the info manager component is initialized (default False).
+                | _context - The context bundle with context.
+                | _is_initialized - The indicates if the info manager component is initialized (default: False).
             :methods:
-                | __init__ - Initializes InfoManager constructor.
+                | __init__ - Initializes the InfoManager instance.
                 | get_bundle - Gets current info bundle.
                 | update_bundle - Updates info bundle.
                 | _apply_bundle - Applies bundle configuration to instance attributes.
                 | get_context - Returns the context.
                 | set_info - Sets the information structure.
                 | get_info - Gets the information structure.
-                | is_registered_attribute - Checks if attribute name is a registered dependency attribute name.
+                | is_registered_attribute - Checks if the attribute name is a registered dependency attribute name.
                 | __getattr__ - Gets attribute by name.
                 | __setattr__ - Sets attribute by name.
-                | is_initialized - Checks if info manager is initialized.
-                | refresh_status - Refreshes status for information structure.
-                | __str__ - Returns info manager as string representation.
+                | is_initialized - Checks if the info manager is initialized.
+                | refresh_status - Refreshes the status for the information structure.
+                | __str__ - Returns the info manager as a string representation.
     '''
 
     _is_initialized: bool
@@ -81,9 +81,9 @@ class InfoManager:
 
     def __init__(self, own: InfoBundle) -> None:
         '''
-            Initializes InfoManager constructor.
+            Initializes the InfoManager instance.
 
-            :param own: Bundle with components.
+            :param own: The bundle with components.
             :exceptions:
                 | ATSValueError: Info bundle must be provided and have proper values.
                 | ATSTypeError:  Info bundle must be an instance of InfoBundle and its
@@ -98,7 +98,7 @@ class InfoManager:
         '''
             Gets current info bundle.
 
-            :return: Info bundle.
+            :return: The info bundle.
             :exceptions: None.
         '''
         return self._components
@@ -107,8 +107,8 @@ class InfoManager:
         '''
             Updates info configuration bundle.
 
-            :param bundle: Info bundle with info components.
-            :return: True if configuration was successfully updated, False otherwise.
+            :param bundle: The info bundle with info components.
+            :return: True if the configuration was successfully updated, False otherwise.
             :exceptions: None.
         '''
         try:
@@ -126,7 +126,7 @@ class InfoManager:
         '''
             Applies bundle configuration to instance attributes.
 
-            :param bundle: Info bundle with info components.
+            :param bundle: The info bundle with info components.
             :exceptions: None.
         '''
         self._components = bundle
@@ -137,7 +137,7 @@ class InfoManager:
         '''
             Returns the context.
 
-            :return: Context.
+            :return: The context.
             :exceptions: None.
         '''
         return self._context
@@ -146,7 +146,7 @@ class InfoManager:
         '''
             Sets the information structure by re-creating the info bundle.
 
-            :param info: Mapping with configuration information.
+            :param info: The mapping with configuration information.
             :exceptions:
                 | ATSValueError: Info mapping must be provided and contain required keys.
                 | ATSTypeError:  Info mapping must be an instance of Mapping.
@@ -168,7 +168,7 @@ class InfoManager:
         '''
             Gets the information structure.
 
-            :return: Mapping representation of current info configuration.
+            :return: The mapping representation of current info configuration.
             :exceptions: None.
         '''
         info_dict: dict[str, object] = {}
@@ -187,9 +187,9 @@ class InfoManager:
 
     def is_registered_attribute(self, name: str) -> bool:
         '''
-            Checks if attribute name is a registered dependency attribute name.
+            Checks if the attribute name is a registered dependency attribute name.
 
-            :param name: Name of the attribute to check.
+            :param name: The name of the attribute to check.
             :return: True if attribute name is a registered attribute, otherwise False.
             :exceptions: None.
         '''
@@ -202,7 +202,7 @@ class InfoManager:
         '''
             Gets attribute from instance components dynamically.
 
-            :param name: Name of the attribute to look up.
+            :param name: The name of the attribute to look up.
             :return: The value of the component attribute if found, otherwise None.
             :exceptions:
                 | ATSAttributeError: Name of the attribute is not a registered attribute.
@@ -221,8 +221,8 @@ class InfoManager:
         '''
             Sets attribute to instance components dynamically and refreshes status.
 
-            :param name: Name of the attribute to set.
-            :param value: Value to assign to the component attribute.
+            :param name: The name of the attribute to set.
+            :param value: The value to assign to the component attribute.
             :exceptions:
                 | ATSAttributeError: Name of the attribute is not a registered attribute.
         '''
@@ -247,7 +247,7 @@ class InfoManager:
 
     def is_initialized(self) -> bool:
         '''
-            Checks if info manager is successfully initialized and has valid status.
+            Checks if the info manager is successfully initialized and has a valid status.
 
             :return: True if successfully initialized, otherwise False.
             :exceptions: None.
@@ -261,7 +261,7 @@ class InfoManager:
 
     def refresh_status(self) -> None:
         '''
-            Refreshes status for information structure based on required components validity.
+            Refreshes the status for the information structure based on the validity of required components.
 
             :exceptions: None.
         '''
@@ -294,9 +294,9 @@ class InfoManager:
 
     def __str__(self) -> str:
         '''
-            Returns info manager as string representation.
+            Returns the info manager as a string representation.
 
-            :return: Info manager as string representation.
+            :return: The Info manager as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

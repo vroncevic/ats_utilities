@@ -43,14 +43,14 @@ class IDependenciesValidator[DependenciesType](Protocol):
         It defines:
 
             :methods:
-                | validate - Validates a dependencies instance.
+                | validate - Validates the a dependencies instance.
     '''
 
     @classmethod
     def validate(cls, dependencies: DependenciesType) -> None:
         '''
-            Validates a dependencies instance.
+            Validates the a dependencies instance.
 
-            :param dependencies: Dependencies instance to be validated.
+            :param dependencies: The dependencies instance to be validated.
         '''
         ...

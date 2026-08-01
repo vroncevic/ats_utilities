@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class InfoOk with attribute(s) and method(s).
+    Defines the InfoOk class with attribute(s) and method(s).
     Provides an API for the info status in one property object.
 '''
 
@@ -40,19 +40,19 @@ __status__ = 'Development'
 
 class InfoOk:
     '''
-        Defines class InfoOk with attribute(s) and method(s).
+        Defines the InfoOk class with attribute(s) and method(s).
         Provides an API for the info status in one property object.
-        Note: Info status is only prepared when it is set by user (not None).
+        Note: The info status is only prepared when it is set by the user (not None).
 
         It defines:
 
             :attributes:
-                | _info_ok - The info status App/Tool/Script is OK (default False).
+                | _info_ok - The info status for the App/Tool/Script is OK (default: False).
             :methods:
-                | __init__ - Initializes InfoOk constructor.
-                | info_ok - Property methods for set/get information status.
-                | not_none - Checks if info status is not None.
-                | __str__ - Returns the InfoOk as string representation.
+                | __init__ - Initializes the InfoOk instance.
+                | info_ok - Property methods for setting and getting the information status.
+                | not_none - Checks if the info status is not None.
+                | __str__ - Returns the InfoOk as a string representation.
     '''
 
     _info_ok: bool
@@ -60,9 +60,9 @@ class InfoOk:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes InfoOk constructor.
+            Initializes the InfoOk instance.
 
-            :param context_bundle: Context bundle for info ok status.
+            :param context_bundle: The context bundle for info ok status.
             :exceptions:
                 | ATSValueError:  Context bundle must be provided and have proper values.
                 | ATSTypeError:   Context bundle must be an instance of ContextBundle
@@ -77,13 +77,13 @@ class InfoOk:
     @vreport('getting info_ok {info_ok}')
     def info_ok(self) -> bool | None:
         '''
-            Property method for getting information status.
-            Note: Info status is only prepared when it is set by user (not None).
+            Property method for getting the information status.
+            Note: The info status is only prepared when it is set by the user (not None).
 
             :return: The information status in bool format | None.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._info_ok
@@ -93,40 +93,40 @@ class InfoOk:
     @vreport('setting info_ok {info_ok}')
     def info_ok(self, info_ok: bool) -> None:
         '''
-            Property method for setting information status.
-            Note: Info status is only prepared when it is set by user (not None).
+            Property method for setting the information status.
+            Note: The info status is only prepared when it is set by the user (not None).
 
             :param info_ok: The information status in bool format.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSRuntimeError: The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         self._info_ok = info_ok
 
     @vreport('checking info_ok {info_ok}')
     def not_none(self) -> bool:
         '''
-            Checks if info status is not None.
-            Note: Info status is only prepared when it is set by user (not None).
+            Checks if the info status is not None.
+            Note: The info status is only prepared when it is set by the user (not None).
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._info_ok is not None
 
     def __str__(self) -> str:
         '''
-            Returns the InfoOk as string representation.
+            Returns the InfoOk as a string representation.
 
-            :return: The InfoOk as string representation.
+            :return: The InfoOk as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

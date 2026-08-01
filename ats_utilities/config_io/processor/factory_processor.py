@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ConfigProcessorFactory with attribute(s) and method(s).
+    Defines the ConfigProcessorFactory class with attribute(s) and method(s).
     Provides an API for creating an file processor instance based on the file extension.
     1th level of configuration loader/storer implementation.
 '''
@@ -49,14 +49,14 @@ __status__ = 'Development'
 
 class ConfigProcessorFactory:
     '''
-        Defines class ConfigProcessorFactory with attribute(s) and method(s).
+        Defines the ConfigProcessorFactory class with attribute(s) and method(s).
         Provides an API for creating an file processor instance based on the file extension.
         1th level of configuration loader/storer implementation.
 
         It defines:
 
             :attributes:
-                | _PROCESSOR_MAP - Mapping of file extensions to processor classes.
+                | _PROCESSOR_MAP - The mapping of file extensions to processor classes.
             :methods:
                 | get_processor_class - Returns the processor class for a specific file extension.
                 | create_from_extension - Creates a processor instance based on a raw extension string.
@@ -77,8 +77,8 @@ class ConfigProcessorFactory:
         '''
             Returns the processor class for a specific file extension.
 
-            :param extension: File extension (e.g., '.json', '.cfg', '.xml', '.ini', '.yml', '.yaml').
-            :return: Processor class.
+            :param extension: The file extension (e.g., '.json', '.cfg', '.xml', '.ini', '.yml', '.yaml').
+            :return: The processor class.
             :exceptions:
                 | ATSValueError: Extension must be provided.
                 | ATSTypeError: Extension must be a string.
@@ -115,10 +115,10 @@ class ConfigProcessorFactory:
             Uses get_processor_class utility.
             Uses make_component and validate_component utilities.
 
-            :param extension: File extension (e.g., '.json', '.cfg', '.xml', '.ini', '.yml', '.yaml') | None.
+            :param extension: The file extension (e.g., '.json', '.cfg', '.xml', '.ini', '.yml', '.yaml') | None.
             :param scheme: Scheme for the processor | None.
             :param processor: Instance to be used as the processor | None.
-            :return: Processor instance.
+            :return: The processor instance.
             :exceptions:
                 | ATSValueError: Extension must be provided.
                 | ATSTypeError: Extension must be a string.
@@ -172,7 +172,7 @@ class ConfigProcessorFactory:
             :param file_path: Path to the configuration file | None.
             :param scheme: Scheme for the processor | None.
             :param processor: Instance to be used as the processor | None.
-            :return: Processor instance.
+            :return: The processor instance.
             :exceptions:
                 | ATSValueError: File path must be provided when processor is None.
                 | ATSTypeError: File path must be a string.

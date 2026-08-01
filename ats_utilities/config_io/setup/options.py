@@ -43,9 +43,9 @@ class ConfigIOOptions(TypedDict):
         It defines:
 
             :attributes:
-                | file_path: Configuration file path.
-                | scheme: Configuration scheme.
-                | context_bundle: Context bundle.
+                | file_path - The configuration file path.
+                | scheme - The configuration scheme.
+                | context_bundle - The context bundle.
     '''
 
     file_path: str

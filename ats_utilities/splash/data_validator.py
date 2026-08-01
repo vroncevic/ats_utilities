@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for CenterData class.
+    A validator for the CenterData class instance.
 '''
 
 from __future__ import annotations
@@ -37,20 +37,20 @@ __status__: str = 'Development'
 
 class CenterDataValidator:
     '''
-        Validator for CenterData class.
+        A validator for the CenterData class instance.
 
         It defines:
 
             :methods:
-                | validate - Validates CenterData instance.
+                | validate - Validates the CenterData instance.
     '''
 
     @classmethod
     def validate(cls, data: CenterData) -> None:
         '''
-            Validates CenterData instance.
+            Validates the CenterData instance.
 
-            :param data: CenterData instance to be validated.
+            :param data: The CenterData instance to be validated.
             :exceptions:
                 | ATSValueError: Columns count must be provided.
                 | ATSTypeError: Columns count is not an integer.

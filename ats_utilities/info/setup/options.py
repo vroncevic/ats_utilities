@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Info options for info bundle creation.
+    The info options for the info bundle creation.
 '''
 
 from __future__ import annotations
@@ -38,13 +38,13 @@ __status__ = 'Development'
 
 class InfoOptions(TypedDict):
     '''
-        Info options for info bundle creation.
+        The info options for the info bundle creation.
 
         It defines:
 
             :attributes:
-                | info: Dictionary containing info attributes.
-                | context_bundle: Context bundle.
+                | info - The dictionary containing info attributes.
+                | context_bundle - The context bundle.
     '''
 
     info: Mapping[str, object]

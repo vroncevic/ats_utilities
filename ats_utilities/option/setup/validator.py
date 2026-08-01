@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for option bundle instance.
+    A validator for the option bundle instance.
 '''
 
 from __future__ import annotations
@@ -40,20 +40,20 @@ __status__ = 'Development'
 
 class OptionValidator:
     '''
-        Validator for option bundle instance.
+        A validator for the option bundle instance.
 
         It defines:
 
             :methods:
-                | validate - Validates option bundle instance.
+                | validate - Validates the option bundle instance.
     '''
 
     @classmethod
     def validate(cls, bundle: OptionBundle) -> None:
         '''
-            Validates option bundle instance.
+            Validates the option bundle instance.
 
-            :param bundle: Option bundle instance to be validated.
+            :param bundle: The option bundle instance to be validated.
             :exceptions:
                 | ATSValueError: Option bundle must be provided and have proper values.
                 | ATSTypeError:  Option bundle must be an instance of OptionBundle and its

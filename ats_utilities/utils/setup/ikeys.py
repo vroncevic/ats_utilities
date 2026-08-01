@@ -51,8 +51,7 @@ class IKeys[AttributeType, InterfaceType](Protocol):
         '''
             Returns mapping of setup dependencies to their types.
 
-            :return: Mapping of setup dependencies to their types.
-            :exceptions: None.
+            :return: The mapping of setup dependencies to their types.
         '''
         ...
 
@@ -61,7 +60,6 @@ class IKeys[AttributeType, InterfaceType](Protocol):
         '''
             Returns mapping of setup options to their types.
 
-            :return: Mapping of setup options to their types.
-            :exceptions: None.
+            :return: The mapping of setup options to their types.
         '''
         ...

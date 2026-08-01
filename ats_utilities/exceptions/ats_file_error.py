@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSFileError with attribute(s) and method(s).
+    Defines the ATSFileError class with attribute(s) and method(s).
     Creates an exception for the checking file mechanism.
 '''
 
@@ -36,7 +36,7 @@ __status__ = 'Development'
 
 class ATSFileError(ATSError, IOError):
     '''
-        Defines class ATSFileError with attribute(s) and method(s).
+        Defines the ATSFileError class with attribute(s) and method(s).
         Creates an exception for the checking file mechanism.
 
         It defines:

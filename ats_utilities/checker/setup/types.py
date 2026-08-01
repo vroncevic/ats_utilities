@@ -51,9 +51,9 @@ class CheckerErrorType(int, Enum):
         It defines:
 
             :attributes:
-                | NO_ERROR - Marks no error report (0).
-                | TYPE_ERROR - Marks type error report (1).
-                | FORMAT_ERROR - Marks wrong format error report (2).
+                | NO_ERROR - The marks no error report (0).
+                | TYPE_ERROR - The marks type error report (1).
+                | FORMAT_ERROR - The marks wrong format error report (2).
     '''
 
     NO_ERROR = 0

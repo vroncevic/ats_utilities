@@ -76,8 +76,8 @@ class BaseFactory:
         '''
             Creates a base bundle using configuration options.
 
-            :param options: Creation options/parameters for the bundle.
-            :return: Base bundle.
+            :param options: The creation options/parameters for the bundle.
+            :return: The base bundle.
             :exceptions:
                 | ATSValueError: Base options must be provided and have proper values.
                 | ATSTypeError:  Base options must be an instance of Mapping and its attributes

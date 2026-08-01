@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILogFile with method(s).
+    Defines the ILogFile abstract class with method(s).
     Interface for the log file path mechanism.
 '''
 
@@ -37,23 +37,23 @@ __status__ = 'Development'
 @runtime_checkable
 class ILogFile[LogFileType](Protocol):
     '''
-        Defines abstract class ILogFile with method(s).
+        Defines the ILogFile abstract class with method(s).
         Interface for the log file path mechanism.
-        Note: Log file path is only prepared when it is set by user (not None).
+        Note: The log file path is only prepared when it is set by the user (not None).
 
         It defines:
 
             :methods:
-                | log_file - Property methods for set/get operations.
-                | not_none - Checks if log file path is not None.
-                | __str__ - Returns the log file as string representation.
+                | log_file - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the log file path is not None.
+                | __str__ - Returns the log file as a string representation.
     '''
 
     @property
     def log_file(self) -> LogFileType | None:
         '''
-            Property method for getting log file path.
-            Note: Log file path is only prepared when it is set by user (not None).
+            Property method for getting the log file path.
+            Note: The log file path is only prepared when it is set by the user (not None).
 
             :return: The log file path in LogFileType format | None.
         '''
@@ -62,8 +62,8 @@ class ILogFile[LogFileType](Protocol):
     @log_file.setter
     def log_file(self, log_file: LogFileType) -> None:
         '''
-            Property method for setting log file path.
-            Note: Log file path is only prepared when it is set by user (not None).
+            Property method for setting the log file path.
+            Note: The log file path is only prepared when it is set by the user (not None).
 
             :param log_file: The log file path in LogFileType format.
         '''
@@ -71,8 +71,8 @@ class ILogFile[LogFileType](Protocol):
 
     def not_none(self) -> bool:
         '''
-            Checks if log file path is not None.
-            Note: Log file path is only prepared when it is set by user (not None).
+            Checks if the log file path is not None.
+            Note: The log file path is only prepared when it is set by the user (not None).
 
             :return: True (Not None) | False (None).
         '''
@@ -80,8 +80,8 @@ class ILogFile[LogFileType](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns the LogFile as string representation.
+            Returns the LogFile as a string representation.
 
-            :return: The LogFile as string representation.
+            :return: The LogFile as a string representation.
         '''
         ...

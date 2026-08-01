@@ -55,7 +55,7 @@ class ConfigIOValidator:
         '''
             Validates config I/O bundle instance.
 
-            :param bundle: Config I/O bundle instance to be validated.
+            :param bundle: The config I/O bundle instance to be validated.
             :exceptions:
                 | ATSValueError: ConfigIOBundle must be provided and have proper values.
                 | ATSTypeError:  ConfigIOBundle must be an instance of ConfigIOBundle and its

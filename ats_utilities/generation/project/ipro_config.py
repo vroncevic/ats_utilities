@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IProConfig with method(s).
+    Defines the IProConfig abstract class with method(s).
     Provides an interface for project configuration.
 '''
 
@@ -37,47 +37,47 @@ __status__ = 'Development'
 @runtime_checkable
 class IProConfig[ConfigType](Protocol):
     '''
-        Defines abstract class IProConfig with method(s).
+        Defines the IProConfig abstract class with method(s).
         Provides an interface for project configuration.
 
         It defines:
 
             :methods:
-                | config - Property methods for set/get operations.
-                | not_none - Checks if project configuration is not None.
-                | __str__ - Returns ATS project configuration as string representation.
+                | config - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the project configuration is not None.
+                | __str__ - Returns the ATS project configuration as a string representation.
     '''
 
     @property
     def config(self) -> ConfigType:
         '''
-            Property method for getting project configuration.
+            Property method for getting the project configuration.
 
-            :return: Formatted project configuration.
+            :return: The formatted project configuration.
         '''
         ...
 
     @config.setter
     def config(self, pro_config: ConfigType) -> None:
         '''
-            Property method for setting project configuration.
+            Property method for setting the project configuration.
 
-            :param pro_config: Project configuration.
+            :param pro_config: The project configuration.
         '''
         ...
 
     def not_none(self) -> bool:
         '''
-            Checks if project configuration is not None.
+            Checks if the project configuration is not None.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns ATS project configuration as string representation.
+            Returns the ATS project configuration as a string representation.
 
-            :return: ATS project configuration as string representation.
+            :return: The ATS project configuration as a string representation.
         '''
         ...

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates info runtime components for simplification of info bundle creation.
+    Encapsulates the info runtime components for the simplification of the info bundle creation.
 '''
 
 from __future__ import annotations
@@ -49,7 +49,7 @@ __status__ = 'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class InfoBundle:
     '''
-        Encapsulates info runtime components for simplification of info bundle creation.
+        Encapsulates the info runtime components for the simplification of the info bundle creation.
 
         It defines:
 
@@ -85,7 +85,7 @@ class InfoBundle:
         '''
             Converts the info bundle to a dictionary.
 
-            :return: Dictionary representation of the info bundle instance.
+            :return: The dictionary representation of the info bundle instance.
             :exceptions:
                 | ATSValueError: Instance must be provided.
                 | ATSValueError: Instance must be a dataclass instance.

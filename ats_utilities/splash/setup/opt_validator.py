@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for splash options.
+    A validator for the splash options instance.
 '''
 
 from __future__ import annotations
@@ -41,20 +41,20 @@ __status__ = 'Development'
 
 class SplashOptionsValidator:
     '''
-        Validator for splash options.
+        A validator for the splash options instance.
 
         It defines:
 
             :methods:
-                | validate - Validates splash options.
+                | validate - Validates the splash options instance.
     '''
 
     @classmethod
     def validate(cls, options: SplashOptions) -> None:
         '''
-            Validates splash options.
+            Validates the splash options instance.
 
-            :param options: Splash options to be validated.
+            :param options: The splash options to be validated.
             :exceptions:
                 | ATSValueError: Options must be provided and have proper attributes.
                 | ATSTypeError:  Options must be an instance of Mapping and its attributes

@@ -44,11 +44,11 @@ class GeneratorData:
         It defines:
 
             :attributes:
-                | archive_path - Path to the .tgz archive.
-                | target_dir - Directory where the project will be generated.
-                | template_key - Key for the template configuration.
-                | scheme - Scheme configuration file path.
-                | template_values - Template values for name case variations.
+                | archive_path - The path to the .tgz archive.
+                | target_dir - The directory where the project will be generated.
+                | template_key - The key for the template configuration.
+                | scheme - The scheme configuration file path.
+                | template_values - The template values for name case variations.
             :methods:
                 | to_dict - Converts the generator data instance to a dictionary.
     '''
@@ -63,7 +63,7 @@ class GeneratorData:
         '''
             Converts the generator data instance to a dictionary.
 
-            :return: Dictionary representation of the generator data.
+            :return: The dictionary representation of the generator data.
             :exceptions: None.
         '''
         return instance_to_dict(self)

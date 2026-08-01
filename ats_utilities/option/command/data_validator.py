@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for option data.
+    A validator for the option data instance.
 '''
 
 from __future__ import annotations
@@ -39,18 +39,18 @@ __status__ = 'Development'
 
 class OptionDataValidator:
     '''
-        Validator for option data.
+        A validator for the option data instance.
 
         It defines:
 
             :methods:
-                | validate - Validates an option data instance.
+                | validate - Validates the an option data instance.
     '''
 
     @classmethod
     def validate(cls, data: OptionData) -> None:
         '''
-            Validates an option data instance.
+            Validates the an option data instance.
 
             :param data: option data instance to be validated.
             :exceptions:

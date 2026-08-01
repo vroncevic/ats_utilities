@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory for creating option bundle instance.
+    A factory for creating an option bundle instance.
 '''
 
 from __future__ import annotations
@@ -48,7 +48,7 @@ __status__ = 'Development'
 
 class OptionFactory:
     '''
-        Factory for creating option bundle instance.
+        A factory for creating an option bundle instance.
 
         It defines:
 
@@ -61,8 +61,8 @@ class OptionFactory:
         '''
             Creates an option bundle using configuration options.
 
-            :param options: Creation options/parameters for the bundle.
-            :return: Option bundle instance.
+            :param options: The creation options/parameters for the bundle.
+            :return: The option bundle instance.
             :exceptions:
                 | ATSValueError: Options must be provided and have proper values.
                 | ATSTypeError:  Options must be an instance of Mapping and its

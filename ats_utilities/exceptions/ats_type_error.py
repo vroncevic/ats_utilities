@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSTypeError with attribute(s) and method(s).
+    Defines the ATSTypeError class with attribute(s) and method(s).
     Creates an exception for the check type mechanism.
 '''
 
@@ -36,7 +36,7 @@ __status__ = 'Development'
 
 class ATSTypeError(ATSError, TypeError):
     '''
-        Defines class ATSTypeError with attribute(s) and method(s).
+        Defines the ATSTypeError class with attribute(s) and method(s).
         Creates an exception for the check type mechanism.
 
         It defines:

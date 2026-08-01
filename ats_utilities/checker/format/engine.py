@@ -130,7 +130,7 @@ class FormatValidator:
             Checks if the format follows the expected format.
 
             :param format_to_check: The format to be validated.
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions:
                 | ATSValueError: The format to be validated must be provided.
                 | ATSTypeError:  The format to be validated must be a string.

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IProName with method(s).
+    Defines the IProName abstract class with method(s).
     Interface for the project name mechanism.
 '''
 
@@ -37,21 +37,21 @@ __status__ = 'Development'
 @runtime_checkable
 class IProName(Protocol):
     '''
-        Defines abstract class IProName with method(s).
+        Defines the IProName abstract class with method(s).
         Interface for the project name mechanism.
 
         It defines:
 
             :methods:
-                | pro_name - Property methods for set/get operations.
-                | not_none - Checks if project name is not None.
-                | __str__ - Returns ATS project name as string representation.
+                | pro_name - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the project name is not None.
+                | __str__ - Returns the ATS project name as a string representation.
     '''
 
     @property
     def pro_name(self) -> str | None:
         '''
-            Property method for getting project name.
+            Property method for getting the project name.
 
             :return: Formatted project name in string format | None.
         '''
@@ -60,7 +60,7 @@ class IProName(Protocol):
     @pro_name.setter
     def pro_name(self, name: str) -> None:
         '''
-            Property method for setting project name.
+            Property method for setting the project name.
 
             :param name: Project name in string format | None.
         '''
@@ -68,16 +68,16 @@ class IProName(Protocol):
 
     def not_none(self) -> bool:
         '''
-            Checks if project name is not None.
+            Checks if the project name is not None.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns ATS project name as string representation.
+            Returns the ATS project name as a string representation.
 
-            :return: ATS project name as string representation.
+            :return: The ATS project name as a string representation.
         '''
         ...

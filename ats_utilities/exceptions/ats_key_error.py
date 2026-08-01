@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSKeyError with attribute(s) and method(s).
+    Defines the ATSKeyError class with attribute(s) and method(s).
     Creates an exception for the checking key mechanism.
 '''
 
@@ -36,7 +36,7 @@ __status__ = 'Development'
 
 class ATSKeyError(ATSError, KeyError):
     '''
-        Defines class ATSKeyError with attribute(s) and method(s).
+        Defines the ATSKeyError class with attribute(s) and method(s).
         Creates an exception for the checking key mechanism.
 
         It defines:

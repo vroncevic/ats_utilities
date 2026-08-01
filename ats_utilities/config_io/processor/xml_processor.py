@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class XMLProcessor with attribute(s) and method(s).
+    Defines the XMLProcessor class with attribute(s) and method(s).
     Provides an API to process configuration in XML format.
     1th level of configuration loader/storer implementation.
 '''
@@ -41,24 +41,24 @@ __status__ = 'Development'
 
 class XMLProcessor:
     '''
-        Defines class XMLProcessor with attribute(s) and method(s).
+        Defines the XMLProcessor class with attribute(s) and method(s).
         Provides an API to process configuration in XML format.
         1th level of configuration loader/storer implementation.
 
         It defines:
 
             :attributes:
-                | _root - Internal instance to store configuration data (default None).
-                | _scheme - Mapping with configuration scheme (default None).
-                | _root_tag - Resolved root element tag name (default 'configuration').
+                | _root - The internal instance to store configuration data (default: None).
+                | _scheme - The mapping with configuration scheme (default: None).
+                | _root_tag - The resolved root element tag name (default 'configuration').
             :methods:
-                | __init__ - Initializes XMLProcessor constructor.
+                | __init__ - Initializes the XMLProcessor instance.
                 | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).
                 | serialize - Converts the internal configuration structure back to a formatted string representation.
-                | update_data - Updates the internal configuration data and validates it against the scheme.
+                | update_data - Updates the internal configuration data and Validates the it against the scheme instance.
                 | to_dict - Returns the parsed configuration as a flat or structured dictionary.
-                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.
-                | __str__ - Returns the XMLProcessor instance as string representation.
+                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme instance.
+                | __str__ - Returns the XMLProcessor instance as a string representation.
 
         XML Format Config Scheme
         ------------------------
@@ -86,7 +86,7 @@ class XMLProcessor:
 
     def __init__(self, scheme: Mapping[str, str] | None = None) -> None:
         '''
-            Initializes XMLProcessor constructor.
+            Initializes the XMLProcessor instance.
 
             :param scheme: Mapping with configuration scheme | None.
             :exceptions: None.
@@ -102,8 +102,8 @@ class XMLProcessor:
         '''
             Loads and parses configuration from a raw source (string, stream, or lines).
 
-            :param content: Raw configuration data (str, stream, or sequence).
-            :return: True if successfully, otherwise False.
+            :param content: The raw configuration data (str, stream, or sequence).
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         try:
@@ -118,7 +118,7 @@ class XMLProcessor:
         '''
             Converts the internal configuration structure back to a formatted string representation.
 
-            :return: Configuration content as string.
+            :return: The configuration content as a string.
             :exceptions: None.
         '''
         if self._root is not None:
@@ -128,10 +128,10 @@ class XMLProcessor:
 
     def update_data(self, new_data: Mapping[str, str]) -> bool:
         '''
-            Updates the internal configuration data and validates it against the scheme.
+            Updates the internal configuration data and Validates the it against the scheme instance.
 
-            :param new_data: Mapping containing configuration keys and values.
-            :return: True if successfully, otherwise False.
+            :param new_data: The mapping containing configuration keys and values.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         old_root = deepcopy(self._root) if self._root is not None else None
@@ -173,7 +173,7 @@ class XMLProcessor:
         '''
             Returns the parsed configuration as a flat or structured dictionary.
 
-            :return: Dictionary with configuration information.
+            :return: The dictionary with configuration information.
             :exceptions: None.
         '''
         if self._root is None:
@@ -200,9 +200,9 @@ class XMLProcessor:
 
     def validate_by_scheme(self) -> bool:
         '''
-            Validates the internal parsed data structure against the provided scheme.
+            Validates the internal parsed data structure against the provided scheme instance.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         if self._root is None:
@@ -224,9 +224,9 @@ class XMLProcessor:
 
     def __str__(self) -> str:
         '''
-            Returns the XMLProcessor instance as string representation.
+            Returns the XMLProcessor instance as a string representation.
 
-            :return: The XMLProcessor instance as string representation.
+            :return: The XMLProcessor instance as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

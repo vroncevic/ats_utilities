@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSBadCallError with attribute(s) and method(s).
+    Defines the ATSBadCallError class with attribute(s) and method(s).
     Creates an exception for the checking method or function params.
 '''
 
@@ -36,7 +36,7 @@ __status__ = 'Development'
 
 class ATSBadCallError(ATSError):
     '''
-        Defines class ATSBadCallError with attribute(s) and method(s).
+        Defines the ATSBadCallError class with attribute(s) and method(s).
         Creates an exception for the checking method or function params.
 
         It defines:

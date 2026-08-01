@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IBuildDate with method(s).
-    Interface for the build date mechanism.
+    Defines the IBuildDate abstract class with method(s).
+    An interface for the build date mechanism.
 '''
 
 from __future__ import annotations
@@ -37,23 +37,23 @@ __status__ = 'Development'
 @runtime_checkable
 class IBuildDate[BuildDateType](Protocol):
     '''
-        Defines abstract class IBuildDate with method(s).
-        Interface for the build date mechanism.
-        Note: Build date is only prepared when it is set by user (not None).
+        Defines the IBuildDate abstract class with method(s).
+        An interface for the build date mechanism.
+        Note: The build date is only prepared when it is set by the user (not None).
 
         It defines:
 
             :methods:
-                | build_date - Property methods for set/get operations.
-                | not_none - Checks if build date is not None.
-                | __str__ - Returns the build date as string representation.
+                | build_date - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the build date is not None.
+                | __str__ - Returns the build date as a string representation.
     '''
 
     @property
     def build_date(self) -> BuildDateType | None:
         '''
-            Property method for getting build date.
-            Note: Build date is only prepared when it is set by user (not None).
+            Property method for getting the build date.
+            Note: The build date is only prepared when it is set by the user (not None).
 
             :return: The build date in BuildDateType format | None.
         '''
@@ -62,8 +62,8 @@ class IBuildDate[BuildDateType](Protocol):
     @build_date.setter
     def build_date(self, build_date: BuildDateType | None) -> None:
         '''
-            Property method for setting build date.
-            Note: Build date is only prepared when it is set by user (not None).
+            Property method for setting the build date.
+            Note: The build date is only prepared when it is set by the user (not None).
 
             :param build_date: The build date in BuildDateType format.
         '''
@@ -71,17 +71,17 @@ class IBuildDate[BuildDateType](Protocol):
 
     def not_none(self) -> bool:
         '''
-            Checks if build date is not None.
-            Note: Build date is only prepared when it is set by user (not None).
+            Checks if the build date is not None.
+            Note: The build date is only prepared when it is set by the user (not None).
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the build date as string representation.
+            Returns the build date as a string representation.
 
-            :return: The build date as string representation.
+            :return: The build date as a string representation.
         '''
         ...

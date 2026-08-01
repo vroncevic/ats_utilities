@@ -52,8 +52,8 @@ class GeneratorRegistry:
         '''
             Orchestrates dependency injection and creates a generator bundle.
 
-            :param dependencies: Registry-specific orchestration dependencies.
-            :return: Generator bundle.
+            :param dependencies: The registry-specific orchestration dependencies.
+            :return: The generator bundle.
             :exceptions:
                 | ATSValueError: Generator dependencies must be provided and have proper values.
                 | ATSTypeError:  Generator dependencies must be an instance of Mapping and its attributes

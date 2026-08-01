@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Organization with attribute(s) and method(s).
+    Defines the Organization class with attribute(s) and method(s).
     Provides an API for the organization in one property object.
 '''
 
@@ -40,19 +40,19 @@ __status__ = 'Development'
 
 class Organization:
     '''
-        Defines class Organization with attribute(s) and method(s).
+        Defines the Organization class with attribute(s) and method(s).
         Provides an API for the organization in one property object.
-        Note: Organization is only prepared when it is set by user (not None).
+        Note: The organization is only prepared when it is set by the user (not None).
 
         It defines:
 
             :attributes:
-                | _organization - The organization for App/Tool/Script (default None).
+                | _organization - The organization for the App/Tool/Script (default: None).
             :methods:
-                | __init__ - Initializes Organization constructor.
-                | organization - Property methods for set/get organization.
-                | not_none - Checks is organization not None.
-                | __str__ - Returns the organization as string representation.
+                | __init__ - Initializes the Organization instance.
+                | organization - Property methods for setting and getting the organization.
+                | not_none - Checks if the organization is not None.
+                | __str__ - Returns the organization as a string representation.
     '''
 
     _organization: str | None
@@ -60,9 +60,9 @@ class Organization:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes Organization constructor.
+            Initializes the Organization instance.
 
-            :param context_bundle: Context bundle for organization.
+            :param context_bundle: The context bundle for organization.
             :exceptions:
                 | ATSValueError:  Context bundle must be provided and have proper values.
                 | ATSTypeError:   Context bundle must be an instance of ContextBundle
@@ -77,13 +77,13 @@ class Organization:
     @vreport('getting organization {organization}')
     def organization(self) -> str | None:
         '''
-            Property method for getting organization.
-            Note: Organization is only prepared when it is set by user (not None).
+            Property method for getting the organization.
+            Note: The organization is only prepared when it is set by the user (not None).
 
             :return: The organization in string format | None.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._organization
@@ -93,40 +93,40 @@ class Organization:
     @vreport('setting organization {organization}')
     def organization(self, organization: str) -> None:
         '''
-            Property method for setting organization.
-            Note: Organization is only prepared when it is set by user (not None).
+            Property method for setting the organization.
+            Note: The organization is only prepared when it is set by the user (not None).
 
             :param organization: The organization in string format.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSRuntimeError: The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         self._organization = organization
 
     @vreport('checking organization {organization}')
     def not_none(self) -> bool:
         '''
-            Checks is organization not None.
-            Note: Organization is only prepared when it is set by user (not None).
+            Checks if the organization is not None.
+            Note: The organization is only prepared when it is set by the user (not None).
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._organization is not None
 
     def __str__(self) -> str:
         '''
-            Returns the Organization as string representation.
+            Returns the Organization as a string representation.
 
-            :return: The Organization as string representation.
+            :return: The Organization as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

@@ -44,9 +44,9 @@ class FileData:
         It defines:
 
             :attributes:
-                | file_path - File path.
-                | file_mode - File mode.
-                | context_bundle - Context bundle for dependency injection.
+                | file_path - The file path.
+                | file_mode - The file mode.
+                | context_bundle - The context bundle for dependency injection.
             :methods:
                 | to_dict - Converts file data instance to a dictionary.
     '''
@@ -59,7 +59,7 @@ class FileData:
         '''
             Converts file data instance to a dictionary.
 
-            :return: Dictionary representation of file data.
+            :return: The dictionary representation of file data.
             :exceptions: None.
         '''
         return instance_to_dict(self)

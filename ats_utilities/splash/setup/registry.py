@@ -52,8 +52,8 @@ class SplashRegistry:
         '''
             Orchestrates dependency injection and creates a splash bundle instance.
 
-            :param dependencies: Registry-specific orchestration dependencies.
-            :return: Splash bundle instance.
+            :param dependencies: The registry-specific orchestration dependencies.
+            :return: The splash bundle instance.
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper attributes.
                 | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes

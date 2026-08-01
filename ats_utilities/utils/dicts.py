@@ -41,9 +41,9 @@ def cherry_pick_dict[K, V](source: Mapping[K, V] | None, keys: Container[object]
     '''
         Cherry picks keys from a source dictionary.
 
-        :param source: Source dictionary from which to pick keys.
-        :param keys: Set of keys to pick from the source dictionary.
-        :return: Dictionary with cherry picked keys.
+        :param source: The source dictionary from which to pick keys.
+        :param keys: The set of keys to pick from the source dictionary.
+        :return: The dictionary with cherry picked keys.
         :exceptions: None.
     '''
     if not source or not keys:
@@ -56,8 +56,8 @@ def has_required_keys[K, V](source: Mapping[K, V], keys: Container[object] | Non
     '''
         Checks if all required keys are present in the source dictionary.
 
-        :param source: Source dictionary to check.
-        :param keys: Set of mandatory keys.
+        :param source: The source dictionary to check.
+        :param keys: The set of mandatory keys.
         :return: True (passed), False (failed).
         :exceptions: None.
     '''
@@ -68,8 +68,8 @@ def is_present_key[K, V](mapping: Mapping[K, V], key: K) -> bool:
     '''
         Checks if a key is present in a mapping.
 
-        :param mapping: Mapping to check.
-        :param key: Key to check.
+        :param mapping: The mapping to check.
+        :param key: The key to check.
         :return: True if the key is present in the mapping, False otherwise.
         :exceptions: None.
     '''
@@ -86,10 +86,10 @@ def is_present_required_key[K, V](
     '''
         Raises an exception if a key is not present or is None in a mapping.
 
-        :param mapping: Mapping to check.
-        :param key: Key to check.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param mapping: The mapping to check.
+        :param key: The key to check.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if the key is not present or is None.
         :exceptions:
             | ATSTypeError: Parameters (mapping and key) types validation failed.
@@ -126,10 +126,10 @@ def require_keys(
     '''
         Requires all keys to be present in the source dictionary.
 
-        :param source: Source dictionary to check.
-        :param keys: Set of mandatory keys.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param source: The source dictionary to check.
+        :param keys: The set of mandatory keys.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is None.
         :exceptions:
             | ATSTypeError: Parameters (source and keys) types validation failed.
@@ -160,10 +160,10 @@ def get_first_available(
         Retrieves the first available value from a list of keys in priority order.
         Simulates the logic of: source.get(key1) or source.get(key2) ...
 
-        :param source: Source dictionary/mapping to search.
-        :param keys: Sequence of keys to check in order of priority.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param source: The source dictionary/mapping to search.
+        :param keys: The sequence of keys to check in order of priority.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :return: The first non-empty value found, or None if none of the keys exist/have value.
         :exceptions:
             | ATSTypeError: Parameters (source and keys) types validation failed.

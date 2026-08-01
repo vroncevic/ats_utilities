@@ -67,7 +67,7 @@ class LogHandlerManager:
             Configures the file output handler.
 
             :param log_file: The log file path.
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return self._logger.add_file_handler(log_file)
@@ -76,7 +76,7 @@ class LogHandlerManager:
         '''
             Configures the stdout stream handler.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return self._logger.add_stdout_handler()

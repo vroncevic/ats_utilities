@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class GeneratorManager with attribute(s) and method(s).
+    Defines the GeneratorManager class with attribute(s) and method(s).
     Provides an API for template-based generation of project files from .tgz archives.
 '''
 
@@ -49,25 +49,25 @@ __status__ = 'Development'
 
 class GeneratorManager:
     '''
-        Defines class GeneratorManager with attribute(s) and method(s).
+        Defines the GeneratorManager class with attribute(s) and method(s).
         Provides an API for template-based generation of project files from .tgz archives.
 
         It defines:
 
             :attributes:
-                | _context - Bundle of context.
-                | _scheme_loader - Loader/resolver for scheme configuration.
-                | _tar_processor - Processor for archive extraction and template rendering.
-                | _is_initialized - Flag indicating if the generator manager is initialized.
+                | _context - The bundle of context.
+                | _scheme_loader - The loader/resolver for the scheme configuration.
+                | _tar_processor - The processor for the archive extraction and template rendering.
+                | _is_initialized - The flag indicating if the generator manager is initialized.
             :methods:
                 | __init__ - Initializes generator manager.
-                | get_bundle - Returns current generator configuration bundle.
+                | get_bundle - Returns the current generator configuration bundle.
                 | update_bundle - Updates current generator configuration bundle.
                 | _apply_bundle - Applies the generator configuration bundle.
-                | get_context - Returns current context.
+                | get_context - Returns the current context.
                 | generate - Generates project modules/files from a .tgz archive.
                 | is_initialized - Checks if the generator manager is initialized.
-                | __str__ - Returns generator manager as string representation.
+                | __str__ - Returns the generator manager as a string representation.
     '''
 
     _context: ContextBundle
@@ -79,7 +79,7 @@ class GeneratorManager:
         '''
             Initializes generator manager.
 
-            :param own: Generator manager component bundle for generator.
+            :param own: The generator manager component bundle for generator.
             :exceptions:
                 | ATSValueError: Generator manager component bundle must be provided and have proper values.
                 | ATSTypeError:  Generator manager component bundle must be an instance of GeneratorBundle
@@ -94,7 +94,7 @@ class GeneratorManager:
         '''
             Gets current generator configuration bundle.
 
-            :return: Generator configuration bundle.
+            :return: The generator configuration bundle.
             :exceptions: None.
         '''
         return GeneratorBundle(
@@ -107,7 +107,7 @@ class GeneratorManager:
         '''
             Updates generator configuration bundle.
 
-            :param bundle: Generator configuration bundle.
+            :param bundle: The generator configuration bundle.
             :return: True if generator configuration bundle is updated successfully.
             :exceptions: None.
         '''
@@ -126,7 +126,7 @@ class GeneratorManager:
         '''
             Applies generator configuration bundle.
 
-            :param bundle: Generator configuration bundle.
+            :param bundle: The generator configuration bundle.
             :exceptions: None.
         '''
         self._context = bundle.context_bundle
@@ -137,17 +137,17 @@ class GeneratorManager:
         '''
             Gets current context.
 
-            :return: Current context.
+            :return: The current context.
             :exceptions: None.
         '''
         return self._context
 
     def prepare_template_values(self, template_values: Mapping[str, str]) -> dict[str, str]:
         '''
-            Validates and computes name case variations from template values.
+            Validates the and computes name case variations from template values instance.
 
-            :param template_values: Input replacement values.
-            :return: Updated template values dictionary.
+            :param template_values: The input replacement values.
+            :return: The updated template values dictionary.
             :exceptions:
                 | ATSValueError: Template values must be provided.
                 | ATSTypeError:  Template values must be a mapping.
@@ -182,8 +182,8 @@ class GeneratorManager:
         '''
             Generates project modules/files from a .tgz archive.
 
-            :param data: GeneratorManager data containing template generation parameters.
-            :return: True if successfully, otherwise False.
+            :param data: The GeneratorManager data containing template generation parameters.
+            :return: True if successful, otherwise False.
             :exceptions:
                 | ATSValueError: Generator data must be provided and have proper values.
                 | ATSTypeError:  Generator data must be an instance of GeneratorData and its attributes
@@ -228,7 +228,7 @@ class GeneratorManager:
         '''
             Checks if generator manager is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return all([
@@ -239,9 +239,9 @@ class GeneratorManager:
 
     def __str__(self) -> str:
         '''
-            Returns generator manager as string representation.
+            Returns the generator manager as a string representation.
 
-            :return: Generator manager as string representation.
+            :return: The Generator manager as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

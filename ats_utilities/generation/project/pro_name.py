@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ProName with attribute(s) and method(s).
+    Defines the ProName class with attribute(s) and method(s).
     Defines project name container.
 '''
 
@@ -40,19 +40,19 @@ __status__ = 'Development'
 
 class ProName:
     '''
-        Defines class ProName with attribute(s) and method(s).
+        Defines the ProName class with attribute(s) and method(s).
         Defines project name container.
         Mechanism for project configuration.
 
         It defines:
 
             :attributes:
-                | _pro_name - Project name.
+                | _pro_name - The project name.
             :methods:
-                | __init__ - Initializes project name.
-                | pro_name - Property methods for set/get operations.
-                | not_none - Checks project name is not None.
-                | __str__ - Returns ATS project name as string representation.
+                | __init__ - Initializes the project name instance.
+                | pro_name - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the project name is not None.
+                | __str__ - Returns the ATS project name as a string representation.
     '''
 
     _pro_name: str | None
@@ -60,9 +60,9 @@ class ProName:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes project name.
+            Initializes the project name instance.
 
-            :param context_bundle: Context bundle for project name.
+            :param context_bundle: The context bundle for project name.
             :exceptions:
                 | ATSValueError: Context bundle must be provided and have proper values.
                 | ATSTypeError:  Context bundle must be an instance of ContextBundle and
@@ -76,12 +76,12 @@ class ProName:
     @vreport('getting pro name {pro_name}')
     def pro_name(self) -> str:
         '''
-            Property method for getting project name in string format.
+            Property method for getting the project name in string format.
 
-            :return: Formatted project name in string format.
+            :return: The formatted project name in string format.
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._pro_name
@@ -91,38 +91,38 @@ class ProName:
     @vreport('getting pro name {pro_name}')
     def pro_name(self, name: str) -> None:
         '''
-            Property method for setting project name.
+            Property method for setting the project name.
 
-            :param name: Project name in string format.
+            :param name: The project name in string format.
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSTypeError:      Parameter type validation failed.
                 | ATSValueError:     Parameter format validation failed.
-                | ATSRuntimeError:   Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSRuntimeError:   The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         self._pro_name = name
 
     @vreport('checking pro name {pro_name}')
     def not_none(self) -> bool:
         '''
-            Checks project name is not None.
+            Checks if the project name is not None.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._pro_name is not None
 
     def __str__(self) -> str:
         '''
-            Returns ATS project name as string representation.
+            Returns the ATS project name as a string representation.
 
-            :return: ATS project name as string representation.
+            :return: The ATS project name as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

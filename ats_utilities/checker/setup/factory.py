@@ -59,7 +59,7 @@ class CheckerFactory:
         '''
             Creates the checker bundle with optional pre-configured options.
 
-            :param options: Creation options/parameters for the bundle (default None).
+            :param options: The creation options/parameters for the bundle (default: None).
             :return: The checker bundle.
             :exceptions:
                 | ATSValueError: The options must be provided and have proper values.

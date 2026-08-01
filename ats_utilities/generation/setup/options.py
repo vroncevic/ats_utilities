@@ -42,7 +42,7 @@ class GeneratorOptions(TypedDict):
         It defines:
 
             :attributes:
-                | context_bundle: Context bundle.
+                | context_bundle - The context bundle.
     '''
 
     context_bundle: ContextBundle

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ISplashManager with method(s).
+    Defines the ISplashManager abstract class with method(s).
     Provides an interface for splash screen manager.
 '''
 
@@ -37,7 +37,7 @@ __status__ = 'Development'
 @runtime_checkable
 class ISplashManager[ConfigType, ContextEnvironment, PositionData](Protocol):
     '''
-        Defines abstract class ISplashManager with method(s).
+        Defines the ISplashManager abstract class with method(s).
         Provides an interface for splash screen manager.
 
         It defines:
@@ -49,15 +49,14 @@ class ISplashManager[ConfigType, ContextEnvironment, PositionData](Protocol):
                 | show - Shows splash screen.
                 | center - Centers console line and places text.
                 | is_initialized - Checks if splash screen manager is initialized.
-                | __str__ - Returns splash screen manager as string representation.
+                | __str__ - Returns the splash screen manager as a string representation.
     '''
 
     def get_bundle(self) -> ConfigType:
         '''
             Gets current splash manager bundle.
 
-            :return: Splash manager bundle.
-            :exceptions: None.
+            :return: The splash manager bundle.
         '''
         ...
 
@@ -65,8 +64,7 @@ class ISplashManager[ConfigType, ContextEnvironment, PositionData](Protocol):
         '''
             Updates splash manager bundle.
 
-            :param bundle: Splash manager bundle.
-            :exceptions: None.
+            :param bundle: The splash manager bundle.
         '''
         ...
 
@@ -74,15 +72,13 @@ class ISplashManager[ConfigType, ContextEnvironment, PositionData](Protocol):
         '''
             Returns context environment.
 
-            :return: Context environment.
+            :return: The context environment.
         '''
         ...
 
     def show(self) -> None:
         '''
             Shows splash screen.
-
-            :exceptions: None.
         '''
         ...
 
@@ -90,8 +86,8 @@ class ISplashManager[ConfigType, ContextEnvironment, PositionData](Protocol):
         '''
             Centers console line and places text.
 
-            :param position: Position data for console output.
-            :param text: Text to be centered.
+            :param position: The position data for console output.
+            :param text: The text to be centered.
         '''
         ...
 
@@ -99,14 +95,14 @@ class ISplashManager[ConfigType, ContextEnvironment, PositionData](Protocol):
         '''
             Checks if splash screen manager is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns splash manager as string representation.
+            Returns the splash manager as a string representation.
 
-            :return: Splash manager as string representation.
+            :return: The Splash manager as a string representation.
         '''
         ...

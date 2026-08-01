@@ -43,8 +43,8 @@ def _resolve_type(type_to_resolve: object) -> object:
         Handles cases like Union[int, float] by flattening them 
         into a tuple of concrete types (int, float).
 
-        :param type_to_resolve: Type to resolve.
-        :return: Resolved type.
+        :param type_to_resolve: The type to resolve.
+        :return: The resolved type.
         :exceptions: None.
     '''
     origin = get_origin(type_to_resolve)
@@ -76,10 +76,10 @@ def istype(
     '''
         Checks if an instance is of a specified type.
 
-        :param instance: Instance to check.
-        :param class_or_tuple: Type or tuple of types to check against.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param instance: The instance to check.
+        :param class_or_tuple: The type or tuple of types to check against.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if instance is not of the specified type.
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSTypeError).

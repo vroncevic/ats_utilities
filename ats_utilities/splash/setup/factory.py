@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory for creating splash bundle instance.
+    A factory for creating an splash bundle instance.
 '''
 
 from __future__ import annotations
@@ -52,7 +52,7 @@ __status__ = 'Development'
 
 class SplashFactory:
     '''
-        Factory for creating splash bundle instance.
+        A factory for creating an splash bundle instance.
 
         It defines:
 
@@ -66,8 +66,8 @@ class SplashFactory:
         '''
             Creates a splash bundle using configuration options.
 
-            :param options: Creation options/parameters for the bundle.
-            :return: Splash bundle instance.
+            :param options: The creation options/parameters for the bundle.
+            :return: The splash bundle instance.
             :exceptions:
                 | ATSValueError: Splash options must be provided and have proper values.
                 | ATSTypeError:  Splash options must be an instance of Mapping and its

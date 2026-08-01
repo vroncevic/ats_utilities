@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ITemplateDir with method(s).
+    Defines the ITemplateDir abstract class with method(s).
     Interface for the project template directory mechanism.
 '''
 
@@ -37,21 +37,21 @@ __status__ = 'Development'
 @runtime_checkable
 class ITemplateDir(Protocol):
     '''
-        Defines abstract class ITemplateDir with method(s).
+        Defines the ITemplateDir abstract class with method(s).
         Interface for the project template directory mechanism.
 
         It defines:
 
             :methods:
-                | template_dir - Property methods for set/get operations.
-                | not_none - Checks if project template directory is not None.
-                | __str__ - Returns ATS project template directory as string representation.
+                | template_dir - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the project template directory is not None.
+                | __str__ - Returns the ATS project template directory as a string representation.
     '''
 
     @property
     def template_dir(self) -> str | None:
         '''
-            Property method for getting template dir.
+            Property method for getting the template dir.
 
             :return: Formatted template dir in string format | None.
         '''
@@ -60,7 +60,7 @@ class ITemplateDir(Protocol):
     @template_dir.setter
     def template_dir(self, dir_path: str) -> None:
         '''
-            Property method for setting project template dir.
+            Property method for setting the project template dir.
 
             :param dir_path: Project template dir path in string format | None.
         '''
@@ -68,16 +68,16 @@ class ITemplateDir(Protocol):
 
     def not_none(self) -> bool:
         '''
-            Checks if project template directory is not None.
+            Checks if the project template directory is not None.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns ATS project template directory as string representation.
+            Returns the ATS project template directory as a string representation.
 
-            :return: ATS project template directory as string representation.
+            :return: The ATS project template directory as a string representation.
         '''
         ...

@@ -47,13 +47,13 @@ class BaseKeys:
         It defines:
 
             :attributes:
-                | DEPENDENCY_CONTEXT_BUNDLE: Context bundle interface constant.
-                | DEPENDENCY_INFO_MANAGER: Information manager interface constant.
-                | DEPENDENCY_OPTION_MANAGER: Option manager interface constant.
-                | DEPENDENCY_SPLASH_MANAGER: Splash manager interface constant.
-                | DEPENDENCY_GENERATION_MANAGER: Generator manager interface constant.
-                | OPTION_INFO_FILE: Information file constant.
-                | OPTION_CONTEXT_BUNDLE: Context bundle constant.
+                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant.
+                | DEPENDENCY_INFO_MANAGER - The information manager interface constant.
+                | DEPENDENCY_OPTION_MANAGER - The option manager interface constant.
+                | DEPENDENCY_SPLASH_MANAGER - The splash manager interface constant.
+                | DEPENDENCY_GENERATION_MANAGER - The generator manager interface constant.
+                | OPTION_INFO_FILE - The information file constant.
+                | OPTION_CONTEXT_BUNDLE - The context bundle constant.
             :methods:
                 | get_dependency_to_type - Returns mapping of base bundle dependencies to their types.
                 | get_option_to_type - Returns mapping of base bundle options to their types.
@@ -75,7 +75,7 @@ class BaseKeys:
         '''
             Returns mapping of base bundle dependencies to their types.
 
-            :return: Mapping of base bundle dependencies to their types.
+            :return: The mapping of base bundle dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -91,7 +91,7 @@ class BaseKeys:
         '''
             Returns mapping of base bundle options to their types.
 
-            :return: Mapping of base bundle options to their types.
+            :return: The mapping of base bundle options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

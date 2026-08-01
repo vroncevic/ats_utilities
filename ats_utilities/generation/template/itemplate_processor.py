@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ITemplateProcessor with method(s).
+    Defines the ITemplateProcessor abstract class with method(s).
     Interface for rendering template placeholders.
 '''
 
@@ -37,7 +37,7 @@ __status__ = 'Development'
 @runtime_checkable
 class ITemplateProcessor(Protocol):
     '''
-        Defines abstract class ITemplateProcessor with method(s).
+        Defines the ITemplateProcessor abstract class with method(s).
         Interface for rendering template placeholders.
 
         It defines:
@@ -45,7 +45,7 @@ class ITemplateProcessor(Protocol):
             :methods:
                 | render - Decodes and renders template placeholders.
                 | is_initialized - Checks if template processor is initialized.
-                | __str__ - Returns template processor as string representation.
+                | __str__ - Returns the template processor as a string representation.
     '''
 
     def render(self, raw_content: bytes, vals: dict[str, str]) -> str | bytes:
@@ -53,9 +53,8 @@ class ITemplateProcessor(Protocol):
             Decodes and renders template placeholders.
 
             :param raw_content: The raw byte content of the file.
-            :param vals: String replacement values.
-            :return: Rendered text content string, or raw bytes if binary format.
-            :exceptions: None.
+            :param vals: The string replacement values.
+            :return: The rendered text content string, or raw bytes if binary format.
         '''
         ...
 
@@ -63,16 +62,14 @@ class ITemplateProcessor(Protocol):
         '''
             Checks if template processor is initialized.
 
-            :return: True if successfully, otherwise False.
-            :exceptions: None.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns template processor as string representation.
+            Returns the template processor as a string representation.
 
-            :return: Template processor as string representation.
-            :exceptions: None.
+            :return: The Template processor as a string representation.
         '''
         ...

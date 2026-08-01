@@ -52,7 +52,7 @@ class CheckerRegistry:
         '''
             Orchestrates dependency injection and creates the checker bundle.
 
-            :param dependencies: Registry-specific orchestration dependencies.
+            :param dependencies: The registry-specific orchestration dependencies.
             :return: The checker bundle.
             :exceptions:
                 | ATSValueError: The dependencies must be provided and have proper values.

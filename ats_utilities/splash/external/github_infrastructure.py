@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class GitHubInfrastructure with attribute(s) and method(s).
+    Defines the GitHubInfrastructure class with attribute(s) and method(s).
     Provides an API for processing hyperlinks for splash screen.
 '''
 
@@ -44,22 +44,22 @@ __status__ = 'Development'
 
 class GitHubInfrastructure:
     '''
-        Defines class GitHubInfrastructure with attribute(s) and method(s).
+        Defines the GitHubInfrastructure class with attribute(s) and method(s).
         Provides an API for processing hyperlinks for splash screen.
         Note: Splash screen infrastructure comes from info configuration file as read only data.
 
         It defines:
 
             :attributes:
-                | _REQUESTED_KEYS - Requested keys from infrastructure property.
-                | _infrastructure_property - GitHub infrastructure settings.
-                | _context - Context bundle.
+                | _REQUESTED_KEYS - The requested keys from infrastructure property.
+                | _infrastructure_property - The GitHub infrastructure settings.
+                | _context - The context bundle.
             :methods:
-                | __init__ - Initials git hub infrastructure.
+                | __init__ - Initializes the git hub infrastructure instance.
                 | get_info_text - Pre-processes info text.
                 | get_issue_text - Pre-processes issue text.
                 | get_author_text - Pre-processes author text.
-                | __str__ - Returns git hub infrastructure as string representation.
+                | __str__ - Returns the git hub infrastructure as a string representation.
     '''
 
     _REQUESTED_KEYS: frozenset[str] = frozenset([
@@ -71,9 +71,9 @@ class GitHubInfrastructure:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initials git hub infrastructure.
+            Initializes the git hub infrastructure instance.
 
-            :param context_bundle: Context bundle for git hub infrastructure.
+            :param context_bundle: The context bundle for git hub infrastructure.
             :exceptions:
                 | ATSValueError:  Context bundle must be provided and have proper values.
                 | ATSTypeError:   Context bundle must be an instance of ContextBundle
@@ -88,13 +88,13 @@ class GitHubInfrastructure:
     @vreport('getting infrastructure property {infrastructure_property}')
     def infrastructure_property(self) -> Mapping[str, object]:
         '''
-            Property method for getting infrastructure property.
+            Property method for getting the infrastructure property.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :return: Formatted infrastructure property in Mapping format (read only data).
+            :return: The formatted infrastructure property in Mapping format (read only data).
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._infrastructure_property or {}
@@ -104,19 +104,19 @@ class GitHubInfrastructure:
     @vreport('setting infrastructure property {infrastructure_property}')
     def infrastructure_property(self, settings: Mapping[str, object]) -> None:
         '''
-            Property method for setting project infrastructure property.
+            Property method for setting the project infrastructure property.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :param settings: Project infrastructure property in Mapping format (read only data).
+            :param settings: The project infrastructure property in Mapping format (read only data).
             :exceptions:
                 | ATSValueError:     Infrastructure property settings is missing required keys.
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSTypeError:      Parameter type validation failed.
                 | ATSValueError:     Parameter format validation failed.
-                | ATSRuntimeError:   Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSRuntimeError:   The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         ctx: str = 'github_infrastructure::infrastructure_property(...)'
         msg: str = 'infrastructure property settings is missing required keys'
@@ -135,8 +135,8 @@ class GitHubInfrastructure:
             :return: Hyperlink with info text | None.
             :exceptions:
                 | ATSValueError:     Missing or empty attribute: '_infrastructure_property'.
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         org: str | None = self._infrastructure_property.get(SplashProperty.ORGANIZATION_SETTING)
@@ -164,8 +164,8 @@ class GitHubInfrastructure:
             :return: Hyperlink with issue info | None.
             :exceptions:
                 | ATSValueError:     Missing or empty attribute: '_infrastructure_property'.
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         org: str | None = self._infrastructure_property.get(SplashProperty.ORGANIZATION_SETTING)
@@ -192,8 +192,8 @@ class GitHubInfrastructure:
             :return: Hyperlink with author info | None.
             :exceptions:
                 | ATSValueError:     Missing or empty attribute: '_infrastructure_property'.
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         org: str | None = self._infrastructure_property.get(SplashProperty.ORGANIZATION_SETTING)
@@ -208,9 +208,9 @@ class GitHubInfrastructure:
 
     def __str__(self) -> str:
         '''
-            Returns git hub infrastructure as string representation.
+            Returns the git hub infrastructure as a string representation.
 
-            :return: Git hub infrastructure as string representation.
+            :return: The Git hub infrastructure as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

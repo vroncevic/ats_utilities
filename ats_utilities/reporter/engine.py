@@ -155,7 +155,7 @@ class Reporter:
         '''
             Reports a verbose message to the console.
 
-            :param is_verbose: Enable/Disable verbose option.
+            :param is_verbose: The Enable/Disable the verbose option.
             :param message: The sequence with the message components.
             :exceptions:
                 | ATSTypeError:      The parameter type validation failed.
@@ -229,7 +229,7 @@ class Reporter:
         '''
             Checks if the reporter is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return self._is_initialized

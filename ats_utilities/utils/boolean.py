@@ -73,9 +73,9 @@ def str_bool_to_bool(
     '''
         Converts a string boolean to a boolean.
 
-        :param value: String boolean to convert to a boolean.
-        :param exc_context: Context representation in string format.
-        :return: Boolean value.
+        :param value: The string boolean to convert to a boolean.
+        :param exc_context: The context representation in string format.
+        :return: The boolean value.
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
     '''

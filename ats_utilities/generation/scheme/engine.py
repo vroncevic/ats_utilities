@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class SchemeLoader with attribute(s) and method(s).
+    Defines the SchemeLoader class with attribute(s) and method(s).
     Provides an API for loading generation scheme from dict or file path using config_io.
 '''
 
@@ -47,19 +47,19 @@ __status__ = 'Development'
 
 class SchemeLoader:
     '''
-        Defines class SchemeLoader with attribute(s) and method(s).
+        Defines the SchemeLoader class with attribute(s) and method(s).
         Provides an API for loading generation scheme from dict or file path using config_io.
 
         It defines:
 
             :attributes:
-                | _initialized - Indicates if loader is initialized.
-                | _context - Context bundle for loader.
+                | _initialized - The indicates if loader is initialized.
+                | _context - The context bundle for loader.
             :methods:
                 | __init__ - Initializes scheme loader.
                 | load - Loads and resolves the scheme from file path.
                 | is_initialized - Checks if the scheme loader is initialized.
-                | __str__ - Returns scheme loader as string representation.
+                | __str__ - Returns the scheme loader as a string representation.
     '''
 
     _initialized: bool
@@ -69,7 +69,7 @@ class SchemeLoader:
         '''
             Initializes scheme loader.
 
-            :param context_bundle: Context bundle.
+            :param context_bundle: The context bundle.
             :exceptions:
                 | ATSValueError: Context bundle must be provided and have proper values.
                 | ATSTypeError:  Context bundle must be an instance of ContextBundle and
@@ -83,8 +83,8 @@ class SchemeLoader:
         '''
             Loads and resolves the scheme.
 
-            :param scheme: Generation scheme file path or preloaded scheme.
-            :return: Resolved scheme dictionary.
+            :param scheme: The generation scheme file path or preloaded scheme.
+            :return: The resolved scheme dictionary.
             :exceptions:
                 | ATSTypeError:      Scheme is not a string or mapping.
                 | ATSValueError:     Scheme file path does not exist.
@@ -129,16 +129,16 @@ class SchemeLoader:
         '''
             Checks if scheme loader is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return self._initialized
 
     def __str__(self) -> str:
         '''
-            Returns scheme loader as string representation.
+            Returns the scheme loader as a string representation.
 
-            :return: Scheme loader as string representation.
+            :return: The Scheme loader as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

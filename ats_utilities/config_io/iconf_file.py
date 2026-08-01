@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IConfFile with method(s).
+    Defines the IConfFile abstract class with method(s).
     Provides an interface for configuration file context manager.
     0th level of configuration loader/storer interface.
 '''
@@ -38,7 +38,7 @@ __status__ = 'Development'
 @runtime_checkable
 class IConfFile[FileType, ArgType, KwargType](Protocol):
     '''
-        Defines abstract class IConfFile with method(s).
+        Defines the IConfFile abstract class with method(s).
         Provides an interface for configuration file context manager.
         0th level of configuration loader/storer interface.
 
@@ -47,14 +47,14 @@ class IConfFile[FileType, ArgType, KwargType](Protocol):
             :methods:
                 | __enter__ - Opens configuration context manager.
                 | __exit__ - Closes configuration context manager.
-                | __str__ - Returns configuration context manager as string representation.
+                | __str__ - Returns the configuration context manager as a string representation.
     '''
 
     def __enter__(self) -> FileType:
         '''
             Opens configuration context manager.
 
-            :return: File type.
+            :return: The file type.
         '''
         ...
 
@@ -62,15 +62,15 @@ class IConfFile[FileType, ArgType, KwargType](Protocol):
         '''
             Closes configuration context manager.
 
-            :param args: Tuple of arguments.
-            :param kwargs: Mapping of arguments.
+            :param args: The tuple of arguments.
+            :param kwargs: The mapping of arguments.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns configuration context manager as string representation.
+            Returns the configuration context manager as a string representation.
 
-            :return: Configuration context manager as string representation.
+            :return: The Configuration context manager as a string representation.
         '''
         ...

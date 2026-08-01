@@ -52,8 +52,8 @@ class OptionRegistry:
         '''
             Orchestrates dependency injection and creates an option bundle instance.
 
-            :param dependencies: Registry-specific orchestration dependencies.
-            :return: Option bundle instance.
+            :param dependencies: The registry-specific orchestration dependencies.
+            :return: The option bundle instance.
             :exceptions:
                 | ATSValueError: Option dependencies must be provided and have proper values.
                 | ATSTypeError:  Option dependencies must be an instance of Mapping and its

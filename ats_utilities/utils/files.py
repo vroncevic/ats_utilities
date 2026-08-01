@@ -49,9 +49,9 @@ def check_file_exists(
     '''
         Checks if a file exists.
 
-        :param file_path: Path to the file.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param file_path: The path to the file.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is None.
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
@@ -88,8 +88,8 @@ def normalize_path(
         Normalizes file paths and strips leading directory prefixes.
 
         :param file_path: The original path to clean up.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if file_path is None.
         :return: The cleaned up relative path.
         :exceptions:
@@ -131,9 +131,9 @@ def resolve_relative_path(
         Calculates relative path to the specified source directory.
 
         :param normalized_name: The cleaned name of the archive member.
-        :param source_dir_clean: Cleaned source directory name.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param source_dir_clean: The cleaned source directory name.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is None.
         :return: The relative path inside the source dir, or None if not matching.
         :exceptions:
@@ -185,9 +185,9 @@ def is_excluded_path(
         Checks if a relative path matches any exclusion patterns.
 
         :param rel_path: The relative path to inspect.
-        :param exclude_patterns: Sequence of glob patterns to exclude.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param exclude_patterns: The sequence of glob patterns to exclude.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is None.
         :return: True if the path should be excluded, False otherwise.
         :exceptions:
@@ -240,13 +240,13 @@ def format_casing_by_match(
     '''
         Formats a replacement value according to the casing style matched in clean_str.
 
-        :param clean_str: Cleaned matched substring to analyze.
-        :param default_val: Default replacement value.
-        :param upper_val: Value in UPPER_CASE.
-        :param camel_val: Value in CamelCase/PascalCase.
-        :param dashed_val: Value in dashed-case.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param clean_str: The cleaned matched substring to analyze.
+        :param default_val: The default replacement value.
+        :param upper_val: The value in UPPER_CASE.
+        :param camel_val: The value in CamelCase/PascalCase.
+        :param dashed_val: The value in dashed-case.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is None.
         :return: The replacement formatted in matching casing style.
         :exceptions:
@@ -324,10 +324,10 @@ def write_content(
     '''
         Writes string or bytes content to a file.
 
-        :param file_path: Path to the target file.
-        :param content: Text string or raw bytes to write.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param file_path: The path to the target file.
+        :param content: The text string or raw bytes to write.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is None.
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
@@ -375,10 +375,10 @@ def apply_path_replacements(
         Applies path replacements to a relative path using casing heuristics.
 
         :param rel_path: The original relative path.
-        :param path_replacements: String replacements mapping.
-        :param vals: Computed template values.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param path_replacements: The string replacements mapping.
+        :param vals: The computed template values.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is None.
         :return: The replaced relative path.
         :exceptions:

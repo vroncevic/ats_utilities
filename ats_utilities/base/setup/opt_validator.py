@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for base options.
+    A validator for the base options instance.
 '''
 
 from __future__ import annotations
@@ -41,20 +41,20 @@ __status__ = 'Development'
 
 class BaseOptionsValidator:
     '''
-        Validator for base options.
+        A validator for the base options instance.
 
         It defines:
 
             :methods:
-                | validate - Validates base options.
+                | validate - Validates the base options instance.
     '''
 
     @classmethod
     def validate(cls, options: BaseOptions) -> None:
         '''
-            Validates base options.
+            Validates the base options instance.
 
-            :param options: Base options to be validated.
+            :param options: The base options to be validated.
             :exceptions:
                 | ATSValueError: Base options must be provided and have proper values.
                 | ATSTypeError:  Base options must be an instance of Mapping and its attributes

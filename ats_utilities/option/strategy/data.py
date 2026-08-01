@@ -45,8 +45,8 @@ class StrategyData:
         It defines:
 
             :attributes:
-                | context_bundle - Context bundle for strategy.
-                | parser - Underlying parser.
+                | context_bundle - The context bundle for strategy.
+                | parser - The underlying parser.
             :methods:
                 | to_dict - Converts StrategyData instance to dictionary.
     '''
@@ -58,7 +58,7 @@ class StrategyData:
         '''
             Converts StrategyData instance to dictionary.
 
-            :return: Dictionary representation of StrategyData.
+            :return: The dictionary representation of StrategyData.
             :exceptions: None.
         '''
         return instance_to_dict(self)

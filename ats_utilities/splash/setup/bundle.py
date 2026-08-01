@@ -48,11 +48,11 @@ class SplashBundle:
         It defines:
 
             :attributes:
-                | splash_property - Splash screen property instance.
-                | terminal_property - Terminal properties instance.
-                | ext - Generic external infrastructure instance.
-                | pb - Progress bar component instance.
-                | context_bundle - Context bundle instance.
+                | splash_property - The splash screen property instance.
+                | terminal_property - The terminal properties instance.
+                | ext - The generic external infrastructure instance.
+                | pb - The progress bar component instance.
+                | context_bundle - The context bundle instance.
             :methods:
                 | to_dict - Converts splash bundle to a dictionary.
     '''
@@ -67,7 +67,7 @@ class SplashBundle:
         '''
             Converts splash bundle to a dictionary.
 
-            :return: Dictionary representation of the splash bundle.
+            :return: The dictionary representation of the splash bundle.
             :exceptions:
                 | ATSValueError: Instance must be provided.
                 | ATSValueError: Instance must be a dataclass instance.

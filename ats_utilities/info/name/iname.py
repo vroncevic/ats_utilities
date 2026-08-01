@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IName with method(s).
+    Defines the IName abstract class with method(s).
     Interface for the name mechanism.
 '''
 
@@ -37,23 +37,23 @@ __status__ = 'Development'
 @runtime_checkable
 class IName[NameType](Protocol):
     '''
-        Defines abstract class IName with method(s).
+        Defines the IName abstract class with method(s).
         Interface for the name mechanism.
-        Note: Name is only prepared when it is set by user (not None).
+        Note: The name is only prepared when it is set by the user (not None).
 
         It defines:
 
             :methods:
-                | name - Property methods for set/get operations.
-                | not_none - Checks if name is not None.
-                | __str__ - Returns the name as string representation.
+                | name - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the name is not None.
+                | __str__ - Returns the name as a string representation.
     '''
 
     @property
     def name(self) -> NameType | None:
         '''
-            Property method for getting name.
-            Note: Name is only prepared when it is set by user (not None).
+            Property method for getting the name.
+            Note: The name is only prepared when it is set by the user (not None).
 
             :return: The name in NameType format | None
         '''
@@ -62,8 +62,8 @@ class IName[NameType](Protocol):
     @name.setter
     def name(self, name: NameType) -> None:
         '''
-            Property method for setting name.
-            Note: Name is only prepared when it is set by user (not None).
+            Property method for setting the name.
+            Note: The name is only prepared when it is set by the user (not None).
 
             :param name: The name in NameType format
         '''
@@ -71,17 +71,17 @@ class IName[NameType](Protocol):
 
     def not_none(self) -> bool:
         '''
-            Checks if name is not None.
-            Note: Name is only prepared when it is set by user (not None).
+            Checks if the name is not None.
+            Note: The name is only prepared when it is set by the user (not None).
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the name as string representation.
+            Returns the name as a string representation.
 
-            :return: The name as string representation.
+            :return: The name as a string representation.
         '''
         ...

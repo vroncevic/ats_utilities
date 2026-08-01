@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class OptionManager with attribute(s) and method(s).
+    Defines the OptionManager class with attribute(s) and method(s).
     Creates an option parser based on the argparse argument processor.
 '''
 
@@ -47,18 +47,18 @@ __status__ = 'Development'
 
 class OptionManager:
     '''
-        Defines class OptionManager with attribute(s) and method(s).
+        Defines the OptionManager class with attribute(s) and method(s).
         Creates an option parser based on the argparse argument processor.
 
         It defines:
 
             :attributes:
-                | _is_initialized - Indicates if the option manager component is initialized (default False).
-                | _bundle - Bundle with components for option manager.
-                | _context - Context bundle with context.
-                | _strategy - Strategy for argument parsing (default ParserStrategy).
+                | _is_initialized - The indicates if the option manager component is initialized (default: False).
+                | _bundle - The bundle with components for option manager.
+                | _context - The context bundle with context.
+                | _strategy - The strategy for argument parsing (default ParserStrategy).
             :methods:
-                | __init__ - Initials OptionManager constructor.
+                | __init__ - Initializes the OptionManager instance.
                 | get_bundle - Gets current option configuration bundle.
                 | update_bundle - Updates option configuration bundle.
                 | get_context - Returns the context.
@@ -69,7 +69,7 @@ class OptionManager:
                 | parse_command - Parses arguments as a command.
                 | register_commands - Registers a list of commands with the parser.
                 | is_initialized - Checks if the option manager component is initialized.
-                | __str__ - Returns the option manager as string representation.
+                | __str__ - Returns the option manager as a string representation.
     '''
 
     _is_initialized: bool
@@ -79,9 +79,9 @@ class OptionManager:
 
     def __init__(self, own: OptionBundle) -> None:
         '''
-            Initializes OptionManager constructor.
+            Initializes the OptionManager instance.
 
-            :param own: Bundle with components for option manager.
+            :param own: The bundle with components for option manager.
             :exceptions:
                 | ATSValueError: Option bundle must be provided and have proper values.
                 | ATSTypeError:  Option bundle must be an instance of OptionBundle and its
@@ -96,7 +96,7 @@ class OptionManager:
         '''
             Gets current option configuration bundle.
 
-            :return: Option configuration bundle.
+            :return: The option configuration bundle.
             :exceptions: None.
         '''
         return self._bundle
@@ -105,7 +105,7 @@ class OptionManager:
         '''
             Updates option configuration bundle.
 
-            :param bundle: Option configuration bundle.
+            :param bundle: The option configuration bundle.
             :return: True if option configuration bundle is updated successfully.
             :exceptions: None.
         '''
@@ -124,7 +124,7 @@ class OptionManager:
         '''
             Applies the option configuration bundle.
 
-            :param bundle: Option configuration bundle.
+            :param bundle: The option configuration bundle.
             :exceptions: None.
         '''
         self._bundle = bundle
@@ -135,7 +135,7 @@ class OptionManager:
         '''
             Returns the context.
 
-            :return: Context.
+            :return: The context.
             :exceptions: None.
         '''
         return self._context
@@ -145,7 +145,7 @@ class OptionManager:
         '''
             Returns the parser strategy.
 
-            :return: Parser strategy.
+            :return: The parser strategy.
             :exceptions: None.
         '''
         return self._strategy
@@ -155,8 +155,8 @@ class OptionManager:
         '''
             Adds an option to the parser.
 
-            :param args: List of flags for the ATS.
-            :param kwargs: Arguments in shape of dictionary.
+            :param args: The list of flags for the ATS.
+            :param kwargs: The arguments in shape of dictionary.
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
@@ -170,13 +170,13 @@ class OptionManager:
 
             :param version: The version in string format | None.
             :exceptions:
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSTypeError:      Parameter type validation failed.
                 | ATSValueError:     Parameter format validation failed.
-                | ATSRuntimeError:   Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSRuntimeError:   The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         if version:
             self._strategy.add_version(version)
@@ -188,11 +188,11 @@ class OptionManager:
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None.
-            :return: Option namespace object.
+            :return: The option namespace object.
             :exceptions:
                 | ATSValueError:     Missing or empty attribute: '_strategy'.
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._strategy.parse(arguments, known_only=False)
@@ -204,11 +204,11 @@ class OptionManager:
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None.
-            :return: Option namespace object.
+            :return: The option namespace object.
             :exceptions:
                 | ATSValueError:     Missing or empty attribute: '_strategy'.
-                | ATSRuntimeError:   Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._strategy.parse(arguments, known_only=True)
@@ -218,7 +218,7 @@ class OptionManager:
         '''
             Registers a sequence of commands with the parser.
 
-            :param commands: Sequence of commands to register (read only data).
+            :param commands: The sequence of commands to register (read only data).
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
@@ -230,7 +230,7 @@ class OptionManager:
             Parses arguments as a command.
 
             :param arguments: Sequence of arguments | None.
-            :return: Parsed command result.
+            :return: The parsed command result.
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
@@ -241,7 +241,7 @@ class OptionManager:
         '''
             Checks if option parser component is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
@@ -249,9 +249,9 @@ class OptionManager:
 
     def __str__(self) -> str:
         '''
-            Returns option manager as string representation.
+            Returns the option manager as a string representation.
 
-            :return: Option manager as string representation.
+            :return: The Option manager as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

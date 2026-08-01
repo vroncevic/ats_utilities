@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ProgressBar with attribute(s) and method(s).
+    Defines the ProgressBar class with attribute(s) and method(s).
     Provides a API for progressbar as part of splash screen.
 '''
 
@@ -38,28 +38,28 @@ __status__ = 'Development'
 
 class ProgressBar:
     '''
-        Defines class ProgressBar with attribute(s) and method(s).
+        Defines the ProgressBar class with attribute(s) and method(s).
         Provides a API for progressbar as part of splash screen.
 
         It defines:
 
             :attributes:
-                | DEFAULT_BAR_LENGTH - Length of progressbar.
-                | DEFAULT_CHAR_ON - Loaded progress element.
-                | DEFAULT_CHAR_OFF - Unloaded progress element.
-                | _start - Start of level.
-                | _end - End of level.
-                | _bar_length - Progress length.
-                | _level - Progress level.
-                | _plotted - Plotted progress.
-                | _level_chars - Level progress chars.
+                | DEFAULT_BAR_LENGTH - The length of progressbar.
+                | DEFAULT_CHAR_ON - The loaded progress element.
+                | DEFAULT_CHAR_OFF - The unloaded progress element.
+                | _start - The start of level.
+                | _end - The end of level.
+                | _bar_length - The progress length.
+                | _level - The progress level.
+                | _plotted - The plotted progress.
+                | _level_chars - The level progress chars.
             :methods:
-                | __init__ - Initials ProgressBar constructor.
+                | __init__ - Initializes the ProgressBar instance.
                 | set_level - Sets level for progress bar.
                 | plot_progress - Plots progress bar.
                 | set_and_plot - Sets and plots progress bar.
                 | __del__ - Dunder del method for progress bar.
-                | __str__ - Returns progress bar as string representation.
+                | __str__ - Returns the progress bar as a string representation.
     '''
 
     DEFAULT_BAR_LENGTH: int = 60
@@ -75,10 +75,10 @@ class ProgressBar:
 
     def __init__(self, end: int, start: int = 0) -> None:
         '''
-            Initials ProgressBar constructor.
+            Initializes the ProgressBar instance.
 
-            :param end: End level of progress.
-            :param start: Start level of progress (default 0).
+            :param end: The end level of progress.
+            :param start: The start level of progress (default 0).
             :exceptions: None.
         '''
         self._end = end
@@ -94,7 +94,7 @@ class ProgressBar:
         '''
             Sets level for progress bar.
 
-            :param level: Level of progress.
+            :param level: The level of progress.
             :exceptions: None.
         '''
         self._level = level
@@ -112,7 +112,7 @@ class ProgressBar:
         '''
             Plots progress bar.
 
-            :param columns: Columns for open console session.
+            :param columns: The columns for open console session.
             :exceptions: None.
         '''
         start_position: float = (columns / 2) - (columns / 10)
@@ -133,8 +133,8 @@ class ProgressBar:
         '''
             Sets and plots progress bar.
 
-            :param level: Level of progress.
-            :param columns: Columns for open console session.
+            :param level: The level of progress.
+            :param columns: The columns for open console session.
             :exceptions: None.
         '''
         old_chars: int = self._level_chars
@@ -152,9 +152,9 @@ class ProgressBar:
 
     def __str__(self) -> str:
         '''
-            Returns progress bar as string representation.
+            Returns the progress bar as a string representation.
 
-            :return: Progress bar as string representation.
+            :return: The Progress bar as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class UseGitHub with attribute(s) and method(s).
+    Defines the UseGitHub class with attribute(s) and method(s).
     Provides an API for the use GitHub infrastructure in one property object.
 '''
 
@@ -40,19 +40,19 @@ __status__ = 'Development'
 
 class UseGitHub:
     '''
-        Defines class UseGitHub with attribute(s) and method(s).
+        Defines the UseGitHub class with attribute(s) and method(s).
         Provides an API for the use GitHub infrastructure in one property object.
-        Note: Use GitHub is only prepared when it is set by user (not None).
+        Note: The use github is only prepared when it is set by the user (not None).
 
         It defines:
 
             :attributes:
-                | _use_github - The use GitHub infrastructure for App/Tool/Script (default False).
+                | _use_github - The use GitHub infrastructure for the App/Tool/Script (default: False).
             :methods:
-                | __init__ - Initializes UseGitHub constructor.
-                | use_github - Property methods for set/get use_github.
-                | not_none - Checks is use GitHub infrastructure not None.
-                | __str__ - Returns the use GitHub infrastructure as string representation.
+                | __init__ - Initializes the UseGitHub instance.
+                | use_github - Property methods for setting and getting the use_github.
+                | not_none - Checks if the use GitHub infrastructure is not None.
+                | __str__ - Returns the use GitHub infrastructure as a string representation.
     '''
 
     _use_github: bool
@@ -60,9 +60,9 @@ class UseGitHub:
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes UseGitHub constructor.
+            Initializes the UseGitHub instance.
 
-            :param context_bundle: Context bundle for use_github.
+            :param context_bundle: The context bundle for use_github.
             :exceptions:
                 | ATSValueError:  Context bundle must be provided and have proper values.
                 | ATSTypeError:   Context bundle must be an instance of ContextBundle
@@ -77,13 +77,13 @@ class UseGitHub:
     @vreport('getting use_github {use_github}')
     def use_github(self) -> bool | None:
         '''
-            Property method for getting use GitHub infrastructure.
-            Note: Use GitHub is only prepared when it is set by user (not None).
+            Property method for getting the use GitHub infrastructure.
+            Note: The use github is only prepared when it is set by the user (not None).
 
             :return: The use GitHub infrastructure | None.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._use_github
@@ -93,40 +93,40 @@ class UseGitHub:
     @vreport('setting use_github {use_github}')
     def use_github(self, use_github: bool) -> None:
         '''
-            Property method for setting use GitHub infrastructure.
-            Note: Use GitHub is only prepared when it is set by user (not None).
+            Property method for setting the use GitHub infrastructure.
+            Note: The use github is only prepared when it is set by the user (not None).
 
             :param use_github: The use GitHub infrastructure.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSRuntimeError: The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         self._use_github = use_github
 
     @vreport('checking use_github {use_github}')
     def not_none(self) -> bool:
         '''
-            Checks is use GitHub infrastructure not None.
-            Note: Use GitHub is only prepared when it is set by user (not None).
+            Checks if the use GitHub infrastructure is not None.
+            Note: The use github is only prepared when it is set by the user (not None).
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._use_github is not None
 
     def __str__(self) -> str:
         '''
-            Returns the UseGitHub infrastructure as string representation.
+            Returns the UseGitHub infrastructure as a string representation.
 
-            :return: The UseGitHub infrastructure as string representation.
+            :return: The UseGitHub infrastructure as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

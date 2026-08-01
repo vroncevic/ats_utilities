@@ -46,11 +46,11 @@ class OptionKeys:
         It defines:
 
             :attributes:
-                | DEPENDENCY_STRATEGY: Strategy interface constant.
-                | DEPENDENCY_CONTEXT_BUNDLE: Context bundle interface constant.
-                | OPTION_PARAMETERS: Parameters option constant.
-                | OPTION_CONTEXT_BUNDLE: Context bundle option constant.
-                | REQUIRED_CONFIG_KEYS_SET - Set of required information keys.
+                | DEPENDENCY_STRATEGY - The strategy interface constant.
+                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant.
+                | OPTION_PARAMETERS - The parameters option constant.
+                | OPTION_CONTEXT_BUNDLE - The context bundle option constant.
+                | REQUIRED_CONFIG_KEYS_SET - The set of required information keys.
             :methods:
                 | get_dependency_to_type - Returns mapping of option dependencies to their types.
                 | get_option_to_type - Returns mapping of option options to their types.
@@ -74,7 +74,7 @@ class OptionKeys:
         '''
             Returns mapping of option dependencies to their types.
 
-            :return: Mapping of option dependencies to their types.
+            :return: The mapping of option dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -87,7 +87,7 @@ class OptionKeys:
         '''
             Returns mapping of option options to their types.
 
-            :return: Mapping of option options to their types.
+            :return: The mapping of option options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

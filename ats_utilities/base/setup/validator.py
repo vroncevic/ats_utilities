@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for base bundle.
+    A validator for the base bundle instance.
 '''
 
 from __future__ import annotations
@@ -42,20 +42,20 @@ __status__ = 'Development'
 
 class BaseValidator:
     '''
-        Validator for base bundle.
+        A validator for the base bundle instance.
 
         It defines:
 
             :methods:
-                | validate - Validates base bundle.
+                | validate - Validates the base bundle instance.
     '''
 
     @classmethod
     def validate(cls, bundle: BaseBundle) -> None:
         '''
-            Validates base bundle.
+            Validates the base bundle instance.
 
-            :param bundle: Base bundle to be validated.
+            :param bundle: The base bundle to be validated.
             :exceptions:
                 | ATSValueError: Base bundle must be provided and have proper values.
                 | ATSTypeError:  Base bundle must be an instance of BaseBundle

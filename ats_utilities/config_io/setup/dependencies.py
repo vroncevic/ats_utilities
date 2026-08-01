@@ -43,9 +43,9 @@ class ConfigIODependencies(TypedDict):
         It defines:
 
             :attributes:
-                | file_path: Configuration file path.
-                | processor: Configuration processor.
-                | context_bundle: Context bundle.
+                | file_path - The configuration file path.
+                | processor - The configuration processor.
+                | context_bundle - The context bundle.
     '''
 
     file_path: str

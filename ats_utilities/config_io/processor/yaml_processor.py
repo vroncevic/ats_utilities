@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class YAMLProcessor with attribute(s) and method(s).
+    Defines the YAMLProcessor class with attribute(s) and method(s).
     Provides an API to process configuration in YAML format.
     1th level of configuration loader/storer implementation.
 '''
@@ -39,23 +39,23 @@ __status__ = 'Development'
 
 class YAMLProcessor:
     '''
-        Defines class YAMLProcessor with attribute(s) and method(s).
+        Defines the YAMLProcessor class with attribute(s) and method(s).
         Provides an API to process configuration in YAML format.
         1th level of configuration loader/storer implementation.
 
         It defines:
 
             :attributes:
-                | _data - Internal dict to store configuration data (default {}).
-                | _scheme - Mapping with configuration scheme (default None).
+                | _data - The internal dict to store configuration data (default {}).
+                | _scheme - The mapping with configuration scheme (default: None).
             :methods:
-                | __init__ - Initializes YAMLProcessor constructor.
+                | __init__ - Initializes the YAMLProcessor instance.
                 | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).
                 | serialize - Converts the internal configuration structure back to a formatted string representation.
-                | update_data - Updates the internal configuration data and validates it against the scheme.
+                | update_data - Updates the internal configuration data and Validates the it against the scheme instance.
                 | to_dict - Returns the parsed configuration as a flat or structured dictionary.
-                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.
-                | __str__ - Returns the YAMLProcessor instance as string representation.
+                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme instance.
+                | __str__ - Returns the YAMLProcessor instance as a string representation.
 
         Flat Format Config Scheme
         -------------------------
@@ -78,7 +78,7 @@ class YAMLProcessor:
 
     def __init__(self, scheme: Mapping[str, str] | None = None) -> None:
         '''
-            Initializes YAMLProcessor constructor.
+            Initializes the YAMLProcessor instance.
 
             :param scheme: Mapping with configuration scheme | None.
             :exceptions: None.
@@ -90,8 +90,8 @@ class YAMLProcessor:
         '''
             Loads and parses configuration from a raw source (string, stream, or lines).
 
-            :param content: Raw configuration data (str, stream, or sequence).
-            :return: True if successfully, otherwise False.
+            :param content: The raw configuration data (str, stream, or sequence).
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         try:
@@ -106,17 +106,17 @@ class YAMLProcessor:
         '''
             Converts the internal configuration structure back to a formatted string representation.
 
-            :return: Configuration content as string.
+            :return: The configuration content as a string.
             :exceptions: None.
         '''
         return yaml.safe_dump(self._data, default_flow_style=False)
 
     def update_data(self, new_data: Mapping[str, str]) -> bool:
         '''
-            Updates the internal configuration data and validates it against the scheme.
+            Updates the internal configuration data and Validates the it against the scheme instance.
 
-            :param new_data: Mapping containing configuration keys and values.
-            :return: True if successfully, otherwise False.
+            :param new_data: The mapping containing configuration keys and values.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         old_data = self._data.copy()
@@ -134,16 +134,16 @@ class YAMLProcessor:
         '''
             Returns the parsed configuration as a flat or structured dictionary.
 
-            :return: Dictionary with configuration information.
+            :return: The dictionary with configuration information.
             :exceptions: None.
         '''
         return self._data
 
     def validate_by_scheme(self) -> bool:
         '''
-            Validates the internal parsed data structure against the provided scheme.
+            Validates the internal parsed data structure against the provided scheme instance.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         if self._scheme is None:
@@ -157,9 +157,9 @@ class YAMLProcessor:
 
     def __str__(self) -> str:
         '''
-            Returns the YAMLProcessor instance as string representation.
+            Returns the YAMLProcessor instance as a string representation.
 
-            :return: The YAMLProcessor instance as string representation.
+            :return: The YAMLProcessor instance as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

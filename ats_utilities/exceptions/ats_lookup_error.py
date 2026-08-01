@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSLookupError with attribute(s) and method(s).
+    Defines the ATSLookupError class with attribute(s) and method(s).
     Creates an exception for the lookup errors mechanism.
 '''
 
@@ -36,7 +36,7 @@ __status__ = 'Development'
 
 class ATSLookupError(ATSError, LookupError):
     '''
-        Defines class ATSLookupError with attribute(s) and method(s).
+        Defines the ATSLookupError class with attribute(s) and method(s).
         Creates an exception for the lookup errors mechanism.
 
         It defines:

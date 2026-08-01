@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for the check reporter runtime data.
+    A validator for the check reporter runtime data instance.
 '''
 
 from __future__ import annotations
@@ -41,18 +41,18 @@ __status__ = 'Development'
 class CheckReporterValidator:
     '''
 
-        Validator for the check reporter runtime data.
+        A validator for the check reporter runtime data instance.
         
         It defines:
 
             :methods:
-                | validate - Validates the check reporter runtime data.
+                | validate - Validates the check reporter runtime data instance.
     '''
 
     @classmethod
     def validate(cls, data: CheckReporterData) -> None:
         '''
-            Validates the check reporter runtime data.
+            Validates the check reporter runtime data instance.
 
             :param data: The check reporter runtime data to be validated.
             :exceptions:

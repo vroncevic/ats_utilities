@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILicence with method(s).
+    Defines the ILicence abstract class with method(s).
     Interface for the licence mechanism.
 '''
 
@@ -37,23 +37,23 @@ __status__ = 'Development'
 @runtime_checkable
 class ILicence[LicenceType](Protocol):
     '''
-        Defines abstract class ILicence with method(s).
+        Defines the ILicence abstract class with method(s).
         Interface for the licence mechanism.
-        Note: Info licence is only prepared when it is set by user (not None).
+        Note: The info licence is only prepared when it is set by the user (not None).
 
         It defines:
 
             :methods:
-                | licence - Property methods for set/get operations.
-                | not_none - Checks if licence is not None.
-                | __str__ - Returns the licence as string representation.
+                | licence - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the licence is not None.
+                | __str__ - Returns the licence as a string representation.
     '''
 
     @property
     def licence(self) -> LicenceType | None:
         '''
-            Property method for getting licence.
-            Note: Info licence is only prepared when it is set by user (not None).
+            Property method for getting the licence.
+            Note: The info licence is only prepared when it is set by the user (not None).
 
             :return: The licence in LicenceType format | None.
         '''
@@ -62,8 +62,8 @@ class ILicence[LicenceType](Protocol):
     @licence.setter
     def licence(self, licence: LicenceType) -> None:
         '''
-            Property method for setting licence.
-            Note: Info licence is only prepared when it is set by user (not None).
+            Property method for setting the licence.
+            Note: The info licence is only prepared when it is set by the user (not None).
 
             :param licence: The licence in LicenceType format.
         '''
@@ -71,17 +71,17 @@ class ILicence[LicenceType](Protocol):
 
     def not_none(self) -> bool:
         '''
-            Checks if licence is not None.
-            Note: Info licence is only prepared when it is set by user (not None).
+            Checks if the licence is not None.
+            Note: The info licence is only prepared when it is set by the user (not None).
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the licence as string representation.
+            Returns the licence as a string representation.
 
-            :return: The licence as string representation.
+            :return: The licence as a string representation.
         '''
         ...

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IParserStrategy with method(s).
+    Defines the IParserStrategy abstract class with method(s).
     Provides an interface for ATS option parsing.
 '''
 
@@ -38,7 +38,7 @@ __status__ = 'Development'
 @runtime_checkable
 class IParserStrategy[CommandType, NamespaceType, ArgsType, ParsedCommandType](Protocol):
     '''
-        Defines abstract class IParserStrategy with method(s).
+        Defines the IParserStrategy abstract class with method(s).
         Interface for concrete parsing engines (Strategy Pattern).
         Allows third-party parsers to be injected from the outside.
 
@@ -51,14 +51,14 @@ class IParserStrategy[CommandType, NamespaceType, ArgsType, ParsedCommandType](P
                 | register_commands - Registers a sequence of commands with the parser.
                 | parse_command - Parses the input arguments and returns an OptionNamespace.
                 | ok - Checks if parser strategy component is ok.
-                | __str__ - Returns the ATS parser strategy as string representation.
+                | __str__ - Returns the ATS parser strategy as a string representation.
     '''
 
     def add_argument(self, *args: str, **kwargs: object) -> None:
         '''
             Adds an operational argument/flag to the parser.
 
-            :param args: Arguments in string format.
+            :param args: The arguments in string format.
             :param kwargs: Arguments in object form
         '''
         ...
@@ -75,9 +75,9 @@ class IParserStrategy[CommandType, NamespaceType, ArgsType, ParsedCommandType](P
         '''
             Parses the input arguments and returns a NamespaceType.
 
-            :param arguments: Sequence of arguments.
-            :param known_only: Parse only known arguments.
-            :return: Option namespace object.
+            :param arguments: The sequence of arguments.
+            :param known_only: The parse only known arguments.
+            :return: The option namespace object.
         '''
         ...
 
@@ -85,7 +85,7 @@ class IParserStrategy[CommandType, NamespaceType, ArgsType, ParsedCommandType](P
         '''
             Register a sequence of commands with the parser.
 
-            :param commands: Sequence of commands to register.
+            :param commands: The sequence of commands to register.
         '''
         ...
 
@@ -93,8 +93,8 @@ class IParserStrategy[CommandType, NamespaceType, ArgsType, ParsedCommandType](P
         '''
             Parses CLI arguments for subcommands and returns command name and parameters.
 
-            :param arguments: Sequence of arguments.
-            :return: Parsed command result.
+            :param arguments: The sequence of arguments.
+            :return: The parsed command result.
         '''
         ...
 
@@ -102,14 +102,14 @@ class IParserStrategy[CommandType, NamespaceType, ArgsType, ParsedCommandType](P
         '''
             Checks if parser strategy component is ok.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the ATS parser strategy as string representation.
+            Returns the ATS parser strategy as a string representation.
 
-            :return: The ATS parser strategy as string representation.
+            :return: The ATS parser strategy as a string representation.
         '''
         ...

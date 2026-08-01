@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IBase with method(s).
-    Interface for ATS base setup.
+    Defines the IBase abstract class with method(s).
+    An interface for the ATS base setup.
 '''
 
 from __future__ import annotations
@@ -37,36 +37,34 @@ __status__ = 'Development'
 @runtime_checkable
 class IBase[ConfigType, ContextEnvironment](Protocol):
     '''
-        Defines abstract class IBase with method(s).
-        Interface for ATS base setup.
+        Defines the IBase abstract class with method(s).
+        An interface for the ATS base setup.
 
         It defines:
 
             :methods:
-                | get_bundle - Gets current configuration bundle.
-                | update_bundle - Updates configuration bundle.
+                | get_bundle - Gets the current configuration bundle.
+                | update_bundle - Updates the configuration bundle.
                 | get_context - Returns the context.
-                | is_initialized - Checks if App/Tool/Script base engine is initialized.
-                | process - Processes and runs App/Tool/Script (Abstract).
+                | is_initialized - Checks if the App/Tool/Script base engine is initialized.
+                | process - Processes and runs the App/Tool/Script (Abstract).
                 | __str__ - Returns the App/Tool/Script base as string representation.
     '''
 
     def get_bundle(self) -> ConfigType:
         '''
-            Gets current configuration bundle.
+            Gets the current configuration bundle.
 
-            :return: Configuration bundle.
-            :exceptions: None.
+            :return: The configuration bundle.
         '''
         ...
 
     def update_bundle(self, bundle: ConfigType) -> bool:
         '''
-            Updates configuration bundle.
+            Updates the configuration bundle.
 
-            :param bundle: Configuration bundle.
-            :return: True if configuration bundle is updated successfully.
-            :exceptions: None.
+            :param bundle: The configuration bundle.
+            :return: True if the configuration bundle is updated successfully.
         '''
         ...
 
@@ -74,24 +72,24 @@ class IBase[ConfigType, ContextEnvironment](Protocol):
         '''
             Returns the context.
 
-            :return: Context.
+            :return: The context.
         '''
         ...
 
     def is_initialized(self) -> bool:
         '''
-            Checks if App/Tool/Script base engine is initialized.
+            Checks if the App/Tool/Script base engine is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def process(self, verbose: bool = False) -> bool:
         '''
-            Processes and runs App/Tool/Script.
+            Processes and runs the App/Tool/Script.
 
-            :param verbose: Enable/Disable verbose option (default False).
-            :return: True if successfully, otherwise False.
+            :param verbose: The Enable/Disable the verbose option (default: False).
+            :return: True if successful, otherwise False.
         '''
         ...
 
@@ -99,6 +97,6 @@ class IBase[ConfigType, ContextEnvironment](Protocol):
         '''
             Returns the App/Tool/Script base as string representation.
 
-            :return: App/Tool/Script base as string representation.
+            :return: The App/Tool/Script base as a string representation.
         '''
         ...

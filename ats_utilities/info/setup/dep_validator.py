@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for info dependencies.
+    A validator for the info dependencies instance.
 '''
 
 from __future__ import annotations
@@ -40,20 +40,20 @@ __status__ = 'Development'
 
 class InfoDependenciesValidator:
     '''
-        Validator for info dependencies.
+        A validator for the info dependencies instance.
 
         It defines:
 
             :methods:
-                | validate - Validates info dependencies instance.
+                | validate - Validates the info dependencies instance.
     '''
 
     @classmethod
     def validate(cls, dependencies: InfoDependencies) -> None:
         '''
-            Validates info dependencies instance.
+            Validates the info dependencies instance.
 
-            :param dependencies: Info dependencies instance to be validated.
+            :param dependencies: The info dependencies instance to be validated.
             :exceptions:
                 | ATSValueError: Dependencies must be provided and have proper values.
                 | ATSTypeError:  Dependencies must be an instance of Mapping and its

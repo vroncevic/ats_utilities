@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for the logger options.
+    A validator for the logger options instance.
 '''
 
 from __future__ import annotations
@@ -40,18 +40,18 @@ __status__ = 'Development'
 
 class LoggerOptionsValidator:
     '''
-        Validator for the logger options.
+        A validator for the logger options instance.
 
         It defines:
 
             :methods:
-                | validate - Validates the logger options.
+                | validate - Validates the logger options instance.
     '''
 
     @classmethod
     def validate(cls, options: LoggerOptions) -> None:
         '''
-            Validates logger options.
+            Validates the logger options instance.
 
             :param options: The logger options to be validated.
             :exceptions:

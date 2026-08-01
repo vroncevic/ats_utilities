@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILoader with method(s).
+    Defines the ILoader abstract class with method(s).
     Provides an interface for loading the configuration from reader.
     2nd level of configuration loader interface.
 '''
@@ -38,7 +38,7 @@ __status__ = 'Development'
 @runtime_checkable
 class ILoader[ContextEnvironment, ConfigurationType](Protocol):
     '''
-        Defines abstract class ILoader with method(s).
+        Defines the ILoader abstract class with method(s).
         Provides an interface for loading the configuration from configuration reader.
         2nd level of configuration loader interface.
 
@@ -47,14 +47,14 @@ class ILoader[ContextEnvironment, ConfigurationType](Protocol):
             :methods:
                 | get_context - Returns context.
                 | load_configuration - Loads configuration from file and returns configuration.
-                | __str__ - Returns loader as string representation.
+                | __str__ - Returns the loader as a string representation.
     '''
 
     def get_context(self) -> ContextEnvironment:
         '''
             Returns the context.
 
-            :return: Context.
+            :return: The context.
         '''
         ...
 
@@ -62,14 +62,14 @@ class ILoader[ContextEnvironment, ConfigurationType](Protocol):
         '''
             Loads configuration from file and returns configuration.
 
-            :return: Configuration.
+            :return: The configuration.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns loader as string representation.
+            Returns the loader as a string representation.
 
-            :return: Loader as string representation.
+            :return: The Loader as a string representation.
         '''
         ...

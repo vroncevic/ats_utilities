@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IExtInfrastructure with method(s).
+    Defines the IExtInfrastructure abstract class with method(s).
     Interface for processing hyperlinks for splash screen.
 '''
 
@@ -37,37 +37,37 @@ __status__ = 'Development'
 @runtime_checkable
 class IExtInfrastructure[PropertyType, InfoTextType, IssueTextType, AuthorTextType](Protocol):
     '''
-        Defines abstract class IExtInfrastructure with method(s).
+        Defines the IExtInfrastructure abstract class with method(s).
         Interface for processing hyperlinks for splash screen.
         Note: Splash screen infrastructure comes from info configuration file as read only data.
 
         It defines:
 
             :methods:
-                | infrastructure_property - Property methods for set/get operations.
+                | infrastructure_property - Property methods for setting and getting the respective property value.
                 | get_info_text - Pre-processes info text for splash screen.
                 | get_issue_text - Pre-processes issue text for splash screen.
                 | get_author_text - Pre-processes author text for splash screen.
-                | __str__ - Returns external infrastructure as string representation.
+                | __str__ - Returns the external infrastructure as a string representation.
     '''
 
     @property
     def infrastructure_property(self) -> PropertyType:
         '''
-            Property method for getting infrastructure property.
+            Property method for getting the infrastructure property.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :return: Formatted infrastructure property in PropertyType format (read only data).
+            :return: The formatted infrastructure property in PropertyType format (read only data).
         '''
         ...
 
     @infrastructure_property.setter
     def infrastructure_property(self, setup: PropertyType) -> None:
         '''
-            Property method for setting project infrastructure property.
+            Property method for setting the project infrastructure property.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :param setup: Project infrastructure property in PropertyType format (read only data).
+            :param setup: The project infrastructure property in PropertyType format (read only data).
         '''
         ...
 
@@ -76,7 +76,7 @@ class IExtInfrastructure[PropertyType, InfoTextType, IssueTextType, AuthorTextTy
             Pre-processes info text for splash screen.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :return: Formatted info text in InfoTextType format (read only data).
+            :return: The formatted info text in InfoTextType format (read only data).
         '''
         ...
 
@@ -85,7 +85,7 @@ class IExtInfrastructure[PropertyType, InfoTextType, IssueTextType, AuthorTextTy
             Pre-processes issue text for splash screen.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :return: Formatted issue text in IssueTextType format (read only data).
+            :return: The formatted issue text in IssueTextType format (read only data).
         '''
         ...
 
@@ -94,14 +94,14 @@ class IExtInfrastructure[PropertyType, InfoTextType, IssueTextType, AuthorTextTy
             Pre-processes author text for splash screen.
             Note: Splash screen infrastructure comes from info configuration file as read only data.
 
-            :return: Formatted author text in AuthorTextType format (read only data).
+            :return: The formatted author text in AuthorTextType format (read only data).
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns external infrastructure as string representation.
+            Returns the external infrastructure as a string representation.
 
-            :return: External infrastructure as string representation.
+            :return: The External infrastructure as a string representation.
         '''
         ...

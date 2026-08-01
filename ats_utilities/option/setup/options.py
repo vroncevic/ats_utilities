@@ -43,8 +43,8 @@ class OptionOptions(TypedDict):
         It defines:
 
             :attributes:
-                | parameters: Configuration parameters.
-                | context_bundle: Context bundle for dependency injection.
+                | parameters - The configuration parameters.
+                | context_bundle - The context bundle for dependency injection.
     '''
 
     parameters: Mapping[str, str]

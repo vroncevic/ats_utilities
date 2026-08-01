@@ -66,7 +66,7 @@ class ILogger[ConfigType, LogFileType, LogLevelType, MesssageType](Protocol):
         '''
             Checks if the logger is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
@@ -75,7 +75,7 @@ class ILogger[ConfigType, LogFileType, LogLevelType, MesssageType](Protocol):
             Updates the logger configuration bundle.
 
             :param bundle: The logger configuration bundle.
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
@@ -92,7 +92,7 @@ class ILogger[ConfigType, LogFileType, LogLevelType, MesssageType](Protocol):
             Configures the output handler to output to the log file.
 
             :param log_file: The log file.
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
@@ -100,7 +100,7 @@ class ILogger[ConfigType, LogFileType, LogLevelType, MesssageType](Protocol):
         '''
             Configures the output handler to output to the standard output.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 

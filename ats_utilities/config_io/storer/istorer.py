@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IStorer with method(s).
+    Defines the IStorer abstract class with method(s).
     Provides an interface for storing the configuration to writer.
     2nd level of configuration storer interface.
 '''
@@ -38,7 +38,7 @@ __status__ = 'Development'
 @runtime_checkable
 class IStorer[ContextEnvironment, ConfigurationType](Protocol):
     '''
-        Defines abstract class IStorer with method(s).
+        Defines the IStorer abstract class with method(s).
         Provides an interface for storing the configuration to writer.
         2nd level of configuration storer interface.
 
@@ -47,14 +47,14 @@ class IStorer[ContextEnvironment, ConfigurationType](Protocol):
             :methods:
                 | get_context - Returns the context.
                 | store_configuration - Stores configuration to configuration file.
-                | __str__ - Returns storer as string representation.
+                | __str__ - Returns the storer as a string representation.
     '''
 
     def get_context(self) -> ContextEnvironment:
         '''
             Returns context.
 
-            :return: Context.
+            :return: The context.
         '''
         ...
 
@@ -62,15 +62,15 @@ class IStorer[ContextEnvironment, ConfigurationType](Protocol):
         '''
             Stores configuration to configuration file.
 
-            :param config: Configuration.
-            :return: True if successfully, otherwise False.
+            :param config: The configuration.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns storer as string representation.
+            Returns the storer as a string representation.
 
-            :return: Storer as string representation.
+            :return: The Storer as a string representation.
         '''
         ...

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class CFGProcessor with attribute(s) and method(s).
+    Defines the CFGProcessor class with attribute(s) and method(s).
     Provides an API to process configuration in CFG format.
     1th level of configuration loader/storer implementation.
 '''
@@ -40,24 +40,24 @@ __status__ = 'Development'
 
 class CFGProcessor:
     '''
-        Defines class CFGProcessor with attribute(s) and method(s).
+        Defines the CFGProcessor class with attribute(s) and method(s).
         Provides an API to process configuration in CFG format.
         1th level of configuration loader/storer implementation.
 
         It defines:
 
             :attributes:
-                | _REGEX_EXP - Regular expression for matching line.
-                | _data - Internal dict to store configuration data (default {}).
-                | _scheme - Mapping with configuration scheme (default None).
+                | _REGEX_EXP - The regular expression for matching line.
+                | _data - The internal dict to store configuration data (default {}).
+                | _scheme - The mapping with configuration scheme (default: None).
             :methods:
-                | __init__ - Initializes CFGProcessor constructor.
+                | __init__ - Initializes the CFGProcessor instance.
                 | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).
                 | serialize - Converts the internal configuration structure back to a formatted string representation.
-                | update_data - Updates the internal configuration data and validates it against the scheme.
+                | update_data - Updates the internal configuration data and Validates the it against the scheme instance.
                 | to_dict - Returns the parsed configuration as a flat or structured dictionary.
-                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.
-                | __str__ - Returns the CFGProcessor instance as string representation.
+                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme instance.
+                | __str__ - Returns the CFGProcessor instance as a string representation.
 
         Flat Format Config Scheme
         -------------------------
@@ -81,9 +81,9 @@ class CFGProcessor:
 
     def __init__(self, scheme: Mapping[str, str] | None = None) -> None:
         '''
-            Initializes CFGProcessor constructor.
+            Initializes the CFGProcessor instance.
 
-            :param scheme: Mapping with configuration scheme (default None).
+            :param scheme: The mapping with configuration scheme (default: None).
             :exceptions: None.
         '''
         self._data: dict[str, str] = {}
@@ -93,8 +93,8 @@ class CFGProcessor:
         '''
             Loads and parses configuration from a raw source (string, stream, or lines).
 
-            :param content: Raw configuration data (str, stream, or sequence).
-            :return: True if successfully, otherwise False.
+            :param content: The raw configuration data (str, stream, or sequence).
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         self._data.clear()
@@ -112,17 +112,17 @@ class CFGProcessor:
         '''
             Converts the internal configuration structure back to a formatted string representation.
 
-            :return: Configuration content as string.
+            :return: The configuration content as a string.
             :exceptions: None.
         '''
         return ''.join([f'{k} = {v}\n' for k, v in self._data.items()])
 
     def update_data(self, new_data: Mapping[str, str]) -> bool:
         '''
-            Updates the internal configuration data and validates it against the scheme.
+            Updates the internal configuration data and Validates the it against the scheme instance.
 
-            :param new_data: Mapping containing configuration keys and values.
-            :return: True if successfully, otherwise False.
+            :param new_data: The mapping containing configuration keys and values.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         old_data = self._data.copy()
@@ -140,16 +140,16 @@ class CFGProcessor:
         '''
             Returns the parsed configuration as a flat or structured dictionary.
 
-            :return: Dictionary with configuration information.
+            :return: The dictionary with configuration information.
             :exceptions: None.
         '''
         return self._data
 
     def validate_by_scheme(self) -> bool:
         '''
-            Validates the internal parsed data structure against the provided scheme.
+            Validates the internal parsed data structure against the provided scheme instance.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         if self._scheme is None:
@@ -163,9 +163,9 @@ class CFGProcessor:
 
     def __str__(self) -> str:
         '''
-            Returns the CFGProcessor instance as string representation.
+            Returns the CFGProcessor instance as a string representation.
 
-            :return: The CFGProcessor instance as string representation.
+            :return: The CFGProcessor instance as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

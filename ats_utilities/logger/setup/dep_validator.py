@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for the logger dependencies.
+    A validator for the logger dependencies instance.
 '''
 
 from __future__ import annotations
@@ -40,18 +40,18 @@ __status__ = 'Development'
 
 class LoggerDependenciesValidator:
     '''
-        Validator for the logger dependencies.
+        A validator for the logger dependencies instance.
 
         It defines:
 
             :methods:
-                | validate - Validates the logger dependencies.
+                | validate - Validates the logger dependencies instance.
     '''
 
     @classmethod
     def validate(cls, dependencies: LoggerDependencies) -> None:
         '''
-            Validates the logger dependencies.
+            Validates the logger dependencies instance.
 
             :param dependencies: The logger dependencies to be validated.
             :exceptions:

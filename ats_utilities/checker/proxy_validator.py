@@ -51,10 +51,10 @@ __status__ = 'Development'
 
 def validate_specs(specs: Parameters, context: str) -> None:
     '''
-        Validates specifications list structure.
+        Validates the specifications list structure instance.
 
-        :param specs: Parameter specification list to validate.
-        :param context: Context string for error reporting.
+        :param specs: The parameter specification list to validate.
+        :param context: The context string for error reporting.
         :exceptions:
             | ATSValueError: The specs must be provided.
             | ATSTypeError:  The specs must be a list of (str, object) tuples.
@@ -91,14 +91,14 @@ def validate_args(
     exc_context: str
 ) -> None:
     '''
-        Validates argument values against parameter specification.
+        Validates the argument values against parameter specification instance.
 
-        :param func: Decorated function.
-        :param args: Position arguments passed.
-        :param kwargs: Keyword arguments passed.
-        :param specs: Parameter specification list.
-        :param checker: Checker instance to validate with.
-        :param exc_context: Exception context.
+        :param func: The decorated function.
+        :param args: The position arguments passed.
+        :param kwargs: The keyword arguments passed.
+        :param specs: The parameter specification list.
+        :param checker: The checker instance to validate with.
+        :param exc_context: The exception context.
         :exceptions:
             | ATSValueError: The specification format is invalid.
             | ATSTypeError:  The parameter type validation failed.
@@ -185,8 +185,8 @@ def mcheck[F: Callable[..., object]](specs: Parameters) -> Callable[[F], F]:
         to validate method parameters.
         Mechanism for parameters checking in methods only.
 
-        :param specs: Specification for parameters.
-        :return: Wrapped function.
+        :param specs: The specification for parameters.
+        :return: The wrapped function.
         :exceptions:
             | ATSTypeError:      The parameter type validation failed.
             | ATSValueError:     The parameter format validation failed.
@@ -250,9 +250,9 @@ def fcheck[F: Callable[..., object]](specs: Parameters, checker: IChecker | None
         Uses a default Checker to validate function parameters.
         Mechanism for parameters checking in functions only.
 
-        :param specs: Specification for parameters.
-        :param checker: Checker instance to validate with.
-        :return: Wrapped function.
+        :param specs: The specification for parameters.
+        :param checker: The checker instance to validate with.
+        :return: The wrapped function.
         :exceptions:
             | ATSTypeError:  The parameter type validation failed.
             | ATSValueError: The parameter format validation failed.

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Storer with attribute(s) and method(s).
+    Defines the Storer class with attribute(s) and method(s).
     Provides an API for storing the configuration from mapping format to configuration file.
     2nd level of configuration storer implementation.
 '''
@@ -46,22 +46,22 @@ __status__ = 'Development'
 
 class Storer:
     '''
-        Defines class Storer with attribute(s) and method(s).
+        Defines the Storer class with attribute(s) and method(s).
         Provides an API for storing the configuration from mapping format to configuration file.
         2nd level of configuration storer implementation.
 
         It defines:
 
             :attributes:
-                | _context - ContextBundle.
-                | _processor - Processor interface instance.
-                | _conf_file - Configuration file interface instance.
+                | _context - The ContextBundle.
+                | _processor - The processor interface instance.
+                | _conf_file - The configuration file interface instance.
 
             :methods:
                 | __init__ - Initializes storer.
                 | get_context - Gets context.
                 | store_configuration - Stores configuration to file.
-                | __str__ - Returns storer as string representation.
+                | __str__ - Returns the storer as a string representation.
     '''
 
     _context: ContextBundle
@@ -72,7 +72,7 @@ class Storer:
         '''
             Initializes storer.
 
-            :param own: ConfigIOBundle instance.
+            :param own: The ConfigIOBundle instance.
             :exceptions:
                 | ATSValueError: ConfigIOBundle must be provided and have proper values.
                 | ATSTypeError:  ConfigIOBundle must be an instance of ConfigIOBundle and its
@@ -93,7 +93,7 @@ class Storer:
         '''
             Returns context.
 
-            :return: Context.
+            :return: The context.
             :exceptions: None.
         '''
         return self._context
@@ -102,8 +102,8 @@ class Storer:
         '''
             Writes configuration to file.
 
-            :param config: Configuration object.
-            :return: True if successfully, otherwise False.
+            :param config: The configuration object.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         if not config:
@@ -127,9 +127,9 @@ class Storer:
 
     def __str__(self) -> str:
         '''
-            Returns storer as string representation.
+            Returns the storer as a string representation.
 
-            :return: Storer as string representation.
+            :return: The Storer as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

@@ -43,9 +43,9 @@ def not_none(
     '''
         Requires a value to be not None.
 
-        :param value: Value to check.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param value: The value to check.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is None.
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
@@ -72,12 +72,12 @@ def not_empty(
     '''
         Requires a value to be not empty (not None, not empty sequence/mapping).
 
-        :param value: Value to check for emptiness.
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param value: The value to check for emptiness.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is empty.
-        :param allow_zero: If False, treat 0 and 0.0 as empty/invalid values.
-        :param allow_false: If False, treat False as an empty/invalid value.
+        :param allow_zero: The if False, treat 0 and 0.0 as empty/invalid values.
+        :param allow_false: The if False, treat False as an empty/invalid value.
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
 
@@ -134,8 +134,8 @@ def not_satisfied(
         Raises an exception if status is True (unhappy flow detected).
 
         :param status: Status which indicates unhappy flow (True = unhappy flow).
-        :param exc_context: Context representation in string format.
-        :param exc_message: Message to include in the exception message.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if status is not True.
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).

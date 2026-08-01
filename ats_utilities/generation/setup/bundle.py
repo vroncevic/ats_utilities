@@ -46,9 +46,9 @@ class GeneratorBundle:
         It defines:
 
             :attributes:
-                | scheme_loader - Loader/resolver for scheme configuration.
-                | tar_processor - Processor for archive extraction and template rendering.
-                | context_bundle - Context bundle for generator.
+                | scheme_loader - The loader/resolver for the scheme configuration.
+                | tar_processor - The processor for the archive extraction and template rendering.
+                | context_bundle - The context bundle for generator.
             :methods:
                 | to_dict - Converts generator bundle to a dictionary.
     '''
@@ -61,7 +61,7 @@ class GeneratorBundle:
         '''
             Converts generator bundle to a dictionary.
 
-            :return: Dictionary representation of the generator bundle.
+            :return: The dictionary representation of the generator bundle.
             :exceptions:
                 | ATSValueError: Instance must be provided.
                 | ATSValueError: Instance must be a dataclass instance.

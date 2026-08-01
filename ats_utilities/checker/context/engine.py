@@ -48,7 +48,7 @@ class ContextProvider:
         It defines:
 
             :attributes:
-                | DEFAULT_STACK_INDEX_CALLER - Default index in the call stack to identify the caller.
+                | DEFAULT_STACK_INDEX_CALLER - The default index in the call stack to identify the caller.
                 | _stack_index_caller - The index in the call stack to identify the caller.
             :methods:
                 | __init__ - Initializes the context provider.

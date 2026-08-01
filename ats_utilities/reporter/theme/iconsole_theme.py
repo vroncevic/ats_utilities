@@ -51,7 +51,7 @@ class IConsoleTheme(Protocol):
         '''
             Returns the color code based on the type.
 
-            :param color_type: Type of the console message (e.g. error, success).
+            :param color_type: The type of the console message (e.g. error, success).
             :return: The color code.
         '''
         ...

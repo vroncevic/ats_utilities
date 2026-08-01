@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Info dependencies for info bundle creation.
+    The info dependencies for the info bundle creation.
 '''
 
 from __future__ import annotations
@@ -47,22 +47,22 @@ __status__ = 'Development'
 
 class InfoDependencies(TypedDict):
     '''
-        Info dependencies for info bundle creation.
+        The info dependencies for the info bundle creation.
 
         It defines:
 
             :attributes:
-                | name: The ATS name.
-                | version: The ATS version.
-                | licence: The ATS licence.
-                | build_date: The ATS build date.
-                | repository: The ATS repository.
-                | organization: The ATS organization.
-                | use_github: The ATS use github infrastructure.
-                | logo: The ATS logo.
-                | log_file: The ATS log file.
-                | info_ok: The ATS information status.
-                | context_bundle: The context bundle.
+                | name - The ATS name.
+                | version - The ATS version.
+                | licence - The ATS licence.
+                | build_date - The ATS build date.
+                | repository - The ATS repository.
+                | organization - The ATS organization.
+                | use_github - The ATS use github infrastructure.
+                | logo - The ATS logo.
+                | log_file - The ATS log file.
+                | info_ok - The ATS information status.
+                | context_bundle - The context bundle.
     '''
 
     # --- REQUIRED ATTRIBUTES ---

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IInfoOk with method(s).
+    Defines the IInfoOk abstract class with method(s).
     Interface for the info status mechanism.
 '''
 
@@ -37,23 +37,23 @@ __status__ = 'Development'
 @runtime_checkable
 class IInfoOk[InfoOkType](Protocol):
     '''
-        Defines abstract class IInfoOk with method(s).
+        Defines the IInfoOk abstract class with method(s).
         Interface for the info status mechanism.
-        Note: Info status is only prepared when it is set by user (not None).
+        Note: The info status is only prepared when it is set by the user (not None).
 
         It defines:
 
             :methods:
-                | info_ok - Property methods for set/get operations.
-                | not_none - Checks if info status is not None.
-                | __str__ - Returns the info status as string representation.
+                | info_ok - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the info status is not None.
+                | __str__ - Returns the info status as a string representation.
     '''
 
     @property
     def info_ok(self) -> InfoOkType | None:
         '''
-            Property method for getting information status.
-            Note: Info status is only prepared when it is set by user (not None).
+            Property method for getting the information status.
+            Note: The info status is only prepared when it is set by the user (not None).
 
             :return: The information status in InfoOkType format | None.
         '''
@@ -62,8 +62,8 @@ class IInfoOk[InfoOkType](Protocol):
     @info_ok.setter
     def info_ok(self, info_ok: InfoOkType) -> None:
         '''
-            Property method for setting information status.
-            Note: Info status is only prepared when it is set by user (not None).
+            Property method for setting the information status.
+            Note: The info status is only prepared when it is set by the user (not None).
 
             :param info_ok: The information status in InfoOkType format
         '''
@@ -71,17 +71,17 @@ class IInfoOk[InfoOkType](Protocol):
 
     def not_none(self) -> bool:
         '''
-            Checks if info status is not None.
-            Note: Info status is only prepared when it is set by user (not None).
+            Checks if the info status is not None.
+            Note: The info status is only prepared when it is set by the user (not None).
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns the info status as string representation.
+            Returns the info status as a string representation.
 
-            :return: The info status as string representation.
+            :return: The info status as a string representation.
         '''
         ...

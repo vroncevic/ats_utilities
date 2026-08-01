@@ -43,14 +43,14 @@ class IDataValidator[DataType](Protocol):
         It defines:
 
             :methods:
-                | validate - Validates a data instance.
+                | validate - Validates the a data instance.
     '''
 
     @classmethod
     def validate(cls, data: DataType) -> None:
         '''
-            Validates a data instance.
+            Validates the a data instance.
 
-            :param data: Data instance to be validated.
+            :param data: The data instance to be validated.
         '''
         ...

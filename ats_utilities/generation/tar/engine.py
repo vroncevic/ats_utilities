@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class TarProcessor with attribute(s) and method(s).
+    Defines the TarProcessor class with attribute(s) and method(s).
     Provides an API for tar archive extraction and template rendering.
 '''
 
@@ -58,19 +58,19 @@ __status__ = 'Development'
 
 class TarProcessor:
     '''
-        Defines class TarProcessor with attribute(s) and method(s).
+        Defines the TarProcessor class with attribute(s) and method(s).
         Provides an API for tar archive extraction and template rendering.
 
         It defines:
 
             :attributes:
-                | _template_processor - Renders placeholders inside template files.
+                | _template_processor - The renders placeholders inside template files.
             :methods:
-                | __init__ - Initializes TarProcessor constructor.
+                | __init__ - Initializes the TarProcessor instance.
                 | process_tar_member - Processes a single tar archive member.
                 | process - Processes tar archive members.
                 | is_initialized - Checks if tar processor is initialized.
-                | __str__ - Returns tar processor as string representation.
+                | __str__ - Returns the tar processor as a string representation.
     '''
 
     _context: ContextBundle
@@ -78,10 +78,10 @@ class TarProcessor:
 
     def __init__(self, context_bundle: ContextBundle, template_processor: ITemplateProcessor) -> None:
         '''
-            Initializes TarProcessor constructor.
+            Initializes the TarProcessor instance.
 
-            :param context_bundle: Context bundle for tar processor.
-            :param template_processor: Custom template rendering component.
+            :param context_bundle: The context bundle for tar processor.
+            :param template_processor: The custom template rendering component.
             :exceptions:
                 | ATSValueError: Context bundle must be provided and have proper values.
                 | ATSTypeError:  Context bundle must be an instance of ContextBundle and
@@ -105,7 +105,7 @@ class TarProcessor:
         '''
             Extracts and processes a single tar member (creates dirs or renders files).
 
-            :param data: Parameters defining what to do with the tar archive member.
+            :param data: The parameters defining what to do with the tar archive member.
             :exceptions:
                 | ATSValueError: Tar member data must be provided and have proper values.
                 | ATSTypeError:  Tar member data must be an instance of TarMemberData and
@@ -133,7 +133,7 @@ class TarProcessor:
         '''
             Processes the tar archive members.
 
-            :param data: Parameters defining what to do with the tar archive.
+            :param data: The parameters defining what to do with the tar archive.
             :exceptions:
                 | ATSValueError: Tar data must be provided and have proper values.
                 | ATSTypeError:  Tar data must be an instance of TarData and
@@ -187,16 +187,16 @@ class TarProcessor:
         '''
             Checks if tar processor is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return self._template_processor.is_initialized()
 
     def __str__(self) -> str:
         '''
-            Returns tar processor as string representation.
+            Returns the tar processor as a string representation.
 
-            :return: Tar processor as string representation.
+            :return: The Tar processor as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

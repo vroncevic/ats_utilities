@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IInfoManager with method(s).
+    Defines the IInfoManager abstract class with method(s).
     Provides an interface for the info management.
 '''
 
@@ -37,7 +37,7 @@ __status__ = 'Development'
 @runtime_checkable
 class IInfoManager[ConfigType, InfoStructure, ContextEnvironment](Protocol):
     '''
-        Defines abstract class IInfoManager with method(s).
+        Defines the IInfoManager abstract class with method(s).
         Provides an interface for the info management.
         Note: The information is read-only data (it is consumed from
         configuration file loaded by config loader).
@@ -50,17 +50,16 @@ class IInfoManager[ConfigType, InfoStructure, ContextEnvironment](Protocol):
                 | get_context - Returns the context.
                 | set_info - Sets the information structure.
                 | get_info - Gets the information structure.
-                | is_initialized - Checks if info manager is initialized.
-                | refresh_status - Refreshes status for information structure.
-                | __str__ - Returns info manager as string representation.
+                | is_initialized - Checks if the info manager is initialized.
+                | refresh_status - Refreshes the status for the information structure.
+                | __str__ - Returns the info manager as a string representation.
     '''
 
     def get_bundle(self) -> ConfigType:
         '''
             Gets current info configuration bundle.
 
-            :return: Info configuration bundle.
-            :exceptions: None.
+            :return: The info configuration bundle.
         '''
         ...
 
@@ -68,8 +67,7 @@ class IInfoManager[ConfigType, InfoStructure, ContextEnvironment](Protocol):
         '''
             Updates info configuration bundle.
 
-            :param bundle: Info configuration bundle.
-            :exceptions: None.
+            :param bundle: The info configuration bundle.
         '''
         ...
 
@@ -77,7 +75,7 @@ class IInfoManager[ConfigType, InfoStructure, ContextEnvironment](Protocol):
         '''
             Returns the context.
 
-            :return: Context.
+            :return: The context.
         '''
         ...
 
@@ -85,7 +83,7 @@ class IInfoManager[ConfigType, InfoStructure, ContextEnvironment](Protocol):
         '''
             Sets the information structure.
 
-            :param info: Info structure.
+            :param info: The info structure.
         '''
         ...
 
@@ -93,28 +91,28 @@ class IInfoManager[ConfigType, InfoStructure, ContextEnvironment](Protocol):
         '''
             Gets the information structure.
  
-            :return: Info structure.
+            :return: The info structure.
         '''
         ...
 
     def is_initialized(self) -> bool:
         '''
-            Checks if info manager is initialized.
+            Checks if the info manager is initialized.
 
-            :return: True if successfully, otherwise False.
+            :return: True if successful, otherwise False.
         '''
         ...
 
     def refresh_status(self) -> None:
         '''
-            Refreshes status for information structure.
+            Refreshes the status for the information structure.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns info manager as string representation.
+            Returns the info manager as a string representation.
 
-            :return: Info manager as string representation.
+            :return: The Info manager as a string representation.
         '''
         ...

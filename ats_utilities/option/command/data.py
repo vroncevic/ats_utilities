@@ -45,12 +45,12 @@ class OptionData:
 
             :attributes:
                 | name - The command line option name.
-                | help_text - Help text for this option.
-                | action - Optional action for this option (default None).
-                | default - Optional default value for this option (default None).
-                | required - True if this option is required (default False).
-                | choices - Optional choices for this option (default None).
-                | nargs - Optional number of arguments for this option (default None).
+                | help_text - The help text for this option.
+                | action - The optional action for this option (default: None).
+                | default - The optional default value for this option (default: None).
+                | required - True if this option is required (default: False).
+                | choices - The optional choices for this option (default: None).
+                | nargs - The optional number of arguments for this option (default: None).
             :methods:
                 | __post_init__ - Post-initializes option data instance.
                 | to_dict - Converts the option data instance to a dictionary.
@@ -76,7 +76,7 @@ class OptionData:
         '''
             Converts the option data instance to a dictionary.
 
-            :return: Dictionary representation of the option data instance.
+            :return: The dictionary representation of the option data instance.
         '''
         return instance_to_dict(self)
 
@@ -84,7 +84,7 @@ class OptionData:
         '''
             Converts option properties to a dictionary of parser keyword arguments.
 
-            :return: Dictionary of parser keyword arguments.
+            :return: The dictionary of parser keyword arguments.
         '''
         kwargs: dict[str, object] = {}
 

@@ -58,7 +58,7 @@ class ReporterFactory:
         '''
             Creates the reporter bundle with optional pre-configured options.
 
-            :param options: Pre-configured options for the bundle (default None).
+            :param options: The pre-configured options for the bundle (default: None).
             :return: The reporter bundle.
             :exceptions:
                 | ATSValueError: The options must be provided and have proper values.
