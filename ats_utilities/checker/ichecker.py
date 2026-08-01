@@ -16,98 +16,118 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IChecker with attribute(s) and method(s).
-    Creates an interface for Checker implementation.
+    Defines the abstract class IChecker with method(s).
+    Provides an interface for checking parameters used by method(s) or function(s).
 '''
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
-from typing import Any, ClassVar
-from enum import Enum, EnumMeta
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+from ats_utilities.checker.format.iformat_validator import IFormatValidator
+from ats_utilities.checker.type.itype_validator import ITypeValidator
+from ats_utilities.checker.context.icontext_provider import IContextProvider
+from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 
-# Validation resut type: (error message report, error id)
-type ValidationResult = tuple[str, int]
-
-# Specification for parameters: [(param name, param value), ...]
-type ParametersSpecs = list[tuple[str, Any]]
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ErrorChecker(int, Enum):
+@runtime_checkable
+class IChecker[ConfigType, ParametersSpecification, ValidationResult](Protocol):
     '''
-        Defines class ErrorChecker with attribute(s).
-        Marks error types for the Checker.
+        Defines the abstract class IChecker with method(s).
+        Provides an interface for checking parameters used by method(s) or function(s).
 
         It defines:
 
-            :attributes:
-                | NO_ERROR - Marks no param error report (0).
-                | TYPE_ERROR - Marks type param error report (1).
-                | FORMAT_ERROR - Marks wrong format error report (2).
-            :methods: None.
-    '''
-    NO_ERROR = 0
-    TYPE_ERROR = 1
-    FORMAT_ERROR = 2
-
-
-class IChecker(ABC):
-    '''
-        Defines abstract class IChecker with attribute(s) and method(s).
-        Creates an interface for Checker implementation.
-
-        It defines:
-
-            :attributes:
-                | ERRORS - Marks error types for message reports (0 | 1 | 2).
             :methods:
-                | validates_parameters - Validates parameters for method(s) or function(s).
-                | is_initialized - Checks if checker component is initialized.
-                | __str__ - Returns the checker as string representation.
+                | get_bundle - Gets the current checker configuration bundle.
+                | update_bundle - Updates the checker configuration bundle.
+                | get_format_validator - Returns the format validator that is used in the validation of parameters.
+                | get_type_validator - Returns the type validator that is used in the validation of parameters.
+                | get_context_provider - Returns the context provider that is used in the validation of parameters.
+                | get_check_reporter - Returns the check reporter that is used in the validation of parameters.
+                | validates_parameters - Validates the parameters that are used by method(s) or function(s).
+                | is_initialized - Checks if the checker is initialized.
+                | __str__ - Returns the checker as a string representation.
     '''
 
-    ERRORS: ClassVar[EnumMeta] = ErrorChecker
-
-    @abstractmethod
-    def validates_parameters(self, parameters: ParametersSpecs) -> ValidationResult:
+    def get_bundle(self) -> ConfigType:
         '''
-            Validates parameters for a method(s) or function(s).
+            Gets the current checker configuration bundle.
 
-            :param parameters: Specification for parameters.
-            :type parameters: <ParametersSpecs>
-            :return: Tuple of error message report and error id.
-            :rtype: <ValidationResult>
-            :exceptions: None.
+            :return: The checker configuration bundle.
         '''
-        pass
+        ...
 
-    @abstractmethod
+    def update_bundle(self, bundle: ConfigType) -> bool:
+        '''
+            Updates the checker configuration bundle.
+
+            :param bundle: The checker configuration bundle.
+        '''
+        ...
+
+    def get_format_validator(self) -> IFormatValidator:
+        '''
+            Returns the format validator that is used in the validation of parameters.
+
+            :return: The format validator that is used in the validation of parameters.
+        '''
+        ...
+
+    def get_type_validator(self) -> ITypeValidator:
+        '''
+            Returns the type validator that is used in the validation of parameters.
+
+            :return: The type validator that is used in the validation of parameters.
+        '''
+        ...
+
+    def get_context_provider(self) -> IContextProvider:
+        '''
+            Returns the context provider that is used in the validation of parameters.
+
+            :return: The context provider that is used in the validation of parameters.
+        '''
+        ...
+
+    def get_check_reporter(self) -> ICheckReporter:
+        '''
+            Returns the check reporter that is used in the validation of parameters.
+
+            :return: The check reporter that is used in the validation of parameters.
+        '''
+        ...
+
+    def validates_parameters(self, parameters: ParametersSpecification) -> ValidationResult:
+        '''
+            Validates the parameters that are used by method(s) or function(s).
+
+            :param parameters: The specification of the parameters that are to be validated.
+            :return: The result of the validation.
+        '''
+        ...
+
     def is_initialized(self) -> bool:
         '''
-            Checks if checker component is initialized.
+            Checks if the checker is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
+            :return: True if successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the checker as string representation.
+            Returns the checker as a string representation.
 
-            :return: The checker as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The checker as a string representation.
         '''
-        pass
+        ...

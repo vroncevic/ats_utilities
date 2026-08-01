@@ -68,14 +68,14 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.context_error</span> <span class="kn">import</span> <span class="n">raise_error</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 
-<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
-<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.4.4&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="check_file_exists">
@@ -89,22 +89,18 @@
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Checks if a file exists.</span>
 
-<span class="sd">        :param file_path: Path to the file.</span>
-<span class="sd">        :type file_path: &lt;str&gt;</span>
-<span class="sd">        :param exc_context: Context representation in string format.</span>
-<span class="sd">        :type exc_context: &lt;str | None&gt;</span>
-<span class="sd">        :param exc_message: Message to include in the exception message.</span>
-<span class="sd">        :type exc_message: &lt;str | None&gt;</span>
+<span class="sd">        :param file_path: The path to the file.</span>
+<span class="sd">        :param exc_context: The context representation in string format.</span>
+<span class="sd">        :param exc_message: The message to include in the exception message.</span>
 <span class="sd">        :param exc_class: The exception class to raise if value is None.</span>
-<span class="sd">        :type exc_class: &lt;type[BaseException]&gt; (default ATSValueError)</span>
 <span class="sd">        :exceptions:</span>
 <span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
 <span class="sd">            | Dynamically raises the provided exc_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::check_file_exists(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;file path must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::check_file_exists(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the file path must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -114,8 +110,8 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::check_file_exists(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;file at the provided path does not exist: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::check_file_exists(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;the file at the provided path does not exist: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -135,23 +131,18 @@
 <span class="sd">        Normalizes file paths and strips leading directory prefixes.</span>
 
 <span class="sd">        :param file_path: The original path to clean up.</span>
-<span class="sd">        :type file_path: &lt;str&gt;</span>
-<span class="sd">        :param exc_context: Context representation in string format.</span>
-<span class="sd">        :type exc_context: &lt;str | None&gt;</span>
-<span class="sd">        :param exc_message: Message to include in the exception message.</span>
-<span class="sd">        :type exc_message: &lt;str | None&gt;</span>
+<span class="sd">        :param exc_context: The context representation in string format.</span>
+<span class="sd">        :param exc_message: The message to include in the exception message.</span>
 <span class="sd">        :param exc_class: The exception class to raise if file_path is None.</span>
-<span class="sd">        :type exc_class: &lt;type[BaseException]&gt; (default ATSValueError)</span>
 <span class="sd">        :return: The cleaned up relative path.</span>
-<span class="sd">        :rtype: &lt;str&gt;</span>
 <span class="sd">        :exceptions:</span>
 <span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
 <span class="sd">            | Dynamically raises the provided exc_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::normalize_path(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;file path must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::normalize_path(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the file path must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -186,17 +177,11 @@
 <span class="sd">        Calculates relative path to the specified source directory.</span>
 
 <span class="sd">        :param normalized_name: The cleaned name of the archive member.</span>
-<span class="sd">        :type normalized_name: &lt;str&gt;</span>
-<span class="sd">        :param source_dir_clean: Cleaned source directory name.</span>
-<span class="sd">        :type source_dir_clean: &lt;str&gt;</span>
-<span class="sd">        :param exc_context: Context representation in string format.</span>
-<span class="sd">        :type exc_context: &lt;str | None&gt;</span>
-<span class="sd">        :param exc_message: Message to include in the exception message.</span>
-<span class="sd">        :type exc_message: &lt;str | None&gt;</span>
+<span class="sd">        :param source_dir_clean: The cleaned source directory name.</span>
+<span class="sd">        :param exc_context: The context representation in string format.</span>
+<span class="sd">        :param exc_message: The message to include in the exception message.</span>
 <span class="sd">        :param exc_class: The exception class to raise if value is None.</span>
-<span class="sd">        :type exc_class: &lt;type[BaseException]&gt; (default ATSValueError)</span>
 <span class="sd">        :return: The relative path inside the source dir, or None if not matching.</span>
-<span class="sd">        :rtype: &lt;str | None&gt;</span>
 <span class="sd">        :exceptions:</span>
 <span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
 <span class="sd">            | Dynamically raises the provided exc_class (e.g., ATSValueError).</span>
@@ -206,8 +191,8 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">normalized_name</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::resolve_relative_path(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;normalized_name must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::resolve_relative_path(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the normalized name must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -215,8 +200,8 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">source_dir_clean</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::resolve_relative_path(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;source_dir_clean must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::resolve_relative_path(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the source directory name must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -249,25 +234,19 @@
 <span class="sd">        Checks if a relative path matches any exclusion patterns.</span>
 
 <span class="sd">        :param rel_path: The relative path to inspect.</span>
-<span class="sd">        :type rel_path: &lt;str&gt;</span>
-<span class="sd">        :param exclude_patterns: Sequence of glob patterns to exclude.</span>
-<span class="sd">        :type exclude_patterns: &lt;Sequence[str]&gt;</span>
-<span class="sd">        :param exc_context: Context representation in string format.</span>
-<span class="sd">        :type exc_context: &lt;str | None&gt;</span>
-<span class="sd">        :param exc_message: Message to include in the exception message.</span>
-<span class="sd">        :type exc_message: &lt;str | None&gt;</span>
+<span class="sd">        :param exclude_patterns: The sequence of glob patterns to exclude.</span>
+<span class="sd">        :param exc_context: The context representation in string format.</span>
+<span class="sd">        :param exc_message: The message to include in the exception message.</span>
 <span class="sd">        :param exc_class: The exception class to raise if value is None.</span>
-<span class="sd">        :type exc_class: &lt;type[BaseException]&gt; (default ATSValueError)</span>
 <span class="sd">        :return: True if the path should be excluded, False otherwise.</span>
-<span class="sd">        :rtype: &lt;bool&gt;</span>
 <span class="sd">        :exceptions:</span>
 <span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
 <span class="sd">            | Dynamically raises the provided exc_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">rel_path</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::is_excluded_path(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;rel_path must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::is_excluded_path(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the relative path must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -275,8 +254,8 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">exclude_patterns</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::is_excluded_path(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;exclude_patterns must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::is_excluded_path(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the exclude patterns must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -313,32 +292,23 @@
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Formats a replacement value according to the casing style matched in clean_str.</span>
 
-<span class="sd">        :param clean_str: Cleaned matched substring to analyze.</span>
-<span class="sd">        :type clean_str: &lt;str&gt;</span>
-<span class="sd">        :param default_val: Default replacement value.</span>
-<span class="sd">        :type default_val: &lt;str&gt;</span>
-<span class="sd">        :param upper_val: Value in UPPER_CASE.</span>
-<span class="sd">        :type upper_val: &lt;str&gt;</span>
-<span class="sd">        :param camel_val: Value in CamelCase/PascalCase.</span>
-<span class="sd">        :type camel_val: &lt;str&gt;</span>
-<span class="sd">        :param dashed_val: Value in dashed-case.</span>
-<span class="sd">        :type dashed_val: &lt;str&gt;</span>
-<span class="sd">        :param exc_context: Context representation in string format.</span>
-<span class="sd">        :type exc_context: &lt;str | None&gt;</span>
-<span class="sd">        :param exc_message: Message to include in the exception message.</span>
-<span class="sd">        :type exc_message: &lt;str | None&gt;</span>
+<span class="sd">        :param clean_str: The cleaned matched substring to analyze.</span>
+<span class="sd">        :param default_val: The default replacement value.</span>
+<span class="sd">        :param upper_val: The value in UPPER_CASE.</span>
+<span class="sd">        :param camel_val: The value in CamelCase/PascalCase.</span>
+<span class="sd">        :param dashed_val: The value in dashed-case.</span>
+<span class="sd">        :param exc_context: The context representation in string format.</span>
+<span class="sd">        :param exc_message: The message to include in the exception message.</span>
 <span class="sd">        :param exc_class: The exception class to raise if value is None.</span>
-<span class="sd">        :type exc_class: &lt;type[BaseException]&gt; (default ATSValueError)</span>
 <span class="sd">        :return: The replacement formatted in matching casing style.</span>
-<span class="sd">        :rtype: &lt;str&gt;</span>
 <span class="sd">        :exceptions:</span>
 <span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
 <span class="sd">            | Dynamically raises the provided exc_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">clean_str</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::format_casing_by_match(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;clean_str must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::format_casing_by_match(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the clean string must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -346,8 +316,8 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">default_val</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::format_casing_by_match(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;default_val must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::format_casing_by_match(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the default value must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -355,8 +325,8 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">upper_val</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::format_casing_by_match(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;upper_val must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::format_casing_by_match(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the UPPERCASE value must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -364,8 +334,8 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">camel_val</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::format_casing_by_match(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;camel_val must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::format_casing_by_match(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the camelCase/PascalCase value must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -373,8 +343,8 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">dashed_val</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::format_casing_by_match(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;dashed_val must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::format_casing_by_match(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the dashed-case value must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -409,24 +379,19 @@
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Writes string or bytes content to a file.</span>
 
-<span class="sd">        :param file_path: Path to the target file.</span>
-<span class="sd">        :type file_path: &lt;str&gt;</span>
-<span class="sd">        :param content: Text string or raw bytes to write.</span>
-<span class="sd">        :type content: &lt;str | bytes&gt;</span>
-<span class="sd">        :param exc_context: Context representation in string format.</span>
-<span class="sd">        :type exc_context: &lt;str | None&gt;</span>
-<span class="sd">        :param exc_message: Message to include in the exception message.</span>
-<span class="sd">        :type exc_message: &lt;str | None&gt;</span>
+<span class="sd">        :param file_path: The path to the target file.</span>
+<span class="sd">        :param content: The text string or raw bytes to write.</span>
+<span class="sd">        :param exc_context: The context representation in string format.</span>
+<span class="sd">        :param exc_message: The message to include in the exception message.</span>
 <span class="sd">        :param exc_class: The exception class to raise if value is None.</span>
-<span class="sd">        :type exc_class: &lt;type[BaseException]&gt; (default ATSValueError)</span>
 <span class="sd">        :exceptions:</span>
 <span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
 <span class="sd">            | Dynamically raises the provided exc_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::write_content(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;file_path must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::write_content(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the file path must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -434,8 +399,8 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">content</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::write_content(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;content must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::write_content(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the content must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -468,27 +433,20 @@
 <span class="sd">        Applies path replacements to a relative path using casing heuristics.</span>
 
 <span class="sd">        :param rel_path: The original relative path.</span>
-<span class="sd">        :type rel_path: &lt;str&gt;</span>
-<span class="sd">        :param path_replacements: String replacements mapping.</span>
-<span class="sd">        :type path_replacements: &lt;Mapping[str, str]&gt;</span>
-<span class="sd">        :param vals: Computed template values.</span>
-<span class="sd">        :type vals: &lt;Mapping[str, str]&gt;</span>
-<span class="sd">        :param exc_context: Context representation in string format.</span>
-<span class="sd">        :type exc_context: &lt;str | None&gt;</span>
-<span class="sd">        :param exc_message: Message to include in the exception message.</span>
-<span class="sd">        :type exc_message: &lt;str | None&gt;</span>
+<span class="sd">        :param path_replacements: The string replacements mapping.</span>
+<span class="sd">        :param vals: The computed template values.</span>
+<span class="sd">        :param exc_context: The context representation in string format.</span>
+<span class="sd">        :param exc_message: The message to include in the exception message.</span>
 <span class="sd">        :param exc_class: The exception class to raise if value is None.</span>
-<span class="sd">        :type exc_class: &lt;type[BaseException]&gt; (default ATSValueError)</span>
 <span class="sd">        :return: The replaced relative path.</span>
-<span class="sd">        :rtype: &lt;str&gt;</span>
 <span class="sd">        :exceptions:</span>
 <span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
 <span class="sd">            | Dynamically raises the provided exc_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">rel_path</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::apply_path_replacements(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;rel_path must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::apply_path_replacements(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the relative path must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -496,8 +454,8 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">path_replacements</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::apply_path_replacements(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;path_replacements must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::apply_path_replacements(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the path replacements must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -505,8 +463,8 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">vals</span><span class="p">:</span>
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;files::apply_path_replacements(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vals must be provided&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;files::apply_path_replacements(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="s1">&#39;the vals must be provided&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>

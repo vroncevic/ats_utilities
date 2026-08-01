@@ -59,35 +59,31 @@
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Container</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.context_error</span> <span class="kn">import</span> <span class="n">raise_error</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 
-<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
-<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.4.4&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="cherry_pick_dict">
 <a class="viewcode-back" href="../../../ats_utilities.utils.dicts.html#ats_utilities.utils.dicts.cherry_pick_dict">[docs]</a>
-<span class="k">def</span> <span class="nf">cherry_pick_dict</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">cherry_pick_dict</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">](</span><span class="n">source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="n">Container</span><span class="p">[</span><span class="nb">object</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Cherry picks keys from a source dictionary.</span>
 
-<span class="sd">        :param source: Source dictionary from which to pick keys.</span>
-<span class="sd">        :type source: &lt;Mapping[Any, Any]&gt;</span>
-<span class="sd">        :param keys: Set of keys to pick from the source dictionary.</span>
-<span class="sd">        :type keys: &lt;frozenset[str]&gt;</span>
-<span class="sd">        :return: Dictionary with cherry picked keys.</span>
-<span class="sd">        :rtype: &lt;dict[Any, Any]&gt;</span>
+<span class="sd">        :param source: The source dictionary from which to pick keys.</span>
+<span class="sd">        :param keys: The set of keys to pick from the source dictionary.</span>
+<span class="sd">        :return: The dictionary with cherry picked keys.</span>
 <span class="sd">        :exceptions: None.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">source</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">keys</span><span class="p">:</span>
@@ -99,26 +95,81 @@
 
 <div class="viewcode-block" id="has_required_keys">
 <a class="viewcode-back" href="../../../ats_utilities.utils.dicts.html#ats_utilities.utils.dicts.has_required_keys">[docs]</a>
-<span class="k">def</span> <span class="nf">has_required_keys</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">has_required_keys</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">](</span><span class="n">source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">],</span> <span class="n">keys</span><span class="p">:</span> <span class="n">Container</span><span class="p">[</span><span class="nb">object</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Checks if all required keys are present in the source dictionary.</span>
 
-<span class="sd">        :param source: Source dictionary to check.</span>
-<span class="sd">        :type source: &lt;dict[Any, Any]&gt;</span>
-<span class="sd">        :param keys: Set of mandatory keys.</span>
-<span class="sd">        :type keys: &lt;frozenset[str]&gt;</span>
+<span class="sd">        :param source: The source dictionary to check.</span>
+<span class="sd">        :param keys: The set of mandatory keys.</span>
 <span class="sd">        :return: True (passed), False (failed).</span>
-<span class="sd">        :rtype: &lt;bool&gt;</span>
 <span class="sd">        :exceptions: None.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="n">keys</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">source</span> <span class="ow">or</span> <span class="p">{})</span></div>
 
 
 
+<div class="viewcode-block" id="is_present_key">
+<a class="viewcode-back" href="../../../ats_utilities.utils.dicts.html#ats_utilities.utils.dicts.is_present_key">[docs]</a>
+<span class="k">def</span> <span class="nf">is_present_key</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">](</span><span class="n">mapping</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">],</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Checks if a key is present in a mapping.</span>
+
+<span class="sd">        :param mapping: The mapping to check.</span>
+<span class="sd">        :param key: The key to check.</span>
+<span class="sd">        :return: True if the key is present in the mapping, False otherwise.</span>
+<span class="sd">        :exceptions: None.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">mapping</span></div>
+
+
+
+<div class="viewcode-block" id="is_present_required_key">
+<a class="viewcode-back" href="../../../ats_utilities.utils.dicts.html#ats_utilities.utils.dicts.is_present_required_key">[docs]</a>
+<span class="k">def</span> <span class="nf">is_present_required_key</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">](</span>
+    <span class="n">mapping</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">],</span>
+    <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">,</span>
+    <span class="n">exc_context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exc_message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exc_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSValueError</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Raises an exception if a key is not present or is None in a mapping.</span>
+
+<span class="sd">        :param mapping: The mapping to check.</span>
+<span class="sd">        :param key: The key to check.</span>
+<span class="sd">        :param exc_context: The context representation in string format.</span>
+<span class="sd">        :param exc_message: The message to include in the exception message.</span>
+<span class="sd">        :param exc_class: The exception class to raise if the key is not present or is None.</span>
+<span class="sd">        :exceptions:</span>
+<span class="sd">            | ATSTypeError: Parameters (mapping and key) types validation failed.</span>
+<span class="sd">            | Dynamically raises the provided exc_class (e.g., ATSValueError).</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">istype</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">exc_context</span><span class="p">,</span> <span class="n">exc_message</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
+        <span class="n">raise_error</span><span class="p">(</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;dicts::is_present_required_key(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;the mapping is missing the required key: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
+            <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
+            <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">mapping</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">raise_error</span><span class="p">(</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;dicts::is_present_required_key(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;the mapping key </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> is None&#39;</span><span class="p">,</span>
+            <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
+            <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
+            <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
+        <span class="p">)</span></div>
+
+
+
 <div class="viewcode-block" id="require_keys">
 <a class="viewcode-back" href="../../../ats_utilities.utils.dicts.html#ats_utilities.utils.dicts.require_keys">[docs]</a>
 <span class="k">def</span> <span class="nf">require_keys</span><span class="p">(</span>
-    <span class="n">source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span>
     <span class="n">keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
     <span class="n">exc_context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">exc_message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -127,16 +178,11 @@
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Requires all keys to be present in the source dictionary.</span>
 
-<span class="sd">        :param source: Source dictionary to check.</span>
-<span class="sd">        :type source: &lt;Mapping[Any, Any]&gt;</span>
-<span class="sd">        :param keys: Set of mandatory keys.</span>
-<span class="sd">        :type keys: &lt;frozenset[str]&gt;</span>
-<span class="sd">        :param exc_context: Context representation in string format.</span>
-<span class="sd">        :type exc_context: &lt;str | None&gt;</span>
-<span class="sd">        :param exc_message: Message to include in the exception message.</span>
-<span class="sd">        :type exc_message: &lt;str | None&gt;</span>
+<span class="sd">        :param source: The source dictionary to check.</span>
+<span class="sd">        :param keys: The set of mandatory keys.</span>
+<span class="sd">        :param exc_context: The context representation in string format.</span>
+<span class="sd">        :param exc_message: The message to include in the exception message.</span>
 <span class="sd">        :param exc_class: The exception class to raise if value is None.</span>
-<span class="sd">        :type exc_class: &lt;type[BaseException]&gt; (default ATSValueError)</span>
 <span class="sd">        :exceptions:</span>
 <span class="sd">            | ATSTypeError: Parameters (source and keys) types validation failed.</span>
 <span class="sd">            | Dynamically raises the provided exc_class (e.g., ATSValueError).</span>
@@ -148,8 +194,8 @@
         <span class="n">missing</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">keys</span> <span class="o">-</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">source</span> <span class="k">else</span> <span class="p">[]))</span>
 
         <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;dicts::require_keys(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;mapping is missing required keys: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;dicts::require_keys(...)&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;the mapping is missing required keys: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
             <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
             <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>
             <span class="n">exc_class</span><span class="o">=</span><span class="n">exc_class</span>
@@ -160,25 +206,20 @@
 <div class="viewcode-block" id="get_first_available">
 <a class="viewcode-back" href="../../../ats_utilities.utils.dicts.html#ats_utilities.utils.dicts.get_first_available">[docs]</a>
 <span class="k">def</span> <span class="nf">get_first_available</span><span class="p">(</span>
-    <span class="n">source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-    <span class="n">keys</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span>
+    <span class="n">source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span>
+    <span class="n">keys</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">object</span><span class="p">],</span>
     <span class="n">exc_context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">exc_message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Retrieves the first available value from a list of keys in priority order.</span>
 <span class="sd">        Simulates the logic of: source.get(key1) or source.get(key2) ...</span>
 
-<span class="sd">        :param source: Source dictionary/mapping to search.</span>
-<span class="sd">        :type source: &lt;Mapping[Any, Any]&gt;</span>
-<span class="sd">        :param keys: Sequence of keys to check in order of priority.</span>
-<span class="sd">        :type keys: &lt;Sequence[Any]&gt;</span>
-<span class="sd">        :param exc_context: Context representation in string format.</span>
-<span class="sd">        :type exc_context: &lt;str | None&gt;</span>
-<span class="sd">        :param exc_message: Message to include in the exception message.</span>
-<span class="sd">        :type exc_message: &lt;str | None&gt;</span>
+<span class="sd">        :param source: The source dictionary/mapping to search.</span>
+<span class="sd">        :param keys: The sequence of keys to check in order of priority.</span>
+<span class="sd">        :param exc_context: The context representation in string format.</span>
+<span class="sd">        :param exc_message: The message to include in the exception message.</span>
 <span class="sd">        :return: The first non-empty value found, or None if none of the keys exist/have value.</span>
-<span class="sd">        :rtype: &lt;Any | None&gt;</span>
 <span class="sd">        :exceptions:</span>
 <span class="sd">            | ATSTypeError: Parameters (source and keys) types validation failed.</span>
 <span class="sd">    &#39;&#39;&#39;</span>

@@ -24,14 +24,44 @@ from __future__ import annotations
 from ats_utilities.exceptions import ATSValueError
 from ats_utilities.validation.context_error import raise_error
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
+
+
+TRUE: frozenset[str] = frozenset(
+    {
+        'True',
+        'TRUE',
+        'true',
+        'T',
+        't',
+        'Yes',
+        'y',
+        'On',
+        'on'
+    }
+)
+
+
+FALSE: frozenset[str] = frozenset(
+    {
+        'False',
+        'FALSE',
+        'false',
+        'F',
+        'f',
+        'No',
+        'n',
+        'Off',
+        'off'
+    }
+)
 
 
 def str_bool_to_bool(
@@ -43,12 +73,9 @@ def str_bool_to_bool(
     '''
         Converts a string boolean to a boolean.
 
-        :param value: String boolean to convert to a boolean.
-        :type value: <str>
-        :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
-        :return: Boolean value.
-        :rtype: <bool>
+        :param value: The string boolean to convert to a boolean.
+        :param exc_context: The context representation in string format.
+        :return: The boolean value.
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
     '''
@@ -59,7 +86,7 @@ def str_bool_to_bool(
             return False
         case _:
             raise_error(
-                fallback_context=r'boolean::str_bool_to_bool(...)',
+                fallback_context='boolean::str_bool_to_bool(...)',
                 fallback_msg=f'can not convert {value} to bool',
                 exc_context=exc_context,
                 exc_message=exc_message,

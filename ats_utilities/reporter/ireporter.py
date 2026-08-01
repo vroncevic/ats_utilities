@@ -16,118 +16,114 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IReporter with method(s).
-    Creates an interface for reporting message.
+    Defines the abstract class IReporter with method(s).
+    Provides an interface for the reporting of messages.
 '''
 
 from __future__ import annotations
 
-from collections.abc import Sequence
-from abc import ABC, abstractmethod
-from typing import Any
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IReporter(ABC):
+@runtime_checkable
+class IReporter[ConfigType, MessageType](Protocol):
     '''
-        Defines abstract class IReporter with method(s).
-        Creates an interface for reporting message.
+        Defines the abstract class IReporter with method(s).
+        Provides an interface for the reporting of messages.
 
         It defines:
 
             :methods:
-                | verbose - Reports verbose message.
-                | success - Reports success message.
-                | warning - Reports warning message.
-                | error - Reports error message.
-                | set_level - Sets log level.
-                | is_initialized - Checks if the reporter component is initialized.
-                | __str__ - Returns the reporter as string representation.
+                | get_bundle - Gets the current reporter configuration bundle.
+                | update_bundle - Updates the reporter configuration bundle.
+                | verbose - Reports a verbose message.
+                | success - Reports a success message.
+                | warning - Reports a warning message.
+                | error - Reports an error message.
+                | set_level - Sets the message reporting level.
+                | is_initialized - Checks if the reporter is initialized.
+                | __str__ - Returns the reporter as a string representation.
     '''
 
-    @abstractmethod
-    def verbose(self, is_verbose: bool, message: Sequence[Any]) -> None:
+    def get_bundle(self) -> ConfigType:
         '''
-            Reports verbose message.
+            Gets the current reporter configuration bundle.
 
-            :param is_verbose: Enable/Disable verbose option.
-            :type is_verbose: <bool>
-            :param message: Sequence with message.
-            :type message: <Sequence[Any]>
-            :exceptions: None.
+            :return: The reporter configuration bundle.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def success(self, message: Sequence[Any]) -> None:
+    def update_bundle(self, bundle: ConfigType) -> bool:
         '''
-            Reports success message.
+            Updates the reporter configuration bundle.
 
-            :param message: Sequence with message.
-            :type message: <Sequence[Any]>
-            :exceptions: None.
+            :param bundle: The reporter configuration bundle to be updated with.
+            :return: True if the update was successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def warning(self, message: Sequence[Any]) -> None:
+    def verbose(self, is_verbose: bool, message: MessageType) -> None:
         '''
-            Reports warning message.
+            Reports a verbose message.
 
-            :param message: Sequence with message.
-            :type message: <Sequence[Any]>
-            :exceptions: None.
+            :param is_verbose: The Enable/Disable the verbose option.
+            :param message: The message content.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def error(self, message: Sequence[Any]) -> None:
+    def success(self, message: MessageType) -> None:
         '''
-            Reports error message.
+            Reports a success message.
 
-            :param message: Sequence with message.
-            :type message: <Sequence[Any]>
-            :exceptions: None.
+            :param message: The message content.
         '''
-        pass
+        ...
 
-    @abstractmethod
+    def warning(self, message: MessageType) -> None:
+        '''
+            Reports a warning message.
+
+            :param message: The message content.
+        '''
+        ...
+
+    def error(self, message: MessageType) -> None:
+        '''
+            Reports an error message.
+
+            :param message: The message content.
+        '''
+        ...
+
     def set_level(self, level: int) -> None:
         '''
-            Sets log level.
+            Sets the message reporting level.
 
-            :param level: Log level.
-            :type level: <int>
-            :exceptions: None.
+            :param level: The message reporting level.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def is_initialized(self) -> bool:
         '''
-            Returns whether the reporter is initialized.
+            Checks if the reporter is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
+            :return: True if successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the reporter as string representation.
+            Returns the reporter as a string representation.
 
-            :return: The reporter as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The reporter as a string representation.
         '''
-        pass
+        ...

@@ -126,10 +126,8 @@ Framework structure
          │   ├── engine.py
          │   ├── ibase.py
          │   └── __init__.py
-         ├── checker/
-         │   ├── checker_bundle.py
-         │   ├── checker_registry.py
-         │   ├── context/
+          ├── checker/
+          │   ├── context/
          │   │   ├── context_provider.py
          │   │   ├── icontext_provider.py
          │   │   └── __init__.py
@@ -147,7 +145,14 @@ Framework structure
          │   │   ├── checker_reporter_registry.py
          │   │   ├── icheck_reporter.py
          │   │   └── __init__.py
-         │   └── type/
+          │   ├── setup/
+          │   │   ├── bundle.py
+          │   │   ├── dependencies.py
+          │   │   ├── factory.py
+          │   │   ├── __init__.py
+          │   │   ├── registry.py
+          │   │   └── validator.py
+          │   └── type/
          │       ├── __init__.py
          │       ├── itype_validator.py
          │       └── type_validator.py
@@ -226,16 +231,21 @@ Framework structure
          │   │   ├── engine.py
          │   │   ├── ibuild_date.py
          │   │   └── __init__.py
-         │   ├── engine.py
-         │   ├── iinfo_manager.py
-         │   ├── info_bundle.py
-         │   ├── info_keys.py
-         │   ├── info_ok/
-         │   │   ├── engine.py
-         │   │   ├── iinfo_ok.py
-         │   │   └── __init__.py
-         │   ├── info_registry.py
-         │   ├── __init__.py
+          │   ├── engine.py
+          │   ├── iinfo_manager.py
+          │   ├── info_keys.py
+          │   ├── info_ok/
+          │   │   ├── engine.py
+          │   │   ├── iinfo_ok.py
+          │   │   └── __init__.py
+          │   ├── __init__.py
+          │   ├── setup/
+          │   │   ├── bundle.py
+          │   │   ├── dependencies.py
+          │   │   ├── factory.py
+          │   │   ├── __init__.py
+          │   │   ├── registry.py
+          │   │   └── validator.py
          │   ├── licence/
          │   │   ├── engine.py
          │   │   ├── ilicence.py
@@ -269,12 +279,17 @@ Framework structure
          │       ├── __init__.py
          │       └── iversion.py
          ├── __init__.py
-         ├── logger/
-         │   ├── engine.py
-         │   ├── ilogger.py
-         │   ├── __init__.py
-         │   ├── logger_bundle.py
-         │   └── logger_registry.py
+          ├── logger/
+          │   ├── engine.py
+          │   ├── ilogger.py
+          │   ├── __init__.py
+          │   └── setup/
+          │       ├── bundle.py
+          │       ├── dependencies.py
+          │       ├── factory.py
+          │       ├── __init__.py
+          │       ├── registry.py
+          │       └── validator.py
          ├── option/
          │   ├── command/
          │   │   ├── command_option.py
@@ -309,14 +324,19 @@ Framework structure
          │   ├── project_setup_registry.py
          │   └── template_dir.py
          ├── py.typed
-         ├── reporter/
-         │   ├── engine.py
-         │   ├── __init__.py
-         │   ├── ireporter.py
-         │   ├── proxy_reporter.py
-         │   ├── reporter_bundle.py
-         │   ├── reporter_registry.py
-         │   └── theme/
+          ├── reporter/
+          │   ├── engine.py
+          │   ├── __init__.py
+          │   ├── ireporter.py
+          │   ├── proxy_reporter.py
+          │   ├── setup/
+          │   │   ├── bundle.py
+          │   │   ├── dependencies.py
+          │   │   ├── factory.py
+          │   │   ├── __init__.py
+          │   │   ├── registry.py
+          │   │   └── validator.py
+          │   └── theme/
          │       ├── engine.py
          │       ├── iconsole_theme.py
          │       └── __init__.py

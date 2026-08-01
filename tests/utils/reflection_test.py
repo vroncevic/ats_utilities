@@ -21,17 +21,16 @@ Info
 
 from __future__ import annotations
 
-from typing import Any
 import unittest
 
-from ats_utilities.exceptions import ATSValueError
-from ats_utilities.utils.reflection import cls_name, get_pvt, has_attrs, to_str
+from ats_utilities.exceptions import ATSValueError, ATSAttributeError
+from ats_utilities.utils.reflection import cls_name, get_pvt, has_attrs, to_str, instance_to_dict
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.3'
+__version__: str = '3.4.4'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
@@ -51,14 +50,12 @@ class DummyClass:
                 | decorated_method - Method decorated with has_attrs.
     '''
 
-    def __init__(self, attr1: Any = None, attr2: Any = None) -> None:
+    def __init__(self, attr1: object = None, attr2: object = None) -> None:
         '''
             Initializes DummyClass constructor.
 
             :param attr1: First attribute value | None.
-            :type attr1: <Any>
             :param attr2: Second attribute value | None.
-            :type attr2: <Any>
             :exceptions: None.
         '''
         self._attr1 = attr1
@@ -70,7 +67,6 @@ class DummyClass:
             Method decorated with has_attrs.
 
             :return: Static string indicating successful execution.
-            :rtype: <str>
             :exceptions: None.
         '''
         return "success"
@@ -159,7 +155,7 @@ class ReflectionTest(unittest.TestCase):
             :exceptions: None.
         '''
         class EmptyClass:
-            pass
+            ...
 
         instance = EmptyClass()
         expected = f"EmptyClass at 0x{id(instance):x}"
@@ -200,6 +196,38 @@ class ReflectionTest(unittest.TestCase):
         list_id = f"0x{id(list_inst._attr1):x}"
         res_list = to_str(list_inst)
         self.assertIn(f"[1, 2] at {list_id}", res_list)
+
+    def test_instance_to_dict(self) -> None:
+        '''
+            Tests instance_to_dict function.
+        '''
+        from dataclasses import dataclass
+
+        @dataclass
+        class DummyDataclass:
+            a: int
+            b: str
+
+        inst = DummyDataclass(a=1, b="test")
+        result = instance_to_dict(inst)
+        self.assertEqual(result, {"a": 1, "b": "test"})
+
+    def test_instance_to_dict_none(self) -> None:
+        '''
+            Tests instance_to_dict raises ATSValueError when instance is None.
+        '''
+        with self.assertRaises(ATSValueError):
+            instance_to_dict(None)
+
+    def test_instance_to_dict_invalid_type(self) -> None:
+        '''
+            Tests instance_to_dict raises ATSAttributeError when instance is not a dataclass.
+        '''
+        class NonDataclass:
+            ...
+
+        with self.assertRaises((ATSAttributeError, ATSValueError)):
+            instance_to_dict(NonDataclass())
 
 
 if __name__ == "__main__":

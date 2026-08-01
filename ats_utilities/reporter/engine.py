@@ -16,58 +16,60 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Reporter with attribute(s) and method(s).
-    Implements an API for reporting messages to the console.
+    Defines the Reporter class with attribute(s) and method(s).
+    Implements an API for the reporting of messages.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Sequence
 from logging import DEBUG, INFO, WARNING, ERROR
-from typing import Any, override
 
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.reporter_bundle import ReporterBundle
+from ats_utilities.reporter.setup.bundle import ReporterBundle
+from ats_utilities.reporter.setup.validator import ReporterValidator
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
+from ats_utilities.reporter.theme.types import MessageKey
 from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.validation.check_value import not_none
-from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class Reporter(IReporter):
+class Reporter:
     '''
-        Defines class Reporter with attribute(s) and method(s).
-        Implements an API for reporting messages to the console.
+        Defines the Reporter class with attribute(s) and method(s).
+        Implements an API for the reporting of messages.
 
         It defines:
 
             :attributes:
-                | _checker - Injected parameters checker (default Checker).
-                | _theme - Injected theme for styling messages (default ConsoleTheme).
-                | _logger - Injected logger for reporting messages (default Logger).
-                | _is_initialized -  Indicates if the reporter is initialized (default False).
+                | _checker - The parameters checker.
+                | _theme - The theme for the styling of messages.
+                | _logger - The logger for the reporting of messages.
+                | _is_initialized - The indication of whether the reporter is initialized.
             :methods:
-                | __init__ - Initializes Reporter.
-                | _report - Utility method for reporting messages to console.
-                | verbose - Reports verbose message to console.
-                | success - Reports success message to console.
-                | warning - Reports warning message to console.
-                | error - Reports error message to console.
-                | set_level - Sets log level.
-                | is_initialized - Checks if reporter is initialized.
-                | __str__ - Returns the string representation of Reporter.
+                | __init__ - Initializes the reporter.
+                | get_bundle - Gets the current reporter configuration bundle.
+                | update_bundle - Updates the reporter configuration bundle.
+                | _apply_bundle - Applies the bundle configuration to the instance attributes.
+                | _report - Utility method for the reporting of messages.
+                | verbose - Reports a verbose message.
+                | success - Reports a success message.
+                | warning - Reports a warning message.
+                | error - Reports an error message.
+                | set_level - Sets the message reporting level.
+                | is_initialized - Checks if the reporter is initialized.
+                | __str__ - Returns the reporter as a string representation.
     '''
 
     _checker: IChecker
@@ -75,154 +77,168 @@ class Reporter(IReporter):
     _logger: ILogger
     _is_initialized: bool
 
-    def __init__(self, component_bundle: ReporterBundle) -> None:
+    def __init__(self, own: ReporterBundle) -> None:
         '''
-            Initializes Reporter.
+            Initializes the reporter.
 
-            :param component_bundle: Reporter component bundle.
-            :type component_bundle: <ReporterBundle>
+            :param own: The reporter bundle.
             :exceptions:
-                | ATSValueError: Component bundle must be provided.
-                | ATSTypeError: Component bundle must be a ReporterBundle instance.
+                | ATSValueError: Reporter bundle must be provided and have proper values.
+                | ATSTypeError:  Reporter bundle must be an instance of ReporterBundle
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
-        not_none(
-            component_bundle,
-            r'reporter::init',
-            r'component bundle must be provided'
-        )
-        istype(
-            component_bundle,
-            ReporterBundle,
-            r'reporter::init',
-            r'component bundle must be a ReporterBundle instance'
-        )
-        self._checker = component_bundle.checker
-        self._theme = component_bundle.theme
-        self._logger = component_bundle.logger
+        self._is_initialized = False
+        ReporterValidator.validate(own)
+        self._apply_bundle(own)
         self._is_initialized = True
 
-    def _report(self, message: Sequence[Any], color: str, ctrl: int) -> None:
+    def get_bundle(self) -> ReporterBundle:
         '''
-            Utility method for reporting message to log/console.
+            Gets the current reporter configuration bundle.
 
-            :param message: Sequence with message components.
-            :type message: <Sequence[Any]>
-            :param color: Theme color for the message.
-            :type color: <str>
-            :param ctrl: Log control flag.
-            :type ctrl: <int>
+            :return: The ReporterBundle containing the current reporter setup.
+            :exceptions: None.
+        '''
+        return ReporterBundle(
+            checker=self._checker,
+            theme=self._theme,
+            logger=self._logger
+        )
+
+    def update_bundle(self, bundle: ReporterBundle) -> bool:
+        '''
+            Updates the reporter configuration using a reporter bundle.
+
+            :param bundle: The reporter bundle with reporter and reporting parameters.
+            :return: True if the configuration was successfully updated, otherwise False.
+            :exceptions: None.
+        '''
+        try:
+            ReporterValidator.validate(bundle)
+            self._apply_bundle(bundle)
+            self._is_initialized = True
+
+            return True
+
+        except (ATSValueError, ATSTypeError):
+            return False
+
+    def _apply_bundle(self, bundle: ReporterBundle) -> None:
+        '''
+            Applies the bundle configuration to the instance attributes.
+
+            :param bundle: The reporter bundle with reporter and reporting parameters.
+            :exceptions: None.
+        '''
+        self._checker = bundle.checker
+        self._theme = bundle.theme
+        self._logger = bundle.logger
+
+    def _report(self, message: Sequence[object], color: str, ctrl: int) -> None:
+        '''
+            Utility method for the reporting of the message to the log and console.
+
+            :param message: The sequence with the message components.
+            :param color: The theme color for the message.
+            :param ctrl: The log control flag.
             :exceptions: None.
         '''
         message_out: str = ' '.join([str(item) for item in message])
 
         if message_out:
-            reset: str = self._theme.get_color('reset')
-            self._logger.write_log(f'{color}{message_out}{reset}', ctrl)
+            reset: str = self._theme.get_color(MessageKey.RESET)
+            self._logger.write_log(ctrl, f'{color}{message_out}{reset}')
 
     @mcheck([('bool:is_verbose', None), ('Sequence:message', None)])
-    @override
-    def verbose(self, is_verbose: bool, message: Sequence[Any]) -> None:
+    def verbose(self, is_verbose: bool, message: Sequence[object]) -> None:
         '''
-            Reports verbose message to console.
+            Reports a verbose message to the console.
 
-            :param is_verbose: Enable/Disable verbose option.
-            :type is_verbose: <bool>
-            :param message: Sequence with message components.
-            :type message: <Sequence[Any]>
+            :param is_verbose: The Enable/Disable the verbose option.
+            :param message: The sequence with the message components.
             :exceptions:
-                | ATSTypeError: Parameter type validation failed.
-                | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSTypeError:      The parameter type validation failed.
+                | ATSValueError:     The parameter format validation failed.
+                | ATSRuntimeError:   The decorator was used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         if is_verbose:
-            self._report(message, self._theme.get_color('verbose'), DEBUG)
+            self._report(message, self._theme.get_color(MessageKey.VERBOSE), DEBUG)
 
     @mcheck([('Sequence:message', None)])
-    @override
-    def success(self, message: Sequence[Any]) -> None:
+    def success(self, message: Sequence[object]) -> None:
         '''
-            Reports success message to console.
+            Reports a success message to the console.
 
-            :param message: Sequence with message components.
-            :type message: <Sequence[Any]>
+            :param message: The sequence with the message components.
             :exceptions:
-                | ATSTypeError: Parameter type validation failed.
-                | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSTypeError:      The parameter type validation failed.
+                | ATSValueError:     The parameter format validation failed.
+                | ATSRuntimeError:   The decorator was used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
-        self._report(message, self._theme.get_color('success'), INFO)
+        self._report(message, self._theme.get_color(MessageKey.SUCCESS), INFO)
 
     @mcheck([('Sequence:message', None)])
-    @override
-    def warning(self, message: Sequence[Any]) -> None:
+    def warning(self, message: Sequence[object]) -> None:
         '''
-            Reports warning message to console.
+            Reports a warning message to the console.
 
-            :param message: Sequence with message components.
-            :type message: <Sequence[Any]>
+            :param message: The sequence with the message components.
             :exceptions:
-                | ATSTypeError: Parameter type validation failed.
-                | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSTypeError:      The parameter type validation failed.
+                | ATSValueError:     The parameter format validation failed.
+                | ATSRuntimeError:   The decorator was used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
-        self._report(message, self._theme.get_color('warning'), WARNING)
+        self._report(message, self._theme.get_color(MessageKey.WARNING), WARNING)
 
     @mcheck([('Sequence:message', None)])
-    @override
-    def error(self, message: Sequence[Any]) -> None:
+    def error(self, message: Sequence[object]) -> None:
         '''
-            Reports error message to console.
+            Reports an error message to the console.
 
-            :param message: Sequence with message components.
-            :type message: <Sequence[Any]>
+            :param message: The sequence with the message components.
             :exceptions:
-                | ATSTypeError: Parameter type validation failed.
-                | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSTypeError:      The parameter type validation failed.
+                | ATSValueError:     The parameter format validation failed.
+                | ATSRuntimeError:   The decorator was used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
-        self._report(message, self._theme.get_color('error'), ERROR)
+        self._report(message, self._theme.get_color(MessageKey.ERROR), ERROR)
 
     @mcheck([('int:level', None)])
-    @override
     def set_level(self, level: int) -> None:
         '''
-            Sets log level.
+            Sets the log level.
 
-            :param level: Log level.
-            :type level: <int>
+            :param level: The log level.
             :exceptions:
-                | ATSTypeError: Parameter type validation failed.
-                | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSTypeError:      The parameter type validation failed.
+                | ATSValueError:     The parameter format validation failed.
+                | ATSRuntimeError:   The decorator was used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         if hasattr(self._logger, 'set_level'):
             self._logger.set_level(level)
         elif hasattr(self._logger, 'setLevel'):
             self._logger.setLevel(level)
 
-    @override
     def is_initialized(self) -> bool:
         '''
-            Checks if reporter is initialized.
+            Checks if the reporter is initialized.
 
-            :return: <True> if successful else <False>.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return self._is_initialized
 
-    @override
     def __str__(self) -> str:
         '''
-            Returns the string representation of Reporter.
+            Returns the reporter as a string representation.
 
-            :return: The Reporter as string representation.
-            :rtype: <str>
+            :return: The reporter as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

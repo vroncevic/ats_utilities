@@ -16,85 +16,72 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILogo with method(s).
+    Defines the ILogo abstract class with method(s).
     Interface for the logo path mechanism.
 '''
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
+from typing import Protocol, runtime_checkable
 
-from abc import ABC, abstractmethod
-
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ILogo(IContextSupport, ABC):
+@runtime_checkable
+class ILogo[LogoType](Protocol):
     '''
-        Defines abstract class ILogo with method(s).
+        Defines the ILogo abstract class with method(s).
         Interface for the logo path mechanism.
-        Note: Logo path is only prepared when it is set by user (not None).
+        Note: The logo path is only prepared when it is set by the user (not None).
 
         It defines:
 
             :methods:
-                | logo - Property methods for set/get operations.
-                | not_none - Checks if logo path is not None.
-                | __str__ - Returns the logo as string representation.
+                | logo - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the logo path is not None.
+                | __str__ - Returns the logo as a string representation.
     '''
 
     @property
-    @abstractmethod
-    def logo(self) -> str | None:
+    def logo(self) -> LogoType | None:
         '''
-            Property method for getting logo path.
-            Note: Logo path is only prepared when it is set by user (not None).
+            Property method for getting the logo path.
+            Note: The logo path is only prepared when it is set by the user (not None).
 
-            :return: The logo path in string format | None.
-            :rtype: <str | None>
-            :exceptions: None.
+            :return: The logo path in LogoType format | None.
         '''
-        pass
+        ...
 
     @logo.setter
-    @abstractmethod
-    def logo(self, logo: str) -> None:
+    def logo(self, logo: LogoType) -> None:
         '''
-            Property method for setting logo path.
-            Note: Logo path is only prepared when it is set by user (not None).
+            Property method for setting the logo path.
+            Note: The logo path is only prepared when it is set by the user (not None).
 
-            :param logo: The logo path in string format.
-            :type logo: <str>
-            :exceptions: None.
+            :param logo: The logo path in LogoType format.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks if logo path is not None.
-            Note: Logo path is only prepared when it is set by user (not None).
+            Checks if the logo path is not None.
+            Note: The logo path is only prepared when it is set by the user (not None).
 
             :return: True (Not None) | False (None).
-            :rtype: <bool>
-            :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the Logo as string representation.
+            Returns the Logo as a string representation.
 
-            :return: The Logo as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The Logo as a string representation.
         '''
-        pass
+        ...

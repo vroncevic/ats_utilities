@@ -61,100 +61,116 @@
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
-<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">signature</span><span class="p">,</span> <span class="n">Signature</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">cast</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.checker_registry</span> <span class="kn">import</span> <span class="n">CheckerRegistry</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.factory</span> <span class="kn">import</span> <span class="n">CheckerFactory</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.engine</span> <span class="kn">import</span> <span class="n">Checker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span><span class="p">,</span> <span class="n">ParametersSpecs</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.icontext_support</span> <span class="kn">import</span> <span class="n">IContextSupport</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.types</span> <span class="kn">import</span> <span class="n">Parameters</span><span class="p">,</span> <span class="n">CheckerErrorType</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.context_error</span> <span class="kn">import</span> <span class="n">raise_error</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 
-<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
-<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.4.4&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="proxy_validator_split">
-<a class="viewcode-back" href="../../../ats_utilities.checker.proxy_validator.html#ats_utilities.checker.proxy_validator.proxy_validator_split">[docs]</a>
-<span class="k">def</span> <span class="nf">proxy_validator_split</span><span class="p">(</span><span class="n">exp_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="validate_specs">
+<a class="viewcode-back" href="../../../ats_utilities.checker.proxy_validator.html#ats_utilities.checker.proxy_validator.validate_specs">[docs]</a>
+<span class="k">def</span> <span class="nf">validate_specs</span><span class="p">(</span><span class="n">specs</span><span class="p">:</span> <span class="n">Parameters</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Splits the format string into type and name parts.</span>
+<span class="sd">        Validates the specifications list structure.</span>
 
-<span class="sd">        :param exp_type: The format string to split.</span>
-<span class="sd">        :type exp_type: &lt;str&gt;</span>
-<span class="sd">        :return: A tuple containing the split components.</span>
-<span class="sd">        :rtype: &lt;tuple[str, str]&gt;</span>
+<span class="sd">        :param specs: The parameter specification list to validate.</span>
+<span class="sd">        :param context: The context string for error reporting.</span>
 <span class="sd">        :exceptions:</span>
-<span class="sd">            | ATSValueError: Parameter format validation failed.</span>
+<span class="sd">            | ATSValueError: The specs must be provided.</span>
+<span class="sd">            | ATSTypeError:  The specs must be a list of (str, object) tuples.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">parts</span> <span class="o">=</span> <span class="n">exp_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+    <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">context</span> <span class="k">if</span> <span class="n">context</span> <span class="k">else</span> <span class="s1">&#39;validate_specs(...)&#39;</span>
+    <span class="n">fmt_msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;the expected format: [(&#39;expected_type:param_name&#39;, default_value), ...]&quot;</span>
+    <span class="n">msg_not_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the specs must be provided, </span><span class="si">{</span><span class="n">fmt_msg</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">msg_specs_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the specs must be a Sequence, </span><span class="si">{</span><span class="n">fmt_msg</span><span class="si">}</span><span class="s1">&#39;</span>
 
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">raise_error</span><span class="p">(</span>
-            <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;proxy_validator_split(...)&#39;</span><span class="p">,</span>
-            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Invalid parameter format: </span><span class="si">{</span><span class="n">exp_type</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-            <span class="n">exc_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;proxy_validator_split(...)&#39;</span><span class="p">,</span>
-            <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">exc_class</span><span class="o">=</span><span class="n">ATSValueError</span>
-        <span class="p">)</span>
+    <span class="n">not_none</span><span class="p">(</span><span class="n">specs</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_not_none</span><span class="p">)</span>
+    <span class="n">istype</span><span class="p">(</span><span class="n">specs</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_specs_istype</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">specs</span><span class="p">):</span>
+        <span class="n">msg_item_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the spec item at index </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s1"> must be a list/tuple, </span><span class="si">{</span><span class="n">fmt_msg</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_item_istype</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">raise_error</span><span class="p">(</span>
+                <span class="n">fallback_context</span><span class="o">=</span><span class="n">ctx</span><span class="p">,</span>
+                <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;the spec item at index </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s1"> must be a tuple of length 2, </span><span class="si">{</span><span class="n">fmt_msg</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="n">exc_context</span><span class="o">=</span><span class="n">ctx</span><span class="p">,</span>
+                <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span>
+            <span class="p">)</span>
+
+        <span class="n">istype</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;the spec key at index </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s1"> must be a string, </span><span class="si">{</span><span class="n">fmt_msg</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="validate_args">
 <a class="viewcode-back" href="../../../ats_utilities.checker.proxy_validator.html#ats_utilities.checker.proxy_validator.validate_args">[docs]</a>
 <span class="k">def</span> <span class="nf">validate_args</span><span class="p">(</span>
-    <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-    <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-    <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-    <span class="n">specs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span>
+    <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span>
+    <span class="n">specs</span><span class="p">:</span> <span class="n">Parameters</span><span class="p">,</span>
     <span class="n">checker</span><span class="p">:</span> <span class="n">IChecker</span><span class="p">,</span>
     <span class="n">exc_context</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Validates argument values against parameter specification.</span>
+<span class="sd">        Validates the argument values against parameter specification.</span>
 
-<span class="sd">        :param func: Decorated function.</span>
-<span class="sd">        :type func: &lt;Callable[..., Any]&gt;</span>
-<span class="sd">        :param args: Position arguments passed.</span>
-<span class="sd">        :type args: &lt;tuple[Any, ...]&gt;</span>
-<span class="sd">        :param kwargs: Keyword arguments passed.</span>
-<span class="sd">        :type kwargs: &lt;dict[str, Any]&gt;</span>
-<span class="sd">        :param specs: Parameter specification list.</span>
-<span class="sd">        :type specs: &lt;list[tuple[str, Any]]&gt;</span>
-<span class="sd">        :param checker: Checker instance to validate with.</span>
-<span class="sd">        :type checker: &lt;IChecker&gt;</span>
-<span class="sd">        :param exc_context: Exception context.</span>
-<span class="sd">        :type exc_context: &lt;str&gt;</span>
+<span class="sd">        :param func: The decorated function.</span>
+<span class="sd">        :param args: The position arguments passed.</span>
+<span class="sd">        :param kwargs: The keyword arguments passed.</span>
+<span class="sd">        :param specs: The parameter specification list.</span>
+<span class="sd">        :param checker: The checker instance to validate with.</span>
+<span class="sd">        :param exc_context: The exception context.</span>
 <span class="sd">        :exceptions:</span>
-<span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
-<span class="sd">            | ATSValueError: Parameter format validation failed.</span>
+<span class="sd">            | ATSValueError: The specification format is invalid.</span>
+<span class="sd">            | ATSTypeError:  The parameter type validation failed.</span>
+<span class="sd">            | ATSValueError: The parameter format validation failed.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="c1"># Safely bind the passed args and kwargs to the function&#39;s signature</span>
-    <span class="n">func_signature</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="n">func_signature</span><span class="p">:</span> <span class="n">Signature</span> <span class="o">=</span> <span class="n">signature</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="n">bound_arguments</span> <span class="o">=</span> <span class="n">func_signature</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="c1"># Fill in empty optional parameters with their default values from definition</span>
     <span class="n">bound_arguments</span><span class="o">.</span><span class="n">apply_defaults</span><span class="p">()</span>
     <span class="n">actual_params_dict</span> <span class="o">=</span> <span class="n">bound_arguments</span><span class="o">.</span><span class="n">arguments</span>
 
-    <span class="n">runtime_parameters</span><span class="p">:</span> <span class="n">ParametersSpecs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">runtime_parameters</span><span class="p">:</span> <span class="n">Parameters</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="c1"># Iterate through specs and map them to actual arguments dynamically</span>
     <span class="k">for</span> <span class="n">exp_type</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">specs</span><span class="p">:</span>
-        <span class="n">raw_type</span><span class="p">,</span> <span class="n">pname</span> <span class="o">=</span> <span class="n">proxy_validator_split</span><span class="p">(</span><span class="n">exp_type</span><span class="p">)</span>
+        <span class="n">separator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">get_format_validator</span><span class="p">()</span><span class="o">.</span><span class="n">get_separator</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">separator</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exp_type</span><span class="p">:</span>
+            <span class="n">raise_error</span><span class="p">(</span>
+                <span class="n">fallback_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
+                <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;the format of parameter </span><span class="si">{</span><span class="n">exp_type</span><span class="si">}</span><span class="s1"> is not valid&#39;</span><span class="p">,</span>
+                <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
+                <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">exc_class</span><span class="o">=</span><span class="n">ATSValueError</span>
+            <span class="p">)</span>
+
+        <span class="n">raw_type</span><span class="p">,</span> <span class="n">pname</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">get_format_validator</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">exp_type</span><span class="p">)</span>
 
         <span class="c1"># Validate only if the specified parameter is bound to the function</span>
         <span class="k">if</span> <span class="n">pname</span> <span class="ow">in</span> <span class="n">actual_params_dict</span><span class="p">:</span>
@@ -175,22 +191,22 @@
 
             <span class="c1"># If it is not optional and the value is None, it is immediately a type error</span>
             <span class="k">if</span> <span class="n">actual_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">runtime_parameters</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">pname</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">actual_value</span><span class="p">))</span>
+                <span class="n">runtime_parameters</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">target_type</span><span class="si">}{</span><span class="n">separator</span><span class="si">}{</span><span class="n">pname</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">actual_value</span><span class="p">))</span>
                 <span class="k">continue</span>
 
             <span class="c1"># We form a cleaned specification string for Checker (eg str:version)</span>
-            <span class="n">clean_exp_type</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">pname</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="n">clean_exp_type</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">target_type</span><span class="si">}{</span><span class="n">separator</span><span class="si">}{</span><span class="n">pname</span><span class="si">}</span><span class="s1">&#39;</span>
             <span class="n">runtime_parameters</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">clean_exp_type</span><span class="p">,</span> <span class="n">actual_value</span><span class="p">))</span>
 
     <span class="c1"># Process parameter validation</span>
     <span class="k">if</span> <span class="n">runtime_parameters</span><span class="p">:</span>
         <span class="n">report_message</span><span class="p">,</span> <span class="n">error_id</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">validates_parameters</span><span class="p">(</span><span class="n">runtime_parameters</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">error_id</span> <span class="o">!=</span> <span class="n">checker</span><span class="o">.</span><span class="n">ERRORS</span><span class="o">.</span><span class="n">NO_ERROR</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">checker</span><span class="o">.</span><span class="n">ERRORS</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">error_id</span> <span class="o">!=</span> <span class="n">CheckerErrorType</span><span class="o">.</span><span class="n">NO_ERROR</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">CheckerErrorType</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
                 <span class="n">raise_error</span><span class="p">(</span>
                     <span class="n">fallback_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
-                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;type error: </span><span class="si">{</span><span class="n">report_message</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;the type error: </span><span class="si">{</span><span class="n">report_message</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
                     <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">exc_class</span><span class="o">=</span><span class="n">ATSTypeError</span>
@@ -198,7 +214,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">raise_error</span><span class="p">(</span>
                     <span class="n">fallback_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
-                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;format error: </span><span class="si">{</span><span class="n">report_message</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;the format error: </span><span class="si">{</span><span class="n">report_message</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
                     <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">exc_class</span><span class="o">=</span><span class="n">ATSValueError</span>
@@ -208,40 +224,46 @@
 
 <div class="viewcode-block" id="mcheck">
 <a class="viewcode-back" href="../../../ats_utilities.checker.proxy_validator.html#ats_utilities.checker.proxy_validator.mcheck">[docs]</a>
-<span class="k">def</span> <span class="nf">mcheck</span><span class="p">[</span><span class="n">F</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]](</span><span class="n">specs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">F</span><span class="p">],</span> <span class="n">F</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">mcheck</span><span class="p">[</span><span class="n">F</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="nb">object</span><span class="p">]](</span><span class="n">specs</span><span class="p">:</span> <span class="n">Parameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">F</span><span class="p">],</span> <span class="n">F</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Decorator supporting class methods (instance methods, classmethods).</span>
 <span class="sd">        Borrows the checker object dynamically from the class instance </span>
 <span class="sd">        to validate method parameters.</span>
 <span class="sd">        Mechanism for parameters checking in methods only.</span>
 
-<span class="sd">        :param specs: Specification for parameters.</span>
-<span class="sd">        :type specs: &lt;list[tuple[str, Any]]&gt;</span>
-<span class="sd">        :return: Wrapped function.</span>
-<span class="sd">        :rtype: &lt;Callable[[F], F]&gt;</span>
+<span class="sd">        :param specs: The specification for parameters.</span>
+<span class="sd">        :return: The wrapped function.</span>
 <span class="sd">        :exceptions:</span>
-<span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
-<span class="sd">            | ATSValueError: Parameter format validation failed.</span>
-<span class="sd">            | ATSRuntimeError: Decorator used on a non-class method.</span>
-<span class="sd">            | ATSAttributeError: Class does not provide a _checker object.</span>
+<span class="sd">            | ATSTypeError:      The parameter type validation failed.</span>
+<span class="sd">            | ATSValueError:     The parameter format validation failed.</span>
+<span class="sd">            | ATSRuntimeError:   The decorator used on a non-class method.</span>
+<span class="sd">            | ATSAttributeError: The class does not provide a _checker object.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">validate_specs</span><span class="p">(</span><span class="n">specs</span><span class="p">,</span> <span class="s1">&#39;mcheck(...)&#39;</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">F</span><span class="p">:</span>
+
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
             <span class="c1"># Capturing the class instance (self is always the first argument in args)</span>
             <span class="n">self_instance</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="kc">None</span>
 
             <span class="k">if</span> <span class="n">self_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">raise_error</span><span class="p">(</span>
-                    <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;mcheck::decorator(...)&#39;</span><span class="p">,</span>
-                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;decorator @mcheck on </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> can only be used on class methods&#39;</span><span class="p">,</span>
-                    <span class="n">exc_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;mcheck::decorator(...)&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;mcheck::decorator(...)&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;the decorator @mcheck on </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> can only be used on class methods&#39;</span><span class="p">,</span>
+                    <span class="n">exc_context</span><span class="o">=</span><span class="s1">&#39;mcheck::decorator(...)&#39;</span><span class="p">,</span>
                     <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">exc_class</span><span class="o">=</span><span class="n">ATSRuntimeError</span>
                 <span class="p">)</span>
 
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="n">IContextSupport</span><span class="p">):</span>
-                <span class="n">checker</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="n">checker</span>
+            <span class="n">context_bundle</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="s1">&#39;_context&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">context_bundle</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="s1">&#39;get_context&#39;</span><span class="p">):</span>
+                <span class="n">context_bundle</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="n">get_context</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">context_bundle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">checker</span> <span class="o">=</span> <span class="n">context_bundle</span><span class="o">.</span><span class="n">checker</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">cls_name</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
                 <span class="n">checker</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
@@ -251,9 +273,9 @@
 
             <span class="k">if</span> <span class="n">checker</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">raise_error</span><span class="p">(</span>
-                    <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;mcheck::decorator(...)&#39;</span><span class="p">,</span>
-                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;class </span><span class="si">{</span><span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> must provide a checker to use @mcheck decorator&#39;</span><span class="p">,</span>
-                    <span class="n">exc_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;mcheck::decorator(...)&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;mcheck::decorator(...)&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;the class </span><span class="si">{</span><span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> must provide a checker to use the @mcheck decorator&#39;</span><span class="p">,</span>
+                    <span class="n">exc_context</span><span class="o">=</span><span class="s1">&#39;mcheck::decorator(...)&#39;</span><span class="p">,</span>
                     <span class="n">exc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">exc_class</span><span class="o">=</span><span class="n">ATSRuntimeError</span>
                 <span class="p">)</span>
@@ -271,26 +293,29 @@
 
 <div class="viewcode-block" id="fcheck">
 <a class="viewcode-back" href="../../../ats_utilities.checker.proxy_validator.html#ats_utilities.checker.proxy_validator.fcheck">[docs]</a>
-<span class="k">def</span> <span class="nf">fcheck</span><span class="p">[</span><span class="n">F</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]](</span><span class="n">specs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">F</span><span class="p">],</span> <span class="n">F</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">fcheck</span><span class="p">[</span><span class="n">F</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="nb">object</span><span class="p">]](</span><span class="n">specs</span><span class="p">:</span> <span class="n">Parameters</span><span class="p">,</span> <span class="n">checker</span><span class="p">:</span> <span class="n">IChecker</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">F</span><span class="p">],</span> <span class="n">F</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Decorator supporting free functions.</span>
 <span class="sd">        Uses a default Checker to validate function parameters.</span>
 <span class="sd">        Mechanism for parameters checking in functions only.</span>
 
-<span class="sd">        :param specs: Specification for parameters.</span>
-<span class="sd">        :type specs: &lt;list[tuple[str, Any]]&gt;</span>
-<span class="sd">        :return: Wrapped function.</span>
-<span class="sd">        :rtype: &lt;Callable[[F], F]&gt;</span>
+<span class="sd">        :param specs: The specification for parameters.</span>
+<span class="sd">        :param checker: The checker instance to validate with.</span>
+<span class="sd">        :return: The wrapped function.</span>
 <span class="sd">        :exceptions:</span>
-<span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
-<span class="sd">            | ATSValueError: Parameter format validation failed.</span>
+<span class="sd">            | ATSTypeError:  The parameter type validation failed.</span>
+<span class="sd">            | ATSValueError: The parameter format validation failed.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">checker</span> <span class="o">=</span> <span class="n">Checker</span><span class="p">(</span><span class="n">CheckerRegistry</span><span class="o">.</span><span class="n">create_default_checker_bundle</span><span class="p">())</span>
+    <span class="n">validate_specs</span><span class="p">(</span><span class="n">specs</span><span class="p">,</span> <span class="s1">&#39;fcheck(...)&#39;</span><span class="p">)</span>
+
+    <span class="n">active_checker</span><span class="p">:</span> <span class="n">IChecker</span> <span class="o">=</span> <span class="n">checker</span> <span class="ow">or</span> <span class="n">Checker</span><span class="p">(</span><span class="n">CheckerFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">F</span><span class="p">:</span>
+
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-            <span class="n">validate_args</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">specs</span><span class="p">,</span> <span class="n">checker</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
+            <span class="n">validate_args</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">specs</span><span class="p">,</span> <span class="n">active_checker</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">)</span>

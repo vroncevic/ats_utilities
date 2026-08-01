@@ -9,6 +9,7 @@ Subpackages
 
    ats_utilities.config_io.loader
    ats_utilities.config_io.processor
+   ats_utilities.config_io.setup
    ats_utilities.config_io.storer
 
 Submodules
@@ -18,10 +19,8 @@ Submodules
    :maxdepth: 4
 
    ats_utilities.config_io.conf_file
-   ats_utilities.config_io.conf_file_bundle
-   ats_utilities.config_io.conf_file_registry
-   ats_utilities.config_io.config_io_bundle
-   ats_utilities.config_io.config_io_registry
+   ats_utilities.config_io.data
+   ats_utilities.config_io.data_validator
    ats_utilities.config_io.iconf_file
 
 Module contents

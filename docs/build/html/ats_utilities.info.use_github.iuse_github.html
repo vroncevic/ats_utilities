@@ -64,25 +64,25 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines abstract class IUseGitHub with method(s).
+<dt>Info</dt><dd><p>Defines the IUseGitHub abstract class with method(s).
 Interface for the use GitHub infrastructure mechanism.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.info.use_github.iuse_github.IUseGitHub">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.use_github.iuse_github.</span></span><span class="sig-name descname"><span class="pre">IUseGitHub</span></span><a class="reference internal" href="_modules/ats_utilities/info/use_github/iuse_github.html#IUseGitHub"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.context.icontext_support.html#ats_utilities.context.icontext_support.IContextSupport" title="ats_utilities.context.icontext_support.IContextSupport"><code class="xref py py-class docutils literal notranslate"><span class="pre">IContextSupport</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Defines abstract class IUseGitHub with method(s).
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.use_github.iuse_github.</span></span><span class="sig-name descname"><span class="pre">IUseGitHub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/info/use_github/iuse_github.html#IUseGitHub"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></p>
+<p>Defines the IUseGitHub abstract class with method(s).
 Interface for the use GitHub infrastructure mechanism.
-Note: Use GitHub is only prepared when it is set by user (not None).</p>
+Note: The use github is only prepared when it is set by the user (not None).</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">use_github - Property methods for set/get operations.</div>
-<div class="line">not_none - Checks if use GitHub infrastructure is not None.</div>
-<div class="line">__str__ - Returns the use GitHub infrastructure as string representation.</div>
+<div class="line">use_github - Property methods for setting and getting the respective property value.</div>
+<div class="line">not_none - Checks if the use GitHub infrastructure is not None.</div>
+<div class="line">__str__ - Returns the use GitHub infrastructure as a string representation.</div>
 </div>
 </dd>
 </dl>
@@ -92,38 +92,36 @@ Note: Use GitHub is only prepared when it is set by user (not None).</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.use_github.iuse_github.IUseGitHub._is_protocol">
+<span class="sig-name descname"><span class="pre">_is_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub._is_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.use_github.iuse_github.IUseGitHub._is_runtime_protocol">
+<span class="sig-name descname"><span class="pre">_is_runtime_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub._is_runtime_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.info.use_github.iuse_github.IUseGitHub.not_none">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">not_none</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/use_github/iuse_github.html#IUseGitHub.not_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub.not_none" title="Link to this definition">¶</a></dt>
-<dd><p>Checks if use GitHub infrastructure status is not None.
-Note: Use GitHub is only prepared when it is set by user (not None).</p>
+<span class="sig-name descname"><span class="pre">not_none</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/use_github/iuse_github.html#IUseGitHub.not_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub.not_none" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if the use GitHub infrastructure status is not None.
+Note: The use github is only prepared when it is set by the user (not None).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>True if successful, otherwise False.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="ats_utilities.info.use_github.iuse_github.IUseGitHub.use_github">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">use_github</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub.use_github" title="Link to this definition">¶</a></dt>
-<dd><p>Property method for getting use GitHub infrastructure status.
-Note: Use GitHub is only prepared when it is set by user (not None).</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">use_github</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">UseGitHubType</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub.use_github" title="Link to this definition">¶</a></dt>
+<dd><p>Property method for getting the use GitHub infrastructure status.
+Note: The use github is only prepared when it is set by the user (not None).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The use GitHub infrastructure status.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>The use GitHub infrastructure status | None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -145,6 +143,8 @@ Note: Use GitHub is only prepared when it is set by user (not None).</p>
 <li><a class="reference internal" href="#">ats_utilities.info.use_github.iuse_github module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub"><code class="docutils literal notranslate"><span class="pre">IUseGitHub</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub._abc_impl"><code class="docutils literal notranslate"><span class="pre">IUseGitHub._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub._is_protocol"><code class="docutils literal notranslate"><span class="pre">IUseGitHub._is_protocol</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub._is_runtime_protocol"><code class="docutils literal notranslate"><span class="pre">IUseGitHub._is_runtime_protocol</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub.not_none"><code class="docutils literal notranslate"><span class="pre">IUseGitHub.not_none()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.use_github.iuse_github.IUseGitHub.use_github"><code class="docutils literal notranslate"><span class="pre">IUseGitHub.use_github</span></code></a></li>
 </ul>

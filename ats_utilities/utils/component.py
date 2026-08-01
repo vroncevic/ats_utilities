@@ -24,37 +24,32 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any
 
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.validation.context_error import raise_error
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 def make_component(
-    passed_obj: Any,
-    default_class: Any,
-    factory_args: Mapping[str, Any] | None = None
-) -> Any:
+    passed_obj: object,
+    default_class: object,
+    factory_args: Mapping[str, object] | None = None
+) -> object:
     '''
         Creates a component instance or returns an existing one.
 
         :param passed_obj: An existing component instance or None.
-        :type passed_obj: <Any>
         :param default_class: The class to instantiate if passed_obj is None.
-        :type default_class: <Any>
-        :param factory_args: Arguments to pass to the default_class constructor | None.
-        :type factory_args: <Mapping[str, Any] | None>
+        :param factory_args: The arguments to... to the default_class constructor | None.
         :return: An instance of the component.
-        :rtype: <Any>
         :exceptions: None.
     '''
     if passed_obj is not None:
@@ -67,32 +62,27 @@ def make_component(
 
 
 def validate_component(
-    instance: Any,
-    expected_class: type[Any],
+    instance: object,
+    expected_class: type[object],
     exc_context: str | None = None,
     exc_message: str | None = None,
     exc_class: type[BaseException] = ATSTypeError
 ) -> None:
     '''
-        Validates if a component instance is of the expected class type.
+        Validates the if a component instance is of the expected class type.
 
         :param instance: The resolved component instance to check.
-        :type instance: <Any>
         :param expected_class: The expected concrete class type.
-        :type expected_class: <type[Any]>
-        :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
-        :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is None.
-        :type exc_class: <type[Exception]> (default ATSTypeError)
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSTypeError).
     '''
     if not isinstance(instance, expected_class):
         raise_error(
-            fallback_context=r'factory_component::validate_component(...)',
-            fallback_msg=f'instance is not of expected type {expected_class}',
+            fallback_context='component::validate_component(...)',
+            fallback_msg=f'the instance is not of expected type {expected_class}',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class

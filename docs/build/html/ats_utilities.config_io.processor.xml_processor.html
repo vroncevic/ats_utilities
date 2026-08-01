@@ -64,37 +64,37 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines class XMLProcessor with attribute(s) and method(s).
-Creates an API to process configuration in XML format.
+<dt>Info</dt><dd><p>Defines the XMLProcessor class with attribute(s) and method(s).
+Provides an API to process configuration in XML format.
 1th level of configuration loader/storer implementation.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.processor.xml_processor.XMLProcessor">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.processor.xml_processor.</span></span><span class="sig-name descname"><span class="pre">XMLProcessor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/xml_processor.html#XMLProcessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.xml_processor.XMLProcessor" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.processor.iconfig_processor.html#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor" title="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">IConfigProcessor</span></code></a></p>
-<p>Defines class XMLProcessor with attribute(s) and method(s).
-Creates an API to process configuration in XML format.
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines the XMLProcessor class with attribute(s) and method(s).
+Provides an API to process configuration in XML format.
 1th level of configuration loader/storer implementation.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_root - Internal instance to store configuration data (default None).</div>
-<div class="line">_scheme - Mapping with configuration scheme (default None).</div>
-<div class="line">_root_tag - Resolved root element tag name (default ‘configuration’).</div>
+<div class="line">_root - The internal instance to store configuration data (default: None).</div>
+<div class="line">_scheme - The mapping with configuration scheme (default: None).</div>
+<div class="line">_root_tag - The resolved root element tag name (default ‘configuration’).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initializes XMLProcessor constructor.</div>
+<div class="line">__init__ - Initializes the XMLProcessor.</div>
 <div class="line">deserialize - Loads and parses configuration from a raw source (string, stream, or lines).</div>
 <div class="line">serialize - Converts the internal configuration structure back to a formatted string representation.</div>
-<div class="line">update_data - Updates the internal configuration data and validates it against the scheme.</div>
+<div class="line">update_data - Updates the internal configuration data and Validates the it against the scheme.</div>
 <div class="line">to_dict - Returns the parsed configuration as a flat or structured dictionary.</div>
 <div class="line">validate_by_scheme - Validates the internal parsed data structure against the provided scheme.</div>
-<div class="line">__str__ - Returns the XMLProcessor instance as string representation.</div>
+<div class="line">__str__ - Returns the XMLProcessor instance as a string representation.</div>
 </div>
 </dd>
 </dl>
@@ -115,11 +115,6 @@ the root element, the value is an empty string (<code class="docutils literal no
 </pre></div>
 </div>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.processor.xml_processor.XMLProcessor._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_io.processor.xml_processor.XMLProcessor._abc_impl" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.config_io.processor.xml_processor.XMLProcessor._root">
 <span class="sig-name descname"><span class="pre">_root</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Element</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_io.processor.xml_processor.XMLProcessor._root" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -136,20 +131,17 @@ the root element, the value is an empty string (<code class="docutils literal no
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.processor.xml_processor.XMLProcessor.deserialize">
-<span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/xml_processor.html#XMLProcessor.deserialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.xml_processor.XMLProcessor.deserialize" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/xml_processor.html#XMLProcessor.deserialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.xml_processor.XMLProcessor.deserialize" title="Link to this definition">¶</a></dt>
 <dd><p>Loads and parses configuration from a raw source (string, stream, or lines).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>content</strong> (<em>&lt;Any&gt;</em>) – Raw configuration data (str, stream, or sequence).</p>
+<dd class="field-odd"><p><strong>content</strong> – The raw configuration data (str, stream, or sequence).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
+<dd class="field-even"><p>True if successful, otherwise False.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -160,13 +152,10 @@ the root element, the value is an empty string (<code class="docutils literal no
 <dd><p>Converts the internal configuration structure back to a formatted string representation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Configuration content as string.</p>
+<dd class="field-odd"><p>The configuration content as a string.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;str&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -177,13 +166,10 @@ the root element, the value is an empty string (<code class="docutils literal no
 <dd><p>Returns the parsed configuration as a flat or structured dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary with configuration information.</p>
+<dd class="field-odd"><p>The dictionary with configuration information.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;dict[str, str]&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -191,19 +177,16 @@ the root element, the value is an empty string (<code class="docutils literal no
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.processor.xml_processor.XMLProcessor.update_data">
 <span class="sig-name descname"><span class="pre">update_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/xml_processor.html#XMLProcessor.update_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.xml_processor.XMLProcessor.update_data" title="Link to this definition">¶</a></dt>
-<dd><p>Updates the internal configuration data and validates it against the scheme.</p>
+<dd><p>Updates the internal configuration data and Validates the it against the scheme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>new_data</strong> (<em>&lt;Mapping</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>&gt;</em>) – Mapping containing configuration keys and values.</p>
+<dd class="field-odd"><p><strong>new_data</strong> – The mapping containing configuration keys and values.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
+<dd class="field-even"><p>True if successful, otherwise False.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -214,13 +197,10 @@ the root element, the value is an empty string (<code class="docutils literal no
 <dd><p>Validates the internal parsed data structure against the provided scheme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;True&gt; if data matches the scheme, &lt;False&gt; otherwise.</p>
+<dd class="field-odd"><p>True if successful, otherwise False.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -242,7 +222,6 @@ the root element, the value is an empty string (<code class="docutils literal no
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.config_io.processor.xml_processor module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.processor.xml_processor.XMLProcessor"><code class="docutils literal notranslate"><span class="pre">XMLProcessor</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.processor.xml_processor.XMLProcessor._abc_impl"><code class="docutils literal notranslate"><span class="pre">XMLProcessor._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.processor.xml_processor.XMLProcessor._root"><code class="docutils literal notranslate"><span class="pre">XMLProcessor._root</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.processor.xml_processor.XMLProcessor._root_tag"><code class="docutils literal notranslate"><span class="pre">XMLProcessor._root_tag</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.processor.xml_processor.XMLProcessor._scheme"><code class="docutils literal notranslate"><span class="pre">XMLProcessor._scheme</span></code></a></li>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ats_utilities.logger.setup.keys module &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=514cf933" />
+    
+    <script src="_static/documentation_options.js?v=893dd00a"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ats_utilities.logger.setup.opt_validator module" href="ats_utilities.logger.setup.opt_validator.html" />
+    <link rel="prev" title="ats_utilities.logger.setup.factory module" href="ats_utilities.logger.setup.factory.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.logger.setup.opt_validator.html" title="ats_utilities.logger.setup.opt_validator module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.logger.setup.factory.html" title="ats_utilities.logger.setup.factory module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ats_utilities.html" >ats_utilities package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="ats_utilities.logger.html" >ats_utilities.logger package</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="ats_utilities.logger.setup.html" accesskey="U">ats_utilities.logger.setup package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.logger.setup.keys module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-ats_utilities.logger.setup.keys">
+<span id="ats-utilities-logger-setup-keys-module"></span><h1>ats_utilities.logger.setup.keys module<a class="headerlink" href="#module-ats_utilities.logger.setup.keys" title="Link to this heading">¶</a></h1>
+<dl class="simple">
+<dt>Module</dt><dd><p>keys.py</p>
+</dd>
+<dt>Copyright</dt><dd><p>Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+ats_utilities is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ats_utilities is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
+</dd>
+<dt>Info</dt><dd><p>Runtime components and interface constraints for the logger bundle.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logger.setup.keys.</span></span><span class="sig-name descname"><span class="pre">LoggerKeys</span></span><a class="reference internal" href="_modules/ats_utilities/logger/setup/keys.html#LoggerKeys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Runtime components and interface constraints for the logger bundle.</p>
+<p>It defines:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
+<div class="line">DEPENDENCY_LOGGER - The logger interface constant.</div>
+<div class="line">DEPENDENCY_HAS_FILE_HANDLER - The has file handler flag interface constant.</div>
+<div class="line">DEPENDENCY_FORMATTER - The formatter interface constant.</div>
+<div class="line">DEPENDENCY_BUFFER - The buffer interface constant.</div>
+<div class="line">DEPENDENCY_HANDLER_MANAGER - The handler manager interface constant.</div>
+<div class="line">OPTION_LOG_FILE - The log file path option constant.</div>
+<div class="line">OPTION_LOG_LEVEL - The log level option constant.</div>
+<div class="line">OPTION_LOG_FORMAT - The format string for the log messages option constant.</div>
+<div class="line">OPTION_LOG_DATEFMT - The date format string for the log messages option constant.</div>
+</div>
+</dd>
+<dt class="field-even">methods<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">get_dependency_to_type - Returns the mapping of the logger dependencies to their types.</div>
+<div class="line">get_option_to_type - Returns the mapping of the logger options to their types.</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_BUFFER">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_BUFFER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'buffer'</span></em><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_BUFFER" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_FORMATTER">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_FORMATTER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'formatter'</span></em><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_FORMATTER" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_HANDLER_MANAGER">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_HANDLER_MANAGER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'handler_manager'</span></em><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_HANDLER_MANAGER" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_HAS_FILE_HANDLER">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_HAS_FILE_HANDLER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'has_file_handler'</span></em><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_HAS_FILE_HANDLER" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_LOGGER">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_LOGGER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'logger'</span></em><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_LOGGER" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_MESSAGE_PROCESSOR">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_MESSAGE_PROCESSOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'message_processor'</span></em><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_MESSAGE_PROCESSOR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_BUFFER_SIZE">
+<span class="sig-name descname"><span class="pre">OPTION_LOG_BUFFER_SIZE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'log_buffer_size'</span></em><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_BUFFER_SIZE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_DATEFMT">
+<span class="sig-name descname"><span class="pre">OPTION_LOG_DATEFMT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'log_datefmt'</span></em><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_DATEFMT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_FILE">
+<span class="sig-name descname"><span class="pre">OPTION_LOG_FILE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'log_file'</span></em><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_FILE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_FORMAT">
+<span class="sig-name descname"><span class="pre">OPTION_LOG_FORMAT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'log_format'</span></em><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_FORMAT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_LEVEL">
+<span class="sig-name descname"><span class="pre">OPTION_LOG_LEVEL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'log_level'</span></em><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_LEVEL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_MESSAGE_PATTERN">
+<span class="sig-name descname"><span class="pre">OPTION_LOG_MESSAGE_PATTERN</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'message_pattern'</span></em><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_MESSAGE_PATTERN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys.get_dependency_to_type">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_dependency_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/setup/keys.html#LoggerKeys.get_dependency_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys.get_dependency_to_type" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the mapping of the logger dependencies to their types.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The mapping of the logger dependencies to their types.</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.keys.LoggerKeys.get_option_to_type">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_option_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/setup/keys.html#LoggerKeys.get_option_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.setup.keys.LoggerKeys.get_option_to_type" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the mapping of the logger options to their types.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The mapping of the logger options to their types.</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ats_utilities.logger.setup.keys module</a><ul>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys"><code class="docutils literal notranslate"><span class="pre">LoggerKeys</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_BUFFER"><code class="docutils literal notranslate"><span class="pre">LoggerKeys.DEPENDENCY_BUFFER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_FORMATTER"><code class="docutils literal notranslate"><span class="pre">LoggerKeys.DEPENDENCY_FORMATTER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_HANDLER_MANAGER"><code class="docutils literal notranslate"><span class="pre">LoggerKeys.DEPENDENCY_HANDLER_MANAGER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_HAS_FILE_HANDLER"><code class="docutils literal notranslate"><span class="pre">LoggerKeys.DEPENDENCY_HAS_FILE_HANDLER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_LOGGER"><code class="docutils literal notranslate"><span class="pre">LoggerKeys.DEPENDENCY_LOGGER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys.DEPENDENCY_MESSAGE_PROCESSOR"><code class="docutils literal notranslate"><span class="pre">LoggerKeys.DEPENDENCY_MESSAGE_PROCESSOR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_BUFFER_SIZE"><code class="docutils literal notranslate"><span class="pre">LoggerKeys.OPTION_LOG_BUFFER_SIZE</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_DATEFMT"><code class="docutils literal notranslate"><span class="pre">LoggerKeys.OPTION_LOG_DATEFMT</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_FILE"><code class="docutils literal notranslate"><span class="pre">LoggerKeys.OPTION_LOG_FILE</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_FORMAT"><code class="docutils literal notranslate"><span class="pre">LoggerKeys.OPTION_LOG_FORMAT</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_LEVEL"><code class="docutils literal notranslate"><span class="pre">LoggerKeys.OPTION_LOG_LEVEL</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys.OPTION_LOG_MESSAGE_PATTERN"><code class="docutils literal notranslate"><span class="pre">LoggerKeys.OPTION_LOG_MESSAGE_PATTERN</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys.get_dependency_to_type"><code class="docutils literal notranslate"><span class="pre">LoggerKeys.get_dependency_to_type()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.keys.LoggerKeys.get_option_to_type"><code class="docutils literal notranslate"><span class="pre">LoggerKeys.get_option_to_type()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="ats_utilities.logger.setup.factory.html"
+                          title="previous chapter">ats_utilities.logger.setup.factory module</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="ats_utilities.logger.setup.opt_validator.html"
+                          title="next chapter">ats_utilities.logger.setup.opt_validator module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ats_utilities.logger.setup.keys.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.logger.setup.opt_validator.html" title="ats_utilities.logger.setup.opt_validator module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.logger.setup.factory.html" title="ats_utilities.logger.setup.factory module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ats_utilities.html" >ats_utilities package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="ats_utilities.logger.html" >ats_utilities.logger package</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="ats_utilities.logger.setup.html" >ats_utilities.logger.setup package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.logger.setup.keys module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

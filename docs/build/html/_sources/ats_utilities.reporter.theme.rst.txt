@@ -9,6 +9,7 @@ Submodules
 
    ats_utilities.reporter.theme.engine
    ats_utilities.reporter.theme.iconsole_theme
+   ats_utilities.reporter.theme.types
 
 Module contents
 ---------------

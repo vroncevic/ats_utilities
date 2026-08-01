@@ -26,59 +26,56 @@ from __future__ import annotations
 from collections.abc import Callable
 from re import findall
 from functools import wraps
-from typing import Any, cast
+from typing import cast
 
-from ats_utilities.context.icontext_support import IContextSupport
 from ats_utilities.validation.context_error import raise_error
 from ats_utilities.exceptions import ATSRuntimeError, ATSValueError
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
-def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], F]:
+def vreport[F: Callable[..., object]](templates: str | list[str]) -> Callable[[F], F]:
     '''
         Decorator supporting class methods and property operations.
         Borrows the reporter object and verbose flag dynamically from the 
         class instance to automatically format and report status messages.
         Supports single or multiple message templates with multiple variables.
 
-        :param templates: Single template string or a list of template strings.
-        :type templates: <str | list[str]>
-        :return: Wrapped function.
-        :rtype: <Callable[[F], F]>
+        :param templates: The single template string or a list of template strings.
+        :return: The wrapped function.
         :exceptions:
-            | ATSValueError: Decorator requires at least one argument.
-            | ATSRuntimeError: Decorator cannot be used on a standalone function.
-            | ATSAttributeError: Class is required to provide a '_reporter' object to
+            | ATSValueError:     The decorator requires at least one argument.
+            | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+            | ATSAttributeError: The class is required to provide a '_reporter' object to
             |                    use the @vreport decorator.
     '''
     message_templates: list[str] = [templates] if isinstance(templates, str) else templates
 
     if not message_templates:
         raise_error(
-            fallback_context=r'vreport::decorator',
-            fallback_msg=r'Decorator @vreport requires at least one argument',
-            exc_context=r'vreport::decorator',
+            fallback_context='vreport::decorator',
+            fallback_msg='The decorator @vreport requires at least one argument',
+            exc_context='vreport::decorator',
             exc_message=None,
             exc_class=ATSValueError
         )
 
     def decorator(func: F) -> F:
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: object, **kwargs: object) -> object:
             self_instance = args[0] if args else None
 
             if self_instance is None:
                 raise_error(
-                    fallback_context=r'vreport::decorator',
-                    fallback_msg=f'Decorator @vreport on {func.__name__} can only be used on class methods',
-                    exc_context=r'vreport::decorator',
+                    fallback_context='vreport::decorator',
+                    fallback_msg=f'The decorator @vreport on {func.__name__} can only be used on class methods',
+                    exc_context='vreport::decorator',
                     exc_message=None,
                     exc_class=ATSRuntimeError
                 )
@@ -86,9 +83,13 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
             class_name = self_instance.__class__.__name__
             context = f'{class_name.lower()}::{func.__name__}'
 
-            if isinstance(self_instance, IContextSupport):
-                reporter = self_instance.reporter
-                is_verbose = self_instance.verbose
+            context_bundle = getattr(self_instance, '_context', None)
+            if context_bundle is None and hasattr(self_instance, 'get_context'):
+                context_bundle = self_instance.get_context()
+
+            if context_bundle is not None:
+                reporter = context_bundle.reporter
+                is_verbose = context_bundle.verbose
             else:
                 reporter = getattr(
                     self_instance, '_reporter',
@@ -101,8 +102,8 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
 
             if reporter is None:
                 raise_error(
-                    fallback_context=r'vreport::decorator',
-                    fallback_msg=f'Class {class_name} must provide a reporter to use @vreport decorator',
+                    fallback_context='vreport::decorator',
+                    fallback_msg=f'The class {class_name} must provide a reporter to use the @vreport decorator',
                     exc_context=context,
                     exc_message=None,
                     exc_class=ATSRuntimeError

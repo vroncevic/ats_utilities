@@ -16,44 +16,37 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ParserStrategy with attribute(s) and method(s).
+    Defines the ParserStrategy class with attribute(s) and method(s).
     Creates an interfaces for ATS option parsing.
 '''
 
 from __future__ import annotations
 
-import sys
-from collections.abc import Sequence, Mapping
-from typing import Any, override
+from sys import argv
+from collections.abc import Sequence
 from types import MappingProxyType
 
-from ats_utilities.option.strategy.parser_strategy_bundle import ParserStrategyBundle
-from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.option.parser.iarg_parser import IArgParser
-from ats_utilities.option.parser.parser_registry import ParserRegistry
-from ats_utilities.option.option_namespace import OptionNamespace
-from ats_utilities.option.option_namespace import OptArgs
-from ats_utilities.option.option_namespace import KnownArgs
+from ats_utilities.option.strategy.data import StrategyData
+from ats_utilities.option.strategy.data_validator import StrategyDataValidator
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.option.setup.types import OptionNamespace, OptArgs, KnownArgs, ParsedCommand
 from ats_utilities.option.command.ioption_command import IOptionCommand
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.option.underlying.iunderlying import IUnderlyingParser
 from ats_utilities.utils.reflection import has_attrs, to_str
-from ats_utilities.validation.check_type import istype
-from ats_utilities.validation.check_value import not_none
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ParserStrategy(ContextSupport, IParserStrategy):
+class ParserStrategy:
     '''
-        Defines class ParserStrategy with attribute(s) and method(s).
+        Defines the ParserStrategy class with attribute(s) and method(s).
         Default built-in strategy using Python's standard argparse module.
         Note: If extern argument parser strategy is injected this object
         is not instantiated (then the complete strategy is provided by 
@@ -62,12 +55,11 @@ class ParserStrategy(ContextSupport, IParserStrategy):
         It defines:
 
             :attributes:
-                | _shared_context - Shared context for components.
-                | _parser - Options parser.
-                | _parser_class - Injected parser class.
-                | _subparsers - Subparsers instance.
+                | _context - The shared context for components.
+                | _parser - The options parser.
+                | _subparsers - The subparsers.
             :methods:
-                | __init__ - Initials ParserStrategy constructor.
+                | __init__ - Initializes the ParserStrategy.
                 | add_argument - Adds an operational argument/flag to the parser.
                 | add_version - Adds a version display option to the parser.
                 | parse - Parses the input arguments and returns an OptionNamespace.
@@ -77,76 +69,58 @@ class ParserStrategy(ContextSupport, IParserStrategy):
                 | __str__ - Returns the string representation of ParserStrategy.
     '''
 
-    _shared_context: ContextBundle
-    _parser: IArgParser
-    _parser_class: type[IArgParser]
-    _subparsers: Any
+    _context: ContextBundle
+    _parser: IUnderlyingParser
+    _subparsers: object
 
-    def __init__(self, component_bundle: ParserStrategyBundle) -> None:
+    def __init__(self, strategy_data: StrategyData) -> None:
         '''
-            Initializes ParserStrategy constructor.
+            Initializes the ParserStrategy.
 
-            :param component_bundle: Component bundle for parser strategy.
-            :type component_bundle: <ParserStrategyBundle>
+            :param strategy_data: The strategy data for parser strategy.
             :exceptions:
-                | ATSValueError: Component bundle must be provided.
-                | ATSTypeError: Component bundle must be a ParserStrategyBundle instance.
-                | ATSTypeError: Parser class must be an IArgParser subclass.
+                | ATSValueError: Strategy data must be provided.
+                | ATSTypeError: Strategy data must be a StrategyData.
                 | ATSValueError: Context bundle must be provided.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
-                | ATSTypeError: Parser must be an IArgParser instance.
+                | ATSValueError: Parser must be provided.
+                | ATSTypeError: Parser must be an instance of IUnderlyingParser.
         '''
-        context: str = r'parser_strategy::init(...)'
-        not_none(component_bundle, context, r'component bundle must be provided')
-        istype(component_bundle, ParserStrategyBundle, context, r'component_bundle must be a ParserStrategyBundle instance')
-        istype(component_bundle.parser_class, type[IArgParser], context, r'parser_class must be a type[IArgParser]')
-        self._shared_context = component_bundle.context_bundle
-        ContextSupport.__init__(self, self._shared_context)
-        self._parser_class = component_bundle.parser_class
-        parser_bundle = ParserRegistry.create_parser_bundle_from_dict(component_bundle.parameters, self._shared_context)
-        self._parser = self._parser_class(component_bundle=parser_bundle)
-        istype(self._parser, IArgParser, context, r'parser must be an IArgParser instance')
+        StrategyDataValidator.validate(strategy_data)
+        self._context = strategy_data.context_bundle
+        self._parser = strategy_data.parser
 
     @has_attrs('_parser')
-    @override
-    def add_argument(self, *args: str, **kwargs: Any) -> None:
+    def add_argument(self, *args: str, **kwargs: object) -> None:
         '''
             Adds an operational argument/flag to the parser.
 
-            :param args: List of flags for the ATS.
-            :type args: <str>
-            :param kwargs: Arguments in shape of dictionary.
-            :type kwargs: <Any>
+            :param args: The sequence of flags for the ATS.
+            :param kwargs: The arguments in shape of dictionary.
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
         self._parser.add_argument(*args, **kwargs)
 
     @has_attrs('_parser')
-    @override
     def add_version(self, version: str | None) -> None:
         '''
             Adds a version display option to the parser.
 
             :param version: The ATS version | None.
-            :type version: <str | None>
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
         self._parser.add_argument('--version', action='version', version=version)
 
     @has_attrs('_parser')
-    @override
     def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
         '''
             Parses the input arguments and returns an OptionNamespace.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: <OptArgs>
-            :param known_only: Parse only known arguments (default False).
-            :type known_only: <bool>
-            :return: Option namespace object.
-            :rtype: <OptionNamespace>
+            :param known_only: The parse only known arguments (default: False).
+            :return: The option namespace object.
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -157,13 +131,11 @@ class ParserStrategy(ContextSupport, IParserStrategy):
         return self._parser.parse_args(arguments)
 
     @has_attrs('_parser')
-    @override
     def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
         '''
             Registers the list of commands with the parser.
 
-            :param commands: Sequence of commands to register (read only data).
-            :type commands: <Sequence[IOptionCommand]>
+            :param commands: The sequence of commands to register (read only data).
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
@@ -176,66 +148,41 @@ class ParserStrategy(ContextSupport, IParserStrategy):
             cmd_parser = self._subparsers.add_parser(cmd.name, help=cmd.help_text)
 
             for opt in cmd.options:
-                kwargs: dict[str, Any] = {}
-
-                if getattr(opt, 'action', None) is not None:
-                    kwargs['action'] = opt.action
-                else:
-                    if opt.choices is not None:
-                        kwargs['choices'] = opt.choices
-
-                    if getattr(opt, 'nargs', None) is not None:
-                        kwargs['nargs'] = opt.nargs
-
-                if opt.default is not None:
-                    kwargs['default'] = opt.default
-
-                if opt.required:
-                    kwargs['required'] = opt.required
-
-                kwargs['help'] = opt.help_text
-                cmd_parser.add_argument(opt.name, **kwargs)
+                cmd_parser.add_argument(opt.name, **opt.to_kwargs())
 
     @has_attrs('_parser')
-    @override
-    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+    def parse_command(self, arguments: OptArgs = None) -> ParsedCommand:
         '''
             Parses the input arguments and returns command name and parameters.
 
             :param arguments: Sequence of arguments | None.
-            :type arguments: <OptArgs>
-            :return: Tuple containing command name and parsed parameters (read only data).
-            :rtype: <tuple[str, Mapping[str, Any]]>
+            :return: The parsed command result.
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_parser'.
         '''
         if arguments is None:
-            arguments: OptArgs = sys.argv[1:]
+            arguments: OptArgs = argv[1:]
 
         option_namespace: OptionNamespace = self._parser.parse_args(arguments)
-        params: dict[str, Any] = vars(option_namespace)
+        params: dict[str, object] = vars(option_namespace)
         command_name: str = params.pop('command')
 
         return command_name, MappingProxyType(params)
 
-    @override
     def is_initialized(self) -> bool:
         '''
             Checks if the parser strategy is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return True
 
-    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of ParserStrategy.
 
-            :return: The ParserStrategy as string representation.
-            :rtype: <str>
+            :return: The ParserStrategy as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

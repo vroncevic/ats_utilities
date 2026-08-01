@@ -25,18 +25,19 @@ import logging
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.checker.ichecker import IChecker, ErrorChecker
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.setup.types import CheckerErrorType
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.engine import Reporter
-from ats_utilities.reporter.reporter_bundle import ReporterBundle
+from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.3'
+__version__: str = '3.4.4'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
@@ -84,8 +85,12 @@ class EngineTest(unittest.TestCase):
 
     def test_report_methods(self) -> None:
         mock_checker = MagicMock(spec=IChecker)
-        mock_checker.ERRORS = ErrorChecker
-        mock_checker.validates_parameters.return_value = (None, ErrorChecker.NO_ERROR)
+        mock_format_validator = MagicMock()
+        mock_format_validator.get_separator.return_value = ":"
+        mock_format_validator.split.side_effect = lambda s: s.split(":")
+        mock_checker.get_format_validator.return_value = mock_format_validator
+        mock_checker.ERRORS = CheckerErrorType
+        mock_checker.validates_parameters.return_value = (None, CheckerErrorType.NO_ERROR)
         mock_theme = MagicMock(spec=IConsoleTheme)
         mock_logger = MagicMock(spec=ILogger)
 
@@ -100,7 +105,7 @@ class EngineTest(unittest.TestCase):
 
         # Test verbose enabled
         reporter.verbose(True, ["verbose", "msg"])
-        mock_logger.write_log.assert_called_with("[verbose]verbose msg[reset]", logging.DEBUG)
+        mock_logger.write_log.assert_called_with(logging.DEBUG, "[verbose]verbose msg[reset]")
 
         # Test verbose disabled
         mock_logger.write_log.reset_mock()
@@ -109,15 +114,15 @@ class EngineTest(unittest.TestCase):
 
         # Test success
         reporter.success(["success", "msg"])
-        mock_logger.write_log.assert_called_with("[success]success msg[reset]", logging.INFO)
+        mock_logger.write_log.assert_called_with(logging.INFO, "[success]success msg[reset]")
 
         # Test warning
         reporter.warning(["warning", "msg"])
-        mock_logger.write_log.assert_called_with("[warning]warning msg[reset]", logging.WARNING)
+        mock_logger.write_log.assert_called_with(logging.WARNING, "[warning]warning msg[reset]")
 
         # Test error
         reporter.error(["error", "msg"])
-        mock_logger.write_log.assert_called_with("[error]error msg[reset]", logging.ERROR)
+        mock_logger.write_log.assert_called_with(logging.ERROR, "[error]error msg[reset]")
 
         # Test empty message (should not log)
         mock_logger.write_log.reset_mock()
@@ -126,8 +131,12 @@ class EngineTest(unittest.TestCase):
 
     def test_set_level(self) -> None:
         mock_checker = MagicMock(spec=IChecker)
-        mock_checker.ERRORS = ErrorChecker
-        mock_checker.validates_parameters.return_value = (None, ErrorChecker.NO_ERROR)
+        mock_format_validator = MagicMock()
+        mock_format_validator.get_separator.return_value = ":"
+        mock_format_validator.split.side_effect = lambda s: s.split(":")
+        mock_checker.get_format_validator.return_value = mock_format_validator
+        mock_checker.ERRORS = CheckerErrorType
+        mock_checker.validates_parameters.return_value = (None, CheckerErrorType.NO_ERROR)
         mock_theme = MagicMock(spec=IConsoleTheme)
 
         # Case 1: logger has set_level method
@@ -198,6 +207,44 @@ class EngineTest(unittest.TestCase):
         )
         reporter = Reporter(bundle)
         self.assertIn("Reporter", str(reporter))
+
+    def test_get_bundle(self) -> None:
+        mock_checker = MagicMock(spec=IChecker)
+        mock_theme = MagicMock(spec=IConsoleTheme)
+        mock_logger = MagicMock(spec=ILogger)
+        bundle = ReporterBundle(
+            checker=mock_checker,
+            theme=mock_theme,
+            logger=mock_logger
+        )
+        reporter = Reporter(bundle)
+        self.assertEqual(reporter.get_bundle().checker, mock_checker)
+        self.assertEqual(reporter.get_bundle().theme, mock_theme)
+        self.assertEqual(reporter.get_bundle().logger, mock_logger)
+
+    def test_update_bundle(self) -> None:
+        mock_checker = MagicMock(spec=IChecker)
+        mock_theme = MagicMock(spec=IConsoleTheme)
+        mock_logger = MagicMock(spec=ILogger)
+        bundle = ReporterBundle(
+            checker=mock_checker,
+            theme=mock_theme,
+            logger=mock_logger
+        )
+        reporter = Reporter(bundle)
+        
+        # Valid update
+        new_logger = MagicMock(spec=ILogger)
+        new_bundle = ReporterBundle(
+            checker=mock_checker,
+            theme=mock_theme,
+            logger=new_logger
+        )
+        self.assertTrue(reporter.update_bundle(new_bundle))
+        self.assertEqual(reporter.get_bundle().logger, new_logger)
+
+        # Invalid update
+        self.assertFalse(reporter.update_bundle("invalid" * 10))  # type: ignore
 
 
 if __name__ == "__main__":

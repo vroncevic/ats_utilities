@@ -54,78 +54,76 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines class BuildDate with attribute(s) and method(s).</span>
-<span class="sd">    Creates an API for the build date in one property object.</span>
+<span class="sd">    Defines the BuildDate class with attribute(s) and method(s).</span>
+<span class="sd">    Provides an API for the build date in one property object.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">override</span>
-
-<span class="kn">from</span> <span class="nn">ats_utilities.info.build_date.ibuild_date</span> <span class="kn">import</span> <span class="n">IBuildDate</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.context_support</span> <span class="kn">import</span> <span class="n">ContextSupport</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">mcheck</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreport</span>
 
-<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
-<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.4.4&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="BuildDate">
 <a class="viewcode-back" href="../../../../ats_utilities.info.build_date.engine.html#ats_utilities.info.build_date.engine.BuildDate">[docs]</a>
-<span class="k">class</span> <span class="nc">BuildDate</span><span class="p">(</span><span class="n">ContextSupport</span><span class="p">,</span> <span class="n">IBuildDate</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">BuildDate</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class BuildDate with attribute(s) and method(s).</span>
-<span class="sd">        Creates an API for the build date in one property object.</span>
-<span class="sd">        Note: Build date is only prepared when it is set by user (not None).</span>
+<span class="sd">        Defines the BuildDate class with attribute(s) and method(s).</span>
+<span class="sd">        Provides an API for the build date in one property object.</span>
+<span class="sd">        Note: The build date is only prepared when it is set by the user (not None).</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _build_date - The build date for App/Tool/Script (default None).</span>
+<span class="sd">                | _build_date - The build date for the App/Tool/Script (default: None).</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initializes BuildDate constructor.</span>
-<span class="sd">                | build_date - Property methods for set/get build date.</span>
-<span class="sd">                | not_none - Checks is build date not None.</span>
-<span class="sd">                | __str__ - Returns the BuildDate as string representation.</span>
+<span class="sd">                | __init__ - Initializes the BuildDate.</span>
+<span class="sd">                | build_date - Property methods for setting and getting the build date.</span>
+<span class="sd">                | not_none - Checks if the build date is not None.</span>
+<span class="sd">                | __str__ - Returns the BuildDate as a string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">_build_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">_context</span><span class="p">:</span> <span class="n">ContextBundle</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initializes BuildDate constructor.</span>
+<span class="sd">            Initializes the BuildDate.</span>
 
-<span class="sd">            :param context_bundle: Context bundle for build date.</span>
-<span class="sd">            :type context_bundle: &lt;ContextBundle&gt;</span>
+<span class="sd">            :param context_bundle: The context bundle for build date.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Context bundle must be provided.</span>
-<span class="sd">                | ATSTypeError: Context bundle must be an instance of ContextBundle.</span>
+<span class="sd">                | ATSValueError:  Context bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:   Context bundle must be an instance of ContextBundle</span>
+<span class="sd">                |                 and its attributes must be instances of their</span>
+<span class="sd">                |                 respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ContextSupport</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
+        <span class="n">ContextValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_context</span> <span class="o">=</span> <span class="n">context_bundle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_build_date</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="nd">@vreport</span><span class="p">(</span><span class="s1">&#39;getting build_date </span><span class="si">{build_date}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">build_date</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Property method for getting build date.</span>
-<span class="sd">            Note: Build date is only prepared when it is set by user (not None).</span>
+<span class="sd">            Property method for getting the build date.</span>
+<span class="sd">            Note: The build date is only prepared when it is set by the user (not None).</span>
 
 <span class="sd">            :return: The build date in string format | None.</span>
-<span class="sd">            :rtype: &lt;str | None&gt;</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
-<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                | ATSRuntimeError:   The decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: The class is required to provide a &#39;_reporter&#39; object to</span>
 <span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_date</span>
@@ -133,51 +131,45 @@
     <span class="nd">@build_date</span><span class="o">.</span><span class="n">setter</span>
     <span class="nd">@mcheck</span><span class="p">([(</span><span class="s1">&#39;str:build_date&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
     <span class="nd">@vreport</span><span class="p">(</span><span class="s1">&#39;setting build_date </span><span class="si">{build_date}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">build_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">build_date</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Property method for setting build date.</span>
-<span class="sd">            Note: Build date is only prepared when it is set by user (not None).</span>
+<span class="sd">            Property method for setting the build date.</span>
+<span class="sd">            Note: The build date is only prepared when it is set by the user (not None).</span>
 
 <span class="sd">            :param build_date: The build date in string format.</span>
-<span class="sd">            :type build_date: &lt;str&gt;</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
-<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                | ATSRuntimeError:   The decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: The class is required to provide a &#39;_reporter&#39; object to</span>
 <span class="sd">                |                    use the @vreport decorator.</span>
-<span class="sd">                | ATSTypeError: Parameter type validation failed.</span>
-<span class="sd">                | ATSValueError: Parameter format validation failed.</span>
-<span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
-<span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
+<span class="sd">                | ATSTypeError:      Parameter type validation failed.</span>
+<span class="sd">                | ATSValueError:     Parameter format validation failed.</span>
+<span class="sd">                | ATSRuntimeError:   The decorator is used on a non-class method.</span>
+<span class="sd">                | ATSAttributeError: The class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_build_date</span> <span class="o">=</span> <span class="n">build_date</span>
 
 <div class="viewcode-block" id="BuildDate.not_none">
 <a class="viewcode-back" href="../../../../ats_utilities.info.build_date.engine.html#ats_utilities.info.build_date.engine.BuildDate.not_none">[docs]</a>
     <span class="nd">@vreport</span><span class="p">(</span><span class="s1">&#39;checking build_date </span><span class="si">{build_date}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">not_none</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Checks is build date not None.</span>
-<span class="sd">            Note: Build date is only prepared when it is set by user (not None).</span>
+<span class="sd">            Checks if the build date is not None.</span>
+<span class="sd">            Note: The build date is only prepared when it is set by the user (not None).</span>
 
-<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
-<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                | ATSRuntimeError:   The decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: The class is required to provide a &#39;_reporter&#39; object to</span>
 <span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_date</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
 
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the BuildDate as string representation.</span>
+<span class="sd">            Returns the BuildDate as a string representation.</span>
 
-<span class="sd">            :return: The BuildDate as string representation.</span>
-<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :return: The BuildDate as a string representation.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">to_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>

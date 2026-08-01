@@ -54,93 +54,80 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines abstract class IInfoOk with method(s).</span>
+<span class="sd">    Defines the IInfoOk abstract class with method(s).</span>
 <span class="sd">    Interface for the info status mechanism.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.context.icontext_support</span> <span class="kn">import</span> <span class="n">IContextSupport</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span>
 
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-
-<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
-<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.4.4&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="IInfoOk">
 <a class="viewcode-back" href="../../../../ats_utilities.info.info_ok.iinfo_ok.html#ats_utilities.info.info_ok.iinfo_ok.IInfoOk">[docs]</a>
-<span class="k">class</span> <span class="nc">IInfoOk</span><span class="p">(</span><span class="n">IContextSupport</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
+<span class="nd">@runtime_checkable</span>
+<span class="k">class</span> <span class="nc">IInfoOk</span><span class="p">[</span><span class="n">InfoOkType</span><span class="p">](</span><span class="n">Protocol</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines abstract class IInfoOk with method(s).</span>
+<span class="sd">        Defines the IInfoOk abstract class with method(s).</span>
 <span class="sd">        Interface for the info status mechanism.</span>
-<span class="sd">        Note: Info status is only prepared when it is set by user (not None).</span>
+<span class="sd">        Note: The info status is only prepared when it is set by the user (not None).</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :methods:</span>
-<span class="sd">                | info_ok - Property methods for set/get operations.</span>
-<span class="sd">                | not_none - Checks if info status is not None.</span>
-<span class="sd">                | __str__ - Returns the info status as string representation.</span>
+<span class="sd">                | info_ok - Property methods for setting and getting the respective property value.</span>
+<span class="sd">                | not_none - Checks if the info status is not None.</span>
+<span class="sd">                | __str__ - Returns the info status as a string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="nd">@property</span>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">info_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">info_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InfoOkType</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Property method for getting information status.</span>
-<span class="sd">            Note: Info status is only prepared when it is set by user (not None).</span>
+<span class="sd">            Property method for getting the information status.</span>
+<span class="sd">            Note: The info status is only prepared when it is set by the user (not None).</span>
 
-<span class="sd">            :return: The information status in bool format</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :return: The information status in InfoOkType format | None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span>
+        <span class="o">...</span>
 
     <span class="nd">@info_ok</span><span class="o">.</span><span class="n">setter</span>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">info_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info_ok</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">info_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info_ok</span><span class="p">:</span> <span class="n">InfoOkType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Property method for setting information status.</span>
-<span class="sd">            Note: Info status is only prepared when it is set by user (not None).</span>
+<span class="sd">            Property method for setting the information status.</span>
+<span class="sd">            Note: The info status is only prepared when it is set by the user (not None).</span>
 
-<span class="sd">            :param info_ok: The information status in bool format</span>
-<span class="sd">            :type info_ok: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :param info_ok: The information status in InfoOkType format</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span>
+        <span class="o">...</span>
 
 <div class="viewcode-block" id="IInfoOk.not_none">
 <a class="viewcode-back" href="../../../../ats_utilities.info.info_ok.iinfo_ok.html#ats_utilities.info.info_ok.iinfo_ok.IInfoOk.not_none">[docs]</a>
-    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">not_none</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Checks if info status is not None.</span>
-<span class="sd">            Note: Info status is only prepared when it is set by user (not None).</span>
+<span class="sd">            Checks if the info status is not None.</span>
+<span class="sd">            Note: The info status is only prepared when it is set by the user (not None).</span>
 
-<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div>
+        <span class="o">...</span></div>
 
 
-    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the info status as string representation.</span>
+<span class="sd">            Returns the info status as a string representation.</span>
 
-<span class="sd">            :return: The info status as string representation.</span>
-<span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :return: The info status as a string representation.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div>
+        <span class="o">...</span></div>
 
 </pre></div>
 

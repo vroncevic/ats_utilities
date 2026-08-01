@@ -7,9 +7,9 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
-   ats_utilities.checker.reporter.check_reporter
-   ats_utilities.checker.reporter.checker_reporter_bundle
-   ats_utilities.checker.reporter.checker_reporter_registry
+   ats_utilities.checker.reporter.data
+   ats_utilities.checker.reporter.data_validator
+   ats_utilities.checker.reporter.engine
    ats_utilities.checker.reporter.icheck_reporter
 
 Module contents

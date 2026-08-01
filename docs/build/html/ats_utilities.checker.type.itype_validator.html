@@ -15,8 +15,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.checker.type.type_validator module" href="ats_utilities.checker.type.type_validator.html" />
-    <link rel="prev" title="ats_utilities.checker.type package" href="ats_utilities.checker.type.html" /> 
+    <link rel="next" title="ats_utilities.checker.engine module" href="ats_utilities.checker.engine.html" />
+    <link rel="prev" title="ats_utilities.checker.type.engine module" href="ats_utilities.checker.type.engine.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,10 +28,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.checker.type.type_validator.html" title="ats_utilities.checker.type.type_validator module"
+          <a href="ats_utilities.checker.engine.html" title="ats_utilities.checker.engine module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.checker.type.html" title="ats_utilities.checker.type package"
+          <a href="ats_utilities.checker.type.engine.html" title="ats_utilities.checker.type.engine module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -64,25 +64,25 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines abstract class ITypeValidator with method(s).
-Creates an interface for validating parameters for method(s) and function(s).</p>
+<dt>Info</dt><dd><p>Defines the abstract class ITypeValidator with method(s).
+Provides an interface for validating the type of parameters used by method(s) and function(s).</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.checker.type.itype_validator.ITypeValidator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.type.itype_validator.</span></span><span class="sig-name descname"><span class="pre">ITypeValidator</span></span><a class="reference internal" href="_modules/ats_utilities/checker/type/itype_validator.html#ITypeValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.type.itype_validator.ITypeValidator" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Defines abstract class ITypeValidator with method(s).
-Creates an interface for validating parameters for method(s) and function(s).</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.type.itype_validator.</span></span><span class="sig-name descname"><span class="pre">ITypeValidator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker/type/itype_validator.html#ITypeValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.type.itype_validator.ITypeValidator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></p>
+<p>Defines the abstract class ITypeValidator with method(s).
+Provides an interface for validating the type of parameters used by method(s) and function(s).</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">is_match - Compares instance type with expected type name.</div>
-<div class="line">is_subtype - Checks if instance is a subtype of expected type name.</div>
-<div class="line">get_type_name - Returns the string representation of an instance type.</div>
-<div class="line">__str__ - Returns the mcheck as string representation.</div>
+<div class="line">is_match - Compares the type of the instance with the expected type name.</div>
+<div class="line">is_subtype - Checks if the instance is a subtype of the expected type name.</div>
+<div class="line">get_type_name - Returns the type name of the.</div>
+<div class="line">__str__ - Returns the type validator as a string representation.</div>
 </div>
 </dd>
 </dl>
@@ -92,72 +92,60 @@ Creates an interface for validating parameters for method(s) and function(s).</p
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.checker.type.itype_validator.ITypeValidator._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.type.itype_validator.ITypeValidator._is_protocol">
+<span class="sig-name descname"><span class="pre">_is_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.checker.type.itype_validator.ITypeValidator._is_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.type.itype_validator.ITypeValidator._is_runtime_protocol">
+<span class="sig-name descname"><span class="pre">_is_runtime_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.checker.type.itype_validator.ITypeValidator._is_runtime_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.type.itype_validator.ITypeValidator.get_type_name">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_type_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/type/itype_validator.html#ITypeValidator.get_type_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.type.itype_validator.ITypeValidator.get_type_name" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the string representation of an instance type.</p>
+<span class="sig-name descname"><span class="pre">get_type_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NameType</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/type/itype_validator.html#ITypeValidator.get_type_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.type.itype_validator.ITypeValidator.get_type_name" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the type name of the.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<em>&lt;Any&gt;</em>) – The instance to inspect.</p>
+<dd class="field-odd"><p><strong>instance</strong> – The instance to inspect.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>String name of the type.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;str&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><p>The type name of the.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.type.itype_validator.ITypeValidator.is_match">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_type_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/type/itype_validator.html#ITypeValidator.is_match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.type.itype_validator.ITypeValidator.is_match" title="Link to this definition">¶</a></dt>
-<dd><p>Compares instance type with expected type name.</p>
-<dl class="field-list">
+<span class="sig-name descname"><span class="pre">is_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_type_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NameType</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ValidType</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/type/itype_validator.html#ITypeValidator.is_match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.type.itype_validator.ITypeValidator.is_match" title="Link to this definition">¶</a></dt>
+<dd><p>Compares the type of the instance with the expected type name.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>instance</strong> (<em>&lt;Any&gt;</em>) – The instance to check.</p></li>
-<li><p><strong>expected_type_name</strong> (<em>&lt;str&gt;</em>) – The expected type name.</p></li>
+<li><p><strong>instance</strong> – The instance whose type is to be checked.</p></li>
+<li><p><strong>expected_type_name</strong> – The expected type name.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;True&gt; successfully, &lt;False&gt; otherwise.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><div class="line-block">
-<div class="line">ATSTypeError: Expected type name must be a string.</div>
-</div>
+<dd class="field-even"><p>The result of the comparison.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.type.itype_validator.ITypeValidator.is_subtype">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_subtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_type_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/type/itype_validator.html#ITypeValidator.is_subtype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.type.itype_validator.ITypeValidator.is_subtype" title="Link to this definition">¶</a></dt>
-<dd><p>Checks if instance is a subtype of expected type name.</p>
-<dl class="field-list">
+<span class="sig-name descname"><span class="pre">is_subtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_type_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NameType</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ValidType</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/type/itype_validator.html#ITypeValidator.is_subtype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.type.itype_validator.ITypeValidator.is_subtype" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if the instance is a subtype of the expected type name.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>instance</strong> (<em>&lt;Any&gt;</em>) – The instance to check.</p></li>
-<li><p><strong>expected_type_name</strong> (<em>&lt;str&gt;</em>) – The expected parent type name.</p></li>
+<li><p><strong>instance</strong> – The instance whose type is to be checked.</p></li>
+<li><p><strong>expected_type_name</strong> – The expected parent type name.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;True&gt; successfully, &lt;False&gt; otherwise.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><div class="line-block">
-<div class="line">ATSTypeError: Expected type name must be a string.</div>
-</div>
+<dd class="field-even"><p>The result of the comparison.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -179,6 +167,8 @@ Creates an interface for validating parameters for method(s) and function(s).</p
 <li><a class="reference internal" href="#">ats_utilities.checker.type.itype_validator module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.checker.type.itype_validator.ITypeValidator"><code class="docutils literal notranslate"><span class="pre">ITypeValidator</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.checker.type.itype_validator.ITypeValidator._abc_impl"><code class="docutils literal notranslate"><span class="pre">ITypeValidator._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.type.itype_validator.ITypeValidator._is_protocol"><code class="docutils literal notranslate"><span class="pre">ITypeValidator._is_protocol</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.type.itype_validator.ITypeValidator._is_runtime_protocol"><code class="docutils literal notranslate"><span class="pre">ITypeValidator._is_runtime_protocol</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.type.itype_validator.ITypeValidator.get_type_name"><code class="docutils literal notranslate"><span class="pre">ITypeValidator.get_type_name()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.type.itype_validator.ITypeValidator.is_match"><code class="docutils literal notranslate"><span class="pre">ITypeValidator.is_match()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.type.itype_validator.ITypeValidator.is_subtype"><code class="docutils literal notranslate"><span class="pre">ITypeValidator.is_subtype()</span></code></a></li>
@@ -191,13 +181,13 @@ Creates an interface for validating parameters for method(s) and function(s).</p
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.checker.type.html"
-                          title="previous chapter">ats_utilities.checker.type package</a></p>
+    <p class="topless"><a href="ats_utilities.checker.type.engine.html"
+                          title="previous chapter">ats_utilities.checker.type.engine module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.checker.type.type_validator.html"
-                          title="next chapter">ats_utilities.checker.type.type_validator module</a></p>
+    <p class="topless"><a href="ats_utilities.checker.engine.html"
+                          title="next chapter">ats_utilities.checker.engine module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -230,10 +220,10 @@ Creates an interface for validating parameters for method(s) and function(s).</p
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.checker.type.type_validator.html" title="ats_utilities.checker.type.type_validator module"
+          <a href="ats_utilities.checker.engine.html" title="ats_utilities.checker.engine module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.checker.type.html" title="ats_utilities.checker.type package"
+          <a href="ats_utilities.checker.type.engine.html" title="ats_utilities.checker.type.engine module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

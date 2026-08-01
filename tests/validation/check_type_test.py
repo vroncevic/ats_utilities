@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from typing import Any, Union
+from typing import Union
 import unittest
 
 from ats_utilities.exceptions import ATSTypeError
@@ -31,7 +31,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.3'
+__version__: str = '3.4.4'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
@@ -102,7 +102,7 @@ class CheckTypeTest(unittest.TestCase):
         mock_outer_union = MagicMock()
         mock_outer_union.__args__ = (mock_inner_union, float)
 
-        def custom_get_origin(tp: Any) -> Any:
+        def custom_get_origin(tp: object) -> object:
             if tp is mock_outer_union or tp is mock_inner_union:
                 return Union
             return None

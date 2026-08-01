@@ -2,12 +2,14 @@
 
 import unittest
 from unittest.mock import MagicMock, patch
-from typing import Any
 
 from ats_utilities.config_io.loader.engine import Loader
-from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.config_io.setup.bundle import ConfigIOBundle
+from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.ireporter import IReporter
 
 
 class TestLoader(unittest.TestCase):
@@ -16,6 +18,10 @@ class TestLoader(unittest.TestCase):
     def setUp(self) -> None:
         """Set up standard mocked dependencies for Loader instances."""
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
+        self.mock_context_bundle.checker = MagicMock(spec=IChecker)
+        self.mock_context_bundle.logger = MagicMock(spec=ILogger)
+        self.mock_context_bundle.reporter = MagicMock(spec=IReporter)
+        self.mock_context_bundle.verbose = True
         self.mock_processor = MagicMock(spec=IConfigProcessor)
         
         # Build mock component bundle dependencies
@@ -25,48 +31,47 @@ class TestLoader(unittest.TestCase):
         self.mock_component_bundle.file_path = "/path/to/config.json"
         self.mock_component_bundle.READ_MODE = "r"
 
-    @patch("ats_utilities.config_io.loader.engine.ConfFileRegistry.create_conf_file")
-    def test_initialization(self, mock_create_conf_file: MagicMock) -> None:
+    @patch("ats_utilities.config_io.loader.engine.ConfFile")
+    def test_initialization(self, mock_conf_file_cls: MagicMock) -> None:
         """Test successful initialization and attribute orchestration from the component bundle."""
         # Arrange
         mock_conf_file = MagicMock()
-        mock_create_conf_file.return_value = mock_conf_file
+        mock_conf_file_cls.return_value = mock_conf_file
 
         # Act
         loader = Loader(self.mock_component_bundle)
 
         # Assert
-        self.assertEqual(loader._shared_context, self.mock_context_bundle)
+        self.assertEqual(loader._context, self.mock_context_bundle)
         self.assertEqual(loader._processor, self.mock_processor)
-        
-        mock_create_conf_file.assert_called_once_with(
-            file_path="/path/to/config.json",
-            file_mode="r",
-            context_bundle=self.mock_context_bundle
-        )
+        mock_conf_file_cls.assert_called_once()
+        called_args = mock_conf_file_cls.call_args[0][0]
+        self.assertEqual(called_args.file_path, "/path/to/config.json")
+        self.assertEqual(called_args.file_mode, "r")
+        self.assertEqual(called_args.context_bundle, self.mock_context_bundle)
         self.assertEqual(loader._conf_file, mock_conf_file)
 
     def test_initialization_fails_when_bundle_is_none(self) -> None:
-        """Test initialization failure when component_bundle is None."""
+        """Test initialization failure when own is None."""
         with self.assertRaises(Exception):
             Loader(None)  # type: ignore
 
     def test_initialization_fails_with_invalid_bundle_type(self) -> None:
-        """Test initialization failure when component_bundle is of an unexpected type."""
+        """Test initialization failure when own is of an unexpected type."""
         with self.assertRaises(Exception):
             Loader(MagicMock())  # type: ignore
 
-    def test_get_shared_context(self) -> None:
-        """Test that get_shared_context cleanly returns the assigned context bundle instance."""
+    def test_get_context(self) -> None:
+        """Test that get_context cleanly returns the assigned context bundle."""
         loader = Loader(self.mock_component_bundle)
-        self.assertEqual(loader.get_shared_context(), self.mock_context_bundle)
+        self.assertEqual(loader.get_context(), self.mock_context_bundle)
 
-    @patch("ats_utilities.config_io.loader.engine.ConfFileRegistry.create_conf_file")
-    def test_load_configuration_success(self, mock_create_conf_file: MagicMock) -> None:
+    @patch("ats_utilities.config_io.loader.engine.ConfFile")
+    def test_load_configuration_success(self, mock_conf_file_cls: MagicMock) -> None:
         """Test load_configuration execution path when file contents parse correctly against the scheme."""
         # Arrange
         mock_conf_file = MagicMock()
-        mock_create_conf_file.return_value = mock_conf_file
+        mock_conf_file_cls.return_value = mock_conf_file
         
         loader = Loader(self.mock_component_bundle)
         
@@ -83,25 +88,25 @@ class TestLoader(unittest.TestCase):
         result = loader.load_configuration()
 
         # Assert
-        mock_create_conf_file.assert_called_once_with(
-            file_path="/path/to/config.json",
-            file_mode="r",
-            context_bundle=self.mock_context_bundle
-        )
+        mock_conf_file_cls.assert_called_once()
+        called_args = mock_conf_file_cls.call_args[0][0]
+        self.assertEqual(called_args.file_path, "/path/to/config.json")
+        self.assertEqual(called_args.file_mode, "r")
+        self.assertEqual(called_args.context_bundle, self.mock_context_bundle)
         mock_conf_file.__enter__.assert_called_once()
         mock_config_file.read.assert_called_once()
         self.mock_processor.deserialize.assert_called_once_with('{"key": "value"}')
         self.mock_processor.to_dict.assert_called_once()
         self.assertEqual(result, {"key": "value"})
 
-    @patch("ats_utilities.config_io.loader.engine.ConfFileRegistry.create_conf_file")
+    @patch("ats_utilities.config_io.loader.engine.ConfFile")
     def test_load_configuration_returns_empty_on_file_exception(
-        self, mock_create_conf_file: MagicMock
+        self, mock_conf_file_cls: MagicMock
     ) -> None:
         """Test that load_configuration returns an empty dictionary gracefully when file I/O errors occur."""
         # Arrange
         mock_conf_file = MagicMock()
-        mock_create_conf_file.return_value = mock_conf_file
+        mock_conf_file_cls.return_value = mock_conf_file
         
         loader = Loader(self.mock_component_bundle)
         mock_conf_file.__enter__.side_effect = RuntimeError("File reading blocked")
@@ -113,14 +118,14 @@ class TestLoader(unittest.TestCase):
         self.assertEqual(result, {})
         self.mock_processor.deserialize.assert_not_called()
 
-    @patch("ats_utilities.config_io.loader.engine.ConfFileRegistry.create_conf_file")
+    @patch("ats_utilities.config_io.loader.engine.ConfFile")
     def test_load_configuration_returns_empty_when_content_is_none(
-        self, mock_create_conf_file: MagicMock
+        self, mock_conf_file_cls: MagicMock
     ) -> None:
         """Test that load_configuration returns an empty dictionary when context manager yields no data."""
         # Arrange
         mock_conf_file = MagicMock()
-        mock_create_conf_file.return_value = mock_conf_file
+        mock_conf_file_cls.return_value = mock_conf_file
         
         loader = Loader(self.mock_component_bundle)
         
@@ -135,14 +140,14 @@ class TestLoader(unittest.TestCase):
         self.assertEqual(result, {})
         self.mock_processor.deserialize.assert_not_called()
 
-    @patch("ats_utilities.config_io.loader.engine.ConfFileRegistry.create_conf_file")
+    @patch("ats_utilities.config_io.loader.engine.ConfFile")
     def test_load_configuration_returns_empty_on_deserialization_failure(
-        self, mock_create_conf_file: MagicMock
+        self, mock_conf_file_cls: MagicMock
     ) -> None:
         """Test that load_configuration returns an empty dictionary when deserialization validation fails."""
         # Arrange
         mock_conf_file = MagicMock()
-        mock_create_conf_file.return_value = mock_conf_file
+        mock_conf_file_cls.return_value = mock_conf_file
         
         loader = Loader(self.mock_component_bundle)
         
@@ -160,13 +165,13 @@ class TestLoader(unittest.TestCase):
         self.mock_processor.deserialize.assert_called_once_with('invalid content')
         self.mock_processor.to_dict.assert_not_called()
 
-    @patch("ats_utilities.config_io.loader.engine.ConfFileRegistry.create_conf_file")
+    @patch("ats_utilities.config_io.loader.engine.ConfFile")
     def test_load_configuration_returns_empty_when_file_is_none(
-        self, mock_create_conf_file: MagicMock
+        self, mock_conf_file_cls: MagicMock
     ) -> None:
         """Test that load_configuration returns an empty dictionary when config_file is None."""
         mock_conf_file = MagicMock()
-        mock_create_conf_file.return_value = mock_conf_file
+        mock_conf_file_cls.return_value = mock_conf_file
 
         loader = Loader(self.mock_component_bundle)
 

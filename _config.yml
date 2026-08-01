@@ -1,5 +1,3 @@
+title: "ATS Utilities"
+description: "Utility package for configuration, logging, option parsing, and generating files."
 theme: jekyll-theme-cayman
-markdown: kramdown
-safe: true
-kramdown:
-  parse_block_html: true

@@ -16,91 +16,72 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ITypeValidator with method(s).
-    Creates an interface for validating parameters for method(s) and function(s).
+    Defines the abstract class ITypeValidator with method(s).
+    Provides an interface for validating the type of parameters used by method(s) and function(s).
 '''
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
-from typing import Any
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ITypeValidator(ABC):
+@runtime_checkable
+class ITypeValidator[NameType, ValidType](Protocol):
     '''
-        Defines abstract class ITypeValidator with method(s).
-        Creates an interface for validating parameters for method(s) and function(s).
+        Defines the abstract class ITypeValidator with method(s).
+        Provides an interface for validating the type of parameters used by method(s) and function(s).
 
         It defines:
 
             :methods:
-                | is_match - Compares instance type with expected type name.
-                | is_subtype - Checks if instance is a subtype of expected type name.
-                | get_type_name - Returns the string representation of an instance type.
-                | __str__ - Returns the mcheck as string representation.
+                | is_match - Compares the type of the instance with the expected type name.
+                | is_subtype - Checks if the instance is a subtype of the expected type name.
+                | get_type_name - Returns the type name of the.
+                | __str__ - Returns the type validator as a string representation.
     '''
 
-    @abstractmethod
-    def is_match(self, instance: Any, expected_type_name: str) -> bool:
+    def is_match(self, instance: object, expected_type_name: NameType) -> ValidType:
         '''
-            Compares instance type with expected type name.
+            Compares the type of the instance with the expected type name.
 
-            :param instance: The instance to check.
-            :type instance: <Any>
+            :param instance: The instance whose type is to be checked.
             :param expected_type_name: The expected type name.
-            :type expected_type_name: <str>
-            :return: <True> successfully, <False> otherwise.
-            :rtype: <bool>
-            :exceptions:
-                | ATSTypeError: Expected type name must be a string.
+            :return: The result of the comparison.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def is_subtype(self, instance: Any, expected_type_name: str) -> bool:
+    def is_subtype(self, instance: object, expected_type_name: NameType) -> ValidType:
         '''
-            Checks if instance is a subtype of expected type name.
+            Checks if the instance is a subtype of the expected type name.
 
-            :param instance: The instance to check.
-            :type instance: <Any>
+            :param instance: The instance whose type is to be checked.
             :param expected_type_name: The expected parent type name.
-            :type expected_type_name: <str>
-            :return: <True> successfully, <False> otherwise.
-            :rtype: <bool>
-            :exceptions:
-                | ATSTypeError: Expected type name must be a string.
+            :return: The result of the comparison.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def get_type_name(self, instance: Any) -> str:
+    def get_type_name(self, instance: object) -> NameType:
         '''
-            Returns the string representation of an instance type.
+            Returns the type name of the.
 
             :param instance: The instance to inspect.
-            :type instance: <Any>
-            :return: String name of the type.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The type name of the.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the mcheck as string representation.
+            Returns the type validator as a string representation.
 
-            :return: The mcheck as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The type validator as a string representation.
         '''
-        pass
+        ...

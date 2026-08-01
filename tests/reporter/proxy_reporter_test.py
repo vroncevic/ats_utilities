@@ -31,7 +31,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.3'
+__version__: str = '3.4.4'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
@@ -60,7 +60,7 @@ class ProxyReporterTest(unittest.TestCase):
     def test_decorator_not_method(self) -> None:
         @vreport("template")
         def dummy_func() -> None:
-            pass
+            ...
 
         with self.assertRaises(ATSRuntimeError):
             dummy_func()
@@ -69,7 +69,7 @@ class ProxyReporterTest(unittest.TestCase):
         class Dummy:
             @vreport("template")
             def do_something(self) -> None:
-                pass
+                ...
 
         d = Dummy()
         with self.assertRaises(ATSRuntimeError):
@@ -133,7 +133,7 @@ class ProxyReporterTest(unittest.TestCase):
             # Template referencing index or invalid key that causes formatting error
             @vreport("Invalid: {0} {non_existent}")
             def call_me(self) -> None:
-                pass
+                ...
 
         obj = ErrorClass()
         obj.call_me()

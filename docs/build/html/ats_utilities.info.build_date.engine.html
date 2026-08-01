@@ -64,61 +64,58 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines class BuildDate with attribute(s) and method(s).
-Creates an API for the build date in one property object.</p>
+<dt>Info</dt><dd><p>Defines the BuildDate class with attribute(s) and method(s).
+Provides an API for the build date in one property object.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.info.build_date.engine.BuildDate">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.build_date.engine.</span></span><span class="sig-name descname"><span class="pre">BuildDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/info/build_date/engine.html#BuildDate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.build_date.engine.BuildDate" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.context.context_support.html#ats_utilities.context.context_support.ContextSupport" title="ats_utilities.context.context_support.ContextSupport"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextSupport</span></code></a>, <a class="reference internal" href="ats_utilities.info.build_date.ibuild_date.html#ats_utilities.info.build_date.ibuild_date.IBuildDate" title="ats_utilities.info.build_date.ibuild_date.IBuildDate"><code class="xref py py-class docutils literal notranslate"><span class="pre">IBuildDate</span></code></a></p>
-<p>Defines class BuildDate with attribute(s) and method(s).
-Creates an API for the build date in one property object.
-Note: Build date is only prepared when it is set by user (not None).</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.build_date.engine.</span></span><span class="sig-name descname"><span class="pre">BuildDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.bundle.html#ats_utilities.context.bundle.ContextBundle" title="ats_utilities.context.bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/info/build_date/engine.html#BuildDate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.build_date.engine.BuildDate" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines the BuildDate class with attribute(s) and method(s).
+Provides an API for the build date in one property object.
+Note: The build date is only prepared when it is set by the user (not None).</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_build_date - The build date for App/Tool/Script (default None).</div>
+<div class="line">_build_date - The build date for the App/Tool/Script (default: None).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initializes BuildDate constructor.</div>
-<div class="line">build_date - Property methods for set/get build date.</div>
-<div class="line">not_none - Checks is build date not None.</div>
-<div class="line">__str__ - Returns the BuildDate as string representation.</div>
+<div class="line">__init__ - Initializes the BuildDate.</div>
+<div class="line">build_date - Property methods for setting and getting the build date.</div>
+<div class="line">not_none - Checks if the build date is not None.</div>
+<div class="line">__str__ - Returns the BuildDate as a string representation.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.info.build_date.engine.BuildDate._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.info.build_date.engine.BuildDate._abc_impl" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.info.build_date.engine.BuildDate._build_date">
+<span class="sig-name descname"><span class="pre">_build_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.build_date.engine.BuildDate._build_date" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.info.build_date.engine.BuildDate._build_date">
-<span class="sig-name descname"><span class="pre">_build_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.build_date.engine.BuildDate._build_date" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.info.build_date.engine.BuildDate._context">
+<span class="sig-name descname"><span class="pre">_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context.bundle.html#ats_utilities.context.bundle.ContextBundle" title="ats_utilities.context.bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.info.build_date.engine.BuildDate._context" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="ats_utilities.info.build_date.engine.BuildDate.build_date">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.build_date.engine.BuildDate.build_date" title="Link to this definition">¶</a></dt>
-<dd><p>Property method for getting build date.
-Note: Build date is only prepared when it is set by user (not None).</p>
+<dd><p>Property method for getting the build date.
+Note: The build date is only prepared when it is set by the user (not None).</p>
 <dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The build date in string format | None.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;str | None&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="line-block">
-<div class="line">ATSRuntimeError: Decorator cannot be used on a standalone function.</div>
-<div class="line">ATSAttributeError: Class is required to provide a ‘_reporter’ object to</div>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSRuntimeError:   The decorator cannot be used on a standalone function.</div>
+<div class="line">ATSAttributeError: The class is required to provide a ‘_reporter’ object to</div>
 <div class="line-block">
 <div class="line">use the &#64;vreport decorator.</div>
 </div>
@@ -130,19 +127,16 @@ Note: Build date is only prepared when it is set by user (not None).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.info.build_date.engine.BuildDate.not_none">
 <span class="sig-name descname"><span class="pre">not_none</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/build_date/engine.html#BuildDate.not_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.build_date.engine.BuildDate.not_none" title="Link to this definition">¶</a></dt>
-<dd><p>Checks is build date not None.
-Note: Build date is only prepared when it is set by user (not None).</p>
+<dd><p>Checks if the build date is not None.
+Note: The build date is only prepared when it is set by the user (not None).</p>
 <dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
+<dd class="field-odd"><p>True if successful, otherwise False.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="line-block">
-<div class="line">ATSRuntimeError: Decorator cannot be used on a standalone function.</div>
-<div class="line">ATSAttributeError: Class is required to provide a ‘_reporter’ object to</div>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSRuntimeError:   The decorator cannot be used on a standalone function.</div>
+<div class="line">ATSAttributeError: The class is required to provide a ‘_reporter’ object to</div>
 <div class="line-block">
 <div class="line">use the &#64;vreport decorator.</div>
 </div>
@@ -167,8 +161,8 @@ Note: Build date is only prepared when it is set by user (not None).</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.info.build_date.engine module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.info.build_date.engine.BuildDate"><code class="docutils literal notranslate"><span class="pre">BuildDate</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.info.build_date.engine.BuildDate._abc_impl"><code class="docutils literal notranslate"><span class="pre">BuildDate._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.build_date.engine.BuildDate._build_date"><code class="docutils literal notranslate"><span class="pre">BuildDate._build_date</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.build_date.engine.BuildDate._context"><code class="docutils literal notranslate"><span class="pre">BuildDate._context</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.build_date.engine.BuildDate.build_date"><code class="docutils literal notranslate"><span class="pre">BuildDate.build_date</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.build_date.engine.BuildDate.not_none"><code class="docutils literal notranslate"><span class="pre">BuildDate.not_none()</span></code></a></li>
 </ul>

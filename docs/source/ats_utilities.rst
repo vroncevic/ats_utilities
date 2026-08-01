@@ -12,13 +12,12 @@ Subpackages
    ats_utilities.config_io
    ats_utilities.context
    ats_utilities.exceptions
-   ats_utilities.generator
+   ats_utilities.generation
    ats_utilities.info
    ats_utilities.logger
    ats_utilities.option
-   ats_utilities.project_setup
    ats_utilities.reporter
-   ats_utilities.splasher
+   ats_utilities.splash
    ats_utilities.utils
    ats_utilities.validation
 

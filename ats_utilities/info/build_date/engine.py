@@ -16,76 +16,74 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class BuildDate with attribute(s) and method(s).
-    Creates an API for the build date in one property object.
+    Defines the BuildDate class with attribute(s) and method(s).
+    Provides an API for the build date in one property object.
 '''
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.info.build_date.ibuild_date import IBuildDate
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class BuildDate(ContextSupport, IBuildDate):
+class BuildDate:
     '''
-        Defines class BuildDate with attribute(s) and method(s).
-        Creates an API for the build date in one property object.
-        Note: Build date is only prepared when it is set by user (not None).
+        Defines the BuildDate class with attribute(s) and method(s).
+        Provides an API for the build date in one property object.
+        Note: The build date is only prepared when it is set by the user (not None).
 
         It defines:
 
             :attributes:
-                | _build_date - The build date for App/Tool/Script (default None).
+                | _build_date - The build date for the App/Tool/Script (default: None).
             :methods:
-                | __init__ - Initializes BuildDate constructor.
-                | build_date - Property methods for set/get build date.
-                | not_none - Checks is build date not None.
-                | __str__ - Returns the BuildDate as string representation.
+                | __init__ - Initializes the BuildDate.
+                | build_date - Property methods for setting and getting the build date.
+                | not_none - Checks if the build date is not None.
+                | __str__ - Returns the BuildDate as a string representation.
     '''
 
     _build_date: str | None
+    _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes BuildDate constructor.
+            Initializes the BuildDate.
 
-            :param context_bundle: Context bundle for build date.
-            :type context_bundle: <ContextBundle>
+            :param context_bundle: The context bundle for build date.
             :exceptions:
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSValueError:  Context bundle must be provided and have proper values.
+                | ATSTypeError:   Context bundle must be an instance of ContextBundle
+                |                 and its attributes must be instances of their
+                |                 respective types.
         '''
-        ContextSupport.__init__(self, context_bundle)
+        ContextValidator.validate(context_bundle)
+        self._context = context_bundle
         self._build_date = None
 
     @property
     @vreport('getting build_date {build_date}')
-    @override
     def build_date(self) -> str | None:
         '''
-            Property method for getting build date.
-            Note: Build date is only prepared when it is set by user (not None).
+            Property method for getting the build date.
+            Note: The build date is only prepared when it is set by the user (not None).
 
             :return: The build date in string format | None.
-            :rtype: <str | None>
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._build_date
@@ -93,48 +91,42 @@ class BuildDate(ContextSupport, IBuildDate):
     @build_date.setter
     @mcheck([('str:build_date', None)])
     @vreport('setting build_date {build_date}')
-    @override
     def build_date(self, build_date: str) -> None:
         '''
-            Property method for setting build date.
-            Note: Build date is only prepared when it is set by user (not None).
+            Property method for setting the build date.
+            Note: The build date is only prepared when it is set by the user (not None).
 
             :param build_date: The build date in string format.
-            :type build_date: <str>
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
-                | ATSTypeError: Parameter type validation failed.
-                | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSTypeError:      Parameter type validation failed.
+                | ATSValueError:     Parameter format validation failed.
+                | ATSRuntimeError:   The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         self._build_date = build_date
 
     @vreport('checking build_date {build_date}')
-    @override
     def not_none(self) -> bool:
         '''
-            Checks is build date not None.
-            Note: Build date is only prepared when it is set by user (not None).
+            Checks if the build date is not None.
+            Note: The build date is only prepared when it is set by the user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._build_date is not None
 
-    @override
     def __str__(self) -> str:
         '''
-            Returns the BuildDate as string representation.
+            Returns the BuildDate as a string representation.
 
-            :return: The BuildDate as string representation.
-            :rtype: <str>
+            :return: The BuildDate as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

@@ -16,85 +16,72 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILogFile with method(s).
+    Defines the ILogFile abstract class with method(s).
     Interface for the log file path mechanism.
 '''
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
+from typing import Protocol, runtime_checkable
 
-from abc import ABC, abstractmethod
-
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ILogFile(IContextSupport, ABC):
+@runtime_checkable
+class ILogFile[LogFileType](Protocol):
     '''
-        Defines abstract class ILogFile with method(s).
+        Defines the ILogFile abstract class with method(s).
         Interface for the log file path mechanism.
-        Note: Log file path is only prepared when it is set by user (not None).
+        Note: The log file path is only prepared when it is set by the user (not None).
 
         It defines:
 
             :methods:
-                | log_file - Property methods for set/get operations.
-                | not_none - Checks if log file path is not None.
-                | __str__ - Returns the log file as string representation.
+                | log_file - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the log file path is not None.
+                | __str__ - Returns the log file as a string representation.
     '''
 
     @property
-    @abstractmethod
-    def log_file(self) -> str | None:
+    def log_file(self) -> LogFileType | None:
         '''
-            Property method for getting log file path.
-            Note: Log file path is only prepared when it is set by user (not None).
+            Property method for getting the log file path.
+            Note: The log file path is only prepared when it is set by the user (not None).
 
-            :return: The log file path in string format | None.
-            :rtype: <str | None>
-            :exceptions: None.
+            :return: The log file path in LogFileType format | None.
         '''
-        pass
+        ...
 
     @log_file.setter
-    @abstractmethod
-    def log_file(self, log_file: str) -> None:
+    def log_file(self, log_file: LogFileType) -> None:
         '''
-            Property method for setting log file path.
-            Note: Log file path is only prepared when it is set by user (not None).
+            Property method for setting the log file path.
+            Note: The log file path is only prepared when it is set by the user (not None).
 
-            :param log_file: The log file path in string format.
-            :type log_file: <str>
-            :exceptions: None.
+            :param log_file: The log file path in LogFileType format.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks if log file path is not None.
-            Note: Log file path is only prepared when it is set by user (not None).
+            Checks if the log file path is not None.
+            Note: The log file path is only prepared when it is set by the user (not None).
 
             :return: True (Not None) | False (None).
-            :rtype: <bool>
-            :exceptions: None.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the LogFile as string representation.
+            Returns the LogFile as a string representation.
 
-            :return: The LogFile as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The LogFile as a string representation.
         '''
-        pass
+        ...

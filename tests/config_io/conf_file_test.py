@@ -3,13 +3,15 @@
 import unittest
 from unittest.mock import MagicMock, patch, mock_open
 from collections.abc import Mapping
-from typing import Any
 
 # Adjust imports according to your project structure
 from ats_utilities.config_io.conf_file import ConfFile
-from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
+from ats_utilities.config_io.data import FileData
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.exceptions import ATSValueError
 
 
 class TestConfFile(unittest.TestCase):
@@ -22,10 +24,16 @@ class TestConfFile(unittest.TestCase):
         
         # Build mock bundle dependencies
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
-        self.mock_bundle = MagicMock(spec=ConfFileBundle)
-        self.mock_bundle.file_path = self.mock_file_path
-        self.mock_bundle.file_mode = self.mock_file_mode
-        self.mock_bundle.context_bundle = self.mock_context_bundle
+        self.mock_context_bundle.checker = MagicMock(spec=IChecker)
+        self.mock_context_bundle.logger = MagicMock(spec=ILogger)
+        self.mock_context_bundle.reporter = MagicMock(spec=IReporter)
+        self.mock_context_bundle.verbose = True
+        
+        self.mock_bundle = FileData(
+            file_path=self.mock_file_path,
+            file_mode=self.mock_file_mode,
+            context_bundle=self.mock_context_bundle
+        )
 
         # Setup mock reporter to satisfy the @vreport decorator requirements
         self.mock_reporter = MagicMock(spec=IReporter)
@@ -65,7 +73,7 @@ class TestConfFile(unittest.TestCase):
 
         # Assert
         mock_check_exists.assert_called_once_with(
-            self.mock_file_path, 'conf_file::enter(...)', f'file {self.mock_file_path} does not exist'
+            self.mock_file_path, 'conf_file::enter(...)', 'the file path does not exist'
         )
         mock_file_open.assert_called_once_with(self.mock_file_path, "r", encoding="utf-8")
         self.assertEqual(result, mock_file_open.return_value)
@@ -77,9 +85,12 @@ class TestConfFile(unittest.TestCase):
         self, mock_check_exists: MagicMock, mock_file_open: MagicMock
     ) -> None:
         """Test __enter__ execution flow when opening a file in write ('w') mode."""
-        # Arrange
-        self.mock_bundle.file_mode = "w"
-        conf_file = ConfFile(self.mock_bundle)
+        bundle = FileData(
+            file_path=self.mock_file_path,
+            file_mode="w",
+            context_bundle=self.mock_context_bundle
+        )
+        conf_file = ConfFile(bundle)
         conf_file._reporter = self.mock_reporter
 
         # Act
@@ -159,6 +170,35 @@ class TestConfFile(unittest.TestCase):
         # Assert
         mock_to_str.assert_called_once_with(conf_file)
         self.assertEqual(result, "ConfFile{path=/path/to/config.cfg}")
+
+    @patch("builtins.open", new_callable=mock_open)
+    @patch("ats_utilities.config_io.conf_file.check_file_exists")
+    def test_enter_value_error_exception(
+        self, mock_check_exists: MagicMock, mock_file_open: MagicMock
+    ) -> None:
+        """Test that ATSValueError raised during __enter__ is caught and sets file to None."""
+        mock_check_exists.side_effect = ATSValueError("file not found")
+        conf_file = ConfFile(self.mock_bundle)
+        conf_file._reporter = self.mock_reporter
+        
+        result = conf_file.__enter__()
+        self.assertIsNone(result)
+        self.assertIsNone(conf_file._file)
+
+    @patch("builtins.open")
+    @patch("ats_utilities.config_io.conf_file.check_file_exists")
+    def test_enter_generic_exception(
+        self, mock_check_exists: MagicMock, mock_file_open: MagicMock
+    ) -> None:
+        """Test that any generic exception raised during open in __enter__ is caught."""
+        mock_check_exists.return_value = None
+        mock_file_open.side_effect = PermissionError("no access")
+        conf_file = ConfFile(self.mock_bundle)
+        conf_file._reporter = self.mock_reporter
+        
+        result = conf_file.__enter__()
+        self.assertIsNone(result)
+        self.assertIsNone(conf_file._file)
 
 
 if __name__ == '__main__':

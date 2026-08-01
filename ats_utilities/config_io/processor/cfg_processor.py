@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class CFGProcessor with attribute(s) and method(s).
-    Creates an API to process configuration in CFG format.
+    Defines the CFGProcessor class with attribute(s) and method(s).
+    Provides an API to process configuration in CFG format.
     1th level of configuration loader/storer implementation.
 '''
 
@@ -25,41 +25,40 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from re import match
-from typing import Any, override
+from typing import Final
 
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class CFGProcessor(IConfigProcessor):
+class CFGProcessor:
     '''
-        Defines class CFGProcessor with attribute(s) and method(s).
-        Creates an API to process configuration in CFG format.
+        Defines the CFGProcessor class with attribute(s) and method(s).
+        Provides an API to process configuration in CFG format.
         1th level of configuration loader/storer implementation.
 
         It defines:
 
             :attributes:
-                | _REGEX_EXP - Regular expression for matching line.
-                | _data - Internal dict to store configuration data (default {}).
-                | _scheme - Mapping with configuration scheme (default None).
+                | _REGEX_EXP - The regular expression for matching line.
+                | _data - The internal dict to store configuration data (default {}).
+                | _scheme - The mapping with configuration scheme (default: None).
             :methods:
-                | __init__ - Initializes CFGProcessor constructor.
+                | __init__ - Initializes the CFGProcessor.
                 | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).
                 | serialize - Converts the internal configuration structure back to a formatted string representation.
-                | update_data - Updates the internal configuration data and validates it against the scheme.
+                | update_data - Updates the internal configuration data and Validates the it against the scheme.
                 | to_dict - Returns the parsed configuration as a flat or structured dictionary.
                 | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.
-                | __str__ - Returns the CFGProcessor instance as string representation.
+                | __str__ - Returns the CFGProcessor instance as a string representation.
 
         Flat Format Config Scheme
         -------------------------
@@ -77,30 +76,26 @@ class CFGProcessor(IConfigProcessor):
             }
     '''
 
-    _REGEX_EXP: str = r'^\s*$'
+    _REGEX_EXP: Final[str] = r'^\s*$'
     _data: dict[str, str]
     _scheme: Mapping[str, str] | None
 
     def __init__(self, scheme: Mapping[str, str] | None = None) -> None:
         '''
-            Initializes CFGProcessor constructor.
+            Initializes the CFGProcessor.
 
-            :param scheme: Mapping with configuration scheme (default None).
-            :type scheme: <Mapping[str, str] | None>
+            :param scheme: The mapping with configuration scheme (default: None).
             :exceptions: None.
         '''
         self._data: dict[str, str] = {}
         self._scheme = scheme
 
-    @override
-    def deserialize(self, content: Any) -> bool:
+    def deserialize(self, content: object) -> bool:
         '''
             Loads and parses configuration from a raw source (string, stream, or lines).
 
-            :param content: Raw configuration data (str, stream, or sequence).
-            :type content: <Any>
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :param content: The raw configuration data (str, stream, or sequence).
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         self._data.clear()
@@ -114,26 +109,21 @@ class CFGProcessor(IConfigProcessor):
 
         return self.validate_by_scheme()
 
-    @override
     def serialize(self) -> str:
         '''
             Converts the internal configuration structure back to a formatted string representation.
 
-            :return: Configuration content as string.
-            :rtype: <str>
+            :return: The configuration content as a string.
             :exceptions: None.
         '''
         return ''.join([f'{k} = {v}\n' for k, v in self._data.items()])
 
-    @override
     def update_data(self, new_data: Mapping[str, str]) -> bool:
         '''
-            Updates the internal configuration data and validates it against the scheme.
+            Updates the internal configuration data and Validates the it against the scheme.
 
-            :param new_data: Mapping containing configuration keys and values.
-            :type new_data: <Mapping[str, str]>
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :param new_data: The mapping containing configuration keys and values.
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         old_data = self._data.copy()
@@ -147,24 +137,20 @@ class CFGProcessor(IConfigProcessor):
 
         return True
 
-    @override
     def to_dict(self) -> dict[str, str]:
         '''
             Returns the parsed configuration as a flat or structured dictionary.
 
-            :return: Dictionary with configuration information.
-            :rtype: <dict[str, str]>
+            :return: The dictionary with configuration information.
             :exceptions: None.
         '''
         return self._data
 
-    @override
     def validate_by_scheme(self) -> bool:
         '''
             Validates the internal parsed data structure against the provided scheme.
 
-            :return: <True> if data matches the scheme, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         if self._scheme is None:
@@ -176,13 +162,11 @@ class CFGProcessor(IConfigProcessor):
 
         return True
 
-    @override
     def __str__(self) -> str:
         '''
-            Returns the CFGProcessor instance as string representation.
+            Returns the CFGProcessor instance as a string representation.
 
-            :return: The CFGProcessor instance as string representation.
-            :rtype: <str>
+            :return: The CFGProcessor instance as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

@@ -16,164 +16,258 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Checker with attribute(s) and method(s).
+    Defines the Checker class with attribute(s) and method(s).
     Concrete implementation of the parameter(s) checker.
-    Mechanism for parameters checking (methods/functions).
+    Mechanism for checking the parameters that are used by method(s) or function(s).
 '''
 
 from __future__ import annotations
 
-from typing import ClassVar, override
-
-from ats_utilities.checker.ichecker import (
-    IChecker, ErrorChecker, ValidationResult, ParametersSpecs
+from ats_utilities.checker.setup.types import (
+    Parameters, ParametersMeta, Result, CheckerErrorType
 )
 from ats_utilities.checker.type.itype_validator import ITypeValidator
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
-from ats_utilities.checker.checker_bundle import CheckerBundle
-from ats_utilities.checker.reporter.checker_reporter_bundle import (
-    CheckerReporterBundle, ParamMetadata
-)
+from ats_utilities.checker.setup.bundle import CheckerBundle
+from ats_utilities.checker.setup.validator import CheckerValidator
+from ats_utilities.checker.reporter.data import CheckReporterData
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.validation.check_value import not_none
-from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class Checker(IChecker):
+class Checker:
     '''
-        Defines class Checker with attribute(s) and method(s).
+        Defines the Checker class with attribute(s) and method(s).
         Concrete implementation of the parameter(s) checker.
-        Mechanism for parameters checking (methods/functions).
+        Mechanism for checking the parameters that are used by method(s) or function(s).
 
         It defines:
 
             :attributes:
-                | ERRORS - Marks error types for message reports.
-                | _is_initialized - Indicates if the checker component is initialized (default False).
-                | _format_validator - Validator for parameters format (default FormatValidator).
-                | _type_validator - Validator for parameters type (default TypeValidator).
-                | _context_provider - Provider for call context (default ContextProvider).
-                | _check_reporter - Formatter for message reports (default CheckReporter).
+                | _is_initialized - The indicates if the checker component is initialized.
+                | _format_validator - The format validator that is used in the validation of parameters.
+                | _type_validator - The type validator that is used in the validation of parameters.
+                | _context_provider - The context provider that is used in the validation of parameters.
+                | _check_reporter - The check reporter that is used in the validation of parameters.
             :methods:
-                | __init__ - Initializes Checker constructor.
-                | validates_parameters - Validates parameter(s) for method(s) or function(s).
-                | is_initialized - Checks if checker component is initialized.
-                | __str__ - Returns the checker as string representation.
+                | __init__ - Initializes the checker.
+                | get_bundle - Gets the current checker configuration bundle.
+                | update_bundle - Updates the checker configuration bundle.
+                | _apply_bundle - Applies the bundle configuration to the instance attributes.
+                | get_format_validator - Returns the format validator that is used in the validation of parameters.
+                | get_type_validator - Returns the type validator that is used in the validation of parameters.
+                | get_context_provider - Returns the context provider that is used in the validation of parameters.
+                | get_check_reporter - Returns the check reporter that is used in the validation of parameters.
+                | validates_parameters - Validates the parameters that are used by method(s) or function(s).
+                | is_initialized - Checks if the checker is initialized.
+                | __str__ - Returns the checker as a string representation.
     '''
 
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
     _is_initialized: bool
     _format_validator: IFormatValidator
     _type_validator: ITypeValidator
     _context_provider: IContextProvider
     _check_reporter: ICheckReporter
 
-    def __init__(self, component_bundle: CheckerBundle) -> None:
+    def __init__(self, own: CheckerBundle) -> None:
         '''
-            Initializes Checker constructor.
+            Initializes the checker.
 
-            :param component_bundle: Bundle with components.
-            :type component_bundle: <CheckerBundle>
+            :param own: The checker bundle that is used to initialize the checker.
             :exceptions:
-                | ATSValueError - Component bundle must be provided.
-                | ATSTypeError - Component bundle must be a CheckerBundle instance.
+                | ATSValueError: The checker bundle must be provided and have proper values.
+                | ATSTypeError:  The checker bundle must be an instance of CheckerBundle
+                |                and its attributes must be instances of their
+                |                respective interfaces and types.
         '''
-        context: str = r'checker::init(...)'
-        not_none(component_bundle, context, r'component bundle must be provided')
-        istype(component_bundle, CheckerBundle, context, r'component bundle must be a CheckerBundle instance')
-        self._format_validator = component_bundle.format_validator
-        self._type_validator = component_bundle.type_validator
-        self._context_provider = component_bundle.context_provider
-        self._check_reporter = component_bundle.check_reporter
+        self._is_initialized = False
+        CheckerValidator.validate(own)
+        self._apply_bundle(own)
         self._is_initialized = True
 
-    @override
-    def validates_parameters(self, parameters: ParametersSpecs) -> ValidationResult:
+    def get_bundle(self) -> CheckerBundle:
         '''
-            Validates parameters for method(s) or function(s).
+            Gets the current checker configuration bundle.
 
-            :param parameters: Specification for parameters.
-            :type parameters: <ParametersSpecs>
-            :return: Tuple of error message report and error id.
-            :rtype: <ValidationResult>
+            :return: The checker configuration bundle.
+            :exceptions: None.
+        '''
+        return CheckerBundle(
+            format_validator=self._format_validator,
+            type_validator=self._type_validator,
+            context_provider=self._context_provider,
+            check_reporter=self._check_reporter
+        )
+
+    def update_bundle(self, bundle: CheckerBundle) -> bool:
+        '''
+            Updates the checker configuration bundle.
+
+            :param bundle: The checker configuration bundle.
+            :return: True if the configuration was successfully updated, False otherwise.
+            :exceptions: None.
+        '''
+        try:
+            CheckerValidator.validate(bundle)
+            self._apply_bundle(bundle)
+            self._is_initialized = True
+
+            return True
+
+        except (ATSValueError, ATSTypeError):
+            return False
+
+    def _apply_bundle(self, bundle: CheckerBundle) -> None:
+        '''
+            Applies the bundle configuration to the instance attributes.
+
+            :param bundle: The checker bundle with components.
+            :exceptions: None.
+        '''
+        self._format_validator = bundle.format_validator
+        self._type_validator = bundle.type_validator
+        self._context_provider = bundle.context_provider
+        self._check_reporter = bundle.check_reporter
+
+    def get_format_validator(self) -> IFormatValidator:
+        '''
+            Returns the format validator used in validation of parameters.
+
+            :return: The format validator used in validation of parameters.
+            :exceptions: None.
+        '''
+        return self._format_validator
+
+    def get_type_validator(self) -> ITypeValidator:
+        '''
+            Returns the type validator used in validation of parameters.
+
+            :return: The type validator used in validation of parameters.
+            :exceptions: None.
+        '''
+        return self._type_validator
+
+    def get_context_provider(self) -> IContextProvider:
+        '''
+            Returns the context provider used in validation of parameters.
+
+            :return: The context provider used in validation of parameters.
+            :exceptions: None.
+        '''
+        return self._context_provider
+
+    def get_check_reporter(self) -> ICheckReporter:
+        '''
+            Returns the check reporter used in validation of parameters.
+
+            :return: The check reporter used in validation of parameters.
+            :exceptions: None.
+        '''
+        return self._check_reporter
+
+    def validates_parameters(self, parameters: Parameters) -> Result:
+        '''
+            Validates the parameters that are used by method(s) or function(s).
+
+            :param parameters: The specification of the parameters that are to be validated.
+            :return: The result of the validation (message report and error id).
             :exceptions: None.
         '''
         context: str = self._context_provider.get_context()
-        params_meta: list[ParamMetadata] = []
+        parameters_meta: list[ParametersMeta] = []
         err_indices: list[int] = []
-        error_id: int = self.ERRORS.NO_ERROR
+        error_id: int = CheckerErrorType.NO_ERROR
 
         if parameters is None:
-            return (
-                self._check_reporter.build_message_format(
-                    CheckerReporterBundle(
+            msg: str = f'{context} format wrong during checking parameters'
+
+            try:
+                msg = self._check_reporter.build_message(
+                    CheckReporterData(
                         context=context,
                         parameters_meta=(),
                         err_indices=(),
                         is_fmt_err=True
                     )
-                ),
-                self.ERRORS.FORMAT_ERROR
-            )
+                )
+
+            except (ATSValueError, ATSTypeError):
+                pass
+
+            return msg, CheckerErrorType.FORMAT_ERROR
 
         is_fmt_err: bool = False
+
         for index, (exp_type, inst) in enumerate(parameters):
 
-            if not self._format_validator.is_valid(exp_type):
+            try:
+                if not self._format_validator.is_valid(exp_type):
+                    is_fmt_err = True
+                    error_id = CheckerErrorType.FORMAT_ERROR
+                    break
+
+                ptype, pname = self._format_validator.split(exp_type)
+                parameters_meta.append((pname, ptype, inst))
+
+            except (ATSValueError, ATSTypeError):
                 is_fmt_err = True
-                error_id = self.ERRORS.FORMAT_ERROR
+                error_id = CheckerErrorType.FORMAT_ERROR
                 break
 
-            ptype: str | None = None
-            pname: str | None = None
+            try:
+                if not self._type_validator.is_match(inst, ptype):
+                    err_indices.append(index)
 
-            ptype, pname = self._format_validator.split(exp_type)
-            params_meta.append((pname, ptype, inst))
+                    if error_id == CheckerErrorType.NO_ERROR:
+                        error_id = CheckerErrorType.TYPE_ERROR
 
-            if not self._type_validator.is_match(inst, ptype):
+            except (ATSValueError, ATSTypeError):
                 err_indices.append(index)
 
-                if error_id == self.ERRORS.NO_ERROR:
-                    error_id = self.ERRORS.TYPE_ERROR
+                if error_id == CheckerErrorType.NO_ERROR:
+                    error_id = CheckerErrorType.TYPE_ERROR
 
-        return self._check_reporter.build_message_format(
-            CheckerReporterBundle(
-                context=context,
-                parameters_meta=params_meta,
-                err_indices=err_indices,
-                is_fmt_err=is_fmt_err
+        report_msg: str = f'{context} error during building check report'
+
+        try:
+            report_msg = self._check_reporter.build_message(
+                CheckReporterData(
+                    context=context,
+                    parameters_meta=parameters_meta,
+                    err_indices=err_indices,
+                    is_fmt_err=is_fmt_err
+                )
             )
-        ), error_id
+        except (ATSValueError, ATSTypeError):
+            pass
 
-    @override
+        return report_msg, error_id
+
     def is_initialized(self) -> bool:
         '''
-            Checks if checker component is initialized.
+            Checks if the checker is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
             :exceptions: None.
         '''
         return self._is_initialized
 
-    @override
     def __str__(self) -> str:
         '''
-            Returns the Checker as string representation.
+            Returns the checker as a string representation.
 
-            :return: The Checker as string representation.
-            :rtype: <str>
+            :return: The checker as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

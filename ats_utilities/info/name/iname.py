@@ -16,85 +16,72 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IName with method(s).
+    Defines the IName abstract class with method(s).
     Interface for the name mechanism.
 '''
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
+from typing import Protocol, runtime_checkable
 
-from abc import ABC, abstractmethod
-
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IName(IContextSupport, ABC):
+@runtime_checkable
+class IName[NameType](Protocol):
     '''
-        Defines abstract class IName with method(s).
+        Defines the IName abstract class with method(s).
         Interface for the name mechanism.
-        Note: Name is only prepared when it is set by user (not None).
+        Note: The name is only prepared when it is set by the user (not None).
 
         It defines:
 
             :methods:
-                | name - Property methods for set/get operations.
-                | not_none - Checks if name is not None.
-                | __str__ - Returns the name as string representation.
+                | name - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the name is not None.
+                | __str__ - Returns the name as a string representation.
     '''
 
     @property
-    @abstractmethod
-    def name(self) -> str | None:
+    def name(self) -> NameType | None:
         '''
-            Property method for getting name.
-            Note: Name is only prepared when it is set by user (not None).
+            Property method for getting the name.
+            Note: The name is only prepared when it is set by the user (not None).
 
-            :return: The name in string format | None
-            :rtype: <str | None>
-            :exceptions: None.
+            :return: The name in NameType format | None
         '''
-        pass
+        ...
 
     @name.setter
-    @abstractmethod
-    def name(self, name: str | None) -> None:
+    def name(self, name: NameType) -> None:
         '''
-            Property method for setting name.
-            Note: Name is only prepared when it is set by user (not None).
+            Property method for setting the name.
+            Note: The name is only prepared when it is set by the user (not None).
 
-            :param name: The name in string format | None
-            :type name: <str | None>
-            :exceptions: None.
+            :param name: The name in NameType format
         '''
-        pass
+        ...
 
-    @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks if name is not None.
-            Note: Name is only prepared when it is set by user (not None).
+            Checks if the name is not None.
+            Note: The name is only prepared when it is set by the user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
+            :return: True if successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the name as string representation.
+            Returns the name as a string representation.
 
-            :return: The name as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The name as a string representation.
         '''
-        pass
+        ...

@@ -16,76 +16,74 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Logo with attribute(s) and method(s).
-    Creates an API for the logo path in one property object.
+    Defines the Logo class with attribute(s) and method(s).
+    Provides an API for the logo path in one property object.
 '''
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.info.logo.ilogo import ILogo
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class Logo(ContextSupport, ILogo):
+class Logo:
     '''
-        Defines class Logo with attribute(s) and method(s).
-        Creates an API for the logo path in one property object.
-        Note: Logo path is only prepared when it is set by user (not None).
+        Defines the Logo class with attribute(s) and method(s).
+        Provides an API for the logo path in one property object.
+        Note: The logo path is only prepared when it is set by the user (not None).
 
         It defines:
 
             :attributes:
-                | _logo - The logo path for App/Tool/Script (default None).
+                | _logo - The logo path for the App/Tool/Script (default: None).
             :methods:
-                | __init__ - Initializes Logo constructor.
-                | logo - Property methods for set/get logo.
-                | not_none - Checks is logo path not None.
-                | __str__ - Returns the Logo as string representation.
+                | __init__ - Initializes the Logo.
+                | logo - Property methods for setting and getting the logo.
+                | not_none - Checks if the logo path is not None.
+                | __str__ - Returns the Logo as a string representation.
     '''
 
     _logo: str | None
+    _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes Logo constructor.
+            Initializes the Logo.
 
-            :param context_bundle: Context bundle for logo.
-            :type context_bundle: <ContextBundle>
+            :param context_bundle: The context bundle for logo.
             :exceptions:
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSValueError:  Context bundle must be provided and have proper values.
+                | ATSTypeError:   Context bundle must be an instance of ContextBundle
+                |                 and its attributes must be instances of their
+                |                 respective types.
         '''
-        ContextSupport.__init__(self, context_bundle)
+        ContextValidator.validate(context_bundle)
+        self._context = context_bundle
         self._logo = None
 
     @property
     @vreport('getting logo {logo}')
-    @override
     def logo(self) -> str | None:
         '''
-            Property method for getting logo path.
-            Note: Logo path is only prepared when it is set by user (not None).
+            Property method for getting the logo path.
+            Note: The logo path is only prepared when it is set by the user (not None).
 
             :return: The logo path in string format | None.
-            :rtype: <str | None>
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._logo
@@ -93,48 +91,42 @@ class Logo(ContextSupport, ILogo):
     @logo.setter
     @mcheck([('str:logo', None)])
     @vreport('setting logo {logo}')
-    @override
     def logo(self, logo: str) -> None:
         '''
-            Property method for setting logo path.
-            Note: Logo path is only prepared when it is set by user (not None).
+            Property method for setting the logo path.
+            Note: The logo path is only prepared when it is set by the user (not None).
 
             :param logo: The logo path in string format.
-            :type logo: <str>
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSRuntimeError: The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         self._logo = logo
 
     @vreport('checking logo {logo}')
-    @override
     def not_none(self) -> bool:
         '''
-            Checks is logo path not None.
-            Note: Logo path is only prepared when it is set by user (not None).
+            Checks if the logo path is not None.
+            Note: The logo path is only prepared when it is set by the user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._logo is not None
 
-    @override
     def __str__(self) -> str:
         '''
-            Returns the Logo as string representation.
+            Returns the Logo as a string representation.
 
-            :return: The Logo as string representation.
-            :rtype: <str>
+            :return: The Logo as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

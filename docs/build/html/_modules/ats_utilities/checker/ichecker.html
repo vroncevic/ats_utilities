@@ -54,112 +54,147 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines abstract class IChecker with attribute(s) and method(s).</span>
-<span class="sd">    Creates an interface for Checker implementation.</span>
+<span class="sd">    Defines the abstract class IChecker with method(s).</span>
+<span class="sd">    Provides an interface for checking parameters used by method(s) or function(s).</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span>
-<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">EnumMeta</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span>
 
-<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
-<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.format.iformat_validator</span> <span class="kn">import</span> <span class="n">IFormatValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.type.itype_validator</span> <span class="kn">import</span> <span class="n">ITypeValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.context.icontext_provider</span> <span class="kn">import</span> <span class="n">IContextProvider</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.reporter.icheck_reporter</span> <span class="kn">import</span> <span class="n">ICheckReporter</span>
 
-<span class="c1"># Validation resut type: (error message report, error id)</span>
-<span class="nb">type</span> <span class="n">ValidationResult</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
-
-<span class="c1"># Specification for parameters: [(param name, param value), ...]</span>
-<span class="nb">type</span> <span class="n">ParametersSpecs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
-
-
-<div class="viewcode-block" id="ErrorChecker">
-<a class="viewcode-back" href="../../../ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.ErrorChecker">[docs]</a>
-<span class="k">class</span> <span class="nc">ErrorChecker</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class ErrorChecker with attribute(s).</span>
-<span class="sd">        Marks error types for the Checker.</span>
-
-<span class="sd">        It defines:</span>
-
-<span class="sd">            :attributes:</span>
-<span class="sd">                | NO_ERROR - Marks no param error report (0).</span>
-<span class="sd">                | TYPE_ERROR - Marks type param error report (1).</span>
-<span class="sd">                | FORMAT_ERROR - Marks wrong format error report (2).</span>
-<span class="sd">            :methods: None.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">NO_ERROR</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">TYPE_ERROR</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">FORMAT_ERROR</span> <span class="o">=</span> <span class="mi">2</span></div>
-
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.4.4&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="IChecker">
 <a class="viewcode-back" href="../../../ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker">[docs]</a>
-<span class="k">class</span> <span class="nc">IChecker</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="nd">@runtime_checkable</span>
+<span class="k">class</span> <span class="nc">IChecker</span><span class="p">[</span><span class="n">ConfigType</span><span class="p">,</span> <span class="n">ParametersSpecification</span><span class="p">,</span> <span class="n">ValidationResult</span><span class="p">](</span><span class="n">Protocol</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines abstract class IChecker with attribute(s) and method(s).</span>
-<span class="sd">        Creates an interface for Checker implementation.</span>
+<span class="sd">        Defines the abstract class IChecker with method(s).</span>
+<span class="sd">        Provides an interface for checking parameters used by method(s) or function(s).</span>
 
 <span class="sd">        It defines:</span>
 
-<span class="sd">            :attributes:</span>
-<span class="sd">                | ERRORS - Marks error types for message reports (0 | 1 | 2).</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | validates_parameters - Validates parameters for method(s) or function(s).</span>
-<span class="sd">                | is_initialized - Checks if checker component is initialized.</span>
-<span class="sd">                | __str__ - Returns the checker as string representation.</span>
+<span class="sd">                | get_bundle - Gets the current checker configuration bundle.</span>
+<span class="sd">                | update_bundle - Updates the checker configuration bundle.</span>
+<span class="sd">                | get_format_validator - Returns the format validator that is used in the validation of parameters.</span>
+<span class="sd">                | get_type_validator - Returns the type validator that is used in the validation of parameters.</span>
+<span class="sd">                | get_context_provider - Returns the context provider that is used in the validation of parameters.</span>
+<span class="sd">                | get_check_reporter - Returns the check reporter that is used in the validation of parameters.</span>
+<span class="sd">                | validates_parameters - Validates the parameters that are used by method(s) or function(s).</span>
+<span class="sd">                | is_initialized - Checks if the checker is initialized.</span>
+<span class="sd">                | __str__ - Returns the checker as a string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">ERRORS</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">EnumMeta</span><span class="p">]</span> <span class="o">=</span> <span class="n">ErrorChecker</span>
+<div class="viewcode-block" id="IChecker.get_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker.get_bundle">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfigType</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Gets the current checker configuration bundle.</span>
+
+<span class="sd">            :return: The checker configuration bundle.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="IChecker.update_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker.update_bundle">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="n">ConfigType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Updates the checker configuration bundle.</span>
+
+<span class="sd">            :param bundle: The checker configuration bundle.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="IChecker.get_format_validator">
+<a class="viewcode-back" href="../../../ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker.get_format_validator">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_format_validator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IFormatValidator</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the format validator that is used in the validation of parameters.</span>
+
+<span class="sd">            :return: The format validator that is used in the validation of parameters.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="IChecker.get_type_validator">
+<a class="viewcode-back" href="../../../ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker.get_type_validator">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_type_validator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ITypeValidator</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the type validator that is used in the validation of parameters.</span>
+
+<span class="sd">            :return: The type validator that is used in the validation of parameters.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="IChecker.get_context_provider">
+<a class="viewcode-back" href="../../../ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker.get_context_provider">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_context_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IContextProvider</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the context provider that is used in the validation of parameters.</span>
+
+<span class="sd">            :return: The context provider that is used in the validation of parameters.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="IChecker.get_check_reporter">
+<a class="viewcode-back" href="../../../ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker.get_check_reporter">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_check_reporter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ICheckReporter</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the check reporter that is used in the validation of parameters.</span>
+
+<span class="sd">            :return: The check reporter that is used in the validation of parameters.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="o">...</span></div>
+
 
 <div class="viewcode-block" id="IChecker.validates_parameters">
 <a class="viewcode-back" href="../../../ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker.validates_parameters">[docs]</a>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">validates_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">ParametersSpecs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ValidationResult</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">validates_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">ParametersSpecification</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ValidationResult</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Validates parameters for a method(s) or function(s).</span>
+<span class="sd">            Validates the parameters that are used by method(s) or function(s).</span>
 
-<span class="sd">            :param parameters: Specification for parameters.</span>
-<span class="sd">            :type parameters: &lt;ParametersSpecs&gt;</span>
-<span class="sd">            :return: Tuple of error message report and error id.</span>
-<span class="sd">            :rtype: &lt;ValidationResult&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :param parameters: The specification of the parameters that are to be validated.</span>
+<span class="sd">            :return: The result of the validation.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div>
+        <span class="o">...</span></div>
 
 
 <div class="viewcode-block" id="IChecker.is_initialized">
 <a class="viewcode-back" href="../../../ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker.is_initialized">[docs]</a>
-    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Checks if checker component is initialized.</span>
+<span class="sd">            Checks if the checker is initialized.</span>
 
-<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div>
+        <span class="o">...</span></div>
 
 
-    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the checker as string representation.</span>
+<span class="sd">            Returns the checker as a string representation.</span>
 
-<span class="sd">            :return: The checker as string representation.</span>
-<span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :return: The checker as a string representation.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div>
+        <span class="o">...</span></div>
 
 </pre></div>
 

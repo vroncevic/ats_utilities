@@ -7,7 +7,9 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
-   ats_utilities.option.command.command_option
+   ats_utilities.option.command.data
+   ats_utilities.option.command.data_validator
+   ats_utilities.option.command.ioption
    ats_utilities.option.command.ioption_command
 
 Module contents

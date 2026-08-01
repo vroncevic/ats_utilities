@@ -16,85 +16,72 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IBuildDate with method(s).
-    Interface for the build date mechanism.
+    Defines the IBuildDate abstract class with method(s).
+    An interface for the build date mechanism.
 '''
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
+from typing import Protocol, runtime_checkable
 
-from abc import ABC, abstractmethod
-
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IBuildDate(IContextSupport, ABC):
+@runtime_checkable
+class IBuildDate[BuildDateType](Protocol):
     '''
-        Defines abstract class IBuildDate with method(s).
-        Interface for the build date mechanism.
-        Note: Build date is only prepared when it is set by user (not None).
+        Defines the IBuildDate abstract class with method(s).
+        An interface for the build date mechanism.
+        Note: The build date is only prepared when it is set by the user (not None).
 
         It defines:
 
             :methods:
-                | build_date - Property methods for set/get operations.
-                | not_none - Checks if build date is not None.
-                | __str__ - Returns the build date as string representation.
+                | build_date - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the build date is not None.
+                | __str__ - Returns the build date as a string representation.
     '''
 
     @property
-    @abstractmethod
-    def build_date(self) -> str | None:
+    def build_date(self) -> BuildDateType | None:
         '''
-            Property method for getting build date.
-            Note: Build date is only prepared when it is set by user (not None).
+            Property method for getting the build date.
+            Note: The build date is only prepared when it is set by the user (not None).
 
-            :return: The build date in string format | None.
-            :rtype: <str | None>
-            :exceptions: None.
+            :return: The build date in BuildDateType format | None.
         '''
-        pass
+        ...
 
     @build_date.setter
-    @abstractmethod
-    def build_date(self, build_date: str) -> None:
+    def build_date(self, build_date: BuildDateType | None) -> None:
         '''
-            Property method for setting build date.
-            Note: Build date is only prepared when it is set by user (not None).
+            Property method for setting the build date.
+            Note: The build date is only prepared when it is set by the user (not None).
 
-            :param build_date: The build date in string format.
-            :type build_date: <str>
-            :exceptions: None.
+            :param build_date: The build date in BuildDateType format.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks if build date is not None.
-            Note: Build date is only prepared when it is set by user (not None).
+            Checks if the build date is not None.
+            Note: The build date is only prepared when it is set by the user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
+            :return: True if successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the build date as string representation.
+            Returns the build date as a string representation.
 
-            :return: The build date as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The build date as a string representation.
         '''
-        pass
+        ...

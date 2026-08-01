@@ -23,28 +23,27 @@ from collections.abc import Sequence
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.checker_registry import CheckerRegistry
+from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.logger_registry import LoggerRegistry
+from ats_utilities.logger.setup.factory import LoggerFactory
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.reporter.theme.engine import ConsoleTheme
-from ats_utilities.reporter.reporter_bundle import ReporterBundle
+from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.utils.component import make_component, validate_component
 from ats_utilities.utils.reflection import has_attrs
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 class TestComponent:
@@ -57,13 +56,13 @@ class TestComponent:
 
         :exceptions: None.
         '''
-        checker_bundle = CheckerRegistry.create_default_checker_bundle()
-        self._checker: IChecker = make_component(None, Checker, {'component_bundle': checker_bundle})
+        checker_bundle = CheckerFactory.create_bundle()
+        self._checker: IChecker = make_component(None, Checker, {'own': checker_bundle})
         self._theme: IConsoleTheme = make_component(None, ConsoleTheme, None)
-        logger_bundle = LoggerRegistry.create_default_logger_bundle()
-        logger_instance = make_component(None, Logger, {'component_bundle': logger_bundle})
+        logger_bundle = LoggerFactory.create_bundle()
+        logger_instance = make_component(None, Logger, {'own': logger_bundle})
         reporter_bundle = ReporterBundle(theme=self._theme, checker=self._checker, logger=logger_instance)
-        self._reporter: IReporter = make_component(None, Reporter, {'component_bundle': reporter_bundle})
+        self._reporter: IReporter = make_component(None, Reporter, {'own': reporter_bundle})
         validate_component(self._checker, IChecker, 'testcomponent::__init__', 'checker should be of type IChecker')
         validate_component(self._theme, IConsoleTheme, 'testcomponent::__init__', 'theme should be of type IConsoleTheme')
         validate_component(self._reporter, IReporter, 'testcomponent::__init__', 'reporter should be of type IReporter')
@@ -82,7 +81,6 @@ class TestComponent:
         Run the message.
 
         :param message: Messages to run.
-        :type message: <Sequence[str]>
         :exceptions: None.
         """
         self._reporter.success(message)

@@ -15,7 +15,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.reporter.engine module" href="ats_utilities.reporter.engine.html" />
+    <link rel="next" title="ats_utilities.reporter.theme.types module" href="ats_utilities.reporter.theme.types.html" />
     <link rel="prev" title="ats_utilities.reporter.theme.engine module" href="ats_utilities.reporter.theme.engine.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -28,7 +28,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.reporter.engine.html" title="ats_utilities.reporter.engine module"
+          <a href="ats_utilities.reporter.theme.types.html" title="ats_utilities.reporter.theme.types module"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.reporter.theme.engine.html" title="ats_utilities.reporter.theme.engine module"
@@ -64,23 +64,23 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines abstract class IConsoleTheme with method(s).
-Defines interface for console styling.</p>
+<dt>Info</dt><dd><p>Defines the abstract class IConsoleTheme with method(s).
+Provides an interface for the console styling.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.reporter.theme.iconsole_theme.</span></span><span class="sig-name descname"><span class="pre">IConsoleTheme</span></span><a class="reference internal" href="_modules/ats_utilities/reporter/theme/iconsole_theme.html#IConsoleTheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Defines abstract class IConsoleTheme with method(s).
-Defines interface for console styling.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.reporter.theme.iconsole_theme.</span></span><span class="sig-name descname"><span class="pre">IConsoleTheme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/reporter/theme/iconsole_theme.html#IConsoleTheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<p>Defines the abstract class IConsoleTheme with method(s).
+Provides an interface for the console styling.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">get_color - Returns color code based on type.</div>
-<div class="line">__str__ - Returns the console theme as string representation.</div>
+<div class="line">get_color - Returns the color code based on type.</div>
+<div class="line">__str__ - Returns the console theme as a string representation.</div>
 </div>
 </dd>
 </dl>
@@ -90,22 +90,26 @@ Defines interface for console styling.</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme._is_protocol">
+<span class="sig-name descname"><span class="pre">_is_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme._is_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme._is_runtime_protocol">
+<span class="sig-name descname"><span class="pre">_is_runtime_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme._is_runtime_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme.get_color">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/theme/iconsole_theme.html#IConsoleTheme.get_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme.get_color" title="Link to this definition">¶</a></dt>
-<dd><p>Returns color code based on type.</p>
+<span class="sig-name descname"><span class="pre">get_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/theme/iconsole_theme.html#IConsoleTheme.get_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme.get_color" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the color code based on the type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>color_type</strong> (<em>&lt;str&gt;</em>) – Type of the message (error, success, etc.).</p>
+<dd class="field-odd"><p><strong>color_type</strong> – The type of the console message (e.g. error, success).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Color code.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;str&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><p>The color code.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -127,6 +131,8 @@ Defines interface for console styling.</p>
 <li><a class="reference internal" href="#">ats_utilities.reporter.theme.iconsole_theme module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme"><code class="docutils literal notranslate"><span class="pre">IConsoleTheme</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme._abc_impl"><code class="docutils literal notranslate"><span class="pre">IConsoleTheme._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme._is_protocol"><code class="docutils literal notranslate"><span class="pre">IConsoleTheme._is_protocol</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme._is_runtime_protocol"><code class="docutils literal notranslate"><span class="pre">IConsoleTheme._is_runtime_protocol</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme.get_color"><code class="docutils literal notranslate"><span class="pre">IConsoleTheme.get_color()</span></code></a></li>
 </ul>
 </li>
@@ -142,8 +148,8 @@ Defines interface for console styling.</p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.reporter.engine.html"
-                          title="next chapter">ats_utilities.reporter.engine module</a></p>
+    <p class="topless"><a href="ats_utilities.reporter.theme.types.html"
+                          title="next chapter">ats_utilities.reporter.theme.types module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -176,7 +182,7 @@ Defines interface for console styling.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.reporter.engine.html" title="ats_utilities.reporter.engine module"
+          <a href="ats_utilities.reporter.theme.types.html" title="ats_utilities.reporter.theme.types module"
              >next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.reporter.theme.engine.html" title="ats_utilities.reporter.theme.engine module"

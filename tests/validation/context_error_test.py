@@ -30,7 +30,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.3'
+__version__: str = '3.4.4'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
@@ -58,7 +58,7 @@ class ContextErrorTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(ATSValueError) as ctx:
-            raise_error("my_prefix", "my_fallback", "some_context")
+            raise_error("my_prefix", "my_fallback")
         self.assertEqual(str(ctx.exception), "my_prefix - my_fallback")
 
     def test_raise_error_fallback_custom_exception(self) -> None:
@@ -68,7 +68,7 @@ class ContextErrorTest(unittest.TestCase):
             :exceptions: None.
         '''
         with self.assertRaises(RuntimeError) as ctx:
-            raise_error("my_prefix", "my_fallback", "some_context", exc_class=RuntimeError)
+            raise_error("my_prefix", "my_fallback", exc_class=RuntimeError)
         self.assertEqual(str(ctx.exception), "my_prefix - my_fallback")
 
     def test_raise_error_msg(self) -> None:

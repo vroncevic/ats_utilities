@@ -20,42 +20,41 @@ Info
 '''
 
 import sys
-from typing import Any
-from ats_utilities.context.context_registry import ContextRegistry
-from ats_utilities.option.option_registry import OptionRegistry
+from ats_utilities.context.factory import ContextFactory
+from ats_utilities.option.setup.factory import OptionFactory
 from ats_utilities.option.engine import OptionManager
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 #
 # default [based on argparse]
 # =============================
 #
-opt_parser = {
-    'name': 'mytool',
-    'epilog': 'mytool is simple',
-    'description': 'mytool is simple cli tool',
-    'version': '1.2.4'
+opt_parser: dict[str, object] = {
+    'ats_name': 'mytool',
+    'ats_version': '1.2.4',
+    'ats_licence': 'mytool is simple',
+    'ats_build_date': '2026-07-30',
+    'ats_info_ok': True
 }
-
 OPS: list[str] = ['-n', '--name', '-v', '--verbose']
-context_bundle = ContextRegistry.create_default_context_bundle()
-component_bundle = OptionRegistry.create_option_bundle_from_dict(
-    parameters=opt_parser,
-    context_bundle=context_bundle
-)
-parser: OptionManager = OptionManager(component_bundle=component_bundle)
+own = OptionFactory.create_bundle({
+    'parameters': opt_parser,
+    'context_bundle': ContextFactory.create_bundle()
+})
+parser: OptionManager = OptionManager(own=own)
 parser.add_version_operation('1.2.4')
 parser.add_operation(OPS[0], OPS[1], dest='name', help='generate project (provide name)')
 
-args: Any = parser.parse_args(sys.argv)
+args: object = parser.parse_args(sys.argv)
+
 if bool(getattr(args, "name")):
     print(f'option name: {getattr(args, "name")}')

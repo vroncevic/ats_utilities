@@ -62,14 +62,44 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.context_error</span> <span class="kn">import</span> <span class="n">raise_error</span>
 
-<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
-<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.4.4&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
+
+
+<span class="n">TRUE</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;True&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;TRUE&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;true&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;T&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;t&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Yes&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;y&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;On&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;on&#39;</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+
+<span class="n">FALSE</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;False&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;FALSE&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;false&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;F&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;f&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;No&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;n&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Off&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;off&#39;</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 
 
 <div class="viewcode-block" id="str_bool_to_bool">
@@ -83,12 +113,9 @@
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Converts a string boolean to a boolean.</span>
 
-<span class="sd">        :param value: String boolean to convert to a boolean.</span>
-<span class="sd">        :type value: &lt;str&gt;</span>
-<span class="sd">        :param exc_context: Context representation in string format.</span>
-<span class="sd">        :type exc_context: &lt;str | None&gt;</span>
-<span class="sd">        :return: Boolean value.</span>
-<span class="sd">        :rtype: &lt;bool&gt;</span>
+<span class="sd">        :param value: The string boolean to convert to a boolean.</span>
+<span class="sd">        :param exc_context: The context representation in string format.</span>
+<span class="sd">        :return: The boolean value.</span>
 <span class="sd">        :exceptions:</span>
 <span class="sd">            | Dynamically raises the provided exc_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -99,7 +126,7 @@
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
             <span class="n">raise_error</span><span class="p">(</span>
-                <span class="n">fallback_context</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;boolean::str_bool_to_bool(...)&#39;</span><span class="p">,</span>
+                <span class="n">fallback_context</span><span class="o">=</span><span class="s1">&#39;boolean::str_bool_to_bool(...)&#39;</span><span class="p">,</span>
                 <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;can not convert </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1"> to bool&#39;</span><span class="p">,</span>
                 <span class="n">exc_context</span><span class="o">=</span><span class="n">exc_context</span><span class="p">,</span>
                 <span class="n">exc_message</span><span class="o">=</span><span class="n">exc_message</span><span class="p">,</span>

@@ -64,17 +64,17 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines abstract class IConfigProcessor with method(s).
-Creates an interface for processing configuration content.
+<dt>Info</dt><dd><p>Defines the IConfigProcessor abstract class with method(s).
+Provides an interface for processing configuration content.
 1th level of configuration loader/storer interface.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.processor.iconfig_processor.</span></span><span class="sig-name descname"><span class="pre">IConfigProcessor</span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/iconfig_processor.html#IConfigProcessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Defines abstract class IConfigProcessor with method(s).
-Creates an interface for processing configuration content.
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.processor.iconfig_processor.</span></span><span class="sig-name descname"><span class="pre">IConfigProcessor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/iconfig_processor.html#IConfigProcessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></p>
+<p>Defines the IConfigProcessor abstract class with method(s).
+Provides an interface for processing configuration content.
 1th level of configuration loader/storer interface.</p>
 <p>It defines:</p>
 <blockquote>
@@ -83,10 +83,10 @@ Creates an interface for processing configuration content.
 <dd class="field-odd"><div class="line-block">
 <div class="line">deserialize - Loads and parses configuration from a raw source (string, stream, or lines).</div>
 <div class="line">serialize - Converts the internal configuration structure back to a formatted string representation.</div>
-<div class="line">update_data - Updates the internal configuration data and validates it against the scheme.</div>
+<div class="line">update_data - Updates the internal configuration data and Validates the it against the scheme.</div>
 <div class="line">to_dict - Returns the parsed configuration as a flat or structured dictionary.</div>
 <div class="line">validate_by_scheme - Validates the internal parsed data structure against the provided scheme.</div>
-<div class="line">__str__ - Returns the configuration processor as string representation.</div>
+<div class="line">__str__ - Returns the configuration processor as a string representation.</div>
 </div>
 </dd>
 </dl>
@@ -105,93 +105,73 @@ processor class documentation for concrete examples.</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor._is_protocol">
+<span class="sig-name descname"><span class="pre">_is_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor._is_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor._is_runtime_protocol">
+<span class="sig-name descname"><span class="pre">_is_runtime_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor._is_runtime_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.deserialize">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/iconfig_processor.html#IConfigProcessor.deserialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.deserialize" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/iconfig_processor.html#IConfigProcessor.deserialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.deserialize" title="Link to this definition">¶</a></dt>
 <dd><p>Loads and parses configuration from a raw source (string, stream, or lines).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>content</strong> (<em>&lt;Any&gt;</em>) – Raw configuration data (str, stream, or sequence).</p>
+<dd class="field-odd"><p><strong>content</strong> – The raw configuration data (str, stream, or sequence).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><p>True if successful, otherwise False.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.serialize">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/iconfig_processor.html#IConfigProcessor.serialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.serialize" title="Link to this definition">¶</a></dt>
-<dd><p>Converts the internal configuration structure back to a formatted string representation.</p>
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/iconfig_processor.html#IConfigProcessor.serialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.serialize" title="Link to this definition">¶</a></dt>
+<dd><p>Converts internal configuration structure back to a formatted string representation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Configuration content as string.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;str&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>The configuration content as a string.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.to_dict">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/iconfig_processor.html#IConfigProcessor.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.to_dict" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the parsed configuration as a flat or structured dictionary.</p>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataType</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/iconfig_processor.html#IConfigProcessor.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.to_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Returns parsed configuration as a flat or structured dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary with configuration information.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;dict[str, str]&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>The configuration.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.update_data">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/iconfig_processor.html#IConfigProcessor.update_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.update_data" title="Link to this definition">¶</a></dt>
-<dd><p>Updates the internal configuration data and validates it against the scheme.</p>
+<span class="sig-name descname"><span class="pre">update_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataType</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/iconfig_processor.html#IConfigProcessor.update_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.update_data" title="Link to this definition">¶</a></dt>
+<dd><p>Updates internal configuration data and Validates the it against the scheme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>new_data</strong> (<em>&lt;Mapping</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>&gt;</em>) – Mapping containing configuration keys and values.</p>
+<dd class="field-odd"><p><strong>new_data</strong> – The configuration data.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><p>True if successful, otherwise False.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.validate_by_scheme">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_by_scheme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/iconfig_processor.html#IConfigProcessor.validate_by_scheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.validate_by_scheme" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">validate_by_scheme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/iconfig_processor.html#IConfigProcessor.validate_by_scheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.validate_by_scheme" title="Link to this definition">¶</a></dt>
 <dd><p>Validates the internal parsed data structure against the provided scheme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;True&gt; if data matches the scheme, &lt;False&gt; otherwise.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>True if successful, otherwise False.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -214,6 +194,8 @@ processor class documentation for concrete examples.</p>
 <li><a class="reference internal" href="#">ats_utilities.config_io.processor.iconfig_processor module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor"><code class="docutils literal notranslate"><span class="pre">IConfigProcessor</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor._abc_impl"><code class="docutils literal notranslate"><span class="pre">IConfigProcessor._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor._is_protocol"><code class="docutils literal notranslate"><span class="pre">IConfigProcessor._is_protocol</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor._is_runtime_protocol"><code class="docutils literal notranslate"><span class="pre">IConfigProcessor._is_runtime_protocol</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.deserialize"><code class="docutils literal notranslate"><span class="pre">IConfigProcessor.deserialize()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.serialize"><code class="docutils literal notranslate"><span class="pre">IConfigProcessor.serialize()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor.to_dict"><code class="docutils literal notranslate"><span class="pre">IConfigProcessor.to_dict()</span></code></a></li>

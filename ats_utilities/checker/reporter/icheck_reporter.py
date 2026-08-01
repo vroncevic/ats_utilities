@@ -16,59 +16,50 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ICheckReporter with method(s).
-    Creates an interface for formating message report in context of checker.
+    Defines the abstract class ICheckReporter with method(s).
+    Provides an interface for building a final message in the context of a checker.
 '''
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
-from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle
-
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ICheckReporter(ABC):
+@runtime_checkable
+class ICheckReporter[ReportDataType, ReportType](Protocol):
     '''
-        Defines abstract class ICheckReporter with method(s).
-        Creates an interface for formating message report in context of checker.
+        Defines the abstract class ICheckReporter with method(s).
+        Provides an interface for building the final message in the context of a checker.
 
         It defines:
 
             :methods:
-                | build_message_format - Builds the final message report for checker.
-                | __str__ - Returns the reporter as string representation.
+                | build_message - Builds the final message.
+                | __str__ - Returns the checker reporter as a string representation.
     '''
-    @abstractmethod
-    def build_message_format(self, report_bundle: CheckerReporterBundle) -> str:
-        '''
-            Builds the final message report for checker.
 
-            :param report_bundle: Bundle with parameters.
-            :type report_bundle: <CheckerReporterBundle>
-            :return: Formatted message report
-            :rtype: <str>
-            :exceptions:
-                | ATSValueError: Report bundle must be provided.
-                | ATSTypeError: Report bundle must be a CheckerReporterBundle instance.
+    def build_message(self, data: ReportDataType) -> ReportType:
         '''
-        pass
+            Builds the final message.
 
-    @abstractmethod
+            :param data: The data to be processed and reported on.
+            :return: The final message.
+        '''
+        ...
+
     def __str__(self) -> str:
         '''
-            Returns the reporter as string representation.
+            Returns the checker reporter as a string representation.
 
-            :return: The reporter as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The checker reporter as a string representation.
         '''
-        pass
+        ...

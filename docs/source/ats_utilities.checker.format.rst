@@ -7,7 +7,7 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
-   ats_utilities.checker.format.format_validator
+   ats_utilities.checker.format.engine
    ats_utilities.checker.format.iformat_validator
 
 Module contents

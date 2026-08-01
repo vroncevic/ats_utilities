@@ -64,26 +64,26 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines abstract class IStorer with method(s).
-Creates an interface for storing the configuration to writer.
+<dt>Info</dt><dd><p>Defines the IStorer abstract class with method(s).
+Provides an interface for storing the configuration to writer.
 2nd level of configuration storer interface.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.storer.istorer.IStorer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.storer.istorer.</span></span><span class="sig-name descname"><span class="pre">IStorer</span></span><a class="reference internal" href="_modules/ats_utilities/config_io/storer/istorer.html#IStorer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.storer.istorer.IStorer" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.context.icontext_support.html#ats_utilities.context.icontext_support.IContextSupport" title="ats_utilities.context.icontext_support.IContextSupport"><code class="xref py py-class docutils literal notranslate"><span class="pre">IContextSupport</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Defines abstract class IStorer with method(s).
-Creates an interface for storing the configuration to writer.
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.storer.istorer.</span></span><span class="sig-name descname"><span class="pre">IStorer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/storer/istorer.html#IStorer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.storer.istorer.IStorer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></p>
+<p>Defines the IStorer abstract class with method(s).
+Provides an interface for storing the configuration to writer.
 2nd level of configuration storer interface.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">get_shared_context - Returns the shared context.</div>
-<div class="line">store_configuration - Stores configuration content from mapping to configuration file.</div>
-<div class="line">__str__ - Returns the storer instance as string representation.</div>
+<div class="line">get_context - Returns the context.</div>
+<div class="line">store_configuration - Stores configuration to configuration file.</div>
+<div class="line">__str__ - Returns the storer as a string representation.</div>
 </div>
 </dd>
 </dl>
@@ -93,39 +93,37 @@ Creates an interface for storing the configuration to writer.
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_io.storer.istorer.IStorer._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.storer.istorer.IStorer._is_protocol">
+<span class="sig-name descname"><span class="pre">_is_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.config_io.storer.istorer.IStorer._is_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.storer.istorer.IStorer._is_runtime_protocol">
+<span class="sig-name descname"><span class="pre">_is_runtime_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.config_io.storer.istorer.IStorer._is_runtime_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.config_io.storer.istorer.IStorer.get_shared_context">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/storer/istorer.html#IStorer.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.storer.istorer.IStorer.get_shared_context" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the shared context.</p>
+<dt class="sig sig-object py" id="ats_utilities.config_io.storer.istorer.IStorer.get_context">
+<span class="sig-name descname"><span class="pre">get_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ContextEnvironment</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/storer/istorer.html#IStorer.get_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.storer.istorer.IStorer.get_context" title="Link to this definition">¶</a></dt>
+<dd><p>Returns context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Shared context.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;ContextBundle&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>The context.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.storer.istorer.IStorer.store_configuration">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">store_configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/storer/istorer.html#IStorer.store_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.storer.istorer.IStorer.store_configuration" title="Link to this definition">¶</a></dt>
-<dd><p>Stores configuration content from mapping to configuration file.</p>
+<span class="sig-name descname"><span class="pre">store_configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConfigurationType</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/storer/istorer.html#IStorer.store_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.storer.istorer.IStorer.store_configuration" title="Link to this definition">¶</a></dt>
+<dd><p>Stores configuration to configuration file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>config</strong> (<em>&lt;Mapping</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>&gt;</em>) – Mapping with configuration information (read only data).</p>
+<dd class="field-odd"><p><strong>config</strong> – The configuration.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><p>True if successful, otherwise False.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -147,7 +145,9 @@ Creates an interface for storing the configuration to writer.
 <li><a class="reference internal" href="#">ats_utilities.config_io.storer.istorer module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.storer.istorer.IStorer"><code class="docutils literal notranslate"><span class="pre">IStorer</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.storer.istorer.IStorer._abc_impl"><code class="docutils literal notranslate"><span class="pre">IStorer._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.storer.istorer.IStorer.get_shared_context"><code class="docutils literal notranslate"><span class="pre">IStorer.get_shared_context()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.storer.istorer.IStorer._is_protocol"><code class="docutils literal notranslate"><span class="pre">IStorer._is_protocol</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.storer.istorer.IStorer._is_runtime_protocol"><code class="docutils literal notranslate"><span class="pre">IStorer._is_runtime_protocol</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.storer.istorer.IStorer.get_context"><code class="docutils literal notranslate"><span class="pre">IStorer.get_context()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.storer.istorer.IStorer.store_configuration"><code class="docutils literal notranslate"><span class="pre">IStorer.store_configuration()</span></code></a></li>
 </ul>
 </li>

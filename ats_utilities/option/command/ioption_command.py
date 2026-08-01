@@ -16,84 +16,71 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IOptionCommand with method(s).
-    Creates an interface for command with options.
+    Defines the IOptionCommand abstract class with method(s).
+    Provides an interface for command with options.
 '''
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 from collections.abc import Sequence
 
-from ats_utilities.option.command.command_option import CommandOption
-
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IOptionCommand(ABC):
+@runtime_checkable
+class IOptionCommand[MetaOption](Protocol):
     '''
-        Defines abstract class IOptionCommand with method(s).
-        Creates an interface for command with options.
+        Defines the IOptionCommand abstract class with method(s).
+        Provides an interface for command with options.
 
         It defines:
 
             :methods:
-                | name - Returns the name of the command.
-                | help_text - Returns the help text of the command.
+                | name - Returns the command name.
+                | help_text - Returns the command help text.
                 | options - Returns the sequence of options for the command.
-                | __str__ - Returns the string representation of IOptionCommand.
+                | __str__ - Returns the option command as a string representation.
     '''
 
     @property
-    @abstractmethod
     def name(self) -> str:
         '''
-            Returns the name of the command.
+            Returns the command name.
 
-            :return: Name of the command.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The command name.
         '''
-        pass
+        ...
 
     @property
-    @abstractmethod
     def help_text(self) -> str:
         '''
-            Returns the help text of the command.
+            Returns the command help text.
 
-            :return: Help text of the command.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The command help text.
         '''
-        pass
+        ...
 
     @property
-    @abstractmethod
-    def options(self) -> Sequence[CommandOption]:
+    def options(self) -> Sequence[MetaOption]:
         '''
             Returns the sequence of options for the command.
 
-            :return: Sequence of options for the command.
-            :rtype: <Sequence[CommandOption]>
-            :exceptions: None.
+            :return: The sequence of options for the command.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the string representation of option command.
 
-            :return: String representation of option command.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The string representation of option command.
         '''
-        pass
+        ...

@@ -15,6 +15,7 @@ Subpackages
    ats_utilities.info.name
    ats_utilities.info.organization
    ats_utilities.info.repository
+   ats_utilities.info.setup
    ats_utilities.info.use_github
    ats_utilities.info.version
 
@@ -25,10 +26,7 @@ Submodules
    :maxdepth: 4
 
    ats_utilities.info.engine
-   ats_utilities.info.iinfo_manager
-   ats_utilities.info.info_bundle
-   ats_utilities.info.info_keys
-   ats_utilities.info.info_registry
+   ats_utilities.info.imanager
 
 Module contents
 ---------------

@@ -1,6 +1,17 @@
 ats\_utilities.logger package
 =============================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   ats_utilities.logger.buffer
+   ats_utilities.logger.formatter
+   ats_utilities.logger.handler
+   ats_utilities.logger.setup
+
 Submodules
 ----------
 
@@ -9,8 +20,6 @@ Submodules
 
    ats_utilities.logger.engine
    ats_utilities.logger.ilogger
-   ats_utilities.logger.logger_bundle
-   ats_utilities.logger.logger_registry
 
 Module contents
 ---------------

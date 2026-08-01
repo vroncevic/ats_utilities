@@ -16,121 +16,113 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILogger with attribute(s) and method(s).
-    Interface for the logger mechanism.
+    Defines the abstract class ILogger with method(s).
+    Provides an interface for the logger.
 '''
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'1.0.0'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '1.0.0'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ILogger(ABC):
+@runtime_checkable
+class ILogger[ConfigType, LogFileType, LogLevelType, MesssageType](Protocol):
     '''
-        Defines abstract class ILogger with attribute(s) and method(s).
-        Interface for the logger mechanism.
+        Defines the abstract class ILogger with attribute(s) and method(s).
+        Provides an interface for the logger.
 
         It defines:
 
             :methods:
-                | write_log - Writes message to log output.
-                | is_initialized - Checks if logger is initialized.
-                | set_level - Sets log level.
-                | set_log_file - Sets log file.
-                | set_stdout - Sets log output to standard output (stdout).
-                | set_stderr - Sets log output to standard error (stderr).
-                | stop_buffering - Stops log buffering.
-                | __str__ - Returns the logger as string representation.
+                | get_bundle - Gets the current logger configuration bundle.
+                | is_initialized - Checks if the logger is initialized.
+                | update_bundle - Updates the logger configuration bundle.
+                | set_level - Sets the log level.
+                | set_log_file - Configures the output handler to output to the log file.
+                | set_stdout - Configures the output handler to output to the standard output.
+                | stop_buffering - Stops the log buffering.
+                | write_log - Writes the message to the log output.
+                | __str__ - Returns the logger as a string representation.
     '''
 
-    @abstractmethod
-    def write_log(self, message: str, ctrl: int) -> None:
+    def get_bundle(self) -> ConfigType:
         '''
-            Writes message to log output.
+            Gets the current logger configuration bundle.
 
-            :param message: Log message.
-            :type message: <str>
-            :param ctrl: Log control flag.
-            :type ctrl: <int>
-            :exceptions: None.
+            :return: The logger configuration bundle.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def is_initialized(self) -> bool:
         '''
-            Checks if logger is initialized.
+            Checks if the logger is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
+            :return: True if successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def set_level(self, level: int) -> None:
+    def update_bundle(self, bundle: ConfigType) -> bool:
         '''
-            Sets log level.
+            Updates the logger configuration bundle.
 
-            :param level: Log level.
-            :type level: <int>
-            :exceptions: None.
+            :param bundle: The logger configuration bundle.
+            :return: True if successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def set_log_file(self, log_file: str) -> None:
+    def set_level(self, level: LogLevelType) -> None:
         '''
-            Sets log file.
+            Sets the log level.
 
-            :param log_file: Log file path.
-            :type log_file: <str>
-            :exceptions: None.
+            :param level: The log level.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def set_stdout(self) -> None:
+    def set_log_file(self, log_file: LogFileType) -> bool:
         '''
-            Sets log output to standard output (stdout).
+            Configures the output handler to output to the log file.
 
-            :exceptions: None.
+            :param log_file: The log file.
+            :return: True if successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def set_stderr(self) -> None:
+    def set_stdout(self) -> bool:
         '''
-            Sets log output to standard error (stderr).
+            Configures the output handler to output to the standard output.
 
-            :exceptions: None.
+            :return: True if successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def stop_buffering(self) -> None:
         '''
             Stops log buffering.
-
-            :exceptions: None.
         '''
-        pass
+        ...
+
+    def write_log(self, level: LogLevelType, message: MesssageType) -> None:
+        '''
+            Writes the message to the log output.
+
+            :param level: The log message level.
+            :param message: The message to be logged.
+        '''
+        ...
 
     def __str__(self) -> str:
         '''
-            Returns the logger as string representation.
+            Returns the logger as a string representation.
 
-            :return: The logger as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The logger as a string representation.
         '''
-        pass
+        ...

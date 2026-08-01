@@ -1,136 +1,153 @@
 # -*- coding: UTF-8 -*-
 
+'''
+Module
+    engine_test.py
+Copyright
+    Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Unit tests for Base engine class.
+'''
+
+from __future__ import annotations
+
 import unittest
 from unittest.mock import MagicMock, patch
-from typing import Any, override
 
-# Adjust imports according to your project structure
 from ats_utilities.base.engine import Base
-from ats_utilities.base.base_bundle import BaseBundle
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.config_io.loader.iloader import ILoader
-from ats_utilities.info.iinfo_manager import IInfoManager
-from ats_utilities.splasher.isplasher import ISplasher
-from ats_utilities.option.ioption_manager import IOptionManager
-from ats_utilities.option.option_namespace import OptionNamespace
-from ats_utilities.generator.igenerator import IGenerator
+from ats_utilities.base.setup.bundle import BaseBundle
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.info.imanager import IInfoManager
+from ats_utilities.option.imanager import IOptionManager
+from ats_utilities.splash.imanager import ISplashManager
+from ats_utilities.generation.imanager import IGeneratorManager
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
 
 
 class ConcreteBase(Base):
-    """A concrete implementation of the abstract Base class for testing purposes."""
-    
-    @override
+    """A concrete implementation of the Base class for testing purposes."""
+
     def process(self, verbose: bool = False) -> bool:
         return True
 
 
+@patch("ats_utilities.base.engine.BaseValidator")
 class TestBaseEngine(unittest.TestCase):
     """Unit tests for the Base orchestrator engine class."""
 
     def setUp(self) -> None:
         """Set up standard context and component bundle mocks."""
         self.mock_context = MagicMock(spec=ContextBundle)
-        self.mock_loader = MagicMock(spec=ILoader)
-        
-        # Core sub-managers
         self.mock_info_manager = MagicMock(spec=IInfoManager)
-        self.mock_splasher = MagicMock(spec=ISplasher)
-        self.mock_options_parser = MagicMock(spec=IOptionManager)
-        self.mock_generator = MagicMock(spec=IGenerator)
+        self.mock_option_manager = MagicMock(spec=IOptionManager)
+        self.mock_splash_manager = MagicMock(spec=ISplashManager)
+        self.mock_generation_manager = MagicMock(spec=IGeneratorManager)
 
         # By default, configure components to report they are initialized
         self.mock_info_manager.is_initialized.return_value = True
-        self.mock_splasher.is_initialized.return_value = True
-        self.mock_options_parser.is_initialized.return_value = True
-        self.mock_generator.is_initialized.return_value = True
+        self.mock_option_manager.is_initialized.return_value = True
+        self.mock_splash_manager.is_initialized.return_value = True
+        self.mock_generation_manager.is_initialized.return_value = True
 
         # Build mock configuration BaseBundle
         self.mock_bundle = MagicMock(spec=BaseBundle)
         self.mock_bundle.context_bundle = self.mock_context
-        self.mock_bundle.config_loader = self.mock_loader
         self.mock_bundle.info_manager = self.mock_info_manager
-        self.mock_bundle.splasher = self.mock_splasher
-        self.mock_bundle.options_parser = self.mock_options_parser
-        self.mock_bundle.generator = self.mock_generator
-        self.mock_bundle.use_generator = False
+        self.mock_bundle.option_manager = self.mock_option_manager
+        self.mock_bundle.splash_manager = self.mock_splash_manager
+        self.mock_bundle.generation_manager = self.mock_generation_manager
 
-    def test_initialization_success_without_generator(self) -> None:
-        """Test successful initialization and readiness flags when the generator is disabled."""
-        self.mock_bundle.use_generator = False
-        
+    def test_initialization_success_with_generator(self, mock_val: MagicMock) -> None:
+        """Test successful initialization and readiness flags when the generator is enabled."""
         base_instance = ConcreteBase(self.mock_bundle)
 
-        self.assertEqual(base_instance.get_shared_context(), self.mock_context)
+        self.assertEqual(base_instance.get_context(), self.mock_context)
         self.assertTrue(base_instance.is_initialized())
-        
-        # Verify generator was not checked or bound
-        self.assertFalse(hasattr(base_instance, "_generator"))
+        self.assertEqual(base_instance._generation_manager, self.mock_generation_manager)
 
-    def test_initialization_success_with_generator(self) -> None:
-        """Test successful initialization and readiness verification when the generator is enabled."""
-        self.mock_bundle.use_generator = True
-        
+    def test_initialization_success_without_generator(self, mock_val: MagicMock) -> None:
+        """Test successful initialization and readiness flags when the generator is None."""
+        self.mock_bundle.generation_manager = None
         base_instance = ConcreteBase(self.mock_bundle)
 
-        self.assertEqual(base_instance._generator, self.mock_generator)
-        self.mock_generator.is_initialized.assert_called_once()
+        self.assertEqual(base_instance.get_context(), self.mock_context)
         self.assertTrue(base_instance.is_initialized())
+        self.assertIsNone(base_instance._generation_manager)
 
-    def test_initialization_fails_when_component_uninitialized(self) -> None:
+    def test_initialization_fails_when_component_uninitialized(self, mock_val: MagicMock) -> None:
         """Test that if any sub-component is uninitialized, the engine reports uninitialized."""
         self.mock_info_manager.is_initialized.return_value = False
-        
+
         base_instance = ConcreteBase(self.mock_bundle)
         self.assertFalse(base_instance.is_initialized())
 
-    def test_initialization_invalid_bundle(self) -> None:
+    def test_initialization_invalid_bundle(self, mock_val: MagicMock) -> None:
         """Test validation check faults when passing an invalid configuration bundle type."""
-        with self.assertRaises(Exception):
+        # When validation fails, we want it to raise the error
+        mock_val.validate.side_effect = ATSValueError("invalid bundle")
+        with self.assertRaises(ATSValueError):
             ConcreteBase(None)  # type: ignore
 
-        with self.assertRaises(Exception):
+        mock_val.validate.side_effect = ATSTypeError("invalid bundle type")
+        with self.assertRaises(ATSTypeError):
             ConcreteBase(MagicMock())  # type: ignore
 
-    def test_add_new_option_delegation(self) -> None:
-        """Test that add_new_option properly forwards operational options to the option parser."""
+    def test_get_bundle(self, mock_val: MagicMock) -> None:
+        """Test that get_bundle returns a valid BaseBundle mirroring the attributes."""
         base_instance = ConcreteBase(self.mock_bundle)
-        
-        base_instance.add_new_option("-v", "--version", action="store_true")
-        self.mock_options_parser.add_operation.assert_called_once_with(
-            "-v", "--version", action="store_true"
+        bundle = base_instance.get_bundle()
+
+        self.assertIsInstance(bundle, BaseBundle)
+        self.assertEqual(bundle.context_bundle, self.mock_context)
+        self.assertEqual(bundle.info_manager, self.mock_info_manager)
+        self.assertEqual(bundle.option_manager, self.mock_option_manager)
+        self.assertEqual(bundle.splash_manager, self.mock_splash_manager)
+        self.assertEqual(bundle.generation_manager, self.mock_generation_manager)
+
+    def test_update_bundle_success(self, mock_val: MagicMock) -> None:
+        """Test updating base bundle successfully."""
+        base_instance = ConcreteBase(self.mock_bundle)
+        new_info_manager = MagicMock(spec=IInfoManager)
+        new_info_manager.is_initialized.return_value = True
+
+        new_bundle = BaseBundle(
+            context_bundle=self.mock_context,
+            info_manager=new_info_manager,
+            option_manager=self.mock_option_manager,
+            splash_manager=self.mock_splash_manager,
+            generation_manager=self.mock_generation_manager
         )
 
-    def test_add_new_option_skipped_when_uninitialized(self) -> None:
-        """Test that option registration is skipped if the engine is uninitialized."""
-        self.mock_info_manager.is_initialized.return_value = False
+        mock_val.validate.side_effect = None
+        self.assertTrue(base_instance.update_bundle(new_bundle))
+        self.assertEqual(base_instance._info_manager, new_info_manager)
+
+    def test_update_bundle_failure(self, mock_val: MagicMock) -> None:
+        """Test update_bundle failure when validation fails."""
         base_instance = ConcreteBase(self.mock_bundle)
-        
-        base_instance.add_new_option("-f", "--force")
-        self.mock_options_parser.add_operation.assert_not_called()
+        bad_bundle = MagicMock(spec=BaseBundle)
+        bad_bundle.context_bundle = None
 
-    def test_parse_args_delegation(self) -> None:
-        """Test that parse_args delegates argument parsing to the inner option manager."""
+        mock_val.validate.side_effect = ATSValueError("invalid")
+        self.assertFalse(base_instance.update_bundle(bad_bundle))
+
+    def test_process_delegation(self, mock_val: MagicMock) -> None:
+        """Test process method implementation."""
         base_instance = ConcreteBase(self.mock_bundle)
-        mock_namespace = MagicMock(spec=OptionNamespace)
-        self.mock_options_parser.parse_args.return_value = mock_namespace
-
-        argv = ["--verbose", "run"]
-        result = base_instance.parse_args(argv)
-
-        self.mock_options_parser.parse_args.assert_called_once_with(argv)
-        self.assertEqual(result, mock_namespace)
-
-    def test_parse_args_returns_none_when_uninitialized(self) -> None:
-        """Test that argument parsing instantly returns None if the engine is uninitialized."""
-        self.mock_info_manager.is_initialized.return_value = False
-        base_instance = ConcreteBase(self.mock_bundle)
-
-        result = base_instance.parse_args(["--help"])
-        self.assertIsNone(result)
-        self.mock_options_parser.parse_args.assert_not_called()
+        self.assertTrue(base_instance.process(verbose=True))
 
     @patch("ats_utilities.base.engine.to_str")
-    def test_string_representation(self, mock_to_str: MagicMock) -> None:
+    def test_string_representation(self, mock_to_str: MagicMock, mock_val: MagicMock) -> None:
         """Test reflection serialization mappings upon string requests."""
         base_instance = ConcreteBase(self.mock_bundle)
         mock_to_str.return_value = "Base{_is_initialized=True}"

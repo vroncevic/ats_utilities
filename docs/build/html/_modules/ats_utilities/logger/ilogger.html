@@ -54,147 +54,142 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines abstract class ILogger with attribute(s) and method(s).</span>
-<span class="sd">    Interface for the logger mechanism.</span>
+<span class="sd">    Defines the abstract class ILogger with method(s).</span>
+<span class="sd">    Provides an interface for the logger.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span>
 
-<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;1.0.0&#39;</span>
-<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="ILogger">
 <a class="viewcode-back" href="../../../ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger">[docs]</a>
-<span class="k">class</span> <span class="nc">ILogger</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="nd">@runtime_checkable</span>
+<span class="k">class</span> <span class="nc">ILogger</span><span class="p">[</span><span class="n">ConfigType</span><span class="p">,</span> <span class="n">LogFileType</span><span class="p">,</span> <span class="n">LogLevelType</span><span class="p">,</span> <span class="n">MesssageType</span><span class="p">](</span><span class="n">Protocol</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines abstract class ILogger with attribute(s) and method(s).</span>
-<span class="sd">        Interface for the logger mechanism.</span>
+<span class="sd">        Defines the abstract class ILogger with attribute(s) and method(s).</span>
+<span class="sd">        Provides an interface for the logger.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :methods:</span>
-<span class="sd">                | write_log - Writes message to log output.</span>
-<span class="sd">                | is_initialized - Checks if logger is initialized.</span>
-<span class="sd">                | set_level - Sets log level.</span>
-<span class="sd">                | set_log_file - Sets log file.</span>
-<span class="sd">                | set_stdout - Sets log output to standard output (stdout).</span>
-<span class="sd">                | set_stderr - Sets log output to standard error (stderr).</span>
-<span class="sd">                | stop_buffering - Stops log buffering.</span>
-<span class="sd">                | __str__ - Returns the logger as string representation.</span>
+<span class="sd">                | get_bundle - Gets the current logger configuration bundle.</span>
+<span class="sd">                | is_initialized - Checks if the logger is initialized.</span>
+<span class="sd">                | update_bundle - Updates the logger configuration bundle.</span>
+<span class="sd">                | set_level - Sets the log level.</span>
+<span class="sd">                | set_log_file - Configures the output handler to output to the log file.</span>
+<span class="sd">                | set_stdout - Configures the output handler to output to the standard output.</span>
+<span class="sd">                | stop_buffering - Stops the log buffering.</span>
+<span class="sd">                | write_log - Writes the message to the log output.</span>
+<span class="sd">                | __str__ - Returns the logger as a string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="ILogger.write_log">
-<a class="viewcode-back" href="../../../ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger.write_log">[docs]</a>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">write_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="ILogger.get_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger.get_bundle">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfigType</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Writes message to log output.</span>
+<span class="sd">            Gets the current logger configuration bundle.</span>
 
-<span class="sd">            :param message: Log message.</span>
-<span class="sd">            :type message: &lt;str&gt;</span>
-<span class="sd">            :param ctrl: Log control flag.</span>
-<span class="sd">            :type ctrl: &lt;int&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :return: The logger configuration bundle.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div>
+        <span class="o">...</span></div>
 
 
 <div class="viewcode-block" id="ILogger.is_initialized">
 <a class="viewcode-back" href="../../../ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger.is_initialized">[docs]</a>
-    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Checks if logger is initialized.</span>
+<span class="sd">            Checks if the logger is initialized.</span>
 
-<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="ILogger.update_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger.update_bundle">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="n">ConfigType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Updates the logger configuration bundle.</span>
+
+<span class="sd">            :param bundle: The logger configuration bundle.</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="o">...</span></div>
 
 
 <div class="viewcode-block" id="ILogger.set_level">
 <a class="viewcode-back" href="../../../ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger.set_level">[docs]</a>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="n">LogLevelType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Sets log level.</span>
+<span class="sd">            Sets the log level.</span>
 
-<span class="sd">            :param level: Log level.</span>
-<span class="sd">            :type level: &lt;int&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :param level: The log level.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div>
+        <span class="o">...</span></div>
 
 
 <div class="viewcode-block" id="ILogger.set_log_file">
 <a class="viewcode-back" href="../../../ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger.set_log_file">[docs]</a>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">set_log_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_log_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_file</span><span class="p">:</span> <span class="n">LogFileType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Sets log file.</span>
+<span class="sd">            Configures the output handler to output to the log file.</span>
 
-<span class="sd">            :param log_file: Log file path.</span>
-<span class="sd">            :type log_file: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :param log_file: The log file.</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div>
+        <span class="o">...</span></div>
 
 
 <div class="viewcode-block" id="ILogger.set_stdout">
 <a class="viewcode-back" href="../../../ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger.set_stdout">[docs]</a>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">set_stdout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_stdout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Sets log output to standard output (stdout).</span>
+<span class="sd">            Configures the output handler to output to the standard output.</span>
 
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div>
-
-
-<div class="viewcode-block" id="ILogger.set_stderr">
-<a class="viewcode-back" href="../../../ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger.set_stderr">[docs]</a>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">set_stderr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Sets log output to standard error (stderr).</span>
-
-<span class="sd">            :exceptions: None.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div>
+        <span class="o">...</span></div>
 
 
 <div class="viewcode-block" id="ILogger.stop_buffering">
 <a class="viewcode-back" href="../../../ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger.stop_buffering">[docs]</a>
-    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">stop_buffering</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Stops log buffering.</span>
-
-<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="ILogger.write_log">
+<a class="viewcode-back" href="../../../ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger.write_log">[docs]</a>
+    <span class="k">def</span> <span class="nf">write_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="n">LogLevelType</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">MesssageType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Writes the message to the log output.</span>
+
+<span class="sd">            :param level: The log message level.</span>
+<span class="sd">            :param message: The message to be logged.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="o">...</span></div>
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the logger as string representation.</span>
+<span class="sd">            Returns the logger as a string representation.</span>
 
-<span class="sd">            :return: The logger as string representation.</span>
-<span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :return: The logger as a string representation.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div>
+        <span class="o">...</span></div>
 
 </pre></div>
 

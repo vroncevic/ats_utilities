@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for CommandOption class.
+    Unit tests for OptionData class.
 '''
 
 from __future__ import annotations
@@ -24,13 +24,14 @@ from __future__ import annotations
 import unittest
 
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
-from ats_utilities.option.command.command_option import CommandOption
+from ats_utilities.option.command.data import OptionData
+from ats_utilities.option.command.data_validator import OptionDataValidator
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.3'
+__version__: str = '3.4.4'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
@@ -39,36 +40,29 @@ __status__: str = 'Development'
 class CommandOptionTest(unittest.TestCase):
     '''
         Defines class CommandOptionTest with attribute(s) and method(s).
-        Tests CommandOption dataclass logic.
-
-        It defines:
-
-            :attributes: None.
-            :methods:
-                | test_init - Tests init logic of CommandOption.
-                | test_validate_success - Tests successful validation.
-                | test_validate_failures - Tests validation exceptions.
-                | test_merge - Tests merge logic.
-                | test_merge_exceptions - Tests merge error cases.
-                | test_to_dict - Tests to_dict conversion.
+        Tests OptionData and OptionDataValidator logic.
     '''
 
     def test_init(self) -> None:
         '''
-            Tests init logic of CommandOption.
-
-            :exceptions: None.
+            Tests init logic of OptionData.
         '''
-        opt = CommandOption(name="test", help_text="help", choices=[1, 2])
+        opt = OptionData(
+            name="test",
+            help_text="help",
+            choices=[1, 2],
+            action=None,
+            default=None,
+            required=False,
+            nargs=None
+        )
         self.assertEqual(opt.choices, (1, 2))
 
     def test_validate_success(self) -> None:
         '''
             Tests successful validation.
-
-            :exceptions: None.
         '''
-        opt = CommandOption(
+        opt = OptionData(
             name="test",
             help_text="help",
             action="store",
@@ -78,125 +72,87 @@ class CommandOptionTest(unittest.TestCase):
             nargs=1
         )
         try:
-            opt.validate()
+            OptionDataValidator.validate(opt)
         except (ATSValueError, ATSTypeError) as e:
             self.fail(f"validate raised exception: {e}")
 
     def test_validate_failures(self) -> None:
         '''
             Tests validation exceptions.
-
-            :exceptions: None.
         '''
-        # Missing required parameter
-        opt_missing = CommandOption(name="test", help_text="help")
-        with self.assertRaises(ATSValueError):
-            opt_missing.validate()
-
-        # Wrong types
-        opt_type1 = CommandOption(
-            name="test",
+        # Missing name (not possible since dataclass requires it, but let's check None via type bypass if needed or validation checks)
+        # Instead, let's ... invalid type for name
+        opt_type = OptionData(
+            name=123,  # type: ignore
             help_text="help",
-            action="store",
-            default="default_val",
-            required="not a bool",  # type: ignore
-            choices=[1, 2],
-            nargs=1
-        )
-        with self.assertRaises(ATSTypeError):
-            opt_type1.validate()
-
-        opt_type2 = CommandOption(
-            name="test",
-            help_text="help",
-            action="store",
-            default="default_val",
-            required=True,
-            choices=[1, 2],
-            nargs=1
-        )
-        opt_type2.choices = 123  # type: ignore
-        with self.assertRaises(ATSTypeError):
-            opt_type2.validate()
-
-        opt_type3 = CommandOption(
-            name="test",
-            help_text="help",
-            action="store",
-            default="default_val",
-            required=True,
-            choices=[1, 2],
-            nargs=[]  # type: ignore
-        )
-        with self.assertRaises(ATSTypeError):
-            opt_type3.validate()
-
-    def test_merge(self) -> None:
-        '''
-            Tests merge logic.
-
-            :exceptions: None.
-        '''
-        opt1 = CommandOption(name="opt1", help_text="help1", action="store")
-        opt2 = CommandOption(
-            name="opt1",
-            help_text="help2",
-            action="store",
-            default="val",
-            required=True,
-            choices=[1, 2],
-            nargs=1
-        )
-        opt1.merge(opt2)
-        self.assertEqual(opt1.help_text, "help2")
-        self.assertEqual(opt1.default, "val")
-        self.assertTrue(opt1.required)
-        self.assertEqual(opt1.choices, (1, 2))
-        self.assertEqual(opt1.nargs, 1)
-
-        # Merge with an option that has None for optional fields
-        opt3 = CommandOption(
-            name="opt1",
-            help_text="help3",
-            action="store",
-            default="val",
-            required=True,
-            choices=[1, 2],
+            action=None,
+            default=None,
+            required=False,
+            choices=None,
             nargs=None
         )
-        opt4 = CommandOption(
-            name="opt1",
-            help_text="help4",
+        with self.assertRaises(ATSTypeError):
+            OptionDataValidator.validate(opt_type)
+
+        # Missing help text (invalid type)
+        opt_help = OptionData(
+            name="test",
+            help_text=None,  # type: ignore
+            action=None,
+            default=None,
+            required=False,
+            choices=None,
+            nargs=None
+        )
+        with self.assertRaises(ATSValueError):
+            OptionDataValidator.validate(opt_help)
+
+        # Wrong action type
+        opt_action = OptionData(
+            name="test",
+            help_text="help",
+            action=123,  # type: ignore
+            default=None,
+            required=False,
+            choices=None,
+            nargs=None
+        )
+        with self.assertRaises(ATSTypeError):
+            OptionDataValidator.validate(opt_action)
+
+        # Wrong required type
+        opt_required = OptionData(
+            name="test",
+            help_text="help",
+            action=None,
+            default=None,
+            required="not a bool",  # type: ignore
+            choices=None,
+            nargs=None
+        )
+        with self.assertRaises(ATSTypeError):
+            OptionDataValidator.validate(opt_required)
+
+    def test_validate_none_fields(self) -> None:
+        opt = OptionData(
+            name="test",
+            help_text="help",
             action=None,
             default=None,
             required=None,  # type: ignore
             choices=None,
-            nargs=1
+            nargs=None
         )
-        opt3.merge(opt4)
-        self.assertEqual(opt3.help_text, "help4")
-        self.assertEqual(opt3.nargs, 1)
-
-    def test_merge_exceptions(self) -> None:
-        '''
-            Tests merge error cases.
-
-            :exceptions: None.
-        '''
-        opt = CommandOption(name="opt1", help_text="help1")
-        with self.assertRaises(ATSValueError):
-            opt.merge(None)  # type: ignore
-
-        with self.assertRaises(ATSTypeError):
-            opt.merge("not a CommandOption")  # type: ignore
+        try:
+            OptionDataValidator.validate(opt)
+        except (ATSValueError, ATSTypeError) as e:
+            self.fail(f"validate raised exception: {e}")
 
     def test_to_dict(self) -> None:
         '''
             Tests to_dict conversion.
-
-            :exceptions: None.
         '''
-        opt = CommandOption(
+        opt = OptionData(
             name="test",
             help_text="help",
             action="store",

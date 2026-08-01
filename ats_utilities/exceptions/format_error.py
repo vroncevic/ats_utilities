@@ -23,24 +23,22 @@ from __future__ import annotations
 
 from traceback import extract_tb
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 def get_debug_info(exc: BaseException) -> str:
     '''
         Get debug information about the exception.
 
-        :param exc: Exception to format.
-        :type exc: <BaseException>
-        :return: String with debug information.
-        :rtype: <str>
+        :param exc: The exception to format.
+        :return: The string with debug information.
         :exceptions: None.
     '''
     summary = extract_tb(exc.__traceback__)[-1]
@@ -52,12 +50,9 @@ def format_error_raw(exc: BaseException, debug: bool = False) -> str:
     '''
         Format exception in a raw format (without prefix and without color codes).
 
-        :param exc: Exception to format.
-        :type exc: <BaseException>
-        :param debug: Whether to include debug information (location of the error in the code).
-        :type debug: <bool> (default False)
-        :return: Formatted error message.
-        :rtype: <str>
+        :param exc: The exception to format.
+        :param debug: The whether to include debug information (location of the error in the code).
+        :return: The formatted error message.
         :exceptions: None.
     '''
     if debug:
@@ -70,14 +65,10 @@ def format_error(exc: BaseException, prefix: str = '', debug: bool = False) -> s
     '''
         Format exception in a human-readable format.
 
-        :param exc: Exception to format.
-        :type exc: <BaseException>
-        :param prefix: Prefix to add to the error message (unexpected exception).
-        :type prefix: <str>
-        :param debug: Whether to include debug information (location of the error in the code).
-        :type debug: <bool> (default False)
-        :return: Formatted error message.
-        :rtype: <str>
+        :param exc: The exception to format.
+        :param prefix: The prefix to add to the error message (unexpected exception).
+        :param debug: The whether to include debug information (location of the error in the code).
+        :return: The formatted error message.
         :exceptions: None.
     '''
     msg = f'{prefix} {exc}' if prefix else str(exc)

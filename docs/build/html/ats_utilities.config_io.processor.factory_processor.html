@@ -64,24 +64,24 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines class ConfigProcessorFactory with attribute(s) and method(s).
-Creates an API for creating an file processor instance based on the file extension.
+<dt>Info</dt><dd><p>Defines the ConfigProcessorFactory class with attribute(s) and method(s).
+Provides an API for creating an file processor instance based on the file extension.
 1th level of configuration loader/storer implementation.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.processor.factory_processor.</span></span><span class="sig-name descname"><span class="pre">ConfigProcessorFactory</span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/factory_processor.html#ConfigProcessorFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.processor.ifactory_processor.html#ats_utilities.config_io.processor.ifactory_processor.IConfigProcessorFactory" title="ats_utilities.config_io.processor.ifactory_processor.IConfigProcessorFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">IConfigProcessorFactory</span></code></a></p>
-<p>Defines class ConfigProcessorFactory with attribute(s) and method(s).
-Creates an API for creating an file processor instance based on the file extension.
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines the ConfigProcessorFactory class with attribute(s) and method(s).
+Provides an API for creating an file processor instance based on the file extension.
 1th level of configuration loader/storer implementation.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_PROCESSOR_MAP - Mapping of file extensions to processor classes.</div>
+<div class="line">_PROCESSOR_MAP - The mapping of file extensions to processor classes.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -98,11 +98,6 @@ Creates an API for creating an file processor instance based on the file extensi
 <span class="sig-name descname"><span class="pre">_PROCESSOR_MAP</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="ats_utilities.config_io.processor.iconfig_processor.html#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor" title="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor"><span class="pre">IConfigProcessor</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'.cfg':</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.config_io.processor.cfg_processor.CFGProcessor'&gt;,</span> <span class="pre">'.ini':</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.config_io.processor.ini_processor.INIProcessor'&gt;,</span> <span class="pre">'.json':</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.config_io.processor.json_processor.JSONProcessor'&gt;,</span> <span class="pre">'.xml':</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.config_io.processor.xml_processor.XMLProcessor'&gt;,</span> <span class="pre">'.yaml':</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.config_io.processor.yaml_processor.YAMLProcessor'&gt;,</span> <span class="pre">'.yml':</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.config_io.processor.yaml_processor.YAMLProcessor'&gt;}</span></em><a class="headerlink" href="#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory._PROCESSOR_MAP" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory._abc_impl" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory.create_from_extension">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_from_extension</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.processor.iconfig_processor.html#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor" title="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor"><span class="pre">IConfigProcessor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.config_io.processor.iconfig_processor.html#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor" title="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor"><span class="pre">IConfigProcessor</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/processor/factory_processor.html#ConfigProcessorFactory.create_from_extension"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory.create_from_extension" title="Link to this definition">¶</a></dt>
@@ -112,19 +107,16 @@ Uses make_component and validate_component utilities.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>extension</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – File extension (e.g., ‘.json’, ‘.cfg’, ‘.xml’, ‘.ini’, ‘.yml’, ‘.yaml’) | None.</p></li>
-<li><p><strong>scheme</strong> (<em>&lt;Mapping</em><em>[</em><em>str</em><em>, </em><em>str</em><em>] </em><em>| </em><em>None&gt;</em>) – Scheme for the processor | None.</p></li>
-<li><p><strong>processor</strong> (<em>&lt;IConfigProcessor</em><em> | </em><em>None&gt;</em>) – Instance to be used as the processor | None.</p></li>
+<li><p><strong>extension</strong> – The file extension (e.g., ‘.json’, ‘.cfg’, ‘.xml’, ‘.ini’, ‘.yml’, ‘.yaml’) | None.</p></li>
+<li><p><strong>scheme</strong> – Scheme for the processor | None.</p></li>
+<li><p><strong>processor</strong> – Instance to be used as the processor | None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Processor instance.</p>
+<dd class="field-even"><p>The processor.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;IConfigProcessor&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><div class="line-block">
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
 <div class="line">ATSValueError: Extension must be provided.</div>
 <div class="line">ATSTypeError: Extension must be a string.</div>
 <div class="line">ATSValueError: Extension is not supported.</div>
@@ -144,19 +136,16 @@ If processor is not provided, creation is done from the file path extension.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file_path</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Path to the configuration file | None.</p></li>
-<li><p><strong>scheme</strong> (<em>&lt;Mapping</em><em>[</em><em>str</em><em>, </em><em>str</em><em>] </em><em>| </em><em>None&gt;</em>) – Scheme for the processor | None.</p></li>
-<li><p><strong>processor</strong> (<em>&lt;IConfigProcessor</em><em> | </em><em>None&gt;</em>) – Instance to be used as the processor | None.</p></li>
+<li><p><strong>file_path</strong> – Path to the configuration file | None.</p></li>
+<li><p><strong>scheme</strong> – Scheme for the processor | None.</p></li>
+<li><p><strong>processor</strong> – Instance to be used as the processor | None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Processor instance.</p>
+<dd class="field-even"><p>The processor.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;IConfigProcessor&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><div class="line-block">
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
 <div class="line">ATSValueError: File path must be provided when processor is None.</div>
 <div class="line">ATSTypeError: File path must be a string.</div>
 <div class="line">ATSValueError: File does not exist.</div>
@@ -175,16 +164,13 @@ If processor is not provided, creation is done from the file path extension.</p>
 <dd><p>Returns the processor class for a specific file extension.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>extension</strong> (<em>&lt;str&gt;</em>) – File extension (e.g., ‘.json’, ‘.cfg’, ‘.xml’, ‘.ini’, ‘.yml’, ‘.yaml’).</p>
+<dd class="field-odd"><p><strong>extension</strong> – The file extension (e.g., ‘.json’, ‘.cfg’, ‘.xml’, ‘.ini’, ‘.yml’, ‘.yaml’).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Processor class.</p>
+<dd class="field-even"><p>The processor class.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;type[<a class="reference internal" href="ats_utilities.config_io.processor.iconfig_processor.html#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor" title="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor">IConfigProcessor</a>]&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><div class="line-block">
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
 <div class="line">ATSValueError: Extension must be provided.</div>
 <div class="line">ATSTypeError: Extension must be a string.</div>
 <div class="line">ATSValueError: Extension is not supported.</div>
@@ -210,7 +196,6 @@ If processor is not provided, creation is done from the file path extension.</p>
 <li><a class="reference internal" href="#">ats_utilities.config_io.processor.factory_processor module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory"><code class="docutils literal notranslate"><span class="pre">ConfigProcessorFactory</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory._PROCESSOR_MAP"><code class="docutils literal notranslate"><span class="pre">ConfigProcessorFactory._PROCESSOR_MAP</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory._abc_impl"><code class="docutils literal notranslate"><span class="pre">ConfigProcessorFactory._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory.create_from_extension"><code class="docutils literal notranslate"><span class="pre">ConfigProcessorFactory.create_from_extension()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory.create_from_file_path"><code class="docutils literal notranslate"><span class="pre">ConfigProcessorFactory.create_from_file_path()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory.get_processor_class"><code class="docutils literal notranslate"><span class="pre">ConfigProcessorFactory.get_processor_class()</span></code></a></li>

@@ -8,8 +8,9 @@ Subpackages
    :maxdepth: 4
 
    ats_utilities.option.command
-   ats_utilities.option.parser
+   ats_utilities.option.setup
    ats_utilities.option.strategy
+   ats_utilities.option.underlying
 
 Submodules
 ----------
@@ -18,10 +19,9 @@ Submodules
    :maxdepth: 4
 
    ats_utilities.option.engine
-   ats_utilities.option.ioption_manager
-   ats_utilities.option.option_bundle
-   ats_utilities.option.option_namespace
-   ats_utilities.option.option_registry
+   ats_utilities.option.imanager
+   ats_utilities.option.ioption_configurator
+   ats_utilities.option.ioption_parser
 
 Module contents
 ---------------

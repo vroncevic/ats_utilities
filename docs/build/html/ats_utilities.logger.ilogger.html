@@ -15,7 +15,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.logger.logger_bundle module" href="ats_utilities.logger.logger_bundle.html" />
+    <link rel="next" title="ats_utilities.option package" href="ats_utilities.option.html" />
     <link rel="prev" title="ats_utilities.logger.engine module" href="ats_utilities.logger.engine.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -28,7 +28,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.logger.logger_bundle.html" title="ats_utilities.logger.logger_bundle module"
+          <a href="ats_utilities.option.html" title="ats_utilities.option package"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.logger.engine.html" title="ats_utilities.logger.engine module"
@@ -63,29 +63,30 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines abstract class ILogger with attribute(s) and method(s).
-Interface for the logger mechanism.</p>
+<dt>Info</dt><dd><p>Defines the abstract class ILogger with method(s).
+Provides an interface for the logger.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logger.ilogger.</span></span><span class="sig-name descname"><span class="pre">ILogger</span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Defines abstract class ILogger with attribute(s) and method(s).
-Interface for the logger mechanism.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logger.ilogger.</span></span><span class="sig-name descname"><span class="pre">ILogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></p>
+<p>Defines the abstract class ILogger with attribute(s) and method(s).
+Provides an interface for the logger.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">write_log - Writes message to log output.</div>
-<div class="line">is_initialized - Checks if logger is initialized.</div>
-<div class="line">set_level - Sets log level.</div>
-<div class="line">set_log_file - Sets log file.</div>
-<div class="line">set_stdout - Sets log output to standard output (stdout).</div>
-<div class="line">set_stderr - Sets log output to standard error (stderr).</div>
-<div class="line">stop_buffering - Stops log buffering.</div>
-<div class="line">__str__ - Returns the logger as string representation.</div>
+<div class="line">get_bundle - Gets the current logger configuration bundle.</div>
+<div class="line">is_initialized - Checks if the logger is initialized.</div>
+<div class="line">update_bundle - Updates the logger configuration bundle.</div>
+<div class="line">set_level - Sets the log level.</div>
+<div class="line">set_log_file - Configures the output handler to output to the log file.</div>
+<div class="line">set_stdout - Configures the output handler to output to the standard output.</div>
+<div class="line">stop_buffering - Stops the log buffering.</div>
+<div class="line">write_log - Writes the message to the log output.</div>
+<div class="line">__str__ - Returns the logger as a string representation.</div>
 </div>
 </dd>
 </dl>
@@ -95,97 +96,104 @@ Interface for the logger mechanism.</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger._is_protocol">
+<span class="sig-name descname"><span class="pre">_is_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger._is_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger._is_runtime_protocol">
+<span class="sig-name descname"><span class="pre">_is_runtime_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger._is_runtime_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger.is_initialized">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.is_initialized" title="Link to this definition">¶</a></dt>
-<dd><p>Checks if logger is initialized.</p>
+<dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger.get_bundle">
+<span class="sig-name descname"><span class="pre">get_bundle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConfigType</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.get_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.get_bundle" title="Link to this definition">¶</a></dt>
+<dd><p>Gets the current logger configuration bundle.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
+<dd class="field-odd"><p>The logger configuration bundle.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger.is_initialized">
+<span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.is_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if the logger is initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if successful, otherwise False.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger.set_level">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.set_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.set_level" title="Link to this definition">¶</a></dt>
-<dd><p>Sets log level.</p>
+<span class="sig-name descname"><span class="pre">set_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogLevelType</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.set_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.set_level" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the log level.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>level</strong> (<em>&lt;int&gt;</em>) – Log level.</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-odd"><p><strong>level</strong> – The log level.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger.set_log_file">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_log_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.set_log_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.set_log_file" title="Link to this definition">¶</a></dt>
-<dd><p>Sets log file.</p>
+<span class="sig-name descname"><span class="pre">set_log_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogFileType</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.set_log_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.set_log_file" title="Link to this definition">¶</a></dt>
+<dd><p>Configures the output handler to output to the log file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>log_file</strong> (<em>&lt;str&gt;</em>) – Log file path.</p>
+<dd class="field-odd"><p><strong>log_file</strong> – The log file.</p>
 </dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger.set_stderr">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_stderr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.set_stderr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.set_stderr" title="Link to this definition">¶</a></dt>
-<dd><p>Sets log output to standard error (stderr).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if successful, otherwise False.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger.set_stdout">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_stdout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.set_stdout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.set_stdout" title="Link to this definition">¶</a></dt>
-<dd><p>Sets log output to standard output (stdout).</p>
+<span class="sig-name descname"><span class="pre">set_stdout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.set_stdout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.set_stdout" title="Link to this definition">¶</a></dt>
+<dd><p>Configures the output handler to output to the standard output.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if successful, otherwise False.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger.stop_buffering">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stop_buffering</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.stop_buffering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.stop_buffering" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">stop_buffering</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.stop_buffering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.stop_buffering" title="Link to this definition">¶</a></dt>
 <dd><p>Stops log buffering.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger.update_bundle">
+<span class="sig-name descname"><span class="pre">update_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConfigType</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.update_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.update_bundle" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the logger configuration bundle.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bundle</strong> – The logger configuration bundle.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if successful, otherwise False.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.logger.ilogger.ILogger.write_log">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctrl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.write_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.write_log" title="Link to this definition">¶</a></dt>
-<dd><p>Writes message to log output.</p>
+<span class="sig-name descname"><span class="pre">write_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogLevelType</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MesssageType</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/ilogger.html#ILogger.write_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.ilogger.ILogger.write_log" title="Link to this definition">¶</a></dt>
+<dd><p>Writes the message to the log output.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>message</strong> (<em>&lt;str&gt;</em>) – Log message.</p></li>
-<li><p><strong>ctrl</strong> (<em>&lt;int&gt;</em>) – Log control flag.</p></li>
+<li><p><strong>level</strong> – The log message level.</p></li>
+<li><p><strong>message</strong> – The message to be logged.</p></li>
 </ul>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -207,12 +215,15 @@ Interface for the logger mechanism.</p>
 <li><a class="reference internal" href="#">ats_utilities.logger.ilogger module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger"><code class="docutils literal notranslate"><span class="pre">ILogger</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger._abc_impl"><code class="docutils literal notranslate"><span class="pre">ILogger._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger._is_protocol"><code class="docutils literal notranslate"><span class="pre">ILogger._is_protocol</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger._is_runtime_protocol"><code class="docutils literal notranslate"><span class="pre">ILogger._is_runtime_protocol</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.get_bundle"><code class="docutils literal notranslate"><span class="pre">ILogger.get_bundle()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.is_initialized"><code class="docutils literal notranslate"><span class="pre">ILogger.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.set_level"><code class="docutils literal notranslate"><span class="pre">ILogger.set_level()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.set_log_file"><code class="docutils literal notranslate"><span class="pre">ILogger.set_log_file()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.set_stderr"><code class="docutils literal notranslate"><span class="pre">ILogger.set_stderr()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.set_stdout"><code class="docutils literal notranslate"><span class="pre">ILogger.set_stdout()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.stop_buffering"><code class="docutils literal notranslate"><span class="pre">ILogger.stop_buffering()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.update_bundle"><code class="docutils literal notranslate"><span class="pre">ILogger.update_bundle()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logger.ilogger.ILogger.write_log"><code class="docutils literal notranslate"><span class="pre">ILogger.write_log()</span></code></a></li>
 </ul>
 </li>
@@ -228,8 +239,8 @@ Interface for the logger mechanism.</p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.logger.logger_bundle.html"
-                          title="next chapter">ats_utilities.logger.logger_bundle module</a></p>
+    <p class="topless"><a href="ats_utilities.option.html"
+                          title="next chapter">ats_utilities.option package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -262,7 +273,7 @@ Interface for the logger mechanism.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.logger.logger_bundle.html" title="ats_utilities.logger.logger_bundle module"
+          <a href="ats_utilities.option.html" title="ats_utilities.option package"
              >next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.logger.engine.html" title="ats_utilities.logger.engine module"

@@ -25,19 +25,18 @@ from sys import stdout, stderr, exit
 from json import load
 from os.path import basename
 from pathlib import Path
-from typing import Any
 from unittest import TestLoader, TestSuite, TextTestRunner
 
 from coverage import Coverage
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_coverage'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_coverage/blob/dev/LICENSE'
-__version__ = r'1.0.0'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2026, https://vroncevic.github.io/ats_coverage'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_coverage/blob/dev/LICENSE'
+__version__ = '1.0.0'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 def check_exists(item_path: str, is_dir: bool = False) -> None:
@@ -45,9 +44,7 @@ def check_exists(item_path: str, is_dir: bool = False) -> None:
         Checks if the item exists.
 
         :param item_path: Item path.
-        :type item_path: <str>
         :param is_dir: Flag indicating if the path is a directory.
-        :type is_dir: <bool>
         :exceptions:
             | TypeError: Parameter dir_path type validation failed.
             | ValueError: Parameter dir_path format validation failed.
@@ -72,7 +69,6 @@ def run_coverage(pro_name: str) -> None:
         Runs coverage for project and generates reports in JSON and XML formats.
 
         :param pro_name: Project name (is equal to directory name).
-        :type pro_name: <str>
         :exceptions:
             | TypeError: Parameter pro_name type validation failed.
             | ValueError: Parameter pro_name format validation failed.
@@ -105,14 +101,12 @@ def run_coverage(pro_name: str) -> None:
     stdout.write('\n--- HTML Report saved to htmlcov ---\n')
 
 
-def load_report(file_path: str) -> dict[str, Any]:
+def load_report(file_path: str) -> dict[str, object]:
     '''
         Loads coverage report from file (JSON format).
 
         :param file_path: Coverage report file path.
-        :type file_path: <str>
         :return: Coverage data report in dict format.
-        :rtype: <dict[str, Any]>
         :exceptions:
             | ATSTypeError: Parameter file_path type validation failed.
             | ATSValueError: Parameter file_path format validation failed.
@@ -121,7 +115,7 @@ def load_report(file_path: str) -> dict[str, Any]:
 
     check_exists(file_path)
 
-    data: dict[str, Any] = {}
+    data: dict[str, object] = {}
 
     try:
         with open(file_path, 'r', encoding='utf-8') as loaded_file:
@@ -139,9 +133,7 @@ def find_root_package(module_path: str) -> Path | None:
         Finds root package for project structure.
 
         :param module_path: Absolute path for project package.
-        :type module_path: <str>
         :return: Root package path.
-        :rtype: <Path | None>
         :exceptions:
             | ATSTypeError: Parameter module_path type validation failed.
             | ATSValueError: Parameter module_path format validation failed.
@@ -158,14 +150,12 @@ def find_root_package(module_path: str) -> Path | None:
     return root
 
 
-def update_readme(coverage: dict[str, Any], readme_path: str = 'README.md') -> None:
+def update_readme(coverage: dict[str, object], readme_path: str = 'README.md') -> None:
     '''
         Updates README.md file with code coverage report table.
 
         :param coverage: Coverage data report in dict format.
-        :type coverage: <dict[str, Any]>
         :param readme_path: Path to README.md file.
-        :type readme_path: <str>
         :exceptions:
             | ATSTypeError: Parameter coverage type validation failed.
             | ATSValueError: Parameter coverage format validation failed.
@@ -225,7 +215,7 @@ def update_readme(coverage: dict[str, Any], readme_path: str = 'README.md') -> N
                             result = result.lstrip('/')
                             module = f'{basename(abs_root)}/{result}'
 
-                    file_summary: dict[str, Any] = coverage['files'][name]
+                    file_summary: dict[str, object] = coverage['files'][name]
                     statements: str = file_summary['summary'][stmts]
                     missing: str = file_summary['summary'][miss]
                     covered: str = file_summary['summary'][cover]
@@ -264,11 +254,8 @@ def _build_tree(dir_path: Path, prefix: str = '') -> tuple[list[str], int, int]:
         Recursively builds tree lines and counts files/directories.
 
         :param dir_path: Directory path.
-        :type dir_path: <Path>
         :param prefix: Current indentation prefix.
-        :type prefix: <str>
         :return: Tuple containing tree lines list, directory count, and file count.
-        :rtype: <tuple[list[str], int, int]>
         :exceptions: None.
     '''
     entries = []
@@ -308,9 +295,7 @@ def generate_tree_lines(pro_name: str) -> tuple[list[str], int, int]:
         Generates tree structure representation of package.
 
         :param pro_name: Project name.
-        :type pro_name: <str>
         :return: Tuple containing tree lines list, directory count, and file count.
-        :rtype: <tuple[list[str], int, int]>
         :exceptions:
             | TypeError: Parameter pro_name type validation failed.
             | ValueError: Parameter pro_name format validation failed.
@@ -331,11 +316,8 @@ def update_structure(pro_name: str, section: str, readme_path: str = 'README.md'
         Updates README.md file with package directory structure.
 
         :param pro_name: Project name.
-        :type pro_name: <str>
         :param section: Section name.
-        :type section: <str>
         :param readme_path: Path to README.md file.
-        :type readme_path: <str>
         :exceptions:
             | ATSTypeError: Parameter pro_name type validation failed.
             | ATSTypeError: Parameter section type validation failed.
@@ -406,7 +388,7 @@ if __name__ == "__main__":
     try:
         pro_name: str = 'ats_utilities'
         run_coverage(pro_name)
-        report_data: dict[str, Any] = load_report(f'{pro_name}.json')
+        report_data: dict[str, object] = load_report(f'{pro_name}.json')
 
         if report_data:
             update_readme(report_data)

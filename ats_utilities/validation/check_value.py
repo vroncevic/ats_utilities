@@ -21,23 +21,21 @@ Info
 
 from __future__ import annotations
 
-from typing import Any
-
 from ats_utilities.validation.context_error import raise_error
 from ats_utilities.exceptions import ATSValueError
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 def not_none(
-    value: Any,
+    value: object,
     exc_context: str | None = None,
     exc_message: str | None = None,
     exc_class: type[BaseException] = ATSValueError
@@ -45,21 +43,17 @@ def not_none(
     '''
         Requires a value to be not None.
 
-        :param value: Value to check.
-        :type value: <Any>
-        :param exc_context: Context representation in string format.
-        :type exc_context: <str>
-        :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :param value: The value to check.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is None.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
     '''
     if value is None:
         raise_error(
-            fallback_context=r'check_value::not_none(...)',
-            fallback_msg=r'value must not be None',
+            fallback_context='check_value::not_none(...)',
+            fallback_msg='the value must not be None',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -67,7 +61,7 @@ def not_none(
 
 
 def not_empty(
-    value: Any,
+    value: object,
     exc_context: str | None = None,
     exc_message: str | None = None,
     exc_class: type[BaseException] = ATSValueError,
@@ -78,18 +72,12 @@ def not_empty(
     '''
         Requires a value to be not empty (not None, not empty sequence/mapping).
 
-        :param value: Value to check for emptiness.
-        :type value: <Any>
-        :param exc_context: Context representation in string format.
-        :type exc_context: <str>
-        :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :param value: The value to check for emptiness.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is empty.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
-        :param allow_zero: If False, treat 0 and 0.0 as empty/invalid values.
-        :type allow_zero: <bool>
-        :param allow_false: If False, treat False as an empty/invalid value.
-        :type allow_false: <bool>
+        :param allow_zero: The if False, treat 0 and 0.0 as empty/invalid values.
+        :param allow_false: The if False, treat False as an empty/invalid value.
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
 
@@ -127,8 +115,8 @@ def not_empty(
 
     if is_empty:
         raise_error(
-            fallback_context=r'check_value::not_empty(...)',
-            fallback_msg=r'value must not be empty',
+            fallback_context='check_value::not_empty(...)',
+            fallback_msg='the value must not be empty',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -146,20 +134,16 @@ def not_satisfied(
         Raises an exception if status is True (unhappy flow detected).
 
         :param status: Status which indicates unhappy flow (True = unhappy flow).
-        :type status: <bool>
-        :param exc_context: Context representation in string format.
-        :type exc_context: <str>
-        :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if status is not True.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
     '''
     if status:
         raise_error(
-            fallback_context=r'check_value::not_satisfied(...)',
-            fallback_msg=r'condition not satisfied',
+            fallback_context='check_value::not_satisfied(...)',
+            fallback_msg='the happy path condition not satisfied',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class

@@ -27,14 +27,14 @@ from ats_utilities.exceptions import ATSValueError
 from ats_utilities.validation.context_error import raise_error
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 def check_dir_exists(
@@ -46,14 +46,10 @@ def check_dir_exists(
     '''
         Checks if a directory exists.
 
-        :param dir_path: Path to the directory.
-        :type dir_path: <str>
-        :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
-        :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :param dir_path: The path to the directory.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is None.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
@@ -62,8 +58,8 @@ def check_dir_exists(
 
     if not dir_path:
         raise_error(
-            fallback_context=r'dirs::check_dir_exists(...)',
-            fallback_msg=r'directory path must be provided',
+            fallback_context='dirs::check_dir_exists(...)',
+            fallback_msg='the directory path must be provided',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -71,8 +67,8 @@ def check_dir_exists(
 
     if not Path(dir_path).is_dir():
         raise_error(
-            fallback_context=r'dirs::check_dir_exists(...)',
-            fallback_msg=f'directory at the provided path does not exist: {dir_path}',
+            fallback_context='dirs::check_dir_exists(...)',
+            fallback_msg=f'the directory at the provided path does not exist: {dir_path}',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class

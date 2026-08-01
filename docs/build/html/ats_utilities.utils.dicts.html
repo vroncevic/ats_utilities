@@ -68,49 +68,43 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="ats_utilities.utils.dicts.cherry_pick_dict">
-<span class="sig-prename descclassname"><span class="pre">ats_utilities.utils.dicts.</span></span><span class="sig-name descname"><span class="pre">cherry_pick_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">frozenset</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/utils/dicts.html#cherry_pick_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.utils.dicts.cherry_pick_dict" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.utils.dicts.</span></span><span class="sig-name descname"><span class="pre">cherry_pick_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">K</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Container</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">K</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/utils/dicts.html#cherry_pick_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.utils.dicts.cherry_pick_dict" title="Link to this definition">¶</a></dt>
 <dd><p>Cherry picks keys from a source dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<em>&lt;Mapping</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – Source dictionary from which to pick keys.</p></li>
-<li><p><strong>keys</strong> (<em>&lt;frozenset</em><em>[</em><em>str</em><em>]</em><em>&gt;</em>) – Set of keys to pick from the source dictionary.</p></li>
+<li><p><strong>source</strong> – The source dictionary from which to pick keys.</p></li>
+<li><p><strong>keys</strong> – The set of keys to pick from the source dictionary.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary with cherry picked keys.</p>
+<dd class="field-even"><p>The dictionary with cherry picked keys.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;dict[Any, Any]&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ats_utilities.utils.dicts.get_first_available">
-<span class="sig-prename descclassname"><span class="pre">ats_utilities.utils.dicts.</span></span><span class="sig-name descname"><span class="pre">get_first_available</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/utils/dicts.html#get_first_available"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.utils.dicts.get_first_available" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.utils.dicts.</span></span><span class="sig-name descname"><span class="pre">get_first_available</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">object</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/utils/dicts.html#get_first_available"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.utils.dicts.get_first_available" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieves the first available value from a list of keys in priority order.
 Simulates the logic of: source.get(key1) or source.get(key2) …</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<em>&lt;Mapping</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – Source dictionary/mapping to search.</p></li>
-<li><p><strong>keys</strong> (<em>&lt;Sequence</em><em>[</em><em>Any</em><em>]</em><em>&gt;</em>) – Sequence of keys to check in order of priority.</p></li>
-<li><p><strong>exc_context</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Context representation in string format.</p></li>
-<li><p><strong>exc_message</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Message to include in the exception message.</p></li>
+<li><p><strong>source</strong> – The source dictionary/mapping to search.</p></li>
+<li><p><strong>keys</strong> – The sequence of keys to check in order of priority.</p></li>
+<li><p><strong>exc_context</strong> – The context representation in string format.</p></li>
+<li><p><strong>exc_message</strong> – The message to include in the exception message.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The first non-empty value found, or None if none of the keys exist/have value.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;Any | None&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><div class="line-block">
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
 <div class="line">ATSTypeError: Parameters (source and keys) types validation failed.</div>
 </div>
 </dd>
@@ -119,39 +113,79 @@ Simulates the logic of: source.get(key1) or source.get(key2) …</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ats_utilities.utils.dicts.has_required_keys">
-<span class="sig-prename descclassname"><span class="pre">ats_utilities.utils.dicts.</span></span><span class="sig-name descname"><span class="pre">has_required_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">frozenset</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/utils/dicts.html#has_required_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.utils.dicts.has_required_keys" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.utils.dicts.</span></span><span class="sig-name descname"><span class="pre">has_required_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">K</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Container</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/utils/dicts.html#has_required_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.utils.dicts.has_required_keys" title="Link to this definition">¶</a></dt>
 <dd><p>Checks if all required keys are present in the source dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<em>&lt;dict</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – Source dictionary to check.</p></li>
-<li><p><strong>keys</strong> (<em>&lt;frozenset</em><em>[</em><em>str</em><em>]</em><em>&gt;</em>) – Set of mandatory keys.</p></li>
+<li><p><strong>source</strong> – The source dictionary to check.</p></li>
+<li><p><strong>keys</strong> – The set of mandatory keys.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True (passed), False (failed).</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;bool&gt;</p>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ats_utilities.utils.dicts.is_present_key">
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.utils.dicts.</span></span><span class="sig-name descname"><span class="pre">is_present_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">K</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">K</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/utils/dicts.html#is_present_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.utils.dicts.is_present_key" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if a key is present in a mapping.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mapping</strong> – The mapping to check.</p></li>
+<li><p><strong>key</strong> – The key to check.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the key is present in the mapping, False otherwise.</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ats_utilities.utils.dicts.is_present_required_key">
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.utils.dicts.</span></span><span class="sig-name descname"><span class="pre">is_present_required_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">mapping:</span> <span class="pre">Mapping[K,</span> <span class="pre">V],</span> <span class="pre">key:</span> <span class="pre">K,</span> <span class="pre">exc_context:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">exc_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/utils/dicts.html#is_present_required_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.utils.dicts.is_present_required_key" title="Link to this definition">¶</a></dt>
+<dd><p>Raises an exception if a key is not present or is None in a mapping.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mapping</strong> – The mapping to check.</p></li>
+<li><p><strong>key</strong> – The key to check.</p></li>
+<li><p><strong>exc_context</strong> – The context representation in string format.</p></li>
+<li><p><strong>exc_message</strong> – The message to include in the exception message.</p></li>
+<li><p><strong>exc_class</strong> – The exception class to raise if the key is not present or is None.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError: Parameters (mapping and key) types validation failed.</div>
+<div class="line">Dynamically raises the provided exc_class (e.g., ATSValueError).</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ats_utilities.utils.dicts.require_keys">
-<span class="sig-prename descclassname"><span class="pre">ats_utilities.utils.dicts.</span></span><span class="sig-name descname"><span class="pre">require_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">source:</span> <span class="pre">~collections.abc.Mapping[~typing.Any,</span> <span class="pre">~typing.Any],</span> <span class="pre">keys:</span> <span class="pre">frozenset[str],</span> <span class="pre">exc_context:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">exc_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/utils/dicts.html#require_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.utils.dicts.require_keys" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.utils.dicts.</span></span><span class="sig-name descname"><span class="pre">require_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">source:</span> <span class="pre">~collections.abc.Mapping[object,</span> <span class="pre">object],</span> <span class="pre">keys:</span> <span class="pre">frozenset[str],</span> <span class="pre">exc_context:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">exc_message:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">exc_class:</span> <span class="pre">type[BaseException]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/utils/dicts.html#require_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.utils.dicts.require_keys" title="Link to this definition">¶</a></dt>
 <dd><p>Requires all keys to be present in the source dictionary.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<em>&lt;Mapping</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – Source dictionary to check.</p></li>
-<li><p><strong>keys</strong> (<em>&lt;frozenset</em><em>[</em><em>str</em><em>]</em><em>&gt;</em>) – Set of mandatory keys.</p></li>
-<li><p><strong>exc_context</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Context representation in string format.</p></li>
-<li><p><strong>exc_message</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Message to include in the exception message.</p></li>
-<li><p><strong>exc_class</strong> (<em>&lt;type</em><em>[</em><em>BaseException</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSValueError</em><em>)</em>) – The exception class to raise if value is None.</p></li>
+<li><p><strong>source</strong> – The source dictionary to check.</p></li>
+<li><p><strong>keys</strong> – The set of mandatory keys.</p></li>
+<li><p><strong>exc_context</strong> – The context representation in string format.</p></li>
+<li><p><strong>exc_message</strong> – The message to include in the exception message.</p></li>
+<li><p><strong>exc_class</strong> – The exception class to raise if value is None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
@@ -179,6 +213,8 @@ Simulates the logic of: source.get(key1) or source.get(key2) …</p>
 <li><a class="reference internal" href="#ats_utilities.utils.dicts.cherry_pick_dict"><code class="docutils literal notranslate"><span class="pre">cherry_pick_dict()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.utils.dicts.get_first_available"><code class="docutils literal notranslate"><span class="pre">get_first_available()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.utils.dicts.has_required_keys"><code class="docutils literal notranslate"><span class="pre">has_required_keys()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.utils.dicts.is_present_key"><code class="docutils literal notranslate"><span class="pre">is_present_key()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.utils.dicts.is_present_required_key"><code class="docutils literal notranslate"><span class="pre">is_present_required_key()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.utils.dicts.require_keys"><code class="docutils literal notranslate"><span class="pre">require_keys()</span></code></a></li>
 </ul>
 </li>

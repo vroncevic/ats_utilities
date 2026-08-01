@@ -21,33 +21,29 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
-from typing import Any
+from collections.abc import Container, Mapping, Sequence
 
 from ats_utilities.exceptions import ATSValueError
 from ats_utilities.validation.context_error import raise_error
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-def cherry_pick_dict(source: Mapping[Any, Any], keys: frozenset[str]) -> dict[Any, Any]:
+def cherry_pick_dict[K, V](source: Mapping[K, V] | None, keys: Container[object] | None) -> dict[K, V]:
     '''
         Cherry picks keys from a source dictionary.
 
-        :param source: Source dictionary from which to pick keys.
-        :type source: <Mapping[Any, Any]>
-        :param keys: Set of keys to pick from the source dictionary.
-        :type keys: <frozenset[str]>
-        :return: Dictionary with cherry picked keys.
-        :rtype: <dict[Any, Any]>
+        :param source: The source dictionary from which to pick keys.
+        :param keys: The set of keys to pick from the source dictionary.
+        :return: The dictionary with cherry picked keys.
         :exceptions: None.
     '''
     if not source or not keys:
@@ -56,23 +52,72 @@ def cherry_pick_dict(source: Mapping[Any, Any], keys: frozenset[str]) -> dict[An
     return {key: source[key] for key in keys if key in source}
 
 
-def has_required_keys(source: Mapping[Any, Any], keys: frozenset[str]) -> bool:
+def has_required_keys[K, V](source: Mapping[K, V], keys: Container[object] | None) -> bool:
     '''
         Checks if all required keys are present in the source dictionary.
 
-        :param source: Source dictionary to check.
-        :type source: <dict[Any, Any]>
-        :param keys: Set of mandatory keys.
-        :type keys: <frozenset[str]>
+        :param source: The source dictionary to check.
+        :param keys: The set of mandatory keys.
         :return: True (passed), False (failed).
-        :rtype: <bool>
         :exceptions: None.
     '''
     return keys.issubset(source or {})
 
 
+def is_present_key[K, V](mapping: Mapping[K, V], key: K) -> bool:
+    '''
+        Checks if a key is present in a mapping.
+
+        :param mapping: The mapping to check.
+        :param key: The key to check.
+        :return: True if the key is present in the mapping, False otherwise.
+        :exceptions: None.
+    '''
+    return key in mapping
+
+
+def is_present_required_key[K, V](
+    mapping: Mapping[K, V],
+    key: K,
+    exc_context: str | None = None,
+    exc_message: str | None = None,
+    exc_class: type[BaseException] = ATSValueError
+) -> None:
+    '''
+        Raises an exception if a key is not present or is None in a mapping.
+
+        :param mapping: The mapping to check.
+        :param key: The key to check.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
+        :param exc_class: The exception class to raise if the key is not present or is None.
+        :exceptions:
+            | ATSTypeError: Parameters (mapping and key) types validation failed.
+            | Dynamically raises the provided exc_class (e.g., ATSValueError).
+    '''
+    istype(mapping, Mapping, exc_context, exc_message)
+
+    if key not in mapping:
+        raise_error(
+            fallback_context='dicts::is_present_required_key(...)',
+            fallback_msg=f'the mapping is missing the required key: {key}',
+            exc_context=exc_context,
+            exc_message=exc_message,
+            exc_class=exc_class
+        )
+
+    if mapping[key] is None:
+        raise_error(
+            fallback_context='dicts::is_present_required_key(...)',
+            fallback_msg=f'the mapping key {key} is None',
+            exc_context=exc_context,
+            exc_message=exc_message,
+            exc_class=exc_class
+        )
+
+
 def require_keys(
-    source: Mapping[Any, Any],
+    source: Mapping[object, object],
     keys: frozenset[str],
     exc_context: str | None = None,
     exc_message: str | None = None,
@@ -81,16 +126,11 @@ def require_keys(
     '''
         Requires all keys to be present in the source dictionary.
 
-        :param source: Source dictionary to check.
-        :type source: <Mapping[Any, Any]>
-        :param keys: Set of mandatory keys.
-        :type keys: <frozenset[str]>
-        :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
-        :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :param source: The source dictionary to check.
+        :param keys: The set of mandatory keys.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if value is None.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
         :exceptions:
             | ATSTypeError: Parameters (source and keys) types validation failed.
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
@@ -102,8 +142,8 @@ def require_keys(
         missing = list(keys - frozenset(source.keys() if source else []))
 
         raise_error(
-            fallback_context=r'dicts::require_keys(...)',
-            fallback_msg=f'mapping is missing required keys: {missing}',
+            fallback_context='dicts::require_keys(...)',
+            fallback_msg=f'the mapping is missing required keys: {missing}',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class
@@ -111,25 +151,20 @@ def require_keys(
 
 
 def get_first_available(
-    source: Mapping[Any, Any],
-    keys: Sequence[Any],
+    source: Mapping[object, object],
+    keys: Sequence[object],
     exc_context: str | None = None,
     exc_message: str | None = None
-) -> Any | None:
+) -> object | None:
     '''
         Retrieves the first available value from a list of keys in priority order.
         Simulates the logic of: source.get(key1) or source.get(key2) ...
 
-        :param source: Source dictionary/mapping to search.
-        :type source: <Mapping[Any, Any]>
-        :param keys: Sequence of keys to check in order of priority.
-        :type keys: <Sequence[Any]>
-        :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
-        :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :param source: The source dictionary/mapping to search.
+        :param keys: The sequence of keys to check in order of priority.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :return: The first non-empty value found, or None if none of the keys exist/have value.
-        :rtype: <Any | None>
         :exceptions:
             | ATSTypeError: Parameters (source and keys) types validation failed.
     '''

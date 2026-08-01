@@ -23,14 +23,14 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.factory import ContextFactory
 from ats_utilities.info.name.engine import Name
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.3'
+__version__: str = '3.4.4'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
@@ -52,25 +52,25 @@ class EngineTest(unittest.TestCase):
     '''
 
     def test_init(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         inst = Name(context_bundle)
         self.assertEqual(inst.name, None)
 
     def test_property_get_set(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         inst = Name(context_bundle)
         inst.name = 'ats_utilities'
         self.assertEqual(inst.name, 'ats_utilities')
 
     def test_not_none(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         inst = Name(context_bundle)
         self.assertEqual(inst.not_none(), False)
         inst.name = 'ats_utilities'
         self.assertTrue(inst.not_none())
 
     def test_str(self) -> None:
-        context_bundle = ContextRegistry.create_default_context_bundle()
+        context_bundle = ContextFactory.create_bundle()
         inst = Name(context_bundle)
         self.assertIn("Name", str(inst))
 

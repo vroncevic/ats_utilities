@@ -16,56 +16,50 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IConsoleTheme with method(s).
-    Defines interface for console styling.
+    Defines the abstract class IConsoleTheme with method(s).
+    Provides an interface for the console styling.
 '''
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IConsoleTheme(ABC):
+@runtime_checkable
+class IConsoleTheme(Protocol):
     '''
-        Defines abstract class IConsoleTheme with method(s).
-        Defines interface for console styling.
+        Defines the abstract class IConsoleTheme with method(s).
+        Provides an interface for the console styling.
 
         It defines:
 
             :methods:
-                | get_color - Returns color code based on type.
-                | __str__ - Returns the console theme as string representation.
+                | get_color - Returns the color code based on type.
+                | __str__ - Returns the console theme as a string representation.
     '''
 
-    @abstractmethod
     def get_color(self, color_type: str) -> str:
         '''
-            Returns color code based on type.
+            Returns the color code based on the type.
 
-            :param color_type: Type of the message (error, success, etc.).
-            :type color_type: <str>
-            :return: Color code.
-            :rtype: <str>
-            :exceptions: None.
+            :param color_type: The type of the console message (e.g. error, success).
+            :return: The color code.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the console theme as string representation.
+            Returns the console theme as a string representation.
 
-            :return: The console theme as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The console theme as a string representation.
         '''
-        pass
+        ...

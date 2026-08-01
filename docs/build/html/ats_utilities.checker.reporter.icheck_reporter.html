@@ -15,8 +15,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.checker.type package" href="ats_utilities.checker.type.html" />
-    <link rel="prev" title="ats_utilities.checker.reporter.checker_reporter_registry module" href="ats_utilities.checker.reporter.checker_reporter_registry.html" /> 
+    <link rel="next" title="ats_utilities.checker.setup package" href="ats_utilities.checker.setup.html" />
+    <link rel="prev" title="ats_utilities.checker.reporter.engine module" href="ats_utilities.checker.reporter.engine.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,10 +28,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.checker.type.html" title="ats_utilities.checker.type package"
+          <a href="ats_utilities.checker.setup.html" title="ats_utilities.checker.setup package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.checker.reporter.checker_reporter_registry.html" title="ats_utilities.checker.reporter.checker_reporter_registry module"
+          <a href="ats_utilities.checker.reporter.engine.html" title="ats_utilities.checker.reporter.engine module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -64,23 +64,23 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines abstract class ICheckReporter with method(s).
-Creates an interface for formating message report in context of checker.</p>
+<dt>Info</dt><dd><p>Defines the abstract class ICheckReporter with method(s).
+Provides an interface for building a final message in the context of a checker.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.checker.reporter.icheck_reporter.ICheckReporter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.reporter.icheck_reporter.</span></span><span class="sig-name descname"><span class="pre">ICheckReporter</span></span><a class="reference internal" href="_modules/ats_utilities/checker/reporter/icheck_reporter.html#ICheckReporter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.reporter.icheck_reporter.ICheckReporter" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Defines abstract class ICheckReporter with method(s).
-Creates an interface for formating message report in context of checker.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.reporter.icheck_reporter.</span></span><span class="sig-name descname"><span class="pre">ICheckReporter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker/reporter/icheck_reporter.html#ICheckReporter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.reporter.icheck_reporter.ICheckReporter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></p>
+<p>Defines the abstract class ICheckReporter with method(s).
+Provides an interface for building the final message in the context of a checker.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">build_message_format - Builds the final message report for checker.</div>
-<div class="line">__str__ - Returns the reporter as string representation.</div>
+<div class="line">build_message - Builds the final message.</div>
+<div class="line">__str__ - Returns the checker reporter as a string representation.</div>
 </div>
 </dd>
 </dl>
@@ -90,25 +90,26 @@ Creates an interface for formating message report in context of checker.</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.checker.reporter.icheck_reporter.ICheckReporter._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.reporter.icheck_reporter.ICheckReporter._is_protocol">
+<span class="sig-name descname"><span class="pre">_is_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.checker.reporter.icheck_reporter.ICheckReporter._is_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.reporter.icheck_reporter.ICheckReporter._is_runtime_protocol">
+<span class="sig-name descname"><span class="pre">_is_runtime_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.checker.reporter.icheck_reporter.ICheckReporter._is_runtime_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.checker.reporter.icheck_reporter.ICheckReporter.build_message_format">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_message_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">report_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.checker.reporter.checker_reporter_bundle.html#ats_utilities.checker.reporter.checker_reporter_bundle.CheckerReporterBundle" title="ats_utilities.checker.reporter.checker_reporter_bundle.CheckerReporterBundle"><span class="pre">CheckerReporterBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/reporter/icheck_reporter.html#ICheckReporter.build_message_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.reporter.icheck_reporter.ICheckReporter.build_message_format" title="Link to this definition">¶</a></dt>
-<dd><p>Builds the final message report for checker.</p>
-<dl class="field-list">
+<dt class="sig sig-object py" id="ats_utilities.checker.reporter.icheck_reporter.ICheckReporter.build_message">
+<span class="sig-name descname"><span class="pre">build_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ReportDataType</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ReportType</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/reporter/icheck_reporter.html#ICheckReporter.build_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.reporter.icheck_reporter.ICheckReporter.build_message" title="Link to this definition">¶</a></dt>
+<dd><p>Builds the final message.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>report_bundle</strong> (<em>&lt;CheckerReporterBundle&gt;</em>) – Bundle with parameters.</p>
+<dd class="field-odd"><p><strong>data</strong> – The data to be processed and reported on.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Formatted message report</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;str&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><div class="line-block">
-<div class="line">ATSValueError: Report bundle must be provided.</div>
-<div class="line">ATSTypeError: Report bundle must be a CheckerReporterBundle instance.</div>
-</div>
+<dd class="field-even"><p>The final message.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -130,7 +131,9 @@ Creates an interface for formating message report in context of checker.</p>
 <li><a class="reference internal" href="#">ats_utilities.checker.reporter.icheck_reporter module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.checker.reporter.icheck_reporter.ICheckReporter"><code class="docutils literal notranslate"><span class="pre">ICheckReporter</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.checker.reporter.icheck_reporter.ICheckReporter._abc_impl"><code class="docutils literal notranslate"><span class="pre">ICheckReporter._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.reporter.icheck_reporter.ICheckReporter.build_message_format"><code class="docutils literal notranslate"><span class="pre">ICheckReporter.build_message_format()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.reporter.icheck_reporter.ICheckReporter._is_protocol"><code class="docutils literal notranslate"><span class="pre">ICheckReporter._is_protocol</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.reporter.icheck_reporter.ICheckReporter._is_runtime_protocol"><code class="docutils literal notranslate"><span class="pre">ICheckReporter._is_runtime_protocol</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.reporter.icheck_reporter.ICheckReporter.build_message"><code class="docutils literal notranslate"><span class="pre">ICheckReporter.build_message()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -140,13 +143,13 @@ Creates an interface for formating message report in context of checker.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.checker.reporter.checker_reporter_registry.html"
-                          title="previous chapter">ats_utilities.checker.reporter.checker_reporter_registry module</a></p>
+    <p class="topless"><a href="ats_utilities.checker.reporter.engine.html"
+                          title="previous chapter">ats_utilities.checker.reporter.engine module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.checker.type.html"
-                          title="next chapter">ats_utilities.checker.type package</a></p>
+    <p class="topless"><a href="ats_utilities.checker.setup.html"
+                          title="next chapter">ats_utilities.checker.setup package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -179,10 +182,10 @@ Creates an interface for formating message report in context of checker.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.checker.type.html" title="ats_utilities.checker.type package"
+          <a href="ats_utilities.checker.setup.html" title="ats_utilities.checker.setup package"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.checker.reporter.checker_reporter_registry.html" title="ats_utilities.checker.reporter.checker_reporter_registry module"
+          <a href="ats_utilities.checker.reporter.engine.html" title="ats_utilities.checker.reporter.engine module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

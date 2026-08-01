@@ -54,338 +54,257 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines class Logger with attribute(s) and method(s).</span>
-<span class="sd">    Creates an API for the logging mechanism.</span>
+<span class="sd">    Defines the Logger class with attribute(s) and method(s).</span>
+<span class="sd">    Provides an API for the logging functionality.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Mapping</span>
-<span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">getLogger</span><span class="p">,</span> <span class="n">DEBUG</span><span class="p">,</span> <span class="n">INFO</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="n">CRITICAL</span><span class="p">,</span> <span class="n">FileHandler</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="n">StreamHandler</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">environ</span><span class="p">,</span> <span class="n">makedirs</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">exists</span>
-<span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="nb">compile</span><span class="p">,</span> <span class="n">Pattern</span>
-<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span>
-<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MappingProxyType</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
-
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.logger_bundle</span> <span class="kn">import</span> <span class="n">LoggerBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.bundle</span> <span class="kn">import</span> <span class="n">LoggerBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.underlying.iunderlying</span> <span class="kn">import</span> <span class="n">IUnderlyingLogger</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.validator</span> <span class="kn">import</span> <span class="n">LoggerValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.formatter.iformatter</span> <span class="kn">import</span> <span class="n">ILogFormatter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.buffer.ibuffer</span> <span class="kn">import</span> <span class="n">ILogBuffer</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.handler.ihandler_manager</span> <span class="kn">import</span> <span class="n">ILogHandlerManager</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.processor.imessage_processor</span> <span class="kn">import</span> <span class="n">IMessageProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSTypeError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 
-<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;1.0.0&#39;</span>
-<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="Logger">
 <a class="viewcode-back" href="../../../ats_utilities.logger.engine.html#ats_utilities.logger.engine.Logger">[docs]</a>
-<span class="k">class</span> <span class="nc">Logger</span><span class="p">(</span><span class="n">ILogger</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Logger</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class Logger with attribute(s) and method(s).</span>
-<span class="sd">        Creates an API for the logging mechanism.</span>
+<span class="sd">        Defines the Logger class with attribute(s) and method(s).</span>
+<span class="sd">        Provides an API for the logging functionality.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _logger - Logger instance.</span>
-<span class="sd">                | _log_methods - Mapping of log levels to log methods.</span>
-<span class="sd">                | _early_logs_buffer - Buffer for early logs.</span>
-<span class="sd">                | _has_file_handler - Flag indicating if logger has a file handler.</span>
+<span class="sd">                | _logger - The logger.</span>
+<span class="sd">                | _formatter - The formatter for log messages.</span>
+<span class="sd">                | _buffer - The buffer for early logs.</span>
+<span class="sd">                | _handler_manager - The manager for log output handlers.</span>
+<span class="sd">                | _message_processor - The message processor.</span>
+<span class="sd">                | _has_file_handler - The flag indicating if the logger has a file handler.</span>
+<span class="sd">                | _is_initialized - The flag indicating if the logger is initialized.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initials Logger constructor.</span>
-<span class="sd">                | _process_message - Processes the log message by checking the environment.</span>
-<span class="sd">                | write_log - Writes message to log.</span>
-<span class="sd">                | is_initialized - Checks if logger is initialized.</span>
-<span class="sd">                | set_level - Sets log level.</span>
-<span class="sd">                | set_log_file - Sets log file.</span>
-<span class="sd">                | set_stdout - Sets log output to standard output (stdout).</span>
-<span class="sd">                | set_stderr - Sets log output to standard error (stderr).</span>
-<span class="sd">                | stop_buffering - Stops log buffering.</span>
-<span class="sd">                | __str__ - Returns the logger as string representation.</span>
+<span class="sd">                | __init__ - Initializes the logger.</span>
+<span class="sd">                | get_bundle - Gets the current logger configuration bundle.</span>
+<span class="sd">                | is_initialized - Checks if the logger is initialized.</span>
+<span class="sd">                | update_bundle - Updates the logger configuration bundle.</span>
+<span class="sd">                | _apply_bundle - Applies bundle configuration to instance attributes.</span>
+<span class="sd">                | set_level - Sets the log level.</span>
+<span class="sd">                | _flush_buffer - Flushes the log buffer.</span>
+<span class="sd">                | set_log_file - Configures the output handler to output to the log file.</span>
+<span class="sd">                | set_stdout - Configures the output handler to output to the standard output.</span>
+<span class="sd">                | stop_buffering - Stops the log buffering.</span>
+<span class="sd">                | write_log - Writes the message to the log output.</span>
+<span class="sd">                | __str__ - Returns the logger as a string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">_logger</span><span class="p">:</span> <span class="n">Any</span>
-    <span class="n">_log_methods</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span>
-    <span class="n">_early_logs_buffer</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span>
+    <span class="n">_logger</span><span class="p">:</span> <span class="n">IUnderlyingLogger</span>
+    <span class="n">_formatter</span><span class="p">:</span> <span class="n">ILogFormatter</span>
+    <span class="n">_buffer</span><span class="p">:</span> <span class="n">ILogBuffer</span>
+    <span class="n">_handler_manager</span><span class="p">:</span> <span class="n">ILogHandlerManager</span>
+    <span class="n">_message_processor</span><span class="p">:</span> <span class="n">IMessageProcessor</span>
     <span class="n">_has_file_handler</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">_is_initialized</span><span class="p">:</span> <span class="nb">bool</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">LoggerBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">own</span><span class="p">:</span> <span class="n">LoggerBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initializes Logger constructor.</span>
+<span class="sd">            Initializes the logger.</span>
 
-<span class="sd">            :param component_bundle: Component bundle with logger and log file.</span>
-<span class="sd">            :type component_bundle: &lt;LoggerBundle&gt;</span>
+<span class="sd">            :param own: The component bundle with logger and logging parameters.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError - Component bundle must be provided.</span>
-<span class="sd">                | ATSTypeError - Component bundle must be a LoggerBundle instance.</span>
+<span class="sd">                | ATSValueError: The logger bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The logger bundle must be an instance of LoggerBundle.</span>
+<span class="sd">                |                and its attributes must be instances of their</span>
+<span class="sd">                |                respective interfaces and types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;logger::init(...)&#39;</span>
-        <span class="n">not_none</span><span class="p">(</span><span class="n">component_bundle</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;component_bundle must be provided&#39;</span><span class="p">)</span>
-        <span class="n">istype</span><span class="p">(</span><span class="n">component_bundle</span><span class="p">,</span> <span class="n">LoggerBundle</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;component_bundle must be a LoggerBundle instance&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">logger</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">component_bundle</span><span class="o">.</span><span class="n">log_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">LoggerValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_bundle</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">has_handlers</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_log_methods</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">({</span>
-                <span class="n">DEBUG</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">,</span>
-                <span class="n">INFO</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">,</span>
-                <span class="n">WARNING</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span>
-                <span class="n">ERROR</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">,</span>
-                <span class="n">CRITICAL</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">critical</span><span class="p">,</span>
-            <span class="p">})</span>
-        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;write_log&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_log_methods</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">({</span>
-                <span class="n">DEBUG</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">msg</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">DEBUG</span><span class="p">),</span>
-                <span class="n">INFO</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">msg</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">INFO</span><span class="p">),</span>
-                <span class="n">WARNING</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">msg</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">),</span>
-                <span class="n">ERROR</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">msg</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">),</span>
-                <span class="n">CRITICAL</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">msg</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">CRITICAL</span><span class="p">),</span>
-            <span class="p">})</span>
-
-<div class="viewcode-block" id="Logger._process_message">
-<a class="viewcode-back" href="../../../ats_utilities.logger.engine.html#ats_utilities.logger.engine.Logger._process_message">[docs]</a>
-    <span class="k">def</span> <span class="nf">_process_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="Logger.get_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.logger.engine.html#ats_utilities.logger.engine.Logger.get_bundle">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LoggerBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Processes the log message by checking the environment.</span>
-<span class="sd">            Stripping ANSI color codes and emojis if output is redirected or disabled.</span>
+<span class="sd">            Gets the current logger configuration bundle.</span>
 
-<span class="sd">            :param message: The original log message.</span>
-<span class="sd">            :type message: &lt;str&gt;</span>
-<span class="sd">            :return: The processed (clean or untouched) log message.</span>
-<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :return: The LoggerBundle containing the current logger setup.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">no_color</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="s1">&#39;NO_COLOR&#39;</span> <span class="ow">in</span> <span class="n">environ</span>
-        <span class="n">force_color</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="s1">&#39;FORCE_COLOR&#39;</span> <span class="ow">in</span> <span class="n">environ</span>
-        <span class="n">is_terminal</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">stdout</span><span class="o">.</span><span class="n">isatty</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="n">no_color</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">is_terminal</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force_color</span><span class="p">):</span>
-            <span class="n">ansi_escape</span><span class="p">:</span> <span class="n">Pattern</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\x1B(?:[@-Z</span><span class="se">\\</span><span class="s1">-_]|\[[0-?]*[ -/]*[@-~])&#39;</span><span class="p">)</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="n">ansi_escape</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">message</span></div>
-
-
-<div class="viewcode-block" id="Logger.write_log">
-<a class="viewcode-back" href="../../../ats_utilities.logger.engine.html#ats_utilities.logger.engine.Logger.write_log">[docs]</a>
-    <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">write_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Writes message to log.</span>
-
-<span class="sd">            :param message: Log message in string format for log.</span>
-<span class="sd">            :type message: &lt;str&gt;</span>
-<span class="sd">            :param ctrl: Control flag (debug, warning, critical, errors, info).</span>
-<span class="sd">            :type ctrl: &lt;int&gt;</span>
-<span class="sd">            :exceptions: None.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_methods</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="n">processed_message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-                
-                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">200</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">processed_message</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">))</span>
-                
-                <span class="bp">self</span><span class="o">.</span><span class="n">_log_methods</span><span class="p">[</span><span class="n">ctrl</span><span class="p">](</span><span class="n">processed_message</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">LoggerBundle</span><span class="p">(</span>
+            <span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span>
+            <span class="n">formatter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_formatter</span><span class="p">,</span>
+            <span class="n">buffer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="p">,</span>
+            <span class="n">handler_manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_handler_manager</span><span class="p">,</span>
+            <span class="n">message_processor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_message_processor</span><span class="p">,</span>
+            <span class="n">has_file_handler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Logger.is_initialized">
 <a class="viewcode-back" href="../../../ats_utilities.logger.engine.html#ats_utilities.logger.engine.Logger.is_initialized">[docs]</a>
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Checks if logger is initialized.</span>
+<span class="sd">            Checks if the logger is initialized.</span>
 
-<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;hasHandlers&#39;</span><span class="p">):</span>
-            <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_log_methods</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">hasHandlers</span><span class="p">()</span> <span class="ow">or</span> <span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">hasHandlers</span><span class="p">()</span>
-            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span></div>
 
-        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_methods</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Logger.update_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.logger.engine.html#ats_utilities.logger.engine.Logger.update_bundle">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="n">LoggerBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Updates the logger configuration using a logger bundle.</span>
+
+<span class="sd">            :param bundle: The logger bundle with logger and logging parameters.</span>
+<span class="sd">            :return: True if configuration was successfully updated, otherwise False.</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">LoggerValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_apply_bundle</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">has_handlers</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="p">(</span><span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSTypeError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Logger._apply_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.logger.engine.html#ats_utilities.logger.engine.Logger._apply_bundle">[docs]</a>
+    <span class="k">def</span> <span class="nf">_apply_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="n">LoggerBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Applies bundle configuration to instance attributes.</span>
+
+<span class="sd">            :param bundle: The logger bundle with logger and logging parameters.</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_formatter</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">formatter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">buffer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_handler_manager</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">handler_manager</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_message_processor</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">message_processor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">has_file_handler</span></div>
 
 
 <div class="viewcode-block" id="Logger.set_level">
 <a class="viewcode-back" href="../../../ats_utilities.logger.engine.html#ats_utilities.logger.engine.Logger.set_level">[docs]</a>
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Sets log level.</span>
+<span class="sd">            Sets the log level.</span>
 
-<span class="sd">            :param level: Log level.</span>
-<span class="sd">            :type level: &lt;int&gt;</span>
+<span class="sd">            :param level: The log level.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;setLevel&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;set_level&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="n">level</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="n">level</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Logger._flush_buffer">
+<a class="viewcode-back" href="../../../ats_utilities.logger.engine.html#ats_utilities.logger.engine.Logger._flush_buffer">[docs]</a>
+    <span class="k">def</span> <span class="nf">_flush_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Flushes buffered messages to the logger.</span>
+
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="o">.</span><span class="n">is_enabled</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="o">.</span><span class="n">flush</span><span class="p">(</span><span class="k">lambda</span> <span class="n">level</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">message</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="Logger.set_log_file">
 <a class="viewcode-back" href="../../../ats_utilities.logger.engine.html#ats_utilities.logger.engine.Logger.set_log_file">[docs]</a>
-    <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">set_log_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_log_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Sets log file.</span>
+<span class="sd">            Sets the log file.</span>
 
-<span class="sd">            :param log_file: Log file path.</span>
-<span class="sd">            :type log_file: &lt;str&gt;</span>
+<span class="sd">            :param log_file: The log file path.</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;set_log_file&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">set_log_file</span><span class="p">(</span><span class="n">log_file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handler_manager</span><span class="o">.</span><span class="n">set_log_file</span><span class="p">(</span><span class="n">log_file</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;addHandler&#39;</span><span class="p">):</span>
-            <span class="n">log_dir</span> <span class="o">=</span> <span class="n">dirname</span><span class="p">(</span><span class="n">log_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_flush_buffer</span><span class="p">()</span>
 
-            <span class="k">if</span> <span class="n">log_dir</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">log_dir</span><span class="p">):</span>
-                <span class="n">makedirs</span><span class="p">(</span><span class="n">log_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
 
-            <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">):</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">FileHandler</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">removeHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
-
-            <span class="n">file_handler</span> <span class="o">=</span> <span class="n">FileHandler</span><span class="p">(</span><span class="n">log_file</span><span class="p">)</span>
-            <span class="n">file_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">Formatter</span><span class="p">(</span>
-                <span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
-                <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y %I:%M:%S %p&#39;</span>
-            <span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">file_handler</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span> <span class="o">=</span> <span class="kc">True</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">msg</span><span class="p">,</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;write_log&#39;</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">msg</span><span class="p">,</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="kc">False</span></div>
 
 
 <div class="viewcode-block" id="Logger.set_stdout">
 <a class="viewcode-back" href="../../../ats_utilities.logger.engine.html#ats_utilities.logger.engine.Logger.set_stdout">[docs]</a>
-    <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">set_stdout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_stdout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Sets log output to standard output (stdout).</span>
+<span class="sd">            Configures the output handler to output to the standard output.</span>
 
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;addHandler&#39;</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">):</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">FileHandler</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">removeHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">StreamHandler</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="s1">&#39;stream&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">stdout</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">removeHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handler_manager</span><span class="o">.</span><span class="n">set_stdout</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_flush_buffer</span><span class="p">()</span>
 
-            <span class="n">has_stdout</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
-                <span class="nb">isinstance</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">StreamHandler</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s1">&#39;stream&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="n">stdout</span>
-                <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">handlers</span>
-            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
 
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">has_stdout</span><span class="p">:</span>
-                <span class="n">stream_handler</span> <span class="o">=</span> <span class="n">StreamHandler</span><span class="p">(</span><span class="n">stdout</span><span class="p">)</span>
-                <span class="n">stream_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">Formatter</span><span class="p">(</span>
-                    <span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
-                    <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y %I:%M:%S %p&#39;</span>
-                <span class="p">))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">stream_handler</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span> <span class="o">=</span> <span class="kc">True</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">msg</span><span class="p">,</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;write_log&#39;</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">msg</span><span class="p">,</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
-
-
-<div class="viewcode-block" id="Logger.set_stderr">
-<a class="viewcode-back" href="../../../ats_utilities.logger.engine.html#ats_utilities.logger.engine.Logger.set_stderr">[docs]</a>
-    <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">set_stderr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Sets log output to standard error (stderr).</span>
-
-<span class="sd">            :exceptions: None.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;addHandler&#39;</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">):</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">FileHandler</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">removeHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">StreamHandler</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="s1">&#39;stream&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">stderr</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">removeHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
-
-            <span class="n">has_stderr</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
-                <span class="nb">isinstance</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">StreamHandler</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s1">&#39;stream&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="n">stderr</span>
-                <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">handlers</span>
-            <span class="p">)</span>
-
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">has_stderr</span><span class="p">:</span>
-                <span class="n">stream_handler</span> <span class="o">=</span> <span class="n">StreamHandler</span><span class="p">(</span><span class="n">stderr</span><span class="p">)</span>
-                <span class="n">stream_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">Formatter</span><span class="p">(</span>
-                    <span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
-                    <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y %I:%M:%S %p&#39;</span>
-                <span class="p">))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">stream_handler</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span> <span class="o">=</span> <span class="kc">True</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">msg</span><span class="p">,</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;write_log&#39;</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">msg</span><span class="p">,</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="kc">False</span></div>
 
 
 <div class="viewcode-block" id="Logger.stop_buffering">
 <a class="viewcode-back" href="../../../ats_utilities.logger.engine.html#ats_utilities.logger.engine.Logger.stop_buffering">[docs]</a>
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">stop_buffering</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Stops log buffering.</span>
+<span class="sd">            Stops the log buffering.</span>
 
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;stop_buffering&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">stop_buffering</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_early_logs_buffer</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flush_buffer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span> <span class="o">=</span> <span class="kc">True</span></div>
 
 
-    <span class="nd">@override</span>
+<div class="viewcode-block" id="Logger.write_log">
+<a class="viewcode-back" href="../../../ats_utilities.logger.engine.html#ats_utilities.logger.engine.Logger.write_log">[docs]</a>
+    <span class="k">def</span> <span class="nf">write_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Writes the message to the log.</span>
+
+<span class="sd">            :param level: The log level.</span>
+<span class="sd">            :param message: The message to be logged.</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">message</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="n">processed_message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message_processor</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_file_handler</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="o">.</span><span class="n">is_enabled</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">processed_message</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">processed_message</span><span class="p">)</span></div>
+
+
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the logger as string representation.</span>
+<span class="sd">            Returns the logger as a string representation.</span>
 
-<span class="sd">            :return: The logger as string representation.</span>
-<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :return: The logger as a string representation.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">to_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>

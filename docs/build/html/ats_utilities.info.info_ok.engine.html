@@ -64,38 +64,38 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines class InfoOk with attribute(s) and method(s).
-Creates an API for the info status in one property object.</p>
+<dt>Info</dt><dd><p>Defines the InfoOk class with attribute(s) and method(s).
+Provides an API for the info status in one property object.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.info.info_ok.engine.InfoOk">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.info_ok.engine.</span></span><span class="sig-name descname"><span class="pre">InfoOk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/info/info_ok/engine.html#InfoOk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.info_ok.engine.InfoOk" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.context.context_support.html#ats_utilities.context.context_support.ContextSupport" title="ats_utilities.context.context_support.ContextSupport"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextSupport</span></code></a>, <a class="reference internal" href="ats_utilities.info.info_ok.iinfo_ok.html#ats_utilities.info.info_ok.iinfo_ok.IInfoOk" title="ats_utilities.info.info_ok.iinfo_ok.IInfoOk"><code class="xref py py-class docutils literal notranslate"><span class="pre">IInfoOk</span></code></a></p>
-<p>Defines class InfoOk with attribute(s) and method(s).
-Creates an API for the info status in one property object.
-Note: Info status is only prepared when it is set by user (not None).</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.info_ok.engine.</span></span><span class="sig-name descname"><span class="pre">InfoOk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.bundle.html#ats_utilities.context.bundle.ContextBundle" title="ats_utilities.context.bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/info/info_ok/engine.html#InfoOk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.info_ok.engine.InfoOk" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines the InfoOk class with attribute(s) and method(s).
+Provides an API for the info status in one property object.
+Note: The info status is only prepared when it is set by the user (not None).</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_info_ok - The info status App/Tool/Script is OK (default False).</div>
+<div class="line">_info_ok - The info status for the App/Tool/Script is OK (default: False).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initializes InfoOk constructor.</div>
-<div class="line">info_ok - Property methods for set/get information status.</div>
-<div class="line">not_none - Checks if info status is not None.</div>
-<div class="line">__str__ - Returns the InfoOk as string representation.</div>
+<div class="line">__init__ - Initializes the InfoOk.</div>
+<div class="line">info_ok - Property methods for setting and getting the information status.</div>
+<div class="line">not_none - Checks if the info status is not None.</div>
+<div class="line">__str__ - Returns the InfoOk as a string representation.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.info.info_ok.engine.InfoOk._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.info.info_ok.engine.InfoOk._abc_impl" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.info.info_ok.engine.InfoOk._context">
+<span class="sig-name descname"><span class="pre">_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context.bundle.html#ats_utilities.context.bundle.ContextBundle" title="ats_utilities.context.bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.info.info_ok.engine.InfoOk._context" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -105,20 +105,17 @@ Note: Info status is only prepared when it is set by user (not None).</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="ats_utilities.info.info_ok.engine.InfoOk.info_ok">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info_ok</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.info.info_ok.engine.InfoOk.info_ok" title="Link to this definition">¶</a></dt>
-<dd><p>Property method for getting information status.
-Note: Info status is only prepared when it is set by user (not None).</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info_ok</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.info_ok.engine.InfoOk.info_ok" title="Link to this definition">¶</a></dt>
+<dd><p>Property method for getting the information status.
+Note: The info status is only prepared when it is set by the user (not None).</p>
 <dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The information status in bool format.</p>
+<dd class="field-odd"><p>The information status in bool format | None.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="line-block">
-<div class="line">ATSRuntimeError: Decorator cannot be used on a standalone function.</div>
-<div class="line">ATSAttributeError: Class is required to provide a ‘_reporter’ object to</div>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSRuntimeError: The decorator cannot be used on a standalone function.</div>
+<div class="line">ATSAttributeError: The class is required to provide a ‘_reporter’ object to</div>
 <div class="line-block">
 <div class="line">use the &#64;vreport decorator.</div>
 </div>
@@ -130,19 +127,16 @@ Note: Info status is only prepared when it is set by user (not None).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.info.info_ok.engine.InfoOk.not_none">
 <span class="sig-name descname"><span class="pre">not_none</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/info_ok/engine.html#InfoOk.not_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.info_ok.engine.InfoOk.not_none" title="Link to this definition">¶</a></dt>
-<dd><p>Checks if info status is not None.
-Note: Info status is only prepared when it is set by user (not None).</p>
+<dd><p>Checks if the info status is not None.
+Note: The info status is only prepared when it is set by the user (not None).</p>
 <dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
+<dd class="field-odd"><p>True if successful, otherwise False.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="line-block">
-<div class="line">ATSRuntimeError: Decorator cannot be used on a standalone function.</div>
-<div class="line">ATSAttributeError: Class is required to provide a ‘_reporter’ object to</div>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSRuntimeError: The decorator cannot be used on a standalone function.</div>
+<div class="line">ATSAttributeError: The class is required to provide a ‘_reporter’ object to</div>
 <div class="line-block">
 <div class="line">use the &#64;vreport decorator.</div>
 </div>
@@ -167,7 +161,7 @@ Note: Info status is only prepared when it is set by user (not None).</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.info.info_ok.engine module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.info.info_ok.engine.InfoOk"><code class="docutils literal notranslate"><span class="pre">InfoOk</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.info.info_ok.engine.InfoOk._abc_impl"><code class="docutils literal notranslate"><span class="pre">InfoOk._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.info_ok.engine.InfoOk._context"><code class="docutils literal notranslate"><span class="pre">InfoOk._context</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.info_ok.engine.InfoOk._info_ok"><code class="docutils literal notranslate"><span class="pre">InfoOk._info_ok</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.info_ok.engine.InfoOk.info_ok"><code class="docutils literal notranslate"><span class="pre">InfoOk.info_ok</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.info_ok.engine.InfoOk.not_none"><code class="docutils literal notranslate"><span class="pre">InfoOk.not_none()</span></code></a></li>

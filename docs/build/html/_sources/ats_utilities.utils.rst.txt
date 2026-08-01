@@ -1,6 +1,15 @@
 ats\_utilities.utils package
 ============================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   ats_utilities.utils.data
+   ats_utilities.utils.setup
+
 Submodules
 ----------
 
@@ -12,7 +21,6 @@ Submodules
    ats_utilities.utils.dicts
    ats_utilities.utils.dirs
    ats_utilities.utils.files
-   ats_utilities.utils.iregistry
    ats_utilities.utils.reflection
 
 Module contents

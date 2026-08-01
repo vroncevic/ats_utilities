@@ -19,47 +19,43 @@ Info
     Use cases for ATS context bundle.
 '''
 
-from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.registry import ContextRegistry
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.checker_registry import CheckerRegistry
+from ats_utilities.checker.setup.factory import CheckerFactory
 from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.logger_registry import LoggerRegistry
+from ats_utilities.logger.setup.factory import LoggerFactory
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.theme.engine import ConsoleTheme 
-from ats_utilities.reporter.reporter_bundle import ReporterBundle
+from ats_utilities.reporter.setup.registry import ReporterRegistry
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 #
 # [with complex DI]
 # ==================
 #
-mychecker: Checker = Checker(component_bundle=CheckerRegistry.create_default_checker_bundle())
+mychecker: Checker = Checker(own=CheckerFactory.create_bundle())
+mylogger: Logger = Logger(own=LoggerFactory.create_bundle())
 mytheme: ConsoleTheme = ConsoleTheme()
-mylogger: Logger = Logger(component_bundle=LoggerRegistry.create_default_logger_bundle())
-component_bundle: ReporterBundle = ReporterBundle(
-    checker=mychecker,
-    theme=mytheme,
-    logger=mylogger
+myreporter: Reporter = Reporter(
+    own=ReporterRegistry.create_bundle({
+        'checker': mychecker, 'theme': mytheme, 'logger': mylogger
+    })
 )
+ats_context_bundle_di: ContextBundle = ContextRegistry.create_bundle({
+    'checker': mychecker, 'logger': mylogger, 'reporter': myreporter, 'verbose': True
+})
 
-myreporter: Reporter = Reporter(component_bundle=component_bundle)
-
-ats_context_bundle_di: ContextBundle = ContextBundle(
-    checker=mychecker,
-    logger=mylogger,
-    reporter=myreporter,
-    verbose=True
-)
 print(ats_context_bundle_di)
 print(ats_context_bundle_di.checker)
 print(ats_context_bundle_di.reporter)
 print(ats_context_bundle_di.verbose)
-print(50 * '=')
+print(100 * '=')

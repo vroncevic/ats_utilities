@@ -64,38 +64,38 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines class Licence with attribute(s) and method(s).
-Creates an API for the licence in one property object.</p>
+<dt>Info</dt><dd><p>Defines the Licence class with attribute(s) and method(s).
+Provides an API for the licence in one property object.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.info.licence.engine.Licence">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.licence.engine.</span></span><span class="sig-name descname"><span class="pre">Licence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/info/licence/engine.html#Licence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.licence.engine.Licence" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.context.context_support.html#ats_utilities.context.context_support.ContextSupport" title="ats_utilities.context.context_support.ContextSupport"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextSupport</span></code></a>, <a class="reference internal" href="ats_utilities.info.licence.ilicence.html#ats_utilities.info.licence.ilicence.ILicence" title="ats_utilities.info.licence.ilicence.ILicence"><code class="xref py py-class docutils literal notranslate"><span class="pre">ILicence</span></code></a></p>
-<p>Defines class Licence with attribute(s) and method(s).
-Creates an API for the licence in one property object.
-Note: Info licence is only prepared when it is set by user (not None).</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.licence.engine.</span></span><span class="sig-name descname"><span class="pre">Licence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.bundle.html#ats_utilities.context.bundle.ContextBundle" title="ats_utilities.context.bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/info/licence/engine.html#Licence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.licence.engine.Licence" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines the Licence class with attribute(s) and method(s).
+Provides an API for the licence in one property object.
+Note: The info licence is only prepared when it is set by the user (not None).</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_licence - The licence for App/Tool/Script (default None).</div>
+<div class="line">_licence - The licence for the App/Tool/Script (default: None).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initializes Licence constructor.</div>
-<div class="line">licence - Property methods for set/get operations.</div>
-<div class="line">not_none - Checks is licence is not None.</div>
-<div class="line">__str__ - Returns the Licence as string representation.</div>
+<div class="line">__init__ - Initializes the Licence.</div>
+<div class="line">licence - Property methods for setting and getting the respective property value.</div>
+<div class="line">not_none - Checks if the licence is not None.</div>
+<div class="line">__str__ - Returns the Licence as a string representation.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.info.licence.engine.Licence._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.info.licence.engine.Licence._abc_impl" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.info.licence.engine.Licence._context">
+<span class="sig-name descname"><span class="pre">_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context.bundle.html#ats_utilities.context.bundle.ContextBundle" title="ats_utilities.context.bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.info.licence.engine.Licence._context" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -105,20 +105,17 @@ Note: Info licence is only prepared when it is set by user (not None).</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="ats_utilities.info.licence.engine.Licence.licence">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">licence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ats_utilities.info.licence.engine.Licence.licence" title="Link to this definition">¶</a></dt>
-<dd><p>Property method for getting licence.
-Note: Info licence is only prepared when it is set by user (not None).</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">licence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.licence.engine.Licence.licence" title="Link to this definition">¶</a></dt>
+<dd><p>Property method for getting the licence.
+Note: The info licence is only prepared when it is set by the user (not None).</p>
 <dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The licence in string format.</p>
+<dd class="field-odd"><p>The licence in string format | None.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;str&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="line-block">
-<div class="line">ATSRuntimeError: Decorator cannot be used on a standalone function.</div>
-<div class="line">ATSAttributeError: Class is required to provide a ‘_reporter’ object to</div>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSRuntimeError: The decorator cannot be used on a standalone function.</div>
+<div class="line">ATSAttributeError: The class is required to provide a ‘_reporter’ object to</div>
 <div class="line-block">
 <div class="line">use the &#64;vreport decorator.</div>
 </div>
@@ -130,19 +127,16 @@ Note: Info licence is only prepared when it is set by user (not None).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.info.licence.engine.Licence.not_none">
 <span class="sig-name descname"><span class="pre">not_none</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/licence/engine.html#Licence.not_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.licence.engine.Licence.not_none" title="Link to this definition">¶</a></dt>
-<dd><p>Checks is licence not None.
-Note: Info licence is only prepared when it is set by user (not None).</p>
+<dd><p>Checks if the licence is not None.
+Note: The info licence is only prepared when it is set by the user (not None).</p>
 <dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
+<dd class="field-odd"><p>True if successful, otherwise False.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="line-block">
-<div class="line">ATSRuntimeError: Decorator cannot be used on a standalone function.</div>
-<div class="line">ATSAttributeError: Class is required to provide a ‘_reporter’ object to</div>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSRuntimeError: The decorator cannot be used on a standalone function.</div>
+<div class="line">ATSAttributeError: The class is required to provide a ‘_reporter’ object to</div>
 <div class="line-block">
 <div class="line">use the &#64;vreport decorator.</div>
 </div>
@@ -167,7 +161,7 @@ Note: Info licence is only prepared when it is set by user (not None).</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.info.licence.engine module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.info.licence.engine.Licence"><code class="docutils literal notranslate"><span class="pre">Licence</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.info.licence.engine.Licence._abc_impl"><code class="docutils literal notranslate"><span class="pre">Licence._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.licence.engine.Licence._context"><code class="docutils literal notranslate"><span class="pre">Licence._context</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.licence.engine.Licence._licence"><code class="docutils literal notranslate"><span class="pre">Licence._licence</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.licence.engine.Licence.licence"><code class="docutils literal notranslate"><span class="pre">Licence.licence</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.licence.engine.Licence.not_none"><code class="docutils literal notranslate"><span class="pre">Licence.not_none()</span></code></a></li>

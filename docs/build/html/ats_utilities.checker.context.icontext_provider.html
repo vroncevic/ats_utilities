@@ -16,7 +16,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ats_utilities.checker.format package" href="ats_utilities.checker.format.html" />
-    <link rel="prev" title="ats_utilities.checker.context.context_provider module" href="ats_utilities.checker.context.context_provider.html" /> 
+    <link rel="prev" title="ats_utilities.checker.context.engine module" href="ats_utilities.checker.context.engine.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -31,7 +31,7 @@
           <a href="ats_utilities.checker.format.html" title="ats_utilities.checker.format package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.checker.context.context_provider.html" title="ats_utilities.checker.context.context_provider module"
+          <a href="ats_utilities.checker.context.engine.html" title="ats_utilities.checker.context.engine module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -64,24 +64,25 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines abstract class IContextProvider with method(s).
-Creates an interface for getting context for method(s) and function(s).</p>
+<dt>Info</dt><dd><p>Defines the abstract class IContextProvider with method(s).
+Provides an interface for getting the context information for method(s) and function(s).</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.checker.context.icontext_provider.IContextProvider">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.context.icontext_provider.</span></span><span class="sig-name descname"><span class="pre">IContextProvider</span></span><a class="reference internal" href="_modules/ats_utilities/checker/context/icontext_provider.html#IContextProvider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.context.icontext_provider.IContextProvider" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Defines abstract class IContextProvider with method(s).
-Creates an interface for getting context for method(s) and function(s).</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.context.icontext_provider.</span></span><span class="sig-name descname"><span class="pre">IContextProvider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker/context/icontext_provider.html#IContextProvider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.context.icontext_provider.IContextProvider" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></p>
+<p>Defines the abstract class IContextProvider with method(s).
+Provides an interface for getting the context information for method(s) and function(s).</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">set_stack_index_caller - Sets the index in the call stack to identify the caller.</div>
-<div class="line">get_context - Returns a string representing the calling context.</div>
-<div class="line">__str__ - Returns the context provider as string representation.</div>
+<div class="line">get_stack_index_caller - Returns the index in the call stack to identify the caller.</div>
+<div class="line">get_context - Returns the calling context.</div>
+<div class="line">__str__ - Returns the context provider as a string representation.</div>
 </div>
 </dd>
 </dl>
@@ -91,35 +92,45 @@ Creates an interface for getting context for method(s) and function(s).</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.checker.context.icontext_provider.IContextProvider._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.context.icontext_provider.IContextProvider._is_protocol">
+<span class="sig-name descname"><span class="pre">_is_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.checker.context.icontext_provider.IContextProvider._is_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.checker.context.icontext_provider.IContextProvider._is_runtime_protocol">
+<span class="sig-name descname"><span class="pre">_is_runtime_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.checker.context.icontext_provider.IContextProvider._is_runtime_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.context.icontext_provider.IContextProvider.get_context">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/context/icontext_provider.html#IContextProvider.get_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.context.icontext_provider.IContextProvider.get_context" title="Link to this definition">¶</a></dt>
-<dd><p>Returns a string representing the calling context.</p>
+<span class="sig-name descname"><span class="pre">get_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ContextFormatType</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/context/icontext_provider.html#IContextProvider.get_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.context.icontext_provider.IContextProvider.get_context" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the calling context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Context information string</p>
+<dd class="field-odd"><p>The calling context information.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;str&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.checker.context.icontext_provider.IContextProvider.get_stack_index_caller">
+<span class="sig-name descname"><span class="pre">get_stack_index_caller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">StackIndexCallerType</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/context/icontext_provider.html#IContextProvider.get_stack_index_caller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.context.icontext_provider.IContextProvider.get_stack_index_caller" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the index in the call stack to identify the caller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The index in the call stack to identify the caller.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.context.icontext_provider.IContextProvider.set_stack_index_caller">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_stack_index_caller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_index_caller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/context/icontext_provider.html#IContextProvider.set_stack_index_caller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.context.icontext_provider.IContextProvider.set_stack_index_caller" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_stack_index_caller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_index_caller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">StackIndexCallerType</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/context/icontext_provider.html#IContextProvider.set_stack_index_caller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.context.icontext_provider.IContextProvider.set_stack_index_caller" title="Link to this definition">¶</a></dt>
 <dd><p>Sets the index in the call stack to identify the caller.</p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>stack_index_caller</strong> (<em>&lt;int&gt;</em>) – Index in the call stack to identify the caller.</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><div class="line-block">
-<div class="line">ATSTypeError: Stack index caller must be an integer.</div>
-</div>
+<dd class="field-odd"><p><strong>stack_index_caller</strong> – The index in the call stack to identify the caller.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -141,7 +152,10 @@ Creates an interface for getting context for method(s) and function(s).</p>
 <li><a class="reference internal" href="#">ats_utilities.checker.context.icontext_provider module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.checker.context.icontext_provider.IContextProvider"><code class="docutils literal notranslate"><span class="pre">IContextProvider</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.checker.context.icontext_provider.IContextProvider._abc_impl"><code class="docutils literal notranslate"><span class="pre">IContextProvider._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.context.icontext_provider.IContextProvider._is_protocol"><code class="docutils literal notranslate"><span class="pre">IContextProvider._is_protocol</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.context.icontext_provider.IContextProvider._is_runtime_protocol"><code class="docutils literal notranslate"><span class="pre">IContextProvider._is_runtime_protocol</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.context.icontext_provider.IContextProvider.get_context"><code class="docutils literal notranslate"><span class="pre">IContextProvider.get_context()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.context.icontext_provider.IContextProvider.get_stack_index_caller"><code class="docutils literal notranslate"><span class="pre">IContextProvider.get_stack_index_caller()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.context.icontext_provider.IContextProvider.set_stack_index_caller"><code class="docutils literal notranslate"><span class="pre">IContextProvider.set_stack_index_caller()</span></code></a></li>
 </ul>
 </li>
@@ -152,8 +166,8 @@ Creates an interface for getting context for method(s) and function(s).</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.checker.context.context_provider.html"
-                          title="previous chapter">ats_utilities.checker.context.context_provider module</a></p>
+    <p class="topless"><a href="ats_utilities.checker.context.engine.html"
+                          title="previous chapter">ats_utilities.checker.context.engine module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -194,7 +208,7 @@ Creates an interface for getting context for method(s) and function(s).</p>
           <a href="ats_utilities.checker.format.html" title="ats_utilities.checker.format package"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.checker.context.context_provider.html" title="ats_utilities.checker.context.context_provider module"
+          <a href="ats_utilities.checker.context.engine.html" title="ats_utilities.checker.context.engine module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

@@ -63,26 +63,26 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines abstract class IBase with method(s).
-Interface for ATS base setup.</p>
+<dt>Info</dt><dd><p>Defines the IBase abstract class with method(s).
+An interface for the ATS base setup.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.base.ibase.</span></span><span class="sig-name descname"><span class="pre">IBase</span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.context.icontext_support.html#ats_utilities.context.icontext_support.IContextSupport" title="ats_utilities.context.icontext_support.IContextSupport"><code class="xref py py-class docutils literal notranslate"><span class="pre">IContextSupport</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Defines abstract class IBase with method(s).
-Interface for ATS base setup.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.base.ibase.</span></span><span class="sig-name descname"><span class="pre">IBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></p>
+<p>Defines the IBase abstract class with method(s).
+An interface for the ATS base setup.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">get_shared_context - Returns the shared context.</div>
-<div class="line">is_initialized - Checks if App/Tool/Script base engine is initialized.</div>
-<div class="line">add_new_option - Adds a new option for App/Tool/Script.</div>
-<div class="line">parse_args - Parses App/Tool/Script arguments.</div>
-<div class="line">process - Processes and runs App/Tool/Script (Abstract).</div>
+<div class="line">get_bundle - Gets the current configuration bundle.</div>
+<div class="line">update_bundle - Updates the configuration bundle.</div>
+<div class="line">get_context - Returns the context.</div>
+<div class="line">is_initialized - Checks if the App/Tool/Script base engine is initialized.</div>
+<div class="line">process - Processes and runs the App/Tool/Script (Abstract).</div>
 <div class="line">__str__ - Returns the App/Tool/Script base as string representation.</div>
 </div>
 </dd>
@@ -93,93 +93,73 @@ Interface for ATS base setup.</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.base.ibase.IBase._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase._is_protocol">
+<span class="sig-name descname"><span class="pre">_is_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.base.ibase.IBase._is_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase._is_runtime_protocol">
+<span class="sig-name descname"><span class="pre">_is_runtime_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.base.ibase.IBase._is_runtime_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.add_new_option">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_new_option</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.add_new_option"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.add_new_option" title="Link to this definition">¶</a></dt>
-<dd><p>Adds a new option for App/Tool/Script.</p>
+<dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.get_bundle">
+<span class="sig-name descname"><span class="pre">get_bundle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConfigType</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.get_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.get_bundle" title="Link to this definition">¶</a></dt>
+<dd><p>Gets the current configuration bundle.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>&lt;str&gt;</em>) – Arguments in string format.</p></li>
-<li><p><strong>kwargs</strong> (<em>&lt;Any&gt;</em>) – Arguments in Any format.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The configuration bundle.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.get_shared_context">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.get_shared_context" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the shared context.</p>
+<dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.get_context">
+<span class="sig-name descname"><span class="pre">get_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ContextEnvironment</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.get_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.get_context" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Shared context.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;ContextBundle&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>The context.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.is_initialized">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.is_initialized" title="Link to this definition">¶</a></dt>
-<dd><p>Checks if App/Tool/Script base engine is initialized.</p>
+<span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.is_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if the App/Tool/Script base engine is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.parse_args">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArgSeq</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.option_namespace.html#ats_utilities.option.option_namespace.OptionNamespace" title="ats_utilities.option.option_namespace.OptionNamespace"><span class="pre">OptionNamespace</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.parse_args" title="Link to this definition">¶</a></dt>
-<dd><p>Parses App/Tool/Script arguments.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>argv</strong> (<em>&lt;ArgSeq&gt;</em>) – Sequence of arguments.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Options and arguments | None</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;OptionNamespace | None&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-odd"><p>True if successful, otherwise False.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.process">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.process" title="Link to this definition">¶</a></dt>
-<dd><p>Processes and runs App/Tool/Script (Abstract).</p>
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.process" title="Link to this definition">¶</a></dt>
+<dd><p>Processes and runs the App/Tool/Script.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/Disable verbose option (default False).</p>
+<dd class="field-odd"><p><strong>verbose</strong> – The Enable/Disable the verbose option (default: False).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;True&gt; if successful else &lt;False&gt;.</p>
+<dd class="field-even"><p>True if successful, otherwise False.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;bool&gt;</p>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.update_bundle">
+<span class="sig-name descname"><span class="pre">update_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConfigType</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.update_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.update_bundle" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the configuration bundle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bundle</strong> – The configuration bundle.</p>
 </dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the configuration bundle is updated successfully.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -201,11 +181,13 @@ Interface for ATS base setup.</p>
 <li><a class="reference internal" href="#">ats_utilities.base.ibase module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.base.ibase.IBase"><code class="docutils literal notranslate"><span class="pre">IBase</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.base.ibase.IBase._abc_impl"><code class="docutils literal notranslate"><span class="pre">IBase._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.ibase.IBase.add_new_option"><code class="docutils literal notranslate"><span class="pre">IBase.add_new_option()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.ibase.IBase.get_shared_context"><code class="docutils literal notranslate"><span class="pre">IBase.get_shared_context()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.ibase.IBase._is_protocol"><code class="docutils literal notranslate"><span class="pre">IBase._is_protocol</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.ibase.IBase._is_runtime_protocol"><code class="docutils literal notranslate"><span class="pre">IBase._is_runtime_protocol</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.ibase.IBase.get_bundle"><code class="docutils literal notranslate"><span class="pre">IBase.get_bundle()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.ibase.IBase.get_context"><code class="docutils literal notranslate"><span class="pre">IBase.get_context()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.ibase.IBase.is_initialized"><code class="docutils literal notranslate"><span class="pre">IBase.is_initialized()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.ibase.IBase.parse_args"><code class="docutils literal notranslate"><span class="pre">IBase.parse_args()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.ibase.IBase.process"><code class="docutils literal notranslate"><span class="pre">IBase.process()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.ibase.IBase.update_bundle"><code class="docutils literal notranslate"><span class="pre">IBase.update_bundle()</span></code></a></li>
 </ul>
 </li>
 </ul>

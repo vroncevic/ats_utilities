@@ -16,68 +16,67 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IContextProvider with method(s).
-    Creates an interface for getting context for method(s) and function(s).
+    Defines the abstract class IContextProvider with method(s).
+    Provides an interface for getting the context information for method(s) and function(s).
 '''
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IContextProvider(ABC):
+@runtime_checkable
+class IContextProvider[StackIndexCallerType, ContextFormatType](Protocol):
     '''
-        Defines abstract class IContextProvider with method(s).
-        Creates an interface for getting context for method(s) and function(s).
+        Defines the abstract class IContextProvider with method(s).
+        Provides an interface for getting the context information for method(s) and function(s).
 
         It defines:
 
             :methods:
                 | set_stack_index_caller - Sets the index in the call stack to identify the caller.
-                | get_context - Returns a string representing the calling context.
-                | __str__ - Returns the context provider as string representation.
+                | get_stack_index_caller - Returns the index in the call stack to identify the caller.
+                | get_context - Returns the calling context.
+                | __str__ - Returns the context provider as a string representation.
     '''
 
-    @abstractmethod
-    def set_stack_index_caller(self, stack_index_caller: int) -> None:
+    def set_stack_index_caller(self, stack_index_caller: StackIndexCallerType) -> None:
         '''
             Sets the index in the call stack to identify the caller.
 
-            :param stack_index_caller: Index in the call stack to identify the caller.
-            :type stack_index_caller: <int>
-            :exceptions:
-                | ATSTypeError: Stack index caller must be an integer.
+            :param stack_index_caller: The index in the call stack to identify the caller.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def get_context(self) -> str:
+    def get_stack_index_caller(self) -> StackIndexCallerType:
         '''
-            Returns a string representing the calling context.
+            Returns the index in the call stack to identify the caller.
 
-            :return: Context information string
-            :rtype: <str>
-            :exceptions: None.
+            :return: The index in the call stack to identify the caller.
         '''
-        pass
+        ...
 
-    @abstractmethod
+    def get_context(self) -> ContextFormatType:
+        '''
+            Returns the calling context.
+
+            :return: The calling context information.
+        '''
+        ...
+
     def __str__(self) -> str:
         '''
-            Returns the context provider as string representation.
+            Returns the context provider as a string representation.
 
-            :return: The context provider as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The context provider as a string representation.
         '''
-        pass
-
+        ...

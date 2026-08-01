@@ -16,73 +16,60 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILoader with method(s).
-    Creates an interface for loading the configuration from reader.
+    Defines the ILoader abstract class with method(s).
+    Provides an interface for loading the configuration from reader.
     2nd level of configuration loader interface.
 '''
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
+from typing import Protocol, runtime_checkable
 
-from abc import ABC, abstractmethod
-from typing import Any
-
-from ats_utilities.context.context_bundle import ContextBundle
-
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ILoader(IContextSupport, ABC):
+@runtime_checkable
+class ILoader[ContextEnvironment, ConfigurationType](Protocol):
     '''
-        Defines abstract class ILoader with method(s).
-        Creates an interface for loading the configuration from configuration reader.
+        Defines the ILoader abstract class with method(s).
+        Provides an interface for loading the configuration from configuration reader.
         2nd level of configuration loader interface.
 
         It defines:
 
             :methods:
-                | get_shared_context - Returns the shared context.
-                | load_configuration - Loads configuration from file and returns dictionary with configuration content.
-                | __str__ - Returns the loader instance as string representation.
+                | get_context - Returns context.
+                | load_configuration - Loads configuration from file and returns configuration.
+                | __str__ - Returns the loader as a string representation.
     '''
 
-    @abstractmethod
-    def get_shared_context(self) -> ContextBundle:
+    def get_context(self) -> ContextEnvironment:
         '''
-            Returns the shared context.
+            Returns the context.
 
-            :return: Shared context.
-            :rtype: <ContextBundle>
-            :exceptions: None.
+            :return: The context.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def load_configuration(self) -> dict[str, Any]:
+    def load_configuration(self) -> ConfigurationType:
         '''
-            Loads configuration from file and returns dictionary with configuration content.
+            Loads configuration from file and returns configuration.
 
-            :return: Dictionary with configuration content.
-            :rtype: <dict[str, Any]>
-            :exceptions: None.
+            :return: The configuration.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the loader instance as string representation.
+            Returns the loader as a string representation.
 
-            :return: The loader instance as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The Loader as a string representation.
         '''
-        pass
+        ...

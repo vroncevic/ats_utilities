@@ -23,14 +23,14 @@ from __future__ import annotations
 
 from ats_utilities.exceptions import ATSValueError
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
 def raise_error(
@@ -43,20 +43,15 @@ def raise_error(
     '''
         Raises a contextual exception using caller context.
 
-        :param fallback_context: Fallback prefix to use in the exception message if no message is provided.
-        :type fallback_context: <str>
-        :param fallback_msg: Fallback message to include in the exception message if no message is provided.
-        :type fallback_msg: <str>
-        :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
-        :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
-        :param exc_class: The exception class to raise.
-        :type exc_class: <type[BaseException]> (default ATSValueError)
+        :param fallback_context: The fallback prefix for exception.
+        :param fallback_msg: The fallback suffix for exception.
+        :param exc_context: The contextual prefix for exception.
+        :param exc_message: The contextual suffix for exception.
+        :param exc_class: The exception class to be raised.
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSValueError).
     '''
-    if exc_message is None or exc_context is None:
-        raise exc_class(f'{fallback_context} - {fallback_msg}')
+    context: str = exc_context if exc_context is not None else fallback_context
+    message: str = exc_message if exc_message is not None else fallback_msg
 
-    raise exc_class(f'{exc_context} - {exc_message}')
+    raise exc_class(f'{context} - {message}')

@@ -16,76 +16,74 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class InfoOk with attribute(s) and method(s).
-    Creates an API for the info status in one property object.
+    Defines the InfoOk class with attribute(s) and method(s).
+    Provides an API for the info status in one property object.
 '''
 
 from __future__ import annotations
 
-from typing import override
-
-from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.context.context_support import ContextSupport
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.context.validator import ContextValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class InfoOk(ContextSupport, IInfoOk):
+class InfoOk:
     '''
-        Defines class InfoOk with attribute(s) and method(s).
-        Creates an API for the info status in one property object.
-        Note: Info status is only prepared when it is set by user (not None).
+        Defines the InfoOk class with attribute(s) and method(s).
+        Provides an API for the info status in one property object.
+        Note: The info status is only prepared when it is set by the user (not None).
 
         It defines:
 
             :attributes:
-                | _info_ok - The info status App/Tool/Script is OK (default False).
+                | _info_ok - The info status for the App/Tool/Script is OK (default: False).
             :methods:
-                | __init__ - Initializes InfoOk constructor.
-                | info_ok - Property methods for set/get information status.
-                | not_none - Checks if info status is not None.
-                | __str__ - Returns the InfoOk as string representation.
+                | __init__ - Initializes the InfoOk.
+                | info_ok - Property methods for setting and getting the information status.
+                | not_none - Checks if the info status is not None.
+                | __str__ - Returns the InfoOk as a string representation.
     '''
 
     _info_ok: bool
+    _context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle) -> None:
         '''
-            Initializes InfoOk constructor.
+            Initializes the InfoOk.
 
-            :param context_bundle: Context bundle for info ok status.
-            :type context_bundle: <ContextBundle>
+            :param context_bundle: The context bundle for info ok status.
             :exceptions:
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSValueError:  Context bundle must be provided and have proper values.
+                | ATSTypeError:   Context bundle must be an instance of ContextBundle
+                |                 and its attributes must be instances of their
+                |                 respective types.
         '''
-        ContextSupport.__init__(self, context_bundle)
+        ContextValidator.validate(context_bundle)
+        self._context = context_bundle
         self._info_ok = False
 
     @property
     @vreport('getting info_ok {info_ok}')
-    @override
-    def info_ok(self) -> bool:
+    def info_ok(self) -> bool | None:
         '''
-            Property method for getting information status.
-            Note: Info status is only prepared when it is set by user (not None).
+            Property method for getting the information status.
+            Note: The info status is only prepared when it is set by the user (not None).
 
-            :return: The information status in bool format.
-            :rtype: <bool>
+            :return: The information status in bool format | None.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._info_ok
@@ -93,48 +91,42 @@ class InfoOk(ContextSupport, IInfoOk):
     @info_ok.setter
     @mcheck([('bool:info_ok', None)])
     @vreport('setting info_ok {info_ok}')
-    @override
     def info_ok(self, info_ok: bool) -> None:
         '''
-            Property method for setting information status.
-            Note: Info status is only prepared when it is set by user (not None).
+            Property method for setting the information status.
+            Note: The info status is only prepared when it is set by the user (not None).
 
             :param info_ok: The information status in bool format.
-            :type info_ok: <bool>
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
-                | ATSRuntimeError: Decorator used on a non-class method.
-                | ATSAttributeError: Class does not provide a '_checker' object.
+                | ATSRuntimeError: The decorator is used on a non-class method.
+                | ATSAttributeError: The class does not provide a '_checker' object.
         '''
         self._info_ok = info_ok
 
     @vreport('checking info_ok {info_ok}')
-    @override
     def not_none(self) -> bool:
         '''
-            Checks if info status is not None.
-            Note: Info status is only prepared when it is set by user (not None).
+            Checks if the info status is not None.
+            Note: The info status is only prepared when it is set by the user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
+            :return: True if successful, otherwise False.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError: The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         return self._info_ok is not None
 
-    @override
     def __str__(self) -> str:
         '''
-            Returns the InfoOk as string representation.
+            Returns the InfoOk as a string representation.
 
-            :return: The InfoOk as string representation.
-            :rtype: <str>
+            :return: The InfoOk as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

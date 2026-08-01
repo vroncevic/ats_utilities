@@ -7,10 +7,15 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
-   ats_utilities.context.context_bundle
-   ats_utilities.context.context_registry
-   ats_utilities.context.context_support
-   ats_utilities.context.icontext_support
+   ats_utilities.context.bundle
+   ats_utilities.context.dep_validator
+   ats_utilities.context.dependencies
+   ats_utilities.context.factory
+   ats_utilities.context.keys
+   ats_utilities.context.opt_validator
+   ats_utilities.context.options
+   ats_utilities.context.registry
+   ats_utilities.context.validator
 
 Module contents
 ---------------

@@ -64,46 +64,46 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines class Storer with attribute(s) and method(s).
-Creates an API for storing the configuration from mapping format to configuration file.
+<dt>Info</dt><dd><p>Defines the Storer class with attribute(s) and method(s).
+Provides an API for storing the configuration from mapping format to configuration file.
 2nd level of configuration storer implementation.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.storer.engine.</span></span><span class="sig-name descname"><span class="pre">Storer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.config_io_bundle.html#ats_utilities.config_io.config_io_bundle.ConfigIOBundle" title="ats_utilities.config_io.config_io_bundle.ConfigIOBundle"><span class="pre">ConfigIOBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/storer/engine.html#Storer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.context.context_support.html#ats_utilities.context.context_support.ContextSupport" title="ats_utilities.context.context_support.ContextSupport"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextSupport</span></code></a>, <a class="reference internal" href="ats_utilities.config_io.storer.istorer.html#ats_utilities.config_io.storer.istorer.IStorer" title="ats_utilities.config_io.storer.istorer.IStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IStorer</span></code></a></p>
-<p>Defines class Storer with attribute(s) and method(s).
-Creates an API for storing the configuration from mapping format to configuration file.
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.storer.engine.</span></span><span class="sig-name descname"><span class="pre">Storer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">own</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.setup.bundle.html#ats_utilities.config_io.setup.bundle.ConfigIOBundle" title="ats_utilities.config_io.setup.bundle.ConfigIOBundle"><span class="pre">ConfigIOBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/storer/engine.html#Storer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines the Storer class with attribute(s) and method(s).
+Provides an API for storing the configuration from mapping format to configuration file.
 2nd level of configuration storer implementation.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_shared_context - Shared context bundle.</div>
-<div class="line">_processor - Processor instance.</div>
-<div class="line">_conf_file_bundle - Configuration file bundle parameters.</div>
+<div class="line">_context - The ContextBundle.</div>
+<div class="line">_processor - The processor interface.</div>
+<div class="line">_conf_file - The configuration file interface.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initializes Storer constructor.</div>
-<div class="line">get_shared_context - Returns the shared context.</div>
-<div class="line">store_configuration - Stores configuration content from mapping to configuration file.</div>
-<div class="line">__str__ - Returns the Storer as string representation.</div>
+<div class="line">__init__ - Initializes storer.</div>
+<div class="line">get_context - Gets context.</div>
+<div class="line">store_configuration - Stores configuration to file.</div>
+<div class="line">__str__ - Returns the storer as a string representation.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._abc_impl" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer._conf_file">
+<span class="sig-name descname"><span class="pre">_conf_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.iconf_file.html#ats_utilities.config_io.iconf_file.IConfFile" title="ats_utilities.config_io.iconf_file.IConfFile"><span class="pre">IConfFile</span></a></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._conf_file" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer._conf_file">
-<span class="sig-name descname"><span class="pre">_conf_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.iconf_file.html#ats_utilities.config_io.iconf_file.IConfFile" title="ats_utilities.config_io.iconf_file.IConfFile"><span class="pre">IConfFile</span></a></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._conf_file" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer._context">
+<span class="sig-name descname"><span class="pre">_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context.bundle.html#ats_utilities.context.bundle.ContextBundle" title="ats_utilities.context.bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._context" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -111,24 +111,16 @@ Creates an API for storing the configuration from mapping format to configuratio
 <span class="sig-name descname"><span class="pre">_processor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.processor.iconfig_processor.html#ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor" title="ats_utilities.config_io.processor.iconfig_processor.IConfigProcessor"><span class="pre">IConfigProcessor</span></a></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._processor" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer._shared_context">
-<span class="sig-name descname"><span class="pre">_shared_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer._shared_context" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer.get_shared_context">
-<span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/storer/engine.html#Storer.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer.get_shared_context" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the shared context.</p>
+<dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer.get_context">
+<span class="sig-name descname"><span class="pre">get_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context.bundle.html#ats_utilities.context.bundle.ContextBundle" title="ats_utilities.context.bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/storer/engine.html#Storer.get_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer.get_context" title="Link to this definition">¶</a></dt>
+<dd><p>Returns context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Shared context.</p>
+<dd class="field-odd"><p>The context.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;ContextBundle&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -136,19 +128,16 @@ Creates an API for storing the configuration from mapping format to configuratio
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.storer.engine.Storer.store_configuration">
 <span class="sig-name descname"><span class="pre">store_configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/storer/engine.html#Storer.store_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.storer.engine.Storer.store_configuration" title="Link to this definition">¶</a></dt>
-<dd><p>Writes configuration to a file.</p>
+<dd><p>Writes configuration to file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>config</strong> (<em>&lt;Mapping</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>&gt;</em>) – Configuration object.</p>
+<dd class="field-odd"><p><strong>config</strong> – The configuration object.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
+<dd class="field-even"><p>True if successful, otherwise False.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -169,11 +158,10 @@ Creates an API for storing the configuration from mapping format to configuratio
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.config_io.storer.engine module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer"><code class="docutils literal notranslate"><span class="pre">Storer</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._abc_impl"><code class="docutils literal notranslate"><span class="pre">Storer._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._conf_file"><code class="docutils literal notranslate"><span class="pre">Storer._conf_file</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._context"><code class="docutils literal notranslate"><span class="pre">Storer._context</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._processor"><code class="docutils literal notranslate"><span class="pre">Storer._processor</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer._shared_context"><code class="docutils literal notranslate"><span class="pre">Storer._shared_context</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer.get_shared_context"><code class="docutils literal notranslate"><span class="pre">Storer.get_shared_context()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer.get_context"><code class="docutils literal notranslate"><span class="pre">Storer.get_context()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.storer.engine.Storer.store_configuration"><code class="docutils literal notranslate"><span class="pre">Storer.store_configuration()</span></code></a></li>
 </ul>
 </li>

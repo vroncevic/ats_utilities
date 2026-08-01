@@ -21,23 +21,22 @@ Info
 
 import sys
 from os.path import abspath
-from typing import Any
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 sys.path.insert(0, abspath('../../'))
 
 project: str = 'ats_utilities'
 project_copyright: str = '2026, https://vroncevic.github.io/ats_utilities'
 author: str = 'Vladimir Roncevic <elektron.ronca@gmail.com>'
-version: str = '3.4.3'
+version: str = '3.4.4'
 release: str = 'https://github.com/vroncevic/ats_utilities/releases'
 extensions: list[str] = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', ]
 templates_path: list[str] = ['_templates']
@@ -50,16 +49,16 @@ pygments_style: str = 'sphinx'
 html_theme: str = 'classic'
 html_static_path: list[str] = ['_static']
 htmlhelp_basename: str = 'ats_utilitiesdoc'
-latex_elements: dict[Any, Any] = {}
-latex_documents: list[tuple[Any, ...]] = [(
+latex_elements: dict[object, object] = {}
+latex_documents: list[tuple[object, ...]] = [(
     master_doc, 'ats_utilities.tex', 'ats\\_utilities Documentation',
     'Vladimir Roncevic \\textless{}elektron.ronca@gmail.com\\textgreater{}',
     'manual'
 )]
-man_pages: list[tuple[Any, ...]] = [(
+man_pages: list[tuple[object, ...]] = [(
     master_doc, 'ats_utilities', 'ats_utilities Documentation', [author], 1
 )]
-texinfo_documents: list[tuple[Any, ...]] = [(
+texinfo_documents: list[tuple[object, ...]] = [(
     master_doc, 'ats_utilities', 'ats_utilities Documentation',
     author, 'ats_utilities', 'One line description of project.',
     'Miscellaneous'

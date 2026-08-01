@@ -15,8 +15,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.option.parser package" href="ats_utilities.option.parser.html" />
-    <link rel="prev" title="ats_utilities.option.command.command_option module" href="ats_utilities.option.command.command_option.html" /> 
+    <link rel="next" title="ats_utilities.option.setup package" href="ats_utilities.option.setup.html" />
+    <link rel="prev" title="ats_utilities.option.command.ioption module" href="ats_utilities.option.command.ioption.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,10 +28,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.option.parser.html" title="ats_utilities.option.parser package"
+          <a href="ats_utilities.option.setup.html" title="ats_utilities.option.setup package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.option.command.command_option.html" title="ats_utilities.option.command.command_option module"
+          <a href="ats_utilities.option.command.ioption.html" title="ats_utilities.option.command.ioption module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -64,25 +64,25 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines abstract class IOptionCommand with method(s).
-Creates an interface for command with options.</p>
+<dt>Info</dt><dd><p>Defines the IOptionCommand abstract class with method(s).
+Provides an interface for command with options.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.option.command.ioption_command.IOptionCommand">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.option.command.ioption_command.</span></span><span class="sig-name descname"><span class="pre">IOptionCommand</span></span><a class="reference internal" href="_modules/ats_utilities/option/command/ioption_command.html#IOptionCommand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.command.ioption_command.IOptionCommand" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Defines abstract class IOptionCommand with method(s).
-Creates an interface for command with options.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.option.command.ioption_command.</span></span><span class="sig-name descname"><span class="pre">IOptionCommand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option/command/ioption_command.html#IOptionCommand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.command.ioption_command.IOptionCommand" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></p>
+<p>Defines the IOptionCommand abstract class with method(s).
+Provides an interface for command with options.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">name - Returns the name of the command.</div>
-<div class="line">help_text - Returns the help text of the command.</div>
+<div class="line">name - Returns the command name.</div>
+<div class="line">help_text - Returns the command help text.</div>
 <div class="line">options - Returns the sequence of options for the command.</div>
-<div class="line">__str__ - Returns the string representation of IOptionCommand.</div>
+<div class="line">__str__ - Returns the option command as a string representation.</div>
 </div>
 </dd>
 </dl>
@@ -92,53 +92,45 @@ Creates an interface for command with options.</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.option.command.ioption_command.IOptionCommand._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.option.command.ioption_command.IOptionCommand._is_protocol">
+<span class="sig-name descname"><span class="pre">_is_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.option.command.ioption_command.IOptionCommand._is_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.option.command.ioption_command.IOptionCommand._is_runtime_protocol">
+<span class="sig-name descname"><span class="pre">_is_runtime_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.option.command.ioption_command.IOptionCommand._is_runtime_protocol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="ats_utilities.option.command.ioption_command.IOptionCommand.help_text">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">help_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ats_utilities.option.command.ioption_command.IOptionCommand.help_text" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the help text of the command.</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">help_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ats_utilities.option.command.ioption_command.IOptionCommand.help_text" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the command help text.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Help text of the command.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;str&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>The command help text.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="ats_utilities.option.command.ioption_command.IOptionCommand.name">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ats_utilities.option.command.ioption_command.IOptionCommand.name" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the name of the command.</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ats_utilities.option.command.ioption_command.IOptionCommand.name" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the command name.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Name of the command.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;str&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>The command name.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="ats_utilities.option.command.ioption_command.IOptionCommand.options">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="ats_utilities.option.command.command_option.html#ats_utilities.option.command.command_option.CommandOption" title="ats_utilities.option.command.command_option.CommandOption"><span class="pre">CommandOption</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.option.command.ioption_command.IOptionCommand.options" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">MetaOption</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.option.command.ioption_command.IOptionCommand.options" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the sequence of options for the command.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Sequence of options for the command.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;Sequence[<a class="reference internal" href="ats_utilities.option.command.command_option.html#ats_utilities.option.command.command_option.CommandOption" title="ats_utilities.option.command.command_option.CommandOption">CommandOption</a>]&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>The sequence of options for the command.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -160,6 +152,8 @@ Creates an interface for command with options.</p>
 <li><a class="reference internal" href="#">ats_utilities.option.command.ioption_command module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.option.command.ioption_command.IOptionCommand"><code class="docutils literal notranslate"><span class="pre">IOptionCommand</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.option.command.ioption_command.IOptionCommand._abc_impl"><code class="docutils literal notranslate"><span class="pre">IOptionCommand._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.command.ioption_command.IOptionCommand._is_protocol"><code class="docutils literal notranslate"><span class="pre">IOptionCommand._is_protocol</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.command.ioption_command.IOptionCommand._is_runtime_protocol"><code class="docutils literal notranslate"><span class="pre">IOptionCommand._is_runtime_protocol</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.command.ioption_command.IOptionCommand.help_text"><code class="docutils literal notranslate"><span class="pre">IOptionCommand.help_text</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.command.ioption_command.IOptionCommand.name"><code class="docutils literal notranslate"><span class="pre">IOptionCommand.name</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.command.ioption_command.IOptionCommand.options"><code class="docutils literal notranslate"><span class="pre">IOptionCommand.options</span></code></a></li>
@@ -172,13 +166,13 @@ Creates an interface for command with options.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.option.command.command_option.html"
-                          title="previous chapter">ats_utilities.option.command.command_option module</a></p>
+    <p class="topless"><a href="ats_utilities.option.command.ioption.html"
+                          title="previous chapter">ats_utilities.option.command.ioption module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.option.parser.html"
-                          title="next chapter">ats_utilities.option.parser package</a></p>
+    <p class="topless"><a href="ats_utilities.option.setup.html"
+                          title="next chapter">ats_utilities.option.setup package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -211,10 +205,10 @@ Creates an interface for command with options.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.option.parser.html" title="ats_utilities.option.parser package"
+          <a href="ats_utilities.option.setup.html" title="ats_utilities.option.setup package"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.option.command.command_option.html" title="ats_utilities.option.command.command_option module"
+          <a href="ats_utilities.option.command.ioption.html" title="ats_utilities.option.command.ioption module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

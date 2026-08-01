@@ -7,8 +7,8 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   ats_utilities.checker.type.engine
    ats_utilities.checker.type.itype_validator
-   ats_utilities.checker.type.type_validator
 
 Module contents
 ---------------

@@ -16,31 +16,30 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IConfigProcessor with method(s).
-    Creates an interface for processing configuration content.
+    Defines the IConfigProcessor abstract class with method(s).
+    Provides an interface for processing configuration content.
     1th level of configuration loader/storer interface.
 '''
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
-from collections.abc import Mapping
-from typing import Any
+from typing import Protocol, runtime_checkable
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IConfigProcessor(ABC):
+@runtime_checkable
+class IConfigProcessor[DataType](Protocol):
     '''
-        Defines abstract class IConfigProcessor with method(s).
-        Creates an interface for processing configuration content.
+        Defines the IConfigProcessor abstract class with method(s).
+        Provides an interface for processing configuration content.
         1th level of configuration loader/storer interface.
 
         It defines:
@@ -48,10 +47,10 @@ class IConfigProcessor(ABC):
             :methods:
                 | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).
                 | serialize - Converts the internal configuration structure back to a formatted string representation.
-                | update_data - Updates the internal configuration data and validates it against the scheme.
+                | update_data - Updates the internal configuration data and Validates the it against the scheme.
                 | to_dict - Returns the parsed configuration as a flat or structured dictionary.
                 | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.
-                | __str__ - Returns the configuration processor as string representation.
+                | __str__ - Returns the configuration processor as a string representation.
 
         Understanding the `scheme` Parameter
         ------------------------------------
@@ -66,72 +65,52 @@ class IConfigProcessor(ABC):
         processor class documentation for concrete examples.
     '''
 
-    @abstractmethod
-    def deserialize(self, content: Any) -> bool:
+    def deserialize(self, content: object) -> bool:
         '''
             Loads and parses configuration from a raw source (string, stream, or lines).
 
-            :param content: Raw configuration data (str, stream, or sequence).
-            :type content: <Any>
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
+            :param content: The raw configuration data (str, stream, or sequence).
+            :return: True if successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def serialize(self) -> str:
         '''
-            Converts the internal configuration structure back to a formatted string representation.
+            Converts internal configuration structure back to a formatted string representation.
 
-            :return: Configuration content as string.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The configuration content as a string.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def update_data(self, new_data: Mapping[str, str]) -> bool:
+    def update_data(self, new_data: DataType) -> bool:
         '''
-            Updates the internal configuration data and validates it against the scheme.
+            Updates internal configuration data and Validates the it against the scheme.
 
-            :param new_data: Mapping containing configuration keys and values.
-            :type new_data: <Mapping[str, str]>
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
+            :param new_data: The configuration data.
+            :return: True if successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def to_dict(self) -> dict[str, str]:
+    def to_dict(self) -> DataType:
         '''
-            Returns the parsed configuration as a flat or structured dictionary.
+            Returns parsed configuration as a flat or structured dictionary.
 
-            :return: Dictionary with configuration information.
-            :rtype: <dict[str, str]>
-            :exceptions: None.
+            :return: The configuration.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def validate_by_scheme(self) -> bool:
         '''
             Validates the internal parsed data structure against the provided scheme.
 
-            :return: <True> if data matches the scheme, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
+            :return: True if successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the configuration processor as string representation.
+            Returns the configuration processor as a string representation.
 
-            :return: The configuration processor as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The Configuration processor as a string representation.
         '''
-        pass
+        ...

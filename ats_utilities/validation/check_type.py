@@ -21,32 +21,30 @@ Info
 
 from __future__ import annotations
 
-from typing import Any, get_origin, Union
+from typing import get_origin, Union
 from types import UnionType
 
 from ats_utilities.validation.context_error import raise_error
 from ats_utilities.exceptions import ATSTypeError
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-def _resolve_type(type_to_resolve: Any) -> Any:
+def _resolve_type(type_to_resolve: object) -> object:
     '''
         Resolves nested Union types.
         Handles cases like Union[int, float] by flattening them 
         into a tuple of concrete types (int, float).
 
-        :param type_to_resolve: Type to resolve.
-        :type type_to_resolve: <Any>
-        :return: Resolved type.
-        :rtype: <Any>
+        :param type_to_resolve: The type to resolve.
+        :return: The resolved type.
         :exceptions: None.
     '''
     origin = get_origin(type_to_resolve)
@@ -65,12 +63,21 @@ def _resolve_type(type_to_resolve: Any) -> Any:
 
         return tuple(resolved_args)
 
+    is_typed_dict: bool = (
+        isinstance(type_to_resolve, type) and
+        issubclass(type_to_resolve, dict) and
+        hasattr(type_to_resolve, '__total__')
+    )
+
+    if is_typed_dict:
+        return dict
+
     return origin or type_to_resolve
 
 
 def istype(
     instance: object,
-    class_or_tuple: type[Any] | tuple[type[Any], ...],
+    class_or_tuple: type | UnionType | tuple[type | UnionType, ...],
     exc_context: str | None = None,
     exc_message: str | None = None,
     exc_class: type[BaseException] = ATSTypeError
@@ -78,16 +85,11 @@ def istype(
     '''
         Checks if an instance is of a specified type.
 
-        :param instance: Instance to check.
-        :type instance: <any>
-        :param class_or_tuple: Type or tuple of types to check against.
-        :type class_or_tuple: <type | tuple[type, ...]>
-        :param exc_context: Context representation in string format.
-        :type exc_context: <str | None>
-        :param exc_message: Message to include in the exception message.
-        :type exc_message: <str | None>
+        :param instance: The instance to check.
+        :param class_or_tuple: The type or tuple of types to check against.
+        :param exc_context: The context representation in string format.
+        :param exc_message: The message to include in the exception message.
         :param exc_class: The exception class to raise if instance is not of the specified type.
-        :type exc_class: <type[BaseException]> (default ATSTypeError)
         :exceptions:
             | Dynamically raises the provided exc_class (e.g., ATSTypeError).
     '''
@@ -109,8 +111,8 @@ def istype(
 
     if not isinstance(instance, check_types):
         raise_error(
-            fallback_context=r'check_type::istype(...)',
-            fallback_msg=f'expected {class_or_tuple} for instance, got {type(instance).__name__}',
+            fallback_context='check_type::istype(...)',
+            fallback_msg=f'the expected {class_or_tuple} for instance, got {type(instance).__name__}',
             exc_context=exc_context,
             exc_message=exc_message,
             exc_class=exc_class

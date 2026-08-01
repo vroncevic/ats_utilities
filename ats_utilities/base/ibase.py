@@ -16,118 +16,87 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IBase with method(s).
-    Interface for ATS base setup.
+    Defines the IBase abstract class with method(s).
+    An interface for the ATS base setup.
 '''
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
+from typing import Protocol, runtime_checkable
 
-from abc import ABC, abstractmethod
-from collections.abc import Sequence
-from typing import Any
-
-from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.option.option_namespace import OptionNamespace
-
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
-
-# Optional string sequence type
-type ArgSeq = Sequence[str] | None
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IBase(IContextSupport, ABC):
+@runtime_checkable
+class IBase[ConfigType, ContextEnvironment](Protocol):
     '''
-        Defines abstract class IBase with method(s).
-        Interface for ATS base setup.
+        Defines the IBase abstract class with method(s).
+        An interface for the ATS base setup.
 
         It defines:
 
             :methods:
-                | get_shared_context - Returns the shared context.
-                | is_initialized - Checks if App/Tool/Script base engine is initialized.
-                | add_new_option - Adds a new option for App/Tool/Script.
-                | parse_args - Parses App/Tool/Script arguments.
-                | process - Processes and runs App/Tool/Script (Abstract).
+                | get_bundle - Gets the current configuration bundle.
+                | update_bundle - Updates the configuration bundle.
+                | get_context - Returns the context.
+                | is_initialized - Checks if the App/Tool/Script base engine is initialized.
+                | process - Processes and runs the App/Tool/Script (Abstract).
                 | __str__ - Returns the App/Tool/Script base as string representation.
     '''
 
-    @abstractmethod
-    def get_shared_context(self) -> ContextBundle:
+    def get_bundle(self) -> ConfigType:
         '''
-            Returns the shared context.
+            Gets the current configuration bundle.
 
-            :return: Shared context.
-            :rtype: <ContextBundle>
-            :exceptions: None.
+            :return: The configuration bundle.
         '''
-        pass
+        ...
 
-    @abstractmethod
+    def update_bundle(self, bundle: ConfigType) -> bool:
+        '''
+            Updates the configuration bundle.
+
+            :param bundle: The configuration bundle.
+            :return: True if the configuration bundle is updated successfully.
+        '''
+        ...
+
+    def get_context(self) -> ContextEnvironment:
+        '''
+            Returns the context.
+
+            :return: The context.
+        '''
+        ...
+
     def is_initialized(self) -> bool:
         '''
-            Checks if App/Tool/Script base engine is initialized.
+            Checks if the App/Tool/Script base engine is initialized.
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
+            :return: True if successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
-    def add_new_option(self, *args: str, **kwargs: Any) -> None:
-        '''
-            Adds a new option for App/Tool/Script.
-
-            :param args: Arguments in string format.
-            :type args: <str>
-            :param kwargs: Arguments in Any format.
-            :type kwargs: <Any>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
-    def parse_args(self, argv: ArgSeq) -> OptionNamespace | None:
-        '''
-            Parses App/Tool/Script arguments.
-
-            :param argv: Sequence of arguments.
-            :type argv: <ArgSeq>
-            :return: Options and arguments | None
-            :rtype: <OptionNamespace | None>
-            :exceptions: None.
-        '''
-        pass
-
-    @abstractmethod
     def process(self, verbose: bool = False) -> bool:
         '''
-            Processes and runs App/Tool/Script (Abstract).
+            Processes and runs the App/Tool/Script.
 
-            :param verbose: Enable/Disable verbose option (default False).
-            :type verbose: <bool>
-            :return: <True> if successful else <False>.
-            :rtype: <bool>
-            :exceptions: None.
+            :param verbose: The Enable/Disable the verbose option (default: False).
+            :return: True if successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the App/Tool/Script base as string representation.
 
-            :return: The App/Tool/Script base as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The App/Tool/Script base as a string representation.
         '''
-        pass
+        ...

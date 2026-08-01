@@ -16,139 +16,142 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ConfFile with attribute(s) and method(s).
-    Creates an API for configuration file context manager.
+    Defines the ConfFile class with attribute(s) and method(s).
+    Provides an API for configuration file context manager.
     0th level of configuration loader/storer implementation.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, override
 
-from ats_utilities.config_io.iconf_file import IConfFile
-from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
-from ats_utilities.config_io.iconf_file import File
+from ats_utilities.config_io.data import FileData
+from ats_utilities.config_io.data_validator import FileDataValidator
+from ats_utilities.config_io.setup.types import File
+from ats_utilities.context.bundle import ContextBundle
+from ats_utilities.exceptions import ATSValueError
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.context.context_support import ContextSupport
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.utils.files import check_file_exists
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ConfFile(ContextSupport, IConfFile):
+class ConfFile:
     '''
-        Defines class ConfFile with attribute(s) and method(s).
-        Creates an API for configuration file context manager.
+        Defines the ConfFile class with attribute(s) and method(s).
+        Provides an API for configuration file context manager.
         0th level of configuration loader/storer implementation.
 
         It defines:
 
             :attributes:
-                | _file - File instance (default None).
-                | _file_path - Configuration file path.
-                | _file_mode - Configuration file mode.
+                | _file - The file instance (default: None).
+                | _file_path - The configuration file path.
+                | _file_mode - The configuration file mode.
             :methods:
-                | __init__ - Initializes ConfFile constructor.
+                | __init__ - Initializes the ConfFile.
                 | __enter__ - Opens configuration file in mode.
                 | __exit__ - Closes configuration file.
-                | __str__ - Returns the ConfFile as string representation.
+                | __str__ - Returns the configuration context manager as a string.
     '''
 
     _file: File | None
     _file_path: str
     _file_mode: str
+    _context: ContextBundle
 
-    def __init__(self, file_bundle: ConfFileBundle) -> None:
+    def __init__(self, file_data: FileData) -> None:
         '''
-            Initializes ConfFile constructor.
+            Initializes the ConfFile.
 
-            :param file_bundle: File configuration bundle.
-            :type file_bundle: <ConfFileBundle>
+            :param file_data: The file data.
             :exceptions:
-                | ATSValueErro: File bundle must be provided.
-                | ATSValueError: Context bundle must be provided.
-                | ATSTypeError: File bundle must be an instance of ConfFileBundle.
-                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSValueError: The file data must be provided and have proper values.
+                | ATSTypeError:  The file data must be an instance of FileData and its
+                |                attributes must be instances of their respective types.
         '''
-        context: str = r'conf_file::init(...)'
-        not_none(file_bundle, context, r'file bundle must be provided')
-        istype(file_bundle, ConfFileBundle, context, r'file bundle must be an instance of ConfFileBundle')
-        ContextSupport.__init__(self, file_bundle.context_bundle)
+        FileDataValidator.validate(file_data)
+        self._context = file_data.context_bundle
         self._file = None
-        self._file_path = file_bundle.file_path
-        self._file_mode = file_bundle.file_mode
+        self._file_path = file_data.file_path
+        self._file_mode = file_data.file_mode
 
     @vreport('open file {file_path} with mode {file_mode}')
-    @override
     def __enter__(self) -> File:
         '''
             Opens configuration file in mode.
 
-            :return: File IO object.
-            :rtype: <File>
+            :return: The file IO object.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
-                | ATSValueError: File path must be provided.
-                | ATSValueError: File does not exist (when opening in read mode).
-                | ATSTypeError: File path and mode must be strings.
+                | ATSValueError:     The file path must be provided.
+                | ATSValueError:     The file does not exist (when opening in read mode).
+                | ATSTypeError:      The file path and mode must be strings.
         '''
-        context: str = r'conf_file::enter(...)'
-        not_none(self._file_path, context, r'file path must be provided')
-        not_none(self._file_mode, context, r'file mode must be provided')
-        istype(self._file_path, str, context, r'file path must be a string')
-        istype(self._file_mode, str, context, r'file mode must be a string')
+        ctx: str = 'conf_file::enter(...)'
+        msg_file_path_none: str = 'the file path must be provided'
+        msg_file_mode_none: str = 'the file mode must be provided'
+        msg_file_path_istype: str = 'the file path must be a string'
+        msg_file_mode_istype: str = 'the file mode must be a string'
+        msg_file_path_not_exist: str = 'the file path does not exist'
 
-        if 'r' in self._file_mode:
-            check_file_exists(self._file_path, context, f'file {self._file_path} does not exist')
+        not_none(self._file_path, ctx, msg_file_path_none)
+        not_none(self._file_mode, ctx, msg_file_mode_none)
+        istype(self._file_path, str, ctx, msg_file_path_istype)
+        istype(self._file_mode, str, ctx, msg_file_mode_istype)
 
-        self._file = open(self._file_path, self._file_mode, encoding='utf-8')
+        try:
+            if 'r' in self._file_mode:
+                check_file_exists(self._file_path, ctx, msg_file_path_not_exist)
+
+            self._file = open(self._file_path, self._file_mode, encoding='utf-8')
+
+        except ATSValueError:
+            self._file = None
+
+        except Exception:
+            self._file = None
 
         return self._file
 
     @vreport('close file {file_path}')
-    @override
-    def __exit__(self, *args: tuple[Any, ...], **kwargs: Mapping[Any, Any]) -> None:
+    def __exit__(self, *args: tuple[object, ...], **kwargs: Mapping[object, object]) -> None:
         '''
             Closes configuration file.
 
-            :param args: List of arguments.
-            :type args: <tuple[Any, ...]>
-            :param kwargs: Dictionary of mapped arguments.
-            :type kwargs: <Mapping[Any, Any]>
+            :param args: The list of arguments.
+            :param kwargs: The dictionary of mapped arguments.
             :exceptions:
-                | ATSRuntimeError: Decorator cannot be used on a standalone function.
-                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+                | ATSAttributeError: The class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
         try:
-            if self._file is not None and hasattr(self._file, 'closed') and not self._file.closed:
+            if self._file is not None and not self._file.closed:
                 self._file.close()
 
         except Exception:
-            pass
+            ...
         finally:
             self._file = None
 
-    @override
     def __str__(self) -> str:
         '''
-            Returns the ConfFile as string representation.
+            Returns the configuration context manager as a string representation.
 
-            :return: The ConfFile as string representation.
-            :rtype: <str>
+            :return: The Configuration context manager as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

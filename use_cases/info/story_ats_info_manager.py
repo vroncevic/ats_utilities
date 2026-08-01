@@ -19,28 +19,34 @@ Info
     Use cases for ATS info manager.
 '''
 
-from ats_utilities.context.context_registry import ContextRegistry
-from ats_utilities.info.info_registry import InfoRegistry
+from ats_utilities.context.factory import ContextFactory
+from ats_utilities.info.setup.factory import InfoFactory
 from ats_utilities.info.engine import InfoManager
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 VERBOSE: bool = False
 
 #
 # default [without DI]
 # ====================
-#
-context_bundle = ContextRegistry.create_default_context_bundle()
-default_bundle = InfoRegistry.create_info_bundle_from_dict({}, context_bundle)
-ats_info_manager_without_di = InfoManager(component_bundle=default_bundle)
+context_bundle = ContextFactory.create_bundle()
+default_info = {
+    'ats_name': 'mydefaulttool',
+    'ats_version': '1.0.0',
+    'ats_licence': 'gplv3',
+    'ats_build_date': 'Sun Jun 14 03:06:10 PM CEST 2026',
+    'ats_info_ok': True
+}
+default_bundle = InfoFactory.create_bundle({'info': default_info, 'context_bundle': context_bundle})
+ats_info_manager_without_di = InfoManager(own=default_bundle)
 print(ats_info_manager_without_di)
 
 #
@@ -54,9 +60,9 @@ info_dict_overwrite = {
     'ats_build_date': 'Sun Jun 14 03:06:11 PM CEST 2026',
     'ats_info_ok': True
 }
-bundle_overwrite = InfoRegistry.create_info_bundle_from_dict(info_dict_overwrite, context_bundle)
+bundle_overwrite = InfoFactory.create_bundle({'info': info_dict_overwrite, 'context_bundle': context_bundle})
 ats_info_manager_with_di_and_case_overwrite = InfoManager(
-    component_bundle=bundle_overwrite, 
+    own=bundle_overwrite, 
 )
 print(ats_info_manager_with_di_and_case_overwrite)
 
@@ -71,8 +77,8 @@ info_dict_no_overwrite = {
     'ats_build_date': 'Sun Jun 14 03:06:13 PM CEST 2026',
     'ats_info_ok': True
 }
-bundle_no_overwrite = InfoRegistry.create_info_bundle_from_dict(info_dict_no_overwrite, context_bundle)
+bundle_no_overwrite = InfoFactory.create_bundle({'info': info_dict_no_overwrite, 'context_bundle': context_bundle})
 ats_info_manager_with_di_and_without_case_overwrite = InfoManager(
-    component_bundle=bundle_no_overwrite, 
+    own=bundle_no_overwrite, 
 )
 print(ats_info_manager_with_di_and_without_case_overwrite)

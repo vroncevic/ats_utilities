@@ -30,7 +30,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.3'
+__version__: str = '3.4.4'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Development'
@@ -54,9 +54,7 @@ class DummyComponent:
             Initializes DummyComponent constructor.
 
             :param arg1: First test argument | None.
-            :type arg1: <str | None>
             :param arg2: Second test argument | None.
-            :type arg2: <int | None>
             :exceptions: None.
         '''
         self.arg1 = arg1
@@ -72,7 +70,7 @@ class ComponentTest(unittest.TestCase):
 
             :attributes: None.
             :methods:
-                | test_make_component_existing - Tests make_component with an existing instance.
+                | test_make_component_existing - Tests make_component with an existing.
                 | test_make_component_default_no_args - Tests make_component instantiating class with no arguments.
                 | test_make_component_default_with_args - Tests make_component instantiating class with arguments.
                 | test_validate_component_valid - Tests validate_component with a valid type.
@@ -83,7 +81,7 @@ class ComponentTest(unittest.TestCase):
 
     def test_make_component_existing(self) -> None:
         '''
-            Tests make_component with an existing instance.
+            Tests make_component with an existing.
 
             :exceptions: None.
         '''

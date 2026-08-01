@@ -16,85 +16,72 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IInfoOk with method(s).
+    Defines the IInfoOk abstract class with method(s).
     Interface for the info status mechanism.
 '''
 
 from __future__ import annotations
 
-from ats_utilities.context.icontext_support import IContextSupport
+from typing import Protocol, runtime_checkable
 
-from abc import ABC, abstractmethod
-
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class IInfoOk(IContextSupport, ABC):
+@runtime_checkable
+class IInfoOk[InfoOkType](Protocol):
     '''
-        Defines abstract class IInfoOk with method(s).
+        Defines the IInfoOk abstract class with method(s).
         Interface for the info status mechanism.
-        Note: Info status is only prepared when it is set by user (not None).
+        Note: The info status is only prepared when it is set by the user (not None).
 
         It defines:
 
             :methods:
-                | info_ok - Property methods for set/get operations.
-                | not_none - Checks if info status is not None.
-                | __str__ - Returns the info status as string representation.
+                | info_ok - Property methods for setting and getting the respective property value.
+                | not_none - Checks if the info status is not None.
+                | __str__ - Returns the info status as a string representation.
     '''
 
     @property
-    @abstractmethod
-    def info_ok(self) -> bool:
+    def info_ok(self) -> InfoOkType | None:
         '''
-            Property method for getting information status.
-            Note: Info status is only prepared when it is set by user (not None).
+            Property method for getting the information status.
+            Note: The info status is only prepared when it is set by the user (not None).
 
-            :return: The information status in bool format
-            :rtype: <bool>
-            :exceptions: None.
+            :return: The information status in InfoOkType format | None.
         '''
-        pass
+        ...
 
     @info_ok.setter
-    @abstractmethod
-    def info_ok(self, info_ok: bool) -> None:
+    def info_ok(self, info_ok: InfoOkType) -> None:
         '''
-            Property method for setting information status.
-            Note: Info status is only prepared when it is set by user (not None).
+            Property method for setting the information status.
+            Note: The info status is only prepared when it is set by the user (not None).
 
-            :param info_ok: The information status in bool format
-            :type info_ok: <bool>
-            :exceptions: None.
+            :param info_ok: The information status in InfoOkType format
         '''
-        pass
+        ...
 
-    @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks if info status is not None.
-            Note: Info status is only prepared when it is set by user (not None).
+            Checks if the info status is not None.
+            Note: The info status is only prepared when it is set by the user (not None).
 
-            :return: <True> if successful, <False> otherwise.
-            :rtype: <bool>
-            :exceptions: None.
+            :return: True if successful, otherwise False.
         '''
-        pass
+        ...
 
-    @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the info status as string representation.
+            Returns the info status as a string representation.
 
-            :return: The info status as string representation.
-            :rtype: <str>
-            :exceptions: None.
+            :return: The info status as a string representation.
         '''
-        pass
+        ...

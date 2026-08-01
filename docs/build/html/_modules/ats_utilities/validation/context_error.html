@@ -61,14 +61,14 @@
 
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
 
-<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
-<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.4.4&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="raise_error">
@@ -83,23 +83,18 @@
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Raises a contextual exception using caller context.</span>
 
-<span class="sd">        :param fallback_context: Fallback prefix to use in the exception message if no message is provided.</span>
-<span class="sd">        :type fallback_context: &lt;str&gt;</span>
-<span class="sd">        :param fallback_msg: Fallback message to include in the exception message if no message is provided.</span>
-<span class="sd">        :type fallback_msg: &lt;str&gt;</span>
-<span class="sd">        :param exc_context: Context representation in string format.</span>
-<span class="sd">        :type exc_context: &lt;str | None&gt;</span>
-<span class="sd">        :param exc_message: Message to include in the exception message.</span>
-<span class="sd">        :type exc_message: &lt;str | None&gt;</span>
-<span class="sd">        :param exc_class: The exception class to raise.</span>
-<span class="sd">        :type exc_class: &lt;type[BaseException]&gt; (default ATSValueError)</span>
+<span class="sd">        :param fallback_context: The fallback prefix for exception.</span>
+<span class="sd">        :param fallback_msg: The fallback suffix for exception.</span>
+<span class="sd">        :param exc_context: The contextual prefix for exception.</span>
+<span class="sd">        :param exc_message: The contextual suffix for exception.</span>
+<span class="sd">        :param exc_class: The exception class to be raised.</span>
 <span class="sd">        :exceptions:</span>
 <span class="sd">            | Dynamically raises the provided exc_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="n">exc_message</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">exc_context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">exc_class</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">fallback_context</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">fallback_msg</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">exc_context</span> <span class="k">if</span> <span class="n">exc_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">fallback_context</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">exc_message</span> <span class="k">if</span> <span class="n">exc_message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">fallback_msg</span>
 
-    <span class="k">raise</span> <span class="n">exc_class</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">exc_context</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">exc_message</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+    <span class="k">raise</span> <span class="n">exc_class</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">context</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
 </pre></div>
 

@@ -21,20 +21,20 @@ Info
 
 from logging import INFO, WARNING
 from os.path import dirname, realpath
-from typing import override
 
 from ats_utilities.base.engine import Base
-from ats_utilities.base.base_registry import BaseRegistry
-from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.base.setup.factory import BaseFactory
+from ats_utilities.base.setup.options import BaseOptions
+from ats_utilities.context.factory import ContextFactory
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 class MyTool(Base):
     '''Concrete implementation of Base for use case illustration.'''
@@ -44,23 +44,27 @@ class MyTool(Base):
     def __init__(self):
         current_dir: str = dirname(realpath(__file__))
         super().__init__(
-            BaseRegistry.create_default_base_bundle(
-                info_file=f'{current_dir}/{self._INFO_FILE}',
-                context_bundle=ContextRegistry.create_default_context_bundle()
+            BaseFactory.create_bundle(
+                options=BaseOptions(
+                    info_file=f'{current_dir}/{self._INFO_FILE}',
+                    use_generator=False,
+                    context_bundle=ContextFactory.create_bundle()
+                )
             )
         )
 
         # Log that initialization is complete using both logger and reporter
-        context = self.get_shared_context()
+        context = self.get_context()
         my_logger = context.logger
         my_reporter = context.reporter
+
+        self._splash_manager.show()
 
         my_logger.write_log('MyTool initialized successfully', INFO)
         my_reporter.success(['MyTool initialized successfully (Reporter Success)'])
 
-    @override
     def process(self, verbose: bool = True) -> bool:
-        context = self.get_shared_context()
+        context = self.get_context()
         context.logger.write_log(f'Processing starting, verbose: {verbose}', INFO)
         context.reporter.verbose(verbose, [f'Processing starting, verbose: {verbose} (Reporter Verbose)'])
         print(f'Overwrite result {verbose} ...')
@@ -68,7 +72,7 @@ class MyTool(Base):
 
     def perform_action(self) -> None:
         '''A new method showing logging and reporting with different levels and colors.'''
-        context = self.get_shared_context()
+        context = self.get_context()
         context.logger.write_log('Performing a specific tool action', INFO)
         context.logger.write_log('This is a warning log from MyTool action', WARNING)
 
@@ -86,4 +90,4 @@ if tool.is_initialized():
     tool.perform_action()
 
 print(f'Result: {result}')
-print(str(tool))
+#print(str(tool))

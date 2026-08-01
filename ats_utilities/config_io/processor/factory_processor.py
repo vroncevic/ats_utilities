@@ -16,18 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ConfigProcessorFactory with attribute(s) and method(s).
-    Creates an API for creating an file processor instance based on the file extension.
+    Defines the ConfigProcessorFactory class with attribute(s) and method(s).
+    Provides an API for creating an file processor instance based on the file extension.
     1th level of configuration loader/storer implementation.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import override
 from pathlib import Path
 
-from ats_utilities.config_io.processor.ifactory_processor import IConfigProcessorFactory
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.config_io.processor.cfg_processor import CFGProcessor
 from ats_utilities.config_io.processor.ini_processor import INIProcessor
@@ -39,26 +37,26 @@ from ats_utilities.utils.component import make_component, validate_component
 from ats_utilities.validation.check_value import not_none, not_satisfied
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ConfigProcessorFactory(IConfigProcessorFactory):
+class ConfigProcessorFactory:
     '''
-        Defines class ConfigProcessorFactory with attribute(s) and method(s).
-        Creates an API for creating an file processor instance based on the file extension.
+        Defines the ConfigProcessorFactory class with attribute(s) and method(s).
+        Provides an API for creating an file processor instance based on the file extension.
         1th level of configuration loader/storer implementation.
 
         It defines:
 
             :attributes:
-                | _PROCESSOR_MAP - Mapping of file extensions to processor classes.
+                | _PROCESSOR_MAP - The mapping of file extensions to processor classes.
             :methods:
                 | get_processor_class - Returns the processor class for a specific file extension.
                 | create_from_extension - Creates a processor instance based on a raw extension string.
@@ -75,23 +73,24 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
     }
 
     @classmethod
-    @override
     def get_processor_class(cls, extension: str) -> type[IConfigProcessor]:
         '''
             Returns the processor class for a specific file extension.
 
-            :param extension: File extension (e.g., '.json', '.cfg', '.xml', '.ini', '.yml', '.yaml').
-            :type extension: <str>
-            :return: Processor class.
-            :rtype: <type[IConfigProcessor]>
+            :param extension: The file extension (e.g., '.json', '.cfg', '.xml', '.ini', '.yml', '.yaml').
+            :return: The processor class.
             :exceptions:
                 | ATSValueError: Extension must be provided.
                 | ATSTypeError: Extension must be a string.
                 | ATSValueError: Extension is not supported.
         '''
-        context: str = r'config_processor_factory::get_processor_class(...)'
-        not_none(extension, context, r'extension must be provided.')
-        istype(extension, str, context, r'extension must be a string.')
+        ctx: str = 'config_processor_factory::get_processor_class(...)'
+        msg_ext_none: str = 'extension must be provided.'
+        msg_ext_istype: str = 'extension must be a string.'
+        msg_ext_unsupported: str = f'The extension {extension} is not supported'
+
+        not_none(extension, ctx, msg_ext_none)
+        istype(extension, str, ctx, msg_ext_istype)
 
         formatted_ext: str = extension.lower()
 
@@ -99,13 +98,12 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
             formatted_ext = f'.{formatted_ext}'
 
         not_satisfied(
-            formatted_ext not in cls._PROCESSOR_MAP.keys(), context, f'The extension {extension} is not supported'
+            formatted_ext not in cls._PROCESSOR_MAP.keys(), ctx, msg_ext_unsupported
         )
 
         return cls._PROCESSOR_MAP[formatted_ext]
 
     @classmethod
-    @override
     def create_from_extension(
         cls, 
         extension: str | None = None,
@@ -117,28 +115,26 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
             Uses get_processor_class utility.
             Uses make_component and validate_component utilities.
 
-            :param extension: File extension (e.g., '.json', '.cfg', '.xml', '.ini', '.yml', '.yaml') | None.
-            :type extension: <str | None>
+            :param extension: The file extension (e.g., '.json', '.cfg', '.xml', '.ini', '.yml', '.yaml') | None.
             :param scheme: Scheme for the processor | None.
-            :type scheme: <Mapping[str, str] | None>
             :param processor: Instance to be used as the processor | None.
-            :type processor: <IConfigProcessor | None>
-            :return: Processor instance.
-            :rtype: <IConfigProcessor>
+            :return: The processor.
             :exceptions:
                 | ATSValueError: Extension must be provided.
                 | ATSTypeError: Extension must be a string.
                 | ATSValueError: Extension is not supported.
                 | ATSTypeError: Validation of processor instance failed.
         '''
-        context: str = r'config_processor_factory::create_from_extension(...)'
+        ctx: str = 'config_processor_factory::create_from_extension(...)'
+        msg_processor_none: str = 'provided processor must implement IConfigProcessor'
+        msg_processor_istype: str = f'processor for extension {extension} must implement IConfigProcessor'
 
         if processor is not None:
             validate_component(
                 instance=processor,
                 expected_class=IConfigProcessor,
-                exc_context=context,
-                exc_message=r'provided processor must implement IConfigProcessor'
+                exc_context=ctx,
+                exc_message=msg_processor_none
             )
 
             return processor
@@ -154,14 +150,13 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
         validate_component(
             instance=resolved_processor,
             expected_class=IConfigProcessor,
-            exc_context=context, 
-            exc_message=f'processor for extension {extension} must implement IConfigProcessor'
+            exc_context=ctx, 
+            exc_message=msg_processor_istype
         )
 
         return resolved_processor
 
     @classmethod
-    @override
     def create_from_file_path(
         cls, 
         file_path: str | None = None,
@@ -175,13 +170,9 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
             If processor is not provided, creation is done from the file path extension.
 
             :param file_path: Path to the configuration file | None.
-            :type file_path: <str | None>
             :param scheme: Scheme for the processor | None.
-            :type scheme: <Mapping[str, str] | None>
             :param processor: Instance to be used as the processor | None.
-            :type processor: <IConfigProcessor | None>
-            :return: Processor instance.
-            :rtype: <IConfigProcessor>
+            :return: The processor.
             :exceptions:
                 | ATSValueError: File path must be provided when processor is None.
                 | ATSTypeError: File path must be a string.
@@ -194,10 +185,14 @@ class ConfigProcessorFactory(IConfigProcessorFactory):
         if processor is not None:
             return cls.create_from_extension(processor=processor)
 
-        context: str = r'config_processor_factory::create_from_file_path(...)'
-        not_none(file_path, context, r'file path must be provided when processor is None')
-        istype(file_path, str, context, r'file path must be a string')
-        check_file_exists(file_path, context, f'file at {file_path} does not exist')
+        ctx: str = 'config_processor_factory::create_from_file_path(...)'
+        file_path_none: str = 'file path must be provided when processor is None'
+        file_path_str: str = 'file path must be a string'
+        file_does_not_exist: str = f'file at {file_path} does not exist'
+
+        not_none(file_path, ctx, file_path_none)
+        istype(file_path, str, ctx, file_path_str)
+        check_file_exists(file_path, ctx, file_does_not_exist)
 
         return cls.create_from_extension(
             extension=Path(file_path).suffix,

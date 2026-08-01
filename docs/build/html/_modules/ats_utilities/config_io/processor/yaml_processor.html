@@ -54,50 +54,48 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines class YAMLProcessor with attribute(s) and method(s).</span>
-<span class="sd">    Creates an API to process configuration in YAML format.</span>
+<span class="sd">    Defines the YAMLProcessor class with attribute(s) and method(s).</span>
+<span class="sd">    Provides an API to process configuration in YAML format.</span>
 <span class="sd">    1th level of configuration loader/storer implementation.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.iconfig_processor</span> <span class="kn">import</span> <span class="n">IConfigProcessor</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
 
-<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
-<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.4.4&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 <div class="viewcode-block" id="YAMLProcessor">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.yaml_processor.html#ats_utilities.config_io.processor.yaml_processor.YAMLProcessor">[docs]</a>
-<span class="k">class</span> <span class="nc">YAMLProcessor</span><span class="p">(</span><span class="n">IConfigProcessor</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">YAMLProcessor</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class YAMLProcessor with attribute(s) and method(s).</span>
-<span class="sd">        Creates an API to process configuration in YAML format.</span>
+<span class="sd">        Defines the YAMLProcessor class with attribute(s) and method(s).</span>
+<span class="sd">        Provides an API to process configuration in YAML format.</span>
 <span class="sd">        1th level of configuration loader/storer implementation.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _data - Internal dict to store configuration data (default {}).</span>
-<span class="sd">                | _scheme - Mapping with configuration scheme (default None).</span>
+<span class="sd">                | _data - The internal dict to store configuration data (default {}).</span>
+<span class="sd">                | _scheme - The mapping with configuration scheme (default: None).</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initializes YAMLProcessor constructor.</span>
+<span class="sd">                | __init__ - Initializes the YAMLProcessor.</span>
 <span class="sd">                | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).</span>
 <span class="sd">                | serialize - Converts the internal configuration structure back to a formatted string representation.</span>
-<span class="sd">                | update_data - Updates the internal configuration data and validates it against the scheme.</span>
+<span class="sd">                | update_data - Updates the internal configuration data and Validates the it against the scheme.</span>
 <span class="sd">                | to_dict - Returns the parsed configuration as a flat or structured dictionary.</span>
 <span class="sd">                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.</span>
-<span class="sd">                | __str__ - Returns the YAMLProcessor instance as string representation.</span>
+<span class="sd">                | __str__ - Returns the YAMLProcessor instance as a string representation.</span>
 
 <span class="sd">        Flat Format Config Scheme</span>
 <span class="sd">        -------------------------</span>
@@ -120,10 +118,9 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scheme</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initializes YAMLProcessor constructor.</span>
+<span class="sd">            Initializes the YAMLProcessor.</span>
 
 <span class="sd">            :param scheme: Mapping with configuration scheme | None.</span>
-<span class="sd">            :type scheme: &lt;Mapping[str, str] | None&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{}</span>
@@ -131,15 +128,12 @@
 
 <div class="viewcode-block" id="YAMLProcessor.deserialize">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.yaml_processor.html#ats_utilities.config_io.processor.yaml_processor.YAMLProcessor.deserialize">[docs]</a>
-    <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Loads and parses configuration from a raw source (string, stream, or lines).</span>
 
-<span class="sd">            :param content: Raw configuration data (str, stream, or sequence).</span>
-<span class="sd">            :type content: &lt;Any&gt;</span>
-<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :param content: The raw configuration data (str, stream, or sequence).</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
@@ -153,13 +147,11 @@
 
 <div class="viewcode-block" id="YAMLProcessor.serialize">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.yaml_processor.html#ats_utilities.config_io.processor.yaml_processor.YAMLProcessor.serialize">[docs]</a>
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Converts the internal configuration structure back to a formatted string representation.</span>
 
-<span class="sd">            :return: Configuration content as string.</span>
-<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :return: The configuration content as a string.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
@@ -167,15 +159,12 @@
 
 <div class="viewcode-block" id="YAMLProcessor.update_data">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.yaml_processor.html#ats_utilities.config_io.processor.yaml_processor.YAMLProcessor.update_data">[docs]</a>
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">update_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_data</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Updates the internal configuration data and validates it against the scheme.</span>
+<span class="sd">            Updates the internal configuration data and Validates the it against the scheme.</span>
 
-<span class="sd">            :param new_data: Mapping containing configuration keys and values.</span>
-<span class="sd">            :type new_data: &lt;Mapping[str, str]&gt;</span>
-<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :param new_data: The mapping containing configuration keys and values.</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">old_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -192,13 +181,11 @@
 
 <div class="viewcode-block" id="YAMLProcessor.to_dict">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.yaml_processor.html#ats_utilities.config_io.processor.yaml_processor.YAMLProcessor.to_dict">[docs]</a>
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the parsed configuration as a flat or structured dictionary.</span>
 
-<span class="sd">            :return: Dictionary with configuration information.</span>
-<span class="sd">            :rtype: &lt;dict[str, str]&gt;</span>
+<span class="sd">            :return: The dictionary with configuration information.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span></div>
@@ -206,13 +193,11 @@
 
 <div class="viewcode-block" id="YAMLProcessor.validate_by_scheme">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.yaml_processor.html#ats_utilities.config_io.processor.yaml_processor.YAMLProcessor.validate_by_scheme">[docs]</a>
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">validate_by_scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Validates the internal parsed data structure against the provided scheme.</span>
 
-<span class="sd">            :return: &lt;True&gt; if data matches the scheme, &lt;False&gt; otherwise.</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scheme</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -225,13 +210,11 @@
         <span class="k">return</span> <span class="kc">True</span></div>
 
 
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the YAMLProcessor instance as string representation.</span>
+<span class="sd">            Returns the YAMLProcessor instance as a string representation.</span>
 
-<span class="sd">            :return: The YAMLProcessor instance as string representation.</span>
-<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :return: The YAMLProcessor instance as a string representation.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">to_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>

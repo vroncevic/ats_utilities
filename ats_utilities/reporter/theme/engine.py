@@ -16,117 +16,104 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ConsoleTheme with attribute(s) and method(s).
-    Implements a console theme for console styling.
+    Defines the ConsoleTheme class with attribute(s) and method(s).
+    Provides the console theme for the console styling.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 from types import MappingProxyType
-from typing import Final, override
+from typing import Final
 
-from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
+from ats_utilities.reporter.theme.types import MessageKey
 from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.validation.check_value import not_none, not_satisfied
 from ats_utilities.validation.check_type import istype
 
-__author__ = r'Vladimir Roncevic'
-__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
-__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.3'
-__maintainer__ = r'Vladimir Roncevic'
-__email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Development'
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.4.4'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Development'
 
 
-class ConsoleTheme(IConsoleTheme):
+class ConsoleTheme:
     '''
-        Defines class ConsoleTheme with attribute(s) and method(s).
-        Implements a console theme for console styling.
+        Defines the ConsoleTheme class with attribute(s) and method(s).
+        Provides the console theme for the console styling.
 
         It defines:
 
             :attributes:
-                | _DEFAULT_PALETTE_COLORS - Final default palette colors for different message types.
-                | _palette - Final mapping with color codes for different message types.
+                | DEFAULT_PALETTE_COLORS - The final default palette colors for different message types.
+                | _palette - The final mapping with color codes for different message types.
             :methods:
-                | __init__ - Initializes ConsoleTheme constructor.
-                | get_color - Returns color code from palette.
-                | __str__ - Returns the string representation of ConsoleTheme.
+                | __init__ - Initializes the ConsoleTheme.
+                | get_color - Returns the color code from the palette.
+                | __str__ - Returns the console theme as a string representation.
     '''
 
-    _DEFAULT_PALETTE_COLORS: Final[Mapping[str, str]] = MappingProxyType({
-        'verbose': '\x1b[34m', # ANSI blue
-        'success': '\x1b[32m', # ANSI green
-        'warning': '\x1b[33m', # ANSI yellow
-        'error':   '\x1b[31m', # ANSI red
-        'reset':   '\x1b[0m'   # ANSI reset
+    DEFAULT_PALETTE_COLORS: Final[MappingProxyType[str, str]] = MappingProxyType({
+        MessageKey.VERBOSE: '\x1b[34m', # ANSI blue
+        MessageKey.SUCCESS: '\x1b[32m', # ANSI green
+        MessageKey.WARNING: '\x1b[33m', # ANSI yellow
+        MessageKey.ERROR:   '\x1b[31m', # ANSI red
+        MessageKey.RESET:   '\x1b[0m'   # ANSI reset
     })
+
     _palette: Final[Mapping[str, str]]
 
-    def __init__(self, palette: dict[str, str] | None = None) -> None:
+    def __init__(self, palette: Mapping[str, str] | None = None) -> None:
         '''
-            Initializes ConsoleTheme constructor.
+            Initializes the ConsoleTheme.
 
-            :param palette: Dictionary with color codes | None.
-            :type palette: <dict[str, str] | None>
+            :param palette: The mapping with color codes or None.
             :exceptions:
-                | ATSTypeError: Palette must be a dictionary.
+                | ATSTypeError: The palette must be a mapping.
         '''
         if palette is not None:
-            istype(
-                palette,
-                dict,
-                r'console_theme::init(...)',
-                r'palette must be a dictionary'
-            )
+            ctx: str = 'console_theme::init(...)'
+            msg_pallete_istype: str = 'the palette must be a mapping'
 
-        # No dependency injection then use default ones.
-        self._palette = MappingProxyType(palette) if palette is not None else self._DEFAULT_PALETTE_COLORS
+            istype(palette, Mapping, ctx, msg_pallete_istype)
+
+            self._palette = MappingProxyType(palette)
+        else:
+            # No dependency injection then use default ones.
+            self._palette = self.DEFAULT_PALETTE_COLORS
 
     @has_attrs('_palette')
-    @override
     def get_color(self, color_type: str) -> str:
         '''
-            Returns color code from palette.
+            Returns the color code from the palette.
 
-            :param color_type: Type of the message (key in palette).
-            :type color_type: <str>
-            :return: Color code in string format.
-            :rtype: <str>
+            :param color_type: The type of the message (key in palette).
+            :return: The color code in string format.
             :exceptions:
-                | ATSValueError: Color palette is not defined.
-                | ATSValueError: Color type must be provided.
-                | ATSTypeError: Color type must be a string.
-                | ATSValueError: Color type not found in palette.
+                | ATSValueError: The color type must be provided.
+                | ATSTypeError:  The color type must be a string.
+                | ATSValueError: The color type not found in palette.
         '''
-        not_none(
-            color_type,
-            r'console_theme::get_color(...)',
-            r'color type must be provided'
-        )
-        istype(
-            color_type, str,
-            r'console_theme::get_color(...)',
-            r'color type must be a string'
-        )
-        not_satisfied(
-            color_type not in self._palette,
-            r'console_theme::get_color(...)',
-            f'color type {color_type} not found in palette'
-        )
+        ctx: str = 'console_theme::get_color(...)'
+        msg_color_type_none: str = 'the color type must be provided'
+        msg_color_type_istype: str = 'the color type must be a string'
+        msg_color_type_not_found: str = f'the color type {color_type} not found in palette'
+
+        not_none(color_type, ctx, msg_color_type_none)
+        istype(color_type, str, ctx, msg_color_type_istype)
+        not_satisfied(color_type not in self._palette, ctx, msg_color_type_not_found)
 
         return self._palette[color_type]
 
-    @override
     def __str__(self) -> str:
         '''
-            Returns the string representation of ConsoleTheme.
+            Returns the console theme as a string representation.
 
-            :return: The ConsoleTheme as string representation.
-            :rtype: <str>
+            :return: The console theme as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

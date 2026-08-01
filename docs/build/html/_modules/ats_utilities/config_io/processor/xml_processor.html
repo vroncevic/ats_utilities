@@ -54,8 +54,8 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines class XMLProcessor with attribute(s) and method(s).</span>
-<span class="sd">    Creates an API to process configuration in XML format.</span>
+<span class="sd">    Defines the XMLProcessor class with attribute(s) and method(s).</span>
+<span class="sd">    Provides an API to process configuration in XML format.</span>
 <span class="sd">    1th level of configuration loader/storer implementation.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
@@ -63,44 +63,42 @@
 
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 <span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.iconfig_processor</span> <span class="kn">import</span> <span class="n">IConfigProcessor</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
 
-<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
-<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.4.4&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="XMLProcessor">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.xml_processor.html#ats_utilities.config_io.processor.xml_processor.XMLProcessor">[docs]</a>
-<span class="k">class</span> <span class="nc">XMLProcessor</span><span class="p">(</span><span class="n">IConfigProcessor</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">XMLProcessor</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class XMLProcessor with attribute(s) and method(s).</span>
-<span class="sd">        Creates an API to process configuration in XML format.</span>
+<span class="sd">        Defines the XMLProcessor class with attribute(s) and method(s).</span>
+<span class="sd">        Provides an API to process configuration in XML format.</span>
 <span class="sd">        1th level of configuration loader/storer implementation.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _root - Internal instance to store configuration data (default None).</span>
-<span class="sd">                | _scheme - Mapping with configuration scheme (default None).</span>
-<span class="sd">                | _root_tag - Resolved root element tag name (default &#39;configuration&#39;).</span>
+<span class="sd">                | _root - The internal instance to store configuration data (default: None).</span>
+<span class="sd">                | _scheme - The mapping with configuration scheme (default: None).</span>
+<span class="sd">                | _root_tag - The resolved root element tag name (default &#39;configuration&#39;).</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initializes XMLProcessor constructor.</span>
+<span class="sd">                | __init__ - Initializes the XMLProcessor.</span>
 <span class="sd">                | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).</span>
 <span class="sd">                | serialize - Converts the internal configuration structure back to a formatted string representation.</span>
-<span class="sd">                | update_data - Updates the internal configuration data and validates it against the scheme.</span>
+<span class="sd">                | update_data - Updates the internal configuration data and Validates the it against the scheme.</span>
 <span class="sd">                | to_dict - Returns the parsed configuration as a flat or structured dictionary.</span>
 <span class="sd">                | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.</span>
-<span class="sd">                | __str__ - Returns the XMLProcessor instance as string representation.</span>
+<span class="sd">                | __str__ - Returns the XMLProcessor instance as a string representation.</span>
 
 <span class="sd">        XML Format Config Scheme</span>
 <span class="sd">        ------------------------</span>
@@ -128,10 +126,9 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scheme</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initializes XMLProcessor constructor.</span>
+<span class="sd">            Initializes the XMLProcessor.</span>
 
 <span class="sd">            :param scheme: Mapping with configuration scheme | None.</span>
-<span class="sd">            :type scheme: &lt;Mapping[str, str] | None&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="kc">None</span>
@@ -143,15 +140,12 @@
 
 <div class="viewcode-block" id="XMLProcessor.deserialize">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.xml_processor.html#ats_utilities.config_io.processor.xml_processor.XMLProcessor.deserialize">[docs]</a>
-    <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Loads and parses configuration from a raw source (string, stream, or lines).</span>
 
-<span class="sd">            :param content: Raw configuration data (str, stream, or sequence).</span>
-<span class="sd">            :type content: &lt;Any&gt;</span>
-<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :param content: The raw configuration data (str, stream, or sequence).</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
@@ -165,13 +159,11 @@
 
 <div class="viewcode-block" id="XMLProcessor.serialize">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.xml_processor.html#ats_utilities.config_io.processor.xml_processor.XMLProcessor.serialize">[docs]</a>
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Converts the internal configuration structure back to a formatted string representation.</span>
 
-<span class="sd">            :return: Configuration content as string.</span>
-<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :return: The configuration content as a string.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -182,15 +174,12 @@
 
 <div class="viewcode-block" id="XMLProcessor.update_data">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.xml_processor.html#ats_utilities.config_io.processor.xml_processor.XMLProcessor.update_data">[docs]</a>
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">update_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_data</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Updates the internal configuration data and validates it against the scheme.</span>
+<span class="sd">            Updates the internal configuration data and Validates the it against the scheme.</span>
 
-<span class="sd">            :param new_data: Mapping containing configuration keys and values.</span>
-<span class="sd">            :type new_data: &lt;Mapping[str, str]&gt;</span>
-<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :param new_data: The mapping containing configuration keys and values.</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">old_root</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
@@ -231,13 +220,11 @@
 
 <div class="viewcode-block" id="XMLProcessor.to_dict">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.xml_processor.html#ats_utilities.config_io.processor.xml_processor.XMLProcessor.to_dict">[docs]</a>
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the parsed configuration as a flat or structured dictionary.</span>
 
-<span class="sd">            :return: Dictionary with configuration information.</span>
-<span class="sd">            :rtype: &lt;dict[str, str]&gt;</span>
+<span class="sd">            :return: The dictionary with configuration information.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -265,13 +252,11 @@
 
 <div class="viewcode-block" id="XMLProcessor.validate_by_scheme">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.xml_processor.html#ats_utilities.config_io.processor.xml_processor.XMLProcessor.validate_by_scheme">[docs]</a>
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">validate_by_scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Validates the internal parsed data structure against the provided scheme.</span>
 
-<span class="sd">            :return: &lt;True&gt; if data matches the scheme, &lt;False&gt; otherwise.</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -292,13 +277,11 @@
         <span class="k">return</span> <span class="kc">True</span></div>
 
 
-    <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the XMLProcessor instance as string representation.</span>
+<span class="sd">            Returns the XMLProcessor instance as a string representation.</span>
 
-<span class="sd">            :return: The XMLProcessor instance as string representation.</span>
-<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :return: The XMLProcessor instance as a string representation.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">to_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
