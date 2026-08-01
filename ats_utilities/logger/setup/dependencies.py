@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Logger dependencies for logger bundle creation.
+    Logger dependencies for  the logger bundle.
 '''
 
 from __future__ import annotations
@@ -41,17 +41,17 @@ __status__ = 'Development'
 
 class LoggerDependencies(TypedDict):
     '''
-        Logger dependencies for logger bundle creation.
+        Logger dependencies for the logger bundle.
 
         It defines:
 
             :attributes:
-                | logger: Logger instance.
-                | has_file_handler: Flag indicating if logger has a file handler.
-                | formatter: Formatter for log messages.
-                | buffer: Buffer for early logs.
-                | handler_manager: Manager for log output handlers.
-                | message_processor: Processor for log messages.
+                | logger - The logger instance.
+                | has_file_handler - The flag indicating if the logger has a file handler.
+                | formatter - The formatter for log messages.
+                | buffer - The buffer for early log messages.
+                | handler_manager - The handler manager for log outputs.
+                | message_processor - The message processor for log messages.
     '''
 
     logger: IUnderlyingLogger

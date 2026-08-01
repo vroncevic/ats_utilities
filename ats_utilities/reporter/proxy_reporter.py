@@ -50,9 +50,9 @@ def vreport[F: Callable[..., object]](templates: str | list[str]) -> Callable[[F
         :param templates: Single template string or a list of template strings.
         :return: Wrapped function.
         :exceptions:
-            | ATSValueError: Decorator requires at least one argument.
-            | ATSRuntimeError: Decorator cannot be used on a standalone function.
-            | ATSAttributeError: Class is required to provide a '_reporter' object to
+            | ATSValueError:     The decorator requires at least one argument.
+            | ATSRuntimeError:   The decorator cannot be used on a standalone function.
+            | ATSAttributeError: The class is required to provide a '_reporter' object to
             |                    use the @vreport decorator.
     '''
     message_templates: list[str] = [templates] if isinstance(templates, str) else templates
@@ -60,7 +60,7 @@ def vreport[F: Callable[..., object]](templates: str | list[str]) -> Callable[[F
     if not message_templates:
         raise_error(
             fallback_context='vreport::decorator',
-            fallback_msg='Decorator @vreport requires at least one argument',
+            fallback_msg='The decorator @vreport requires at least one argument',
             exc_context='vreport::decorator',
             exc_message=None,
             exc_class=ATSValueError
@@ -74,7 +74,7 @@ def vreport[F: Callable[..., object]](templates: str | list[str]) -> Callable[[F
             if self_instance is None:
                 raise_error(
                     fallback_context='vreport::decorator',
-                    fallback_msg=f'Decorator @vreport on {func.__name__} can only be used on class methods',
+                    fallback_msg=f'The decorator @vreport on {func.__name__} can only be used on class methods',
                     exc_context='vreport::decorator',
                     exc_message=None,
                     exc_class=ATSRuntimeError
@@ -103,7 +103,7 @@ def vreport[F: Callable[..., object]](templates: str | list[str]) -> Callable[[F
             if reporter is None:
                 raise_error(
                     fallback_context='vreport::decorator',
-                    fallback_msg=f'Class {class_name} must provide a reporter to use @vreport decorator',
+                    fallback_msg=f'The class {class_name} must provide a reporter to use the @vreport decorator',
                     exc_context=context,
                     exc_message=None,
                     exc_class=ATSRuntimeError

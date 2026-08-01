@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory for creating context bundle.
+    Factory for creating the context bundle.
 '''
 
 from __future__ import annotations
@@ -46,24 +46,24 @@ __status__ = 'Development'
 
 class ContextFactory:
     '''
-        Factory for creating context bundle.
+        Factory for creating the context bundle.
 
         It defines:
 
             :methods:
-                | create_bundle - Creates a context bundle with optional pre-configured options.
+                | create_bundle - Creates the context bundle with optional pre-configured options.
     '''
 
     @classmethod
     def create_bundle(cls, options: ContextOptions | None = None) -> ContextBundle:
         '''
-            Creates a context bundle with optional pre-configured options.
+            Creates the context bundle with optional pre-configured options.
 
-            :param options: Pre-configured options for the bundle (default None).
-            :return: Context bundle instance.
+            :param options: The pre-configured options for the bundle (default None).
+            :return: The context bundle.
             :exceptions:
-                | ATSValueError: Options must be provided and have proper values.
-                | ATSTypeError:  Options must be an instance of Mapping and its attributes 
+                | ATSValueError: The options must be provided and have proper values.
+                | ATSTypeError:  The options must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
         if options is not None:

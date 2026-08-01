@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates logger runtime components for simplification of logger bundle creation.
+    Encapsulates logger runtime components for simplification of the logger bundle creation.
 '''
 
 from __future__ import annotations
@@ -43,19 +43,19 @@ __status__ = 'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class LoggerBundle:
     '''
-        Encapsulates logger runtime components for simplification of logger bundle creation.
+        Encapsulates logger runtime components for simplification of the logger bundle creation.
 
         It defines:
 
             :attributes:
-                | logger - Logger instance.
-                | has_file_handler - Flag indicating if logger has a file handler.
-                | formatter - Formatter for log messages.
-                | buffer - Buffer for early logs.
-                | handler_manager - Manager for log output handlers.
-                | message_processor - Processor for log messages.
+                | logger - The logger instance.
+                | has_file_handler - The flag indicating if the logger has a file handler.
+                | formatter - The formatter for log messages.
+                | buffer - The buffer for early log messages.
+                | handler_manager - The handler manager for log output.
+                | message_processor - The message processor for log messages.
             :methods:
-                | to_dict - Converts logger bundle to a dictionary.
+                | to_dict - Converts the logger bundle to a dictionary.
     '''
 
     logger: IUnderlyingLogger
@@ -67,11 +67,11 @@ class LoggerBundle:
 
     def to_dict(self) -> dict[str, object]:
         '''
-            Converts logger bundle to a dictionary.
+            Converts the logger bundle to a dictionary.
 
-            :return: Dictionary representation of the logger bundle.
+            :return: The dictionary representation of the logger bundle.
             :exceptions:
-                | ATSValueError: Instance must be provided.
-                | ATSValueError: Instance must be a dataclass instance.
+                | ATSValueError: The instance must be provided.
+                | ATSValueError: The instance must be a dataclass instance.
         '''
         return instance_to_dict(self)

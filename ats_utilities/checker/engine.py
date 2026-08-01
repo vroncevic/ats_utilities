@@ -16,9 +16,9 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Checker with attribute(s) and method(s).
+    Defines the Checker class with attribute(s) and method(s).
     Concrete implementation of the parameter(s) checker.
-    Mechanism for parameters checking (methods/functions).
+    Mechanism for checking the parameters that are used by method(s) or function(s).
 '''
 
 from __future__ import annotations
@@ -48,30 +48,30 @@ __status__ = 'Development'
 
 class Checker:
     '''
-        Defines class Checker with attribute(s) and method(s).
+        Defines the Checker class with attribute(s) and method(s).
         Concrete implementation of the parameter(s) checker.
-        Mechanism for parameters checking (methods/functions).
+        Mechanism for checking the parameters that are used by method(s) or function(s).
 
         It defines:
 
             :attributes:
-                | _is_initialized - Indicates if the checker component is initialized (default False).
-                | _format_validator - Validator for parameters format (default FormatValidator).
-                | _type_validator - Validator for parameters type (default TypeValidator).
-                | _context_provider - Provider for call context (default ContextProvider).
-                | _check_reporter - Formatter for message reports (default CheckReporter).
+                | _is_initialized - Indicates if the checker component is initialized.
+                | _format_validator - The format validator that is used in the validation of parameters.
+                | _type_validator - The type validator that is used in the validation of parameters.
+                | _context_provider - The context provider that is used in the validation of parameters.
+                | _check_reporter - The check reporter that is used in the validation of parameters.
             :methods:
-                | __init__ - Initializes checker instance.
-                | get_bundle - Gets current checker configuration bundle.
-                | update_bundle - Updates checker configuration bundle.
-                | _apply_bundle - Applies bundle configuration to instance attributes.
-                | get_format_validator - Returns the format validator used in validation of parameters.
-                | get_type_validator - Returns the type validator used in validation of parameters.
-                | get_context_provider - Returns the context provider used in validation of parameters.
-                | get_check_reporter - Returns the check reporter used in validation of parameters.
-                | validates_parameters - Validates parameter(s) used by method(s) or function(s).
-                | is_initialized - Checks if checker component is initialized.
-                | __str__ - Returns the checker as string representation.
+                | __init__ - Initializes the checker instance.
+                | get_bundle - Gets the current checker configuration bundle.
+                | update_bundle - Updates the checker configuration bundle.
+                | _apply_bundle - Applies the bundle configuration to the instance attributes.
+                | get_format_validator - Returns the format validator that is used in the validation of parameters.
+                | get_type_validator - Returns the type validator that is used in the validation of parameters.
+                | get_context_provider - Returns the context provider that is used in the validation of parameters.
+                | get_check_reporter - Returns the check reporter that is used in the validation of parameters.
+                | validates_parameters - Validates the parameters that are used by method(s) or function(s).
+                | is_initialized - Checks if the checker is initialized.
+                | __str__ - Returns the checker as a string representation.
     '''
 
     _is_initialized: bool
@@ -82,12 +82,12 @@ class Checker:
 
     def __init__(self, own: CheckerBundle) -> None:
         '''
-            Initializes checker instance.
+            Initializes the checker instance.
 
-            :param own: Checker bundle with components.
+            :param own: The checker bundle that is used to initialize the checker.
             :exceptions:
-                | ATSValueError: Checker bundle must be provided and have proper values.
-                | ATSTypeError:  Checker bundle must be an instance of CheckerBundle
+                | ATSValueError: The checker bundle must be provided and have proper values.
+                | ATSTypeError:  The checker bundle must be an instance of CheckerBundle
                 |                and its attributes must be instances of their
                 |                respective interfaces and types.
         '''
@@ -98,9 +98,9 @@ class Checker:
 
     def get_bundle(self) -> CheckerBundle:
         '''
-            Gets current checker configuration bundle.
+            Gets the current checker configuration bundle.
 
-            :return: Checker configuration bundle.
+            :return: The checker configuration bundle.
             :exceptions: None.
         '''
         return CheckerBundle(
@@ -112,9 +112,9 @@ class Checker:
 
     def update_bundle(self, bundle: CheckerBundle) -> bool:
         '''
-            Updates checker configuration bundle.
+            Updates the checker configuration bundle.
 
-            :param bundle: Checker configuration bundle.
+            :param bundle: The checker configuration bundle.
             :return: True if configuration was successfully updated, False otherwise.
             :exceptions: None.
         '''
@@ -130,9 +130,9 @@ class Checker:
 
     def _apply_bundle(self, bundle: CheckerBundle) -> None:
         '''
-            Applies bundle configuration to instance attributes.
+            Applies the bundle configuration to the instance attributes.
 
-            :param bundle: Checker bundle with checker components.
+            :param bundle: The checker bundle with components.
             :exceptions: None.
         '''
         self._format_validator = bundle.format_validator
@@ -144,7 +144,7 @@ class Checker:
         '''
             Returns the format validator used in validation of parameters.
 
-            :return: Format validator used in validation of parameters.
+            :return: The format validator used in validation of parameters.
             :exceptions: None.
         '''
         return self._format_validator
@@ -153,7 +153,7 @@ class Checker:
         '''
             Returns the type validator used in validation of parameters.
 
-            :return: Type validator used in validation of parameters.
+            :return: The type validator used in validation of parameters.
             :exceptions: None.
         '''
         return self._type_validator
@@ -162,7 +162,7 @@ class Checker:
         '''
             Returns the context provider used in validation of parameters.
 
-            :return: Context provider used in validation of parameters.
+            :return: The context provider used in validation of parameters.
             :exceptions: None.
         '''
         return self._context_provider
@@ -171,17 +171,17 @@ class Checker:
         '''
             Returns the check reporter used in validation of parameters.
 
-            :return: Check reporter used in validation of parameters.
+            :return: The check reporter used in validation of parameters.
             :exceptions: None.
         '''
         return self._check_reporter
 
     def validates_parameters(self, parameters: Parameters) -> Result:
         '''
-            Validates parameters used by method(s) or function(s).
+            Validates the parameters that are used by method(s) or function(s).
 
-            :param parameters: Specification of parameters.
-            :return: Result of validation (message report and error id).
+            :param parameters: The specification of the parameters that are to be validated.
+            :return: The result of the validation (message report and error id).
             :exceptions: None.
         '''
         context: str = self._context_provider.get_context()
@@ -256,7 +256,7 @@ class Checker:
 
     def is_initialized(self) -> bool:
         '''
-            Checks if checker component is initialized.
+            Checks if the checker is initialized.
 
             :return: True if successfully, otherwise False.
             :exceptions: None.
@@ -265,9 +265,9 @@ class Checker:
 
     def __str__(self) -> str:
         '''
-            Returns checker as string representation.
+            Returns the checker as a string representation.
 
-            :return: Checker as string representation.
+            :return: The checker as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

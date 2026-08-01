@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for context dependencies.
+    Validator for the context dependencies.
 '''
 
 from __future__ import annotations
@@ -40,35 +40,35 @@ __status__ = 'Development'
 
 class ContextDependenciesValidator:
     '''
-        Validator for context dependencies.
+        Validator for the context dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates context dependencies instance.
+                | validate - Validates the context dependencies.
     '''
 
     @classmethod
     def validate(cls, dependencies: ContextDependencies) -> None:
         '''
-            Validates context dependencies instance.
+            Validates the context dependencies.
 
-            :param dependencies: Context dependencies instance to be validated.
+            :param dependencies: The context dependencies to be validated.
             :exceptions:
-                | ATSValueError: Context dependencies must be provided and have proper values.
-                | ATSTypeError:  Context dependencies must be an instance of Mapping and its attributes
+                | ATSValueError: The context dependencies must be provided and have proper values.
+                | ATSTypeError:  The context dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
         ctx: str = 'context_dependencies_validator::validate(...)'
-        msg_dependencies_none: str = 'dependencies must be provided'
-        msg_dependencies_istype: str = 'dependencies must be a Mapping'
+        msg_dependencies_none: str = 'the dependencies must be provided'
+        msg_dependencies_istype: str = 'the dependencies must be a Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
         for attr_name, expected_type in ContextKeys.get_dependency_to_type().items():
-            msg_attr_name_none: str = f'{attr_name.replace("_", " ")} must be provided'
-            msg_attr_name_istype: str = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+            msg_attr_name_none: str = f'the {attr_name.replace("_", " ")} must be provided'
+            msg_attr_name_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute = dependencies.get(attr_name)
 

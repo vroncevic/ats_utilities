@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Runtime components and interface constraints for context bundle.
+    Runtime components and interface constraints for the context bundle.
 '''
 
 from __future__ import annotations
@@ -43,22 +43,22 @@ __status__ = 'Development'
 
 class ContextKeys:
     '''
-        Runtime components and interface constraints for context bundle.
+        Runtime components and interface constraints for the context bundle.
 
         It defines:
 
             :attributes:
-                | DEPENDENCY_CHECKER: Checker interface constant.
-                | DEPENDENCY_LOGGER: Logger interface constant.
-                | DEPENDENCY_REPORTER: Reporter interface constant.
-                | DEPENDENCY_VERBOSE: Verbose flag constant.
-                | OPTION_CHECKER: Checker options constant.
-                | OPTION_LOGGER: Logger options constant.
-                | OPTION_REPORTER: Reporter options constant.
-                | OPTION_VERBOSE: Verbose flag constant.
+                | DEPENDENCY_CHECKER - The checker interface constant.
+                | DEPENDENCY_LOGGER - The logger interface constant.
+                | DEPENDENCY_REPORTER - The reporter interface constant.
+                | DEPENDENCY_VERBOSE - The verbose flag constant.
+                | OPTION_CHECKER - The checker options constant.
+                | OPTION_LOGGER - The logger options constant.
+                | OPTION_REPORTER - The reporter options constant.
+                | OPTION_VERBOSE - The verbose flag constant.
             :methods:
-                | get_dependency_to_type - Returns mapping of context dependencies to their types.
-                | get_option_to_type - Returns mapping of context options to their types.
+                | get_dependency_to_type - Returns the mapping of the context dependencies to their types.
+                | get_option_to_type - Returns the mapping of the context options to their types.
     '''
 
     # Dependency Keys
@@ -76,9 +76,9 @@ class ContextKeys:
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of context dependencies to their types.
+            Returns the mapping of the context dependencies to their types.
 
-            :return: Mapping of context dependencies to their types.
+            :return: The mapping of the context dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -91,9 +91,9 @@ class ContextKeys:
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of context options to their types.
+            Returns the mapping of the context options to their types.
 
-            :return: Mapping of context options to their types.
+            :return: The mapping of the context options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Reporter dependencies for reporter bundle creation.
+    Reporter dependencies for the reporter bundle.
 '''
 
 from __future__ import annotations
@@ -39,14 +39,14 @@ __status__ = 'Development'
 
 class ReporterDependencies(TypedDict):
     '''
-        Reporter dependencies for reporter bundle creation.
+        Reporter dependencies for the reporter bundle.
 
         It defines:
 
             :attributes:
-                | checker: Checker for parameters validation.
-                | theme: Theme for console output styling.
-                | logger: Logger for messages logging.
+                | checker - The checker for parameters validation.
+                | theme - The theme for console output styling.
+                | logger - The logger for messages logging.
     '''
 
     checker: IChecker

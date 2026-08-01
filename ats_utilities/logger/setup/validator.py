@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for logger bundle instance.
+    Validator for the logger bundle.
 '''
 
 from __future__ import annotations
@@ -42,41 +42,41 @@ __status__ = 'Development'
 
 class LoggerValidator:
     '''
-        Validator for logger bundle instance.
+        Validator for the logger bundle.
 
         It defines:
 
             :methods:
-                | validate - Validates logger bundle instance.
+                | validate - Validates the logger bundle.
     '''
 
     @classmethod
     def validate(cls, bundle: LoggerBundle) -> None:
         '''
-            Validates logger bundle instance.
+            Validates the logger bundle.
 
-            :param bundle: Logger bundle instance to be validated.
+            :param bundle: The logger bundle to be validated.
             :exceptions:
-                | ATSValueError: Bundle must be provided and have proper values.
-                | ATSTypeError:  Bundle must be an instance of LoggerBundle and its attributes
+                | ATSValueError: The bundle must be provided and have proper values.
+                | ATSTypeError:  The bundle must be an instance of LoggerBundle and its attributes
                 |                must be instances of their respective types.
         '''
         ctx: str = 'logger_validator::validate(...)'
 
-        msg_bundle_none: str = 'bundle must be provided'
-        msg_bundle_istype: str = 'bundle must be an instance of LoggerBundle'
-        msg_logger_none: str = 'logger must be provided'
-        msg_logger_istype: str = 'logger must be an instance of IUnderlyingLogger'
-        msg_has_file_handler_none: str = 'has file handler flag must be provided'
-        msg_has_file_handler_istype: str = 'has file handler flag must be a boolean instance'
-        msg_formatter_none: str = 'formatter must be provided'
-        msg_formatter_istype: str = 'formatter must be an instance of ILogFormatter'
-        msg_buffer_none: str = 'buffer must be provided'
-        msg_buffer_istype: str = 'buffer must be an instance of ILogBuffer'
-        msg_handler_manager_none: str = 'handler manager must be provided'
-        msg_handler_manager_istype: str = 'handler manager must be an instance of ILogHandlerManager'
-        msg_message_processor_none: str = 'message processor must be provided'
-        msg_message_processor_istype: str = 'message processor must be an instance of IMessageProcessor'
+        msg_bundle_none: str = 'the bundle must be provided'
+        msg_bundle_istype: str = 'the bundle must be an instance of LoggerBundle'
+        msg_logger_none: str = 'the logger must be provided'
+        msg_logger_istype: str = 'the logger must be an instance of IUnderlyingLogger'
+        msg_has_file_handler_none: str = 'the has file handler flag must be provided'
+        msg_has_file_handler_istype: str = 'the has file handler flag must be a boolean instance'
+        msg_formatter_none: str = 'the formatter must be provided'
+        msg_formatter_istype: str = 'the formatter must be an instance of ILogFormatter'
+        msg_buffer_none: str = 'the buffer must be provided'
+        msg_buffer_istype: str = 'the buffer must be an instance of ILogBuffer'
+        msg_handler_manager_none: str = 'the handler manager must be provided'
+        msg_handler_manager_istype: str = 'the handler manager must be an instance of ILogHandlerManager'
+        msg_message_processor_none: str = 'the message processor must be provided'
+        msg_message_processor_istype: str = 'the message processor must be an instance of IMessageProcessor'
 
         not_none(bundle, ctx, msg_bundle_none)
         istype(bundle, LoggerBundle, ctx, msg_bundle_istype)

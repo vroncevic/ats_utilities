@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class LogBuffer for early logs with attribute(s) and method(s).
-    Provides an API for log buffer during early stages of logging.
+    Defines the LogBuffer class for buffering early logs with attribute(s) and method(s).
+    Provides an API for log buffering during early stages of logging.
 '''
 
 from __future__ import annotations
@@ -38,29 +38,29 @@ __status__ = 'Development'
 
 class LogBuffer:
     '''
-        Defines class LogBuffer for early logs with attribute(s) and method(s).
-        Provides an API for log buffer during early stages of logging.
+        Defines the LogBuffer class for buffering early logs with attribute(s) and method(s).
+        Provides an API for log buffering during early stages of logging.
 
         It defines:
 
             :attributes:
-                | _buffer - Buffer for early logs.
-                | _limit - Maximum number of messages to buffer.
-                | _enabled - Flag indicating if buffering is enabled.
+                | _buffer - The buffer for early logs.
+                | _limit - The maximum number of messages to buffer.
+                | _enabled - The flag indicating if buffering is enabled.
             :methods:
                 | __init__ - Initializes the buffer.
                 | add - Adds a message to the buffer.
                 | flush - Flushes buffered messages to a writer.
                 | clear - Clears the buffer.
                 | is_enabled - Returns if buffering is enabled.
-                | __str__ - Returns buffer as string representation.
+                | __str__ - Returns the buffer as a string representation.
     '''
 
     def __init__(self, limit: int = 200) -> None:
         '''
             Initializes the buffer.
 
-            :param limit: Maximum number of messages to buffer.
+            :param limit: The maximum number of messages to buffer.
             :exceptions: None.
         '''
         self._buffer: list[tuple[int, str]] = []
@@ -71,7 +71,7 @@ class LogBuffer:
         '''
             Adds a message to the buffer.
 
-            :param level: Log level.
+            :param level: The log level.
             :param message: The message to buffer.
             :exceptions: None.
         '''
@@ -82,7 +82,7 @@ class LogBuffer:
         '''
             Flushes buffered messages to a writer.
 
-            :param writer: The logging method to write buffered logs.
+            :param writer: The logging method used to write buffered logs.
             :exceptions: None.
         '''
         for level, message in self._buffer:
@@ -112,9 +112,9 @@ class LogBuffer:
 
     def __str__(self) -> str:
         '''
-            Returns buffer as string representation.
+            Returns the buffer as a string representation.
 
-            :return: Buffer as string representation.
+            :return: The buffer as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

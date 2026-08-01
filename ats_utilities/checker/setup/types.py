@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines types for Checker.
+    Defines types for the Checker.
 '''
 
 from __future__ import annotations
@@ -45,7 +45,7 @@ type Result = tuple[str, int]
 
 class CheckerErrorType(int, Enum):
     '''
-        Defines class CheckerErrorType with attribute(s).
+        Defines the CheckerErrorType class with attribute(s).
         Marks error types for the Checker.
 
         It defines:

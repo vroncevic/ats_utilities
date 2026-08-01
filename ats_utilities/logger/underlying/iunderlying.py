@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IUnderlyingLogger with method(s).
+    Defines the abstract class IUnderlyingLogger with method(s).
     Provides an interface for the underlying logger.
 '''
 
@@ -28,7 +28,7 @@ from typing import Protocol, runtime_checkable
 @runtime_checkable
 class IUnderlyingLogger[MessageType, LogFileType, LogLevelType](Protocol):
     '''
-        Defines abstract class IUnderlyingLogger with method(s).
+        Defines the abstract class IUnderlyingLogger with method(s).
         Provides an interface for the underlying logger.
 
         It defines:
@@ -39,15 +39,15 @@ class IUnderlyingLogger[MessageType, LogFileType, LogLevelType](Protocol):
                 | has_handlers - Checks if the logger has any handlers.
                 | add_file_handler - Adds a file handler for logging.
                 | add_stdout_handler - Adds a stdout handler for logging.
-                | __str__ - Returns logger adapter as string representation.
+                | __str__ - Returns the logger adapter as a string representation.
     '''
 
     def log(self, level: LogLevelType, message: MessageType) -> None:
         '''
             Logs a message with a specific level.
         
-            :param level: Logging level.
-            :param message: Message to log.
+            :param level: The logging level.
+            :param message: The message to log.
         '''
         ...
 
@@ -55,7 +55,7 @@ class IUnderlyingLogger[MessageType, LogFileType, LogLevelType](Protocol):
         '''
             Sets the logging level.
             
-            :param level: Logging level.
+            :param level: The logging level.
         '''
         ...
 
@@ -71,7 +71,7 @@ class IUnderlyingLogger[MessageType, LogFileType, LogLevelType](Protocol):
         '''
             Adds a file handler for logging.
             
-            :param log_file: Log file path.
+            :param log_file: The log file path.
             :return: True if successfully, otherwise False.
         '''
         ...
@@ -86,8 +86,8 @@ class IUnderlyingLogger[MessageType, LogFileType, LogLevelType](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns logger adapter as string representation.
+            Returns the logger adapter as a string representation.
 
-            :return: Logger adapter as string representation.
+            :return: The logger adapter as a string representation.
         '''
         ...

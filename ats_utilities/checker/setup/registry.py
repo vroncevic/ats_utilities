@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of checker bundle creation.
+    Encapsulates core runtime components for simplification of the checker bundle creation.
 '''
 
 from __future__ import annotations
@@ -39,24 +39,24 @@ __status__ = 'Development'
 
 class CheckerRegistry:
     '''
-        Encapsulates core runtime components for simplification of checker bundle creation.
+        Encapsulates core runtime components for simplification of the checker bundle creation.
 
         It defines:
 
             :methods:
-                | create_bundle - Orchestrates dependency injection and creates a checker bundle instance.
+                | create_bundle - Orchestrates dependency injection and creates the checker bundle.
     '''
 
     @classmethod
     def create_bundle(cls, dependencies: CheckerDependencies) -> CheckerBundle:
         '''
-            Orchestrates dependency injection and creates a checker bundle instance.
+            Orchestrates dependency injection and creates the checker bundle.
 
             :param dependencies: Registry-specific orchestration dependencies.
-            :return: Checker bundle instance.
+            :return: The checker bundle.
             :exceptions:
-                | ATSValueError: Dependencies must be provided and have proper values.
-                | ATSTypeError:  Dependencies must be an instance of CheckerDependencies
+                | ATSValueError: The dependencies must be provided and have proper values.
+                | ATSTypeError:  The dependencies must be an instance of CheckerDependencies
                 |                and its attributes must be instances of their
                 |                respective interfaces and types.
         '''

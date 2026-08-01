@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for logger dependencies.
+    Validator for the logger dependencies.
 '''
 
 from __future__ import annotations
@@ -40,36 +40,36 @@ __status__ = 'Development'
 
 class LoggerDependenciesValidator:
     '''
-        Validator for logger dependencies.
+        Validator for the logger dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates logger dependencies instance.
+                | validate - Validates the logger dependencies.
     '''
 
     @classmethod
     def validate(cls, dependencies: LoggerDependencies) -> None:
         '''
-            Validates logger dependencies instance.
+            Validates the logger dependencies.
 
-            :param dependencies: Logger dependencies instance to be validated.
+            :param dependencies: The logger dependencies to be validated.
             :exceptions:
-                | ATSValueError: Dependencies must be provided and have proper values.
-                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                | ATSValueError: The logger dependencies must be provided and have proper values.
+                | ATSTypeError:  The logger dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
         ctx: str = 'logger_dependencies_validator::validate(...)'
 
-        msg_dependencies_none: str = 'dependencies must be provided'
-        msg_dependencies_istype: str = 'dependencies must be a Mapping'
+        msg_dependencies_none: str = 'the logger dependencies must be provided'
+        msg_dependencies_istype: str = 'the logger dependencies must be a Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
         for attr_name, expected_type in LoggerKeys.get_dependency_to_type().items():
-            msg_attribute_none: str = f'{attr_name.replace("_", " ")} must be provided'
-            msg_attribute_istype: str = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+            msg_attribute_none: str = f'the {attr_name.replace("_", " ")} must be provided'
+            msg_attribute_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute = dependencies.get(attr_name)
 

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of context bundle creation.
+    Encapsulates core runtime components for simplification of the context bundle creation.
 '''
 
 from __future__ import annotations
@@ -39,24 +39,24 @@ __status__ = 'Development'
 
 class ContextRegistry:
     '''
-        Encapsulates core runtime components for simplification of context bundle creation.
+        Encapsulates core runtime components for simplification of the context bundle creation.
 
         It defines:
 
             :methods:
-                | create_bundle - Orchestrates dependency injection and creates a context bundle instance.
+                | create_bundle - Orchestrates dependency injection and creates the context bundle.
     '''
 
     @classmethod
     def create_bundle(cls, dependencies: ContextDependencies) -> ContextBundle:
         '''
-            Orchestrates dependency injection and creates a context bundle instance.
+            Orchestrates dependency injection and creates the context bundle.
 
-            :param dependencies: Registry-specific orchestration dependencies.
-            :return: Context bundle instance.
+            :param dependencies: The registry-specific orchestration dependencies.
+            :return: The context bundle.
             :exceptions:
-                | ATSValueError: Dependencies must be provided and have proper values.
-                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                | ATSValueError: The dependencies must be provided and have proper values.
+                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
         ContextDependenciesValidator.validate(dependencies)

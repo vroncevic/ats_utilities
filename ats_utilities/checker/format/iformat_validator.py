@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IFormatValidator with method(s).
+    Defines the abstract class IFormatValidator with method(s).
     Provides an interface for validating parameters used by method(s) and function(s).
 '''
 
@@ -37,57 +37,57 @@ __status__ = 'Development'
 @runtime_checkable
 class IFormatValidator[SeparatorType, FormatType, SplitType, ValidType](Protocol):
     '''
-        Defines abstract class IFormatValidator with method(s).
+        Defines the abstract class IFormatValidator with method(s).
         Provides an interface for validating parameters used by method(s) and function(s).
 
         It defines:
 
             :methods:
-                | set_separator - Sets separator used in parameter specifications.
-                | get_separator - Returns separator used in parameter specifications.
-                | is_valid - Checks if format follows expected format.
-                | split - Splits format into parts.
-                | __str__ - Returns format validator as string representation.
+                | set_separator - Sets the separator used in the format specifications.
+                | get_separator - Returns the separator used in the format specifications.
+                | is_valid - Checks if the format follows the expected format.
+                | split - Splits the format into parts.
+                | __str__ - Returns the format validator as a string representation.
     '''
 
     def set_separator(self, separator: SeparatorType) -> None:
         '''
-            Sets separator used in parameter specifications.
+            Sets the separator used in the format specifications.
 
-            :param separator: Separator used in parameter specifications.
+            :param separator: The separator used in the format specifications.
         '''
         ...
 
     def get_separator(self) -> SeparatorType:
         '''
-            Returns separator used in parameter specifications.
+            Returns the separator used in the format specifications.
 
-            :return: Separator used in parameter specifications.
+            :return: The separator used in the format specifications.
         '''
         ...
 
     def is_valid(self, format_to_check: FormatType) -> ValidType:
         '''
-            Checks if format follows expected format.
+            Checks if the format follows the expected format.
 
-            :param format_to_check: Format to be validated.
-            :return: Validation result.
+            :param format_to_check: The format to be validated.
+            :return: The validation result.
         '''
         ...
 
     def split(self, format_to_split: FormatType) -> SplitType:
         '''
-            Splits format into parts.
+            Splits the format into parts.
 
-            :param format_to_split: Format to be split.
-            :return: Split format parts.
+            :param format_to_split: The format to be split.
+            :return: The split format parts.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns format validator as string representation.
+            Returns the format validator as a string representation.
 
-            :return: Format validator as string representation.
+            :return: The format validator as a string representation.
         '''
         ...

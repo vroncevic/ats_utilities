@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IContextProvider with method(s).
-    Provides an interface for getting context information for method(s) and function(s).
+    Defines the abstract class IContextProvider with method(s).
+    Provides an interface for getting the context information for method(s) and function(s).
 '''
 
 from __future__ import annotations
@@ -37,8 +37,8 @@ __status__ = 'Development'
 @runtime_checkable
 class IContextProvider[StackIndexCallerType, ContextFormatType](Protocol):
     '''
-        Defines abstract class IContextProvider with method(s).
-        Provides an interface for getting context information for method(s) and function(s).
+        Defines the abstract class IContextProvider with method(s).
+        Provides an interface for getting the context information for method(s) and function(s).
 
         It defines:
 
@@ -46,7 +46,7 @@ class IContextProvider[StackIndexCallerType, ContextFormatType](Protocol):
                 | set_stack_index_caller - Sets the index in the call stack to identify the caller.
                 | get_stack_index_caller - Returns the index in the call stack to identify the caller.
                 | get_context - Returns the calling context.
-                | __str__ - Returns context provider as string representation.
+                | __str__ - Returns the context provider as string representation.
     '''
 
     def set_stack_index_caller(self, stack_index_caller: StackIndexCallerType) -> None:
@@ -75,8 +75,8 @@ class IContextProvider[StackIndexCallerType, ContextFormatType](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns context provider as string representation.
+            Returns the context provider as a string representation.
 
-            :return: Context provider as string representation.
+            :return: The context provider as a string representation.
         '''
         ...

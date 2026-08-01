@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ContextProvider with attribute(s) and method(s).
-    Provides an API for getting context information for method(s) and function(s).
+    Defines the class ContextProvider with attribute(s) and method(s).
+    Provides an API for getting the context information for method(s) and function(s).
 '''
 
 from __future__ import annotations
@@ -42,36 +42,36 @@ __status__ = 'Development'
 
 class ContextProvider:
     '''
-        Defines class ContextProvider with attribute(s) and method(s).
-        Provides an API for getting context information for method(s) and function(s).
+        Defines the class ContextProvider with attribute(s) and method(s).
+        Provides an API for getting the context information for method(s) and function(s).
 
         It defines:
 
             :attributes:
                 | DEFAULT_STACK_INDEX_CALLER - Default index in the call stack to identify the caller.
-                | _stack_index_caller - Index in the call stack to identify the caller.
+                | _stack_index_caller - The index in the call stack to identify the caller.
             :methods:
-                | __init__ - Initializes context provider.
+                | __init__ - Initializes the context provider.
                 | set_stack_index_caller - Sets the index in the call stack to identify the caller.
                 | get_stack_index_caller - Returns the index in the call stack to identify the caller.
                 | get_context - Returns the calling context.
-                | __str__ - Returns context provider as string representation.
+                | __str__ - Returns the context provider as a string representation.
     '''
 
     DEFAULT_STACK_INDEX_CALLER: Final[int] = 2
-    _stack_index_caller: int | None
+    _stack_index_caller: int
 
     def __init__(self, stack_index_caller: int | None = None) -> None:
         '''
-            Initializes context provider.
+            Initializes the context provider.
 
-            :param stack_index_caller: Index in the call stack to identify the caller | None.
+            :param stack_index_caller: The index in the call stack to identify the caller | None.
             :exceptions:
-                | ATSTypeError: Stack index caller must be an integer.
+                | ATSTypeError: The stack index caller must be an integer.
         '''
         if stack_index_caller is not None:
-            ctx: str = 'context_provider::init(...)'
-            msg_stack_index_caller_istype: str = 'stack index caller must be an integer'
+            ctx: str = 'context_provider::init()'
+            msg_stack_index_caller_istype: str = 'the stack index caller must be an integer'
 
             istype(stack_index_caller, int, ctx, msg_stack_index_caller_istype)
 
@@ -83,14 +83,14 @@ class ContextProvider:
         '''
             Sets the index in the call stack to identify the caller.
 
-            :param stack_index_caller: Index in the call stack to identify the caller.
+            :param stack_index_caller: The index in the call stack to identify the caller.
             :exceptions:
-                | ATSValueError: Stack index caller must be provided.
-                | ATSTypeError:  Stack index caller must be an integer.
+                | ATSValueError: The stack index caller must be provided.
+                | ATSTypeError:  The stack index caller must be an integer.
         '''
         ctx: str = 'context_provider::set_stack_index_caller(...)'
-        msg_stack_index_caller_none: str = 'stack index caller must be provided'
-        msg_stack_index_caller_istype: str = 'stack index caller must be an integer'
+        msg_stack_index_caller_none: str = 'the stack index caller must be provided'
+        msg_stack_index_caller_istype: str = 'the stack index caller must be an integer'
 
         not_none(stack_index_caller, ctx, msg_stack_index_caller_none)
         istype(stack_index_caller, int, ctx, msg_stack_index_caller_istype)
@@ -101,7 +101,7 @@ class ContextProvider:
         '''
             Returns the index in the call stack to identify the caller.
 
-            :return: Index in the call stack to identify the caller.
+            :return: The index in the call stack to identify the caller.
             :exceptions: None.
         '''
         return self._stack_index_caller
@@ -132,9 +132,9 @@ class ContextProvider:
 
     def __str__(self) -> str:
         '''
-            Returns context provider as string representation.
+            Returns the context provider as a string representation.
 
-            :return: Context provider as string representation.
+            :return: The context provider as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

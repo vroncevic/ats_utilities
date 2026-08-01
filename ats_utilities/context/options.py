@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Context options for context bundle creation.
+    Context options for the context bundle.
 '''
 
 from __future__ import annotations
@@ -39,15 +39,15 @@ __status__ = 'Development'
 
 class ContextOptions(TypedDict):
     '''
-        Context options for context bundle creation.
+        Context options for the context bundle.
 
         It defines:
 
             :attributes:
-                | checker: Checker setup options.
-                | logger: Logger setup options.
-                | reporter: Reporter setup options.
-                | verbose: Verbose output flag.
+                | checker - The checker setup options.
+                | logger - The logger setup options.
+                | reporter - The reporter setup options.
+                | verbose - The verbose output flag.
     '''
 
     checker: NotRequired[CheckerOptions]

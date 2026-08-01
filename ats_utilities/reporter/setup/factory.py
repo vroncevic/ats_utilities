@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory for creating reporter bundle instance.
+    Factory for creating the reporter bundle.
 '''
 
 from __future__ import annotations
@@ -45,24 +45,24 @@ __status__ = 'Development'
 
 class ReporterFactory:
     '''
-        Factory for creating reporter bundle instance.
+        Factory for creating the reporter bundle.
 
         It defines:
 
             :methods:
-                | create_bundle - Creates a reporter bundle with optional pre-configured options.
+                | create_bundle - Creates the reporter bundle with optional pre-configured options.
     '''
 
     @classmethod
     def create_bundle(cls, options: ReporterOptions | None = None) -> ReporterBundle:
         '''
-            Creates a reporter bundle with optional pre-configured options.
+            Creates the reporter bundle with optional pre-configured options.
 
             :param options: Pre-configured options for the bundle (default None).
-            :return: Reporter bundle instance.
+            :return: The reporter bundle.
             :exceptions:
-                | ATSValueError: Options must be provided and have proper values.
-                | ATSTypeError:  Options must be an instance of Mapping and its attributes
+                | ATSValueError: The options must be provided and have proper values.
+                | ATSTypeError:  The options must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
         if options is not None:

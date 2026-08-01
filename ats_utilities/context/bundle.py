@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of context bundle creation.
+    Encapsulates core runtime components for simplification of the context bundle.
 '''
 
 from __future__ import annotations
@@ -41,17 +41,17 @@ __status__ = 'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class ContextBundle:
     '''
-        Encapsulates core runtime components for simplification of context bundle creation.
+        Encapsulates core runtime components for simplification of the context bundle.
 
         It defines:
 
             :attributes:
-                | checker - Checker for parameters.
-                | logger - Logger for logging messages.
-                | reporter - Reporter for providing messages.
-                | verbose - Flag for enabling verbose output.
+                | checker - The checker for parameters.
+                | logger - The logger for logging messages.
+                | reporter - The reporter for providing messages.
+                | verbose - The flag for enabling verbose output.
             :methods:
-                | to_dict - Converts context bundle to dictionary.
+                | to_dict - Converts the context bundle to dictionary.
     '''
 
     checker: IChecker
@@ -61,11 +61,11 @@ class ContextBundle:
 
     def to_dict(self) -> dict[str, object]:
         '''
-            Converts context bundle to dictionary.
+            Converts the context bundle to dictionary.
 
-            :return: Dictionary representation of context bundle.
+            :return: The dictionary representation of the context bundle.
             :exceptions:
-                | ATSValueError: Instance must be provided.
-                | ATSValueError: Instance must be a dataclass instance.
+                | ATSValueError: The instance must be provided.
+                | ATSValueError: The instance must be a dataclass instance.
         '''
         return instance_to_dict(self)

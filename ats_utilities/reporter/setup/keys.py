@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Runtime components and interface constraints for reporter bundle.
+    Runtime components and interface constraints for the reporter bundle.
 '''
 
 from __future__ import annotations
@@ -43,20 +43,20 @@ __status__ = 'Development'
 
 class ReporterKeys:
     '''
-        Runtime components and interface constraints for reporter bundle.
+        Runtime components and interface constraints for the reporter bundle.
 
         It defines:
 
             :attributes:
-                | DEPENDENCY_CHECKER: Checker interface constant.
-                | DEPENDENCY_THEME: Theme interface constant.
-                | DEPENDENCY_LOGGER: Logger interface constant.
-                | OPTION_CHECKER: Checker options constant.
-                | OPTION_THEME: Theme options constant.
-                | OPTION_LOGGER: Logger options constant.
+                | DEPENDENCY_CHECKER - The Checker interface constant.
+                | DEPENDENCY_THEME - The Theme interface constant.
+                | DEPENDENCY_LOGGER - The Logger interface constant.
+                | OPTION_CHECKER - The Checker options constant.
+                | OPTION_THEME - The Theme options constant.
+                | OPTION_LOGGER - The Logger options constant.
             :methods:
-                | get_dependency_to_type - Returns mapping of reporter dependencies to their types.
-                | get_option_to_type - Returns mapping of reporter options to their types.
+                | get_dependency_to_type - Returns the mapping of the reporter dependencies to their types.
+                | get_option_to_type - Returns the mapping of the reporter options to their types.
     '''
 
     # Dependency Keys
@@ -72,9 +72,9 @@ class ReporterKeys:
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of reporter dependencies to their types.
+            Returns the mapping of the reporter dependencies to their types.
 
-            :return: Mapping of reporter dependencies to their types.
+            :return: The mapping of the reporter dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -86,9 +86,9 @@ class ReporterKeys:
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of reporter options to their types.
+            Returns the mapping of the reporter options to their types.
 
-            :return: Mapping of reporter options to their types.
+            :return: The mapping of the reporter options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

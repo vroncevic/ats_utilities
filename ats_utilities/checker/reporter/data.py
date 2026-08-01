@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates check reporter runtime data.
+    Encapsulates the runtime data of the check reporter.
 '''
 
 from __future__ import annotations
@@ -40,15 +40,15 @@ __status__ = 'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class CheckReporterData:
     '''
-        Encapsulates check reporter runtime data.
+        Encapsulates the runtime data of the check reporter.
 
         It defines:
 
             :attributes:
-                | context - Message context.
-                | parameters_meta - Sequence of parameter metadata.
-                | err_indices - Sequence of error indices.
-                | is_fmt_err - Flag indicating if format error type has been found.
+                | context - The message context.
+                | parameters_meta - The sequence of parameter metadata.
+                | err_indices - The sequence of error indices.
+                | is_fmt_err - Flag indicating if a format error type has been found.
             :methods:
                 | to_dict - Converts the check reporter data instance to a dictionary.
     '''
@@ -62,9 +62,9 @@ class CheckReporterData:
         '''
             Converts the check reporter data instance to a dictionary.
 
-            :return: Dictionary representation of the check reporter data instance.
+            :return: The dictionary representation of the check reporter data instance.
             :exceptions:
-                | ATSValueError: Instance must be provided.
-                | ATSValueError: Instance must be a dataclass instance.
+                | ATSValueError: The instance must be provided.
+                | ATSValueError: The instance must be a dataclass instance.
         '''
         return instance_to_dict(self)

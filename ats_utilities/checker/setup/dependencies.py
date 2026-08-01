@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Checker dependencies for checker bundle creation.
+    Checker dependencies for the checker bundle.
 '''
 
 from __future__ import annotations
@@ -40,15 +40,15 @@ __status__ = 'Development'
 
 class CheckerDependencies(TypedDict):
     '''
-        Checker dependencies for checker bundle creation.
+        Checker dependencies for the checker bundle.
 
         It defines:
 
             :attributes:
-                | format_validator: Validator for parameters format.
-                | type_validator: Validator for parameters type.
-                | context_provider: Provider for call context.
-                | check_reporter: Formatter for message reports.
+                | format_validator - The validator for the parameters format.
+                | type_validator - The validator for the parameters type.
+                | context_provider - The provider for the call context.
+                | check_reporter - The formatter for the message reports.
     '''
 
     format_validator: IFormatValidator

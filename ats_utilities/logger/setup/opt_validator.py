@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for logger options.
+    Validator for the logger options.
 '''
 
 from __future__ import annotations
@@ -40,35 +40,35 @@ __status__ = 'Development'
 
 class LoggerOptionsValidator:
     '''
-        Validator for logger options.
+        Validator for the logger options.
 
         It defines:
 
             :methods:
-                | validate - Validates logger options instance.
+                | validate - Validates the logger options.
     '''
 
     @classmethod
     def validate(cls, options: LoggerOptions) -> None:
         '''
-            Validates logger options instance.
+            Validates logger options.
 
-            :param options: Logger options instance to be validated.
+            :param options: The logger options to be validated.
             :exceptions:
-                | ATSValueError: Options must be provided and have proper values.
-                | ATSTypeError:  Options must be an instance of Mapping and its attributes
+                | ATSValueError: The logger options must be provided and have proper values.
+                | ATSTypeError:  The logger options must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
         ctx: str = 'logger_options_validator::validate(...)'
 
-        msg_options_none: str = 'options must be provided'
-        msg_options_istype: str = 'options must be a Mapping'
+        msg_options_none: str = 'the logger options must be provided'
+        msg_options_istype: str = 'the logger options must be a Mapping'
 
         not_none(options, ctx, msg_options_none)
         istype(options, Mapping, ctx, msg_options_istype)
 
         for attribute_name, expected_type in LoggerKeys.get_option_to_type().items():
-            msg_attribute_istype: str = f'{attribute_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+            msg_attribute_istype: str = f'the {attribute_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute = options.get(attribute_name)
 

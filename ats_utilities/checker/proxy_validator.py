@@ -56,30 +56,30 @@ def validate_specs(specs: Parameters, context: str) -> None:
         :param specs: Parameter specification list to validate.
         :param context: Context string for error reporting.
         :exceptions:
-            | ATSValueError: Specs must be provided.
-            | ATSTypeError:  Specs must be a list of (str, object) tuples.
+            | ATSValueError: The specs must be provided.
+            | ATSTypeError:  The specs must be a list of (str, object) tuples.
     '''
     ctx: str = context if context else 'validate_specs(...)'
-    fmt_msg: str = "expected format: [('expected_type:param_name', default_value), ...]"
-    msg_not_none: str = f'specs must be provided, {fmt_msg}'
-    msg_specs_istype: str = f'specs must be a Sequence, {fmt_msg}'
+    fmt_msg: str = "the expected format: [('expected_type:param_name', default_value), ...]"
+    msg_not_none: str = f'the specs must be provided, {fmt_msg}'
+    msg_specs_istype: str = f'the specs must be a Sequence, {fmt_msg}'
 
     not_none(specs, ctx, msg_not_none)
     istype(specs, Sequence, ctx, msg_specs_istype)
 
     for index, item in enumerate(specs):
-        msg_item_istype: str = f'spec item at index {index} must be a list/tuple, {fmt_msg}'
+        msg_item_istype: str = f'the spec item at index {index} must be a list/tuple, {fmt_msg}'
         istype(item, tuple, ctx, msg_item_istype)
 
         if len(item) != 2:
             raise_error(
                 fallback_context=ctx,
-                fallback_msg=f'spec item at index {index} must be a tuple of length 2, {fmt_msg}',
+                fallback_msg=f'the spec item at index {index} must be a tuple of length 2, {fmt_msg}',
                 exc_context=ctx,
                 exc_message=None
             )
 
-        istype(item[0], str, ctx, f'spec key at index {index} must be a string, {fmt_msg}')
+        istype(item[0], str, ctx, f'the spec key at index {index} must be a string, {fmt_msg}')
 
 
 def validate_args(
@@ -100,9 +100,9 @@ def validate_args(
         :param checker: Checker instance to validate with.
         :param exc_context: Exception context.
         :exceptions:
-            | ATSValueError: Specification format is invalid.
-            | ATSTypeError:  Parameter type validation failed.
-            | ATSValueError: Parameter format validation failed.
+            | ATSValueError: The specification format is invalid.
+            | ATSTypeError:  The parameter type validation failed.
+            | ATSValueError: The parameter format validation failed.
     '''
     # Safely bind the passed args and kwargs to the function's signature
     func_signature: Signature = signature(func)
@@ -121,7 +121,7 @@ def validate_args(
         if separator not in exp_type:
             raise_error(
                 fallback_context=exc_context,
-                fallback_msg=f'format of parameter {exp_type} is not valid',
+                fallback_msg=f'the format of parameter {exp_type} is not valid',
                 exc_context=exc_context,
                 exc_message=None,
                 exc_class=ATSValueError
@@ -163,7 +163,7 @@ def validate_args(
             if error_id == CheckerErrorType.TYPE_ERROR:
                 raise_error(
                     fallback_context=exc_context,
-                    fallback_msg=f'type error: {report_message}',
+                    fallback_msg=f'the type error: {report_message}',
                     exc_context=exc_context,
                     exc_message=None,
                     exc_class=ATSTypeError
@@ -171,7 +171,7 @@ def validate_args(
             else:
                 raise_error(
                     fallback_context=exc_context,
-                    fallback_msg=f'format error: {report_message}',
+                    fallback_msg=f'the format error: {report_message}',
                     exc_context=exc_context,
                     exc_message=None,
                     exc_class=ATSValueError
@@ -188,10 +188,10 @@ def mcheck[F: Callable[..., object]](specs: Parameters) -> Callable[[F], F]:
         :param specs: Specification for parameters.
         :return: Wrapped function.
         :exceptions:
-            | ATSTypeError:      Parameter type validation failed.
-            | ATSValueError:     Parameter format validation failed.
-            | ATSRuntimeError:   Decorator used on a non-class method.
-            | ATSAttributeError: Class does not provide a _checker object.
+            | ATSTypeError:      The parameter type validation failed.
+            | ATSValueError:     The parameter format validation failed.
+            | ATSRuntimeError:   The decorator used on a non-class method.
+            | ATSAttributeError: The class does not provide a _checker object.
     '''
     validate_specs(specs, 'mcheck(...)')
 
@@ -205,7 +205,7 @@ def mcheck[F: Callable[..., object]](specs: Parameters) -> Callable[[F], F]:
             if self_instance is None:
                 raise_error(
                     fallback_context='mcheck::decorator(...)',
-                    fallback_msg=f'decorator @mcheck on {func.__name__} can only be used on class methods',
+                    fallback_msg=f'the decorator @mcheck on {func.__name__} can only be used on class methods',
                     exc_context='mcheck::decorator(...)',
                     exc_message=None,
                     exc_class=ATSRuntimeError
@@ -228,7 +228,7 @@ def mcheck[F: Callable[..., object]](specs: Parameters) -> Callable[[F], F]:
             if checker is None:
                 raise_error(
                     fallback_context='mcheck::decorator(...)',
-                    fallback_msg=f'class {self_instance.__class__.__name__} must provide a checker to use @mcheck decorator',
+                    fallback_msg=f'the class {self_instance.__class__.__name__} must provide a checker to use the @mcheck decorator',
                     exc_context='mcheck::decorator(...)',
                     exc_message=None,
                     exc_class=ATSRuntimeError
@@ -254,8 +254,8 @@ def fcheck[F: Callable[..., object]](specs: Parameters, checker: IChecker | None
         :param checker: Checker instance to validate with.
         :return: Wrapped function.
         :exceptions:
-            | ATSTypeError:  Parameter type validation failed.
-            | ATSValueError: Parameter format validation failed.
+            | ATSTypeError:  The parameter type validation failed.
+            | ATSValueError: The parameter format validation failed.
     '''
     validate_specs(specs, 'fcheck(...)')
 

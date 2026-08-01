@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class LogHandlerManager with attribute(s) and method(s).
-    Provides an API for managing logger output handlers.
+    Defines the LogHandlerManager class with attribute(s) and method(s).
+    Provides an API for managing the logger output handlers.
 '''
 
 from __future__ import annotations
@@ -37,18 +37,18 @@ __status__ = 'Development'
 
 class LogHandlerManager:
     '''
-        Defines class LogHandlerManager with attribute(s) and method(s).
-        Provides an API for managing logger output handlers.
+        Defines the LogHandlerManager class with attribute(s) and method(s).
+        Provides an API for managing the logger output handlers.
 
         It defines:
 
             :attributes:
-                | _logger - Logger to be managed.
+                | _logger - The logger to be managed.
             :methods:
                 | __init__ - Initializes the log handler manager.
-                | set_log_file - Configures file output handler.
-                | set_stdout - Configures stdout stream handler.
-                | __str__ - Returns log handler manager as string representation.
+                | set_log_file - Configures the file output handler.
+                | set_stdout - Configures the stdout stream handler.
+                | __str__ - Returns the log handler manager as a string representation.
     '''
 
     _logger: IUnderlyingLogger
@@ -57,16 +57,16 @@ class LogHandlerManager:
         '''
             Initializes the log handler manager.
 
-            :param logger: Logger to be managed.
+            :param logger: The logger to be managed.
             :exceptions: None.
         '''
         self._logger = logger
 
     def set_log_file(self, log_file: str) -> bool:
         '''
-            Configures file output handler.
+            Configures the file output handler.
 
-            :param log_file: Log file path.
+            :param log_file: The log file path.
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
@@ -74,7 +74,7 @@ class LogHandlerManager:
 
     def set_stdout(self) -> bool:
         '''
-            Configures stdout stream handler.
+            Configures the stdout stream handler.
 
             :return: True if successfully, otherwise False.
             :exceptions: None.
@@ -83,9 +83,9 @@ class LogHandlerManager:
 
     def __str__(self) -> str:
         '''
-            Returns log handler manager as string representation.
+            Returns the log handler manager as a string representation.
 
-            :return: Log handler manager as string representation.
+            :return: The log handler manager as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

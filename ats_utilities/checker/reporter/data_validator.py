@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for check reporter data.
+    Validator for the check reporter runtime data.
 '''
 
 from __future__ import annotations
@@ -41,38 +41,38 @@ __status__ = 'Development'
 class CheckReporterValidator:
     '''
 
-        Validator for check reporter data.
+        Validator for the check reporter runtime data.
         
         It defines:
 
             :methods:
-                | validate - Validates check reporter data.
+                | validate - Validates the check reporter runtime data.
     '''
 
     @classmethod
     def validate(cls, data: CheckReporterData) -> None:
         '''
-            Validates check reporter data.
+            Validates the check reporter runtime data.
 
-            :param data: Check reporter data to be validated.
+            :param data: The check reporter runtime data to be validated.
             :exceptions:
-                | ATSValueError: Data must be provided and have proper values.
-                | ATSTypeError:  Data must be an instance of CheckReporterData
+                | ATSValueError: The data must be provided and have proper values.
+                | ATSTypeError:  The data must be an instance of CheckReporterData
                 |                and its attributes must be instances of their
                 |                respective types.
         '''
         ctx: str = 'data_reporter_validator::validate(...)'
 
-        msg_data_none: str = 'check reporter data must be provided'
-        msg_data_istype: str = 'check reporter data must be an instance of CheckReporterData'
-        msg_context_none: str = 'context must be provided'
-        msg_parameters_meta_none: str = 'parameters meta must be provided'
-        msg_err_indices_none: str = 'error indices must be provided'
-        msg_is_fmt_err_none: str = 'is format error flag must be provided'
-        msg_context_istype: str = 'context must be a string'
-        msg_parameters_meta_istype: str = 'parameters meta must be a sequence of ParametersMeta'
-        msg_err_indices_istype: str = 'error indices must be a sequence of integers'
-        msg_is_fmt_err_istype: str = 'is format error flag must be a boolean'
+        msg_data_none: str = 'the check reporter data must be provided'
+        msg_data_istype: str = 'the check reporter data must be an instance of CheckReporterData'
+        msg_context_none: str = 'the context must be provided'
+        msg_parameters_meta_none: str = 'the parameters meta must be provided'
+        msg_err_indices_none: str = 'the error indices must be provided'
+        msg_is_fmt_err_none: str = 'the is format error flag must be provided'
+        msg_context_istype: str = 'the context must be a string'
+        msg_parameters_meta_istype: str = 'the parameters meta must be a sequence of ParametersMeta'
+        msg_err_indices_istype: str = 'the error indices must be a sequence of integers'
+        msg_is_fmt_err_istype: str = 'the is format error flag must be a boolean'
 
         not_none(data, ctx, msg_data_none)
         istype(data, CheckReporterData, ctx, msg_data_istype)

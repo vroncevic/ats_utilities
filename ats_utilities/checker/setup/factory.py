@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory for creating checker bundle instance.
+    Factory for creating the checker bundle.
 '''
 
 from __future__ import annotations
@@ -46,24 +46,24 @@ __status__ = 'Development'
 
 class CheckerFactory:
     '''
-        Factory for creating checker bundle instance.
+        Factory for creating the checker bundle.
 
         It defines:
 
             :methods:
-                | create_bundle - Creates a checker bundle with optional pre-configured options.
+                | create_bundle - Creates the checker bundle with optional pre-configured options.
     '''
 
     @classmethod
     def create_bundle(cls, options: CheckerOptions | None = None) -> CheckerBundle:
         '''
-            Creates a checker bundle with optional pre-configured options.
+            Creates the checker bundle with optional pre-configured options.
 
             :param options: Creation options/parameters for the bundle (default None).
-            :return: Checker bundle instance.
+            :return: The checker bundle.
             :exceptions:
-                | ATSValueError: Options must be provided and have proper values.
-                | ATSTypeError:  Options must be an instance of Mapping and its attributes
+                | ATSValueError: The options must be provided and have proper values.
+                | ATSTypeError:  The options must be an instance of Mapping and its attributes
                 |                must be instances of their respective interfaces and types.
         '''
         if options is not None:

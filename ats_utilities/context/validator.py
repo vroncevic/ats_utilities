@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for context bundle.
+    Validator for the context bundle.
 '''
 
 from __future__ import annotations
@@ -40,36 +40,36 @@ __status__ = 'Development'
 
 class ContextValidator:
     '''
-        Validator for context bundle.
+        Validator for the context bundle.
 
         It defines:
 
             :methods:
-                | validate - Validates context bundle.
+                | validate - Validates the context bundle.
     '''
 
     @classmethod
     def validate(cls, bundle: ContextBundle) -> None:
         '''
-            Validates context bundle.
+            Validates the context bundle.
 
-            :param bundle: Context bundle to be validated.
+            :param bundle: The context bundle to be validated.
             :exceptions:
-                | ATSValueError: Context bundle must be provided and have proper values.
-                | ATSTypeError:  Context bundle must be an instance of ContextBundle and
+                | ATSValueError: The context bundle must be provided and have proper values.
+                | ATSTypeError:  The context bundle must be an instance of ContextBundle and
                 |                its attributes must be instances of their respective types.
         '''
         ctx: str = 'context_validator::validate(...)'
-        msg_bundle_none: str = 'bundle must be provided'
-        msg_bundle_istype: str = 'bundle must be an instance of ContextBundle'
-        msg_checker_none: str = 'checker must be provided'
-        msg_logger_none: str = 'logger must be provided'
-        msg_reporter_none: str = 'reporter must be provided'
-        msg_verbose_none: str = 'verbose flag must be provided'
-        msg_checker_istype: str = 'checker must be an instance of IChecker'
-        msg_logger_istype: str = 'logger must be an instance of ILogger'
-        msg_reporter_istype: str = 'reporter must be an instance of IReporter'
-        msg_verbose_istype: str = 'verbose flag must be a boolean'
+        msg_bundle_none: str = 'the bundle must be provided'
+        msg_bundle_istype: str = 'the bundle must be an instance of ContextBundle'
+        msg_checker_none: str = 'the checker must be provided'
+        msg_logger_none: str = 'the logger must be provided'
+        msg_reporter_none: str = 'the reporter must be provided'
+        msg_verbose_none: str = 'the verbose flag must be provided'
+        msg_checker_istype: str = 'the checker must be an instance of IChecker'
+        msg_logger_istype: str = 'the logger must be an instance of ILogger'
+        msg_reporter_istype: str = 'the reporter must be an instance of IReporter'
+        msg_verbose_istype: str = 'the verbose flag must be a boolean'
 
         not_none(bundle, ctx, msg_bundle_none)
         istype(bundle, ContextBundle, ctx, msg_bundle_istype)

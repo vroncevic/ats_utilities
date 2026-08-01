@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILogger with method(s).
+    Defines the abstract class ILogger with method(s).
     Provides an interface for the logger.
 '''
 
@@ -37,34 +37,34 @@ __status__ = 'Development'
 @runtime_checkable
 class ILogger[ConfigType, LogFileType, LogLevelType, MesssageType](Protocol):
     '''
-        Defines abstract class ILogger with attribute(s) and method(s).
+        Defines the abstract class ILogger with attribute(s) and method(s).
         Provides an interface for the logger.
 
         It defines:
 
             :methods:
-                | get_bundle - Gets current logger configuration bundle.
-                | is_initialized - Checks if logger is initialized.
-                | update_bundle - Updates logger configuration bundle.
-                | set_level - Sets log level.
-                | set_log_file - Configures output handler.
-                | set_stdout - Configures output handler.
-                | stop_buffering - Stops log buffering.
-                | write_log - Writes message to log output.
-                | __str__ - Returns logger as string representation.
+                | get_bundle - Gets the current logger configuration bundle.
+                | is_initialized - Checks if the logger is initialized.
+                | update_bundle - Updates the logger configuration bundle.
+                | set_level - Sets the log level.
+                | set_log_file - Configures the output handler to output to the log file.
+                | set_stdout - Configures the output handler to output to the standard output.
+                | stop_buffering - Stops the log buffering.
+                | write_log - Writes the message to the log output.
+                | __str__ - Returns the logger as a string representation.
     '''
 
     def get_bundle(self) -> ConfigType:
         '''
-            Gets current logger configuration bundle.
+            Gets the current logger configuration bundle.
 
-            :return: Logger configuration bundle.
+            :return: The logger configuration bundle.
         '''
         ...
 
     def is_initialized(self) -> bool:
         '''
-            Checks if logger is initialized.
+            Checks if the logger is initialized.
 
             :return: True if successfully, otherwise False.
         '''
@@ -72,32 +72,33 @@ class ILogger[ConfigType, LogFileType, LogLevelType, MesssageType](Protocol):
 
     def update_bundle(self, bundle: ConfigType) -> bool:
         '''
-            Updates logger configuration bundle.
+            Updates the logger configuration bundle.
 
-            :param bundle: Logger configuration bundle.
+            :param bundle: The logger configuration bundle.
+            :return: True if successfully, otherwise False.
         '''
         ...
 
     def set_level(self, level: LogLevelType) -> None:
         '''
-            Sets log level.
+            Sets the log level.
 
-            :param level: Log level.
+            :param level: The log level.
         '''
         ...
 
     def set_log_file(self, log_file: LogFileType) -> bool:
         '''
-            Configures output handler.
+            Configures the output handler to output to the log file.
 
-            :param log_file: Log file.
+            :param log_file: The log file.
             :return: True if successfully, otherwise False.
         '''
         ...
 
     def set_stdout(self) -> bool:
         '''
-            Configures output handler.
+            Configures the output handler to output to the standard output.
 
             :return: True if successfully, otherwise False.
         '''
@@ -111,17 +112,17 @@ class ILogger[ConfigType, LogFileType, LogLevelType, MesssageType](Protocol):
 
     def write_log(self, level: LogLevelType, message: MesssageType) -> None:
         '''
-            Writes message to log output.
+            Writes the message to the log output.
 
-            :param level: Log message level.
-            :param message: Message to be logged.
+            :param level: The log message level.
+            :param message: The message to be logged.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns logger as string representation.
+            Returns the logger as a string representation.
 
-            :return: Logger as string representation.
+            :return: The logger as a string representation.
         '''
         ...

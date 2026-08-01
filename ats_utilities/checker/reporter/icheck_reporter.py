@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ICheckReporter with method(s).
-    Provides an interface for building a message in context of a checker.
+    Defines the abstract class ICheckReporter with method(s).
+    Provides an interface for building a final message in the context of a checker.
 '''
 
 from __future__ import annotations
@@ -37,29 +37,29 @@ __status__ = 'Development'
 @runtime_checkable
 class ICheckReporter[ReportDataType, ReportType](Protocol):
     '''
-        Defines abstract class ICheckReporter with method(s).
-        Provides an interface for building a message in context of a checker.
+        Defines the abstract class ICheckReporter with method(s).
+        Provides an interface for building the final message in the context of a checker.
 
         It defines:
 
             :methods:
-                | build_message - Builds a final message.
-                | __str__ - Returns check reporter as string representation.
+                | build_message - Builds the final message.
+                | __str__ - Returns the checker reporter as a string representation.
     '''
 
     def build_message(self, data: ReportDataType) -> ReportType:
         '''
-            Builds a final message.
+            Builds the final message.
 
-            :param data: Data to be processed and reported on.
-            :return: Reported message.
+            :param data: The data to be processed and reported on.
+            :return: The final message.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns check reporter as string representation.
+            Returns the checker reporter as a string representation.
 
-            :return: Check reporter as string representation.
+            :return: The checker reporter as a string representation.
         '''
         ...

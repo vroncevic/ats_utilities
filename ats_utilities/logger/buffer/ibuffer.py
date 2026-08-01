@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILogBuffer with method(s).
+    Defines the abstract class ILogBuffer with method(s).
     Provides an interface for log buffer during early stages of logging.
 '''
 
@@ -38,7 +38,7 @@ __status__ = 'Development'
 @runtime_checkable
 class ILogBuffer[MessageType, LevelType](Protocol):
     '''
-        Defines abstract class ILogBuffer with method(s).
+        Defines the abstract class ILogBuffer with method(s).
         Provides an interface for log buffer during early stages of logging.
 
         It defines:
@@ -47,15 +47,15 @@ class ILogBuffer[MessageType, LevelType](Protocol):
                 | add - Adds a message to the buffer.
                 | flush - Flushes buffered messages to a writer.
                 | clear - Clears the buffer.
-                | __str__ - Returns buffer as string representation.
-            
+                | is_enabled - Checks if buffering is enabled.
+                | __str__ - Returns the buffer as a string representation.
     '''
 
     def add(self, level: LevelType, message: MessageType) -> None:
         '''
             Adds a message to the buffer.
 
-            :param level: Log level.
+            :param level: The log level.
             :param message: The message to buffer.
         '''
         ...
@@ -64,7 +64,7 @@ class ILogBuffer[MessageType, LevelType](Protocol):
         '''
             Flushes buffered messages to a writer.
 
-            :param writer: The logging method to write buffered logs.
+            :param writer: The logging method used to write buffered logs.
         '''
         ...
 
@@ -85,8 +85,8 @@ class ILogBuffer[MessageType, LevelType](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns buffer as string representation.
+            Returns the buffer as a string representation.
 
-            :return: Buffer as string representation.
+            :return: The buffer as a string representation.
         '''
         ...

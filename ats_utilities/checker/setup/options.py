@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Options for checker bundle creation.
+    Options for the checker bundle.
 '''
 
 from __future__ import annotations
@@ -36,15 +36,15 @@ __status__ = 'Development'
 
 class CheckerOptions(TypedDict):
     '''
-        Options for checker bundle creation.
+        Options for the checker bundle.
 
         It defines:
 
             :attributes:
-                | separator: Separator used to join parameter names.
-                | abstract_types: Mapping of abstract types to concrete types.
-                | stack_index_caller: Index of the caller in the call stack.
-                | messages_provider: Mapping of messages to be used during checking.
+                | separator - The separator used to join parameter names.
+                | abstract_types - The mapping of abstract types to concrete types.
+                | stack_index_caller - The index of the caller in the call stack.
+                | messages_provider - The mapping of messages to be used during checking.
     '''
 
     separator: NotRequired[str]

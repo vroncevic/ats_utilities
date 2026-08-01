@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for checker dependencies.
+    Validator for the checker dependencies.
 '''
 
 from __future__ import annotations
@@ -40,36 +40,36 @@ __status__ = 'Development'
 
 class CheckerDependenciesValidator:
     '''
-        Validator for checker dependencies.
+        Validator for the checker dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates checker dependencies instance.
+                | validate - Validates the checker dependencies.
     '''
 
     @classmethod
     def validate(cls, dependencies: CheckerDependencies) -> None:
         '''
-            Validates checker dependencies instance.
+            Validates the checker dependencies.
 
-            :param dependencies: Checker dependencies instance to be validated.
+            :param dependencies: The checker dependencies to be validated.
             :exceptions:
-                | ATSValueError: Dependencies must be provided and have proper attributes.
-                | ATSTypeError:  Dependencies must be an instance of Mapping and its attributes
+                | ATSValueError: The dependencies must be provided and have proper attributes.
+                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
         ctx: str = 'checker_dependencies_validator::validate(...)'
 
-        msg_dependencies_none: str = 'dependencies must be provided'
-        msg_dependencies_istype: str = 'dependencies must be a Mapping'
+        msg_dependencies_none: str = 'the dependencies must be provided'
+        msg_dependencies_istype: str = 'the dependencies must be a Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
         for attr_name, expected_type in CheckerKeys.get_dependency_to_type().items():
-            msg_attribute_none: str = f'{attr_name.replace("_", " ")} must be provided'
-            msg_attribute_istype: str = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+            msg_attribute_none: str = f'the {attr_name.replace("_", " ")} must be provided'
+            msg_attribute_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute: object = dependencies.get(attr_name)
 

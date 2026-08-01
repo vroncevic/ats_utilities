@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates checker runtime components for simplification of checker bundle creation.
+    Encapsulates the checker runtime components for simplification of the checker bundle creation.
 '''
 
 from __future__ import annotations
@@ -42,17 +42,17 @@ __status__ = 'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class CheckerBundle:
     '''
-        Encapsulates checker runtime components for simplification of checker bundle creation.
+        Encapsulates the checker runtime components for the simplification of the checker bundle creation.
 
         It defines:
 
             :attributes:
-                | format_validator - Validator for parameters format.
-                | type_validator - Validator for parameters type.
-                | context_provider - Provider for method call context.
-                | check_reporter - Formatter for message reports.
+                | format_validator - The validator for parameters format.
+                | type_validator - The validator for parameters type.
+                | context_provider - The provider for method call context.
+                | check_reporter - The formatter for message reports.
             :methods:
-                | to_dict - Converts checker bundle to a dictionary.
+                | to_dict - Converts the checker bundle to a dictionary.
     '''
 
     format_validator: IFormatValidator
@@ -62,11 +62,11 @@ class CheckerBundle:
 
     def to_dict(self) -> dict[str, object]:
         '''
-            Converts checker bundle to a dictionary.
+            Converts the checker bundle to a dictionary.
 
-            :return: Dictionary representation of the checker bundle.
+            :return: The dictionary representation of the checker bundle.
             :exceptions:
-                | ATSValueError: Instance must be provided.
-                | ATSValueError: Instance must be a dataclass instance.
+                | ATSValueError: The instance must be provided.
+                | ATSValueError: The instance must be a dataclass instance.
         '''
         return instance_to_dict(self)

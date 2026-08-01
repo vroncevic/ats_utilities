@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class FormatValidator with attribute(s) and method(s).
+    Defines the class FormatValidator with attribute(s) and method(s).
     Provides an API for validating parameters used by method(s) and function(s).
 '''
 
@@ -41,29 +41,29 @@ __status__ = 'Development'
 
 class FormatValidator:
     '''
-        Defines class FormatValidator with attribute(s) and method(s).
+        Defines the class FormatValidator with attribute(s) and method(s).
         Provides an API for validating parameters used by method(s) and function(s).
 
         It defines:
 
             :attributes:
-                | EXPECTED_FORMAT_PARTS - Expected number of parts in the format string.
-                | EXPECTED_SEPARATOR - Expected separator between type and name.
+                | EXPECTED_FORMAT_PARTS - The expected number of parts in the format string.
+                | EXPECTED_SEPARATOR - The expected separator between type and name.
             :methods:
-                | __init__ - Initializes format validator.
-                | set_separator - Sets separator used in parameter specifications.
-                | get_separator - Returns separator used in parameter specifications.
-                | is_valid - Checks if format follows expected format.
-                | split - Splits format into parts.
-                | __str__ - Returns format validator as string representation.
+                | __init__ - Initializes the format validator.
+                | set_separator - Sets the separator used in the format specifications.
+                | get_separator - Returns the separator used in the format specifications.
+                | is_valid - Checks if the format follows the expected format.
+                | split - Splits the format into parts.
+                | __str__ - Returns the format validator as a string representation.
 
         Expected format (in string format):
 
             type:name
 
         where:
-            type - expected parameter type
-            name - expected parameter name
+            type - The expected parameter type.
+            name - The expected parameter name.
 
         Examples:
             >>> from ats_utilities.checker.format.format_validator import FormatValidator
@@ -79,17 +79,17 @@ class FormatValidator:
 
     def __init__(self, separator: str | None = None) -> None:
         '''
-            Initializes format validator.
+            Initializes the format validator.
 
             :param separator: The separator to use for splitting the format string | None.
             :exceptions:
-                | ATSTypeError:  Separator must be a string.
-                | ATSValueError: Separator must not be empty.
+                | ATSTypeError:  The separator must be a string.
+                | ATSValueError: The separator must not be empty.
         '''
         if separator is not None:
             ctx: str = 'format_validator::init(...)'
-            msg_separator_istype: str = 'separator must be a string'
-            msg_separator_empty: str = 'separator must not be empty'
+            msg_separator_istype: str = 'the separator must be a string'
+            msg_separator_empty: str = 'the separator must not be empty'
 
             istype(separator, str, ctx, msg_separator_istype)
             not_empty(separator, ctx, msg_separator_empty)
@@ -100,16 +100,16 @@ class FormatValidator:
 
     def set_separator(self, separator: str) -> None:
         '''
-            Sets separator used in parameter specifications.
+            Sets the separator used in the format specifications.
 
-            :param separator: Separator used in parameter specifications.
+            :param separator: The separator used in the format specifications.
             :exceptions:
-                | ATSTypeError:  Separator must be a string.
-                | ATSValueError: Separator must not be empty.
+                | ATSTypeError:  The separator must be a string.
+                | ATSValueError: The separator must not be empty.
         '''
         ctx: str = 'format_validator::set_separator(...)'
-        msg_separator_istype: str = 'separator must be a string'
-        msg_separator_empty: str = 'separator must not be empty'
+        msg_separator_istype: str = 'the separator must be a string'
+        msg_separator_empty: str = 'the separator must not be empty'
 
         istype(separator, str, ctx, msg_separator_istype)
         not_empty(separator, ctx, msg_separator_empty)
@@ -118,27 +118,27 @@ class FormatValidator:
 
     def get_separator(self) -> str:
         '''
-            Returns separator used in parameter specifications.
+            Returns the separator used in the format specifications.
 
-            :return: Separator used in parameter specifications.
+            :return: The separator used in the format specifications.
             :exceptions: None.
         '''
         return self._separator
 
     def is_valid(self, format_to_check: str) -> bool:
         '''
-            Checks if format follows expected format.
+            Checks if the format follows the expected format.
 
-            :param format_to_check: Format to be validated.
+            :param format_to_check: The format to be validated.
             :return: True if successfully, otherwise False.
             :exceptions:
-                | ATSValueError: Format to be validated must be provided.
-                | ATSTypeError:  Format to be validated must be a string.
-                | ATSValueError: Format to be validated must contain the separator.
+                | ATSValueError: The format to be validated must be provided.
+                | ATSTypeError:  The format to be validated must be a string.
+                | ATSValueError: The format to be validated must contain the separator.
         '''
         ctx: str = 'format_validator::is_valid(...)'
-        msg_format_to_check_none: str = 'format to be validated must be provided'
-        msg_format_to_check_istype: str = 'format to be validated must be a string'
+        msg_format_to_check_none: str = 'the format to be validated must be provided'
+        msg_format_to_check_istype: str = 'the format to be validated must be a string'
 
         not_none(format_to_check, ctx, msg_format_to_check_none)
         istype(format_to_check, str, ctx, msg_format_to_check_istype)
@@ -152,14 +152,14 @@ class FormatValidator:
             :param format_to_split: The format string to split.
             :return: A Sequence containing the split components (type, name).
             :exceptions:
-                | ATSValueError: Format to be validated must be provided.
-                | ATSTypeError:  Format to be validated must be a string.
-                | ATSValueError: Format to be validated must contain the separator.
+                | ATSValueError: The format to be validated must be provided.
+                | ATSTypeError:  The format to be validated must be a string.
+                | ATSValueError: The format to be validated must contain the separator.
         '''
         ctx: str = 'format_validator::split(...)'
-        msg_format_to_split_none: str = 'format to split must be provided'
-        msg_format_to_split_istype: str = 'format to split must be a string'
-        msg_format_to_split_separator: str = f'format to split must contain the separator "{self._separator}"'
+        msg_format_to_split_none: str = 'the format to split must be provided'
+        msg_format_to_split_istype: str = 'the format to split must be a string'
+        msg_format_to_split_separator: str = f'the format to split must contain the separator "{self._separator}"'
 
         not_none(format_to_split, ctx, msg_format_to_split_none)
         istype(format_to_split, str, ctx, msg_format_to_split_istype)
@@ -169,9 +169,9 @@ class FormatValidator:
 
     def __str__(self) -> str:
         '''
-            Returns format validator as string representation.
+            Returns the format validator as a string representation.
 
-            :return: Format validator as string representation.
+            :return: The format validator as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

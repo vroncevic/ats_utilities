@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IMessageProcessor with method(s).
+    Defines the abstract class IMessageProcessor with method(s).
     Provides an interface for processing/sanitizing log messages.
 '''
 
@@ -37,14 +37,14 @@ __status__ = 'Development'
 @runtime_checkable
 class IMessageProcessor[PatternType, MessageType](Protocol):
     '''
-        Defines abstract class IMessageProcessor with method(s).
+        Defines the abstract class IMessageProcessor with method(s).
         Provides an interface for processing/sanitizing log messages.
 
         :methods:
             | get_pattern - Gets a regex pattern for message processing.
             | set_pattern - Sets a regex pattern for message processing.
             | process - Processes a log message.
-            | __str__ - Returns message processor as string representation.
+            | __str__ - Returns the message processor as a string representation.
     '''
 
     def get_pattern(self) -> PatternType:
@@ -72,8 +72,8 @@ class IMessageProcessor[PatternType, MessageType](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns message processor as string representation.
+            Returns the message processor as a string representation.
 
-            :return: Message processor as string representation.
+            :return: The message processor as a string representation.
         '''
         ...

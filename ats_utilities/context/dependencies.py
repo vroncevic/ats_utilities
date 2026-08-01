@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Context dependencies for context bundle creation.
+    Context dependencies for the context bundle.
 '''
 
 from __future__ import annotations
@@ -39,15 +39,15 @@ __status__ = 'Development'
 
 class ContextDependencies(TypedDict):
     '''
-        Context dependencies for context bundle creation.
+        Context dependencies for the context bundle.
 
         It defines:
 
             :attributes:
-                | checker: Checker instance.
-                | logger: Logger instance.
-                | reporter: Reporter instance.
-                | verbose: Verbose output flag.
+                | checker - The checker instance.
+                | logger - The logger instance.
+                | reporter - The reporter instance.
+                | verbose - The verbose output flag.
     '''
 
     checker: IChecker

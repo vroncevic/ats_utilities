@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ConsoleTheme with attribute(s) and method(s).
-    Implements a console theme for console styling.
+    Defines the ConsoleTheme class with attribute(s) and method(s).
+    Provides the console theme for the console styling.
 '''
 
 from __future__ import annotations
@@ -43,18 +43,18 @@ __status__ = 'Development'
 
 class ConsoleTheme:
     '''
-        Defines class ConsoleTheme with attribute(s) and method(s).
-        Implements a console theme for console styling.
+        Defines the ConsoleTheme class with attribute(s) and method(s).
+        Provides the console theme for the console styling.
 
         It defines:
 
             :attributes:
-                | DEFAULT_PALETTE_COLORS - Final default palette colors for different message types.
-                | _palette - Final mapping with color codes for different message types.
+                | DEFAULT_PALETTE_COLORS - The final default palette colors for different message types.
+                | _palette - The final mapping with color codes for different message types.
             :methods:
-                | __init__ - Initializes ConsoleTheme constructor.
-                | get_color - Returns color code from palette.
-                | __str__ - Returns console theme as string representation.
+                | __init__ - Initializes the ConsoleTheme.
+                | get_color - Returns the color code from the palette.
+                | __str__ - Returns the console theme as a string representation.
     '''
 
     DEFAULT_PALETTE_COLORS: Final[MappingProxyType[str, str]] = MappingProxyType({
@@ -69,15 +69,15 @@ class ConsoleTheme:
 
     def __init__(self, palette: Mapping[str, str] | None = None) -> None:
         '''
-            Initializes ConsoleTheme constructor.
+            Initializes the ConsoleTheme.
 
-            :param palette: Mapping with color codes | None.
+            :param palette: The mapping with color codes or None.
             :exceptions:
-                | ATSTypeError: Palette must be a mapping.
+                | ATSTypeError: The palette must be a mapping.
         '''
         if palette is not None:
             ctx: str = 'console_theme::init(...)'
-            msg_pallete_istype: str = f'{ctx} palette must be a mapping'
+            msg_pallete_istype: str = 'the palette must be a mapping'
 
             istype(palette, Mapping, ctx, msg_pallete_istype)
 
@@ -89,19 +89,19 @@ class ConsoleTheme:
     @has_attrs('_palette')
     def get_color(self, color_type: str) -> str:
         '''
-            Returns color code from palette.
+            Returns the color code from the palette.
 
-            :param color_type: Type of the message (key in palette).
-            :return: Color code in string format.
+            :param color_type: The type of the message (key in palette).
+            :return: The color code in string format.
             :exceptions:
-                | ATSValueError: Color type must be provided.
-                | ATSTypeError: Color type must be a string.
-                | ATSValueError: Color type not found in palette.
+                | ATSValueError: The color type must be provided.
+                | ATSTypeError:  The color type must be a string.
+                | ATSValueError: The color type not found in palette.
         '''
         ctx: str = 'console_theme::get_color(...)'
-        msg_color_type_none: str = f'{ctx} color type must be provided'
-        msg_color_type_istype: str = f'{ctx} color type must be a string'
-        msg_color_type_not_found: str = f'{ctx} color type {color_type} not found in palette'
+        msg_color_type_none: str = 'the color type must be provided'
+        msg_color_type_istype: str = 'the color type must be a string'
+        msg_color_type_not_found: str = f'the color type {color_type} not found in palette'
 
         not_none(color_type, ctx, msg_color_type_none)
         istype(color_type, str, ctx, msg_color_type_istype)
@@ -111,9 +111,9 @@ class ConsoleTheme:
 
     def __str__(self) -> str:
         '''
-            Returns console theme as string representation.
+            Returns the console theme as a string representation.
 
-            :return: Console theme as string representation.
+            :return: The console theme as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

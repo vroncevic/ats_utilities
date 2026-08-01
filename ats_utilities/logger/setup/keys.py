@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Runtime components and interface constraints for logger bundle.
+    Runtime components and interface constraints for the logger bundle.
 '''
 
 from __future__ import annotations
@@ -42,23 +42,23 @@ __status__ = 'Development'
 
 class LoggerKeys:
     '''
-        Runtime components and interface constraints for logger bundle.
+        Runtime components and interface constraints for the logger bundle.
 
         It defines:
 
             :attributes:
-                | DEPENDENCY_LOGGER: Logger interface constant.
-                | DEPENDENCY_HAS_FILE_HANDLER: Has file handler flag interface constant.
-                | DEPENDENCY_FORMATTER: Formatter interface constant.
-                | DEPENDENCY_BUFFER: Buffer interface constant.
-                | DEPENDENCY_HANDLER_MANAGER: Handler manager interface constant.
-                | OPTION_LOG_FILE: Log file path option constant.
-                | OPTION_LOG_LEVEL: Log level option constant.
-                | OPTION_LOG_FORMAT: Format string for the log messages option constant.
-                | OPTION_LOG_DATEFMT: Date format string for the log messages option constant.
+                | DEPENDENCY_LOGGER - The logger interface constant.
+                | DEPENDENCY_HAS_FILE_HANDLER - The has file handler flag interface constant.
+                | DEPENDENCY_FORMATTER - The formatter interface constant.
+                | DEPENDENCY_BUFFER - The buffer interface constant.
+                | DEPENDENCY_HANDLER_MANAGER - The handler manager interface constant.
+                | OPTION_LOG_FILE - The log file path option constant.
+                | OPTION_LOG_LEVEL - The log level option constant.
+                | OPTION_LOG_FORMAT - The format string for the log messages option constant.
+                | OPTION_LOG_DATEFMT - The date format string for the log messages option constant.
             :methods:
-                | get_dependency_to_type - Returns mapping of logger dependencies to their types.
-                | get_option_to_type - Returns mapping of logger options to their types.
+                | get_dependency_to_type - Returns the mapping of the logger dependencies to their types.
+                | get_option_to_type - Returns the mapping of the logger options to their types.
     '''
 
     # Dependency Keys
@@ -80,9 +80,9 @@ class LoggerKeys:
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of logger dependencies to their types.
+            Returns the mapping of the logger dependencies to their types.
 
-            :return: Mapping of logger dependencies to their types.
+            :return: The mapping of the logger dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -97,9 +97,9 @@ class LoggerKeys:
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of logger options to their types.
+            Returns the mapping of the logger options to their types.
 
-            :return: Mapping of logger options to their types.
+            :return: The mapping of the logger options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

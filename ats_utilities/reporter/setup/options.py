@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Reporter options for reporter bundle creation.
+    Reporter options for the reporter bundle.
 '''
 
 from __future__ import annotations
@@ -39,14 +39,14 @@ __status__ = 'Development'
 
 class ReporterOptions(TypedDict):
     '''
-        Reporter options for reporter bundle creation.
+        Reporter options for the reporter bundle.
 
         It defines:
 
             :attributes:
-                | checker: Pre-configured checker options.
-                | theme: Pre-configured console theme color codes.
-                | logger: Pre-configured logger options.
+                | checker - The checker for parameters validation.
+                | theme - The theme for console output styling.
+                | logger - The logger for messages logging.
     '''
 
     checker: NotRequired[CheckerOptions]

@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILogHandlerManager with method(s).
-    Provides an interface for log handler manager.
+    Defines the abstract class ILogHandlerManager with method(s).
+    Provides an interface for the log handler manager.
 '''
 
 from __future__ import annotations
@@ -37,38 +37,38 @@ __status__ = 'Development'
 @runtime_checkable
 class ILogHandlerManager[LogFileType, ResultType](Protocol):
     '''
-        Defines abstract class ILogHandlerManager with method(s).
-        Provides an interface for log handler manager.
+        Defines the abstract class ILogHandlerManager with method(s).
+        Provides an interface for the log handler manager.
 
         It defines:
 
             :methods:
-                | set_log_file - Configures file output handler.
-                | set_stdout - Configures stdout stream handler.
-                | __str__ - Returns log handler manager as string representation.
+                | set_log_file - Configures the file output handler.
+                | set_stdout - Configures the stdout stream handler.
+                | __str__ - Returns the log handler manager as a string representation.
     '''
 
     def set_log_file(self, log_file: LogFileType) -> ResultType:
         '''
-            Configures file output handler.
+            Configures the file output handler.
 
-            :param log_file: Log file.
-            :return: Result of log file handler setup.
+            :param log_file: The log file.
+            :return: The result of the log file handler setup.
         '''
         ...
 
     def set_stdout(self) -> ResultType:
         '''
-            Configures stdout stream handler.
+            Configures the stdout stream handler.
 
-            :return: Result of stdout handler setup.
+            :return: The result of the stdout handler setup.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns log handler manager as string representation.
+            Returns the log handler manager as a string representation.
 
-            :return: Log handler manager as string representation.
+            :return: The log handler manager as a string representation.
         '''
         ...

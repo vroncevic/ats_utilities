@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Logger with attribute(s) and method(s).
+    Defines the Logger class with attribute(s) and method(s).
     Provides an API for the logging functionality.
 '''
 
@@ -44,31 +44,32 @@ __status__ = 'Development'
 
 class Logger:
     '''
-        Defines class Logger with attribute(s) and method(s).
+        Defines the Logger class with attribute(s) and method(s).
         Provides an API for the logging functionality.
 
         It defines:
 
             :attributes:
-                | _logger - Logger instance.
-                | _formatter - Formatter for log messages.
-                | _buffer - Buffer for early logs.
-                | _handler_manager - Manager for log output handlers.
-                | _has_file_handler - Flag indicating if logger has a file handler.
-                | _is_initialized - Indicates if logger is initialized.
+                | _logger - The logger instance.
+                | _formatter - The formatter for log messages.
+                | _buffer - The buffer for early logs.
+                | _handler_manager - The manager for log output handlers.
+                | _message_processor - The message processor.
+                | _has_file_handler - The flag indicating if the logger has a file handler.
+                | _is_initialized - The flag indicating if the logger is initialized.
             :methods:
-                | __init__ - Initializes Logger constructor.
-                | get_bundle - Gets current logger configuration bundle.
-                | is_initialized - Checks if logger is initialized.
-                | update_bundle - Updates logger configuration bundle.
+                | __init__ - Initializes the logger.
+                | get_bundle - Gets the current logger configuration bundle.
+                | is_initialized - Checks if the logger is initialized.
+                | update_bundle - Updates the logger configuration bundle.
                 | _apply_bundle - Applies bundle configuration to instance attributes.
-                | set_level - Sets log level.
-                | _flush_buffer - Flushes log buffer.
-                | set_log_file - Configures output handler.
-                | set_stdout - Configures output handler.
-                | stop_buffering - Stops log buffering.
-                | write_log - Writes message to log output.
-                | __str__ - Returns logger as string representation.
+                | set_level - Sets the log level.
+                | _flush_buffer - Flushes the log buffer.
+                | set_log_file - Configures the output handler to output to the log file.
+                | set_stdout - Configures the output handler to output to the standard output.
+                | stop_buffering - Stops the log buffering.
+                | write_log - Writes the message to the log output.
+                | __str__ - Returns the logger as a string representation.
     '''
 
     _logger: IUnderlyingLogger
@@ -81,12 +82,12 @@ class Logger:
 
     def __init__(self, own: LoggerBundle) -> None:
         '''
-            Initializes Logger constructor.
+            Initializes the logger.
 
-            :param own: Component bundle with logger and logging parameters.
+            :param own: The component bundle with logger and logging parameters.
             :exceptions:
-                | ATSValueError: Logger bundle must be provided and have proper values.
-                | ATSTypeError:  Logger bundle must be an instance of LoggerBundle.
+                | ATSValueError: The logger bundle must be provided and have proper values.
+                | ATSTypeError:  The logger bundle must be an instance of LoggerBundle.
                 |                and its attributes must be instances of their
                 |                respective interfaces and types.
         '''
@@ -97,9 +98,9 @@ class Logger:
 
     def get_bundle(self) -> LoggerBundle:
         '''
-            Gets current logger configuration bundle.
+            Gets the current logger configuration bundle.
 
-            :return: LoggerBundle containing current logger setup.
+            :return: The LoggerBundle containing the current logger setup.
             :exceptions: None.
         '''
         return LoggerBundle(
@@ -112,7 +113,7 @@ class Logger:
 
     def is_initialized(self) -> bool:
         '''
-            Checks if logger is initialized.
+            Checks if the logger is initialized.
 
             :return: True if successfully, otherwise False.
             :exceptions: None.
@@ -121,10 +122,10 @@ class Logger:
 
     def update_bundle(self, bundle: LoggerBundle) -> bool:
         '''
-            Updates logger configuration using a logger bundle.
+            Updates the logger configuration using a logger bundle.
 
-            :param bundle: Logger bundle with logger and logging parameters.
-            :return: True if configuration was successfully updated, False otherwise.
+            :param bundle: The logger bundle with logger and logging parameters.
+            :return: True if configuration was successfully updated, otherwise False.
             :exceptions: None.
         '''
         try:
@@ -141,7 +142,7 @@ class Logger:
         '''
             Applies bundle configuration to instance attributes.
 
-            :param bundle: Logger bundle with logger and logging parameters.
+            :param bundle: The logger bundle with logger and logging parameters.
             :exceptions: None.
         '''
         self._logger = bundle.logger
@@ -153,9 +154,9 @@ class Logger:
 
     def set_level(self, level: int) -> None:
         '''
-            Sets log level.
+            Sets the log level.
 
-            :param level: Log level.
+            :param level: The log level.
             :exceptions: None.
         '''
         self._logger.set_level(level)
@@ -171,9 +172,10 @@ class Logger:
 
     def set_log_file(self, log_file: str) -> bool:
         '''
-            Sets log file.
+            Sets the log file.
 
-            :param log_file: Log file path.
+            :param log_file: The log file path.
+            :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
         if self._handler_manager.set_log_file(log_file):
@@ -186,8 +188,9 @@ class Logger:
 
     def set_stdout(self) -> bool:
         '''
-            Sets log output to standard output (stdout).
+            Configures the output handler to output to the standard output.
 
+            :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
         if self._handler_manager.set_stdout():
@@ -200,7 +203,7 @@ class Logger:
 
     def stop_buffering(self) -> None:
         '''
-            Stops log buffering.
+            Stops the log buffering.
 
             :exceptions: None.
         '''
@@ -210,10 +213,10 @@ class Logger:
 
     def write_log(self, level: int, message: str) -> None:
         '''
-            Writes message to log.
+            Writes the message to the log.
 
-            :param level: Log level.
-            :param message: Log message in string format for log.
+            :param level: The log level.
+            :param message: The message to be logged.
             :exceptions: None.
         '''
         if not message or not isinstance(message, str):
@@ -228,9 +231,9 @@ class Logger:
 
     def __str__(self) -> str:
         '''
-            Returns logger as string representation.
+            Returns the logger as a string representation.
 
-            :return: Logger as string representation.
+            :return: The logger as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

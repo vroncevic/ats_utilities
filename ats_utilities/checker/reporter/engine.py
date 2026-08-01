@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class CheckReporter with attribute(s) and method(s).
-    Provides an API for building a message in context of a checker.
+    Defines the class CheckReporter with attribute(s) and method(s).
+    Provides an API for building the final message in the context of a checker.
 '''
 
 from __future__ import annotations
@@ -44,8 +44,8 @@ __status__ = 'Development'
 
 class CheckReporter:
     '''
-        Defines class CheckReporter with attribute(s) and method(s).
-        Provides an API for building a message in context of a checker.
+        Defines the class CheckReporter with attribute(s) and method(s).
+        Provides an API for building the final message in the context of a checker.
 
         It defines:
 
@@ -53,9 +53,9 @@ class CheckReporter:
                 | DEFAULT_MESSAGES - Default messages used to report findings.
                 | _message_provider - Messages used to report findings.
             :methods:
-                | __init__ - Initializes check reporter.
-                | build_message - Builds a final message.
-                | __str__ - Returns check reporter as string representation.
+                | __init__ - Initializes the check reporter.
+                | build_message - Builds the final message.
+                | __str__ - Returns the check reporter as a string representation.
     '''
 
     DEFAULT_MESSAGES: Final[MappingProxyType[str, str]] = MappingProxyType({
@@ -67,17 +67,18 @@ class CheckReporter:
 
     def __init__(self, message_provider: Mapping[str, str] | None = None) -> None:
         '''
-            Initializes check reporter.
+            Initializes the check reporter.
 
-            :param message_provider: Messages used to report findings | None.
+            :param message_provider: Optional mapping with string keys and string values
+                                     that are used to build the final message report | None.
             :exceptions:
-                | ATSTypeError:  Message provider must be a mapping.
-                | ATSValueError: Message provider must not be empty (key and value must be strings).
+                | ATSTypeError:  The message provider must be a mapping.
+                | ATSValueError: The message provider must not be empty.
         '''
         if message_provider is not None:
             ctx: str = 'check_reporter::init(...)'
-            msg_param_istype: str = 'message provider must be a mapping'
-            msg_param_empty: str = 'message provider must not be empty (key and value must be strings)'
+            msg_param_istype: str = 'the message provider must be a mapping'
+            msg_param_empty: str = 'the message provider must not be empty'
 
             istype(message_provider, Mapping, ctx, msg_param_istype)
             not_empty(message_provider, ctx, msg_param_empty)
@@ -88,13 +89,13 @@ class CheckReporter:
 
     def build_message(self, data: CheckReporterData) -> str:
         '''
-            Builds a final message.
+            Builds the final message.
 
-            :param data: Data to be formatted.
-            :return: Formatted message report.
+            :param data: The data to be formatted.
+            :return: The final message.
             :exceptions:
-                | ATSValueError: Data must be provided and have proper values.
-                | ATSTypeError:  Data must be an instance of CheckReporterData
+                | ATSValueError: The data must be provided and have proper values.
+                | ATSTypeError:  The data must be an instance of CheckReporterData
                 |                and its attributes must be instances of their
                 |                respective types.
         '''
@@ -128,9 +129,9 @@ class CheckReporter:
 
     def __str__(self) -> str:
         '''
-            Returns check reporter as string representation.
+            Returns the check reporter as a string representation.
 
-            :return: Check reporter as string representation.
+            :return: The check reporter as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IReporter with method(s).
-    Provides an interface for reporting messages.
+    Defines the abstract class IReporter with method(s).
+    Provides an interface for the reporting of messages.
 '''
 
 from __future__ import annotations
@@ -37,26 +37,26 @@ __status__ = 'Development'
 @runtime_checkable
 class IReporter[ConfigType, MessageType](Protocol):
     '''
-        Defines abstract class IReporter with method(s).
-        Provides an interface for reporting messages.
+        Defines the abstract class IReporter with method(s).
+        Provides an interface for the reporting of messages.
 
         It defines:
 
             :methods:
-                | get_bundle - Gets current reporter configuration bundle.
-                | update_bundle - Updates reporter configuration bundle.
-                | verbose - Reports verbose message.
-                | success - Reports success message.
-                | warning - Reports warning message.
-                | error - Reports error message.
-                | set_level - Sets message reporting level.
-                | is_initialized - Checks if reporter is initialized.
-                | __str__ - Returns reporter as string representation.
+                | get_bundle - Gets the current reporter configuration bundle.
+                | update_bundle - Updates the reporter configuration bundle.
+                | verbose - Reports a verbose message.
+                | success - Reports a success message.
+                | warning - Reports a warning message.
+                | error - Reports an error message.
+                | set_level - Sets the message reporting level.
+                | is_initialized - Checks if the reporter is initialized.
+                | __str__ - Returns the reporter as a string representation.
     '''
 
     def get_bundle(self) -> ConfigType:
         '''
-            Gets current reporter configuration bundle.
+            Gets the current reporter configuration bundle.
 
             :return: Reporter configuration bundle.
         '''
@@ -64,15 +64,16 @@ class IReporter[ConfigType, MessageType](Protocol):
 
     def update_bundle(self, bundle: ConfigType) -> bool:
         '''
-            Updates reporter configuration bundle.
+            Updates the reporter configuration bundle.
 
-            :param bundle: Reporter configuration bundle.
+            :param bundle: The reporter configuration bundle to be updated with.
+            :return: True if the update was successful, otherwise False.
         '''
         ...
 
     def verbose(self, is_verbose: bool, message: MessageType) -> None:
         '''
-            Reports verbose message.
+            Reports a verbose message.
 
             :param is_verbose: Enable/Disable verbose option.
             :param message: Message content.
@@ -81,7 +82,7 @@ class IReporter[ConfigType, MessageType](Protocol):
 
     def success(self, message: MessageType) -> None:
         '''
-            Reports success message.
+            Reports a success message.
 
             :param message: Message content.
         '''
@@ -89,7 +90,7 @@ class IReporter[ConfigType, MessageType](Protocol):
 
     def warning(self, message: MessageType) -> None:
         '''
-            Reports warning message.
+            Reports a warning message.
 
             :param message: Message content.
         '''
@@ -97,7 +98,7 @@ class IReporter[ConfigType, MessageType](Protocol):
 
     def error(self, message: MessageType) -> None:
         '''
-            Reports error message.
+            Reports an error message.
 
             :param message: Message content.
         '''
@@ -105,15 +106,15 @@ class IReporter[ConfigType, MessageType](Protocol):
 
     def set_level(self, level: int) -> None:
         '''
-            Sets message reporting level.
+            Sets the message reporting level.
 
-            :param level: Message reporting level.
+            :param level: The message reporting level.
         '''
         ...
 
     def is_initialized(self) -> bool:
         '''
-            Checks if reporter is initialized.
+            Checks if the reporter is initialized.
 
             :return: True if successfully, otherwise False.
         '''
@@ -121,8 +122,8 @@ class IReporter[ConfigType, MessageType](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns reporter as string representation.
+            Returns the reporter as a string representation.
 
-            :return: Reporter as string representation.
+            :return: The reporter as a string representation.
         '''
         ...

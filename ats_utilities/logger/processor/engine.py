@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class MessageProcessor with attribute(s) and method(s).
+    Defines the MessageProcessor class with attribute(s) and method(s).
     Provides an API for processing/sanitizing log messages.
 '''
 
@@ -42,7 +42,7 @@ __status__ = 'Development'
 
 class MessageProcessor:
     '''
-        Defines class MessageProcessor with attribute(s) and method(s).
+        Defines the MessageProcessor class with attribute(s) and method(s).
         Provides an API for processing/sanitizing log messages.
 
         :attributes:
@@ -53,7 +53,7 @@ class MessageProcessor:
             | get_pattern - Gets a regex pattern for message processing.
             | set_pattern - Sets a regex pattern for message processing.
             | process - Processes a log message.
-            | __str__ - Returns message processor as string representation.
+            | __str__ - Returns the message processor as a string representation.
     '''
 
     DEFAULT_ESCAPE: Pattern[str] = compile(r'\x1B(?:[@-Z\\-_]|[\[0-?]*[ -/]*[@-~])')
@@ -64,13 +64,13 @@ class MessageProcessor:
             Initializes a message processor.
             :param pattern: A regex pattern for message processing.
             :exceptions:
-                | ATSValueError: Pattern must be provided.
-                | ATSTypeError: Pattern must be a compiled regex pattern.
+                | ATSValueError: The pattern must be provided.
+                | ATSTypeError:  The pattern must be a compiled regex pattern.
         '''
         if pattern is not None:
             ctx: str = 'message_processor::init(...)'
-            msg_pattern_none: str = 'pattern must be provided'
-            msg_pattern_istype: str = 'pattern must be a compiled regex pattern'
+            msg_pattern_none: str = 'the pattern must be provided'
+            msg_pattern_istype: str = 'the pattern must be a compiled regex pattern'
 
             not_none(pattern, ctx, msg_pattern_none)
             istype(pattern, Pattern[str], ctx, msg_pattern_istype)
@@ -92,12 +92,12 @@ class MessageProcessor:
             Sets a regex pattern for message processing.
             :param pattern: A regex pattern for message processing.
             :exceptions:
-                | ATSValueError: Pattern must be provided.
-                | ATSTypeError: Pattern must be a compiled regex pattern.
+                | ATSValueError: The pattern must be provided.
+                | ATSTypeError:  The pattern must be a compiled regex pattern.
         '''
         ctx: str = 'message_processor::set_pattern(...)'
-        msg_pattern_none: str = 'pattern must be provided'
-        msg_pattern_istype: str = 'pattern must be a compiled regex pattern'
+        msg_pattern_none: str = 'the pattern must be provided'
+        msg_pattern_istype: str = 'the pattern must be a compiled regex pattern'
 
         not_none(pattern, ctx, msg_pattern_none)
         istype(pattern, Pattern[str], ctx, msg_pattern_istype)
@@ -123,9 +123,9 @@ class MessageProcessor:
 
     def __str__(self) -> str:
         '''
-            Returns message processor as string representation.
+            Returns the message processor as a string representation.
 
-            :return: Message processor as string representation.
+            :return: The message processor as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

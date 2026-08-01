@@ -60,14 +60,14 @@ class ReporterOptionsValidator:
                 |                must be instances of their respective types.
         '''
         ctx: str = 'reporter_options_validator::validate(...)'
-        msg_options_none: str = f'{ctx} options must be provided'
-        msg_options_istype: str = f'{ctx} options must be a Mapping'
+        msg_options_none: str = f'the options must be provided'
+        msg_options_istype: str = f'the options must be a Mapping'
 
         not_none(options, ctx, msg_options_none)
         istype(options, Mapping, ctx, msg_options_istype)
 
         for attr_name, expected_type in ReporterKeys.get_option_to_type().items():
-            msg_attr_istype: str = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+            msg_attr_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute = options.get(attr_name)
 

@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IConsoleTheme with method(s).
-    Provides an interface for console styling.
+    Defines the abstract class IConsoleTheme with method(s).
+    Provides an interface for the console styling.
 '''
 
 from __future__ import annotations
@@ -37,29 +37,29 @@ __status__ = 'Development'
 @runtime_checkable
 class IConsoleTheme(Protocol):
     '''
-        Defines abstract class IConsoleTheme with method(s).
-        Provides an interface for console styling.
+        Defines the abstract class IConsoleTheme with method(s).
+        Provides an interface for the console styling.
 
         It defines:
 
             :methods:
-                | get_color - Returns color code based on type.
-                | __str__ - Returns console theme as string representation.
+                | get_color - Returns the color code based on type.
+                | __str__ - Returns the console theme as a string representation.
     '''
 
     def get_color(self, color_type: str) -> str:
         '''
-            Returns color code based on type.
+            Returns the color code based on the type.
 
-            :param color_type: Type of the message (error, success, etc.).
-            :return: Color code.
+            :param color_type: Type of the console message (e.g. error, success).
+            :return: The color code.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns console theme as string representation.
+            Returns the console theme as a string representation.
 
-            :return: Console theme as string representation.
+            :return: The console theme as a string representation.
         '''
         ...

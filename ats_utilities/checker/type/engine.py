@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class TypeValidator with attribute(s) and method(s).
-    Provides an API for validation parameters used by method(s) and function(s).
+    Defines the class TypeValidator with attribute(s) and method(s).
+    Provides an API for validating types of parameters used by method(s) and function(s).
 '''
 
 from __future__ import annotations
@@ -42,20 +42,20 @@ __status__ = 'Development'
 
 class TypeValidator:
     '''
-        Defines class TypeValidator with attribute(s) and method(s).
-        Provides an API for validation parameters used by method(s) and function(s).
+        Defines the class TypeValidator with attribute(s) and method(s).
+        Provides an API for validating types of parameters used by method(s) and function(s).
 
         It defines:
 
             :attributes:
-                | DEFAULT_TYPES - Mapping of abstract type names to their implementations.
-                | _abstract_types - Mapping of abstract type names to their implementations.
+                | DEFAULT_TYPES - The default mapping of abstract type names to their implementations.
+                | _abstract_types - The mapping of abstract type names to their implementations.
             :methods:
-                | __init__ - Initializes type validator.
-                | is_match - Compares instance type with expected type name.
-                | is_subtype - Checks if instance is a subtype of expected type name.
-                | get_type_name - Returns type name representation of an instance type.
-                | __str__ - Returns type validator as string representation.
+                | __init__ - Initializes the type validator.
+                | is_match - Checks if the type of the instance matches the expected type name.
+                | is_subtype - Checks if the instance is a subtype of the expected type name.
+                | get_type_name - Returns the type name of the instance.
+                | __str__ - Returns the type validator as a string representation.
     '''
 
     DEFAULT_TYPES: Final[MappingProxyType[str, type]] = MappingProxyType({
@@ -67,17 +67,17 @@ class TypeValidator:
 
     def __init__(self, abstract_types: Mapping[str, type] | None = None) -> None:
         '''
-            Initializes type validator.
+            Initializes the type validator.
 
-            :param abstract_types: Mapping of abstract type names to their implementations.
+            :param abstract_types: The mapping of abstract type names to their implementations.
             :exceptions:
-                | ATSTypeError:  Abstract types must be a mapping of names to types.
-                | ATSValueError: Abstract types must not be empty.
+                | ATSTypeError:  The abstract types must be a mapping of names to types.
+                | ATSValueError: The abstract types must not be empty.
         '''
         if abstract_types is not None:
             ctx: str = 'type_validator::init(...)'
-            msg_abstract_types_istype: str = 'abstract types must be a mapping of names to types'
-            msg_abstract_types_empty: str = 'abstract types must not be empty (names to types)'
+            msg_abstract_types_istype: str = 'the abstract types must be a mapping of names to types'
+            msg_abstract_types_empty: str = 'the abstract types must not be empty (names to types)'
 
             istype(abstract_types, Mapping, ctx, msg_abstract_types_istype)
             not_empty(abstract_types, ctx, msg_abstract_types_empty)
@@ -88,23 +88,23 @@ class TypeValidator:
 
     def is_match(self, instance: object, expected_type_name: str) -> bool:
         '''
-            Compares instance type with expected type name.
-            Compares __name__ of instance type with expected string.
+            Checks if the type of the instance matches the expected type name.
+            Compares the __name__ attribute of the instance type with the expected type name.
 
             :param instance: The instance whose type is to be checked.
             :param expected_type_name: The expected type name.
-            :return: The result of the comparison.
+            :return: True if the type of the instance matches the expected type name, False otherwise.
             :exceptions:
-                | ATSValueError: Instance must be provided.
-                | ATSValueError: Expected type name must be provided.
-                | ATSTypeError:  Expected type name must be a string.
-                | ATSValueError: Expected type name must not be empty.
+                | ATSValueError: The instance must be provided.
+                | ATSValueError: The expected type name must be provided.
+                | ATSTypeError:  The expected type name must be a string.
+                | ATSValueError: The expected type name must not be empty.
         '''
         ctx: str = 'type_validator::is_match(...)'
-        msg_instance_none: str = 'instance must be provided'
-        msg_expected_type_name_none: str = 'expected type name must be provided'
-        msg_expected_type_name_istype: str = 'expected type name must be a string'
-        msg_expected_type_name_empty: str = 'expected type name must not be empty'
+        msg_instance_none: str = 'the instance must be provided'
+        msg_expected_type_name_none: str = 'the expected type name must be provided'
+        msg_expected_type_name_istype: str = 'the expected type name must be a string'
+        msg_expected_type_name_empty: str = 'the expected type name must not be empty'
 
         not_none(instance, ctx, msg_instance_none)
         not_none(expected_type_name, ctx, msg_expected_type_name_none)
@@ -120,24 +120,24 @@ class TypeValidator:
 
     def is_subtype(self, instance: object, expected_type_name: str) -> bool:
         '''
-            Checks if instance is a subtype of expected type name.
-            Traverses the Method Resolution Order (MRO) to find a match.
+            Checks if the instance is a subtype of the expected type name.
+            Traverses the method resolution order (MRO) to find a match.
 
             :param instance: The instance whose type is to be checked.
             :param expected_type_name: The expected parent type name.
-            :return: The result of the comparison.
+            :return: True if the instance is a subtype of the expected type name, False otherwise.
             :exceptions:
-                | ATSValueError: Instance must be provided.
-                | ATSValueError: Expected type name must be provided.
-                | ATSTypeError:  Expected type name must be a string.
-                | ATSValueError: Expected type name must not be empty.
+                | ATSValueError: The instance must be provided.
+                | ATSValueError: The expected type name must be provided.
+                | ATSTypeError:  The expected type name must be a string.
+                | ATSValueError: The expected type name must not be empty.
         '''
         ctx: str = 'type_validator::is_subtype(...)'
 
-        msg_instance_none: str = 'instance must be provided'
-        msg_expected_type_name_none: str = 'expected type name must be provided'
-        msg_expected_type_name_istype: str = 'expected type name must be a string'
-        msg_expected_type_name_empty: str = 'expected type name must not be empty'
+        msg_instance_none: str = 'the instance must be provided'
+        msg_expected_type_name_none: str = 'the expected type name must be provided'
+        msg_expected_type_name_istype: str = 'the expected type name must be a string'
+        msg_expected_type_name_empty: str = 'the expected type name must not be empty'
 
         not_none(instance, ctx, msg_instance_none)
         not_none(expected_type_name, ctx, msg_expected_type_name_none)
@@ -153,23 +153,23 @@ class TypeValidator:
 
     def get_type_name(self, instance: object) -> str:
         '''
-            Returns type name representation of an instance type.
+            Returns the type name of the instance.
 
             :param instance: The instance to inspect.
             :return: The type name of the instance.
             :exceptions:
-                | ATSValueError: Instance must be provided.
+                | ATSValueError: The instance must be provided.
         '''
         ctx: str = 'type_validator::get_type_name(...)'
-        not_none(instance, ctx, 'instance must be provided')
+        not_none(instance, ctx, 'the instance must be provided')
 
         return type(instance).__name__
 
     def __str__(self) -> str:
         '''
-            Returns type validator as string representation.
+            Returns the type validator as a string representation.
 
-            :return: Type validator as string representation.
+            :return: The type validator as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

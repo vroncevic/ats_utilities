@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IChecker with method(s).
-    Provides an interface for checking parameters of method(s) or function(s).
+    Defines the abstract class IChecker with method(s).
+    Provides an interface for checking parameters used by method(s) or function(s).
 '''
 
 from __future__ import annotations
@@ -42,85 +42,83 @@ __status__ = 'Development'
 @runtime_checkable
 class IChecker[ConfigType, ParametersSpecification, ValidationResult](Protocol):
     '''
-        Defines abstract class IChecker with method(s).
+        Defines the abstract class IChecker with method(s).
         Provides an interface for checking parameters used by method(s) or function(s).
 
         It defines:
 
             :methods:
-                | get_bundle - Gets current checker configuration bundle.
-                | update_bundle - Updates checker configuration bundle.
-                | get_format_validator - Returns the format validator used in validation of parameters.
-                | get_type_validator - Returns the type validator used in validation of parameters.
-                | get_context_provider - Returns the context provider used in validation of parameters.
-                | get_check_reporter - Returns the check reporter used in validation of parameters.
-                | validates_parameters - Validates parameters used by method(s) or function(s).
-                | is_initialized - Checks if checker component is initialized.
-                | __str__ - Returns checker as string representation.
+                | get_bundle - Gets the current checker configuration bundle.
+                | update_bundle - Updates the checker configuration bundle.
+                | get_format_validator - Returns the format validator that is used in the validation of parameters.
+                | get_type_validator - Returns the type validator that is used in the validation of parameters.
+                | get_context_provider - Returns the context provider that is used in the validation of parameters.
+                | get_check_reporter - Returns the check reporter that is used in the validation of parameters.
+                | validates_parameters - Validates the parameters that are used by method(s) or function(s).
+                | is_initialized - Checks if the checker is initialized.
+                | __str__ - Returns the checker as a string representation.
     '''
 
     def get_bundle(self) -> ConfigType:
         '''
-            Gets current checker configuration bundle.
+            Gets the current checker configuration bundle.
 
-            :return: Checker configuration bundle.
-            :exceptions: None.
+            :return: The checker configuration bundle.
         '''
         ...
 
     def update_bundle(self, bundle: ConfigType) -> bool:
         '''
-            Updates checker configuration bundle.
+            Updates the checker configuration bundle.
 
-            :param bundle: Checker configuration bundle.
-            :exceptions: None.
+            :param bundle: The checker configuration bundle.
         '''
         ...
 
     def get_format_validator(self) -> IFormatValidator:
         '''
-            Returns the format validator used in validation of parameters.
+            Returns the format validator that is used in the validation of parameters.
 
-            :return: Format validator used in validation of parameters.
+            :return: The format validator that is used in the validation of parameters.
         '''
         ...
 
     def get_type_validator(self) -> ITypeValidator:
         '''
-            Returns the type validator used in validation of parameters.
+            Returns the type validator that is used in the validation of parameters.
 
-            :return: Type validator used in validation of parameters.
+            :return: The type validator that is used in the validation of parameters.
         '''
         ...
 
     def get_context_provider(self) -> IContextProvider:
         '''
-            Returns the context provider used in validation of parameters.
+            Returns the context provider that is used in the validation of parameters.
 
-            :return: Context provider used in validation of parameters.
+            :return: The context provider that is used in the validation of parameters.
         '''
         ...
 
     def get_check_reporter(self) -> ICheckReporter:
         '''
-            Returns the check reporter used in validation of parameters.
+            Returns the check reporter that is used in the validation of parameters.
 
-            :return: Check reporter used in validation of parameters.
+            :return: The check reporter that is used in the validation of parameters.
         '''
         ...
 
     def validates_parameters(self, parameters: ParametersSpecification) -> ValidationResult:
         '''
-            Validates parameters used by method(s) or function(s).
+            Validates the parameters that are used by method(s) or function(s).
 
-            :param parameters: Specification of parameters.
-            :return: Result of validation.
+            :param parameters: The specification of the parameters that are to be validated.
+            :return: The result of the validation.
         '''
         ...
 
     def is_initialized(self) -> bool:
         '''
-            Checks if checker component is initialized.
+            Checks if the checker is initialized.
 
             :return: True if successfully, otherwise False.
         '''
@@ -128,8 +126,8 @@ class IChecker[ConfigType, ParametersSpecification, ValidationResult](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns checker as string representation.
+            Returns the checker as a string representation.
 
-            :return: Checker as string representation.
+            :return: The checker as a string representation.
         '''
         ...

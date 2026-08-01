@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates reporter runtime components for simplification of reporter bundle creation.
+    Encapsulates reporter runtime components for simplification of the reporter bundle.
 '''
 
 from __future__ import annotations
@@ -41,16 +41,16 @@ __status__ = 'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class ReporterBundle:
     '''
-        Encapsulates reporter runtime components for simplification of reporter bundle creation.
+        Encapsulates reporter runtime components for simplification of the reporter bundle.
 
         It defines:
 
             :attributes:
-                | checker - Checker for parameters validation.
-                | theme - Theme for console output styling.
-                | logger - Logger for messages logging.
+                | checker - The checker for parameters validation.
+                | theme - The theme for console output styling.
+                | logger - The logger for messages logging.
             :methods:
-                | to_dict - Converts reporter bundle to a dictionary.
+                | to_dict - Converts the reporter bundle to a dictionary.
     '''
 
     checker: IChecker
@@ -59,11 +59,11 @@ class ReporterBundle:
 
     def to_dict(self) -> dict[str, object]:
         '''
-            Converts reporter bundle to a dictionary.
+            Converts the reporter bundle to a dictionary.
 
-            :return: Dictionary representation of the reporter bundle.
+            :return: The dictionary representation of the reporter bundle.
             :exceptions:
-                | ATSValueError: Instance must be provided.
-                | ATSValueError: Instance must be a dataclass instance.
+                | ATSValueError: The instance must be provided.
+                | ATSValueError: The instance must be a dataclass instance.
         '''
         return instance_to_dict(self)

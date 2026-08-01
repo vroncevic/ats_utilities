@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for checker bundle instance.
+    Validator for the checker bundle.
 '''
 
 from __future__ import annotations
@@ -41,44 +41,38 @@ __status__ = 'Development'
 
 class CheckerValidator:
     '''
-        Validator for checker bundle instance.
+        Validator for the checker bundle.
 
         It defines:
 
             :methods:
-                | validate - Validates checker bundle instance.
+                | validate - Validates the checker bundle.
     '''
 
     @classmethod
     def validate(cls, bundle: CheckerBundle) -> None:
         '''
-            Validates checker bundle instance.
+            Validates the checker bundle.
 
-            :param bundle: Checker bundle instance to be validated.
+            :param bundle: The checker bundle to be validated.
             :exceptions:
-                | ATSValueError: Bundle must be provided.
-                | ATSValueError: Context provider must be provided.
-                | ATSValueError: Check reporter must be provided.
-                | ATSValueError: Format validator must be provided.
-                | ATSValueError: Type validator must be provided.
-                | ATSTypeError:  Bundle must be an instance of CheckerBundle.
-                | ATSTypeError:  Context provider must be an instance of IContextProvider.
-                | ATSTypeError:  Check reporter must be an instance of ICheckReporter.
-                | ATSTypeError:  Format validator must be an instance of IFormatValidator.
-                | ATSTypeError:  Type validator must be an instance of ITypeValidator.
+                | ATSValueError: The bundle must be provided and have proper values.
+                | ATSTypeError:  The bundle must be an instance of CheckerBundle
+                |                and its attributes must be instances of their
+                |                respective types.
         '''
         ctx: str = 'checker_validator::validate(...)'
 
-        msg_bundle_none: str = 'bundle must be provided'
-        msg_bundle_istype: str = 'bundle must be an instance of CheckerBundle'
-        msg_context_provider_none: str = 'context provider must be provided'
-        msg_check_reporter_none: str = 'check reporter must be provided'
-        msg_format_validator_none: str = 'format validator must be provided'
-        msg_type_validator_none: str = 'type validator must be provided'
-        msg_context_provider_istype: str = 'context provider must be an instance of IContextProvider'
-        msg_check_reporter_istype: str = 'check reporter must be an instance of ICheckReporter'
-        msg_format_validator_istype: str = 'format validator must be an instance of IFormatValidator'
-        msg_type_validator_istype: str = 'type validator must be an instance of ITypeValidator'
+        msg_bundle_none: str = 'the bundle must be provided'
+        msg_bundle_istype: str = 'the bundle must be an instance of CheckerBundle'
+        msg_context_provider_none: str = 'the context provider must be provided'
+        msg_check_reporter_none: str = 'the check reporter must be provided'
+        msg_format_validator_none: str = 'the format validator must be provided'
+        msg_type_validator_none: str = 'the type validator must be provided'
+        msg_context_provider_istype: str = 'the context provider must be an instance of IContextProvider'
+        msg_check_reporter_istype: str = 'the check reporter must be an instance of ICheckReporter'
+        msg_format_validator_istype: str = 'the format validator must be an instance of IFormatValidator'
+        msg_type_validator_istype: str = 'the type validator must be an instance of ITypeValidator'
 
         not_none(bundle, ctx, msg_bundle_none)
         istype(bundle, CheckerBundle, ctx, msg_bundle_istype)

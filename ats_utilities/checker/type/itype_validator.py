@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ITypeValidator with method(s).
-    Provides an interface for validating parameters used by method(s) and function(s).
+    Defines the abstract class ITypeValidator with method(s).
+    Provides an interface for validating the type of parameters used by method(s) and function(s).
 '''
 
 from __future__ import annotations
@@ -37,51 +37,51 @@ __status__ = 'Development'
 @runtime_checkable
 class ITypeValidator[NameType, ValidType](Protocol):
     '''
-        Defines abstract class ITypeValidator with method(s).
-        Provides an interface for validating parameters used by method(s) and function(s).
+        Defines the abstract class ITypeValidator with method(s).
+        Provides an interface for validating the type of parameters used by method(s) and function(s).
 
         It defines:
 
             :methods:
-                | is_match - Compares instance type with expected type name.
-                | is_subtype - Checks if instance is a subtype of expected type name.
-                | get_type_name - Returns type name of an instance.
-                | __str__ - Returns type validator as string representation.
+                | is_match - Compares the type of the instance with the expected type name.
+                | is_subtype - Checks if the instance is a subtype of the expected type name.
+                | get_type_name - Returns the type name of the instance.
+                | __str__ - Returns the type validator as a string representation.
     '''
 
     def is_match(self, instance: object, expected_type_name: NameType) -> ValidType:
         '''
-            Compares instance type with expected type name.
+            Compares the type of the instance with the expected type name.
 
-            :param instance: Instance whose type is to be checked.
-            :param expected_type_name: Expected type name.
-            :return: Result of the comparison.
+            :param instance: The instance whose type is to be checked.
+            :param expected_type_name: The expected type name.
+            :return: The result of the comparison.
         '''
         ...
 
     def is_subtype(self, instance: object, expected_type_name: NameType) -> ValidType:
         '''
-            Checks if instance is a subtype of expected type name.
+            Checks if the instance is a subtype of the expected type name.
 
-            :param instance: Instance whose type is to be checked.
-            :param expected_type_name: Expected parent type name.
-            :return: Result of the comparison.
+            :param instance: The instance whose type is to be checked.
+            :param expected_type_name: The expected parent type name.
+            :return: The result of the comparison.
         '''
         ...
 
     def get_type_name(self, instance: object) -> NameType:
         '''
-            Returns type name of an instance.
+            Returns the type name of the instance.
 
-            :param instance: Instance to inspect.
-            :return: Type name of the instance.
+            :param instance: The instance to inspect.
+            :return: The type name of the instance.
         '''
         ...
 
     def __str__(self) -> str:
         '''
-            Returns type validator as string representation.
+            Returns the type validator as a string representation.
 
-            :return: Type validator as string representation.
+            :return: The type validator as a string representation.
         '''
         ...

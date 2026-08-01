@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines LoggerAdapter with attribute(s) and method(s).
+    Defines the LoggerAdapter class with attribute(s) and method(s).
     Provides an API for the logger adapter.
 '''
 
@@ -40,7 +40,7 @@ __status__ = 'Development'
 
 class LoggerAdapter:
     '''
-        Defines LoggerAdapter with attribute(s) and method(s).
+        Defines the LoggerAdapter class with attribute(s) and method(s).
         Provides an API for the logger adapter.
 
         Note: Implements a wrapper for the standard Python logging.Logger class.
@@ -50,24 +50,24 @@ class LoggerAdapter:
         It defines:
 
             :attributes:
-                | _logger - Underlying logger instance.
-                | _formatter - Formatter instance.
+                | _logger - The underlying logger instance.
+                | _formatter - The formatter instance.
             :methods:
-                | __init__ - Initializes logger adapter.
+                | __init__ - Initializes the logger adapter.
                 | log - Logs a message with a specific log level.
                 | set_level - Sets the logging level.
                 | has_handlers - Checks if the logger has any handler.
                 | add_file_handler - Adds a file handler for logging.
                 | add_stdout_handler - Adds a stdout handler for logging.
-                | __str__ - Returns Logger adapter as a string representation.
+                | __str__ - Returns the logger adapter as a string representation.
     '''
 
     def __init__(self, logger: Logger, formatter: ILogFormatter) -> None:
         '''
-            Initializes logger adapter.
+            Initializes the logger adapter.
 
-            :param logger: Underlying logger instance.
-            :param formatter: Formatter instance.
+            :param logger: The underlying logger instance.
+            :param formatter: The formatter instance.
             :exceptions: None.
         '''
         self._logger = logger
@@ -77,8 +77,8 @@ class LoggerAdapter:
         '''
             Logs a message with a specific log level.
 
-            :param level: Log level.
-            :param message: Message to log.
+            :param level: The log level.
+            :param message: The message to log.
             :exceptions: None.
         '''
         self._logger.log(level, message)
@@ -87,7 +87,7 @@ class LoggerAdapter:
         '''
             Sets the logging level.
 
-            :param level: Log level.
+            :param level: The log level.
             :exceptions: None.
         '''
         self._logger.setLevel(level)
@@ -105,7 +105,7 @@ class LoggerAdapter:
         '''
             Adds a file handler for logging.
 
-            :param log_file: Log file path.
+            :param log_file: The log file path.
             :return: True if successfully, otherwise False.
             :exceptions: None.
         '''
@@ -148,9 +148,9 @@ class LoggerAdapter:
 
     def __str__(self) -> str:
         '''
-            Returns Logger adapter as a string representation.
+            Returns the logger adapter as a string representation.
 
-            :return: Logger adapter as a string representation.
+            :return: The logger adapter as a string representation.
             :exceptions: None.
         '''
         return to_str(self)

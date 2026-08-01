@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILogFormatter with method(s).
+    Defines the abstract class ILogFormatter with method(s).
     Provides an interface for log formatting.
 '''
 
@@ -37,7 +37,7 @@ __status__ = 'Development'
 @runtime_checkable
 class ILogFormatter[LogFormatType, LogDateFormatType, MessageType](Protocol):
     '''
-        Defines abstract class ILogFormatter with method(s).
+        Defines the abstract class ILogFormatter with method(s).
         Provides an interface for log formatting.
 
         It defines:
@@ -47,7 +47,7 @@ class ILogFormatter[LogFormatType, LogDateFormatType, MessageType](Protocol):
                 | get_format - Gets the log format.
                 | set_date_format - Sets the log date format.
                 | get_date_format - Gets the log date format.
-                | __str__ - Returns log formatter as string representation.
+                | __str__ - Returns the log formatter as a string representation.
     '''
 
     def set_format(self, log_format: LogFormatType) -> None:
@@ -84,8 +84,8 @@ class ILogFormatter[LogFormatType, LogDateFormatType, MessageType](Protocol):
 
     def __str__(self) -> str:
         '''
-            Returns log formatter as string representation.
+            Returns the log formatter as a string representation.
 
-            :return: Log formatter as string representation.
+            :return: The log formatter as a string representation.
         '''
         ...

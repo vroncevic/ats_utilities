@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Logger options for logger factory bundle creation.
+    Logger options for the logger factory bundle.
 '''
 
 from __future__ import annotations
@@ -35,15 +35,15 @@ __status__ = 'Development'
 
 class LoggerOptions(TypedDict):
     '''
-        Logger options for logger factory bundle creation.
+        Logger options for the logger factory bundle.
 
         It defines:
 
             :attributes:
-                | log_file: Path to the log file.
-                | log_level: Log level.
-                | log_format: Format string for the log messages.
-                | log_datefmt: Date format string for the log messages.
+                | log_file - The path to the log file.
+                | log_level - The log level.
+                | log_format - The format string for the log messages.
+                | log_datefmt - The date format string for the log messages.
     '''
 
     log_file: NotRequired[str | None]

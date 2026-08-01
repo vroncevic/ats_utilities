@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Runtime components and interface constraints for checker bundle.
+    Runtime components and interface constraints for the checker bundle.
 '''
 
 from __future__ import annotations
@@ -42,22 +42,22 @@ __status__ = 'Development'
 
 class CheckerKeys:
     '''
-        Runtime components and interface constraints for checker bundle.
+        Runtime components and interface constraints for the checker bundle.
 
         It defines:
 
             :attributes:
-                | DEPENDENCY_FORMAT_VALIDATOR: Format validator interface constant.
-                | DEPENDENCY_TYPE_VALIDATOR: Type validator interface constant.
-                | DEPENDENCY_CONTEXT_PROVIDER: Context provider interface constant.
-                | DEPENDENCY_CHECK_REPORTER: Check reporter interface constant.
-                | OPTION_SEPARATOR: Separator option constant.
-                | OPTION_ABSTRACT_TYPES: Abstract types option constant.
-                | OPTION_STACK_INDEX_CALLER: Stack index caller option constant.
-                | OPTION_MESSAGES_PROVIDER: Messages provider option constant.
+                | DEPENDENCY_FORMAT_VALIDATOR - The format validator interface constant.
+                | DEPENDENCY_TYPE_VALIDATOR - The type validator interface constant.
+                | DEPENDENCY_CONTEXT_PROVIDER - The context provider interface constant.
+                | DEPENDENCY_CHECK_REPORTER - The check reporter interface constant.
+                | OPTION_SEPARATOR - The separator option constant.
+                | OPTION_ABSTRACT_TYPES - The abstract types option constant.
+                | OPTION_STACK_INDEX_CALLER - The stack index caller option constant.
+                | OPTION_MESSAGES_PROVIDER - The messages provider option constant.
             :methods:
-                | get_dependency_to_type - Returns mapping of checker dependencies to their types.
-                | get_option_to_type - Returns mapping of checker options to their types.
+                | get_dependency_to_type - Returns mapping of the checker dependencies to their types.
+                | get_option_to_type - Returns mapping of the checker options to their types.
     '''
 
     # Dependency Keys
@@ -75,9 +75,9 @@ class CheckerKeys:
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of checker dependencies to their types.
+            Returns mapping of the checker dependencies to their types.
 
-            :return: Mapping of checker dependencies to their types.
+            :return: Mapping of the checker dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -90,9 +90,9 @@ class CheckerKeys:
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of checker options to their types.
+            Returns mapping of the checker options to their types.
 
-            :return: Mapping of checker options to their types.
+            :return: Mapping of the checker options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

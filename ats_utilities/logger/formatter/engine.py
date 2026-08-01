@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class LogFormatter with attribute(s) and method(s).
+    Defines the LogFormatter class with attribute(s) and method(s).
     Provides an API for log formatting (removing color codes, etc.).
 '''
 
@@ -38,24 +38,23 @@ __status__ = 'Development'
 
 class LogFormatter:
     '''
-        Defines class LogFormatter with attribute(s) and method(s).
+        Defines the LogFormatter class with attribute(s) and method(s).
         Provides an API for log formatting.
 
         It defines:
 
             :attributes:
-                | _ANSI_ESCAPE - Regex pattern for ANSI escape codes.
-                | DEFAULT_LOG_FORMAT - Default log message format.
-                | DEFAULT_LOG_DATEFMT - Default log message date format.
-                | _log_format - Log message format.
-                | _log_datefmt - Log message date format.
+                | DEFAULT_LOG_FORMAT - The default log message format.
+                | DEFAULT_LOG_DATEFMT - The default log message date format.
+                | _log_format - The log message format.
+                | _log_datefmt - The log message date format.
             :methods:
-                | __init__ - Initializes log formatter.
+                | __init__ - Initializes the log formatter.
                 | set_format - Sets the log format.
                 | get_format - Gets the log format.
                 | set_date_format - Sets the log date format.
                 | get_date_format - Gets the log date format.
-                | __str__ - Returns log formatter as string representation.
+                | __str__ - Returns the log formatter as a string representation.
     '''
 
     DEFAULT_LOG_FORMAT: str = '%(asctime)s - %(levelname)s - %(message)s'
@@ -65,19 +64,19 @@ class LogFormatter:
 
     def __init__(self, log_format: str | None, log_datefmt: str | None) -> None:
         '''
-            Initializes log formatter.
+            Initializes the log formatter.
 
-            :param log_format: Log message format.
-            :param log_datefmt: Log message date format.
+            :param log_format: The log message format.
+            :param log_datefmt: The log message date format.
             :exceptions:
-                | ATSTypeError: Log format or date format is not a string.
-                | ATSValueError: Log format or date format is empty.
+                | ATSTypeError: The log format or the date format is not a string.
+                | ATSValueError: The log format or the date format is empty.
         '''
         ctx: str = 'log_formatter::init(...)'
 
         if log_format is not None:
-            msg_log_format_istype: str = 'log format must be a string'
-            msg_log_format_empty: str = 'log format cannot be empty'
+            msg_log_format_istype: str = 'the log format must be a string'
+            msg_log_format_empty: str = 'the log format cannot be empty'
 
             istype(log_format, str, ctx, msg_log_format_istype)
             not_empty(log_format, ctx, msg_log_format_empty)
@@ -87,8 +86,8 @@ class LogFormatter:
             self._log_format = self.DEFAULT_LOG_FORMAT
 
         if log_datefmt is not None:
-            msg_log_datefmt_istype: str = 'log date format must be a string'
-            msg_log_datefmt_empty: str = 'log date format cannot be empty'
+            msg_log_datefmt_istype: str = 'the log date format must be a string'
+            msg_log_datefmt_empty: str = 'the log date format cannot be empty'
 
             istype(log_datefmt, str, ctx, msg_log_datefmt_istype)
             not_empty(log_datefmt, ctx, msg_log_datefmt_empty)
@@ -103,14 +102,14 @@ class LogFormatter:
 
             :param log_format: The log format.
             :exceptions:
-                | ATSValueError: Log format must be provided and not empty.
-                | ATSTypeError:  Log format must be a string.
+                | ATSValueError: The log format must be provided and not empty.
+                | ATSTypeError:  The log format must be a string.
         '''
         ctx: str = 'log_formatter::set_format(...)'
 
-        msg_log_format_none: str = 'log format must be provided'
-        msg_log_format_istype: str = 'log format must be a string'
-        msg_log_format_empty: str = 'log format cannot be empty'
+        msg_log_format_none: str = 'the log format must be provided'
+        msg_log_format_istype: str = 'the log format must be a string'
+        msg_log_format_empty: str = 'the log format cannot be empty'
 
         not_none(log_format, ctx, msg_log_format_none)
         istype(log_format, str, ctx, msg_log_format_istype)
@@ -133,14 +132,14 @@ class LogFormatter:
 
             :param log_datefmt: The log date format.
             :exceptions:
-                | ATSValueError: Log date format must be provided and not empty.
-                | ATSTypeError:  Log date format must be a string.
+                | ATSValueError: The log date format must be provided and not empty.
+                | ATSTypeError:  The log date format must be a string.
         '''
         ctx: str = 'log_formatter::set_date_format(...)'
 
-        msg_log_datefmt_none: str = 'log date format must be provided'
-        msg_log_datefmt_istype: str = 'log date format must be a string'
-        msg_log_datefmt_empty: str = 'log date format cannot be empty'
+        msg_log_datefmt_none: str = 'the log date format must be provided'
+        msg_log_datefmt_istype: str = 'the log date format must be a string'
+        msg_log_datefmt_empty: str = 'the log date format cannot be empty'
 
         not_none(log_datefmt, ctx, msg_log_datefmt_none)
         istype(log_datefmt, str, ctx, msg_log_datefmt_istype)
@@ -159,9 +158,9 @@ class LogFormatter:
 
     def __str__(self) -> str:
         '''
-            Returns log formatter as string representation.
+            Returns the log formatter as a string representation.
 
-            :return: Log formatter as string representation.
+            :return: The log formatter as a string representation.
             :exceptions: None.
         '''
         return to_str(self)
