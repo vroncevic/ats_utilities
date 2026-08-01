@@ -1,5 +1,8 @@
 name: ats_utilities_isp_checker
 
+permissions:
+  contents: read
+
 on:
   push:
     branches: [ master ]
