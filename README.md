@@ -664,17 +664,17 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/info/version/iversion.py` | 18 | 0 | 100%|
 | `ats_utilities/logger/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/logger/buffer/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/logger/buffer/engine.py` | 39 | 10 | 67%|
+| `ats_utilities/logger/buffer/engine.py` | 39 | 0 | 100%|
 | `ats_utilities/logger/buffer/ibuffer.py` | 19 | 0 | 100%|
 | `ats_utilities/logger/engine.py` | 80 | 6 | 89%|
 | `ats_utilities/logger/formatter/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/logger/formatter/engine.py` | 54 | 17 | 71%|
+| `ats_utilities/logger/formatter/engine.py` | 54 | 0 | 100%|
 | `ats_utilities/logger/formatter/iformatter.py` | 17 | 0 | 100%|
 | `ats_utilities/logger/handler/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/logger/handler/engine.py` | 27 | 3 | 89%|
 | `ats_utilities/logger/handler/ihandler_manager.py` | 15 | 0 | 100%|
 | `ats_utilities/logger/ilogger.py` | 21 | 0 | 100%|
-| `ats_utilities/logger/processor/engine.py` | 46 | 18 | 58%|
+| `ats_utilities/logger/processor/engine.py` | 46 | 0 | 100%|
 | `ats_utilities/logger/processor/imessage_processor.py` | 16 | 0 | 100%|
 | `ats_utilities/logger/setup/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/logger/setup/bundle.py` | 26 | 0 | 100%|
@@ -686,7 +686,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/logger/setup/options.py` | 15 | 0 | 100%|
 | `ats_utilities/logger/setup/registry.py` | 21 | 0 | 100%|
 | `ats_utilities/logger/setup/validator.py` | 48 | 0 | 100%|
-| `ats_utilities/logger/underlying/engine.py` | 51 | 17 | 67%|
+| `ats_utilities/logger/underlying/engine.py` | 51 | 0 | 100%|
 | `ats_utilities/logger/underlying/iunderlying.py` | 10 | 0 | 100%|
 | `ats_utilities/option/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/command/__init__.py` | 9 | 0 | 100%|
@@ -783,7 +783,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/validation/check_type.py` | 28 | 0 | 100%|
 | `ats_utilities/validation/check_value.py` | 22 | 0 | 100%|
 | `ats_utilities/validation/context_error.py` | 14 | 0 | 100%|
-| **Total** | 7730 | 170 | 97% |
+| **Total** | 7730 | 108 | 98% |
 
 </details>
 

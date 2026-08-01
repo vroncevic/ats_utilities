@@ -67,7 +67,7 @@ class LogBuffer:
 
             :param limit: The maximum number of messages to buffer.
             :exceptions:
-                | ATSValueError: The limit must be an integer.
+                | ATSTypeError: The limit must be an integer.
         '''
         if limit is not None:
             ctx: str = 'log_buffer::init(...)'
