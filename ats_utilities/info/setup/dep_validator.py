@@ -60,8 +60,8 @@ class InfoDependenciesValidator:
                 |                attributes must be instances of their respective types.
         '''
         ctx: str = 'info_dependencies_validator::validate(...)'
-        msg_dependencies_none: str = 'dependencies must be provided'
-        msg_dependencies_not_mapping: str = 'dependencies must be an instance of Mapping'
+        msg_dependencies_none: str = 'the dependencies must be provided'
+        msg_dependencies_not_mapping: str = 'the dependencies must be an instance of Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_not_mapping)

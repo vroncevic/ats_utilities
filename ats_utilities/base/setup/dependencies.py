@@ -57,4 +57,4 @@ class BaseDependencies(TypedDict):
     info_manager: IInfoManager
     option_manager: IOptionManager
     splash_manager: ISplashManager
-    generation_manager: IGeneratorManager
+    generation_manager: IGeneratorManager | None

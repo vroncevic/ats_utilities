@@ -43,8 +43,10 @@ class BaseOptions(TypedDict):
 
             :attributes:
                 | info_file - The information file path for the App/Tool/Script.
+                | use_generator - Use the configuration generator to generate configuration files.
                 | context_bundle - The context bundle.
     '''
 
     info_file: str
+    use_generator: bool
     context_bundle: ContextBundle

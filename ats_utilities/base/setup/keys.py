@@ -53,6 +53,7 @@ class BaseKeys:
                 | DEPENDENCY_SPLASH_MANAGER - The splash manager interface constant.
                 | DEPENDENCY_GENERATION_MANAGER - The generator manager interface constant.
                 | OPTION_INFO_FILE - The information file constant.
+                | OPTION_USE_GENERATOR - The use generator constant.
                 | OPTION_CONTEXT_BUNDLE - The context bundle constant.
             :methods:
                 | get_dependency_to_type - Returns mapping of base bundle dependencies to their types.
@@ -68,6 +69,7 @@ class BaseKeys:
 
     # Option Keys
     OPTION_INFO_FILE: ClassVar[str] = 'info_file'
+    OPTION_USE_GENERATOR: ClassVar[str] = 'use_generator'
     OPTION_CONTEXT_BUNDLE: ClassVar[str] = 'context_bundle'
 
     @classmethod
@@ -96,5 +98,6 @@ class BaseKeys:
         '''
         return MappingProxyType({
             cls.OPTION_INFO_FILE: str,
+            cls.OPTION_USE_GENERATOR: bool,
             cls.OPTION_CONTEXT_BUNDLE: ContextBundle,
         })

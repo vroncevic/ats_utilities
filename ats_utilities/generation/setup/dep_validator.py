@@ -61,15 +61,15 @@ class GeneratorDependenciesValidator:
                 |                must be instances of their respective types.
         '''
         ctx: str = 'generator_dependencies_validator::validate(...)'
-        msg_dependencies_none: str = 'dependencies must be provided'
-        msg_dependencies_istype: str = 'dependencies must be a Mapping'
+        msg_dependencies_none: str = 'the dependencies must be provided'
+        msg_dependencies_istype: str = 'the dependencies must be a Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
         for attr_name, expected_type in GeneratorKeys.get_dependency_to_type().items():
-            msg_attr_name_none: str = f'{attr_name.replace("_", " ")} must be provided'
-            msg_attr_name_istype: str = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+            msg_attr_name_none: str = f'the {attr_name.replace("_", " ")} must be provided'
+            msg_attr_name_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute = dependencies.get(attr_name)
 

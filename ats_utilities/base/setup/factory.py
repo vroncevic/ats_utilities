@@ -86,6 +86,7 @@ class BaseFactory:
         BaseOptionsValidator.validate(options)
 
         info_file: str = options.get(BaseKeys.OPTION_INFO_FILE)
+        use_generator: bool = options.get(BaseKeys.OPTION_USE_GENERATOR)
         context_bundle: ContextBundle = options.get(BaseKeys.OPTION_CONTEXT_BUNDLE)
 
         config_loader: Loader = Loader(
@@ -123,7 +124,7 @@ class BaseFactory:
             own=GeneratorFactory.create_bundle(
                 options=GeneratorOptions(context_bundle=context_bundle)
             )
-        )
+        ) if use_generator else None
 
         if hasattr(context_bundle.logger, 'stop_buffering'):
             context_bundle.logger.stop_buffering()

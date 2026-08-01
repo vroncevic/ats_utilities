@@ -68,7 +68,7 @@ class BaseOptionsValidator:
         istype(options, Mapping, ctx, msg_options_istype)
 
         for attr_name, expected_type in BaseKeys.get_option_to_type().items():
-            msg_attr_name_istype: str = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
+            msg_attr_name_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute = options.get(attr_name)
 

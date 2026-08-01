@@ -56,22 +56,25 @@ class BaseDependenciesValidator:
 
             :param dependencies: The base dependencies.
             :exceptions:
-                | ATSValueError: Base dependencies must be provided and have proper values.
-                | ATSTypeError:  Base dependencies must be an instance of Mapping and its attributes
+                | ATSValueError: The base dependencies must be provided and have proper values.
+                | ATSTypeError:  The base dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
         ctx: str = 'base_dependencies_validator::validate(...)'
-        msg_dependencies_none: str = 'dependencies must be provided'
-        msg_dependencies_istype: str = 'dependencies must be a Mapping'
+        msg_dependencies_none: str = 'the dependencies must be provided'
+        msg_dependencies_istype: str = 'the dependencies must be a Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
         for attr_name, expected_type in BaseKeys.get_dependency_to_type().items():
-            msg_attr_name_none: str = f'{attr_name.replace("_", " ")} must be provided'
-            msg_attr_name_istype: str = f'{attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
-
             attribute = dependencies.get(attr_name)
+
+            if attr_name == BaseKeys.DEPENDENCY_GENERATION_MANAGER and attribute is None:
+                continue
+
+            msg_attr_name_none: str = f'the {attr_name.replace("_", " ")} must be provided'
+            msg_attr_name_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             not_none(attribute, ctx, msg_attr_name_none)
             istype(attribute, expected_type, ctx, msg_attr_name_istype)

@@ -72,7 +72,7 @@ class Base:
     _info_manager: IInfoManager
     _splash_manager: ISplashManager
     _option_manager: IOptionManager
-    _generation_manager: IGeneratorManager
+    _generation_manager: IGeneratorManager | None
 
     def __init__(self, own: BaseBundle) -> None:
         '''
