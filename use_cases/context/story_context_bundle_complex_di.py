@@ -42,8 +42,8 @@ __status__ = 'Development'
 # [with complex DI]
 # ==================
 #
-mychecker: Checker = Checker(own=CheckerFactory.create_default_bundle())
-mylogger: Logger = Logger(own=LoggerFactory.create_default_bundle())
+mychecker: Checker = Checker(own=CheckerFactory.create_bundle())
+mylogger: Logger = Logger(own=LoggerFactory.create_bundle())
 mytheme: ConsoleTheme = ConsoleTheme()
 myreporter: Reporter = Reporter(
     own=ReporterRegistry.create_bundle({

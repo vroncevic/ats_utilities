@@ -37,7 +37,7 @@ __status__ = 'Development'
 # default [without DI]
 # ======================
 #
-ats_context_bundle: ContextBundle = ContextFactory.create_default_bundle()
+ats_context_bundle: ContextBundle = ContextFactory.create_bundle()
 print(ats_context_bundle)
 print(ats_context_bundle.checker)
 print(ats_context_bundle.reporter)
@@ -69,7 +69,7 @@ print(100 * '=')
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSValueError
 from ats_utilities.utils.reflection import instance_to_dict
 
 
@@ -82,7 +82,7 @@ class ReadOnlyAttribute:
     def __get__(self, instance: object, owner: object = None) -> object:
         if instance is None:
             return self
-        return.__dict__.get(self.name)
+        return instance.__dict__.get(self.name)
 
     def __set__(self, instance: object, value: object) -> None:
         ctx: str = 'context_bundle::__setattr__(...)'
@@ -121,15 +121,17 @@ class ContextBundle:
 # ==========================
 #
 
-from typing import object
 from dataclasses import dataclass
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSValueError
 
 
 class ImmutableMeta(type):
     '''Metaclass that enforces strict immutability.'''
 
     def __setattr__(cls, name: str, value: object) -> None:
+        if name.startswith('__') and name.endswith('__'):
+            super().__setattr__(name, value)
+            return
         ctx: str = 'context_bundle::__setattr__(...)'
         raise ATSValueError(f'{ctx} cannot modify immutable attribute: {name}')
 
@@ -151,11 +153,10 @@ class ContextBundle(metaclass=ImmutableMeta):
 # ====================================
 #
 
-from typing import object
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSValueError
 
 
 class ContextBundle:

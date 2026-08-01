@@ -26,7 +26,7 @@ from os.path import exists
 from collections.abc import Mapping
 
 from ats_utilities.config_io.loader.engine import Loader
-from ats_utilities.config_io.setup.registry import ConfigIORegistry
+from ats_utilities.config_io.setup.factory import ConfigIOFactory
 from ats_utilities.exceptions import ATSGeneratorError
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.validator import ContextValidator
@@ -108,10 +108,12 @@ class SchemeLoader:
 
             try:
                 config_loader: Loader = Loader(
-                    ConfigIORegistry.create_config_io_bundle_by_file_path_and_scheme(
-                        file_path=scheme,
-                        scheme={},
-                        context_bundle=self._context
+                    ConfigIOFactory.create_bundle(
+                        {
+                            'file_path': scheme,
+                            'scheme': {},
+                            'context_bundle': self._context
+                        }
                     )
                 )
                 not_satisfied(config_loader is None, context, msg_config_loader_none)

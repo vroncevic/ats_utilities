@@ -31,11 +31,10 @@ from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.reporter.theme.engine import ConsoleTheme
-from ats_utilities.reporter.reporter_bundle import ReporterBundle
+from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.utils.component import make_component, validate_component
 from ats_utilities.utils.reflection import has_attrs
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -57,10 +56,10 @@ class TestComponent:
 
         :exceptions: None.
         '''
-        checker_bundle = CheckerFactory.create_default_bundle()
+        checker_bundle = CheckerFactory.create_bundle()
         self._checker: IChecker = make_component(None, Checker, {'own': checker_bundle})
         self._theme: IConsoleTheme = make_component(None, ConsoleTheme, None)
-        logger_bundle = LoggerFactory.create_default_bundle()
+        logger_bundle = LoggerFactory.create_bundle()
         logger_instance = make_component(None, Logger, {'own': logger_bundle})
         reporter_bundle = ReporterBundle(theme=self._theme, checker=self._checker, logger=logger_instance)
         self._reporter: IReporter = make_component(None, Reporter, {'own': reporter_bundle})

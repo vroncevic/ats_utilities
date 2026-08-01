@@ -25,7 +25,7 @@ import tempfile
 from ats_utilities.generation.engine import GeneratorManager
 from ats_utilities.generation.setup.bundle import GeneratorBundle
 from ats_utilities.generation.setup.factory import GeneratorFactory
-from ats_utilities.generation.gen_params_registry import GenParamsRegistry
+from ats_utilities.generation.data import GeneratorData
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.context.factory import ContextFactory
 
@@ -40,14 +40,14 @@ __status__ = 'Development'
 
 # Paths to the generated archive and scheme
 dir_path = os.path.dirname(os.path.abspath(__file__))
-context_bundle: ContextBundle = ContextFactory.create_default_bundle()
+context_bundle: ContextBundle = ContextFactory.create_bundle()
 
 #
 # Use Case 1: High-level generation using GeneratorManager orchestrator
 # ==============================================================
 #
 print("Use Case 1: High-level generation using GeneratorManager orchestrator:")
-generator_bundle: GeneratorBundle = GeneratorFactory.create_default_generator_bundle(context_bundle)
+generator_bundle: GeneratorBundle = GeneratorFactory.create_bundle({"context_bundle": context_bundle})
 generator = GeneratorManager(own=generator_bundle)
 status: bool = False
 
@@ -65,7 +65,7 @@ print(f"Project Name: {template_values1['project_name']}")
 
 # Run generator for use case 1
 status = generator.generate(
-    GenParamsRegistry.create_gen_params_bundle(
+    GeneratorData(
         archive_path=archive1,
         target_dir=target_dir1,
         template_key=template_key1,
@@ -112,7 +112,7 @@ print(f"Service Name: {template_values2['service_name']}")
 
 # Run generator for use case 2
 status = generator.generate(
-    GenParamsRegistry.create_gen_params_bundle(
+    GeneratorData(
         archive_path=archive2,
         target_dir=target_dir2,
         template_key='mini_service',

@@ -75,7 +75,7 @@ class IVersion[VersionType](Protocol):
             Note: The version is only prepared when it is set by the user (not None).
 
             :return: True if successful, otherwise False.
-]        '''
+        '''
         ...
 
     def __str__(self) -> str:

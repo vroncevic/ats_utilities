@@ -80,7 +80,7 @@ class TestSchemeLoader(unittest.TestCase):
             loader.load(invalid_extension_path)
 
     @patch("ats_utilities.generation.scheme.engine.Loader")
-    @patch("ats_utilities.generation.scheme.engine.ConfigIORegistry")
+    @patch("ats_utilities.generation.scheme.engine.ConfigIOFactory")
     @patch("ats_utilities.generation.scheme.engine.exists", return_value=True)
     def test_load_from_json_file_success(
         self, mock_exists: MagicMock, 
@@ -91,7 +91,7 @@ class TestSchemeLoader(unittest.TestCase):
         loader = SchemeLoader(self.mock_context_bundle)
         
         mock_bundle = MagicMock()
-        mock_registry.create_config_io_bundle_by_file_path_and_scheme.return_value = mock_bundle
+        mock_registry.create_bundle.return_value = mock_bundle
         
         mock_config_loader = MagicMock(spec=Loader)
         mock_config_loader.load_configuration.return_value = self.valid_dict_scheme
@@ -101,17 +101,19 @@ class TestSchemeLoader(unittest.TestCase):
         result = loader.load(self.valid_file_path)
 
         # Assert
-        mock_registry.create_config_io_bundle_by_file_path_and_scheme.assert_called_once_with(
-            file_path=self.valid_file_path,
-            scheme={},
-            context_bundle=self.mock_context_bundle
+        mock_registry.create_bundle.assert_called_once_with(
+            {
+                'file_path': self.valid_file_path,
+                'scheme': {},
+                'context_bundle': self.mock_context_bundle
+            }
         )
         mock_loader_cls.assert_called_once_with(mock_bundle)
         mock_config_loader.load_configuration.assert_called_once()
         self.assertEqual(result, self.valid_dict_scheme)
 
     @patch("ats_utilities.generation.scheme.engine.Loader", return_value=None)
-    @patch("ats_utilities.generation.scheme.engine.ConfigIORegistry")
+    @patch("ats_utilities.generation.scheme.engine.ConfigIOFactory")
     @patch("ats_utilities.generation.scheme.engine.exists", return_value=True)
     def test_load_fails_when_config_loader_setup_is_none(
         self, mock_exists: MagicMock, 
@@ -124,7 +126,7 @@ class TestSchemeLoader(unittest.TestCase):
             loader.load(self.valid_file_path)
 
     @patch("ats_utilities.generation.scheme.engine.format_error_raw")
-    @patch("ats_utilities.generation.scheme.engine.ConfigIORegistry")
+    @patch("ats_utilities.generation.scheme.engine.ConfigIOFactory")
     @patch("ats_utilities.generation.scheme.engine.exists", return_value=True)
     def test_load_catches_internal_exceptions_and_raises_generator_error(
         self, mock_exists: MagicMock, 
@@ -133,7 +135,7 @@ class TestSchemeLoader(unittest.TestCase):
         """Test that internal unexpected crashes are transformed and raised as ATSGeneratorError."""
         # Arrange
         loader = SchemeLoader(self.mock_context_bundle)
-        mock_registry.create_config_io_bundle_by_file_path_and_scheme.side_effect = RuntimeError("IO Error")
+        mock_registry.create_bundle.side_effect = RuntimeError("IO Error")
         mock_format_error.return_value = "Formatted String Error Description"
 
         # Act & Assert

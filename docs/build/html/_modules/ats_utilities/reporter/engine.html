@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ats_utilities.reporter.engine &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/classic.css?v=514cf933" />
+    
+    <script src="../../../_static/documentation_options.js?v=893dd00a"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.reporter.engine</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ats_utilities.reporter.engine</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Module</span>
+<span class="sd">    engine.py</span>
+<span class="sd">Copyright</span>
+<span class="sd">    Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
+<span class="sd">    ats_utilities is free software: you can redistribute it and/or modify it</span>
+<span class="sd">    under the terms of the GNU General Public License as published by the</span>
+<span class="sd">    Free Software Foundation, either version 3 of the License, or</span>
+<span class="sd">    (at your option) any later version.</span>
+<span class="sd">    ats_utilities is distributed in the hope that it will be useful, but</span>
+<span class="sd">    WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="sd">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
+<span class="sd">    See the GNU General Public License for more details.</span>
+<span class="sd">    You should have received a copy of the GNU General Public License along</span>
+<span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="sd">Info</span>
+<span class="sd">    Defines the Reporter class with attribute(s) and method(s).</span>
+<span class="sd">    Implements an API for the reporting of messages.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">DEBUG</span><span class="p">,</span> <span class="n">INFO</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">ERROR</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.bundle</span> <span class="kn">import</span> <span class="n">ReporterBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.validator</span> <span class="kn">import</span> <span class="n">ReporterValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.iconsole_theme</span> <span class="kn">import</span> <span class="n">IConsoleTheme</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.types</span> <span class="kn">import</span> <span class="n">MessageKey</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSTypeError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">mcheck</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.4.4&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
+
+
+<div class="viewcode-block" id="Reporter">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter">[docs]</a>
+<span class="k">class</span> <span class="nc">Reporter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Defines the Reporter class with attribute(s) and method(s).</span>
+<span class="sd">        Implements an API for the reporting of messages.</span>
+
+<span class="sd">        It defines:</span>
+
+<span class="sd">            :attributes:</span>
+<span class="sd">                | _checker - The parameters checker.</span>
+<span class="sd">                | _theme - The theme for the styling of messages.</span>
+<span class="sd">                | _logger - The logger for the reporting of messages.</span>
+<span class="sd">                | _is_initialized - The indication of whether the reporter is initialized.</span>
+<span class="sd">            :methods:</span>
+<span class="sd">                | __init__ - Initializes the reporter.</span>
+<span class="sd">                | get_bundle - Gets the current reporter configuration bundle.</span>
+<span class="sd">                | update_bundle - Updates the reporter configuration bundle.</span>
+<span class="sd">                | _apply_bundle - Applies the bundle configuration to the instance attributes.</span>
+<span class="sd">                | _report - Utility method for the reporting of messages.</span>
+<span class="sd">                | verbose - Reports a verbose message.</span>
+<span class="sd">                | success - Reports a success message.</span>
+<span class="sd">                | warning - Reports a warning message.</span>
+<span class="sd">                | error - Reports an error message.</span>
+<span class="sd">                | set_level - Sets the message reporting level.</span>
+<span class="sd">                | is_initialized - Checks if the reporter is initialized.</span>
+<span class="sd">                | __str__ - Returns the reporter as a string representation.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_theme</span><span class="p">:</span> <span class="n">IConsoleTheme</span>
+    <span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span>
+    <span class="n">_is_initialized</span><span class="p">:</span> <span class="nb">bool</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">own</span><span class="p">:</span> <span class="n">ReporterBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Initializes the reporter.</span>
+
+<span class="sd">            :param own: The reporter bundle.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Reporter bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  Reporter bundle must be an instance of ReporterBundle</span>
+<span class="sd">                |                and its attributes must be instances of their</span>
+<span class="sd">                |                respective types.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">ReporterValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_bundle</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="Reporter.get_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter.get_bundle">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ReporterBundle</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Gets the current reporter configuration bundle.</span>
+
+<span class="sd">            :return: The ReporterBundle containing the current reporter setup.</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">ReporterBundle</span><span class="p">(</span>
+            <span class="n">checker</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">,</span>
+            <span class="n">theme</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="p">,</span>
+            <span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Reporter.update_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter.update_bundle">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="n">ReporterBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Updates the reporter configuration using a reporter bundle.</span>
+
+<span class="sd">            :param bundle: The reporter bundle with reporter and reporting parameters.</span>
+<span class="sd">            :return: True if the configuration was successfully updated, otherwise False.</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ReporterValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_apply_bundle</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="p">(</span><span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSTypeError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Reporter._apply_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter._apply_bundle">[docs]</a>
+    <span class="k">def</span> <span class="nf">_apply_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="n">ReporterBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Applies the bundle configuration to the instance attributes.</span>
+
+<span class="sd">            :param bundle: The reporter bundle with reporter and reporting parameters.</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_checker</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">checker</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">theme</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">logger</span></div>
+
+
+<div class="viewcode-block" id="Reporter._report">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter._report">[docs]</a>
+    <span class="k">def</span> <span class="nf">_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">object</span><span class="p">],</span> <span class="n">color</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Utility method for the reporting of the message to the log and console.</span>
+
+<span class="sd">            :param message: The sequence with the message components.</span>
+<span class="sd">            :param color: The theme color for the message.</span>
+<span class="sd">            :param ctrl: The log control flag.</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">message_out</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">message</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">message_out</span><span class="p">:</span>
+            <span class="n">reset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="n">MessageKey</span><span class="o">.</span><span class="n">RESET</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">color</span><span class="si">}{</span><span class="n">message_out</span><span class="si">}{</span><span class="n">reset</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Reporter.verbose">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter.verbose">[docs]</a>
+    <span class="nd">@mcheck</span><span class="p">([(</span><span class="s1">&#39;bool:is_verbose&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Sequence:message&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Reports a verbose message to the console.</span>
+
+<span class="sd">            :param is_verbose: The Enable/Disable the verbose option.</span>
+<span class="sd">            :param message: The sequence with the message components.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError:      The parameter type validation failed.</span>
+<span class="sd">                | ATSValueError:     The parameter format validation failed.</span>
+<span class="sd">                | ATSRuntimeError:   The decorator was used on a non-class method.</span>
+<span class="sd">                | ATSAttributeError: The class does not provide a &#39;_checker&#39; object.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">is_verbose</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="n">MessageKey</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">),</span> <span class="n">DEBUG</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Reporter.success">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter.success">[docs]</a>
+    <span class="nd">@mcheck</span><span class="p">([(</span><span class="s1">&#39;Sequence:message&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Reports a success message to the console.</span>
+
+<span class="sd">            :param message: The sequence with the message components.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError:      The parameter type validation failed.</span>
+<span class="sd">                | ATSValueError:     The parameter format validation failed.</span>
+<span class="sd">                | ATSRuntimeError:   The decorator was used on a non-class method.</span>
+<span class="sd">                | ATSAttributeError: The class does not provide a &#39;_checker&#39; object.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="n">MessageKey</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">),</span> <span class="n">INFO</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Reporter.warning">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter.warning">[docs]</a>
+    <span class="nd">@mcheck</span><span class="p">([(</span><span class="s1">&#39;Sequence:message&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="k">def</span> <span class="nf">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Reports a warning message to the console.</span>
+
+<span class="sd">            :param message: The sequence with the message components.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError:      The parameter type validation failed.</span>
+<span class="sd">                | ATSValueError:     The parameter format validation failed.</span>
+<span class="sd">                | ATSRuntimeError:   The decorator was used on a non-class method.</span>
+<span class="sd">                | ATSAttributeError: The class does not provide a &#39;_checker&#39; object.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="n">MessageKey</span><span class="o">.</span><span class="n">WARNING</span><span class="p">),</span> <span class="n">WARNING</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Reporter.error">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter.error">[docs]</a>
+    <span class="nd">@mcheck</span><span class="p">([(</span><span class="s1">&#39;Sequence:message&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Reports an error message to the console.</span>
+
+<span class="sd">            :param message: The sequence with the message components.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError:      The parameter type validation failed.</span>
+<span class="sd">                | ATSValueError:     The parameter format validation failed.</span>
+<span class="sd">                | ATSRuntimeError:   The decorator was used on a non-class method.</span>
+<span class="sd">                | ATSAttributeError: The class does not provide a &#39;_checker&#39; object.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="n">MessageKey</span><span class="o">.</span><span class="n">ERROR</span><span class="p">),</span> <span class="n">ERROR</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Reporter.set_level">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter.set_level">[docs]</a>
+    <span class="nd">@mcheck</span><span class="p">([(</span><span class="s1">&#39;int:level&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Sets the log level.</span>
+
+<span class="sd">            :param level: The log level.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError:      The parameter type validation failed.</span>
+<span class="sd">                | ATSValueError:     The parameter format validation failed.</span>
+<span class="sd">                | ATSRuntimeError:   The decorator was used on a non-class method.</span>
+<span class="sd">                | ATSAttributeError: The class does not provide a &#39;_checker&#39; object.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;set_level&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;setLevel&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Reporter.is_initialized">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter.is_initialized">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Checks if the reporter is initialized.</span>
+
+<span class="sd">            :return: True if successful, otherwise False.</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the reporter as a string representation.</span>
+
+<span class="sd">            :return: The reporter as a string representation.</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">to_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.reporter.engine</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

@@ -52,10 +52,12 @@ class InfoKeys:
     '''
         Defines the InfoKeys class with attribute(s) and method(s).
         Provides constants for information keys required for setup and configuration.
+
         Here we have three groups of keys:
             | - dependency keys
             | - option keys
             | - information (configuration) keys
+
         The main difference is in their usage:
             | - dependency keys are used to define dependencies of the class
             | - option keys are used to define options of the class

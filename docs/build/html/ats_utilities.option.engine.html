@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ats_utilities.option.engine module &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=514cf933" />
+    
+    <script src="_static/documentation_options.js?v=893dd00a"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ats_utilities.option.imanager module" href="ats_utilities.option.imanager.html" />
+    <link rel="prev" title="ats_utilities.option.underlying.iunderlying module" href="ats_utilities.option.underlying.iunderlying.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.option.imanager.html" title="ats_utilities.option.imanager module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.option.underlying.iunderlying.html" title="ats_utilities.option.underlying.iunderlying module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ats_utilities.html" >ats_utilities package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="ats_utilities.option.html" accesskey="U">ats_utilities.option package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.option.engine module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-ats_utilities.option.engine">
+<span id="ats-utilities-option-engine-module"></span><h1>ats_utilities.option.engine module<a class="headerlink" href="#module-ats_utilities.option.engine" title="Link to this heading">¶</a></h1>
+<dl class="simple">
+<dt>Module</dt><dd><p>engine.py</p>
+</dd>
+<dt>Copyright</dt><dd><p>Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+ats_utilities is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ats_utilities is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
+</dd>
+<dt>Info</dt><dd><p>Defines the OptionManager class with attribute(s) and method(s).
+Creates an option parser based on the argparse argument processor.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.option.engine.</span></span><span class="sig-name descname"><span class="pre">OptionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">own</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.option.setup.bundle.html#ats_utilities.option.setup.bundle.OptionBundle" title="ats_utilities.option.setup.bundle.OptionBundle"><span class="pre">OptionBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines the OptionManager class with attribute(s) and method(s).
+Creates an option parser based on the argparse argument processor.</p>
+<p>It defines:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
+<div class="line">_is_initialized - The indicates if the option manager component is initialized (default: False).</div>
+<div class="line">_bundle - The bundle with components for option manager.</div>
+<div class="line">_context - The context bundle with context.</div>
+<div class="line">_strategy - The strategy for argument parsing (default ParserStrategy).</div>
+</div>
+</dd>
+<dt class="field-even">methods<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">__init__ - Initializes the OptionManager.</div>
+<div class="line">get_bundle - Gets current option configuration bundle.</div>
+<div class="line">update_bundle - Updates option configuration bundle.</div>
+<div class="line">get_context - Returns the context.</div>
+<div class="line">add_operation - Adds an option to the parser.</div>
+<div class="line">add_version_operation - Adds version option to the parser.</div>
+<div class="line">parse_input_args - Processes arguments from the start.</div>
+<div class="line">parse_args - Processes arguments from the start.</div>
+<div class="line">parse_command - Parses arguments as a command.</div>
+<div class="line">register_commands - Registers a list of commands with the parser.</div>
+<div class="line">is_initialized - Checks if the option manager component is initialized.</div>
+<div class="line">__str__ - Returns the option manager as a string representation.</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager._apply_bundle">
+<span class="sig-name descname"><span class="pre">_apply_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.option.setup.bundle.html#ats_utilities.option.setup.bundle.OptionBundle" title="ats_utilities.option.setup.bundle.OptionBundle"><span class="pre">OptionBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager._apply_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager._apply_bundle" title="Link to this definition">¶</a></dt>
+<dd><p>Applies the option configuration bundle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bundle</strong> – The option configuration bundle.</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager._bundle">
+<span class="sig-name descname"><span class="pre">_bundle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.option.setup.bundle.html#ats_utilities.option.setup.bundle.OptionBundle" title="ats_utilities.option.setup.bundle.OptionBundle"><span class="pre">OptionBundle</span></a></em><a class="headerlink" href="#ats_utilities.option.engine.OptionManager._bundle" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager._context">
+<span class="sig-name descname"><span class="pre">_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context.bundle.html#ats_utilities.context.bundle.ContextBundle" title="ats_utilities.context.bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.option.engine.OptionManager._context" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager._is_initialized">
+<span class="sig-name descname"><span class="pre">_is_initialized</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.option.engine.OptionManager._is_initialized" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager._strategy">
+<span class="sig-name descname"><span class="pre">_strategy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.option.strategy.iparser_strategy.html#ats_utilities.option.strategy.iparser_strategy.IParserStrategy" title="ats_utilities.option.strategy.iparser_strategy.IParserStrategy"><span class="pre">IParserStrategy</span></a></em><a class="headerlink" href="#ats_utilities.option.engine.OptionManager._strategy" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.add_operation">
+<span class="sig-name descname"><span class="pre">add_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.add_operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.add_operation" title="Link to this definition">¶</a></dt>
+<dd><p>Adds an option to the parser.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – The list of flags for the ATS.</p></li>
+<li><p><strong>kwargs</strong> – The arguments in shape of dictionary.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSValueError: Missing or empty attribute: ‘_strategy’.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.add_version_operation">
+<span class="sig-name descname"><span class="pre">add_version_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.add_version_operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.add_version_operation" title="Link to this definition">¶</a></dt>
+<dd><p>Adds version option to the parser.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>version</strong> – The version in string format | None.</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSRuntimeError:   The decorator cannot be used on a standalone function.</div>
+<div class="line">ATSAttributeError: The class is required to provide a ‘_reporter’ object to</div>
+<div class="line-block">
+<div class="line">use the &#64;vreport decorator.</div>
+</div>
+<div class="line">ATSTypeError:      Parameter type validation failed.</div>
+<div class="line">ATSValueError:     Parameter format validation failed.</div>
+<div class="line">ATSRuntimeError:   The decorator is used on a non-class method.</div>
+<div class="line">ATSAttributeError: The class does not provide a ‘_checker’ object.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.get_bundle">
+<span class="sig-name descname"><span class="pre">get_bundle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.setup.bundle.html#ats_utilities.option.setup.bundle.OptionBundle" title="ats_utilities.option.setup.bundle.OptionBundle"><span class="pre">OptionBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.get_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.get_bundle" title="Link to this definition">¶</a></dt>
+<dd><p>Gets current option configuration bundle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The option configuration bundle.</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.get_context">
+<span class="sig-name descname"><span class="pre">get_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context.bundle.html#ats_utilities.context.bundle.ContextBundle" title="ats_utilities.context.bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.get_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.get_context" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The context.</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.is_initialized">
+<span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.is_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if option parser component is initialized.</p>
+<dl class="field-list">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if successful, otherwise False.</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSValueError: Missing or empty attribute: ‘_strategy’.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.parse_args">
+<span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">OptArgs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.setup.types.html#ats_utilities.option.setup.types.OptionNamespace" title="ats_utilities.option.setup.types.OptionNamespace"><span class="pre">OptionNamespace</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.parse_args" title="Link to this definition">¶</a></dt>
+<dd><p>Processes arguments from the start.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> – Sequence of arguments | None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The option namespace object.</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
+<div class="line">ATSValueError:     Missing or empty attribute: ‘_strategy’.</div>
+<div class="line">ATSRuntimeError:   The decorator cannot be used on a standalone function.</div>
+<div class="line">ATSAttributeError: The class is required to provide a ‘_reporter’ object to</div>
+<div class="line-block">
+<div class="line">use the &#64;vreport decorator.</div>
+</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.parse_command">
+<span class="sig-name descname"><span class="pre">parse_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">OptArgs</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ParsedCommand</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.parse_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.parse_command" title="Link to this definition">¶</a></dt>
+<dd><p>Parses arguments as a command.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> – Sequence of arguments | None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The parsed command result.</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
+<div class="line">ATSValueError: Missing or empty attribute: ‘_strategy’.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.parse_input_args">
+<span class="sig-name descname"><span class="pre">parse_input_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">OptArgs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.setup.types.html#ats_utilities.option.setup.types.OptionNamespace" title="ats_utilities.option.setup.types.OptionNamespace"><span class="pre">OptionNamespace</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.parse_input_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.parse_input_args" title="Link to this definition">¶</a></dt>
+<dd><p>Processes arguments from the start.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> – Sequence of arguments | None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The option namespace object.</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
+<div class="line">ATSValueError:     Missing or empty attribute: ‘_strategy’.</div>
+<div class="line">ATSRuntimeError:   The decorator cannot be used on a standalone function.</div>
+<div class="line">ATSAttributeError: The class is required to provide a ‘_reporter’ object to</div>
+<div class="line-block">
+<div class="line">use the &#64;vreport decorator.</div>
+</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.register_commands">
+<span class="sig-name descname"><span class="pre">register_commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="ats_utilities.option.command.ioption_command.html#ats_utilities.option.command.ioption_command.IOptionCommand" title="ats_utilities.option.command.ioption_command.IOptionCommand"><span class="pre">IOptionCommand</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.register_commands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.register_commands" title="Link to this definition">¶</a></dt>
+<dd><p>Registers a sequence of commands with the parser.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>commands</strong> – The sequence of commands to register (read only data).</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSValueError: Missing or empty attribute: ‘_strategy’.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.strategy">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">strategy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.option.strategy.iparser_strategy.html#ats_utilities.option.strategy.iparser_strategy.IParserStrategy" title="ats_utilities.option.strategy.iparser_strategy.IParserStrategy"><span class="pre">IParserStrategy</span></a></em><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.strategy" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the parser strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parser strategy.</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.update_bundle">
+<span class="sig-name descname"><span class="pre">update_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.option.setup.bundle.html#ats_utilities.option.setup.bundle.OptionBundle" title="ats_utilities.option.setup.bundle.OptionBundle"><span class="pre">OptionBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.update_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.update_bundle" title="Link to this definition">¶</a></dt>
+<dd><p>Updates option configuration bundle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bundle</strong> – The option configuration bundle.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if option configuration bundle is updated successfully.</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ats_utilities.option.engine module</a><ul>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager"><code class="docutils literal notranslate"><span class="pre">OptionManager</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager._apply_bundle"><code class="docutils literal notranslate"><span class="pre">OptionManager._apply_bundle()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager._bundle"><code class="docutils literal notranslate"><span class="pre">OptionManager._bundle</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager._context"><code class="docutils literal notranslate"><span class="pre">OptionManager._context</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager._is_initialized"><code class="docutils literal notranslate"><span class="pre">OptionManager._is_initialized</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager._strategy"><code class="docutils literal notranslate"><span class="pre">OptionManager._strategy</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.add_operation"><code class="docutils literal notranslate"><span class="pre">OptionManager.add_operation()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.add_version_operation"><code class="docutils literal notranslate"><span class="pre">OptionManager.add_version_operation()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.get_bundle"><code class="docutils literal notranslate"><span class="pre">OptionManager.get_bundle()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.get_context"><code class="docutils literal notranslate"><span class="pre">OptionManager.get_context()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.is_initialized"><code class="docutils literal notranslate"><span class="pre">OptionManager.is_initialized()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.parse_args"><code class="docutils literal notranslate"><span class="pre">OptionManager.parse_args()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.parse_command"><code class="docutils literal notranslate"><span class="pre">OptionManager.parse_command()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.parse_input_args"><code class="docutils literal notranslate"><span class="pre">OptionManager.parse_input_args()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.register_commands"><code class="docutils literal notranslate"><span class="pre">OptionManager.register_commands()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.strategy"><code class="docutils literal notranslate"><span class="pre">OptionManager.strategy</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.update_bundle"><code class="docutils literal notranslate"><span class="pre">OptionManager.update_bundle()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="ats_utilities.option.underlying.iunderlying.html"
+                          title="previous chapter">ats_utilities.option.underlying.iunderlying module</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="ats_utilities.option.imanager.html"
+                          title="next chapter">ats_utilities.option.imanager module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ats_utilities.option.engine.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.option.imanager.html" title="ats_utilities.option.imanager module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.option.underlying.iunderlying.html" title="ats_utilities.option.underlying.iunderlying module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ats_utilities.html" >ats_utilities package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="ats_utilities.option.html" >ats_utilities.option package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.option.engine module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>
