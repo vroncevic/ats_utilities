@@ -23,17 +23,17 @@ from __future__ import annotations
 
 import sys
 import unittest
+from argparse import ArgumentParser
 from collections.abc import Sequence
 from unittest.mock import MagicMock
 
 from ats_utilities.context.factory import ContextFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
-from ats_utilities.info.setup.info_keys import InfoKeys
 from ats_utilities.option.command.data import OptionData
 from ats_utilities.option.command.ioption_command import IOptionCommand
-from ats_utilities.option.parser.iarg_parser import IArgParser
-from ats_utilities.option.strategy.engine import ParserStrategy
+from ats_utilities.option.underlying.engine import ParserAdapter
 from ats_utilities.option.strategy.data import StrategyData
+from ats_utilities.option.strategy.engine import ParserStrategy
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -97,19 +97,15 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         context_bundle = ContextFactory.create_bundle()
-        parameters = {
-            InfoKeys.ATS_NAME: "mytool",
-            InfoKeys.ATS_VERSION: "1.0.0",
-            InfoKeys.ATS_LICENCE: "MIT",
-            InfoKeys.ATS_BUILD_DATE: "2026-01-01"
-        }
+        parser = ParserAdapter(ArgumentParser(prog="mytool 1.0.0"))
+
         bundle = StrategyData(
-            parameters=parameters,
-            context_bundle=context_bundle
+            context_bundle=context_bundle,
+            parser=parser
         )
         strategy = ParserStrategy(bundle)
         self.assertIs(strategy._context, context_bundle)
-        self.assertEqual(strategy._parser.prog, "mytool 1.0.0")
+        self.assertTrue(strategy.is_initialized())
 
     def test_init_invalid(self) -> None:
         '''
@@ -130,15 +126,11 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         context_bundle = ContextFactory.create_bundle()
-        parameters = {
-            InfoKeys.ATS_NAME: "mytool",
-            InfoKeys.ATS_VERSION: "1.0.0",
-            InfoKeys.ATS_LICENCE: "MIT",
-            InfoKeys.ATS_BUILD_DATE: "2026-01-01"
-        }
+        parser = ParserAdapter(ArgumentParser())
+
         bundle = StrategyData(
-            parameters=parameters,
-            context_bundle=context_bundle
+            context_bundle=context_bundle,
+            parser=parser
         )
         strategy = ParserStrategy(bundle)
         strategy.add_argument("-f", "--file", dest="file")
@@ -154,15 +146,11 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         context_bundle = ContextFactory.create_bundle()
-        parameters = {
-            InfoKeys.ATS_NAME: "mytool",
-            InfoKeys.ATS_VERSION: "1.0.0",
-            InfoKeys.ATS_LICENCE: "MIT",
-            InfoKeys.ATS_BUILD_DATE: "2026-01-01"
-        }
+        parser = ParserAdapter(ArgumentParser())
+
         bundle = StrategyData(
-            parameters=parameters,
-            context_bundle=context_bundle
+            context_bundle=context_bundle,
+            parser=parser
         )
         strategy = ParserStrategy(bundle)
         strategy.add_version("1.2.3")
@@ -178,15 +166,11 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         context_bundle = ContextFactory.create_bundle()
-        parameters = {
-            InfoKeys.ATS_NAME: "mytool",
-            InfoKeys.ATS_VERSION: "1.0.0",
-            InfoKeys.ATS_LICENCE: "MIT",
-            InfoKeys.ATS_BUILD_DATE: "2026-01-01"
-        }
+        parser = ParserAdapter(ArgumentParser())
+
         bundle = StrategyData(
-            parameters=parameters,
-            context_bundle=context_bundle
+            context_bundle=context_bundle,
+            parser=parser
         )
         strategy = ParserStrategy(bundle)
         strategy.add_argument("-v", "--verbose", action="store_true")
@@ -206,15 +190,10 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         context_bundle = ContextFactory.create_bundle()
-        parameters = {
-            InfoKeys.ATS_NAME: "mytool",
-            InfoKeys.ATS_VERSION: "1.0.0",
-            InfoKeys.ATS_LICENCE: "MIT",
-            InfoKeys.ATS_BUILD_DATE: "2026-01-01"
-        }
+        parser = ParserAdapter(ArgumentParser())
         bundle = StrategyData(
-            parameters=parameters,
-            context_bundle=context_bundle
+            context_bundle=context_bundle,
+            parser=parser
         )
         strategy = ParserStrategy(bundle)
         cmd = DummyCommand()
@@ -244,29 +223,22 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         context_bundle = ContextFactory.create_bundle()
-        parameters = {
-            InfoKeys.ATS_NAME: "mytool",
-            InfoKeys.ATS_VERSION: "1.0.0",
-            InfoKeys.ATS_LICENCE: "MIT",
-            InfoKeys.ATS_BUILD_DATE: "2026-01-01"
-        }
+        parser = ParserAdapter(ArgumentParser())
+
         bundle = StrategyData(
-            parameters=parameters,
-            context_bundle=context_bundle
+            context_bundle=context_bundle,
+            parser=parser
         )
         strategy = ParserStrategy(bundle)
         cmd = DummyCommand()
         strategy.register_commands([cmd])
 
-        # Mock sys.argv to simulate a call from sys.argv
-        original_argv = sys.argv
-        sys.argv = ["mytool", "dummy", "--flag", "--req", "req_val"]
-        try:
+        test_args = ["mytool", "dummy", "--flag", "--req", "req_val"]
+
+        with unittest.mock.patch("ats_utilities.option.strategy.engine.argv", test_args):
             cmd_name, params = strategy.parse_command(None)
             self.assertEqual(cmd_name, "dummy")
             self.assertTrue(params["flag"])
-        finally:
-            sys.argv = original_argv
 
     def test_is_initialized(self) -> None:
         '''
@@ -275,15 +247,10 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         context_bundle = ContextFactory.create_bundle()
-        parameters = {
-            InfoKeys.ATS_NAME: "mytool",
-            InfoKeys.ATS_VERSION: "1.0.0",
-            InfoKeys.ATS_LICENCE: "MIT",
-            InfoKeys.ATS_BUILD_DATE: "2026-01-01"
-        }
+        parser = ParserAdapter(ArgumentParser())
         bundle = StrategyData(
-            parameters=parameters,
-            context_bundle=context_bundle
+            context_bundle=context_bundle,
+            parser=parser
         )
         strategy = ParserStrategy(bundle)
         self.assertTrue(strategy.is_initialized())
@@ -295,15 +262,10 @@ class EngineTest(unittest.TestCase):
             :exceptions: None.
         '''
         context_bundle = ContextFactory.create_bundle()
-        parameters = {
-            InfoKeys.ATS_NAME: "mytool",
-            InfoKeys.ATS_VERSION: "1.0.0",
-            InfoKeys.ATS_LICENCE: "MIT",
-            InfoKeys.ATS_BUILD_DATE: "2026-01-01"
-        }
+        parser = ParserAdapter(ArgumentParser())
         bundle = StrategyData(
-            parameters=parameters,
-            context_bundle=context_bundle
+            context_bundle=context_bundle,
+            parser=parser
         )
         strategy = ParserStrategy(bundle)
         self.assertIn("ParserStrategy", str(strategy))

@@ -60,34 +60,34 @@ class StrategyDataValidatorTest(unittest.TestCase):
     def test_validate_none(self) -> None:
         with self.assertRaises(ATSValueError) as context:
             StrategyDataValidator.validate(None)  # type: ignore
-        self.assertEqual(str(context.exception), "strategy_data_validator::validate(...) - strategy data must be provided")
+        self.assertEqual(str(context.exception), "strategy_data_validator::validate(...) - the strategy data must be provided")
 
     def test_validate_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError) as context:
             StrategyDataValidator.validate(object())  # type: ignore
-        self.assertEqual(str(context.exception), "strategy_data_validator::validate(...) - strategy data must be an instance of StrategyData")
+        self.assertEqual(str(context.exception), "strategy_data_validator::validate(...) - the strategy data must be an instance of StrategyData")
 
     def test_validate_missing_fields(self) -> None:
         with self.assertRaises(ATSValueError) as context:
             data = StrategyData(context_bundle=None, parser=self.mock_parser)  # type: ignore
             StrategyDataValidator.validate(data)
-        self.assertEqual(str(context.exception), "strategy_data_validator::validate(...) - context bundle must be provided")
+        self.assertEqual(str(context.exception), "strategy_data_validator::validate(...) - the context bundle must be provided")
 
         with self.assertRaises(ATSValueError) as context:
             data = StrategyData(context_bundle=self.mock_context, parser=None)  # type: ignore
             StrategyDataValidator.validate(data)
-        self.assertEqual(str(context.exception), "strategy_data_validator::validate(...) - parser must be provided")
+        self.assertEqual(str(context.exception), "strategy_data_validator::validate(...) - the parser must be provided")
 
     def test_validate_invalid_field_types(self) -> None:
         with self.assertRaises(ATSTypeError) as context:
             data = StrategyData(context_bundle="not a context", parser=self.mock_parser)  # type: ignore
             StrategyDataValidator.validate(data)
-        self.assertEqual(str(context.exception), "strategy_data_validator::validate(...) - context bundle must be a ContextBundle instance")
+        self.assertEqual(str(context.exception), "strategy_data_validator::validate(...) - the context bundle must be a ContextBundle instance")
 
         with self.assertRaises(ATSTypeError) as context:
             data = StrategyData(context_bundle=self.mock_context, parser="not a parser")  # type: ignore
             StrategyDataValidator.validate(data)
-        self.assertEqual(str(context.exception), "strategy_data_validator::validate(...) - parser must be an instance of IUnderlyingParser")
+        self.assertEqual(str(context.exception), "strategy_data_validator::validate(...) - the parser must be an instance of IUnderlyingParser")
 
 
 if __name__ == "__main__":

@@ -22,7 +22,7 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Sequence, Mapping
+from collections.abc import Iterable, Mapping
 from typing import Protocol
 
 __author__ = 'Vladimir Roncevic'
@@ -53,7 +53,7 @@ class OptionNamespace(Protocol):
 
 
 # Type alias for optional sequence of strings representing command-line arguments
-type OptArgs = Sequence[str] | None
+type OptArgs = Iterable[str] | None
 
 
 # Type alias for tuple containing an option namespace and a list of unknown arguments

@@ -690,7 +690,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/logger/underlying/iunderlying.py` | 16 | 6 | 62%|
 | `ats_utilities/option/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/command/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/option/command/data.py` | 40 | 13 | 56%|
+| `ats_utilities/option/command/data.py` | 40 | 0 | 100%|
 | `ats_utilities/option/command/data_validator.py` | 41 | 0 | 94%|
 | `ats_utilities/option/command/ioption.py` | 36 | 36 | 0%|
 | `ats_utilities/option/command/ioption_command.py` | 24 | 4 | 83%|
@@ -712,10 +712,10 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/option/strategy/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/strategy/data.py` | 19 | 0 | 100%|
 | `ats_utilities/option/strategy/data_validator.py` | 32 | 0 | 100%|
-| `ats_utilities/option/strategy/engine.py` | 59 | 20 | 57%|
+| `ats_utilities/option/strategy/engine.py` | 59 | 0 | 100%|
 | `ats_utilities/option/strategy/iparser_strategy.py` | 27 | 7 | 74%|
 | `ats_utilities/option/underlying/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/option/underlying/engine.py` | 26 | 5 | 81%|
+| `ats_utilities/option/underlying/engine.py` | 26 | 0 | 100%|
 | `ats_utilities/option/underlying/iunderlying.py` | 12 | 4 | 67%|
 | `ats_utilities/reporter/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/reporter/engine.py` | 72 | 8 | 90%|
@@ -783,7 +783,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 | `ats_utilities/validation/check_type.py` | 40 | 0 | 100%|
 | `ats_utilities/validation/check_value.py` | 25 | 0 | 100%|
 | `ats_utilities/validation/context_error.py` | 14 | 0 | 100%|
-| **Total** | 8257 | 706 | 91% |
+| **Total** | 8257 | 668 | 92% |
 
 </details>
 

@@ -55,23 +55,24 @@ class StrategyDataValidator:
 
             :param data: The StrategyData instance to be validated.
             :exceptions:
-                | ATSValueError: Strategy data must be provided and have proper values.
-                | ATSTypeError:  Strategy data must be an instance of StrategyData and its
+                | ATSValueError: The strategy data must be provided and have proper values.
+                | ATSTypeError:  The strategy data must be an instance of StrategyData and its
                 |                attributes must be instances of their respective types.
         '''
         ctx: str = 'strategy_data_validator::validate(...)'
-        msg_data_none: str = 'strategy data must be provided'
-        msg_data_istype: str = 'strategy data must be an instance of StrategyData'
-        msg_context_bundle_none: str = 'context bundle must be provided'
-        msg_parser_none: str = 'parser must be provided'
-        msg_context_bundle_istype: str = 'context bundle must be a ContextBundle instance'
-        msg_parser_istype: str = 'parser must be an instance of IUnderlyingParser'
+        msg_data_none: str = 'the strategy data must be provided'
+        msg_data_istype: str = 'the strategy data must be an instance of StrategyData'
+        msg_context_bundle_none: str = 'the context bundle must be provided'
+        msg_parser_none: str = 'the parser must be provided'
+        msg_context_bundle_istype: str = 'the context bundle must be a ContextBundle instance'
+        msg_parser_istype: str = 'the parser must be an instance of IUnderlyingParser'
 
         not_none(data, ctx, msg_data_none)
+        istype(data, StrategyData, ctx, msg_data_istype)
+
         not_none(data.context_bundle, ctx, msg_context_bundle_none)
         not_none(data.parser, ctx, msg_parser_none)
 
-        istype(data, StrategyData, ctx, msg_data_istype)
         istype(data.context_bundle, ContextBundle, ctx, msg_context_bundle_istype)
         istype(data.parser, IUnderlyingParser, ctx, msg_parser_istype)
 
