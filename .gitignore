@@ -6,3 +6,4 @@ htmlcov/
 ats_utilities.json
 ats_utilities.xml
 ats_utilities.report
+*.log
