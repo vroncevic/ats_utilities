@@ -12,25 +12,29 @@ other information that should be provided before the modules are installed.
 
 [![ats_utilities_python_checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python_checker.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python_checker.yml) [![ats_utilities_package_checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_package_checker.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_package_checker.yml) [![GitHub issues open](https://img.shields.io/github/issues/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/issues) [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/graphs/contributors)
 
+### 📋 Table of Contents
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
 
-- [Installation](#installation)
+- [🚀 Installation](#-installation)
     - [Install using pip](#install-using-pip)
     - [Install using build](#install-using-build)
     - [Install using py setup](#install-using-py-setup)
     - [Install using docker](#install-using-docker)
 - [Dependencies](#dependencies)
-- [Framework structure](#framework-structure)
+- [📁 Framework structure](#-framework-structure)
+  - [✨ Features](#-features)
 - [Code coverage](#code-coverage)
-- [Docs](#docs)
-- [Contributing](#contributing)
-- [Copyright and Licence](#copyright-and-licence)
+- [🛠 Usage](#-usage)
+- [📚 Docs](#-docs)
+- [👥 Contributing](#-contributing)
+- [📄 Copyright and Licence](#-copyright-and-licence)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-### Installation
+### 🚀 Installation
 
 Used next development environment
 
@@ -107,7 +111,7 @@ You can use Dockerfile to create image/container.
 These modules requires other modules and libraries (Python 3.x)
 * [yaml - YAML parser and emitter for Python](https://pypi.org/project/PyYAML/)
 
-### Framework structure
+### 📁 Framework structure
 
 **ats_utilities** is designed from the ground up around robust, object-oriented paradigms and industrial-grade design patterns. The codebase strictly adheres to SOLID principles and is partitioned into highly decoupled, modular packages.
 
@@ -486,6 +490,17 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 ```
 </details>
 
+#### ✨ Features
+
+* **Base Framework Architecture**: Standardized classes (`Base`, `BaseFactory`, `BaseOptions`) to quickly build robust command-line applications, scripts, and tools.
+* **Robust Logging Engine**: Highly configurable logging module supporting log file outputs, buffers, custom formatters, message processors, and multiple severity levels.
+* **Advanced Option Parsing**: Command-line option parser with modular design and strategy support (such as `fire` parsing or standard `argparse` processing).
+* **Flexible Configuration I/O**: Config files loader and storer supporting formats like CFG, INI, JSON, XML, and YAML out of the box.
+* **Themeable Console Reporter**: Enhanced feedback system that displays styled, colored, and verbose messages to the console with support for custom color themes.
+* **Progressive Splash Screens**: Informative and visually appealing CLI splash screen implementation with customizable progress bars.
+* **Type & Value Validation**: Built-in mechanisms to perform rigorous type checking and data validation on inputs and configs.
+* **OOP and SOLID Design**: Decoupled, modular package design built around SOLID principles and clear interface segregation.
+
 ### Code coverage
 
 <details>
@@ -795,7 +810,76 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 
 </details>
 
-### Docs
+### 🛠 Usage
+
+Below is a basic example illustrating how to define and use a tool by subclassing the `Base` class, integrating logger and reporter modules:
+
+```python
+from logging import INFO, WARNING
+from os.path import dirname, realpath
+
+from ats_utilities.base.engine import Base
+from ats_utilities.base.setup.factory import BaseFactory
+from ats_utilities.base.setup.options import BaseOptions
+from ats_utilities.context.factory import ContextFactory
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.ireporter import IReporter
+
+
+class MyTool(Base):
+    '''Concrete implementation of Base for use case illustration.'''
+
+    _INFO_FILE: str = '../../tests/assets/config/read_only/ats_cli_cfg_api.cfg'
+    _logger: ILogger
+    _reporter: IReporter
+
+    def __init__(self):
+        '''Initialize MyTool instance.'''
+        current_dir: str = dirname(realpath(__file__))
+        super().__init__(
+            BaseFactory.create_bundle(
+                options=BaseOptions(
+                    info_file=f'{current_dir}/{self._INFO_FILE}',
+                    use_generator=False,
+                    context_bundle=ContextFactory.create_bundle()
+                )
+            )
+        )
+        self._logger = self.get_context().logger
+        self._reporter = self.get_context().reporter
+        self._splash_manager.show()
+
+        self._logger.write_log('Log: MyTool initialized successfully', INFO)
+        self._reporter.success(['Report: MyTool initialized successfully'])
+
+    def process(self, verbose: bool = True) -> bool:
+        self._logger.write_log(f'Log: Processing starting, verbose: {verbose}', INFO)
+        self._reporter.verbose(verbose, [f'Report: Processing starting, verbose: {verbose}'])
+        print(f'Overwrite result {verbose} ...')
+        return verbose
+
+    def perform_action(self) -> None:
+        '''A new method showing logging and reporting with different levels and colors.'''
+        self._logger.write_log('Log: Performing a specific tool action', INFO)
+        self._logger.write_log('Log: This is a warning log from MyTool action', WARNING)
+        self._reporter.warning(['Report: This is a colored warning from MyTool'])
+        self._reporter.error(['Report: This is a colored error from MyTool'])
+
+
+if __name__ == "__main__":
+    tool: MyTool = MyTool()
+
+    result: bool = False
+    print(f'Result: {result}')
+
+    if tool.is_initialized():
+        result = tool.process(True)
+        tool.perform_action()
+
+    print(f'Result: {result}')
+```
+
+### 📚 Docs
 
 [![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=master)](https://ats-utilities.readthedocs.io/?badge=master)
 
@@ -804,11 +888,11 @@ More documentation and info at
 * [ats-utilities.readthedocs.io](https://ats-utilities.readthedocs.io/)
 * [www.python.org](https://www.python.org/)
 
-### Contributing
+### 👥 Contributing
 
 [Contributing to ats_utilities](CONTRIBUTING.md)
 
-### Copyright and Licence
+### 📄 Copyright and Licence
 
 [![license: gpl v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![license apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 

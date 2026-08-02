@@ -26,6 +26,8 @@ from ats_utilities.base.engine import Base
 from ats_utilities.base.setup.factory import BaseFactory
 from ats_utilities.base.setup.options import BaseOptions
 from ats_utilities.context.factory import ContextFactory
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.reporter.ireporter import IReporter
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,8 +42,11 @@ class MyTool(Base):
     '''Concrete implementation of Base for use case illustration.'''
 
     _INFO_FILE: str = '../../tests/assets/config/read_only/ats_cli_cfg_api.cfg'
+    _logger: ILogger
+    _reporter: IReporter
 
     def __init__(self):
+        '''Initialize MyTool instance.'''
         current_dir: str = dirname(realpath(__file__))
         super().__init__(
             BaseFactory.create_bundle(
@@ -52,42 +57,35 @@ class MyTool(Base):
                 )
             )
         )
-
-        # Log that initialization is complete using both logger and reporter
-        context = self.get_context()
-        my_logger = context.logger
-        my_reporter = context.reporter
-
+        self._logger = self.get_context().logger
+        self._reporter = self.get_context().reporter
         self._splash_manager.show()
 
-        my_logger.write_log('MyTool initialized successfully', INFO)
-        my_reporter.success(['MyTool initialized successfully (Reporter Success)'])
+        self._logger.write_log('Log: MyTool initialized successfully', INFO)
+        self._reporter.success(['Report: MyTool initialized successfully'])
 
     def process(self, verbose: bool = True) -> bool:
-        context = self.get_context()
-        context.logger.write_log(f'Processing starting, verbose: {verbose}', INFO)
-        context.reporter.verbose(verbose, [f'Processing starting, verbose: {verbose} (Reporter Verbose)'])
+        self._logger.write_log(f'Log: Processing starting, verbose: {verbose}', INFO)
+        self._reporter.verbose(verbose, [f'Report: Processing starting, verbose: {verbose}'])
         print(f'Overwrite result {verbose} ...')
         return verbose
 
     def perform_action(self) -> None:
         '''A new method showing logging and reporting with different levels and colors.'''
-        context = self.get_context()
-        context.logger.write_log('Performing a specific tool action', INFO)
-        context.logger.write_log('This is a warning log from MyTool action', WARNING)
+        self._logger.write_log('Log: Performing a specific tool action', INFO)
+        self._logger.write_log('Log: This is a warning log from MyTool action', WARNING)
+        self._reporter.warning(['Report: This is a colored warning from MyTool'])
+        self._reporter.error(['Report: This is a colored error from MyTool'])
 
-        # Color logs via reporter
-        context.reporter.warning(['This is a colored warning from MyTool (Reporter Warning)'])
-        context.reporter.error(['This is a colored error from MyTool (Reporter Error)'])
 
-tool: MyTool = MyTool()
+if __name__ == "__main__":
+    tool: MyTool = MyTool()
 
-result: bool = False
-print(f'Result: {result}')
+    result: bool = False
+    print(f'Result: {result}')
 
-if tool.is_initialized():
-    result = tool.process(True)
-    tool.perform_action()
+    if tool.is_initialized():
+        result = tool.process(True)
+        tool.perform_action()
 
-print(f'Result: {result}')
-#print(str(tool))
+    print(f'Result: {result}')

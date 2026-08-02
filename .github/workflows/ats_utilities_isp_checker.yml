@@ -19,7 +19,9 @@ jobs:
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Check Interface Segregation Principle violations
         run: |
-          python3 .github/scripts/check_isp.py
+          python3 gates/gates/isp_checker.py ats_utilities

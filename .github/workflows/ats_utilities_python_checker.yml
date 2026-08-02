@@ -20,7 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Check module length and line limits
         run: |
-          python3 .github/scripts/check_module_limits.py
+          python3 gates/gates/limits_checker.py ats_utilities

@@ -19,7 +19,9 @@ jobs:
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Check Single Responsibility Principle violations
         run: |
-          python3 .github/scripts/check_srp.py
+          python3 gates/gates/srp_checker.py ats_utilities

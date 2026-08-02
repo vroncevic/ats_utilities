@@ -19,7 +19,9 @@ jobs:
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Verify that each concrete class implements a valid interface
         run: |
-          python3 .github/scripts/check_interfaces.py
+          python3 gates/gates/interfaces_checker.py ats_utilities
