@@ -16,20 +16,21 @@ other information that should be provided before the modules are installed.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
 
-- [Installation](#installation)
+- [🚀 Installation](#-installation)
     - [Install using pip](#install-using-pip)
     - [Install using build](#install-using-build)
     - [Install using py setup](#install-using-py-setup)
     - [Install using docker](#install-using-docker)
 - [Dependencies](#dependencies)
-- [Framework structure](#framework-structure)
-    - [Features](#features)
+- [📁 Framework structure](#-framework-structure)
+  - [✨ Features](#-features)
 - [Code coverage](#code-coverage)
-- [Usage](#usage)
-- [Docs](#docs)
-- [Contributing](#contributing)
-- [Copyright and Licence](#copyright-and-licence)
+- [🛠 Usage](#-usage)
+- [📚 Docs](#-docs)
+- [👥 Contributing](#-contributing)
+- [📄 Copyright and Licence](#-copyright-and-licence)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
