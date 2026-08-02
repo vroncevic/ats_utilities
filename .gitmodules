@@ -1,0 +1,3 @@
+[submodule "gates"]
+	path = gates
+	url = git@github.com:vroncevic/quality-gates-py.git
