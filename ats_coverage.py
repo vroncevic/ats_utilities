@@ -311,26 +311,26 @@ def generate_tree_lines(pro_name: str) -> tuple[list[str], int, int]:
     return lines, num_dirs + 1, num_files
 
 
-def update_structure(pro_name: str, section: str, readme_path: str = 'README.md') -> None:
+def update_structure(pro_name: str, section: str, file_path: str = 'README.md') -> None:
     '''
-        Updates README.md file with package directory structure.
+        Updates file with package directory structure (supports Markdown and reStructuredText).
 
         :param pro_name: Project name.
         :param section: Section name.
-        :param readme_path: Path to README.md file.
+        :param file_path: Path to the target file.
         :exceptions:
             | ATSTypeError: Parameter pro_name type validation failed.
             | ATSTypeError: Parameter section type validation failed.
             | ATSValueError: File with name does not exist.
     '''
-    check_exists(readme_path)
+    check_exists(file_path)
 
     tree_lines, num_dirs, num_files = generate_tree_lines(pro_name)
     lines: list[str] = []
 
     try:
-        with open(readme_path, 'r', encoding='utf-8') as readme_file:
-            lines = readme_file.readlines()
+        with open(file_path, 'r', encoding='utf-8') as target_file:
+            lines = target_file.readlines()
 
     except (OSError, UnicodeDecodeError) as exc:
         stderr.write(f'{exc}\n')
@@ -339,36 +339,61 @@ def update_structure(pro_name: str, section: str, readme_path: str = 'README.md'
     new_lines: list[str] = []
     inside_tool_structure: bool = False
     replace_mode: bool = False
-    heading: str = f'### {section}'
+    is_rst: bool = file_path.endswith('.rst')
+
+    markdown_heading: str = f'### {section}'
+    rst_heading: str = f'{section}\n'
 
     for line in lines:
-        if heading in line:
-            inside_tool_structure = True
-            new_lines.append(line)
-            continue
+        if is_rst:
+            if line == rst_heading:
+                inside_tool_structure = True
+                new_lines.append(line)
+                continue
+        else:
+            if markdown_heading in line:
+                inside_tool_structure = True
+                new_lines.append(line)
+                continue
 
         if inside_tool_structure:
-            if '### Code coverage' in line:
-                inside_tool_structure = False
-                replace_mode = False
-                new_lines.append(line)
-                continue
+            if is_rst:
+                if '..' in line and 'code-block' in line:
+                    new_lines.append(line)
+                    new_lines.append('\n')
+                    new_lines.extend(tree_lines)
+                    new_lines.append('\n')
+                    new_lines.append(f'     {num_dirs} directories, {num_files} files\n')
+                    replace_mode = True
+                    continue
 
-            if '</summary>' in line:
-                new_lines.append(line)
-                new_lines.append('\n')
-                new_lines.append('```bash\n')
-                new_lines.extend(tree_lines)
-                new_lines.append('\n')
-                new_lines.append(f'     {num_dirs} directories, {num_files} files\n')
-                new_lines.append('```\n')
-                replace_mode = True
-                continue
+                if 'Features' in line:
+                    inside_tool_structure = False
+                    replace_mode = False
+                    new_lines.append(line)
+                    continue
+            else:
+                if '### Code coverage' in line:
+                    inside_tool_structure = False
+                    replace_mode = False
+                    new_lines.append(line)
+                    continue
 
-            if '</details>' in line:
-                replace_mode = False
-                new_lines.append(line)
-                continue
+                if '</summary>' in line:
+                    new_lines.append(line)
+                    new_lines.append('\n')
+                    new_lines.append('```bash\n')
+                    new_lines.extend(tree_lines)
+                    new_lines.append('\n')
+                    new_lines.append(f'     {num_dirs} directories, {num_files} files\n')
+                    new_lines.append('```\n')
+                    replace_mode = True
+                    continue
+
+                if '</details>' in line:
+                    replace_mode = False
+                    new_lines.append(line)
+                    continue
 
             if replace_mode:
                 continue
@@ -376,12 +401,64 @@ def update_structure(pro_name: str, section: str, readme_path: str = 'README.md'
         new_lines.append(line)
 
     try:
-        with open(readme_path, 'w', encoding='utf-8') as readme_file:
-            readme_file.writelines(new_lines)
+        with open(file_path, 'w', encoding='utf-8') as target_file:
+            target_file.writelines(new_lines)
 
     except (OSError, UnicodeDecodeError) as exc:
         stderr.write(f'{exc}\n')
         return
+
+
+def update_index_coverage(coverage: dict[str, object], csv_path: str = 'docs/source/coverage_table.csv') -> None:
+    '''
+        Updates docs/source/coverage_table.csv with code coverage data.
+
+        :param coverage: Coverage data report in dict format.
+        :param csv_path: Path to coverage_table.csv file.
+        :exceptions:
+            | TypeError: Parameter coverage type validation failed.
+            | ValueError: Parameter csv_path type validation failed.
+            | ValueError: Directory with name does not exist.
+    '''
+    dir_path = Path(csv_path).parent
+    check_exists(str(dir_path), is_dir=True)
+
+    stmts: str = 'num_statements'
+    miss: str = 'missing_lines'
+    cover: str = 'percent_covered_display'
+
+    csv_lines = ['"Name", "Stmts", "Miss", "Cover"']
+    file_names: list[str] = coverage['files']
+
+    for name in file_names:
+        root_package: Path | None = find_root_package(name)
+        module: str = ''
+
+        if root_package:
+            abs_name = str(Path(name).resolve())
+            abs_root = str(root_package.resolve())
+
+            if abs_name.startswith(abs_root):
+                result: str = abs_name[len(abs_root):]
+                result = result.lstrip('/')
+                module = f'{basename(abs_root)}/{result}'
+
+        file_summary: dict[str, object] = coverage['files'][name]
+        statements: str = file_summary['summary'][stmts]
+        missing: str = file_summary['summary'][miss]
+        covered: str = file_summary['summary'][cover]
+        csv_lines.append(f'"{module}", "{statements}", "{missing}", "{covered}%"')
+
+    total_statements: str = coverage['totals'][stmts]
+    total_missing: str = coverage['totals'][miss]
+    total_covered: str = coverage['totals'][cover]
+    csv_lines.append(f'"Total", "{total_statements}", "{total_missing}", "{total_covered}%"')
+
+    try:
+        with open(csv_path, 'w', encoding='utf-8') as csv_file:
+            csv_file.write("\n".join(csv_lines) + "\n")
+    except OSError as exc:
+        stderr.write(f'{exc}\n')
 
 
 if __name__ == "__main__":
@@ -392,7 +469,9 @@ if __name__ == "__main__":
 
         if report_data:
             update_readme(report_data)
-            update_structure(pro_name, 'Framework structure')
+            update_structure(pro_name, 'Framework structure', 'README.md')
+            update_index_coverage(report_data)
+            update_structure(pro_name, 'Framework structure', 'docs/source/index.rst')
             exit(0)
 
         stderr.write('ats_coverage: failed to generate coverage report\n')

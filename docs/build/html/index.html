@@ -80,7 +80,7 @@ other information that should be provided before the modules are installed.</p>
 </div>
 </section>
 <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
+<h1>🚀 Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
 <p>Used next development environment</p>
 <p><img alt="debian linux os" src="https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/debtux.png" /></p>
 <p><a class="reference external" href="https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_build.yml"><img alt="ats_utilities python3 build" src="https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_build.yml/badge.svg" /></a></p>
@@ -121,14 +121,14 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 </div>
 </section>
 <section id="dependencies">
-<h1>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">¶</a></h1>
+<h1>📦 Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">¶</a></h1>
 <p><strong>ats_utilities</strong> requires next modules and libraries</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pypi.org/project/PyYAML/">yaml - YAML parser and emitter for Python</a></p></li>
 </ul>
 </section>
 <section id="framework-structure">
-<h1>Framework structure<a class="headerlink" href="#framework-structure" title="Link to this heading">¶</a></h1>
+<h1>📁 Framework structure<a class="headerlink" href="#framework-structure" title="Link to this heading">¶</a></h1>
 <p><strong>ats_utilities</strong> is designed from the ground up around robust, object-oriented paradigms and industrial-grade design patterns. The codebase strictly adheres to SOLID principles and is partitioned into highly decoupled, modular packages.</p>
 <p>Design Pillars</p>
 <p>Object-Oriented Architecture (OOP): Employs strong encapsulation, strict interface segregation, and clear class hierarchies to model system components.</p>
@@ -137,47 +137,59 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <p>Framework structure</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ats_utilities/
 <span class="w">     </span>├──<span class="w"> </span>base/
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>base_bundle.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>base_registry.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>ibase.py
-<span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
-<span class="w">      </span>├──<span class="w"> </span>checker/
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>context/
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>context_provider.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>setup/
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>bundle.py
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>dep_validator.py
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>dependencies.py
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>factory.py
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>keys.py
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>opt_validator.py
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>options.py
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>registry.py
+<span class="w">     </span>│<span class="w">       </span>└──<span class="w"> </span>validator.py
+<span class="w">     </span>├──<span class="w"> </span>checker/
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>context/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>icontext_provider.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>format/
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>format_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>iformat_validator.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>ichecker.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>proxy_validator.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>reporter/
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>check_reporter.py
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>checker_reporter_bundle.py
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>checker_reporter_registry.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>data.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>data_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>icheck_reporter.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>setup/
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>bundle.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dependencies.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>factory.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>registry.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>validator.py
-<span class="w">      </span>│<span class="w">   </span>└──<span class="w"> </span>type/
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>setup/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>bundle.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dep_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dependencies.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>factory.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>keys.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>opt_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>options.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>registry.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>types.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>validator.py
+<span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>type/
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>__init__.py
-<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>itype_validator.py
-<span class="w">     </span>│<span class="w">       </span>└──<span class="w"> </span>type_validator.py
+<span class="w">     </span>│<span class="w">       </span>└──<span class="w"> </span>itype_validator.py
 <span class="w">     </span>├──<span class="w"> </span>config_io/
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>conf_file.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>conf_file_bundle.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>conf_file_registry.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>config_io_bundle.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>config_io_registry.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>data.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>data_validator.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>iconf_file.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>loader/
@@ -194,16 +206,33 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>json_processor.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>xml_processor.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>yaml_processor.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>setup/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>bundle.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dep_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dependencies.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>factory.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>keys.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>opt_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>options.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>registry.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>types.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>validator.py
 <span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>storer/
 <span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>__init__.py
 <span class="w">     </span>│<span class="w">       </span>└──<span class="w"> </span>istorer.py
 <span class="w">     </span>├──<span class="w"> </span>context/
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>context_bundle.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>context_registry.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>context_support.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>icontext_support.py
-<span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>bundle.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>dep_validator.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>dependencies.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>factory.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>keys.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>opt_validator.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>options.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>registry.py
+<span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>validator.py
 <span class="w">     </span>├──<span class="w"> </span>exceptions/
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>ats_attribute_error.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>ats_bad_call_error.py
@@ -218,26 +247,41 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>ats_value_error.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>format_error.py
 <span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
-<span class="w">     </span>├──<span class="w"> </span>generator/
+<span class="w">     </span>├──<span class="w"> </span>generation/
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>data.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>data_validator.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>gen_params_bundle.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>gen_params_registry.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>generator_bundle.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>generator_registry.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>igenerator.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>imanager.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>project/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ipro_config.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ipro_name.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>itemplate_dir.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>pro_config.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>pro_name.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>template_dir.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>scheme/
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>ischeme_loader.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>setup/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>bundle.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dep_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dependencies.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>factory.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>keys.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>opt_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>options.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>registry.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>validator.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>tar/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>data.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>data_validator.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>itar_processor.py
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>tar_process_bundle.py
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>tar_process_member_bundle.py
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>tar_process_member_registry.py
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>tar_process_registry.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>itar_processor.py
 <span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>template/
 <span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>__init__.py
@@ -247,21 +291,13 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ibuild_date.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>iinfo_manager.py
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>info_keys.py
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>info_ok/
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>iinfo_ok.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>setup/
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>bundle.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dependencies.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>factory.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>registry.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>validator.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>imanager.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>info_ok/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>iinfo_ok.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>licence/
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ilicence.py
@@ -286,6 +322,21 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>irepository.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>setup/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>bundle.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dep_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dependencies.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>expose.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>factory.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>iexpose.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ischema.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>keys.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>opt_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>options.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>registry.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>schema.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>validator.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>use_github/
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
@@ -295,76 +346,106 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>__init__.py
 <span class="w">     </span>│<span class="w">       </span>└──<span class="w"> </span>iversion.py
 <span class="w">     </span>├──<span class="w"> </span>__init__.py
-<span class="w">      </span>├──<span class="w"> </span>logger/
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>ilogger.py
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
-<span class="w">      </span>│<span class="w">   </span>└──<span class="w"> </span>setup/
-<span class="w">      </span>│<span class="w">       </span>├──<span class="w"> </span>bundle.py
-<span class="w">      </span>│<span class="w">       </span>├──<span class="w"> </span>dependencies.py
-<span class="w">      </span>│<span class="w">       </span>├──<span class="w"> </span>factory.py
-<span class="w">      </span>│<span class="w">       </span>├──<span class="w"> </span>__init__.py
-<span class="w">      </span>│<span class="w">       </span>├──<span class="w"> </span>registry.py
-<span class="w">      </span>│<span class="w">       </span>└──<span class="w"> </span>validator.py
+<span class="w">     </span>├──<span class="w"> </span>logger/
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>buffer/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ibuffer.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>formatter/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>iformatter.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>handler/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ihandler_manager.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>ilogger.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>processor/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>imessage_processor.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>setup/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>bundle.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dep_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dependencies.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>factory.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>keys.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>opt_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>options.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>registry.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>validator.py
+<span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>underlying/
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>engine.py
+<span class="w">     </span>│<span class="w">       </span>└──<span class="w"> </span>iunderlying.py
 <span class="w">     </span>├──<span class="w"> </span>option/
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>command/
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>command_option.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>data.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>data_validator.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ioption.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>ioption_command.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>imanager.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>ioption_manager.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>option_bundle.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>option_namespace.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>option_registry.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>parser/
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>iarg_parser.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>ioption_configurator.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>ioption_parser.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>setup/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>bundle.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dep_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dependencies.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>factory.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>parser_bundle.py
-<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>parser_registry.py
-<span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>strategy/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>keys.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>opt_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>options.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>registry.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>types.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>validator.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>strategy/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>data.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>data_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>iparser_strategy.py
+<span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>underlying/
 <span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>__init__.py
-<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>iparser_strategy.py
-<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>parser_strategy_bundle.py
-<span class="w">     </span>│<span class="w">       </span>└──<span class="w"> </span>parser_strategy_registry.py
-<span class="w">     </span>├──<span class="w"> </span>project_setup/
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>ipro_config.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>ipro_name.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>itemplate_dir.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>pro_config.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>pro_name.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>project_setup_bundle.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>project_setup_registry.py
-<span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>template_dir.py
+<span class="w">     </span>│<span class="w">       </span>└──<span class="w"> </span>iunderlying.py
 <span class="w">     </span>├──<span class="w"> </span>py.typed
-<span class="w">      </span>├──<span class="w"> </span>reporter/
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>ireporter.py
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>proxy_reporter.py
-<span class="w">      </span>│<span class="w">   </span>├──<span class="w"> </span>setup/
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>bundle.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dependencies.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>factory.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>registry.py
-<span class="w">      </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>validator.py
-<span class="w">      </span>│<span class="w">   </span>└──<span class="w"> </span>theme/
+<span class="w">     </span>├──<span class="w"> </span>reporter/
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>ireporter.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>proxy_reporter.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>setup/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>bundle.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dep_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dependencies.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>factory.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>keys.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>opt_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>options.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>registry.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>validator.py
+<span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>theme/
 <span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>iconsole_theme.py
-<span class="w">     </span>│<span class="w">       </span>└──<span class="w"> </span>__init__.py
-<span class="w">     </span>├──<span class="w"> </span>splasher/
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">       </span>└──<span class="w"> </span>types.py
+<span class="w">     </span>├──<span class="w"> </span>splash/
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>data.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>data_validator.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>external/
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ext_infrastructure.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>github_infrastructure.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>iext_infrastructure.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>imanager.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>isplasher.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>progressbar/
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>iprogress_bar.py
@@ -373,11 +454,17 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>isplash_property.py
 <span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>splash_property.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>splash_bundle.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>splash_center_bundle.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>splash_center_registry.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>splash_keys.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>splash_registry.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>setup/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>bundle.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dep_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>dependencies.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>factory.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>keys.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>opt_validator.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>options.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>registry.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>validator.py
 <span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>terminal/
 <span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>__init__.py
 <span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>iterminal_properties.py
@@ -385,24 +472,34 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">     </span>├──<span class="w"> </span>utils/
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>boolean.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>component.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>data/
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>ivalidator.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>dicts.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>dirs.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>files.py
 <span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
-<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>iregistry.py
-<span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>reflection.py
+<span class="w">     </span>│<span class="w">   </span>├──<span class="w"> </span>reflection.py
+<span class="w">     </span>│<span class="w">   </span>└──<span class="w"> </span>setup/
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>idep_validator.py
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>ifactory.py
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>ikeys.py
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>__init__.py
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>iopt_validator.py
+<span class="w">     </span>│<span class="w">       </span>├──<span class="w"> </span>iregistry.py
+<span class="w">     </span>│<span class="w">       </span>└──<span class="w"> </span>ivalidator.py
 <span class="w">     </span>└──<span class="w"> </span>validation/
 <span class="w">         </span>├──<span class="w"> </span>check_type.py
 <span class="w">         </span>├──<span class="w"> </span>check_value.py
 <span class="w">         </span>├──<span class="w"> </span>context_error.py
 <span class="w">         </span>└──<span class="w"> </span>__init__.py
 
-<span class="w"> </span><span class="m">43</span><span class="w"> </span>directories,<span class="w"> </span><span class="m">198</span><span class="w"> </span>files
+<span class="w"> </span><span class="m">59</span><span class="w"> </span>directories,<span class="w"> </span><span class="m">299</span><span class="w"> </span>files
 </pre></div>
 </div>
 </section>
 <section id="features">
-<h1>Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h1>
+<h1>✨ Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h1>
 <ul class="simple">
 <li><p><strong>Base Framework Architecture</strong>: Standardized classes (<code class="docutils literal notranslate"><span class="pre">Base</span></code>, <code class="docutils literal notranslate"><span class="pre">BaseFactory</span></code>, <code class="docutils literal notranslate"><span class="pre">BaseOptions</span></code>) to quickly build robust command-line applications, scripts, and tools.</p></li>
 <li><p><strong>Robust Logging Engine</strong>: Highly configurable logging module supporting log file outputs, buffers, custom formatters, message processors, and multiple severity levels.</p></li>
@@ -414,8 +511,1523 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <li><p><strong>OOP and SOLID Design</strong>: Decoupled, modular package design built around SOLID principles and clear interface segregation.</p></li>
 </ul>
 </section>
+<section id="code-coverage">
+<h1>📊 Code coverage<a class="headerlink" href="#code-coverage" title="Link to this heading">¶</a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 66.7%" />
+<col style="width: 11.1%" />
+<col style="width: 11.1%" />
+<col style="width: 11.1%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Stmts</p></th>
+<th class="head"><p>Miss</p></th>
+<th class="head"><p>Cover</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ats_utilities/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/base/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/base/engine.py</p></td>
+<td><p>55</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/base/ibase.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/base/setup/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/base/setup/bundle.py</p></td>
+<td><p>25</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/base/setup/dep_validator.py</p></td>
+<td><p>32</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/base/setup/dependencies.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/base/setup/factory.py</p></td>
+<td><p>58</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/base/setup/keys.py</p></td>
+<td><p>31</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/base/setup/opt_validator.py</p></td>
+<td><p>28</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/base/setup/options.py</p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/base/setup/registry.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/base/setup/validator.py</p></td>
+<td><p>40</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/checker/context/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/context/engine.py</p></td>
+<td><p>47</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/checker/context/icontext_provider.py</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/engine.py</p></td>
+<td><p>95</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/checker/format/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/format/engine.py</p></td>
+<td><p>49</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/checker/format/iformat_validator.py</p></td>
+<td><p>17</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/ichecker.py</p></td>
+<td><p>25</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/checker/proxy_validator.py</p></td>
+<td><p>32</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/reporter/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/checker/reporter/data.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/reporter/data_validator.py</p></td>
+<td><p>37</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/checker/reporter/engine.py</p></td>
+<td><p>44</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/reporter/icheck_reporter.py</p></td>
+<td><p>14</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/checker/setup/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/setup/bundle.py</p></td>
+<td><p>23</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/checker/setup/dep_validator.py</p></td>
+<td><p>27</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/setup/dependencies.py</p></td>
+<td><p>19</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/checker/setup/factory.py</p></td>
+<td><p>34</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/setup/keys.py</p></td>
+<td><p>31</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/checker/setup/opt_validator.py</p></td>
+<td><p>26</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/setup/options.py</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/checker/setup/registry.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/setup/types.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/checker/setup/validator.py</p></td>
+<td><p>39</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/type/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/checker/type/engine.py</p></td>
+<td><p>57</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/checker/type/itype_validator.py</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/conf_file.py</p></td>
+<td><p>53</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/data.py</p></td>
+<td><p>19</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/data_validator.py</p></td>
+<td><p>38</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/iconf_file.py</p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/loader/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/loader/engine.py</p></td>
+<td><p>43</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/loader/iloader.py</p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/processor/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/processor/cfg_processor.py</p></td>
+<td><p>49</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/processor/factory_processor.py</p></td>
+<td><p>56</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/processor/iconfig_processor.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/processor/ifactory_processor.py</p></td>
+<td><p>20</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/processor/ini_processor.py</p></td>
+<td><p>86</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/processor/json_processor.py</p></td>
+<td><p>44</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/processor/xml_processor.py</p></td>
+<td><p>86</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/processor/yaml_processor.py</p></td>
+<td><p>44</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/setup/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/setup/bundle.py</p></td>
+<td><p>23</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/setup/dep_validator.py</p></td>
+<td><p>30</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/setup/dependencies.py</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/setup/factory.py</p></td>
+<td><p>27</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/setup/keys.py</p></td>
+<td><p>27</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/setup/opt_validator.py</p></td>
+<td><p>31</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/setup/options.py</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/setup/registry.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/setup/types.py</p></td>
+<td><p>3</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/setup/validator.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/storer/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/config_io/storer/engine.py</p></td>
+<td><p>45</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/config_io/storer/istorer.py</p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/context/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/context/bundle.py</p></td>
+<td><p>22</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/context/dep_validator.py</p></td>
+<td><p>27</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/context/dependencies.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/context/factory.py</p></td>
+<td><p>34</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/context/keys.py</p></td>
+<td><p>32</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/context/opt_validator.py</p></td>
+<td><p>26</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/context/options.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/context/registry.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/context/validator.py</p></td>
+<td><p>38</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/exceptions/__init__.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/exceptions/ats_attribute_error.py</p></td>
+<td><p>11</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/exceptions/ats_bad_call_error.py</p></td>
+<td><p>11</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/exceptions/ats_error.py</p></td>
+<td><p>10</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/exceptions/ats_file_error.py</p></td>
+<td><p>11</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/exceptions/ats_generator_error.py</p></td>
+<td><p>11</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/exceptions/ats_key_error.py</p></td>
+<td><p>11</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/exceptions/ats_lookup_error.py</p></td>
+<td><p>11</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/exceptions/ats_parameter_error.py</p></td>
+<td><p>11</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/exceptions/ats_runtime_error.py</p></td>
+<td><p>11</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/exceptions/ats_type_error.py</p></td>
+<td><p>11</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/exceptions/ats_value_error.py</p></td>
+<td><p>11</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/exceptions/format_error.py</p></td>
+<td><p>22</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/data.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/data_validator.py</p></td>
+<td><p>46</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/engine.py</p></td>
+<td><p>86</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/imanager.py</p></td>
+<td><p>19</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/project/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/project/ipro_config.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/project/ipro_name.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/project/itemplate_dir.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/project/pro_config.py</p></td>
+<td><p>39</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/project/pro_name.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/project/template_dir.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/scheme/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/scheme/engine.py</p></td>
+<td><p>49</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/scheme/ischeme_loader.py</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/setup/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/setup/bundle.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/setup/dep_validator.py</p></td>
+<td><p>30</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/setup/dependencies.py</p></td>
+<td><p>17</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/setup/factory.py</p></td>
+<td><p>31</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/setup/keys.py</p></td>
+<td><p>25</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/setup/opt_validator.py</p></td>
+<td><p>31</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/setup/options.py</p></td>
+<td><p>13</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/setup/registry.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/setup/validator.py</p></td>
+<td><p>36</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/tar/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/tar/data.py</p></td>
+<td><p>31</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/tar/data_validator.py</p></td>
+<td><p>68</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/tar/engine.py</p></td>
+<td><p>76</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/tar/itar_processor.py</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/template/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/generation/template/engine.py</p></td>
+<td><p>32</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/generation/template/itemplate_processor.py</p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/build_date/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/build_date/engine.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/build_date/ibuild_date.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/engine.py</p></td>
+<td><p>112</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/imanager.py</p></td>
+<td><p>20</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/info_ok/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/info_ok/engine.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/info_ok/iinfo_ok.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/licence/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/licence/engine.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/licence/ilicence.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/log_file/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/log_file/engine.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/log_file/ilog_file.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/logo/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/logo/engine.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/logo/ilogo.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/name/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/name/engine.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/name/iname.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/organization/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/organization/engine.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/organization/iorganization.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/repository/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/repository/engine.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/repository/irepository.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/setup/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/setup/bundle.py</p></td>
+<td><p>37</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/setup/dep_validator.py</p></td>
+<td><p>37</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/setup/dependencies.py</p></td>
+<td><p>33</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/setup/expose.py</p></td>
+<td><p>63</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/setup/factory.py</p></td>
+<td><p>39</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/setup/iexpose.py</p></td>
+<td><p>33</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/setup/ischema.py</p></td>
+<td><p>38</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/setup/keys.py</p></td>
+<td><p>53</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/setup/opt_validator.py</p></td>
+<td><p>42</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/setup/options.py</p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/setup/registry.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/setup/schema.py</p></td>
+<td><p>65</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/setup/validator.py</p></td>
+<td><p>84</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/use_github/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/use_github/engine.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/use_github/iuse_github.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/version/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/info/version/engine.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/info/version/iversion.py</p></td>
+<td><p>18</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/logger/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/logger/buffer/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/logger/buffer/engine.py</p></td>
+<td><p>39</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/logger/buffer/ibuffer.py</p></td>
+<td><p>19</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/logger/engine.py</p></td>
+<td><p>80</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/logger/formatter/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/logger/formatter/engine.py</p></td>
+<td><p>54</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/logger/formatter/iformatter.py</p></td>
+<td><p>17</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/logger/handler/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/logger/handler/engine.py</p></td>
+<td><p>27</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/logger/handler/ihandler_manager.py</p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/logger/ilogger.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/logger/processor/engine.py</p></td>
+<td><p>46</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/logger/processor/imessage_processor.py</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/logger/setup/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/logger/setup/bundle.py</p></td>
+<td><p>26</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/logger/setup/dep_validator.py</p></td>
+<td><p>27</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/logger/setup/dependencies.py</p></td>
+<td><p>22</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/logger/setup/factory.py</p></td>
+<td><p>47</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/logger/setup/keys.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/logger/setup/opt_validator.py</p></td>
+<td><p>26</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/logger/setup/options.py</p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/logger/setup/registry.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/logger/setup/validator.py</p></td>
+<td><p>48</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/logger/underlying/engine.py</p></td>
+<td><p>51</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/logger/underlying/iunderlying.py</p></td>
+<td><p>10</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/option/command/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/command/data.py</p></td>
+<td><p>40</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/option/command/data_validator.py</p></td>
+<td><p>40</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/command/ioption.py</p></td>
+<td><p>28</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/option/command/ioption_command.py</p></td>
+<td><p>20</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/engine.py</p></td>
+<td><p>77</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/option/imanager.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/ioption_configurator.py</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/option/ioption_parser.py</p></td>
+<td><p>14</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/setup/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/option/setup/bundle.py</p></td>
+<td><p>19</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/setup/dep_validator.py</p></td>
+<td><p>30</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/option/setup/dependencies.py</p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/setup/factory.py</p></td>
+<td><p>31</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/option/setup/keys.py</p></td>
+<td><p>27</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/setup/opt_validator.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/option/setup/options.py</p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/setup/registry.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/option/setup/types.py</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/setup/validator.py</p></td>
+<td><p>25</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/option/strategy/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/strategy/data.py</p></td>
+<td><p>19</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/option/strategy/data_validator.py</p></td>
+<td><p>31</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/strategy/engine.py</p></td>
+<td><p>59</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/option/strategy/iparser_strategy.py</p></td>
+<td><p>19</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/underlying/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/option/underlying/engine.py</p></td>
+<td><p>26</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/option/underlying/iunderlying.py</p></td>
+<td><p>8</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/reporter/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/reporter/engine.py</p></td>
+<td><p>72</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/reporter/ireporter.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/reporter/proxy_reporter.py</p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/reporter/setup/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/reporter/setup/bundle.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/reporter/setup/dep_validator.py</p></td>
+<td><p>25</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/reporter/setup/dependencies.py</p></td>
+<td><p>17</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/reporter/setup/factory.py</p></td>
+<td><p>32</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/reporter/setup/keys.py</p></td>
+<td><p>30</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/reporter/setup/opt_validator.py</p></td>
+<td><p>26</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/reporter/setup/options.py</p></td>
+<td><p>17</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/reporter/setup/registry.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/reporter/setup/validator.py</p></td>
+<td><p>34</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/reporter/theme/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/reporter/theme/engine.py</p></td>
+<td><p>36</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/reporter/theme/iconsole_theme.py</p></td>
+<td><p>14</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/reporter/theme/types.py</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/splash/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/splash/data.py</p></td>
+<td><p>17</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/splash/data_validator.py</p></td>
+<td><p>31</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/splash/engine.py</p></td>
+<td><p>99</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/splash/external/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/splash/external/ext_infrastructure.py</p></td>
+<td><p>59</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/splash/external/github_infrastructure.py</p></td>
+<td><p>70</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/splash/external/iext_infrastructure.py</p></td>
+<td><p>20</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/splash/imanager.py</p></td>
+<td><p>19</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/splash/progressbar/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/splash/progressbar/iprogress_bar.py</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/splash/progressbar/progress_bar.py</p></td>
+<td><p>54</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/splash/property/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/splash/property/isplash_property.py</p></td>
+<td><p>23</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/splash/property/splash_property.py</p></td>
+<td><p>66</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/splash/setup/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/splash/setup/bundle.py</p></td>
+<td><p>25</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/splash/setup/dep_validator.py</p></td>
+<td><p>30</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/splash/setup/dependencies.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/splash/setup/factory.py</p></td>
+<td><p>41</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/splash/setup/keys.py</p></td>
+<td><p>33</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/splash/setup/opt_validator.py</p></td>
+<td><p>28</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/splash/setup/options.py</p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/splash/setup/registry.py</p></td>
+<td><p>21</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/splash/setup/validator.py</p></td>
+<td><p>50</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/splash/terminal/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/splash/terminal/iterminal_properties.py</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/splash/terminal/terminal_properties.py</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/utils/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/utils/boolean.py</p></td>
+<td><p>20</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/utils/component.py</p></td>
+<td><p>14</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/utils/data/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/utils/data/ivalidator.py</p></td>
+<td><p>14</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/utils/dicts.py</p></td>
+<td><p>40</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/utils/dirs.py</p></td>
+<td><p>17</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/utils/files.py</p></td>
+<td><p>106</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/utils/reflection.py</p></td>
+<td><p>39</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/utils/setup/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/utils/setup/idep_validator.py</p></td>
+<td><p>14</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/utils/setup/ifactory.py</p></td>
+<td><p>14</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/utils/setup/ikeys.py</p></td>
+<td><p>17</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/utils/setup/iopt_validator.py</p></td>
+<td><p>14</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/utils/setup/iregistry.py</p></td>
+<td><p>14</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/utils/setup/ivalidator.py</p></td>
+<td><p>14</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/validation/__init__.py</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/validation/check_type.py</p></td>
+<td><p>28</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>ats_utilities/validation/check_value.py</p></td>
+<td><p>22</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ats_utilities/validation/context_error.py</p></td>
+<td><p>14</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-even"><td><p>Total</p></td>
+<td><p>7832</p></td>
+<td><p>0</p></td>
+<td><p>100%</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="usage">
-<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h1>
+<h1>🛠 Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h1>
 <p>Below is a basic example illustrating how to define and use a tool by subclassing the <code class="docutils literal notranslate"><span class="pre">Base</span></code> class, integrating logger and reporter modules:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">INFO</span><span class="p">,</span> <span class="n">WARNING</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">realpath</span>
@@ -481,8 +2093,12 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 </pre></div>
 </div>
 </section>
+<section id="contributing">
+<h1>👥 Contributing<a class="headerlink" href="#contributing" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://github.com/vroncevic/ats_utilities/blob/dev/CONTRIBUTING.md">Contributing to ats_utilities</a></p>
+</section>
 <section id="copyright-and-licence">
-<h1>Copyright and licence<a class="headerlink" href="#copyright-and-licence" title="Link to this heading">¶</a></h1>
+<h1>📄 Copyright and licence<a class="headerlink" href="#copyright-and-licence" title="Link to this heading">¶</a></h1>
 <p><a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0"><img alt="license: gpl v3" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a> <a class="reference external" href="https://opensource.org/licenses/Apache-2.0"><img alt="license: apache 2.0" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" /></a></p>
 <p>Copyright (C) 2017 - 2026 by <a class="reference external" href="https://vroncevic.github.io/ats_utilities">vroncevic.github.io/ats_utilities</a></p>
 <p><strong>ats_utilities</strong> is free software; you can redistribute it and/or modify
@@ -512,12 +2128,14 @@ at your option, any later version of Python 3 you may have available.</p>
     <h3><a href="#">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ATS Utilities</a></li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li><a class="reference internal" href="#framework-structure">Framework structure</a></li>
-<li><a class="reference internal" href="#features">Features</a></li>
-<li><a class="reference internal" href="#usage">Usage</a></li>
-<li><a class="reference internal" href="#copyright-and-licence">Copyright and licence</a></li>
+<li><a class="reference internal" href="#installation">🚀 Installation</a></li>
+<li><a class="reference internal" href="#dependencies">📦 Dependencies</a></li>
+<li><a class="reference internal" href="#framework-structure">📁 Framework structure</a></li>
+<li><a class="reference internal" href="#features">✨ Features</a></li>
+<li><a class="reference internal" href="#code-coverage">📊 Code coverage</a></li>
+<li><a class="reference internal" href="#usage">🛠 Usage</a></li>
+<li><a class="reference internal" href="#contributing">👥 Contributing</a></li>
+<li><a class="reference internal" href="#copyright-and-licence">📄 Copyright and licence</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 

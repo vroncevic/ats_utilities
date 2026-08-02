@@ -23,10 +23,10 @@ other information that should be provided before the modules are installed.
     - [Install using build](#install-using-build)
     - [Install using py setup](#install-using-py-setup)
     - [Install using docker](#install-using-docker)
-- [Dependencies](#dependencies)
+- [📦 Dependencies](#-dependencies)
 - [📁 Framework structure](#-framework-structure)
   - [✨ Features](#-features)
-- [Code coverage](#code-coverage)
+- [📊 Code coverage](#-code-coverage)
 - [🛠 Usage](#-usage)
 - [📚 Docs](#-docs)
 - [👥 Contributing](#-contributing)
@@ -106,7 +106,7 @@ rm -f get-pip.py
 
 You can use Dockerfile to create image/container.
 
-### Dependencies
+### 📦 Dependencies
 
 These modules requires other modules and libraries (Python 3.x)
 * [yaml - YAML parser and emitter for Python](https://pypi.org/project/PyYAML/)
@@ -501,7 +501,7 @@ Domain-Driven Package Organization: Functionality is organized into dedicated su
 * **Type & Value Validation**: Built-in mechanisms to perform rigorous type checking and data validation on inputs and configs.
 * **OOP and SOLID Design**: Decoupled, modular package design built around SOLID principles and clear interface segregation.
 
-### Code coverage
+### 📊 Code coverage
 
 <details>
 <summary><b>Click to expand code coverage</b></summary>
