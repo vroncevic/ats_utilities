@@ -401,6 +401,86 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 </pre></div>
 </div>
 </section>
+<section id="features">
+<h1>Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><strong>Base Framework Architecture</strong>: Standardized classes (<code class="docutils literal notranslate"><span class="pre">Base</span></code>, <code class="docutils literal notranslate"><span class="pre">BaseFactory</span></code>, <code class="docutils literal notranslate"><span class="pre">BaseOptions</span></code>) to quickly build robust command-line applications, scripts, and tools.</p></li>
+<li><p><strong>Robust Logging Engine</strong>: Highly configurable logging module supporting log file outputs, buffers, custom formatters, message processors, and multiple severity levels.</p></li>
+<li><p><strong>Advanced Option Parsing</strong>: Command-line option parser with modular design and strategy support (such as <code class="docutils literal notranslate"><span class="pre">fire</span></code> parsing or standard <code class="docutils literal notranslate"><span class="pre">argparse</span></code> processing).</p></li>
+<li><p><strong>Flexible Configuration I/O</strong>: Config files loader and storer supporting formats like CFG, INI, JSON, XML, and YAML out of the box.</p></li>
+<li><p><strong>Themeable Console Reporter</strong>: Enhanced feedback system that displays styled, colored, and verbose messages to the console with support for custom color themes.</p></li>
+<li><p><strong>Progressive Splash Screens</strong>: Informative and visually appealing CLI splash screen implementation with customizable progress bars.</p></li>
+<li><p><strong>Type &amp; Value Validation</strong>: Built-in mechanisms to perform rigorous type checking and data validation on inputs and configs.</p></li>
+<li><p><strong>OOP and SOLID Design</strong>: Decoupled, modular package design built around SOLID principles and clear interface segregation.</p></li>
+</ul>
+</section>
+<section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h1>
+<p>Below is a basic example illustrating how to define and use a tool by subclassing the <code class="docutils literal notranslate"><span class="pre">Base</span></code> class, integrating logger and reporter modules:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">INFO</span><span class="p">,</span> <span class="n">WARNING</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">realpath</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.base.engine</span> <span class="kn">import</span> <span class="n">Base</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.factory</span> <span class="kn">import</span> <span class="n">BaseFactory</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.options</span> <span class="kn">import</span> <span class="n">BaseOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.factory</span> <span class="kn">import</span> <span class="n">ContextFactory</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
+
+<span class="k">class</span> <span class="nc">MyTool</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Concrete implementation of Base for use case illustration.&#39;&#39;&#39;</span>
+
+    <span class="n">_INFO_FILE</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;../../tests/assets/config/read_only/ats_cli_cfg_api.cfg&#39;</span>
+    <span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span>
+    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Initialize MyTool instance.&#39;&#39;&#39;</span>
+        <span class="n">current_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">dirname</span><span class="p">(</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">BaseFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
+                <span class="n">options</span><span class="o">=</span><span class="n">BaseOptions</span><span class="p">(</span>
+                    <span class="n">info_file</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">current_dir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_INFO_FILE</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">use_generator</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">context_bundle</span><span class="o">=</span><span class="n">ContextFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">()</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_context</span><span class="p">()</span><span class="o">.</span><span class="n">logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_context</span><span class="p">()</span><span class="o">.</span><span class="n">reporter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_splash_manager</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="s1">&#39;Log: MyTool initialized successfully&#39;</span><span class="p">,</span> <span class="n">INFO</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">success</span><span class="p">([</span><span class="s1">&#39;Report: MyTool initialized successfully&#39;</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Log: Processing starting, verbose: </span><span class="si">{</span><span class="n">verbose</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">INFO</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="n">verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Report: Processing starting, verbose: </span><span class="si">{</span><span class="n">verbose</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Overwrite result </span><span class="si">{</span><span class="n">verbose</span><span class="si">}</span><span class="s1"> ...&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">verbose</span>
+
+    <span class="k">def</span> <span class="nf">perform_action</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;A new method showing logging and reporting with different levels and colors.&#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="s1">&#39;Log: Performing a specific tool action&#39;</span><span class="p">,</span> <span class="n">INFO</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="s1">&#39;Log: This is a warning log from MyTool action&#39;</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">warning</span><span class="p">([</span><span class="s1">&#39;Report: This is a colored warning from MyTool&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="s1">&#39;Report: This is a colored error from MyTool&#39;</span><span class="p">])</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">tool</span><span class="p">:</span> <span class="n">MyTool</span> <span class="o">=</span> <span class="n">MyTool</span><span class="p">()</span>
+
+    <span class="n">result</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Result: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">tool</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">():</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">tool</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">tool</span><span class="o">.</span><span class="n">perform_action</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Result: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 <section id="copyright-and-licence">
 <h1>Copyright and licence<a class="headerlink" href="#copyright-and-licence" title="Link to this heading">¶</a></h1>
 <p><a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0"><img alt="license: gpl v3" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a> <a class="reference external" href="https://opensource.org/licenses/Apache-2.0"><img alt="license: apache 2.0" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" /></a></p>
@@ -435,6 +515,8 @@ at your option, any later version of Python 3 you may have available.</p>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li><a class="reference internal" href="#framework-structure">Framework structure</a></li>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
 <li><a class="reference internal" href="#copyright-and-licence">Copyright and licence</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>

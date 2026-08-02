@@ -383,6 +383,87 @@ Framework structure
 
      43 directories, 198 files
 
+Features
+---------
+
+* **Base Framework Architecture**: Standardized classes (``Base``, ``BaseFactory``, ``BaseOptions``) to quickly build robust command-line applications, scripts, and tools.
+* **Robust Logging Engine**: Highly configurable logging module supporting log file outputs, buffers, custom formatters, message processors, and multiple severity levels.
+* **Advanced Option Parsing**: Command-line option parser with modular design and strategy support (such as ``fire`` parsing or standard ``argparse`` processing).
+* **Flexible Configuration I/O**: Config files loader and storer supporting formats like CFG, INI, JSON, XML, and YAML out of the box.
+* **Themeable Console Reporter**: Enhanced feedback system that displays styled, colored, and verbose messages to the console with support for custom color themes.
+* **Progressive Splash Screens**: Informative and visually appealing CLI splash screen implementation with customizable progress bars.
+* **Type & Value Validation**: Built-in mechanisms to perform rigorous type checking and data validation on inputs and configs.
+* **OOP and SOLID Design**: Decoupled, modular package design built around SOLID principles and clear interface segregation.
+
+Usage
+------
+
+Below is a basic example illustrating how to define and use a tool by subclassing the ``Base`` class, integrating logger and reporter modules:
+
+.. code-block:: python
+
+    from logging import INFO, WARNING
+    from os.path import dirname, realpath
+
+    from ats_utilities.base.engine import Base
+    from ats_utilities.base.setup.factory import BaseFactory
+    from ats_utilities.base.setup.options import BaseOptions
+    from ats_utilities.context.factory import ContextFactory
+    from ats_utilities.logger.ilogger import ILogger
+    from ats_utilities.reporter.ireporter import IReporter
+
+    class MyTool(Base):
+        '''Concrete implementation of Base for use case illustration.'''
+
+        _INFO_FILE: str = '../../tests/assets/config/read_only/ats_cli_cfg_api.cfg'
+        _logger: ILogger
+        _reporter: IReporter
+
+        def __init__(self):
+            '''Initialize MyTool instance.'''
+            current_dir: str = dirname(realpath(__file__))
+            super().__init__(
+                BaseFactory.create_bundle(
+                    options=BaseOptions(
+                        info_file=f'{current_dir}/{self._INFO_FILE}',
+                        use_generator=False,
+                        context_bundle=ContextFactory.create_bundle()
+                    )
+                )
+            )
+            self._logger = self.get_context().logger
+            self._reporter = self.get_context().reporter
+            self._splash_manager.show()
+
+            self._logger.write_log('Log: MyTool initialized successfully', INFO)
+            self._reporter.success(['Report: MyTool initialized successfully'])
+
+        def process(self, verbose: bool = True) -> bool:
+            self._logger.write_log(f'Log: Processing starting, verbose: {verbose}', INFO)
+            self._reporter.verbose(verbose, [f'Report: Processing starting, verbose: {verbose}'])
+            print(f'Overwrite result {verbose} ...')
+            return verbose
+
+        def perform_action(self) -> None:
+            '''A new method showing logging and reporting with different levels and colors.'''
+            self._logger.write_log('Log: Performing a specific tool action', INFO)
+            self._logger.write_log('Log: This is a warning log from MyTool action', WARNING)
+            self._reporter.warning(['Report: This is a colored warning from MyTool'])
+            self._reporter.error(['Report: This is a colored error from MyTool'])
+
+
+    if __name__ == "__main__":
+        tool: MyTool = MyTool()
+
+        result: bool = False
+        print(f'Result: {result}')
+
+        if tool.is_initialized():
+            result = tool.process(True)
+            tool.perform_action()
+
+        print(f'Result: {result}')
+
 Copyright and licence
 ----------------------
 
