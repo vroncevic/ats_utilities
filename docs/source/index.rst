@@ -37,8 +37,8 @@ other information that should be provided before the modules are installed.
    self
    modules
 
-Installation
--------------
+🚀 Installation
+----------------
 
 Used next development environment
 
@@ -95,15 +95,15 @@ You can use Docker to create image/container, or You can use pip to install
     # python3
     pip3 install ats_utilities
 
-Dependencies
--------------
+📦 Dependencies
+----------------
 
 **ats_utilities** requires next modules and libraries
 
 * `yaml - YAML parser and emitter for Python <https://pypi.org/project/PyYAML/>`_
 
-Framework structure
---------------------
+📁 Framework structure
+-----------------------
 
 **ats_utilities** is designed from the ground up around robust, object-oriented paradigms and industrial-grade design patterns. The codebase strictly adheres to SOLID principles and is partitioned into highly decoupled, modular packages.
 
@@ -121,47 +121,59 @@ Framework structure
 
     ats_utilities/
          ├── base/
-         │   ├── base_bundle.py
-         │   ├── base_registry.py
          │   ├── engine.py
          │   ├── ibase.py
-         │   └── __init__.py
-          ├── checker/
-          │   ├── context/
-         │   │   ├── context_provider.py
+         │   ├── __init__.py
+         │   └── setup/
+         │       ├── bundle.py
+         │       ├── dep_validator.py
+         │       ├── dependencies.py
+         │       ├── factory.py
+         │       ├── __init__.py
+         │       ├── keys.py
+         │       ├── opt_validator.py
+         │       ├── options.py
+         │       ├── registry.py
+         │       └── validator.py
+         ├── checker/
+         │   ├── context/
+         │   │   ├── engine.py
          │   │   ├── icontext_provider.py
          │   │   └── __init__.py
          │   ├── engine.py
          │   ├── format/
-         │   │   ├── format_validator.py
+         │   │   ├── engine.py
          │   │   ├── iformat_validator.py
          │   │   └── __init__.py
          │   ├── ichecker.py
          │   ├── __init__.py
          │   ├── proxy_validator.py
          │   ├── reporter/
-         │   │   ├── check_reporter.py
-         │   │   ├── checker_reporter_bundle.py
-         │   │   ├── checker_reporter_registry.py
+         │   │   ├── data.py
+         │   │   ├── data_validator.py
+         │   │   ├── engine.py
          │   │   ├── icheck_reporter.py
          │   │   └── __init__.py
-          │   ├── setup/
-          │   │   ├── bundle.py
-          │   │   ├── dependencies.py
-          │   │   ├── factory.py
-          │   │   ├── __init__.py
-          │   │   ├── registry.py
-          │   │   └── validator.py
-          │   └── type/
+         │   ├── setup/
+         │   │   ├── bundle.py
+         │   │   ├── dep_validator.py
+         │   │   ├── dependencies.py
+         │   │   ├── factory.py
+         │   │   ├── __init__.py
+         │   │   ├── keys.py
+         │   │   ├── opt_validator.py
+         │   │   ├── options.py
+         │   │   ├── registry.py
+         │   │   ├── types.py
+         │   │   └── validator.py
+         │   └── type/
+         │       ├── engine.py
          │       ├── __init__.py
-         │       ├── itype_validator.py
-         │       └── type_validator.py
+         │       └── itype_validator.py
          ├── config_io/
          │   ├── conf_file.py
-         │   ├── conf_file_bundle.py
-         │   ├── conf_file_registry.py
-         │   ├── config_io_bundle.py
-         │   ├── config_io_registry.py
+         │   ├── data.py
+         │   ├── data_validator.py
          │   ├── iconf_file.py
          │   ├── __init__.py
          │   ├── loader/
@@ -178,16 +190,33 @@ Framework structure
          │   │   ├── json_processor.py
          │   │   ├── xml_processor.py
          │   │   └── yaml_processor.py
+         │   ├── setup/
+         │   │   ├── bundle.py
+         │   │   ├── dep_validator.py
+         │   │   ├── dependencies.py
+         │   │   ├── factory.py
+         │   │   ├── __init__.py
+         │   │   ├── keys.py
+         │   │   ├── opt_validator.py
+         │   │   ├── options.py
+         │   │   ├── registry.py
+         │   │   ├── types.py
+         │   │   └── validator.py
          │   └── storer/
          │       ├── engine.py
          │       ├── __init__.py
          │       └── istorer.py
          ├── context/
-         │   ├── context_bundle.py
-         │   ├── context_registry.py
-         │   ├── context_support.py
-         │   ├── icontext_support.py
-         │   └── __init__.py
+         │   ├── bundle.py
+         │   ├── dep_validator.py
+         │   ├── dependencies.py
+         │   ├── factory.py
+         │   ├── __init__.py
+         │   ├── keys.py
+         │   ├── opt_validator.py
+         │   ├── options.py
+         │   ├── registry.py
+         │   └── validator.py
          ├── exceptions/
          │   ├── ats_attribute_error.py
          │   ├── ats_bad_call_error.py
@@ -202,26 +231,41 @@ Framework structure
          │   ├── ats_value_error.py
          │   ├── format_error.py
          │   └── __init__.py
-         ├── generator/
+         ├── generation/
+         │   ├── data.py
+         │   ├── data_validator.py
          │   ├── engine.py
-         │   ├── gen_params_bundle.py
-         │   ├── gen_params_registry.py
-         │   ├── generator_bundle.py
-         │   ├── generator_registry.py
-         │   ├── igenerator.py
+         │   ├── imanager.py
          │   ├── __init__.py
+         │   ├── project/
+         │   │   ├── __init__.py
+         │   │   ├── ipro_config.py
+         │   │   ├── ipro_name.py
+         │   │   ├── itemplate_dir.py
+         │   │   ├── pro_config.py
+         │   │   ├── pro_name.py
+         │   │   └── template_dir.py
          │   ├── scheme/
          │   │   ├── engine.py
          │   │   ├── __init__.py
          │   │   └── ischeme_loader.py
+         │   ├── setup/
+         │   │   ├── bundle.py
+         │   │   ├── dep_validator.py
+         │   │   ├── dependencies.py
+         │   │   ├── factory.py
+         │   │   ├── __init__.py
+         │   │   ├── keys.py
+         │   │   ├── opt_validator.py
+         │   │   ├── options.py
+         │   │   ├── registry.py
+         │   │   └── validator.py
          │   ├── tar/
+         │   │   ├── data.py
+         │   │   ├── data_validator.py
          │   │   ├── engine.py
          │   │   ├── __init__.py
-         │   │   ├── itar_processor.py
-         │   │   ├── tar_process_bundle.py
-         │   │   ├── tar_process_member_bundle.py
-         │   │   ├── tar_process_member_registry.py
-         │   │   └── tar_process_registry.py
+         │   │   └── itar_processor.py
          │   └── template/
          │       ├── engine.py
          │       ├── __init__.py
@@ -231,21 +275,13 @@ Framework structure
          │   │   ├── engine.py
          │   │   ├── ibuild_date.py
          │   │   └── __init__.py
-          │   ├── engine.py
-          │   ├── iinfo_manager.py
-          │   ├── info_keys.py
-          │   ├── info_ok/
-          │   │   ├── engine.py
-          │   │   ├── iinfo_ok.py
-          │   │   └── __init__.py
-          │   ├── __init__.py
-          │   ├── setup/
-          │   │   ├── bundle.py
-          │   │   ├── dependencies.py
-          │   │   ├── factory.py
-          │   │   ├── __init__.py
-          │   │   ├── registry.py
-          │   │   └── validator.py
+         │   ├── engine.py
+         │   ├── imanager.py
+         │   ├── info_ok/
+         │   │   ├── engine.py
+         │   │   ├── iinfo_ok.py
+         │   │   └── __init__.py
+         │   ├── __init__.py
          │   ├── licence/
          │   │   ├── engine.py
          │   │   ├── ilicence.py
@@ -270,6 +306,21 @@ Framework structure
          │   │   ├── engine.py
          │   │   ├── __init__.py
          │   │   └── irepository.py
+         │   ├── setup/
+         │   │   ├── bundle.py
+         │   │   ├── dep_validator.py
+         │   │   ├── dependencies.py
+         │   │   ├── expose.py
+         │   │   ├── factory.py
+         │   │   ├── iexpose.py
+         │   │   ├── __init__.py
+         │   │   ├── ischema.py
+         │   │   ├── keys.py
+         │   │   ├── opt_validator.py
+         │   │   ├── options.py
+         │   │   ├── registry.py
+         │   │   ├── schema.py
+         │   │   └── validator.py
          │   ├── use_github/
          │   │   ├── engine.py
          │   │   ├── __init__.py
@@ -279,76 +330,106 @@ Framework structure
          │       ├── __init__.py
          │       └── iversion.py
          ├── __init__.py
-          ├── logger/
-          │   ├── engine.py
-          │   ├── ilogger.py
-          │   ├── __init__.py
-          │   └── setup/
-          │       ├── bundle.py
-          │       ├── dependencies.py
-          │       ├── factory.py
-          │       ├── __init__.py
-          │       ├── registry.py
-          │       └── validator.py
+         ├── logger/
+         │   ├── buffer/
+         │   │   ├── engine.py
+         │   │   ├── ibuffer.py
+         │   │   └── __init__.py
+         │   ├── engine.py
+         │   ├── formatter/
+         │   │   ├── engine.py
+         │   │   ├── iformatter.py
+         │   │   └── __init__.py
+         │   ├── handler/
+         │   │   ├── engine.py
+         │   │   ├── ihandler_manager.py
+         │   │   └── __init__.py
+         │   ├── ilogger.py
+         │   ├── __init__.py
+         │   ├── processor/
+         │   │   ├── engine.py
+         │   │   └── imessage_processor.py
+         │   ├── setup/
+         │   │   ├── bundle.py
+         │   │   ├── dep_validator.py
+         │   │   ├── dependencies.py
+         │   │   ├── factory.py
+         │   │   ├── __init__.py
+         │   │   ├── keys.py
+         │   │   ├── opt_validator.py
+         │   │   ├── options.py
+         │   │   ├── registry.py
+         │   │   └── validator.py
+         │   └── underlying/
+         │       ├── engine.py
+         │       └── iunderlying.py
          ├── option/
          │   ├── command/
-         │   │   ├── command_option.py
+         │   │   ├── data.py
+         │   │   ├── data_validator.py
          │   │   ├── __init__.py
+         │   │   ├── ioption.py
          │   │   └── ioption_command.py
          │   ├── engine.py
+         │   ├── imanager.py
          │   ├── __init__.py
-         │   ├── ioption_manager.py
-         │   ├── option_bundle.py
-         │   ├── option_namespace.py
-         │   ├── option_registry.py
-         │   ├── parser/
-         │   │   ├── engine.py
-         │   │   ├── iarg_parser.py
+         │   ├── ioption_configurator.py
+         │   ├── ioption_parser.py
+         │   ├── setup/
+         │   │   ├── bundle.py
+         │   │   ├── dep_validator.py
+         │   │   ├── dependencies.py
+         │   │   ├── factory.py
          │   │   ├── __init__.py
-         │   │   ├── parser_bundle.py
-         │   │   └── parser_registry.py
-         │   └── strategy/
+         │   │   ├── keys.py
+         │   │   ├── opt_validator.py
+         │   │   ├── options.py
+         │   │   ├── registry.py
+         │   │   ├── types.py
+         │   │   └── validator.py
+         │   ├── strategy/
+         │   │   ├── data.py
+         │   │   ├── data_validator.py
+         │   │   ├── engine.py
+         │   │   ├── __init__.py
+         │   │   └── iparser_strategy.py
+         │   └── underlying/
          │       ├── engine.py
          │       ├── __init__.py
-         │       ├── iparser_strategy.py
-         │       ├── parser_strategy_bundle.py
-         │       └── parser_strategy_registry.py
-         ├── project_setup/
-         │   ├── __init__.py
-         │   ├── ipro_config.py
-         │   ├── ipro_name.py
-         │   ├── itemplate_dir.py
-         │   ├── pro_config.py
-         │   ├── pro_name.py
-         │   ├── project_setup_bundle.py
-         │   ├── project_setup_registry.py
-         │   └── template_dir.py
+         │       └── iunderlying.py
          ├── py.typed
-          ├── reporter/
-          │   ├── engine.py
-          │   ├── __init__.py
-          │   ├── ireporter.py
-          │   ├── proxy_reporter.py
-          │   ├── setup/
-          │   │   ├── bundle.py
-          │   │   ├── dependencies.py
-          │   │   ├── factory.py
-          │   │   ├── __init__.py
-          │   │   ├── registry.py
-          │   │   └── validator.py
-          │   └── theme/
+         ├── reporter/
+         │   ├── engine.py
+         │   ├── __init__.py
+         │   ├── ireporter.py
+         │   ├── proxy_reporter.py
+         │   ├── setup/
+         │   │   ├── bundle.py
+         │   │   ├── dep_validator.py
+         │   │   ├── dependencies.py
+         │   │   ├── factory.py
+         │   │   ├── __init__.py
+         │   │   ├── keys.py
+         │   │   ├── opt_validator.py
+         │   │   ├── options.py
+         │   │   ├── registry.py
+         │   │   └── validator.py
+         │   └── theme/
          │       ├── engine.py
          │       ├── iconsole_theme.py
-         │       └── __init__.py
-         ├── splasher/
+         │       ├── __init__.py
+         │       └── types.py
+         ├── splash/
+         │   ├── data.py
+         │   ├── data_validator.py
          │   ├── engine.py
          │   ├── external/
          │   │   ├── ext_infrastructure.py
          │   │   ├── github_infrastructure.py
          │   │   ├── iext_infrastructure.py
          │   │   └── __init__.py
+         │   ├── imanager.py
          │   ├── __init__.py
-         │   ├── isplasher.py
          │   ├── progressbar/
          │   │   ├── __init__.py
          │   │   ├── iprogress_bar.py
@@ -357,11 +438,17 @@ Framework structure
          │   │   ├── __init__.py
          │   │   ├── isplash_property.py
          │   │   └── splash_property.py
-         │   ├── splash_bundle.py
-         │   ├── splash_center_bundle.py
-         │   ├── splash_center_registry.py
-         │   ├── splash_keys.py
-         │   ├── splash_registry.py
+         │   ├── setup/
+         │   │   ├── bundle.py
+         │   │   ├── dep_validator.py
+         │   │   ├── dependencies.py
+         │   │   ├── factory.py
+         │   │   ├── __init__.py
+         │   │   ├── keys.py
+         │   │   ├── opt_validator.py
+         │   │   ├── options.py
+         │   │   ├── registry.py
+         │   │   └── validator.py
          │   └── terminal/
          │       ├── __init__.py
          │       ├── iterminal_properties.py
@@ -369,22 +456,32 @@ Framework structure
          ├── utils/
          │   ├── boolean.py
          │   ├── component.py
+         │   ├── data/
+         │   │   ├── __init__.py
+         │   │   └── ivalidator.py
          │   ├── dicts.py
          │   ├── dirs.py
          │   ├── files.py
          │   ├── __init__.py
-         │   ├── iregistry.py
-         │   └── reflection.py
+         │   ├── reflection.py
+         │   └── setup/
+         │       ├── idep_validator.py
+         │       ├── ifactory.py
+         │       ├── ikeys.py
+         │       ├── __init__.py
+         │       ├── iopt_validator.py
+         │       ├── iregistry.py
+         │       └── ivalidator.py
          └── validation/
              ├── check_type.py
              ├── check_value.py
              ├── context_error.py
              └── __init__.py
 
-     43 directories, 198 files
+     59 directories, 299 files
 
-Features
----------
+✨ Features
+------------
 
 * **Base Framework Architecture**: Standardized classes (``Base``, ``BaseFactory``, ``BaseOptions``) to quickly build robust command-line applications, scripts, and tools.
 * **Robust Logging Engine**: Highly configurable logging module supporting log file outputs, buffers, custom formatters, message processors, and multiple severity levels.
@@ -395,8 +492,16 @@ Features
 * **Type & Value Validation**: Built-in mechanisms to perform rigorous type checking and data validation on inputs and configs.
 * **OOP and SOLID Design**: Decoupled, modular package design built around SOLID principles and clear interface segregation.
 
-Usage
-------
+📊 Code coverage
+-----------------
+
+.. csv-table::
+   :file: coverage_table.csv
+   :header-rows: 1
+   :widths: 60, 10, 10, 10
+
+🛠 Usage
+---------
 
 Below is a basic example illustrating how to define and use a tool by subclassing the ``Base`` class, integrating logger and reporter modules:
 
@@ -464,8 +569,13 @@ Below is a basic example illustrating how to define and use a tool by subclassin
 
         print(f'Result: {result}')
 
-Copyright and licence
-----------------------
+👥 Contributing
+----------------
+
+`Contributing to ats_utilities <https://github.com/vroncevic/ats_utilities/blob/dev/CONTRIBUTING.md>`_
+
+📄 Copyright and licence
+------------------------
 
 |license: gpl v3| |license: apache 2.0|
 
