@@ -39,7 +39,7 @@ class TestInfoFactory(unittest.TestCase):
         self.context_bundle = ContextBundleFactory.create_bundle()
         self.info_data = {
             InfoBundleKeys.ATS_NAME: "ats_utilities",
-            InfoBundleKeys.ATS_VERSION: "3.4.4",
+            InfoBundleKeys.ATS_VERSION: "3.4.5",
             InfoBundleKeys.ATS_BUILD_DATE: "2026-08-01",
             InfoBundleKeys.ATS_LICENCE: "GPL-3.0",
             InfoBundleKeys.ATS_INFO_OK: True

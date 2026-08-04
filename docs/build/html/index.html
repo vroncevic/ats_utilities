@@ -2033,11 +2033,20 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">realpath</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.base.engine</span> <span class="kn">import</span> <span class="n">Base</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.factory</span> <span class="kn">import</span> <span class="n">BaseFactory</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.options</span> <span class="kn">import</span> <span class="n">BaseOptions</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.factory</span> <span class="kn">import</span> <span class="n">ContextFactory</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.factory</span> <span class="kn">import</span> <span class="n">BaseBundleFactory</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.options</span> <span class="kn">import</span> <span class="n">BaseBundleOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.factory</span> <span class="kn">import</span> <span class="n">ContextBundleFactory</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.4.5&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 <span class="k">class</span> <span class="nc">MyTool</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Concrete implementation of Base for use case illustration.&#39;&#39;&#39;</span>
@@ -2050,11 +2059,11 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Initialize MyTool instance.&#39;&#39;&#39;</span>
         <span class="n">current_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">dirname</span><span class="p">(</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">BaseFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
-                <span class="n">options</span><span class="o">=</span><span class="n">BaseOptions</span><span class="p">(</span>
+            <span class="n">BaseBundleFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
+                <span class="n">options</span><span class="o">=</span><span class="n">BaseBundleOptions</span><span class="p">(</span>
                     <span class="n">info_file</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">current_dir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_INFO_FILE</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="n">use_generator</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                    <span class="n">context_bundle</span><span class="o">=</span><span class="n">ContextFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">()</span>
+                    <span class="n">context_bundle</span><span class="o">=</span><span class="n">ContextBundleFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">()</span>
                 <span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>

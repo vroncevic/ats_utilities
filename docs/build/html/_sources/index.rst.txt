@@ -509,64 +509,73 @@ Below is a basic example illustrating how to define and use a tool by subclassin
 
     from logging import INFO, WARNING
     from os.path import dirname, realpath
-
+    
     from ats_utilities.base.engine import Base
-    from ats_utilities.base.setup.factory import BaseFactory
-    from ats_utilities.base.setup.options import BaseOptions
-    from ats_utilities.context.factory import ContextFactory
+    from ats_utilities.base.setup.factory import BaseBundleFactory
+    from ats_utilities.base.setup.options import BaseBundleOptions
+    from ats_utilities.context.factory import ContextBundleFactory
     from ats_utilities.logger.ilogger import ILogger
     from ats_utilities.reporter.ireporter import IReporter
-
+    
+    __author__ = 'Vladimir Roncevic'
+    __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
+    __credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
+    __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+    __version__ = '3.4.5'
+    __maintainer__ = 'Vladimir Roncevic'
+    __email__ = 'elektron.ronca@gmail.com'
+    __status__ = 'Development'
+    
     class MyTool(Base):
         '''Concrete implementation of Base for use case illustration.'''
-
+    
         _INFO_FILE: str = '../../tests/assets/config/read_only/ats_cli_cfg_api.cfg'
         _logger: ILogger
         _reporter: IReporter
-
+    
         def __init__(self):
             '''Initialize MyTool instance.'''
             current_dir: str = dirname(realpath(__file__))
             super().__init__(
-                BaseFactory.create_bundle(
-                    options=BaseOptions(
+                BaseBundleFactory.create_bundle(
+                    options=BaseBundleOptions(
                         info_file=f'{current_dir}/{self._INFO_FILE}',
                         use_generator=False,
-                        context_bundle=ContextFactory.create_bundle()
+                        context_bundle=ContextBundleFactory.create_bundle()
                     )
                 )
             )
             self._logger = self.get_context().logger
             self._reporter = self.get_context().reporter
             self._splash_manager.show()
-
+    
             self._logger.write_log('Log: MyTool initialized successfully', INFO)
             self._reporter.success(['Report: MyTool initialized successfully'])
-
+    
         def process(self, verbose: bool = True) -> bool:
             self._logger.write_log(f'Log: Processing starting, verbose: {verbose}', INFO)
             self._reporter.verbose(verbose, [f'Report: Processing starting, verbose: {verbose}'])
             print(f'Overwrite result {verbose} ...')
             return verbose
-
+    
         def perform_action(self) -> None:
             '''A new method showing logging and reporting with different levels and colors.'''
             self._logger.write_log('Log: Performing a specific tool action', INFO)
             self._logger.write_log('Log: This is a warning log from MyTool action', WARNING)
             self._reporter.warning(['Report: This is a colored warning from MyTool'])
             self._reporter.error(['Report: This is a colored error from MyTool'])
-
-
+    
+    
     if __name__ == "__main__":
         tool: MyTool = MyTool()
-
+    
         result: bool = False
         print(f'Result: {result}')
-
+    
         if tool.is_initialized():
             result = tool.process(True)
             tool.perform_action()
-
+    
         print(f'Result: {result}')
 
 👥 Contributing
