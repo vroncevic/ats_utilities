@@ -61,7 +61,7 @@ class ValidatorTest(unittest.TestCase):
 
     def test_validation_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            ReporterBundleValidator.validate(None)  # type: ignore
+            ReporterBundleValidator.validate(None)
 
         mock_checker = MagicMock(spec=IChecker)
         mock_theme = MagicMock(spec=IConsoleTheme)
@@ -69,7 +69,7 @@ class ValidatorTest(unittest.TestCase):
 
         with self.assertRaises(ATSValueError):
             bundle = ReporterBundle(
-                checker=None,  # type: ignore
+                checker=None,
                 theme=mock_theme,
                 logger=mock_logger
             )
@@ -78,7 +78,7 @@ class ValidatorTest(unittest.TestCase):
         with self.assertRaises(ATSValueError):
             bundle = ReporterBundle(
                 checker=mock_checker,
-                theme=None,  # type: ignore
+                theme=None,
                 logger=mock_logger
             )
             ReporterBundleValidator.validate(bundle)
@@ -87,13 +87,13 @@ class ValidatorTest(unittest.TestCase):
             bundle = ReporterBundle(
                 checker=mock_checker,
                 theme=mock_theme,
-                logger=None  # type: ignore
+                logger=None
             )
             ReporterBundleValidator.validate(bundle)
 
     def test_validation_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            ReporterBundleValidator.validate("invalid")  # type: ignore
+            ReporterBundleValidator.validate("invalid")
 
         mock_checker = MagicMock(spec=IChecker)
         mock_theme = MagicMock(spec=IConsoleTheme)
@@ -101,7 +101,7 @@ class ValidatorTest(unittest.TestCase):
 
         with self.assertRaises(ATSTypeError):
             bundle = ReporterBundle(
-                checker="not_a_checker",  # type: ignore
+                checker="not_a_checker",
                 theme=mock_theme,
                 logger=mock_logger
             )
@@ -110,7 +110,7 @@ class ValidatorTest(unittest.TestCase):
         with self.assertRaises(ATSTypeError):
             bundle = ReporterBundle(
                 checker=mock_checker,
-                theme="not_a_theme",  # type: ignore
+                theme="not_a_theme",
                 logger=mock_logger
             )
             ReporterBundleValidator.validate(bundle)
@@ -119,7 +119,7 @@ class ValidatorTest(unittest.TestCase):
             bundle = ReporterBundle(
                 checker=mock_checker,
                 theme=mock_theme,
-                logger="not_a_logger"  # type: ignore
+                logger="not_a_logger"
             )
             ReporterBundleValidator.validate(bundle)
 

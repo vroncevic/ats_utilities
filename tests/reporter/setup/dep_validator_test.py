@@ -53,13 +53,13 @@ class DepValidatorTest(unittest.TestCase):
 
     def test_validate_none(self) -> None:
         with self.assertRaises(ATSValueError) as context:
-            ReporterBundleDependenciesValidator.validate(None)  # type: ignore
-        self.assertEqual(str(context.exception), "reporter_dependencies_validator::validate(...) - the dependencies must be provided")
+            ReporterBundleDependenciesValidator.validate(None)
+        self.assertEqual(str(context.exception), "reporter_bundle_dependencies_validator::validate(...) - the reporter bundle dependencies must be provided")
 
     def test_validate_not_mapping(self) -> None:
         with self.assertRaises(ATSTypeError) as context:
-            ReporterBundleDependenciesValidator.validate("invalid")  # type: ignore
-        self.assertEqual(str(context.exception), "reporter_dependencies_validator::validate(...) - the dependencies must be a Mapping")
+            ReporterBundleDependenciesValidator.validate("invalid")
+        self.assertEqual(str(context.exception), "reporter_bundle_dependencies_validator::validate(...) - the reporter bundle dependencies must be a Mapping")
 
     def test_validate_missing_dependency(self) -> None:
         mock_theme = MagicMock(spec=IConsoleTheme)
@@ -68,10 +68,10 @@ class DepValidatorTest(unittest.TestCase):
         deps: ReporterBundleDependencies = {
             "theme": mock_theme,
             "logger": mock_logger
-        }  # type: ignore
+        }
         with self.assertRaises(ATSTypeError) as context:
             ReporterBundleDependenciesValidator.validate(deps)
-        self.assertEqual(str(context.exception), "reporter_dependencies_validator::validate(...) - the checker must be an instance of IChecker")
+        self.assertEqual(str(context.exception), "reporter_bundle_dependencies_validator::validate(...) - the checker must be an instance of IChecker")
 
     def test_validate_invalid_dependency_type(self) -> None:
         mock_checker = MagicMock(spec=IChecker)
@@ -80,11 +80,11 @@ class DepValidatorTest(unittest.TestCase):
         deps: ReporterBundleDependencies = {
             "checker": mock_checker,
             "theme": mock_theme,
-            "logger": "invalid"  # type: ignore
+            "logger": "invalid"
         }
         with self.assertRaises(ATSTypeError) as context:
             ReporterBundleDependenciesValidator.validate(deps)
-        self.assertEqual(str(context.exception), "reporter_dependencies_validator::validate(...) - the logger must be an instance of ILogger")
+        self.assertEqual(str(context.exception), "reporter_bundle_dependencies_validator::validate(...) - the logger must be an instance of ILogger")
 
 
 if __name__ == "__main__":

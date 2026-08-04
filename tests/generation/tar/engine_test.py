@@ -4,7 +4,6 @@ import unittest
 from unittest.mock import MagicMock, patch, mock_open
 from tarfile import TarFile, TarInfo
 
-# Adjust imports according to your project structure
 from ats_utilities.generation.tar.engine import TarProcessor
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
@@ -26,7 +25,6 @@ class TestTarProcessor(unittest.TestCase):
         self.mock_context_bundle.verbose = True
         self.mock_template_processor = MagicMock(spec=ITemplateProcessor)
         
-        # Valid bundles
         self.mock_member_bundle = MagicMock(spec=TarMemberData)
         self.mock_member_bundle.vals = {"name": "test"}
         self.mock_member_bundle.dest_full_path = "/target/path/file.txt"
@@ -50,10 +48,10 @@ class TestTarProcessor(unittest.TestCase):
     def test_initialization_invalid_template_processor(self) -> None:
         """Test initialization failure when template processor validation fails."""
         with self.assertRaises(Exception):
-            TarProcessor(self.mock_context_bundle, None)  # type: ignore
+            TarProcessor(self.mock_context_bundle, None)
 
         with self.assertRaises(Exception):
-            TarProcessor(self.mock_context_bundle, MagicMock())  # type: ignore
+            TarProcessor(self.mock_context_bundle, MagicMock())
 
     @patch("ats_utilities.generation.tar.engine.makedirs")
     def test_process_tar_member_directory(self, mock_makedirs: MagicMock) -> None:
@@ -90,7 +88,7 @@ class TestTarProcessor(unittest.TestCase):
             "/target/path/file.txt",
             "rendered content",
             "tar_processor::process_tar_member(...)",
-            "error writing to file /target/path/file.txt"
+            "the error writing to file /target/path/file.txt"
         )
 
     def test_process_tar_member_neither_dir_nor_file(self) -> None:
@@ -99,7 +97,6 @@ class TestTarProcessor(unittest.TestCase):
         self.mock_member_bundle.member.isdir.return_value = False
         self.mock_member_bundle.member.isfile.return_value = False
 
-        # Should exit cleanly without calling extractfile or render
         processor.process_tar_member(self.mock_member_bundle)
         self.mock_member_bundle.tar.extractfile.assert_not_called()
 
@@ -111,7 +108,6 @@ class TestTarProcessor(unittest.TestCase):
         self.mock_member_bundle.member.isfile.return_value = True
         self.mock_member_bundle.tar.extractfile.return_value = None
 
-        # Should exit cleanly without calling render
         processor.process_tar_member(self.mock_member_bundle)
         self.mock_template_processor.render.assert_not_called()
         mock_makedirs.assert_called_once_with("/target/path", exist_ok=True)
@@ -129,7 +125,6 @@ class TestTarProcessor(unittest.TestCase):
         mock_tar_open: MagicMock, mock_member_bundle_cls: MagicMock
     ) -> None:
         """Test an absolute successful execution iteration across archive members."""
-        # Arrange
         processor = TarProcessor(self.mock_context_bundle, self.mock_template_processor)
         
         mock_tar_instance = MagicMock()
@@ -147,10 +142,7 @@ class TestTarProcessor(unittest.TestCase):
         mock_member_bundle_cls.return_value = mock_member_bundle_instance
 
         with patch.object(processor, "process_tar_member") as mock_process_member:
-            # Act
             processor.process(self.mock_process_bundle)
-
-            # Assert
             mock_makedirs.assert_any_call("/target/dir", exist_ok=True)
             mock_tar_open.assert_called_once_with("/archive.tgz", "r:gz")
             mock_process_member.assert_called_once_with(mock_member_bundle_instance)
@@ -164,9 +156,9 @@ class TestTarProcessor(unittest.TestCase):
         processor = TarProcessor(self.mock_context_bundle, self.mock_template_processor)
         
         mock_tar_instance = MagicMock()
-        mock_member1 = MagicMock(spec=TarInfo)  # Outside of template dir scope
+        mock_member1 = MagicMock(spec=TarInfo)
         mock_member1.name = "outside/path/file.txt"
-        mock_member2 = MagicMock(spec=TarInfo)  # Inside but excluded
+        mock_member2 = MagicMock(spec=TarInfo)
         mock_member2.name = "templates/excluded_file.txt"
         mock_tar_instance.getmembers.return_value = [mock_member1, mock_member2]
         mock_tar_open.return_value.__enter__.return_value = mock_tar_instance

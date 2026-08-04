@@ -61,7 +61,7 @@ class SplashValidatorTest(unittest.TestCase):
         SplashBundleValidator.validate(bundle)
         mock_check.assert_called_once_with(
             "/path/to/logo.png",
-            "splash_validator::validate(...)",
+            "splash_bundle_validator::validate(...)",
             "the App/Tool/Script logo file path not correct"
         )
         mock_context_val.assert_called_once_with(bundle.context_bundle)

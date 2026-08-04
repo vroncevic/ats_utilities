@@ -56,12 +56,12 @@ class OptValidatorTest(unittest.TestCase):
     def test_validate_none(self) -> None:
         with self.assertRaises(ATSValueError) as context:
             ReporterBundleOptionsValidator.validate(None)  # type: ignore
-        self.assertEqual(str(context.exception), "reporter_options_validator::validate(...) - the options must be provided")
+        self.assertEqual(str(context.exception), "reporter_bundle_options_validator::validate(...) - the reporter bundle options must be provided")
 
     def test_validate_not_mapping(self) -> None:
         with self.assertRaises(ATSTypeError) as context:
             ReporterBundleOptionsValidator.validate("invalid")  # type: ignore
-        self.assertEqual(str(context.exception), "reporter_options_validator::validate(...) - the options must be a Mapping")
+        self.assertEqual(str(context.exception), "reporter_bundle_options_validator::validate(...) - the reporter bundle options must be a Mapping")
 
     def test_validate_invalid_option_type(self) -> None:
         opts: ReporterBundleOptions = {
@@ -69,7 +69,7 @@ class OptValidatorTest(unittest.TestCase):
         }
         with self.assertRaises(ATSTypeError) as context:
             ReporterBundleOptionsValidator.validate(opts)
-        self.assertEqual(str(context.exception), "reporter_options_validator::validate(...) - the checker must be an instance of CheckerBundleOptions")
+        self.assertEqual(str(context.exception), "reporter_bundle_options_validator::validate(...) - the checker must be an instance of CheckerBundleOptions")
 
     def test_validate_none_fields(self) -> None:
         opts: ReporterBundleOptions = {

@@ -4,7 +4,6 @@ import unittest
 from unittest.mock import MagicMock, patch
 from collections.abc import Mapping
 
-# Adjust imports according to your project structure
 from ats_utilities.config_io.processor.factory_processor import ConfigProcessorFactory
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.config_io.processor.cfg_processor import CFGProcessor
@@ -28,7 +27,7 @@ class TestConfigProcessorFactory(unittest.TestCase):
             ".cfg": CFGProcessor,
             "cfg": CFGProcessor,
             ".ini": INIProcessor,
-            "INI": INIProcessor,  # Case insensitivity check
+            "INI": INIProcessor,
             ".json": JSONProcessor,
             ".xml": XMLProcessor,
             ".yml": YAMLProcessor,
@@ -42,7 +41,7 @@ class TestConfigProcessorFactory(unittest.TestCase):
 
     def test_get_processor_class_unsupported_extension_raises(self) -> None:
         """Test that an unsupported extension raises a validation error."""
-        with self.assertRaises(Exception):  # Catches validation exceptions from not_satisfied
+        with self.assertRaises(Exception):
             ConfigProcessorFactory.get_processor_class(".invalid_ext")
 
     def test_create_from_extension_with_injected_processor(self) -> None:
@@ -55,7 +54,7 @@ class TestConfigProcessorFactory(unittest.TestCase):
                 instance=self.mock_processor,
                 expected_class=IConfigProcessor,
                 exc_context='config_processor_factory::create_from_extension(...)',
-                exc_message='provided processor must implement IConfigProcessor'
+                exc_message='the provided processor must implement IConfigProcessor'
             )
             self.assertEqual(result, self.mock_processor)
 
@@ -65,19 +64,14 @@ class TestConfigProcessorFactory(unittest.TestCase):
         self, mock_make: MagicMock, mock_validate: MagicMock
     ) -> None:
         """Test create_from_extension builds a fresh component when processor is None."""
-        # Arrange
         mock_resolved_instance = MagicMock(spec=JSONProcessor)
         mock_make.return_value = mock_resolved_instance
         self.mock_scheme.__len__.return_value = 1
-
-        # Act
         result = ConfigProcessorFactory.create_from_extension(
             extension=".json",
             scheme=self.mock_scheme,
             processor=None
         )
-
-        # Assert
         mock_make.assert_called_once_with(
             passed_obj=None,
             default_class=JSONProcessor,
@@ -87,7 +81,7 @@ class TestConfigProcessorFactory(unittest.TestCase):
             instance=mock_resolved_instance,
             expected_class=IConfigProcessor,
             exc_context='config_processor_factory::create_from_extension(...)',
-            exc_message='processor for extension .json must implement IConfigProcessor'
+            exc_message='the processor for extension .json must implement IConfigProcessor'
         )
         self.assertEqual(result, mock_resolved_instance)
 
@@ -103,21 +97,16 @@ class TestConfigProcessorFactory(unittest.TestCase):
         self, mock_create_ext: MagicMock, mock_check_exists: MagicMock
     ) -> None:
         """Test create_from_file_path checks file existence and extracts file suffix extension."""
-        # Arrange
         file_path = "/path/to/config.yaml"
-
-        # Act
         ConfigProcessorFactory.create_from_file_path(
             file_path=file_path,
             scheme=self.mock_scheme,
             processor=None
         )
-
-        # Assert
         mock_check_exists.assert_called_once_with(
             file_path,
             'config_processor_factory::create_from_file_path(...)',
-            f"file at {file_path} does not exist"
+            f"the file at {file_path} does not exist"
         )
         mock_create_ext.assert_called_once_with(
             extension=".yaml",
