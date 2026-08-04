@@ -86,8 +86,8 @@ class TestIParserStrategy(unittest.TestCase):
 
     def test_add_version(self) -> None:
         '''Tests the add_version method for setting version information.'''
-        self.strategy.add_version("3.4.4")
-        self.assertEqual(self.strategy.version, "3.4.4")
+        self.strategy.add_version("3.4.5")
+        self.assertEqual(self.strategy.version, "3.4.5")
 
         self.strategy.add_version(None)
         self.assertIsNone(self.strategy.version)

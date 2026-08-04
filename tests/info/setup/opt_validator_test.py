@@ -39,7 +39,7 @@ class TestInfoOptionsValidator(unittest.TestCase):
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
         self.valid_info = {
             InfoBundleKeys.ATS_NAME: "ats_utilities",
-            InfoBundleKeys.ATS_VERSION: "3.4.4",
+            InfoBundleKeys.ATS_VERSION: "3.4.5",
             InfoBundleKeys.ATS_BUILD_DATE: "2026-08-01",
             InfoBundleKeys.ATS_LICENCE: "GPL-3.0",
             InfoBundleKeys.ATS_INFO_OK: "OK"

@@ -66,8 +66,8 @@ class TestIOptionConfigurator(unittest.TestCase):
 
     def test_add_version_operation(self) -> None:
         '''Tests add_version_operation method.'''
-        self.configurator.add_version_operation("3.4.4")
-        self.assertEqual(self.configurator.version, "3.4.4")
+        self.configurator.add_version_operation("3.4.5")
+        self.assertEqual(self.configurator.version, "3.4.5")
 
         self.configurator.add_version_operation(None)
         self.assertIsNone(self.configurator.version)
