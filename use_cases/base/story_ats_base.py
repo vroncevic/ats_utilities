@@ -23,9 +23,9 @@ from logging import INFO, WARNING
 from os.path import dirname, realpath
 
 from ats_utilities.base.engine import Base
-from ats_utilities.base.setup.factory import BaseFactory
-from ats_utilities.base.setup.options import BaseOptions
-from ats_utilities.context.factory import ContextFactory
+from ats_utilities.base.setup.factory import BaseBundleFactory
+from ats_utilities.base.setup.options import BaseBundleOptions
+from ats_utilities.context.factory import ContextBundleFactory
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 
@@ -49,11 +49,11 @@ class MyTool(Base):
         '''Initialize MyTool instance.'''
         current_dir: str = dirname(realpath(__file__))
         super().__init__(
-            BaseFactory.create_bundle(
-                options=BaseOptions(
+            BaseBundleFactory.create_bundle(
+                options=BaseBundleOptions(
                     info_file=f'{current_dir}/{self._INFO_FILE}',
                     use_generator=False,
-                    context_bundle=ContextFactory.create_bundle()
+                    context_bundle=ContextBundleFactory.create_bundle()
                 )
             )
         )

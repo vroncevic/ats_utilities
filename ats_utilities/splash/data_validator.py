@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the center data.
+    Validator for the center data.
 '''
 
 from __future__ import annotations
@@ -37,7 +37,7 @@ __status__: str = 'Development'
 
 class CenterDataValidator:
     '''
-        A validator for the center data.
+        Validator for the center data.
 
         It defines:
 
@@ -52,8 +52,8 @@ class CenterDataValidator:
 
             :param data: The center data to be validated.
             :exceptions:
-                | ATSValueError: Columns count must be provided and have proper values.
-                | ATSTypeError:  Columns count must be an instance of CenterData and its 
+                | ATSValueError: The columns count must be provided and have proper values.
+                | ATSTypeError:  The columns count must be an instance of CenterData and its 
                 |                attributes must be instances of their respective types.
         '''
         ctx: str = 'center_data_validator::validate(...)'

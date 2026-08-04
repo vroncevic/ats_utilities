@@ -60,10 +60,10 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.bundle</span> <span class="kn">import</span> <span class="n">CheckerBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.dependencies</span> <span class="kn">import</span> <span class="n">CheckerDependencies</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.keys</span> <span class="kn">import</span> <span class="n">CheckerKeys</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.validator</span> <span class="kn">import</span> <span class="n">CheckerValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.dep_validator</span> <span class="kn">import</span> <span class="n">CheckerDependenciesValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.dependencies</span> <span class="kn">import</span> <span class="n">CheckerBundleDependencies</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.keys</span> <span class="kn">import</span> <span class="n">CheckerBundleKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.validator</span> <span class="kn">import</span> <span class="n">CheckerBundleValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.dep_validator</span> <span class="kn">import</span> <span class="n">CheckerBundleDependenciesValidator</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -75,9 +75,9 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="CheckerRegistry">
-<a class="viewcode-back" href="../../../../ats_utilities.checker.setup.registry.html#ats_utilities.checker.setup.registry.CheckerRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">CheckerRegistry</span><span class="p">:</span>
+<div class="viewcode-block" id="CheckerBundleRegistry">
+<a class="viewcode-back" href="../../../../ats_utilities.checker.setup.registry.html#ats_utilities.checker.setup.registry.CheckerBundleRegistry">[docs]</a>
+<span class="k">class</span> <span class="nc">CheckerBundleRegistry</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for simplification of the checker bundle.</span>
 
@@ -87,31 +87,33 @@
 <span class="sd">                | create_bundle - Orchestrates dependency injection and creates the checker bundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="CheckerRegistry.create_bundle">
-<a class="viewcode-back" href="../../../../ats_utilities.checker.setup.registry.html#ats_utilities.checker.setup.registry.CheckerRegistry.create_bundle">[docs]</a>
+<div class="viewcode-block" id="CheckerBundleRegistry.create_bundle">
+<a class="viewcode-back" href="../../../../ats_utilities.checker.setup.registry.html#ats_utilities.checker.setup.registry.CheckerBundleRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">CheckerDependencies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckerBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">CheckerBundleDependencies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckerBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Orchestrates dependency injection and creates the checker bundle.</span>
 
 <span class="sd">            :param dependencies: The registry-specific orchestration dependencies.</span>
 <span class="sd">            :return: The checker bundle.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: The dependencies must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  The dependencies must be an instance of CheckerDependencies</span>
-<span class="sd">                |                and its attributes must be instances of their</span>
-<span class="sd">                |                respective interfaces and types.</span>
+<span class="sd">                | ATSValueError: The checker bundle dependencies must be provided and have proper attributes.</span>
+<span class="sd">                | ATSTypeError:  The checker bundle dependencies must be an instance of Mapping and its attributes</span>
+<span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The checker bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The checker bundle must be an instance of CheckerBundle</span>
+<span class="sd">                |                and its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">CheckerDependenciesValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">dependencies</span><span class="p">)</span>
+        <span class="n">CheckerBundleDependenciesValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">dependencies</span><span class="p">)</span>
 
         <span class="n">bundle</span><span class="p">:</span> <span class="n">CheckerBundle</span> <span class="o">=</span> <span class="n">CheckerBundle</span><span class="p">(</span>
-            <span class="n">format_validator</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerKeys</span><span class="o">.</span><span class="n">DEPENDENCY_FORMAT_VALIDATOR</span><span class="p">),</span>
-            <span class="n">type_validator</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerKeys</span><span class="o">.</span><span class="n">DEPENDENCY_TYPE_VALIDATOR</span><span class="p">),</span>
-            <span class="n">context_provider</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerKeys</span><span class="o">.</span><span class="n">DEPENDENCY_CONTEXT_PROVIDER</span><span class="p">),</span>
-            <span class="n">check_reporter</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerKeys</span><span class="o">.</span><span class="n">DEPENDENCY_CHECK_REPORTER</span><span class="p">)</span>
+            <span class="n">format_validator</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_FORMAT_VALIDATOR</span><span class="p">),</span>
+            <span class="n">type_validator</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_TYPE_VALIDATOR</span><span class="p">),</span>
+            <span class="n">context_provider</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_CONTEXT_PROVIDER</span><span class="p">),</span>
+            <span class="n">check_reporter</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_CHECK_REPORTER</span><span class="p">)</span>
         <span class="p">)</span>
 
-        <span class="n">CheckerValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+        <span class="n">CheckerBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">bundle</span></div>
 </div>

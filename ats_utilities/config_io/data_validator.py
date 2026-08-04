@@ -16,13 +16,13 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the file data.
+    Validator for the file data.
 '''
 
 from __future__ import annotations
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.config_io.data import FileData
 from ats_utilities.validation.check_value import not_none, not_empty
 from ats_utilities.validation.check_type import istype
@@ -39,7 +39,7 @@ __status__: str = 'Development'
 
 class FileDataValidator:
     '''
-        A validator for the file data.
+        Validator for the file data.
 
         It defines:
 
@@ -84,4 +84,4 @@ class FileDataValidator:
         not_empty(data.file_path, ctx, msg_path_empty)
         not_empty(data.file_mode, ctx, msg_mode_empty)
 
-        ContextValidator.validate(data.context_bundle)
+        ContextBundleValidator.validate(data.context_bundle)

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the check reporter runtime data.
+    Validator for the check reporter runtime data.
 '''
 
 from __future__ import annotations
@@ -38,10 +38,10 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class CheckReporterValidator:
+class CheckReporterDataValidator:
     '''
 
-        A validator for the check reporter runtime data.
+        Validator for the check reporter runtime data.
         
         It defines:
 

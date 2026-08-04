@@ -25,7 +25,7 @@ import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.checker.setup.bundle import CheckerBundle
-from ats_utilities.checker.setup.factory import CheckerFactory
+from ats_utilities.checker.setup.factory import CheckerBundleFactory
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.setup.types import CheckerErrorType
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
@@ -38,7 +38,7 @@ class EngineTest(unittest.TestCase):
     '''
 
     def test_init_valid(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         checker = Checker(bundle)
         self.assertTrue(checker.is_initialized())
 
@@ -51,35 +51,35 @@ class EngineTest(unittest.TestCase):
             Checker("invalid")  # type: ignore
 
     def test_validates_parameters_valid(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         checker = Checker(bundle)
         msg, err_id = checker.validates_parameters([("str:param1", "test"), ("int:param2", 123)])
         self.assertEqual(err_id, CheckerErrorType.NO_ERROR)
         self.assertIn("param1", msg)
 
     def test_validates_parameters_none(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         checker = Checker(bundle)
         msg, err_id = checker.validates_parameters(None)  # type: ignore
         self.assertEqual(err_id, CheckerErrorType.FORMAT_ERROR)
         self.assertIn("format wrong", msg)
 
     def test_validates_parameters_format_error(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         checker = Checker(bundle)
         msg, err_id = checker.validates_parameters([("invalid_format", "test")])
         self.assertEqual(err_id, CheckerErrorType.FORMAT_ERROR)
         self.assertIn("format wrong", msg)
 
     def test_validates_parameters_type_error(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         checker = Checker(bundle)
         msg, err_id = checker.validates_parameters([("int:param", "not_an_int")])
         self.assertEqual(err_id, CheckerErrorType.TYPE_ERROR)
         self.assertIn("wrong type", msg)
 
     def test_validates_parameters_multiple_type_errors(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         checker = Checker(bundle)
         msg, err_id = checker.validates_parameters([
             ("int:param1", "not_an_int"),
@@ -89,34 +89,34 @@ class EngineTest(unittest.TestCase):
         self.assertIn("wrong type", msg)
 
     def test_is_initialized(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         checker = Checker(bundle)
         self.assertTrue(checker.is_initialized())
 
     def test_str(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         checker = Checker(bundle)
         self.assertIn("Checker", str(checker))
 
     def test_get_bundle(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         checker = Checker(bundle)
         retrieved = checker.get_bundle()
         self.assertIsInstance(retrieved, CheckerBundle)
 
     def test_update_bundle(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         checker = Checker(bundle)
         
         # Valid update
-        new_bundle = CheckerFactory.create_bundle()
+        new_bundle = CheckerBundleFactory.create_bundle()
         self.assertTrue(checker.update_bundle(new_bundle))
         
         # Invalid update
         self.assertFalse(checker.update_bundle("invalid" * 10))  # type: ignore
 
     def test_getters(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         checker = Checker(bundle)
         self.assertIs(checker.get_format_validator(), bundle.format_validator)
         self.assertIs(checker.get_type_validator(), bundle.type_validator)
@@ -124,7 +124,7 @@ class EngineTest(unittest.TestCase):
         self.assertIs(checker.get_check_reporter(), bundle.check_reporter)
 
     def test_validates_parameters_reporter_exception(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         checker = Checker(bundle)
         # Mock build_message to raise ATSValueError
         checker._check_reporter.build_message = MagicMock(side_effect=ATSValueError("mock"))
@@ -138,14 +138,14 @@ class EngineTest(unittest.TestCase):
         self.assertEqual(err_id, CheckerErrorType.NO_ERROR)
 
     def test_validates_parameters_format_validation_check_failure(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         checker = Checker(bundle)
         # "a:b:c" is invalid format (len(split) == 3 != 2)
         msg, err_id = checker.validates_parameters([("a:b:c", "val")])
         self.assertEqual(err_id, CheckerErrorType.FORMAT_ERROR)
 
     def test_validates_parameters_multiple_errors_branch_coverage(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         checker = Checker(bundle)
         
         # Mock is_match to raise error after first failure

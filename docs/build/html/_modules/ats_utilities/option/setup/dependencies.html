@@ -54,7 +54,7 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Option dependencies for option bundle creation.</span>
+<span class="sd">    Option bundle dependencies for option bundle.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -74,17 +74,17 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="OptionDependencies">
-<a class="viewcode-back" href="../../../../ats_utilities.option.setup.dependencies.html#ats_utilities.option.setup.dependencies.OptionDependencies">[docs]</a>
-<span class="k">class</span> <span class="nc">OptionDependencies</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<div class="viewcode-block" id="OptionBundleDependencies">
+<a class="viewcode-back" href="../../../../ats_utilities.option.setup.dependencies.html#ats_utilities.option.setup.dependencies.OptionBundleDependencies">[docs]</a>
+<span class="k">class</span> <span class="nc">OptionBundleDependencies</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Option dependencies for option bundle creation.</span>
+<span class="sd">        Option bundle dependencies for option bundle.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | strategy - The strategy for argument parsing.</span>
-<span class="sd">                | context_bundle - The context bundle for dependency injection.</span>
+<span class="sd">                | strategy - The strategy for argument parsing for option bundle.</span>
+<span class="sd">                | context_bundle - The context bundle for dependency injection for option bundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">strategy</span><span class="p">:</span> <span class="n">IParserStrategy</span>

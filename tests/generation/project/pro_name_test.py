@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.factory import ContextFactory
+from ats_utilities.context.factory import ContextBundleFactory
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.generation.project.pro_name import ProName
 
@@ -44,26 +44,26 @@ class ProNameTest(unittest.TestCase):
     '''
 
     def test_init(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         pro_name_obj = ProName(context_bundle)
         self.assertIsNone(pro_name_obj.pro_name)
         self.assertFalse(pro_name_obj.not_none())
 
     def test_get_set_pro_name(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         pro_name_obj = ProName(context_bundle)
         pro_name_obj.pro_name = "test_project"
         self.assertEqual(pro_name_obj.pro_name, "test_project")
         self.assertTrue(pro_name_obj.not_none())
 
     def test_set_pro_name_invalid_type(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         pro_name_obj = ProName(context_bundle)
         with self.assertRaises(ATSTypeError):
             pro_name_obj.pro_name = 123  # type: ignore
 
     def test_str(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         pro_name_obj = ProName(context_bundle)
         self.assertIn("ProName", str(pro_name_obj))
 

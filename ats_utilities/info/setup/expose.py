@@ -24,7 +24,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.keys import InfoBundleKeys
 from ats_utilities.utils.dicts import is_present_required_key
 
 __author__ = 'Vladimir Roncevic'
@@ -68,10 +68,10 @@ class InfoExpose:
                 | ATSValueError: The key ATS_NAME is not present in config.
         '''
         ctx: str = 'info_expose::get_name(...)'
-        msg: str = f'the {InfoKeys.ATS_NAME} key is not present in config'
-        is_present_required_key(config, InfoKeys.ATS_NAME, ctx, msg)
+        msg: str = f'the {InfoBundleKeys.ATS_NAME} key is not present in config'
+        is_present_required_key(config, InfoBundleKeys.ATS_NAME, ctx, msg)
 
-        return config.get(InfoKeys.ATS_NAME)
+        return config.get(InfoBundleKeys.ATS_NAME)
 
     @classmethod
     def get_version(cls, config: Mapping[str, str]) -> str:
@@ -84,10 +84,10 @@ class InfoExpose:
                 | ATSValueError: The key ATS_VERSION is not present in config.
         '''
         ctx: str = 'info_expose::get_version(...)'
-        msg: str = f'the {InfoKeys.ATS_VERSION} key is not present in config'
-        is_present_required_key(config, InfoKeys.ATS_VERSION, ctx, msg)
+        msg: str = f'the {InfoBundleKeys.ATS_VERSION} key is not present in config'
+        is_present_required_key(config, InfoBundleKeys.ATS_VERSION, ctx, msg)
 
-        return config.get(InfoKeys.ATS_VERSION)
+        return config.get(InfoBundleKeys.ATS_VERSION)
 
     @classmethod
     def get_build_date(cls, config: Mapping[str, str]) -> str:
@@ -100,10 +100,10 @@ class InfoExpose:
                 | ATSValueError: The key ATS_BUILD_DATE is not present in config.
         '''
         ctx: str = 'info_expose::get_build_date(...)'
-        msg: str = f'the {InfoKeys.ATS_BUILD_DATE} key is not present in config'
-        is_present_required_key(config, InfoKeys.ATS_BUILD_DATE, ctx, msg)
+        msg: str = f'the {InfoBundleKeys.ATS_BUILD_DATE} key is not present in config'
+        is_present_required_key(config, InfoBundleKeys.ATS_BUILD_DATE, ctx, msg)
 
-        return config.get(InfoKeys.ATS_BUILD_DATE)
+        return config.get(InfoBundleKeys.ATS_BUILD_DATE)
 
     @classmethod
     def get_licence(cls, config: Mapping[str, str]) -> str:
@@ -116,10 +116,10 @@ class InfoExpose:
                 | ATSValueError: The key ATS_LICENCE is not present in config.
         '''
         ctx: str = 'info_expose::get_licence(...)'
-        msg: str = f'the {InfoKeys.ATS_LICENCE} key is not present in config'
-        is_present_required_key(config, InfoKeys.ATS_LICENCE, ctx, msg)
+        msg: str = f'the {InfoBundleKeys.ATS_LICENCE} key is not present in config'
+        is_present_required_key(config, InfoBundleKeys.ATS_LICENCE, ctx, msg)
 
-        return config.get(InfoKeys.ATS_LICENCE)
+        return config.get(InfoBundleKeys.ATS_LICENCE)
 
     @classmethod
     def get_repository(cls, config: Mapping[str, str]) -> str:
@@ -132,10 +132,10 @@ class InfoExpose:
                 | ATSValueError: The key ATS_REPOSITORY is not present in config.
         '''
         ctx: str = 'info_expose::get_repository(...)'
-        msg: str = f'the {InfoKeys.ATS_REPOSITORY} key is not present in config'
-        is_present_required_key(config, InfoKeys.ATS_REPOSITORY, ctx, msg)
+        msg: str = f'the {InfoBundleKeys.ATS_REPOSITORY} key is not present in config'
+        is_present_required_key(config, InfoBundleKeys.ATS_REPOSITORY, ctx, msg)
 
-        return config.get(InfoKeys.ATS_REPOSITORY)
+        return config.get(InfoBundleKeys.ATS_REPOSITORY)
 
     @classmethod
     def get_organization(cls, config: Mapping[str, str]) -> str:
@@ -148,10 +148,10 @@ class InfoExpose:
                 | ATSValueError: The key ATS_ORGANIZATION is not present in config.
         '''
         ctx: str = 'info_expose::get_organization(...)'
-        msg: str = f'the {InfoKeys.ATS_ORGANIZATION} key is not present in config'
-        is_present_required_key(config, InfoKeys.ATS_ORGANIZATION, ctx, msg)
+        msg: str = f'the {InfoBundleKeys.ATS_ORGANIZATION} key is not present in config'
+        is_present_required_key(config, InfoBundleKeys.ATS_ORGANIZATION, ctx, msg)
 
-        return config.get(InfoKeys.ATS_ORGANIZATION)
+        return config.get(InfoBundleKeys.ATS_ORGANIZATION)
 
     @classmethod
     def get_use_github_infrastructure(cls, config: Mapping[str, str]) -> bool:
@@ -164,10 +164,10 @@ class InfoExpose:
                 | ATSValueError: The key ATS_USE_GITHUB_INFRASTRUCTURE is not present in config.
         '''
         ctx: str = 'info_expose::get_use_github_infrastructure(...)'
-        msg: str = f'the {InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE} key is not present in config'
-        is_present_required_key(config, InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE, ctx, msg)
+        msg: str = f'the {InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE} key is not present in config'
+        is_present_required_key(config, InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE, ctx, msg)
 
-        return config.get(InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE)
+        return config.get(InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE)
 
     @classmethod
     def get_logo_path(cls, config: Mapping[str, str]) -> str:
@@ -180,10 +180,10 @@ class InfoExpose:
                 | ATSValueError: The key ATS_LOGO_PATH is not present in config.
         '''
         ctx: str = 'info_expose::get_logo_path(...)'
-        msg: str = f'the {InfoKeys.ATS_LOGO_PATH} key is not present in config'
-        is_present_required_key(config, InfoKeys.ATS_LOGO_PATH, ctx, msg)
+        msg: str = f'the {InfoBundleKeys.ATS_LOGO_PATH} key is not present in config'
+        is_present_required_key(config, InfoBundleKeys.ATS_LOGO_PATH, ctx, msg)
 
-        return config.get(InfoKeys.ATS_LOGO_PATH)
+        return config.get(InfoBundleKeys.ATS_LOGO_PATH)
 
     @classmethod
     def get_log_file(cls, config: Mapping[str, str]) -> str:
@@ -196,10 +196,10 @@ class InfoExpose:
                 | ATSValueError: The key ATS_LOG_FILE is not present in config.
         '''
         ctx: str = 'info_expose::get_log_file(...)'
-        msg: str = f'the {InfoKeys.ATS_LOG_FILE} key is not present in config'
-        is_present_required_key(config, InfoKeys.ATS_LOG_FILE, ctx, msg)
+        msg: str = f'the {InfoBundleKeys.ATS_LOG_FILE} key is not present in config'
+        is_present_required_key(config, InfoBundleKeys.ATS_LOG_FILE, ctx, msg)
 
-        return config.get(InfoKeys.ATS_LOG_FILE)
+        return config.get(InfoBundleKeys.ATS_LOG_FILE)
 
     @classmethod
     def get_info_ok(cls, config: Mapping[str, str]) -> bool:
@@ -212,7 +212,7 @@ class InfoExpose:
                 | ATSValueError: The key ATS_INFO_OK is not present in config.
         '''
         ctx: str = 'info_expose::get_info_ok(...)'
-        msg: str = f'the {InfoKeys.ATS_INFO_OK} key is not present in config'
-        is_present_required_key(config, InfoKeys.ATS_INFO_OK, ctx, msg)
+        msg: str = f'the {InfoBundleKeys.ATS_INFO_OK} key is not present in config'
+        is_present_required_key(config, InfoBundleKeys.ATS_INFO_OK, ctx, msg)
 
-        return config.get(InfoKeys.ATS_INFO_OK)
+        return config.get(InfoBundleKeys.ATS_INFO_OK)

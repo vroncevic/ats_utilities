@@ -64,14 +64,14 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Encapsulates core runtime components for simplification of generator bundle creation.</p>
+<dt>Info</dt><dd><p>Encapsulates core runtime components for simplification of generator bundle.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.generation.setup.registry.GeneratorRegistry">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.generation.setup.registry.</span></span><span class="sig-name descname"><span class="pre">GeneratorRegistry</span></span><a class="reference internal" href="_modules/ats_utilities/generation/setup/registry.html#GeneratorRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generation.setup.registry.GeneratorRegistry" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.generation.setup.registry.GeneratorBundleRegistry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.generation.setup.registry.</span></span><span class="sig-name descname"><span class="pre">GeneratorBundleRegistry</span></span><a class="reference internal" href="_modules/ats_utilities/generation/setup/registry.html#GeneratorBundleRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generation.setup.registry.GeneratorBundleRegistry" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Encapsulates core runtime components for simplification of generator bundle creation.</p>
+<p>Encapsulates core runtime components for simplification of generator bundle.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
@@ -83,8 +83,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dl>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.generation.setup.registry.GeneratorRegistry.create_bundle">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.generation.setup.dependencies.html#ats_utilities.generation.setup.dependencies.GeneratorDependencies" title="ats_utilities.generation.setup.dependencies.GeneratorDependencies"><span class="pre">GeneratorDependencies</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.generation.setup.bundle.html#ats_utilities.generation.setup.bundle.GeneratorBundle" title="ats_utilities.generation.setup.bundle.GeneratorBundle"><span class="pre">GeneratorBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/generation/setup/registry.html#GeneratorRegistry.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generation.setup.registry.GeneratorRegistry.create_bundle" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.generation.setup.registry.GeneratorBundleRegistry.create_bundle">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.generation.setup.dependencies.html#ats_utilities.generation.setup.dependencies.GeneratorBundleDependencies" title="ats_utilities.generation.setup.dependencies.GeneratorBundleDependencies"><span class="pre">GeneratorBundleDependencies</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.generation.setup.bundle.html#ats_utilities.generation.setup.bundle.GeneratorBundle" title="ats_utilities.generation.setup.bundle.GeneratorBundle"><span class="pre">GeneratorBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/generation/setup/registry.html#GeneratorBundleRegistry.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generation.setup.registry.GeneratorBundleRegistry.create_bundle" title="Link to this definition">¶</a></dt>
 <dd><p>Orchestrates dependency injection and creates a generator bundle.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -95,10 +95,15 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">ATSValueError: Generator dependencies must be provided and have proper values.</div>
-<div class="line">ATSTypeError:  Generator dependencies must be an instance of Mapping and its attributes</div>
+<div class="line">ATSValueError: The generator bundle dependencies must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The generator bundle dependencies must be an instance of Mapping and its attributes</div>
 <div class="line-block">
 <div class="line">must be instances of their respective types.</div>
+</div>
+<div class="line">ATSValueError: The generator bundle must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The generator bundle must be an instance of GeneratorBundle</div>
+<div class="line-block">
+<div class="line">and its attributes must be instances of their respective types.</div>
 </div>
 </div>
 </dd>
@@ -120,8 +125,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.generation.setup.registry module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.generation.setup.registry.GeneratorRegistry"><code class="docutils literal notranslate"><span class="pre">GeneratorRegistry</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.generation.setup.registry.GeneratorRegistry.create_bundle"><code class="docutils literal notranslate"><span class="pre">GeneratorRegistry.create_bundle()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.generation.setup.registry.GeneratorBundleRegistry"><code class="docutils literal notranslate"><span class="pre">GeneratorBundleRegistry</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.generation.setup.registry.GeneratorBundleRegistry.create_bundle"><code class="docutils literal notranslate"><span class="pre">GeneratorBundleRegistry.create_bundle()</span></code></a></li>
 </ul>
 </li>
 </ul>

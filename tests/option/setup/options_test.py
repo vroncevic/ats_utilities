@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for OptionOptions TypedDict.
+    Unit tests for OptionBundleOptions TypedDict.
 '''
 
 from __future__ import annotations
@@ -25,13 +25,13 @@ import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.setup.options import OptionOptions
+from ats_utilities.option.setup.options import OptionBundleOptions
 
 
 class OptionsTest(unittest.TestCase):
     '''
         Defines class OptionsTest with attribute(s) and method(s).
-        Tests OptionOptions structure.
+        Tests OptionBundleOptions structure.
     '''
 
     def test_options_structure(self) -> None:
@@ -41,7 +41,7 @@ class OptionsTest(unittest.TestCase):
             "version": "1.0.0"
         }
 
-        opts: OptionOptions = {
+        opts: OptionBundleOptions = {
             "parameters": params,
             "context_bundle": mock_context
         }

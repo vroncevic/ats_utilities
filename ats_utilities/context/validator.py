@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the context bundle.
+    Validator for the context bundle.
 '''
 
 from __future__ import annotations
@@ -38,9 +38,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ContextValidator:
+class ContextBundleValidator:
     '''
-        A validator for the context bundle.
+        Validator for the context bundle.
 
         It defines:
 
@@ -59,9 +59,9 @@ class ContextValidator:
                 | ATSTypeError:  The context bundle must be an instance of ContextBundle and
                 |                its attributes must be instances of their respective types.
         '''
-        ctx: str = 'context_validator::validate(...)'
-        msg_bundle_none: str = 'the bundle must be provided'
-        msg_bundle_istype: str = 'the bundle must be an instance of ContextBundle'
+        ctx: str = 'context_bundle_validator::validate(...)'
+        msg_bundle_none: str = 'the context bundle must be provided'
+        msg_bundle_istype: str = 'the context bundle must be an instance of ContextBundle'
         msg_checker_none: str = 'the checker must be provided'
         msg_logger_none: str = 'the logger must be provided'
         msg_reporter_none: str = 'the reporter must be provided'

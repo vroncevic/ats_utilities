@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Splash dependencies for splash bundle.
+    Splash bundle dependencies for splash bundle.
 '''
 
 from __future__ import annotations
@@ -39,18 +39,18 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class SplashDependencies(TypedDict):
+class SplashBundleDependencies(TypedDict):
     '''
-        Splash dependencies for splash bundle.
+        Splash bundle dependencies for splash bundle.
 
         It defines:
 
             :attributes:
-                | splash_property - The splash screen property.
-                | terminal_property - The terminal properties.
-                | ext - The generic external infrastructure.
-                | pb - The progress bar component.
-                | context_bundle - The context bundle.
+                | splash_property - The splash screen property for splash bundle.
+                | terminal_property - The terminal properties for splash bundle.
+                | ext - The generic external infrastructure for splash bundle.
+                | pb - The progress bar component for splash bundle.
+                | context_bundle - The context bundle for splash bundle.
     '''
 
     splash_property: ISplashProperty

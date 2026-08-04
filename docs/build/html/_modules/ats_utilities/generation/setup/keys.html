@@ -54,7 +54,7 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Runtime components and interface constraints for generator.</span>
+<span class="sd">    Runtime components and interface constraints for generator bundle.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -76,23 +76,22 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="GeneratorKeys">
-<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.keys.html#ats_utilities.generation.setup.keys.GeneratorKeys">[docs]</a>
-<span class="k">class</span> <span class="nc">GeneratorKeys</span><span class="p">:</span>
+<div class="viewcode-block" id="GeneratorBundleKeys">
+<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.keys.html#ats_utilities.generation.setup.keys.GeneratorBundleKeys">[docs]</a>
+<span class="k">class</span> <span class="nc">GeneratorBundleKeys</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Runtime components and interface constraints for generator.</span>
+<span class="sd">        Runtime components and interface constraints for generator bundle.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | DEPENDENCY_SCHEME_LOADER - The scheme loader interface constant.</span>
-<span class="sd">                | DEPENDENCY_TAR_PROCESSOR - The tar processor interface constant.</span>
-<span class="sd">                | DEPENDENCY_TEMPLATE_PROCESSOR - The template processor interface constant.</span>
-<span class="sd">                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle constant.</span>
-<span class="sd">                | OPTION_CONTEXT_BUNDLE - The context bundle option constant.</span>
+<span class="sd">                | DEPENDENCY_SCHEME_LOADER - The scheme loader interface constant for generator bundle.</span>
+<span class="sd">                | DEPENDENCY_TAR_PROCESSOR - The tar processor interface constant for generator bundle.</span>
+<span class="sd">                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle constant for generator bundle.</span>
+<span class="sd">                | OPTION_CONTEXT_BUNDLE - The context bundle option constant for generator bundle.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | get_dependency_to_type - Returns mapping of generator dependencies to their types.</span>
-<span class="sd">                | get_option_to_type - Returns mapping of generator options to their types.</span>
+<span class="sd">                | get_dependency_to_type - Returns mapping of generator bundle dependencies to their types.</span>
+<span class="sd">                | get_option_to_type - Returns mapping of generator bundle options to their types.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="c1"># Dependency Keys</span>
@@ -103,14 +102,14 @@
     <span class="c1"># Option Keys</span>
     <span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;context_bundle&#39;</span>
 
-<div class="viewcode-block" id="GeneratorKeys.get_dependency_to_type">
-<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.keys.html#ats_utilities.generation.setup.keys.GeneratorKeys.get_dependency_to_type">[docs]</a>
+<div class="viewcode-block" id="GeneratorBundleKeys.get_dependency_to_type">
+<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.keys.html#ats_utilities.generation.setup.keys.GeneratorBundleKeys.get_dependency_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_dependency_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns mapping of generator dependencies to their types.</span>
+<span class="sd">            Returns mapping of generator bundle dependencies to their types.</span>
 
-<span class="sd">            :return: The mapping of generator dependencies to their types.</span>
+<span class="sd">            :return: The mapping of generator bundle dependencies to their types.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">({</span>
@@ -120,14 +119,14 @@
         <span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="GeneratorKeys.get_option_to_type">
-<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.keys.html#ats_utilities.generation.setup.keys.GeneratorKeys.get_option_to_type">[docs]</a>
+<div class="viewcode-block" id="GeneratorBundleKeys.get_option_to_type">
+<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.keys.html#ats_utilities.generation.setup.keys.GeneratorBundleKeys.get_option_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_option_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns mapping of generator options to their types.</span>
+<span class="sd">            Returns mapping of generator bundle options to their types.</span>
 
-<span class="sd">            :return: The mapping of generator options to their types.</span>
+<span class="sd">            :return: The mapping of generator bundle options to their types.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">({</span>

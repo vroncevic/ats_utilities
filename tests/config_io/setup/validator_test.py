@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ConfigIOValidator class.
+    Unit tests for ConfigIOBundleValidator class.
 '''
 
 from __future__ import annotations
@@ -31,13 +31,13 @@ from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
-from ats_utilities.config_io.setup.validator import ConfigIOValidator
+from ats_utilities.config_io.setup.validator import ConfigIOBundleValidator
 
 
 class ConfigIOValidatorTest(unittest.TestCase):
     '''
         Defines class ConfigIOValidatorTest with attribute(s) and method(s).
-        Tests ConfigIOValidator logic.
+        Tests ConfigIOBundleValidator logic.
     '''
 
     def setUp(self) -> None:
@@ -56,14 +56,14 @@ class ConfigIOValidatorTest(unittest.TestCase):
 
     def test_validate_valid(self) -> None:
         bundle = ConfigIOBundle(**self.valid_params)
-        ConfigIOValidator.validate(bundle)
+        ConfigIOBundleValidator.validate(bundle)
 
     def test_validate_invalid_bundle(self) -> None:
         with self.assertRaises(ATSValueError):
-            ConfigIOValidator.validate(None)  # type: ignore
+            ConfigIOBundleValidator.validate(None)  # type: ignore
 
         with self.assertRaises(ATSTypeError):
-            ConfigIOValidator.validate(object())  # type: ignore
+            ConfigIOBundleValidator.validate(object())  # type: ignore
 
     def test_validate_invalid_none(self) -> None:
         fields = ["file_path", "processor", "context_bundle"]
@@ -75,7 +75,7 @@ class ConfigIOValidatorTest(unittest.TestCase):
                 # Note: ConfigIOBundle constructor might not validate on init, so we test validator
                 bundle = ConfigIOBundle(**invalid_params)
                 with self.assertRaises(ATSValueError):
-                    ConfigIOValidator.validate(bundle)
+                    ConfigIOBundleValidator.validate(bundle)
 
     def test_validate_invalid_type(self) -> None:
         type_mismatches = {
@@ -90,7 +90,7 @@ class ConfigIOValidatorTest(unittest.TestCase):
                 invalid_params[field] = bad_value
                 bundle = ConfigIOBundle(**invalid_params)
                 with self.assertRaises(ATSTypeError):
-                    ConfigIOValidator.validate(bundle)
+                    ConfigIOBundleValidator.validate(bundle)
 
 
 if __name__ == "__main__":

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for SplashValidator class.
+    Unit tests for SplashBundleValidator class.
 '''
 
 from __future__ import annotations
@@ -30,15 +30,15 @@ from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
 from ats_utilities.splash.property.isplash_property import ISplashProperty
 from ats_utilities.splash.setup.bundle import SplashBundle
-from ats_utilities.splash.setup.validator import SplashValidator
+from ats_utilities.splash.setup.validator import SplashBundleValidator
 from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
 
 
-@patch("ats_utilities.splash.setup.validator.ContextValidator.validate")
+@patch("ats_utilities.splash.setup.validator.ContextBundleValidator.validate")
 class SplashValidatorTest(unittest.TestCase):
     '''
         Defines class SplashValidatorTest with attribute(s) and method(s).
-        Tests SplashValidator logic.
+        Tests SplashBundleValidator logic.
     '''
 
     def _get_mocks(self) -> dict[str, object]:
@@ -58,10 +58,10 @@ class SplashValidatorTest(unittest.TestCase):
         mocks["splash_property"].get_logo.return_value = "/path/to/logo.png"
 
         bundle = SplashBundle(**mocks)
-        SplashValidator.validate(bundle)
+        SplashBundleValidator.validate(bundle)
         mock_check.assert_called_once_with(
             "/path/to/logo.png",
-            "splash_validator::validate(...)",
+            "splash_bundle_validator::validate(...)",
             "the App/Tool/Script logo file path not correct"
         )
         mock_context_val.assert_called_once_with(bundle.context_bundle)
@@ -72,16 +72,16 @@ class SplashValidatorTest(unittest.TestCase):
         mocks["splash_property"].is_settings_enabled.return_value = False
 
         bundle = SplashBundle(**mocks)
-        SplashValidator.validate(bundle)
+        SplashBundleValidator.validate(bundle)
         mock_check.assert_not_called()
         mock_context_val.assert_called_once_with(bundle.context_bundle)
 
     def test_validate_invalid_bundle(self, mock_context_val: MagicMock) -> None:
         with self.assertRaises(ATSValueError):
-            SplashValidator.validate(None)  # type: ignore
+            SplashBundleValidator.validate(None)  # type: ignore
 
         with self.assertRaises(ATSTypeError):
-            SplashValidator.validate(object())  # type: ignore
+            SplashBundleValidator.validate(object())  # type: ignore
 
     def test_validate_invalid_none(self, mock_context_val: MagicMock) -> None:
         for key in self._get_mocks().keys():
@@ -91,7 +91,7 @@ class SplashValidatorTest(unittest.TestCase):
             for k, v in mocks.items():
                 object.__setattr__(bundle, k, v)
             with self.assertRaises(ATSValueError):
-                SplashValidator.validate(bundle)
+                SplashBundleValidator.validate(bundle)
 
     def test_validate_invalid_type(self, mock_context_val: MagicMock) -> None:
         type_mismatches = {
@@ -110,7 +110,7 @@ class SplashValidatorTest(unittest.TestCase):
                 for k, v in mocks.items():
                     object.__setattr__(bundle, k, v)
                 with self.assertRaises(ATSTypeError):
-                    SplashValidator.validate(bundle)
+                    SplashBundleValidator.validate(bundle)
 
 
 if __name__ == "__main__":

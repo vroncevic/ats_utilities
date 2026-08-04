@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for SplashOptions TypedDict.
+    Unit tests for SplashBundleOptions TypedDict.
 '''
 
 from __future__ import annotations
@@ -27,17 +27,17 @@ from typing import get_type_hints
 from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.splash.setup.options import SplashOptions
+from ats_utilities.splash.setup.options import SplashBundleOptions
 
 
 class SplashOptionsTest(unittest.TestCase):
     '''
         Defines class SplashOptionsTest with attribute(s) and method(s).
-        Tests SplashOptions type annotations.
+        Tests SplashBundleOptions type annotations.
     '''
 
     def test_type_hints(self) -> None:
-        hints = get_type_hints(SplashOptions)
+        hints = get_type_hints(SplashBundleOptions)
         prop_hint = hints["prop"]
         prop_origin = getattr(prop_hint, "__origin__", prop_hint)
         self.assertEqual(prop_origin, Mapping)
@@ -47,7 +47,7 @@ class SplashOptionsTest(unittest.TestCase):
         mock_prop = {"enabled": True}
         mock_context_bundle = MagicMock(spec=ContextBundle)
 
-        opts: SplashOptions = {
+        opts: SplashBundleOptions = {
             "prop": mock_prop,
             "context_bundle": mock_context_bundle
         }

@@ -20,8 +20,8 @@ Info
 '''
 
 import sys
-from ats_utilities.context.factory import ContextFactory
-from ats_utilities.option.setup.factory import OptionFactory
+from ats_utilities.context.factory import ContextBundleFactory
+from ats_utilities.option.setup.factory import OptionBundleFactory
 from ats_utilities.option.engine import OptionManager
 
 __author__ = 'Vladimir Roncevic'
@@ -46,9 +46,9 @@ opt_parser: dict[str, object] = {
     'ats_info_ok': True
 }
 OPS: list[str] = ['-n', '--name', '-v', '--verbose']
-own = OptionFactory.create_bundle({
+own = OptionBundleFactory.create_bundle({
     'parameters': opt_parser,
-    'context_bundle': ContextFactory.create_bundle()
+    'context_bundle': ContextBundleFactory.create_bundle()
 })
 parser: OptionManager = OptionManager(own=own)
 parser.add_version_operation('1.2.4')

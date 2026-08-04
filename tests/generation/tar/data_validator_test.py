@@ -60,18 +60,18 @@ class TarDataValidatorTest(unittest.TestCase):
 
     def test_validate_tar_data_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            TarDataValidator.validate(None)  # type: ignore
+            TarDataValidator.validate(None)
 
     def test_validate_tar_data_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            TarDataValidator.validate("invalid")  # type: ignore
+            TarDataValidator.validate("invalid")
 
     def test_validate_tar_data_missing_attributes(self) -> None:
         fields = ["archive_path", "target_dir", "source_dir", "path_replacements", "exclude_patterns", "vals"]
         for field in fields:
             with self.subTest(field=field):
                 invalid_params = self.valid_tar_params.copy()
-                invalid_params[field] = None  # type: ignore
+                invalid_params[field] = None
                 data = TarData(**invalid_params)
                 with self.assertRaises(ATSValueError):
                     TarDataValidator.validate(data)
@@ -88,7 +88,7 @@ class TarDataValidatorTest(unittest.TestCase):
         for field, bad_value in type_mismatches.items():
             with self.subTest(field=field, bad_value=bad_value):
                 invalid_params = self.valid_tar_params.copy()
-                invalid_params[field] = bad_value  # type: ignore
+                invalid_params[field] = bad_value
                 data = TarData(**invalid_params)
                 with self.assertRaises(ATSTypeError):
                     TarDataValidator.validate(data)
@@ -99,18 +99,18 @@ class TarDataValidatorTest(unittest.TestCase):
 
     def test_validate_tar_member_data_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            TarMemberDataValidator.validate(None)  # type: ignore
+            TarMemberDataValidator.validate(None)
 
     def test_validate_tar_member_data_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            TarMemberDataValidator.validate("invalid")  # type: ignore
+            TarMemberDataValidator.validate("invalid")
 
     def test_validate_tar_member_data_missing_attributes(self) -> None:
         fields = ["tar", "member", "dest_full_path", "vals"]
         for field in fields:
             with self.subTest(field=field):
                 invalid_params = self.valid_member_params.copy()
-                invalid_params[field] = None  # type: ignore
+                invalid_params[field] = None
                 data = TarMemberData(**invalid_params)
                 with self.assertRaises(ATSValueError):
                     TarMemberDataValidator.validate(data)
@@ -125,7 +125,7 @@ class TarDataValidatorTest(unittest.TestCase):
         for field, bad_value in type_mismatches.items():
             with self.subTest(field=field, bad_value=bad_value):
                 invalid_params = self.valid_member_params.copy()
-                invalid_params[field] = bad_value  # type: ignore
+                invalid_params[field] = bad_value
                 data = TarMemberData(**invalid_params)
                 with self.assertRaises(ATSTypeError):
                     TarMemberDataValidator.validate(data)

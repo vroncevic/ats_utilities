@@ -65,9 +65,9 @@
 
 <span class="kn">from</span> <span class="nn">ats_utilities.context.bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.setup.bundle</span> <span class="kn">import</span> <span class="n">InfoBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.factory</span> <span class="kn">import</span> <span class="n">InfoFactory</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.validator</span> <span class="kn">import</span> <span class="n">InfoValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.keys</span> <span class="kn">import</span> <span class="n">InfoKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.factory</span> <span class="kn">import</span> <span class="n">InfoBundleFactory</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.validator</span> <span class="kn">import</span> <span class="n">InfoBundleValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.keys</span> <span class="kn">import</span> <span class="n">InfoBundleKeys</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.setup.schema</span> <span class="kn">import</span> <span class="n">InfoSchema</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSTypeError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
@@ -131,7 +131,7 @@
 <span class="sd">                |                attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">InfoValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
+        <span class="n">InfoBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_apply_bundle</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -159,7 +159,7 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="n">InfoValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+            <span class="n">InfoBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_apply_bundle</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -213,9 +213,9 @@
         <span class="n">not_none</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_info_none</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_info_istype</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_components</span> <span class="o">=</span> <span class="n">InfoFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">({</span>
-            <span class="n">InfoKeys</span><span class="o">.</span><span class="n">OPTION_INFO</span><span class="p">:</span> <span class="n">info</span><span class="p">,</span>
-            <span class="n">InfoKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_context</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_components</span> <span class="o">=</span> <span class="n">InfoBundleFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">({</span>
+            <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">OPTION_INFO</span><span class="p">:</span> <span class="n">info</span><span class="p">,</span>
+            <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_context</span>
         <span class="p">})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh_status</span><span class="p">()</span></div>
 
@@ -319,9 +319,9 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_components</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="n">info_ok_component</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_components</span><span class="p">,</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_INFO_OK</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">info_ok_component</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_components</span><span class="p">,</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_INFO_OK</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">info_ok_component</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">info_ok_component</span><span class="p">,</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_INFO_OK</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span></div>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">info_ok_component</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">info_ok_component</span><span class="p">,</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_INFO_OK</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="InfoManager.refresh_status">
@@ -339,7 +339,7 @@
         <span class="n">is_all_ok</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">for</span> <span class="n">dep_name</span> <span class="ow">in</span> <span class="n">required_dep_names</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">dep_name</span> <span class="o">==</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_INFO_OK</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dep_name</span> <span class="o">==</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_INFO_OK</span><span class="p">:</span>
                 <span class="k">continue</span>
 
             <span class="n">component</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_components</span><span class="p">,</span> <span class="n">dep_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -354,10 +354,10 @@
                 <span class="n">is_all_ok</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="k">break</span>
 
-        <span class="n">info_ok_component</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_components</span><span class="p">,</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_INFO_OK</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">info_ok_component</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_components</span><span class="p">,</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_INFO_OK</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">info_ok_component</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">info_ok_component</span><span class="p">,</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_INFO_OK</span><span class="p">,</span> <span class="n">is_all_ok</span><span class="p">)</span></div>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">info_ok_component</span><span class="p">,</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_INFO_OK</span><span class="p">,</span> <span class="n">is_all_ok</span><span class="p">)</span></div>
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

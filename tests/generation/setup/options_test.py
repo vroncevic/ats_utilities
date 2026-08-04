@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for GeneratorOptions class.
+    Unit tests for GeneratorBundleOptions class.
 '''
 
 from __future__ import annotations
@@ -25,22 +25,22 @@ import unittest
 from typing import get_type_hints
 from unittest.mock import MagicMock
 
-from ats_utilities.generation.setup.options import GeneratorOptions
+from ats_utilities.generation.setup.options import GeneratorBundleOptions
 from ats_utilities.context.bundle import ContextBundle
 
 
 class GeneratorOptionsTest(unittest.TestCase):
     '''
         Defines class GeneratorOptionsTest with attribute(s) and method(s).
-        Tests GeneratorOptions TypedDict structure.
+        Tests GeneratorBundleOptions TypedDict structure.
     '''
 
     def test_type_hints(self) -> None:
-        hints = get_type_hints(GeneratorOptions)
+        hints = get_type_hints(GeneratorBundleOptions)
         self.assertEqual(hints['context_bundle'], ContextBundle)
 
     def test_instantiation(self) -> None:
-        options: GeneratorOptions = {
+        options: GeneratorBundleOptions = {
             'context_bundle': MagicMock(spec=ContextBundle)
         }
         self.assertEqual(len(options), 1)

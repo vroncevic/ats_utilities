@@ -26,7 +26,7 @@ from collections.abc import Sequence
 from logging import DEBUG, INFO, WARNING, ERROR
 
 from ats_utilities.reporter.setup.bundle import ReporterBundle
-from ats_utilities.reporter.setup.validator import ReporterValidator
+from ats_utilities.reporter.setup.validator import ReporterBundleValidator
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.reporter.theme.types import MessageKey
@@ -89,7 +89,7 @@ class Reporter:
                 |                respective types.
         '''
         self._is_initialized = False
-        ReporterValidator.validate(own)
+        ReporterBundleValidator.validate(own)
         self._apply_bundle(own)
         self._is_initialized = True
 
@@ -115,7 +115,7 @@ class Reporter:
             :exceptions: None.
         '''
         try:
-            ReporterValidator.validate(bundle)
+            ReporterBundleValidator.validate(bundle)
             self._apply_bundle(bundle)
             self._is_initialized = True
 

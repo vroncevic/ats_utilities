@@ -68,8 +68,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.logger.setup.options.LoggerOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logger.setup.options.</span></span><span class="sig-name descname"><span class="pre">LoggerOptions</span></span><a class="reference internal" href="_modules/ats_utilities/logger/setup/options.html#LoggerOptions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.setup.options.LoggerOptions" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.options.LoggerBundleOptions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logger.setup.options.</span></span><span class="sig-name descname"><span class="pre">LoggerBundleOptions</span></span><a class="reference internal" href="_modules/ats_utilities/logger/setup/options.html#LoggerBundleOptions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.setup.options.LoggerBundleOptions" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
 <p>Logger options for the logger factory bundle.</p>
 <p>It defines:</p>
@@ -77,32 +77,32 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">log_file - The path to the log file.</div>
-<div class="line">log_level - The log level.</div>
-<div class="line">log_format - The format string for the log messages.</div>
-<div class="line">log_datefmt - The date format string for the log messages.</div>
+<div class="line">log_file - The path to the log file for the logger bundle.</div>
+<div class="line">log_level - The log level for the logger bundle.</div>
+<div class="line">log_format - The format string for the log messages for the logger bundle.</div>
+<div class="line">log_datefmt - The date format string for the log messages for the logger bundle.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logger.setup.options.LoggerOptions.log_datefmt">
-<span class="sig-name descname"><span class="pre">log_datefmt</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.logger.setup.options.LoggerOptions.log_datefmt" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.options.LoggerBundleOptions.log_datefmt">
+<span class="sig-name descname"><span class="pre">log_datefmt</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.logger.setup.options.LoggerBundleOptions.log_datefmt" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logger.setup.options.LoggerOptions.log_file">
-<span class="sig-name descname"><span class="pre">log_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.logger.setup.options.LoggerOptions.log_file" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.options.LoggerBundleOptions.log_file">
+<span class="sig-name descname"><span class="pre">log_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.logger.setup.options.LoggerBundleOptions.log_file" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logger.setup.options.LoggerOptions.log_format">
-<span class="sig-name descname"><span class="pre">log_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.logger.setup.options.LoggerOptions.log_format" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.options.LoggerBundleOptions.log_format">
+<span class="sig-name descname"><span class="pre">log_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.logger.setup.options.LoggerBundleOptions.log_format" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logger.setup.options.LoggerOptions.log_level">
-<span class="sig-name descname"><span class="pre">log_level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.logger.setup.options.LoggerOptions.log_level" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.options.LoggerBundleOptions.log_level">
+<span class="sig-name descname"><span class="pre">log_level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.logger.setup.options.LoggerBundleOptions.log_level" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -120,11 +120,11 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.logger.setup.options module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.logger.setup.options.LoggerOptions"><code class="docutils literal notranslate"><span class="pre">LoggerOptions</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.logger.setup.options.LoggerOptions.log_datefmt"><code class="docutils literal notranslate"><span class="pre">LoggerOptions.log_datefmt</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logger.setup.options.LoggerOptions.log_file"><code class="docutils literal notranslate"><span class="pre">LoggerOptions.log_file</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logger.setup.options.LoggerOptions.log_format"><code class="docutils literal notranslate"><span class="pre">LoggerOptions.log_format</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logger.setup.options.LoggerOptions.log_level"><code class="docutils literal notranslate"><span class="pre">LoggerOptions.log_level</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.options.LoggerBundleOptions"><code class="docutils literal notranslate"><span class="pre">LoggerBundleOptions</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.options.LoggerBundleOptions.log_datefmt"><code class="docutils literal notranslate"><span class="pre">LoggerBundleOptions.log_datefmt</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.options.LoggerBundleOptions.log_file"><code class="docutils literal notranslate"><span class="pre">LoggerBundleOptions.log_file</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.options.LoggerBundleOptions.log_format"><code class="docutils literal notranslate"><span class="pre">LoggerBundleOptions.log_format</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.options.LoggerBundleOptions.log_level"><code class="docutils literal notranslate"><span class="pre">LoggerBundleOptions.log_level</span></code></a></li>
 </ul>
 </li>
 </ul>

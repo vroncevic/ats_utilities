@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for SplashRegistry class.
+    Unit tests for SplashBundleRegistry class.
 '''
 
 from __future__ import annotations
@@ -26,31 +26,31 @@ from unittest.mock import MagicMock, patch
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.splash.setup.bundle import SplashBundle
-from ats_utilities.splash.setup.registry import SplashRegistry
-from ats_utilities.splash.setup.dependencies import SplashDependencies
+from ats_utilities.splash.setup.registry import SplashBundleRegistry
+from ats_utilities.splash.setup.dependencies import SplashBundleDependencies
 from ats_utilities.splash.property.isplash_property import ISplashProperty
 from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
 from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
 
 
-@patch("ats_utilities.splash.setup.registry.SplashValidator")
-@patch("ats_utilities.splash.setup.registry.SplashDependenciesValidator")
+@patch("ats_utilities.splash.setup.registry.SplashBundleValidator")
+@patch("ats_utilities.splash.setup.registry.SplashBundleDependenciesValidator")
 class SplashRegistryTest(unittest.TestCase):
     '''
         Defines class SplashRegistryTest with attribute(s) and method(s).
-        Tests SplashRegistry.
+        Tests SplashBundleRegistry.
     '''
 
     def test_create_bundle(self, mock_dep_val: MagicMock, mock_val: MagicMock) -> None:
-        """Tests create_bundle on SplashRegistry."""
+        """Tests create_bundle on SplashBundleRegistry."""
         context_bundle = MagicMock(spec=ContextBundle)
         mock_prop = MagicMock(spec=ISplashProperty)
         mock_term = MagicMock(spec=ITerminalProperties)
         mock_ext = MagicMock(spec=IExtInfrastructure)
         mock_pb = MagicMock(spec=IProgressBar)
 
-        params = SplashDependencies(
+        params = SplashBundleDependencies(
             context_bundle=context_bundle,
             splash_property=mock_prop,
             terminal_property=mock_term,
@@ -58,7 +58,7 @@ class SplashRegistryTest(unittest.TestCase):
             pb=mock_pb
         )
 
-        bundle = SplashRegistry.create_bundle(params)
+        bundle = SplashBundleRegistry.create_bundle(params)
         self.assertIsInstance(bundle, SplashBundle)
         self.assertEqual(bundle.context_bundle, context_bundle)
         self.assertEqual(bundle.splash_property, mock_prop)

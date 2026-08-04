@@ -78,23 +78,23 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="BaseKeys">
-<a class="viewcode-back" href="../../../../ats_utilities.base.setup.keys.html#ats_utilities.base.setup.keys.BaseKeys">[docs]</a>
-<span class="k">class</span> <span class="nc">BaseKeys</span><span class="p">:</span>
+<div class="viewcode-block" id="BaseBundleKeys">
+<a class="viewcode-back" href="../../../../ats_utilities.base.setup.keys.html#ats_utilities.base.setup.keys.BaseBundleKeys">[docs]</a>
+<span class="k">class</span> <span class="nc">BaseBundleKeys</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Runtime components and interface constraints for base bundle.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant.</span>
-<span class="sd">                | DEPENDENCY_INFO_MANAGER - The information manager interface constant.</span>
-<span class="sd">                | DEPENDENCY_OPTION_MANAGER - The option manager interface constant.</span>
-<span class="sd">                | DEPENDENCY_SPLASH_MANAGER - The splash manager interface constant.</span>
-<span class="sd">                | DEPENDENCY_GENERATION_MANAGER - The generator manager interface constant.</span>
-<span class="sd">                | OPTION_INFO_FILE - The information file constant.</span>
-<span class="sd">                | OPTION_USE_GENERATOR - The use generator constant.</span>
-<span class="sd">                | OPTION_CONTEXT_BUNDLE - The context bundle constant.</span>
+<span class="sd">                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant for base bundle.</span>
+<span class="sd">                | DEPENDENCY_INFO_MANAGER - The information manager interface constant for base bundle.</span>
+<span class="sd">                | DEPENDENCY_OPTION_MANAGER - The option manager interface constant for base bundle.</span>
+<span class="sd">                | DEPENDENCY_SPLASH_MANAGER - The splash manager interface constant for base bundle.</span>
+<span class="sd">                | DEPENDENCY_GENERATION_MANAGER - The generator manager interface constant for base bundle.</span>
+<span class="sd">                | OPTION_INFO_FILE - The information file constant for base bundle.</span>
+<span class="sd">                | OPTION_USE_GENERATOR - The use generator constant for base bundle.</span>
+<span class="sd">                | OPTION_CONTEXT_BUNDLE - The context bundle constant for base bundle.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | get_dependency_to_type - Returns the mapping of the base bundle dependencies to their types.</span>
 <span class="sd">                | get_option_to_type - Returns the mapping of the base bundle options to their types.</span>
@@ -112,8 +112,8 @@
     <span class="n">OPTION_USE_GENERATOR</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;use_generator&#39;</span>
     <span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;context_bundle&#39;</span>
 
-<div class="viewcode-block" id="BaseKeys.get_dependency_to_type">
-<a class="viewcode-back" href="../../../../ats_utilities.base.setup.keys.html#ats_utilities.base.setup.keys.BaseKeys.get_dependency_to_type">[docs]</a>
+<div class="viewcode-block" id="BaseBundleKeys.get_dependency_to_type">
+<a class="viewcode-back" href="../../../../ats_utilities.base.setup.keys.html#ats_utilities.base.setup.keys.BaseBundleKeys.get_dependency_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_dependency_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -131,8 +131,8 @@
         <span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="BaseKeys.get_option_to_type">
-<a class="viewcode-back" href="../../../../ats_utilities.base.setup.keys.html#ats_utilities.base.setup.keys.BaseKeys.get_option_to_type">[docs]</a>
+<div class="viewcode-block" id="BaseBundleKeys.get_option_to_type">
+<a class="viewcode-back" href="../../../../ats_utilities.base.setup.keys.html#ats_utilities.base.setup.keys.BaseBundleKeys.get_option_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_option_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>

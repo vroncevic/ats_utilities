@@ -20,7 +20,7 @@ Info
 '''
 
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.setup.factory import CheckerFactory
+from ats_utilities.checker.setup.factory import CheckerBundleFactory
 from ats_utilities.checker.setup.types import (
     Parameters, Result, CheckerErrorType
 )
@@ -36,7 +36,7 @@ __status__ = 'Development'
 
 
 def use_case_no_and_type_error(arg1: str, arg2: int, arg3: float) -> Result:
-    ats_checker = Checker(own=CheckerFactory.create_bundle())
+    ats_checker = Checker(own=CheckerBundleFactory.create_bundle())
 
     parameters: Parameters = (
         ('str:arg1', arg1),
@@ -47,7 +47,7 @@ def use_case_no_and_type_error(arg1: str, arg2: int, arg3: float) -> Result:
     return  ats_checker.validates_parameters(parameters)
 
 def use_case_format_error(arg1: str, arg2: int, arg3: float) -> Result:
-    ats_checker = Checker(own=CheckerFactory.create_bundle())
+    ats_checker = Checker(own=CheckerBundleFactory.create_bundle())
 
     parameters: Parameters = (
         (arg1, 'str:arg1'),

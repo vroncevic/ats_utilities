@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.validation.check_type import istype
@@ -38,7 +38,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ConfigIOValidator:
+class ConfigIOBundleValidator:
     '''
         Validator for config I/O bundle.
 
@@ -55,11 +55,11 @@ class ConfigIOValidator:
 
             :param bundle: The config I/O bundle instance to be validated.
             :exceptions:
-                | ATSValueError: The config bundle must be provided and have proper values.
-                | ATSTypeError:  The config bundle must be an instance of ConfigIOBundle and its
+                | ATSValueError: The config I/O bundle must be provided and have proper values.
+                | ATSTypeError:  The config I/O bundle must be an instance of ConfigIOBundle and its
                 |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'config_io_validator::validate(...)'
+        ctx: str = 'config_io_bundle_validator::validate(...)'
         msg_bundle_none: str = 'the config bundle must be provided'
         msg_bundle_istype: str = 'the config bundle must be an instance of ConfigIOBundle'
         msg_file_path_none: str = 'the file path must be provided'
@@ -80,4 +80,4 @@ class ConfigIOValidator:
         istype(bundle.processor, IConfigProcessor, ctx, msg_processor_istype)
         istype(bundle.context_bundle, ContextBundle, ctx, msg_context_bundle_istype)
 
-        ContextValidator.validate(bundle.context_bundle)
+        ContextBundleValidator.validate(bundle.context_bundle)

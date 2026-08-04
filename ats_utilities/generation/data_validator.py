@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the generator data.
+    Validator for the generator data.
 '''
 
 from __future__ import annotations
@@ -41,7 +41,7 @@ __status__ = 'Development'
 class GeneratorDataValidator:
     '''
 
-        A validator for the generator data.
+        Validator for the generator data.
         
         It defines:
 
@@ -58,25 +58,25 @@ class GeneratorDataValidator:
 
             :param data: The generator data to be validated.
             :exceptions:
-                | ATSValueError: Generator data must be provided and have proper values.
-                | ATSTypeError:  Generator data must be an instance of GeneratorData and
+                | ATSValueError: The generator data must be provided and have proper values.
+                | ATSTypeError:  The generator data must be an instance of GeneratorData and
                 |                its attributes must be instances of their respective types.
         '''
         ctx: str = 'generator_data_validator::validate(...)'
-        msg_data_none: str = 'generator data must be provided'
-        msg_data_istype: str = 'generator data must be an instance of GeneratorData'
-        msg_archive_path_none: str = 'archive_path must be provided'
-        msg_target_dir_none: str = 'target_dir must be provided'
-        msg_template_key_none: str = 'template_key must be provided'
-        msg_scheme_none: str = 'scheme must be provided'
-        msg_template_values_none: str = 'template_values must be provided'
-        msg_archive_path_istype: str = 'archive_path must be a string'
-        msg_target_dir_istype: str = 'target_dir must be a string'
-        msg_template_key_istype: str = 'template_key must be a string'
-        msg_scheme_istype: str = 'scheme must be a string or a mapping'
-        msg_template_values_istype: str = 'template_values must be a mapping'
-        msg_archive_file_not_exists: str = 'archive file does not exist'
-        msg_scheme_file_not_exists: str = 'scheme file does not exist'
+        msg_data_none: str = 'the generator data must be provided'
+        msg_data_istype: str = 'the generator data must be an instance of GeneratorData'
+        msg_archive_path_none: str = 'the archive_path must be provided'
+        msg_target_dir_none: str = 'the target_dir must be provided'
+        msg_template_key_none: str = 'the template_key must be provided'
+        msg_scheme_none: str = 'the scheme must be provided'
+        msg_template_values_none: str = 'the template_values must be provided'
+        msg_archive_path_istype: str = 'the archive_path must be a string'
+        msg_target_dir_istype: str = 'the target_dir must be a string'
+        msg_template_key_istype: str = 'the template_key must be a string'
+        msg_scheme_istype: str = 'the scheme must be a string or a mapping'
+        msg_template_values_istype: str = 'the template_values must be a mapping'
+        msg_archive_file_not_exists: str = 'the archive file does not exist'
+        msg_scheme_file_not_exists: str = 'the scheme file does not exist'
 
         not_none(data, ctx, msg_data_none)
         istype(data, GeneratorData, ctx, msg_data_istype)

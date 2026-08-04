@@ -60,10 +60,10 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.context.bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.dependencies</span> <span class="kn">import</span> <span class="n">ContextDependencies</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.dep_validator</span> <span class="kn">import</span> <span class="n">ContextDependenciesValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.keys</span> <span class="kn">import</span> <span class="n">ContextKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.dependencies</span> <span class="kn">import</span> <span class="n">ContextBundleDependencies</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextBundleValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.dep_validator</span> <span class="kn">import</span> <span class="n">ContextBundleDependenciesValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.keys</span> <span class="kn">import</span> <span class="n">ContextBundleKeys</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -75,9 +75,9 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="ContextRegistry">
-<a class="viewcode-back" href="../../../ats_utilities.context.registry.html#ats_utilities.context.registry.ContextRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">ContextRegistry</span><span class="p">:</span>
+<div class="viewcode-block" id="ContextBundleRegistry">
+<a class="viewcode-back" href="../../../ats_utilities.context.registry.html#ats_utilities.context.registry.ContextBundleRegistry">[docs]</a>
+<span class="k">class</span> <span class="nc">ContextBundleRegistry</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for simplification of the context bundle.</span>
 
@@ -87,30 +87,33 @@
 <span class="sd">                | create_bundle - Orchestrates dependency injection and creates the context bundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="ContextRegistry.create_bundle">
-<a class="viewcode-back" href="../../../ats_utilities.context.registry.html#ats_utilities.context.registry.ContextRegistry.create_bundle">[docs]</a>
+<div class="viewcode-block" id="ContextBundleRegistry.create_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.context.registry.html#ats_utilities.context.registry.ContextBundleRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">ContextDependencies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">ContextBundleDependencies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Orchestrates dependency injection and creates the context bundle.</span>
 
 <span class="sd">            :param dependencies: The registry-specific orchestration dependencies.</span>
 <span class="sd">            :return: The context bundle.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: The dependencies must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes</span>
-<span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The context bundle dependencies must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The context bundle dependencies must be an instance of Mapping and its</span>
+<span class="sd">                |                attributes must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The context bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The context bundle must be an instance of ContextBundle and</span>
+<span class="sd">                |                its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ContextDependenciesValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">dependencies</span><span class="p">)</span>
+        <span class="n">ContextBundleDependenciesValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">dependencies</span><span class="p">)</span>
 
         <span class="n">bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">(</span>
-            <span class="n">checker</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ContextKeys</span><span class="o">.</span><span class="n">DEPENDENCY_CHECKER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">logger</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ContextKeys</span><span class="o">.</span><span class="n">DEPENDENCY_LOGGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">reporter</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ContextKeys</span><span class="o">.</span><span class="n">DEPENDENCY_REPORTER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">verbose</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ContextKeys</span><span class="o">.</span><span class="n">DEPENDENCY_VERBOSE</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">False</span>
+            <span class="n">checker</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ContextBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_CHECKER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">logger</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ContextBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_LOGGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">reporter</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ContextBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_REPORTER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ContextBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_VERBOSE</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">False</span>
         <span class="p">)</span>
 
-        <span class="n">ContextValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+        <span class="n">ContextBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">bundle</span></div>
 </div>

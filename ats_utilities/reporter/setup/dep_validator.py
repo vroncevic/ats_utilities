@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the reporter dependencies.
+    Validator for the reporter bundle dependencies.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.reporter.setup.dependencies import ReporterDependencies
-from ats_utilities.reporter.setup.keys import ReporterKeys
+from ats_utilities.reporter.setup.dependencies import ReporterBundleDependencies
+from ats_utilities.reporter.setup.keys import ReporterBundleKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -38,35 +38,35 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ReporterDependenciesValidator:
+class ReporterBundleDependenciesValidator:
     '''
-        A validator for the reporter dependencies.
+        Validator for the reporter bundle dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the reporter dependencies.
+                | validate - Validates the reporter bundle dependencies.
     '''
 
     @classmethod
-    def validate(cls, dependencies: ReporterDependencies) -> None:
+    def validate(cls, dependencies: ReporterBundleDependencies) -> None:
         '''
-            Validates the reporter dependencies.
+            Validates the reporter bundle dependencies.
 
-            :param dependencies: The reporter dependencies instance to be validated.
+            :param dependencies: The reporter bundle dependencies instance to be validated.
             :exceptions:
-                | ATSValueError: The dependencies must be provided and have proper values.
-                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The reporter bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The reporter bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'reporter_dependencies_validator::validate(...)'
-        msg_dependencies_none: str = 'the dependencies must be provided'
-        msg_dependencies_istype: str = 'the dependencies must be a Mapping'
+        ctx: str = 'reporter_bundle_dependencies_validator::validate(...)'
+        msg_dependencies_none: str = 'the reporter bundle dependencies must be provided'
+        msg_dependencies_istype: str = 'the reporter bundle dependencies must be a Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
-        for attr_name, expected_type in ReporterKeys.get_dependency_to_type().items():
+        for attr_name, expected_type in ReporterBundleKeys.get_dependency_to_type().items():
             msg_attr_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute = dependencies.get(attr_name)

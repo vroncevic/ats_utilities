@@ -22,11 +22,11 @@ Info
 from __future__ import annotations
 
 from ats_utilities.generation.setup.bundle import GeneratorBundle
-from ats_utilities.generation.setup.options import GeneratorOptions
-from ats_utilities.generation.setup.opt_validator import GeneratorOptionsValidator
-from ats_utilities.generation.setup.dependencies import GeneratorDependencies
-from ats_utilities.generation.setup.keys import GeneratorKeys
-from ats_utilities.generation.setup.registry import GeneratorRegistry
+from ats_utilities.generation.setup.options import GeneratorBundleOptions
+from ats_utilities.generation.setup.opt_validator import GeneratorBundleOptionsValidator
+from ats_utilities.generation.setup.dependencies import GeneratorBundleDependencies
+from ats_utilities.generation.setup.keys import GeneratorBundleKeys
+from ats_utilities.generation.setup.registry import GeneratorBundleRegistry
 from ats_utilities.generation.scheme.engine import SchemeLoader
 from ats_utilities.generation.tar.engine import TarProcessor
 from ats_utilities.generation.template.engine import TemplateProcessor
@@ -45,7 +45,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class GeneratorFactory:
+class GeneratorBundleFactory:
     '''
         Factory for creating generator bundle.
 
@@ -56,20 +56,26 @@ class GeneratorFactory:
     '''
 
     @classmethod
-    def create_bundle(cls, options: GeneratorOptions) -> GeneratorBundle:
+    def create_bundle(cls, options: GeneratorBundleOptions) -> GeneratorBundle:
         '''
             Creates a generator bundle using configuration options.
 
             :param options: The creation options/parameters for the bundle.
             :return: The generator bundle.
             :exceptions:
-                | ATSValueError: Generator options must be provided and have proper values.
-                | ATSTypeError:  Generator options must be an instance of Mapping and its attributes
+                | ATSValueError: The generator bundle options must be provided and have proper values.
+                | ATSTypeError:  The generator bundle options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The generator bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The generator bundle dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
+                | ATSValueError: The generator bundle must be provided and have proper values.
+                | ATSTypeError:  The generator bundle must be an instance of GeneratorBundle
+                |                and its attributes must be instances of their respective types.
         '''
-        GeneratorOptionsValidator.validate(options)
+        GeneratorBundleOptionsValidator.validate(options)
 
-        context_bundle: ContextBundle = options.get(GeneratorKeys.OPTION_CONTEXT_BUNDLE)
+        context_bundle: ContextBundle = options.get(GeneratorBundleKeys.OPTION_CONTEXT_BUNDLE)
 
         scheme_loader: ISchemeLoader = SchemeLoader(context_bundle=context_bundle)
         template_processor: ITemplateProcessor = TemplateProcessor(context_bundle=context_bundle)
@@ -78,8 +84,8 @@ class GeneratorFactory:
             template_processor=template_processor
         )
 
-        return GeneratorRegistry.create_bundle(
-            GeneratorDependencies(
+        return GeneratorBundleRegistry.create_bundle(
+            GeneratorBundleDependencies(
                 scheme_loader=scheme_loader,
                 tar_processor=tar_processor,
                 context_bundle=context_bundle

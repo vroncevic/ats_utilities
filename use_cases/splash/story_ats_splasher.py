@@ -22,10 +22,10 @@ Info
 from os.path import dirname, realpath
 from ats_utilities.splash.engine import SplashManager
 from ats_utilities.splash.setup.keys import SplashKeys
-from ats_utilities.info.setup.keys import InfoKeys
-from ats_utilities.splash.setup.factory import SplashFactory
+from ats_utilities.info.setup.keys import InfoBundleKeys
+from ats_utilities.splash.setup.factory import SplashBundleFactory
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.factory import ContextFactory
+from ats_utilities.context.factory import ContextBundleFactory
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,21 +38,21 @@ __status__ = 'Development'
 
 current_dir: str = dirname(realpath(__file__))
 logo_path: str = f'{current_dir}/../../tests/assets/config/read_only/app.logo'
-context_bundle: ContextBundle = ContextFactory.create_bundle()
+context_bundle: ContextBundle = ContextBundleFactory.create_bundle()
 
 #
 # default [with GitHub]
 # ======================
 #
 mytool_property_github: dict[object, object] = {
-    InfoKeys.ATS_ORGANIZATION: 'myorganization',
-    InfoKeys.ATS_REPOSITORY: 'myrepository',
-    InfoKeys.ATS_NAME: 'mytool',
-    InfoKeys.ATS_LOGO_PATH: logo_path,
-    InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
+    InfoBundleKeys.ATS_ORGANIZATION: 'myorganization',
+    InfoBundleKeys.ATS_REPOSITORY: 'myrepository',
+    InfoBundleKeys.ATS_NAME: 'mytool',
+    InfoBundleKeys.ATS_LOGO_PATH: logo_path,
+    InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
 }
 ats_splash_with_github: SplashManager = SplashManager(
-    own=SplashFactory.create_bundle(
+    own=SplashBundleFactory.create_bundle(
         {
             SplashKeys.OPTION_PROP: mytool_property_github,
             SplashKeys.OPTION_CONTEXT_BUNDLE: context_bundle
@@ -67,14 +67,14 @@ print(100 * '=')
 # =========================
 #
 mytool_property_no_github: dict[object, object] = {
-    InfoKeys.ATS_ORGANIZATION: 'myorganization',
-    InfoKeys.ATS_REPOSITORY: 'myrepository',
-    InfoKeys.ATS_NAME: 'mytool',
-    InfoKeys.ATS_LOGO_PATH: logo_path,
-    InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: False
+    InfoBundleKeys.ATS_ORGANIZATION: 'myorganization',
+    InfoBundleKeys.ATS_REPOSITORY: 'myrepository',
+    InfoBundleKeys.ATS_NAME: 'mytool',
+    InfoBundleKeys.ATS_LOGO_PATH: logo_path,
+    InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE: False
 }
 ats_splash_without_github = SplashManager(
-    own=SplashFactory.create_bundle(
+    own=SplashBundleFactory.create_bundle(
         {
             SplashKeys.OPTION_PROP: mytool_property_no_github,
             SplashKeys.OPTION_CONTEXT_BUNDLE: context_bundle
@@ -90,7 +90,7 @@ print(100 * '=')
 #
 mytool_property_disabled: dict[object, object] = {}
 ats_splash_disabled: SplashManager = SplashManager(
-    own=SplashFactory.create_bundle(
+    own=SplashBundleFactory.create_bundle(
         {
             SplashKeys.OPTION_PROP: mytool_property_disabled,
             SplashKeys.OPTION_CONTEXT_BUNDLE: context_bundle

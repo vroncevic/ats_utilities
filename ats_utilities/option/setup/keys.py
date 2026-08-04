@@ -39,21 +39,21 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class OptionKeys:
+class OptionBundleKeys:
     '''
         Runtime components and interface constraints for option bundle.
 
         It defines:
 
             :attributes:
-                | DEPENDENCY_STRATEGY - The strategy interface constant.
-                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant.
-                | OPTION_PARAMETERS - The parameters option constant.
-                | OPTION_CONTEXT_BUNDLE - The context bundle option constant.
-                | REQUIRED_CONFIG_KEYS_SET - The set of required information keys.
+                | DEPENDENCY_STRATEGY - The strategy interface constant for option bundle.
+                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant for option bundle.
+                | OPTION_PARAMETERS - The parameters option constant for option bundle.
+                | OPTION_CONTEXT_BUNDLE - The context bundle option constant for option bundle.
+                | REQUIRED_CONFIG_KEYS_SET - The set of required information keys for option bundle.
             :methods:
-                | get_dependency_to_type - Returns the mapping of the option dependencies to their types.
-                | get_option_to_type - Returns the mapping of the option options to their types.
+                | get_dependency_to_type - Returns the mapping of the option bundle dependencies to their types.
+                | get_option_to_type - Returns the mapping of the option bundle options to their types.
     '''
 
     # Dependency Keys
@@ -72,9 +72,9 @@ class OptionKeys:
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns the mapping of the option dependencies to their types.
+            Returns the mapping of the option bundle dependencies to their types.
 
-            :return: The mapping of the option dependencies to their types.
+            :return: The mapping of the option bundle dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -85,9 +85,9 @@ class OptionKeys:
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns the mapping of the option options to their types.
+            Returns the mapping of the option bundle options to their types.
 
-            :return: The mapping of the option options to their types.
+            :return: The mapping of the option bundle options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

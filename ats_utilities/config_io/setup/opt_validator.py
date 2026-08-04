@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for the config I/O options.
+    Validator for the config I/O bundle options.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.config_io.setup.options import ConfigIOOptions
-from ats_utilities.config_io.setup.keys import ConfigIOKeys
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.config_io.setup.options import ConfigIOBundleOptions
+from ats_utilities.config_io.setup.keys import ConfigIOBundleKeys
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -39,42 +39,42 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ConfigIOOptionsValidator:
+class ConfigIOBundleOptionsValidator:
     '''
-        Validator for the config I/O options.
+        Validator for the config I/O bundle options.
 
         It defines:
 
             :methods:
-                | validate - Validates the config I/O options.
+                | validate - Validates the config I/O bundle options.
     '''
 
     @classmethod
-    def validate(cls, options: ConfigIOOptions) -> None:
+    def validate(cls, options: ConfigIOBundleOptions) -> None:
         '''
-            Validates the config I/O options.
+            Validates the config I/O bundle options.
 
-            :param options: The config I/O options to be validated.
+            :param options: The config I/O bundle options to be validated.
             :exceptions:
-                | ATSValueError: The options must be provided and have proper attributes.
-                | ATSTypeError:  The options must be an instance of Mapping and its attributes
+                | ATSValueError: The config I/O bundle options must be provided and have proper attributes.
+                | ATSTypeError:  The config I/O bundle options must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
-        ctx: str = 'config_io_options_validator::validate(...)'
-        msg_options_none: str = 'the options must be provided'
-        msg_options_istype: str = 'the options must be a Mapping'
+        ctx: str = 'config_io_bundle_options_validator::validate(...)'
+        msg_options_none: str = 'the config I/O bundle options must be provided'
+        msg_options_istype: str = 'the config I/O bundle options must be a Mapping'
 
         not_none(options, ctx, msg_options_none)
         istype(options, Mapping, ctx, msg_options_istype)
 
-        for attribute_name, expected_type in ConfigIOKeys.get_option_to_type().items():
+        for attribute_name, expected_type in ConfigIOBundleKeys.get_option_to_type().items():
             msg_attribute_istype: str = f'the {attribute_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute: object | None = options.get(attribute_name)
 
-            if attribute_name == ConfigIOKeys.OPTION_CONTEXT_BUNDLE:
+            if attribute_name == ConfigIOBundleKeys.OPTION_CONTEXT_BUNDLE:
                 istype(attribute, expected_type, ctx, msg_attribute_istype)
-                ContextValidator.validate(attribute)
+                ContextBundleValidator.validate(attribute)
                 continue
 
             if attribute is not None:

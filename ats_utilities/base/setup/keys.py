@@ -40,21 +40,21 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class BaseKeys:
+class BaseBundleKeys:
     '''
         Runtime components and interface constraints for base bundle.
 
         It defines:
 
             :attributes:
-                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant.
-                | DEPENDENCY_INFO_MANAGER - The information manager interface constant.
-                | DEPENDENCY_OPTION_MANAGER - The option manager interface constant.
-                | DEPENDENCY_SPLASH_MANAGER - The splash manager interface constant.
-                | DEPENDENCY_GENERATION_MANAGER - The generator manager interface constant.
-                | OPTION_INFO_FILE - The information file constant.
-                | OPTION_USE_GENERATOR - The use generator constant.
-                | OPTION_CONTEXT_BUNDLE - The context bundle constant.
+                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant for base bundle.
+                | DEPENDENCY_INFO_MANAGER - The information manager interface constant for base bundle.
+                | DEPENDENCY_OPTION_MANAGER - The option manager interface constant for base bundle.
+                | DEPENDENCY_SPLASH_MANAGER - The splash manager interface constant for base bundle.
+                | DEPENDENCY_GENERATION_MANAGER - The generator manager interface constant for base bundle.
+                | OPTION_INFO_FILE - The information file constant for base bundle.
+                | OPTION_USE_GENERATOR - The use generator constant for base bundle.
+                | OPTION_CONTEXT_BUNDLE - The context bundle constant for base bundle.
             :methods:
                 | get_dependency_to_type - Returns the mapping of the base bundle dependencies to their types.
                 | get_option_to_type - Returns the mapping of the base bundle options to their types.

@@ -54,7 +54,7 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    A validator for the info bundle.</span>
+<span class="sd">    Validator for the info bundle.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -71,7 +71,7 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.info.log_file.ilog_file</span> <span class="kn">import</span> <span class="n">ILogFile</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.info_ok.iinfo_ok</span> <span class="kn">import</span> <span class="n">IInfoOk</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextBundleValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_empty</span><span class="p">,</span> <span class="n">not_none</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 
@@ -85,11 +85,11 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="InfoValidator">
-<a class="viewcode-back" href="../../../../ats_utilities.info.setup.validator.html#ats_utilities.info.setup.validator.InfoValidator">[docs]</a>
-<span class="k">class</span> <span class="nc">InfoValidator</span><span class="p">:</span>
+<div class="viewcode-block" id="InfoBundleValidator">
+<a class="viewcode-back" href="../../../../ats_utilities.info.setup.validator.html#ats_utilities.info.setup.validator.InfoBundleValidator">[docs]</a>
+<span class="k">class</span> <span class="nc">InfoBundleValidator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        A validator for the info bundle.</span>
+<span class="sd">        Validator for the info bundle.</span>
 
 <span class="sd">        It defines:</span>
 
@@ -97,8 +97,8 @@
 <span class="sd">                | validate - Validates the info bundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="InfoValidator.validate">
-<a class="viewcode-back" href="../../../../ats_utilities.info.setup.validator.html#ats_utilities.info.setup.validator.InfoValidator.validate">[docs]</a>
+<div class="viewcode-block" id="InfoBundleValidator.validate">
+<a class="viewcode-back" href="../../../../ats_utilities.info.setup.validator.html#ats_utilities.info.setup.validator.InfoBundleValidator.validate">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="n">InfoBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -106,39 +106,39 @@
 
 <span class="sd">            :param bundle: The info bundle instance to be validated.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Info bundle must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Info bundle must be an instance of InfoBundle and its</span>
+<span class="sd">                | ATSValueError: The info bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The info bundle must be an instance of InfoBundle and its</span>
 <span class="sd">                |                attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info_validator::validate(...)&#39;</span>
-        <span class="n">msg_bundle_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;bundle must be provided and have proper values&#39;</span>
-        <span class="n">msg_bundle_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;bundle must be an instance of InfoBundle&#39;</span>
-        <span class="n">msg_name_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;name must be provided&#39;</span>
-        <span class="n">msg_version_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;version must be provided&#39;</span>
-        <span class="n">msg_licence_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;licence must be provided&#39;</span>
-        <span class="n">msg_build_date_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;build date must be provided&#39;</span>
-        <span class="n">msg_repository_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;repository must be provided&#39;</span>
-        <span class="n">msg_organization_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;organization must be provided&#39;</span>
-        <span class="n">msg_use_github_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;use github must be provided&#39;</span>
-        <span class="n">msg_logo_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;logo must be provided&#39;</span>
-        <span class="n">msg_log_file_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;log file must be provided&#39;</span>
-        <span class="n">msg_info_ok_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info ok must be provided&#39;</span>
-        <span class="n">msg_context_bundle_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;context bundle must be provided&#39;</span>
-        <span class="n">msg_name_not_empty</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;name must be not empty&#39;</span>
-        <span class="n">msg_version_not_empty</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;version must be not empty&#39;</span>
-        <span class="n">msg_licence_not_empty</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;licence must be not empty&#39;</span>
-        <span class="n">msg_build_date_not_empty</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;build date must be not empty&#39;</span>
-        <span class="n">msg_name_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;name must be an instance of IName&#39;</span>
-        <span class="n">msg_version_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;version must be an instance of IVersion&#39;</span>
-        <span class="n">msg_licence_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;licence must be an instance of ILicence&#39;</span>
-        <span class="n">msg_build_date_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;build date must be an instance of IBuildDate&#39;</span>
-        <span class="n">msg_repository_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;repository must be an instance of IRepository&#39;</span>
-        <span class="n">msg_organization_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;organization must be an instance of IOrganization&#39;</span>
-        <span class="n">msg_use_github_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;use github must be an instance of IUseGitHub&#39;</span>
-        <span class="n">msg_logo_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;logo must be an instance of ILogo&#39;</span>
-        <span class="n">msg_log_file_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;log file must be an instance of ILogFile&#39;</span>
-        <span class="n">msg_info_ok_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info ok must be an instance of IInfoOk&#39;</span>
-        <span class="n">msg_context_bundle_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;context bundle must be an instance of ContextBundle&#39;</span>
+        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info_bundle_validator::validate(...)&#39;</span>
+        <span class="n">msg_bundle_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the info bundle must be provided and have proper values&#39;</span>
+        <span class="n">msg_bundle_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the info bundle must be an instance of InfoBundle&#39;</span>
+        <span class="n">msg_name_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the name must be provided&#39;</span>
+        <span class="n">msg_version_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the version must be provided&#39;</span>
+        <span class="n">msg_licence_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the licence must be provided&#39;</span>
+        <span class="n">msg_build_date_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the build date must be provided&#39;</span>
+        <span class="n">msg_repository_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the repository must be provided&#39;</span>
+        <span class="n">msg_organization_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the organization must be provided&#39;</span>
+        <span class="n">msg_use_github_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the use github must be provided&#39;</span>
+        <span class="n">msg_logo_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the logo must be provided&#39;</span>
+        <span class="n">msg_log_file_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the log file must be provided&#39;</span>
+        <span class="n">msg_info_ok_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the info ok must be provided&#39;</span>
+        <span class="n">msg_context_bundle_not_provided</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the context bundle must be provided&#39;</span>
+        <span class="n">msg_name_not_empty</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the name must be not empty&#39;</span>
+        <span class="n">msg_version_not_empty</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the version must be not empty&#39;</span>
+        <span class="n">msg_licence_not_empty</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the licence must be not empty&#39;</span>
+        <span class="n">msg_build_date_not_empty</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the build date must be not empty&#39;</span>
+        <span class="n">msg_name_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the name must be an instance of IName&#39;</span>
+        <span class="n">msg_version_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the version must be an instance of IVersion&#39;</span>
+        <span class="n">msg_licence_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the licence must be an instance of ILicence&#39;</span>
+        <span class="n">msg_build_date_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the build date must be an instance of IBuildDate&#39;</span>
+        <span class="n">msg_repository_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the repository must be an instance of IRepository&#39;</span>
+        <span class="n">msg_organization_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the organization must be an instance of IOrganization&#39;</span>
+        <span class="n">msg_use_github_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the use github must be an instance of IUseGitHub&#39;</span>
+        <span class="n">msg_logo_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the logo must be an instance of ILogo&#39;</span>
+        <span class="n">msg_log_file_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the log file must be an instance of ILogFile&#39;</span>
+        <span class="n">msg_info_ok_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the info ok must be an instance of IInfoOk&#39;</span>
+        <span class="n">msg_context_bundle_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the context bundle must be an instance of ContextBundle&#39;</span>
 
         <span class="n">not_none</span><span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_bundle_not_provided</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="n">InfoBundle</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_bundle_not_instance</span><span class="p">)</span>
@@ -172,7 +172,7 @@
         <span class="n">istype</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">info_ok</span><span class="p">,</span> <span class="n">IInfoOk</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_info_ok_not_instance</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_context_bundle_not_instance</span><span class="p">)</span>
 
-        <span class="n">ContextValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span></div>
+        <span class="n">ContextBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

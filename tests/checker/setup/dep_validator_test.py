@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for CheckerDependenciesValidator class.
+    Unit tests for CheckerBundleDependenciesValidator class.
 '''
 
 from __future__ import annotations
@@ -24,8 +24,8 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.checker.setup.dependencies import CheckerDependencies
-from ats_utilities.checker.setup.dep_validator import CheckerDependenciesValidator
+from ats_utilities.checker.setup.dependencies import CheckerBundleDependencies
+from ats_utilities.checker.setup.dep_validator import CheckerBundleDependenciesValidator
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
@@ -36,11 +36,11 @@ from ats_utilities.exceptions import ATSTypeError, ATSValueError
 class CheckerDependenciesValidatorTest(unittest.TestCase):
     '''
         Defines class CheckerDependenciesValidatorTest with attribute(s) and method(s).
-        Tests CheckerDependenciesValidator component logic.
+        Tests CheckerBundleDependenciesValidator component logic.
     '''
 
-    def _get_valid_deps(self) -> CheckerDependencies:
-        return CheckerDependencies(
+    def _get_valid_deps(self) -> CheckerBundleDependencies:
+        return CheckerBundleDependencies(
             format_validator=MagicMock(spec=IFormatValidator),
             type_validator=MagicMock(spec=ITypeValidator),
             context_provider=MagicMock(spec=IContextProvider),
@@ -49,32 +49,32 @@ class CheckerDependenciesValidatorTest(unittest.TestCase):
 
     def test_validate_valid(self) -> None:
         deps = self._get_valid_deps()
-        CheckerDependenciesValidator.validate(deps)
+        CheckerBundleDependenciesValidator.validate(deps)
 
     def test_validate_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            CheckerDependenciesValidator.validate(None)  # type: ignore
+            CheckerBundleDependenciesValidator.validate(None)  # type: ignore
 
     def test_validate_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            CheckerDependenciesValidator.validate("not_a_dict")  # type: ignore
+            CheckerBundleDependenciesValidator.validate("not_a_dict")  # type: ignore
 
     def test_validate_missing_attributes(self) -> None:
         deps = self._get_valid_deps()
         del deps['format_validator']  # type: ignore
         with self.assertRaises(ATSValueError):
-            CheckerDependenciesValidator.validate(deps)
+            CheckerBundleDependenciesValidator.validate(deps)
 
         deps = self._get_valid_deps()
         del deps['type_validator']  # type: ignore
         with self.assertRaises(ATSValueError):
-            CheckerDependenciesValidator.validate(deps)
+            CheckerBundleDependenciesValidator.validate(deps)
 
     def test_validate_invalid_attribute_types(self) -> None:
         deps = self._get_valid_deps()
         deps['format_validator'] = "invalid"  # type: ignore
         with self.assertRaises(ATSTypeError):
-            CheckerDependenciesValidator.validate(deps)
+            CheckerBundleDependenciesValidator.validate(deps)
 
 
 if __name__ == "__main__":

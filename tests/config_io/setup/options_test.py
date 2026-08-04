@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ConfigIOOptions class.
+    Unit tests for ConfigIOBundleOptions class.
 '''
 
 from __future__ import annotations
@@ -26,24 +26,24 @@ from collections.abc import Mapping
 from typing import get_type_hints
 from unittest.mock import MagicMock
 
-from ats_utilities.config_io.setup.options import ConfigIOOptions
+from ats_utilities.config_io.setup.options import ConfigIOBundleOptions
 from ats_utilities.context.bundle import ContextBundle
 
 
 class ConfigIOOptionsTest(unittest.TestCase):
     '''
         Defines class ConfigIOOptionsTest with attribute(s) and method(s).
-        Tests ConfigIOOptions TypedDict structure.
+        Tests ConfigIOBundleOptions TypedDict structure.
     '''
 
     def test_type_hints(self) -> None:
-        hints = get_type_hints(ConfigIOOptions)
+        hints = get_type_hints(ConfigIOBundleOptions)
         self.assertEqual(hints['file_path'], str)
         self.assertEqual(hints['scheme'], Mapping[str, str])
         self.assertEqual(hints['context_bundle'], ContextBundle)
 
     def test_instantiation(self) -> None:
-        options: ConfigIOOptions = {
+        options: ConfigIOBundleOptions = {
             'file_path': "/path/to/file",
             'scheme': {"key": "val"},
             'context_bundle': MagicMock(spec=ContextBundle)

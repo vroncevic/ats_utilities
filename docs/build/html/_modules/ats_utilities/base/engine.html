@@ -61,7 +61,7 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.base.setup.bundle</span> <span class="kn">import</span> <span class="n">BaseBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.validator</span> <span class="kn">import</span> <span class="n">BaseValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.validator</span> <span class="kn">import</span> <span class="n">BaseBundleValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generation.imanager</span> <span class="kn">import</span> <span class="n">IGeneratorManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.imanager</span> <span class="kn">import</span> <span class="n">IInfoManager</span>
@@ -126,7 +126,7 @@
 <span class="sd">                |                respective interfaces and types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">BaseValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
+        <span class="n">BaseBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_apply_bundle</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
 
         <span class="n">components</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splash_manager</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_manager</span><span class="p">]</span>
@@ -163,7 +163,7 @@
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">BaseValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+            <span class="n">BaseBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_apply_bundle</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
 
             <span class="n">components</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splash_manager</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_option_manager</span><span class="p">]</span>

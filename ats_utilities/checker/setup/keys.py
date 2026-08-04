@@ -40,24 +40,24 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class CheckerKeys:
+class CheckerBundleKeys:
     '''
         Runtime components and interface constraints for the checker bundle.
 
         It defines:
 
             :attributes:
-                | DEPENDENCY_FORMAT_VALIDATOR - The format validator interface constant.
-                | DEPENDENCY_TYPE_VALIDATOR - The type validator interface constant.
-                | DEPENDENCY_CONTEXT_PROVIDER - The context provider interface constant.
-                | DEPENDENCY_CHECK_REPORTER - The check reporter interface constant.
-                | OPTION_SEPARATOR - The separator option constant.
-                | OPTION_ABSTRACT_TYPES - The abstract types option constant.
-                | OPTION_STACK_INDEX_CALLER - The stack index caller option constant.
-                | OPTION_MESSAGES_PROVIDER - The messages provider option constant.
+                | DEPENDENCY_FORMAT_VALIDATOR - The format validator interface constant for the checker bundle.
+                | DEPENDENCY_TYPE_VALIDATOR - The type validator interface constant for the checker bundle.
+                | DEPENDENCY_CONTEXT_PROVIDER - The context provider interface constant for the checker bundle.
+                | DEPENDENCY_CHECK_REPORTER - The check reporter interface constant for the checker bundle.
+                | OPTION_SEPARATOR - The separator option constant for the checker bundle.
+                | OPTION_ABSTRACT_TYPES - The abstract types option constant for the checker bundle.
+                | OPTION_STACK_INDEX_CALLER - The stack index caller option constant for the checker bundle.
+                | OPTION_MESSAGES_PROVIDER - The messages provider option constant for the checker bundle.
             :methods:
-                | get_dependency_to_type - Returns mapping of the checker dependencies to their types.
-                | get_option_to_type - Returns mapping of the checker options to their types.
+                | get_dependency_to_type - Returns mapping of the checker bundle dependencies to their types.
+                | get_option_to_type - Returns mapping of the checker bundle options to their types.
     '''
 
     # Dependency Keys
@@ -75,9 +75,9 @@ class CheckerKeys:
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of the checker dependencies to their types.
+            Returns mapping of the checker bundle dependencies to their types.
 
-            :return: The mapping of the checker dependencies to their types.
+            :return: The mapping of the checker bundle dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -90,9 +90,9 @@ class CheckerKeys:
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of the checker options to their types.
+            Returns mapping of the checker bundle options to their types.
 
-            :return: The mapping of the checker options to their types.
+            :return: The mapping of the checker bundle options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

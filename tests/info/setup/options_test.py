@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for InfoOptions TypedDict.
+    Unit tests for InfoBundleOptions TypedDict.
 '''
 
 from __future__ import annotations
@@ -24,19 +24,19 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.info.setup.options import InfoOptions
+from ats_utilities.info.setup.options import InfoBundleOptions
 from ats_utilities.context.bundle import ContextBundle
 
 
 class TestInfoOptions(unittest.TestCase):
-    """Unit tests for the InfoOptions TypedDict structure."""
+    """Unit tests for the InfoBundleOptions TypedDict structure."""
 
     def test_info_options_dict(self) -> None:
-        """Test creating and accessing InfoOptions structure."""
+        """Test creating and accessing InfoBundleOptions structure."""
         mock_context_bundle = MagicMock(spec=ContextBundle)
         info_data = {"project_name": "ats_utilities"}
 
-        opts: InfoOptions = {
+        opts: InfoBundleOptions = {
             "info": info_data,
             "context_bundle": mock_context_bundle
         }

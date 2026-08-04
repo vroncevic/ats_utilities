@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the option dependencies.
+    Validator for the option bundle dependencies.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.option.setup.dependencies import OptionDependencies
-from ats_utilities.option.setup.keys import OptionKeys
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.option.setup.dependencies import OptionBundleDependencies
+from ats_utilities.option.setup.keys import OptionBundleKeys
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -39,35 +39,35 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class OptionDependenciesValidator:
+class OptionBundleDependenciesValidator:
     '''
-        A validator for the option dependencies.
+        Validator for the option bundle dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the option dependencies.
+                | validate - Validates the option bundle dependencies.
     '''
 
     @classmethod
-    def validate(cls, dependencies: OptionDependencies) -> None:
+    def validate(cls, dependencies: OptionBundleDependencies) -> None:
         '''
-            Validates the option dependencies.
+            Validates the option bundle dependencies.
 
-            :param dependencies: The option dependencies instance to be validated.
+            :param dependencies: The option bundle dependencies to be validated.
             :exceptions:
-                | ATSValueError: The dependencies must be provided and have proper values.
-                | ATSTypeError:  The dependencies must be an instance of Mapping and its
+                | ATSValueError: The option bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The option bundle dependencies must be an instance of Mapping and its
                 |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'option_dependencies_validator::validate(...)'
-        msg_dependencies_none: str = 'the dependencies must be provided'
-        msg_dependencies_istype: str = 'the dependencies must be a Mapping'
+        ctx: str = 'option_bundle_dependencies_validator::validate(...)'
+        msg_dependencies_none: str = 'the option bundle dependencies must be provided'
+        msg_dependencies_istype: str = 'the option bundle dependencies must be a Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
-        for attr_name, expected_type in OptionKeys.get_dependency_to_type().items():
+        for attr_name, expected_type in OptionBundleKeys.get_dependency_to_type().items():
             msg_attr_none: str = f'the {attr_name.replace("_", " ")} must be provided'
             msg_attr_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
@@ -76,5 +76,5 @@ class OptionDependenciesValidator:
             not_none(attribute, ctx, msg_attr_none)
             istype(attribute, expected_type, ctx, msg_attr_istype)
 
-            if attr_name == OptionKeys.DEPENDENCY_CONTEXT_BUNDLE:
-                ContextValidator.validate(attribute)
+            if attr_name == OptionBundleKeys.DEPENDENCY_CONTEXT_BUNDLE:
+                ContextBundleValidator.validate(attribute)

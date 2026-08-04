@@ -54,7 +54,7 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Reporter options for the reporter bundle.</span>
+<span class="sd">    Reporter bundle options for the reporter bundle.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -62,8 +62,8 @@
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypedDict</span><span class="p">,</span> <span class="n">NotRequired</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.options</span> <span class="kn">import</span> <span class="n">CheckerOptions</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.options</span> <span class="kn">import</span> <span class="n">LoggerOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.options</span> <span class="kn">import</span> <span class="n">CheckerBundleOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.options</span> <span class="kn">import</span> <span class="n">LoggerBundleOptions</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -75,23 +75,23 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="ReporterOptions">
-<a class="viewcode-back" href="../../../../ats_utilities.reporter.setup.options.html#ats_utilities.reporter.setup.options.ReporterOptions">[docs]</a>
-<span class="k">class</span> <span class="nc">ReporterOptions</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<div class="viewcode-block" id="ReporterBundleOptions">
+<a class="viewcode-back" href="../../../../ats_utilities.reporter.setup.options.html#ats_utilities.reporter.setup.options.ReporterBundleOptions">[docs]</a>
+<span class="k">class</span> <span class="nc">ReporterBundleOptions</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Reporter options for the reporter bundle.</span>
+<span class="sd">        Reporter bundle options for the reporter bundle.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | checker - The checker for parameters validation.</span>
+<span class="sd">                | checker - The checker bundle options for parameters validation.</span>
 <span class="sd">                | theme - The theme for console output styling.</span>
-<span class="sd">                | logger - The logger for messages logging.</span>
+<span class="sd">                | logger - The logger bundle options for messages logging.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">checker</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="n">CheckerOptions</span><span class="p">]</span>
+    <span class="n">checker</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="n">CheckerBundleOptions</span><span class="p">]</span>
     <span class="n">theme</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
-    <span class="n">logger</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="n">LoggerOptions</span><span class="p">]</span></div>
+    <span class="n">logger</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="n">LoggerBundleOptions</span><span class="p">]</span></div>
 
 </pre></div>
 

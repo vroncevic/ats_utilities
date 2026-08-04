@@ -64,12 +64,12 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Logger dependencies for  the logger bundle.</p>
+<dt>Info</dt><dd><p>Logger dependencies for the logger bundle.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.logger.setup.dependencies.LoggerDependencies">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logger.setup.dependencies.</span></span><span class="sig-name descname"><span class="pre">LoggerDependencies</span></span><a class="reference internal" href="_modules/ats_utilities/logger/setup/dependencies.html#LoggerDependencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.setup.dependencies.LoggerDependencies" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.dependencies.LoggerBundleDependencies">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logger.setup.dependencies.</span></span><span class="sig-name descname"><span class="pre">LoggerBundleDependencies</span></span><a class="reference internal" href="_modules/ats_utilities/logger/setup/dependencies.html#LoggerBundleDependencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
 <p>Logger dependencies for the logger bundle.</p>
 <p>It defines:</p>
@@ -77,44 +77,44 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">logger - The logger.</div>
-<div class="line">has_file_handler - The flag indicating if the logger has a file handler.</div>
-<div class="line">formatter - The formatter for log messages.</div>
-<div class="line">buffer - The buffer for early log messages.</div>
-<div class="line">handler_manager - The handler manager for log outputs.</div>
-<div class="line">message_processor - The message processor for log messages.</div>
+<div class="line">logger - The logger for the logger bundle.</div>
+<div class="line">has_file_handler - The flag indicating if the logger has a file handler for the logger bundle.</div>
+<div class="line">formatter - The formatter for log messages for the logger bundle.</div>
+<div class="line">buffer - The buffer for early log messages for the logger bundle.</div>
+<div class="line">handler_manager - The handler manager for log outputs for the logger bundle.</div>
+<div class="line">message_processor - The message processor for log messages for the logger bundle.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logger.setup.dependencies.LoggerDependencies.buffer">
-<span class="sig-name descname"><span class="pre">buffer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.buffer.ibuffer.html#ats_utilities.logger.buffer.ibuffer.ILogBuffer" title="ats_utilities.logger.buffer.ibuffer.ILogBuffer"><span class="pre">ILogBuffer</span></a></em><a class="headerlink" href="#ats_utilities.logger.setup.dependencies.LoggerDependencies.buffer" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.buffer">
+<span class="sig-name descname"><span class="pre">buffer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.buffer.ibuffer.html#ats_utilities.logger.buffer.ibuffer.ILogBuffer" title="ats_utilities.logger.buffer.ibuffer.ILogBuffer"><span class="pre">ILogBuffer</span></a></em><a class="headerlink" href="#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.buffer" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logger.setup.dependencies.LoggerDependencies.formatter">
-<span class="sig-name descname"><span class="pre">formatter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.formatter.iformatter.html#ats_utilities.logger.formatter.iformatter.ILogFormatter" title="ats_utilities.logger.formatter.iformatter.ILogFormatter"><span class="pre">ILogFormatter</span></a></em><a class="headerlink" href="#ats_utilities.logger.setup.dependencies.LoggerDependencies.formatter" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.formatter">
+<span class="sig-name descname"><span class="pre">formatter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.formatter.iformatter.html#ats_utilities.logger.formatter.iformatter.ILogFormatter" title="ats_utilities.logger.formatter.iformatter.ILogFormatter"><span class="pre">ILogFormatter</span></a></em><a class="headerlink" href="#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.formatter" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logger.setup.dependencies.LoggerDependencies.handler_manager">
-<span class="sig-name descname"><span class="pre">handler_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.handler.ihandler_manager.html#ats_utilities.logger.handler.ihandler_manager.ILogHandlerManager" title="ats_utilities.logger.handler.ihandler_manager.ILogHandlerManager"><span class="pre">ILogHandlerManager</span></a></em><a class="headerlink" href="#ats_utilities.logger.setup.dependencies.LoggerDependencies.handler_manager" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.handler_manager">
+<span class="sig-name descname"><span class="pre">handler_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.handler.ihandler_manager.html#ats_utilities.logger.handler.ihandler_manager.ILogHandlerManager" title="ats_utilities.logger.handler.ihandler_manager.ILogHandlerManager"><span class="pre">ILogHandlerManager</span></a></em><a class="headerlink" href="#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.handler_manager" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logger.setup.dependencies.LoggerDependencies.has_file_handler">
-<span class="sig-name descname"><span class="pre">has_file_handler</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.logger.setup.dependencies.LoggerDependencies.has_file_handler" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.has_file_handler">
+<span class="sig-name descname"><span class="pre">has_file_handler</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.has_file_handler" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logger.setup.dependencies.LoggerDependencies.logger">
-<span class="sig-name descname"><span class="pre">logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">IUnderlyingLogger</span></em><a class="headerlink" href="#ats_utilities.logger.setup.dependencies.LoggerDependencies.logger" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.logger">
+<span class="sig-name descname"><span class="pre">logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">IUnderlyingLogger</span></em><a class="headerlink" href="#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.logger" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logger.setup.dependencies.LoggerDependencies.message_processor">
-<span class="sig-name descname"><span class="pre">message_processor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">IMessageProcessor</span></em><a class="headerlink" href="#ats_utilities.logger.setup.dependencies.LoggerDependencies.message_processor" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.message_processor">
+<span class="sig-name descname"><span class="pre">message_processor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">IMessageProcessor</span></em><a class="headerlink" href="#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.message_processor" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -132,13 +132,13 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.logger.setup.dependencies module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.logger.setup.dependencies.LoggerDependencies"><code class="docutils literal notranslate"><span class="pre">LoggerDependencies</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.logger.setup.dependencies.LoggerDependencies.buffer"><code class="docutils literal notranslate"><span class="pre">LoggerDependencies.buffer</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logger.setup.dependencies.LoggerDependencies.formatter"><code class="docutils literal notranslate"><span class="pre">LoggerDependencies.formatter</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logger.setup.dependencies.LoggerDependencies.handler_manager"><code class="docutils literal notranslate"><span class="pre">LoggerDependencies.handler_manager</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logger.setup.dependencies.LoggerDependencies.has_file_handler"><code class="docutils literal notranslate"><span class="pre">LoggerDependencies.has_file_handler</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logger.setup.dependencies.LoggerDependencies.logger"><code class="docutils literal notranslate"><span class="pre">LoggerDependencies.logger</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logger.setup.dependencies.LoggerDependencies.message_processor"><code class="docutils literal notranslate"><span class="pre">LoggerDependencies.message_processor</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies"><code class="docutils literal notranslate"><span class="pre">LoggerBundleDependencies</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.buffer"><code class="docutils literal notranslate"><span class="pre">LoggerBundleDependencies.buffer</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.formatter"><code class="docutils literal notranslate"><span class="pre">LoggerBundleDependencies.formatter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.handler_manager"><code class="docutils literal notranslate"><span class="pre">LoggerBundleDependencies.handler_manager</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.has_file_handler"><code class="docutils literal notranslate"><span class="pre">LoggerBundleDependencies.has_file_handler</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.logger"><code class="docutils literal notranslate"><span class="pre">LoggerBundleDependencies.logger</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies.message_processor"><code class="docutils literal notranslate"><span class="pre">LoggerBundleDependencies.message_processor</span></code></a></li>
 </ul>
 </li>
 </ul>

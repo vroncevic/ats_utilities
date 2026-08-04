@@ -38,22 +38,22 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ConfigIOKeys:
+class ConfigIOBundleKeys:
     '''
         Runtime components and interface constraints for Config I/O bundle.
 
         It defines:
 
             :attributes:
-                | DEPENDENCY_FILE_PATH - The file path interface constant.
-                | DEPENDENCY_PROCESSOR - The processor interface constant.
-                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant.
-                | OPTION_FILE_PATH - The file path option constant.
-                | OPTION_SCHEME - The scheme option constant.
-                | OPTION_CONTEXT_BUNDLE - The context bundle option constant.
+                | DEPENDENCY_FILE_PATH - The file path interface constant for the config I/O bundle.
+                | DEPENDENCY_PROCESSOR - The processor interface constant for the config I/O bundle.
+                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant for the config I/O bundle.
+                | OPTION_FILE_PATH - The file path option constant for the config I/O bundle.
+                | OPTION_SCHEME - The scheme option constant for the config I/O bundle.
+                | OPTION_CONTEXT_BUNDLE - The context bundle option constant for the config I/O bundle.
             :methods:
-                | get_dependency_to_type - Returns the mapping of the config I/O dependencies to their types.
-                | get_option_to_type - Returns the mapping of the config I/O options to their types.
+                | get_dependency_to_type - Returns the mapping of the config I/O bundle dependencies to their types.
+                | get_option_to_type - Returns the mapping of the config I/O bundle options to their types.
     '''
 
     # Dependency Keys
@@ -69,9 +69,9 @@ class ConfigIOKeys:
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns the mapping of the config I/O dependencies to their types.
+            Returns the mapping of the config I/O bundle dependencies to their types.
 
-            :return: The mapping of the config I/O dependencies to their types.
+            :return: The mapping of the config I/O bundle dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -83,9 +83,9 @@ class ConfigIOKeys:
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns the mapping of the config I/O options to their types.
+            Returns the mapping of the config I/O bundle options to their types.
 
-            :return: The mapping of the config I/O options to their types.
+            :return: The mapping of the config I/O bundle options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

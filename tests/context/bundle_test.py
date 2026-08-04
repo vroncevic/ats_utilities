@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ContextBundle class and ContextValidator.
+    Unit tests for ContextBundle class and ContextBundleValidator.
 '''
 
 from __future__ import annotations
@@ -26,7 +26,7 @@ from unittest.mock import MagicMock
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
@@ -44,7 +44,7 @@ __status__: str = 'Development'
 class ContextBundleTest(unittest.TestCase):
     '''
         Defines class ContextBundleTest with attribute(s) and method(s).
-        Tests ContextBundle dataclass and ContextValidator logic.
+        Tests ContextBundle dataclass and ContextBundleValidator logic.
     '''
 
     def test_init_valid(self) -> None:
@@ -68,7 +68,7 @@ class ContextBundleTest(unittest.TestCase):
             self.assertIs(bundle.logger, mock_logger)
             self.assertIs(bundle.reporter, mock_reporter)
             self.assertTrue(bundle.verbose)
-            ContextValidator.validate(bundle)
+            ContextBundleValidator.validate(bundle)
         except (ATSValueError, ATSTypeError):
             self.fail("Failed to instantiate ContextBundle with valid arguments.")
 
@@ -84,19 +84,19 @@ class ContextBundleTest(unittest.TestCase):
 
         with self.assertRaises(ATSValueError):
             bundle = ContextBundle(checker=None, logger=mock_logger, reporter=mock_reporter, verbose=True)  # type: ignore
-            ContextValidator.validate(bundle)
+            ContextBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSValueError):
             bundle = ContextBundle(checker=mock_checker, logger=None, reporter=mock_reporter, verbose=True)  # type: ignore
-            ContextValidator.validate(bundle)
+            ContextBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSValueError):
             bundle = ContextBundle(checker=mock_checker, logger=mock_logger, reporter=None, verbose=True)  # type: ignore
-            ContextValidator.validate(bundle)
+            ContextBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSValueError):
             bundle = ContextBundle(checker=mock_checker, logger=mock_logger, reporter=mock_reporter, verbose=None)  # type: ignore
-            ContextValidator.validate(bundle)
+            ContextBundleValidator.validate(bundle)
 
     def test_init_invalid_type(self) -> None:
         '''
@@ -110,19 +110,19 @@ class ContextBundleTest(unittest.TestCase):
 
         with self.assertRaises(ATSTypeError):
             bundle = ContextBundle(checker="not a checker", logger=mock_logger, reporter=mock_reporter, verbose=True)  # type: ignore
-            ContextValidator.validate(bundle)
+            ContextBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSTypeError):
             bundle = ContextBundle(checker=mock_checker, logger=123, reporter=mock_reporter, verbose=True)  # type: ignore
-            ContextValidator.validate(bundle)
+            ContextBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSTypeError):
             bundle = ContextBundle(checker=mock_checker, logger=mock_logger, reporter=[], verbose=True)  # type: ignore
-            ContextValidator.validate(bundle)
+            ContextBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSTypeError):
             bundle = ContextBundle(checker=mock_checker, logger=mock_logger, reporter=mock_reporter, verbose="not a bool")  # type: ignore
-            ContextValidator.validate(bundle)
+            ContextBundleValidator.validate(bundle)
 
     def test_to_dict(self) -> None:
         '''

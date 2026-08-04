@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines the InfoKeys class with attribute(s) and method(s).
+    Defines the InfoBundleKeys class with attribute(s) and method(s).
     Provides constants for information keys required for setup and configuration.
 '''
 
@@ -48,9 +48,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class InfoKeys:
+class InfoBundleKeys:
     '''
-        Defines the InfoKeys class with attribute(s) and method(s).
+        Defines the InfoBundleKeys class with attribute(s) and method(s).
         Provides constants for information keys required for setup and configuration.
 
         Here we have three groups of keys:
@@ -70,32 +70,32 @@ class InfoKeys:
         It defines:
 
             :attributes:
-                | DEPENDENCY_NAME - The key for name.
-                | DEPENDENCY_VERSION - The key for version.
-                | DEPENDENCY_BUILD_DATE - The key for build date.
-                | DEPENDENCY_LICENCE - The key for licence.
-                | DEPENDENCY_REPOSITORY - The key for repository.
-                | DEPENDENCY_ORGANIZATION - The key for organization.
-                | DEPENDENCY_USE_GITHUB_INFRASTRUCTURE - The key for use github infrastructure.
-                | DEPENDENCY_LOGO_PATH - The key for logo path.
-                | DEPENDENCY_LOG_FILE - The key for log file path.
-                | DEPENDENCY_INFO_OK - The key for info ok.
-                | DEPENDENCY_CONTEXT_BUNDLE - The key for context bundle.
-                | OPTION_INFO - The key for info.
-                | OPTION_CONTEXT_BUNDLE - The key for context bundle.
-                | ATS_NAME - The key for name.
-                | ATS_VERSION - The key for version.
-                | ATS_BUILD_DATE - The key for build date.
-                | ATS_LICENCE - The key for licence.
-                | ATS_REPOSITORY - The key for repository.
-                | ATS_ORGANIZATION - The key for organization.
-                | ATS_USE_GITHUB_INFRASTRUCTURE - The key for use github infrastructure.
-                | ATS_LOGO_PATH - The key for logo path.
-                | ATS_LOG_FILE - The key for log file path.
-                | ATS_INFO_OK - The key for info ok.
+                | DEPENDENCY_NAME - The key for name for the info bundle.
+                | DEPENDENCY_VERSION - The key for version for the info bundle.
+                | DEPENDENCY_BUILD_DATE - The key for build date for the info bundle.
+                | DEPENDENCY_LICENCE - The key for licence for the info bundle.
+                | DEPENDENCY_REPOSITORY - The key for repository for the info bundle.
+                | DEPENDENCY_ORGANIZATION - The key for organization for the info bundle.
+                | DEPENDENCY_USE_GITHUB_INFRASTRUCTURE - The key for use github infrastructure for the info bundle.
+                | DEPENDENCY_LOGO_PATH - The key for logo path for the info bundle.
+                | DEPENDENCY_LOG_FILE - The key for log file path for the info bundle.
+                | DEPENDENCY_INFO_OK - The key for info ok for the info bundle.
+                | DEPENDENCY_CONTEXT_BUNDLE - The key for context bundle for the info bundle.
+                | OPTION_INFO - The key for info for the info bundle.
+                | OPTION_CONTEXT_BUNDLE - The key for context bundle for the info bundle.
+                | ATS_NAME - The key for name for the info bundle.
+                | ATS_VERSION - The key for version for the info bundle.
+                | ATS_BUILD_DATE - The key for build date for the info bundle.
+                | ATS_LICENCE - The key for licence for the info bundle.
+                | ATS_REPOSITORY - The key for repository for the info bundle.
+                | ATS_ORGANIZATION - The key for organization for the info bundle.
+                | ATS_USE_GITHUB_INFRASTRUCTURE - The key for use github infrastructure for the info bundle.
+                | ATS_LOGO_PATH - The key for logo path for the info bundle.
+                | ATS_LOG_FILE - The key for log file path for the info bundle.
+                | ATS_INFO_OK - The key for info ok for the info bundle.
             :methods:
-                | get_dependency_to_type - Returns the mapping of the info dependencies to their types.
-                | get_option_to_type - Returns the mapping of the info options to their types.
+                | get_dependency_to_type - Returns the mapping of the info bundle dependencies to their types.
+                | get_option_to_type - Returns the mapping of the info bundle options to their types.
     '''
 
     # Dependency Keys
@@ -130,9 +130,9 @@ class InfoKeys:
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns the mapping of the info dependencies to their types.
+            Returns the mapping of the info bundle dependencies to their types.
 
-            :return: The mapping of the info dependencies to their types.
+            :return: The mapping of the info bundle dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -152,9 +152,9 @@ class InfoKeys:
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns the mapping of the info options to their types.
+            Returns the mapping of the info bundle options to their types.
 
-            :return: The mapping of the info options to their types.
+            :return: The mapping of the info bundle options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

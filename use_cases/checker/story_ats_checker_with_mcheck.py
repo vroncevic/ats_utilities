@@ -23,7 +23,7 @@ from __future__ import annotations
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.setup.factory import CheckerFactory
+from ats_utilities.checker.setup.factory import CheckerBundleFactory
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.utils.reflection import to_str
 
@@ -61,7 +61,7 @@ class TestData:
 
             :exceptions: None.
         '''
-        self._checker = Checker(own=CheckerFactory.create_bundle())
+        self._checker = Checker(own=CheckerBundleFactory.create_bundle())
         self._data: dict[str, int] = {}
 
     @property

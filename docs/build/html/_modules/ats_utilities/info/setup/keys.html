@@ -54,7 +54,7 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines the InfoKeys class with attribute(s) and method(s).</span>
+<span class="sd">    Defines the InfoBundleKeys class with attribute(s) and method(s).</span>
 <span class="sd">    Provides constants for information keys required for setup and configuration.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
@@ -86,11 +86,11 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="InfoKeys">
-<a class="viewcode-back" href="../../../../ats_utilities.info.setup.keys.html#ats_utilities.info.setup.keys.InfoKeys">[docs]</a>
-<span class="k">class</span> <span class="nc">InfoKeys</span><span class="p">:</span>
+<div class="viewcode-block" id="InfoBundleKeys">
+<a class="viewcode-back" href="../../../../ats_utilities.info.setup.keys.html#ats_utilities.info.setup.keys.InfoBundleKeys">[docs]</a>
+<span class="k">class</span> <span class="nc">InfoBundleKeys</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines the InfoKeys class with attribute(s) and method(s).</span>
+<span class="sd">        Defines the InfoBundleKeys class with attribute(s) and method(s).</span>
 <span class="sd">        Provides constants for information keys required for setup and configuration.</span>
 
 <span class="sd">        Here we have three groups of keys:</span>
@@ -110,32 +110,32 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | DEPENDENCY_NAME - The key for name.</span>
-<span class="sd">                | DEPENDENCY_VERSION - The key for version.</span>
-<span class="sd">                | DEPENDENCY_BUILD_DATE - The key for build date.</span>
-<span class="sd">                | DEPENDENCY_LICENCE - The key for licence.</span>
-<span class="sd">                | DEPENDENCY_REPOSITORY - The key for repository.</span>
-<span class="sd">                | DEPENDENCY_ORGANIZATION - The key for organization.</span>
-<span class="sd">                | DEPENDENCY_USE_GITHUB_INFRASTRUCTURE - The key for use github infrastructure.</span>
-<span class="sd">                | DEPENDENCY_LOGO_PATH - The key for logo path.</span>
-<span class="sd">                | DEPENDENCY_LOG_FILE - The key for log file path.</span>
-<span class="sd">                | DEPENDENCY_INFO_OK - The key for info ok.</span>
-<span class="sd">                | DEPENDENCY_CONTEXT_BUNDLE - The key for context bundle.</span>
-<span class="sd">                | OPTION_INFO - The key for info.</span>
-<span class="sd">                | OPTION_CONTEXT_BUNDLE - The key for context bundle.</span>
-<span class="sd">                | ATS_NAME - The key for name.</span>
-<span class="sd">                | ATS_VERSION - The key for version.</span>
-<span class="sd">                | ATS_BUILD_DATE - The key for build date.</span>
-<span class="sd">                | ATS_LICENCE - The key for licence.</span>
-<span class="sd">                | ATS_REPOSITORY - The key for repository.</span>
-<span class="sd">                | ATS_ORGANIZATION - The key for organization.</span>
-<span class="sd">                | ATS_USE_GITHUB_INFRASTRUCTURE - The key for use github infrastructure.</span>
-<span class="sd">                | ATS_LOGO_PATH - The key for logo path.</span>
-<span class="sd">                | ATS_LOG_FILE - The key for log file path.</span>
-<span class="sd">                | ATS_INFO_OK - The key for info ok.</span>
+<span class="sd">                | DEPENDENCY_NAME - The key for name for the info bundle.</span>
+<span class="sd">                | DEPENDENCY_VERSION - The key for version for the info bundle.</span>
+<span class="sd">                | DEPENDENCY_BUILD_DATE - The key for build date for the info bundle.</span>
+<span class="sd">                | DEPENDENCY_LICENCE - The key for licence for the info bundle.</span>
+<span class="sd">                | DEPENDENCY_REPOSITORY - The key for repository for the info bundle.</span>
+<span class="sd">                | DEPENDENCY_ORGANIZATION - The key for organization for the info bundle.</span>
+<span class="sd">                | DEPENDENCY_USE_GITHUB_INFRASTRUCTURE - The key for use github infrastructure for the info bundle.</span>
+<span class="sd">                | DEPENDENCY_LOGO_PATH - The key for logo path for the info bundle.</span>
+<span class="sd">                | DEPENDENCY_LOG_FILE - The key for log file path for the info bundle.</span>
+<span class="sd">                | DEPENDENCY_INFO_OK - The key for info ok for the info bundle.</span>
+<span class="sd">                | DEPENDENCY_CONTEXT_BUNDLE - The key for context bundle for the info bundle.</span>
+<span class="sd">                | OPTION_INFO - The key for info for the info bundle.</span>
+<span class="sd">                | OPTION_CONTEXT_BUNDLE - The key for context bundle for the info bundle.</span>
+<span class="sd">                | ATS_NAME - The key for name for the info bundle.</span>
+<span class="sd">                | ATS_VERSION - The key for version for the info bundle.</span>
+<span class="sd">                | ATS_BUILD_DATE - The key for build date for the info bundle.</span>
+<span class="sd">                | ATS_LICENCE - The key for licence for the info bundle.</span>
+<span class="sd">                | ATS_REPOSITORY - The key for repository for the info bundle.</span>
+<span class="sd">                | ATS_ORGANIZATION - The key for organization for the info bundle.</span>
+<span class="sd">                | ATS_USE_GITHUB_INFRASTRUCTURE - The key for use github infrastructure for the info bundle.</span>
+<span class="sd">                | ATS_LOGO_PATH - The key for logo path for the info bundle.</span>
+<span class="sd">                | ATS_LOG_FILE - The key for log file path for the info bundle.</span>
+<span class="sd">                | ATS_INFO_OK - The key for info ok for the info bundle.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | get_dependency_to_type - Returns the mapping of the info dependencies to their types.</span>
-<span class="sd">                | get_option_to_type - Returns the mapping of the info options to their types.</span>
+<span class="sd">                | get_dependency_to_type - Returns the mapping of the info bundle dependencies to their types.</span>
+<span class="sd">                | get_option_to_type - Returns the mapping of the info bundle options to their types.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="c1"># Dependency Keys</span>
@@ -167,14 +167,14 @@
     <span class="n">ATS_LOG_FILE</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ats_log_file&#39;</span>
     <span class="n">ATS_INFO_OK</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ats_info_ok&#39;</span>
 
-<div class="viewcode-block" id="InfoKeys.get_dependency_to_type">
-<a class="viewcode-back" href="../../../../ats_utilities.info.setup.keys.html#ats_utilities.info.setup.keys.InfoKeys.get_dependency_to_type">[docs]</a>
+<div class="viewcode-block" id="InfoBundleKeys.get_dependency_to_type">
+<a class="viewcode-back" href="../../../../ats_utilities.info.setup.keys.html#ats_utilities.info.setup.keys.InfoBundleKeys.get_dependency_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_dependency_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the mapping of the info dependencies to their types.</span>
+<span class="sd">            Returns the mapping of the info bundle dependencies to their types.</span>
 
-<span class="sd">            :return: The mapping of the info dependencies to their types.</span>
+<span class="sd">            :return: The mapping of the info bundle dependencies to their types.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">({</span>
@@ -192,14 +192,14 @@
         <span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="InfoKeys.get_option_to_type">
-<a class="viewcode-back" href="../../../../ats_utilities.info.setup.keys.html#ats_utilities.info.setup.keys.InfoKeys.get_option_to_type">[docs]</a>
+<div class="viewcode-block" id="InfoBundleKeys.get_option_to_type">
+<a class="viewcode-back" href="../../../../ats_utilities.info.setup.keys.html#ats_utilities.info.setup.keys.InfoBundleKeys.get_option_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_option_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the mapping of the info options to their types.</span>
+<span class="sd">            Returns the mapping of the info bundle options to their types.</span>
 
-<span class="sd">            :return: The mapping of the info options to their types.</span>
+<span class="sd">            :return: The mapping of the info bundle options to their types.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">({</span>

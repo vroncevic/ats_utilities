@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Generator options.
+    Generator bundle options.
 '''
 
 from __future__ import annotations
@@ -35,14 +35,14 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class GeneratorOptions(TypedDict):
+class GeneratorBundleOptions(TypedDict):
     '''
-        Generator options.
+        Generator bundle options.
 
         It defines:
 
             :attributes:
-                | context_bundle - The context bundle.
+                | context_bundle - The context bundle for the generator bundle.
     '''
 
     context_bundle: ContextBundle

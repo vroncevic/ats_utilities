@@ -27,7 +27,7 @@ from sys import stdout
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.splash.setup.bundle import SplashBundle
-from ats_utilities.splash.setup.validator import SplashValidator
+from ats_utilities.splash.setup.validator import SplashBundleValidator
 from ats_utilities.splash.property.isplash_property import ISplashProperty
 from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
 from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
@@ -140,7 +140,7 @@ class SplashManager:
             :param bundle: The splash manager bundle.
             :exceptions: None.
         '''
-        SplashValidator.validate(bundle)
+        SplashBundleValidator.validate(bundle)
         self._splash_property = bundle.splash_property
         self._terminal_property = bundle.terminal_property
         self._ext = bundle.ext

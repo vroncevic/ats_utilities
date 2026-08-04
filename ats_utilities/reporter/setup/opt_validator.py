@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the reporter options.
+    Validator for the reporter bundle options.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.reporter.setup.options import ReporterOptions
-from ats_utilities.reporter.setup.keys import ReporterKeys
+from ats_utilities.reporter.setup.options import ReporterBundleOptions
+from ats_utilities.reporter.setup.keys import ReporterBundleKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -38,35 +38,35 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ReporterOptionsValidator:
+class ReporterBundleOptionsValidator:
     '''
-        A validator for the reporter options.
+        Validator for the reporter bundle options.
 
         It defines:
 
             :methods:
-                | validate - Validates the reporter options.
+                | validate - Validates the reporter bundle options.
     '''
 
     @classmethod
-    def validate(cls, options: ReporterOptions) -> None:
+    def validate(cls, options: ReporterBundleOptions) -> None:
         '''
-            Validates the reporter options.
+            Validates the reporter bundle options.
 
-            :param options: The reporter options instance to be validated.
+            :param options: The reporter bundle options instance to be validated.
             :exceptions:
-                | ATSValueError: Options must be provided and have proper values.
-                | ATSTypeError:  Options must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The reporter bundle options must be provided and have proper values.
+                | ATSTypeError:  The reporter bundle options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'reporter_options_validator::validate(...)'
-        msg_options_none: str = f'the options must be provided'
-        msg_options_istype: str = f'the options must be a Mapping'
+        ctx: str = 'reporter_bundle_options_validator::validate(...)'
+        msg_options_none: str = f'the reporter bundle options must be provided'
+        msg_options_istype: str = f'the reporter bundle options must be a Mapping'
 
         not_none(options, ctx, msg_options_none)
         istype(options, Mapping, ctx, msg_options_istype)
 
-        for attr_name, expected_type in ReporterKeys.get_option_to_type().items():
+        for attr_name, expected_type in ReporterBundleKeys.get_option_to_type().items():
             msg_attr_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute = options.get(attr_name)

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the checker bundle.
+    Validator for the checker bundle.
 '''
 
 from __future__ import annotations
@@ -39,9 +39,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class CheckerValidator:
+class CheckerBundleValidator:
     '''
-        A validator for the checker bundle.
+        Validator for the checker bundle.
 
         It defines:
 
@@ -56,22 +56,21 @@ class CheckerValidator:
 
             :param bundle: The checker bundle to be validated.
             :exceptions:
-                | ATSValueError: The bundle must be provided and have proper values.
-                | ATSTypeError:  The bundle must be an instance of CheckerBundle
-                |                and its attributes must be instances of their
-                |                respective types.
+                | ATSValueError: The checker bundle must be provided and have proper values.
+                | ATSTypeError:  The checker bundle must be an instance of CheckerBundle
+                |                and its attributes must be instances of their respective types.
         '''
-        ctx: str = 'checker_validator::validate(...)'
-        msg_bundle_none: str = 'the bundle must be provided'
-        msg_bundle_istype: str = 'the bundle must be an instance of CheckerBundle'
-        msg_context_provider_none: str = 'the context provider must be provided'
-        msg_check_reporter_none: str = 'the check reporter must be provided'
-        msg_format_validator_none: str = 'the format validator must be provided'
-        msg_type_validator_none: str = 'the type validator must be provided'
-        msg_context_provider_istype: str = 'the context provider must be an instance of IContextProvider'
-        msg_check_reporter_istype: str = 'the check reporter must be an instance of ICheckReporter'
-        msg_format_validator_istype: str = 'the format validator must be an instance of IFormatValidator'
-        msg_type_validator_istype: str = 'the type validator must be an instance of ITypeValidator'
+        ctx: str = 'checker_bundle_validator::validate(...)'
+        msg_bundle_none: str = 'the checker bundle must be provided'
+        msg_bundle_istype: str = 'the checker bundle must be an instance of CheckerBundle'
+        msg_context_provider_none: str = 'the checker context provider must be provided'
+        msg_check_reporter_none: str = 'the checker check reporter must be provided'
+        msg_format_validator_none: str = 'the checker format validator must be provided'
+        msg_type_validator_none: str = 'the checker type validator must be provided'
+        msg_context_provider_istype: str = 'the checker context provider must be an instance of IContextProvider'
+        msg_check_reporter_istype: str = 'the checker check reporter must be an instance of ICheckReporter'
+        msg_format_validator_istype: str = 'the checker format validator must be an instance of IFormatValidator'
+        msg_type_validator_istype: str = 'the checker type validator must be an instance of ITypeValidator'
 
         not_none(bundle, ctx, msg_bundle_none)
         istype(bundle, CheckerBundle, ctx, msg_bundle_istype)

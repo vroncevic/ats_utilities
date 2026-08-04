@@ -33,17 +33,17 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class LoggerOptions(TypedDict):
+class LoggerBundleOptions(TypedDict):
     '''
         Logger options for the logger factory bundle.
 
         It defines:
 
             :attributes:
-                | log_file - The path to the log file.
-                | log_level - The log level.
-                | log_format - The format string for the log messages.
-                | log_datefmt - The date format string for the log messages.
+                | log_file - The path to the log file for the logger bundle.
+                | log_level - The log level for the logger bundle.
+                | log_format - The format string for the log messages for the logger bundle.
+                | log_datefmt - The date format string for the log messages for the logger bundle.
     '''
 
     log_file: NotRequired[str | None]

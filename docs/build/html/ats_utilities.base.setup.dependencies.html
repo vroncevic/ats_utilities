@@ -64,51 +64,51 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Base dependencies for base bundle.</p>
+<dt>Info</dt><dd><p>Base bundle dependencies for base bundle.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.dependencies.BaseDependencies">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.base.setup.dependencies.</span></span><span class="sig-name descname"><span class="pre">BaseDependencies</span></span><a class="reference internal" href="_modules/ats_utilities/base/setup/dependencies.html#BaseDependencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.setup.dependencies.BaseDependencies" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.dependencies.BaseBundleDependencies">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.base.setup.dependencies.</span></span><span class="sig-name descname"><span class="pre">BaseBundleDependencies</span></span><a class="reference internal" href="_modules/ats_utilities/base/setup/dependencies.html#BaseBundleDependencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.setup.dependencies.BaseBundleDependencies" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
-<p>Base dependencies for base bundle.</p>
+<p>Base bundle dependencies for base bundle.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">context_bundle - The context bundle.</div>
-<div class="line">info_manager - The information manager.</div>
-<div class="line">option_manager - The options parser.</div>
-<div class="line">splash_manager - The SplashManager.</div>
-<div class="line">generation_manager - The GeneratorManager.</div>
+<div class="line">context_bundle - The context bundle for base bundle.</div>
+<div class="line">info_manager - The information manager for base bundle.</div>
+<div class="line">option_manager - The options parser for base bundle.</div>
+<div class="line">splash_manager - The SplashManager for base bundle.</div>
+<div class="line">generation_manager - The GeneratorManager for base bundle.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.dependencies.BaseDependencies.context_bundle">
-<span class="sig-name descname"><span class="pre">context_bundle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context.bundle.html#ats_utilities.context.bundle.ContextBundle" title="ats_utilities.context.bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.base.setup.dependencies.BaseDependencies.context_bundle" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.dependencies.BaseBundleDependencies.context_bundle">
+<span class="sig-name descname"><span class="pre">context_bundle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context.bundle.html#ats_utilities.context.bundle.ContextBundle" title="ats_utilities.context.bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.base.setup.dependencies.BaseBundleDependencies.context_bundle" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.dependencies.BaseDependencies.generation_manager">
-<span class="sig-name descname"><span class="pre">generation_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.generation.imanager.html#ats_utilities.generation.imanager.IGeneratorManager" title="ats_utilities.generation.imanager.IGeneratorManager"><span class="pre">IGeneratorManager</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.base.setup.dependencies.BaseDependencies.generation_manager" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.dependencies.BaseBundleDependencies.generation_manager">
+<span class="sig-name descname"><span class="pre">generation_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.generation.imanager.html#ats_utilities.generation.imanager.IGeneratorManager" title="ats_utilities.generation.imanager.IGeneratorManager"><span class="pre">IGeneratorManager</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.base.setup.dependencies.BaseBundleDependencies.generation_manager" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.dependencies.BaseDependencies.info_manager">
-<span class="sig-name descname"><span class="pre">info_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.info.imanager.html#ats_utilities.info.imanager.IInfoManager" title="ats_utilities.info.imanager.IInfoManager"><span class="pre">IInfoManager</span></a></em><a class="headerlink" href="#ats_utilities.base.setup.dependencies.BaseDependencies.info_manager" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.dependencies.BaseBundleDependencies.info_manager">
+<span class="sig-name descname"><span class="pre">info_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.info.imanager.html#ats_utilities.info.imanager.IInfoManager" title="ats_utilities.info.imanager.IInfoManager"><span class="pre">IInfoManager</span></a></em><a class="headerlink" href="#ats_utilities.base.setup.dependencies.BaseBundleDependencies.info_manager" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.dependencies.BaseDependencies.option_manager">
-<span class="sig-name descname"><span class="pre">option_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.option.imanager.html#ats_utilities.option.imanager.IOptionManager" title="ats_utilities.option.imanager.IOptionManager"><span class="pre">IOptionManager</span></a></em><a class="headerlink" href="#ats_utilities.base.setup.dependencies.BaseDependencies.option_manager" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.dependencies.BaseBundleDependencies.option_manager">
+<span class="sig-name descname"><span class="pre">option_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.option.imanager.html#ats_utilities.option.imanager.IOptionManager" title="ats_utilities.option.imanager.IOptionManager"><span class="pre">IOptionManager</span></a></em><a class="headerlink" href="#ats_utilities.base.setup.dependencies.BaseBundleDependencies.option_manager" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.dependencies.BaseDependencies.splash_manager">
-<span class="sig-name descname"><span class="pre">splash_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.splash.imanager.html#ats_utilities.splash.imanager.ISplashManager" title="ats_utilities.splash.imanager.ISplashManager"><span class="pre">ISplashManager</span></a></em><a class="headerlink" href="#ats_utilities.base.setup.dependencies.BaseDependencies.splash_manager" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.dependencies.BaseBundleDependencies.splash_manager">
+<span class="sig-name descname"><span class="pre">splash_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.splash.imanager.html#ats_utilities.splash.imanager.ISplashManager" title="ats_utilities.splash.imanager.ISplashManager"><span class="pre">ISplashManager</span></a></em><a class="headerlink" href="#ats_utilities.base.setup.dependencies.BaseBundleDependencies.splash_manager" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -126,12 +126,12 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.base.setup.dependencies module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.base.setup.dependencies.BaseDependencies"><code class="docutils literal notranslate"><span class="pre">BaseDependencies</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.base.setup.dependencies.BaseDependencies.context_bundle"><code class="docutils literal notranslate"><span class="pre">BaseDependencies.context_bundle</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.setup.dependencies.BaseDependencies.generation_manager"><code class="docutils literal notranslate"><span class="pre">BaseDependencies.generation_manager</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.setup.dependencies.BaseDependencies.info_manager"><code class="docutils literal notranslate"><span class="pre">BaseDependencies.info_manager</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.setup.dependencies.BaseDependencies.option_manager"><code class="docutils literal notranslate"><span class="pre">BaseDependencies.option_manager</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.setup.dependencies.BaseDependencies.splash_manager"><code class="docutils literal notranslate"><span class="pre">BaseDependencies.splash_manager</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.dependencies.BaseBundleDependencies"><code class="docutils literal notranslate"><span class="pre">BaseBundleDependencies</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.base.setup.dependencies.BaseBundleDependencies.context_bundle"><code class="docutils literal notranslate"><span class="pre">BaseBundleDependencies.context_bundle</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.dependencies.BaseBundleDependencies.generation_manager"><code class="docutils literal notranslate"><span class="pre">BaseBundleDependencies.generation_manager</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.dependencies.BaseBundleDependencies.info_manager"><code class="docutils literal notranslate"><span class="pre">BaseBundleDependencies.info_manager</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.dependencies.BaseBundleDependencies.option_manager"><code class="docutils literal notranslate"><span class="pre">BaseBundleDependencies.option_manager</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.dependencies.BaseBundleDependencies.splash_manager"><code class="docutils literal notranslate"><span class="pre">BaseBundleDependencies.splash_manager</span></code></a></li>
 </ul>
 </li>
 </ul>

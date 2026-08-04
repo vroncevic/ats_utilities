@@ -62,31 +62,31 @@
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">dirname</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.base.setup.bundle</span> <span class="kn">import</span> <span class="n">BaseBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.options</span> <span class="kn">import</span> <span class="n">BaseOptions</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.keys</span> <span class="kn">import</span> <span class="n">BaseKeys</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.opt_validator</span> <span class="kn">import</span> <span class="n">BaseOptionsValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.dependencies</span> <span class="kn">import</span> <span class="n">BaseDependencies</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.registry</span> <span class="kn">import</span> <span class="n">BaseRegistry</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.options</span> <span class="kn">import</span> <span class="n">BaseBundleOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.keys</span> <span class="kn">import</span> <span class="n">BaseBundleKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.opt_validator</span> <span class="kn">import</span> <span class="n">BaseBundleOptionsValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.dependencies</span> <span class="kn">import</span> <span class="n">BaseBundleDependencies</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.registry</span> <span class="kn">import</span> <span class="n">BaseBundleRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.loader.engine</span> <span class="kn">import</span> <span class="n">Loader</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.factory</span> <span class="kn">import</span> <span class="n">ConfigIOFactory</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.options</span> <span class="kn">import</span> <span class="n">ConfigIOOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.factory</span> <span class="kn">import</span> <span class="n">ConfigIOBundleFactory</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.options</span> <span class="kn">import</span> <span class="n">ConfigIOBundleOptions</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.engine</span> <span class="kn">import</span> <span class="n">InfoManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.imanager</span> <span class="kn">import</span> <span class="n">IInfoManager</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.factory</span> <span class="kn">import</span> <span class="n">InfoFactory</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.options</span> <span class="kn">import</span> <span class="n">InfoOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.factory</span> <span class="kn">import</span> <span class="n">InfoBundleFactory</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.options</span> <span class="kn">import</span> <span class="n">InfoBundleOptions</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.engine</span> <span class="kn">import</span> <span class="n">OptionManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.imanager</span> <span class="kn">import</span> <span class="n">IOptionManager</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option.setup.factory</span> <span class="kn">import</span> <span class="n">OptionFactory</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option.setup.options</span> <span class="kn">import</span> <span class="n">OptionOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.setup.factory</span> <span class="kn">import</span> <span class="n">OptionBundleFactory</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.setup.options</span> <span class="kn">import</span> <span class="n">OptionBundleOptions</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splash.engine</span> <span class="kn">import</span> <span class="n">SplashManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splash.imanager</span> <span class="kn">import</span> <span class="n">ISplashManager</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.splash.setup.factory</span> <span class="kn">import</span> <span class="n">SplashFactory</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.splash.setup.options</span> <span class="kn">import</span> <span class="n">SplashOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.setup.factory</span> <span class="kn">import</span> <span class="n">SplashBundleFactory</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.setup.options</span> <span class="kn">import</span> <span class="n">SplashBundleOptions</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generation.engine</span> <span class="kn">import</span> <span class="n">GeneratorManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generation.imanager</span> <span class="kn">import</span> <span class="n">IGeneratorManager</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.factory</span> <span class="kn">import</span> <span class="n">GeneratorFactory</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.options</span> <span class="kn">import</span> <span class="n">GeneratorOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.factory</span> <span class="kn">import</span> <span class="n">GeneratorBundleFactory</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.options</span> <span class="kn">import</span> <span class="n">GeneratorBundleOptions</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.dicts</span> <span class="kn">import</span> <span class="n">get_first_available</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -99,9 +99,9 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="BaseFactory">
-<a class="viewcode-back" href="../../../../ats_utilities.base.setup.factory.html#ats_utilities.base.setup.factory.BaseFactory">[docs]</a>
-<span class="k">class</span> <span class="nc">BaseFactory</span><span class="p">:</span>
+<div class="viewcode-block" id="BaseBundleFactory">
+<a class="viewcode-back" href="../../../../ats_utilities.base.setup.factory.html#ats_utilities.base.setup.factory.BaseBundleFactory">[docs]</a>
+<span class="k">class</span> <span class="nc">BaseBundleFactory</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Factory for creating base bundle.</span>
 
@@ -111,29 +111,35 @@
 <span class="sd">                | create_bundle - Creates a base bundle using configuration options.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="BaseFactory.create_bundle">
-<a class="viewcode-back" href="../../../../ats_utilities.base.setup.factory.html#ats_utilities.base.setup.factory.BaseFactory.create_bundle">[docs]</a>
+<div class="viewcode-block" id="BaseBundleFactory.create_bundle">
+<a class="viewcode-back" href="../../../../ats_utilities.base.setup.factory.html#ats_utilities.base.setup.factory.BaseBundleFactory.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">BaseOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">BaseBundleOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates a base bundle using configuration options.</span>
 
 <span class="sd">            :param options: The creation options/parameters for the bundle.</span>
 <span class="sd">            :return: The base bundle.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: The base options must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  The base options must be an instance of Mapping and its attributes</span>
-<span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The base bundle options must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The base bundle options must be an instance of Mapping and its</span>
+<span class="sd">                |                attributes must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The base bundle dependencies must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The base bundle dependencies must be an instance of Mapping and its</span>
+<span class="sd">                |                attributes must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The base bundle for base engine must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The base bundle for base engine must be an instance of BaseBundle and its</span>
+<span class="sd">                |                attributes must be instances of their respective interfaces and types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">BaseOptionsValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">BaseBundleOptionsValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
 
-        <span class="n">info_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseKeys</span><span class="o">.</span><span class="n">OPTION_INFO_FILE</span><span class="p">)</span>
-        <span class="n">use_generator</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseKeys</span><span class="o">.</span><span class="n">OPTION_USE_GENERATOR</span><span class="p">)</span>
-        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">)</span>
+        <span class="n">info_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseBundleKeys</span><span class="o">.</span><span class="n">OPTION_INFO_FILE</span><span class="p">)</span>
+        <span class="n">use_generator</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseBundleKeys</span><span class="o">.</span><span class="n">OPTION_USE_GENERATOR</span><span class="p">)</span>
+        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseBundleKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">)</span>
 
         <span class="n">config_loader</span><span class="p">:</span> <span class="n">Loader</span> <span class="o">=</span> <span class="n">Loader</span><span class="p">(</span>
-            <span class="n">own</span><span class="o">=</span><span class="n">ConfigIOFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
-                <span class="n">options</span><span class="o">=</span><span class="n">ConfigIOOptions</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">info_file</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="p">{},</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="n">own</span><span class="o">=</span><span class="n">ConfigIOBundleFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
+                <span class="n">options</span><span class="o">=</span><span class="n">ConfigIOBundleOptions</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">info_file</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="p">{},</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>
         <span class="n">config_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="n">config_loader</span><span class="o">.</span><span class="n">load_configuration</span><span class="p">()</span>
@@ -143,36 +149,36 @@
             <span class="n">context_bundle</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">set_log_file</span><span class="p">(</span><span class="n">log_file</span><span class="p">)</span>
 
         <span class="n">info_manager</span><span class="p">:</span> <span class="n">IInfoManager</span> <span class="o">=</span> <span class="n">InfoManager</span><span class="p">(</span>
-            <span class="n">own</span><span class="o">=</span><span class="n">InfoFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
-                <span class="n">options</span><span class="o">=</span><span class="n">InfoOptions</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="n">config_data</span><span class="p">,</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="n">own</span><span class="o">=</span><span class="n">InfoBundleFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
+                <span class="n">options</span><span class="o">=</span><span class="n">InfoBundleOptions</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="n">config_data</span><span class="p">,</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>
         <span class="n">logo_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">info_manager</span><span class="o">.</span><span class="n">logo</span>
         <span class="n">info_manager</span><span class="o">.</span><span class="n">logo</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dirname</span><span class="p">(</span><span class="n">info_file</span><span class="p">)</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">logo_path</span><span class="si">}</span><span class="s1">&#39;</span>
 
         <span class="n">splash_manager</span><span class="p">:</span> <span class="n">ISplashManager</span> <span class="o">=</span> <span class="n">SplashManager</span><span class="p">(</span>
-            <span class="n">own</span><span class="o">=</span><span class="n">SplashFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
-                <span class="n">options</span><span class="o">=</span><span class="n">SplashOptions</span><span class="p">(</span><span class="n">prop</span><span class="o">=</span><span class="n">info_manager</span><span class="o">.</span><span class="n">get_info</span><span class="p">(),</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="n">own</span><span class="o">=</span><span class="n">SplashBundleFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
+                <span class="n">options</span><span class="o">=</span><span class="n">SplashBundleOptions</span><span class="p">(</span><span class="n">prop</span><span class="o">=</span><span class="n">info_manager</span><span class="o">.</span><span class="n">get_info</span><span class="p">(),</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>
 
         <span class="n">option_manager</span><span class="p">:</span> <span class="n">IOptionManager</span> <span class="o">=</span> <span class="n">OptionManager</span><span class="p">(</span>
-            <span class="n">own</span><span class="o">=</span><span class="n">OptionFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
-                <span class="n">options</span><span class="o">=</span><span class="n">OptionOptions</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">info_manager</span><span class="o">.</span><span class="n">get_info</span><span class="p">(),</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="n">own</span><span class="o">=</span><span class="n">OptionBundleFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
+                <span class="n">options</span><span class="o">=</span><span class="n">OptionBundleOptions</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">info_manager</span><span class="o">.</span><span class="n">get_info</span><span class="p">(),</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>
 
         <span class="n">generation_manager</span><span class="p">:</span> <span class="n">IGeneratorManager</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">GeneratorManager</span><span class="p">(</span>
-            <span class="n">own</span><span class="o">=</span><span class="n">GeneratorFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
-                <span class="n">options</span><span class="o">=</span><span class="n">GeneratorOptions</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="n">own</span><span class="o">=</span><span class="n">GeneratorBundleFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
+                <span class="n">options</span><span class="o">=</span><span class="n">GeneratorBundleOptions</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span> <span class="k">if</span> <span class="n">use_generator</span> <span class="k">else</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="s1">&#39;stop_buffering&#39;</span><span class="p">):</span>
             <span class="n">context_bundle</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">stop_buffering</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">BaseRegistry</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
-            <span class="n">BaseDependencies</span><span class="p">(</span>
+        <span class="k">return</span> <span class="n">BaseBundleRegistry</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
+            <span class="n">BaseBundleDependencies</span><span class="p">(</span>
                 <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">,</span>
                 <span class="n">info_manager</span><span class="o">=</span><span class="n">info_manager</span><span class="p">,</span>
                 <span class="n">option_manager</span><span class="o">=</span><span class="n">option_manager</span><span class="p">,</span>

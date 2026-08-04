@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Context options for the context bundle.
+    Context bundle options for the context bundle.
 '''
 
 from __future__ import annotations
 
 from typing import TypedDict, NotRequired
 
-from ats_utilities.checker.setup.options import CheckerOptions
-from ats_utilities.logger.setup.options import LoggerOptions
-from ats_utilities.reporter.setup.options import ReporterOptions
+from ats_utilities.checker.setup.options import CheckerBundleOptions
+from ats_utilities.logger.setup.options import LoggerBundleOptions
+from ats_utilities.reporter.setup.options import ReporterBundleOptions
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,20 +37,20 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ContextOptions(TypedDict):
+class ContextBundleOptions(TypedDict):
     '''
-        Context options for the context bundle.
+        Context bundle options for the context bundle.
 
         It defines:
 
             :attributes:
-                | checker - The checker setup options.
-                | logger - The logger setup options.
-                | reporter - The reporter setup options.
-                | verbose - The verbose output flag.
+                | checker - The checker setup options for the context bundle.
+                | logger - The logger setup options for the context bundle.
+                | reporter - The reporter setup options for the context bundle.
+                | verbose - The verbose output flag for the context bundle.
     '''
 
-    checker: NotRequired[CheckerOptions]
-    logger: NotRequired[LoggerOptions]
-    reporter: NotRequired[ReporterOptions]
+    checker: NotRequired[CheckerBundleOptions]
+    logger: NotRequired[LoggerBundleOptions]
+    reporter: NotRequired[ReporterBundleOptions]
     verbose: NotRequired[bool]

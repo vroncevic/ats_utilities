@@ -66,7 +66,7 @@
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">cast</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.factory</span> <span class="kn">import</span> <span class="n">CheckerFactory</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.factory</span> <span class="kn">import</span> <span class="n">CheckerBundleFactory</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.engine</span> <span class="kn">import</span> <span class="n">Checker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.types</span> <span class="kn">import</span> <span class="n">Parameters</span><span class="p">,</span> <span class="n">CheckerErrorType</span>
@@ -308,7 +308,7 @@
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">validate_specs</span><span class="p">(</span><span class="n">specs</span><span class="p">,</span> <span class="s1">&#39;fcheck(...)&#39;</span><span class="p">)</span>
 
-    <span class="n">active_checker</span><span class="p">:</span> <span class="n">IChecker</span> <span class="o">=</span> <span class="n">checker</span> <span class="ow">or</span> <span class="n">Checker</span><span class="p">(</span><span class="n">CheckerFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">())</span>
+    <span class="n">active_checker</span><span class="p">:</span> <span class="n">IChecker</span> <span class="o">=</span> <span class="n">checker</span> <span class="ow">or</span> <span class="n">Checker</span><span class="p">(</span><span class="n">CheckerBundleFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">F</span><span class="p">:</span>
 

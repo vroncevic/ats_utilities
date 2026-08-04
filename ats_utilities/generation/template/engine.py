@@ -26,7 +26,7 @@ from collections.abc import Mapping
 from string import Template
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
@@ -64,11 +64,11 @@ class TemplateProcessor:
 
             :param context_bundle: Context bundle for template processor | None.
             :exceptions:
-                | ATSValueError: Context bundle must be provided and have proper values.
-                | ATSTypeError:  Context bundle must be an instance of ContextBundle and
+                | ATSValueError: The context bundle must be provided and have proper values.
+                | ATSTypeError:  The context bundle must be an instance of ContextBundle and
                 |                its attributes must be instances of their respective types.
         '''
-        ContextValidator.validate(context_bundle)
+        ContextBundleValidator.validate(context_bundle)
         self._context = context_bundle
         self._initialized = True
 

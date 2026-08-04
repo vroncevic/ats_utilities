@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of generator bundle creation.
+    Encapsulates core runtime components for simplification of generator bundle.
 '''
 
 from __future__ import annotations
 
 from ats_utilities.generation.setup.bundle import GeneratorBundle
-from ats_utilities.generation.setup.dependencies import GeneratorDependencies
-from ats_utilities.generation.setup.dep_validator import GeneratorDependenciesValidator
-from ats_utilities.generation.setup.keys import GeneratorKeys
-from ats_utilities.generation.setup.validator import GeneratorValidator
+from ats_utilities.generation.setup.dependencies import GeneratorBundleDependencies
+from ats_utilities.generation.setup.dep_validator import GeneratorBundleDependenciesValidator
+from ats_utilities.generation.setup.keys import GeneratorBundleKeys
+from ats_utilities.generation.setup.validator import GeneratorBundleValidator
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,9 +37,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class GeneratorRegistry:
+class GeneratorBundleRegistry:
     '''
-        Encapsulates core runtime components for simplification of generator bundle creation.
+        Encapsulates core runtime components for simplification of generator bundle.
 
         It defines:
 
@@ -48,25 +48,28 @@ class GeneratorRegistry:
     '''
 
     @classmethod
-    def create_bundle(cls, dependencies: GeneratorDependencies) -> GeneratorBundle:
+    def create_bundle(cls, dependencies: GeneratorBundleDependencies) -> GeneratorBundle:
         '''
             Orchestrates dependency injection and creates a generator bundle.
 
             :param dependencies: The registry-specific orchestration dependencies.
             :return: The generator bundle.
             :exceptions:
-                | ATSValueError: Generator dependencies must be provided and have proper values.
-                | ATSTypeError:  Generator dependencies must be an instance of Mapping and its attributes
+                | ATSValueError: The generator bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The generator bundle dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
+                | ATSValueError: The generator bundle must be provided and have proper values.
+                | ATSTypeError:  The generator bundle must be an instance of GeneratorBundle
+                |                and its attributes must be instances of their respective types.
         '''
-        GeneratorDependenciesValidator.validate(dependencies)
+        GeneratorBundleDependenciesValidator.validate(dependencies)
 
         bundle: GeneratorBundle = GeneratorBundle(
-            scheme_loader=dependencies.get(GeneratorKeys.DEPENDENCY_SCHEME_LOADER) if dependencies else None,
-            tar_processor=dependencies.get(GeneratorKeys.DEPENDENCY_TAR_PROCESSOR) if dependencies else None,
-            context_bundle=dependencies.get(GeneratorKeys.DEPENDENCY_CONTEXT_BUNDLE) if dependencies else None
+            scheme_loader=dependencies.get(GeneratorBundleKeys.DEPENDENCY_SCHEME_LOADER) if dependencies else None,
+            tar_processor=dependencies.get(GeneratorBundleKeys.DEPENDENCY_TAR_PROCESSOR) if dependencies else None,
+            context_bundle=dependencies.get(GeneratorBundleKeys.DEPENDENCY_CONTEXT_BUNDLE) if dependencies else None
         )
 
-        GeneratorValidator.validate(bundle)
+        GeneratorBundleValidator.validate(bundle)
 
         return bundle

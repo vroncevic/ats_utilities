@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for GeneratorDependencies class.
+    Unit tests for GeneratorBundleDependencies class.
 '''
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ import unittest
 from typing import get_type_hints
 from unittest.mock import MagicMock
 
-from ats_utilities.generation.setup.dependencies import GeneratorDependencies
+from ats_utilities.generation.setup.dependencies import GeneratorBundleDependencies
 from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generation.tar.itar_processor import ITarProcessor
 from ats_utilities.context.bundle import ContextBundle
@@ -34,17 +34,17 @@ from ats_utilities.context.bundle import ContextBundle
 class GeneratorDependenciesTest(unittest.TestCase):
     '''
         Defines class GeneratorDependenciesTest with attribute(s) and method(s).
-        Tests GeneratorDependencies TypedDict structure.
+        Tests GeneratorBundleDependencies TypedDict structure.
     '''
 
     def test_type_hints(self) -> None:
-        hints = get_type_hints(GeneratorDependencies)
+        hints = get_type_hints(GeneratorBundleDependencies)
         self.assertEqual(hints['scheme_loader'], ISchemeLoader)
         self.assertEqual(hints['tar_processor'], ITarProcessor)
         self.assertEqual(hints['context_bundle'], ContextBundle)
 
     def test_instantiation(self) -> None:
-        deps: GeneratorDependencies = {
+        deps: GeneratorBundleDependencies = {
             'scheme_loader': MagicMock(spec=ISchemeLoader),
             'tar_processor': MagicMock(spec=ITarProcessor),
             'context_bundle': MagicMock(spec=ContextBundle)

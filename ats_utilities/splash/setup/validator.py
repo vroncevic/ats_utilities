@@ -16,13 +16,13 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the splash bundle.
+    Validator for the splash bundle.
 '''
 
 from __future__ import annotations
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.splash.setup.bundle import SplashBundle
 from ats_utilities.splash.property.isplash_property import ISplashProperty
 from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
@@ -42,9 +42,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class SplashValidator:
+class SplashBundleValidator:
     '''
-        A validator for the splash bundle.
+        Validator for the splash bundle.
 
         It defines:
 
@@ -59,13 +59,13 @@ class SplashValidator:
 
             :param bundle: The splash bundle to be validated.
             :exceptions:
-                | ATSValueError: The option bundle must be provided and have proper values.
-                | ATSTypeError:  The option bundle must be an instance of OptionBundle and its
+                | ATSValueError: The splash bundle must be provided and have proper values.
+                | ATSTypeError:  The splash bundle must be an instance of SplashBundle and its
                 |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'splash_validator::validate(...)'
-        msg_bundle_none: str = 'the bundle must be provided'
-        msg_bundle_type: str = 'the bundle must be an instance of SplashBundle'
+        ctx: str = 'splash_bundle_validator::validate(...)'
+        msg_bundle_none: str = 'the splash bundle must be provided'
+        msg_bundle_type: str = 'the splash bundle must be an instance of SplashBundle'
         msg_splash_property_none: str = 'the splash property must be provided'
         msg_splash_property_type: str = 'the splash property must be an ISplashProperty instance'
         msg_terminal_property_none: str = 'the terminal properties must be provided'
@@ -93,7 +93,7 @@ class SplashValidator:
         istype(bundle.pb, IProgressBar, ctx, msg_pb_type)
         istype(bundle.context_bundle, ContextBundle, ctx, msg_context_bundle_type)
 
-        ContextValidator.validate(bundle.context_bundle)
+        ContextBundleValidator.validate(bundle.context_bundle)
 
         if bundle.splash_property.is_settings_enabled():
             check_file_exists(bundle.splash_property.get_logo(), ctx, msg_logo_path)

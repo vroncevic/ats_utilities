@@ -26,10 +26,10 @@ from os.path import exists
 from collections.abc import Mapping
 
 from ats_utilities.config_io.loader.engine import Loader
-from ats_utilities.config_io.setup.factory import ConfigIOFactory
+from ats_utilities.config_io.setup.factory import ConfigIOBundleFactory
 from ats_utilities.exceptions import ATSGeneratorError
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_satisfied
@@ -71,11 +71,11 @@ class SchemeLoader:
 
             :param context_bundle: The context bundle.
             :exceptions:
-                | ATSValueError: Context bundle must be provided and have proper values.
-                | ATSTypeError:  Context bundle must be an instance of ContextBundle and
+                | ATSValueError: The context bundle must be provided and have proper values.
+                | ATSTypeError:  The context bundle must be an instance of ContextBundle and
                 |                its attributes must be instances of their respective types.
         '''
-        ContextValidator.validate(context_bundle)
+        ContextBundleValidator.validate(context_bundle)
         self._context = context_bundle
         self._initialized = True
 
@@ -86,20 +86,20 @@ class SchemeLoader:
             :param scheme: The generation scheme file path or preloaded scheme.
             :return: The resolved scheme dictionary.
             :exceptions:
-                | ATSTypeError:      Scheme is not a string or mapping.
-                | ATSValueError:     Scheme file path does not exist.
-                | ATSValueError:     Unsupported scheme file format.
-                | ATSValueError:     Failed to setup config loader.
-                | ATSGeneratorError: Loading scheme file fails.
+                | ATSTypeError:      The scheme is not a string or mapping.
+                | ATSValueError:     The scheme file path does not exist.
+                | ATSValueError:     The unsupported scheme file format.
+                | ATSValueError:     The failed to setup config loader.
+                | ATSGeneratorError: The loading scheme file fails.
         '''
         context: str = 'scheme_loader::load(...)'
-        msg_scheme_istype: str = 'scheme must be of type str or Mapping'
+        msg_scheme_istype: str = 'the scheme must be of type str or Mapping'
         istype(scheme, (str, Mapping), context, msg_scheme_istype)
 
         if isinstance(scheme, str):
-            msg_scheme_path: str = f'scheme file at the provided path does not exist: {scheme}'
-            msg_scheme_format: str = f'unsupported scheme file format for: {scheme}. Only .json is supported.'
-            msg_config_loader_none: str = f'failed to setup config loader for: {scheme}'
+            msg_scheme_path: str = f'the scheme file at the provided path does not exist: {scheme}'
+            msg_scheme_format: str = f'the unsupported scheme file format for: {scheme}. Only .json is supported.'
+            msg_config_loader_none: str = f'the failed to setup config loader for: {scheme}'
 
             not_satisfied(not exists(scheme), context, msg_scheme_path)
             not_satisfied(
@@ -108,7 +108,7 @@ class SchemeLoader:
 
             try:
                 config_loader: Loader = Loader(
-                    ConfigIOFactory.create_bundle(
+                    ConfigIOBundleFactory.create_bundle(
                         {
                             'file_path': scheme,
                             'scheme': {},
@@ -122,7 +122,7 @@ class SchemeLoader:
 
             except Exception as exc:
                 msg: str = format_error_raw(exc, self._context.verbose)
-                msg_failed_to_load_scheme: str = f'failed to load scheme file {scheme}: {msg}'
+                msg_failed_to_load_scheme: str = f'the failed to load scheme file {scheme}: {msg}'
                 not_satisfied(True, context, msg_failed_to_load_scheme, ATSGeneratorError)
 
         return dict(scheme)

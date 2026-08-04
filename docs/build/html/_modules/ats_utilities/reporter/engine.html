@@ -64,7 +64,7 @@
 <span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">DEBUG</span><span class="p">,</span> <span class="n">INFO</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">ERROR</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.bundle</span> <span class="kn">import</span> <span class="n">ReporterBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.validator</span> <span class="kn">import</span> <span class="n">ReporterValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.validator</span> <span class="kn">import</span> <span class="n">ReporterBundleValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.iconsole_theme</span> <span class="kn">import</span> <span class="n">IConsoleTheme</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.types</span> <span class="kn">import</span> <span class="n">MessageKey</span>
@@ -129,7 +129,7 @@
 <span class="sd">                |                respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">ReporterValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
+        <span class="n">ReporterBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_apply_bundle</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -160,7 +160,7 @@
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">ReporterValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+            <span class="n">ReporterBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_apply_bundle</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 

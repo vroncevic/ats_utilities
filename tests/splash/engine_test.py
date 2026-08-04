@@ -26,13 +26,13 @@ import tempfile
 import unittest
 from unittest.mock import patch, MagicMock
 
-from ats_utilities.context.factory import ContextFactory
+from ats_utilities.context.factory import ContextBundleFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.splash.engine import SplashManager
 from ats_utilities.splash.data import CenterData
-from ats_utilities.info.setup.keys import InfoKeys
-from ats_utilities.splash.setup.factory import SplashFactory
-from ats_utilities.splash.setup.options import SplashOptions
+from ats_utilities.info.setup.keys import InfoBundleKeys
+from ats_utilities.splash.setup.factory import SplashBundleFactory
+from ats_utilities.splash.setup.options import SplashBundleOptions
 from ats_utilities.splash.progressbar.progress_bar import ProgressBar
 from ats_utilities.splash.setup.bundle import SplashBundle
 from ats_utilities.splash.property.isplash_property import ISplashProperty
@@ -49,7 +49,7 @@ class EngineTest(unittest.TestCase):
     '''
 
     def setUp(self) -> None:
-        self.context_bundle = ContextFactory.create_bundle()
+        self.context_bundle = ContextBundleFactory.create_bundle()
         # Create a temporary file to act as the logo
         self.temp_logo = tempfile.NamedTemporaryFile(delete=False, mode="w", encoding="utf-8")
         self.temp_logo.write("LOGO LINE 1\n\nLOGO LINE 2\n")
@@ -69,11 +69,11 @@ class EngineTest(unittest.TestCase):
     def _get_valid_prop(self) -> dict[str, object]:
         return {
             "enabled": True,
-            InfoKeys.ATS_NAME: "ats_utilities",
-            InfoKeys.ATS_REPOSITORY: "ats_utilities",
-            InfoKeys.ATS_ORGANIZATION: "vroncevic",
-            InfoKeys.ATS_LOGO_PATH: self.temp_logo.name,
-            InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
+            InfoBundleKeys.ATS_NAME: "ats_utilities",
+            InfoBundleKeys.ATS_REPOSITORY: "ats_utilities",
+            InfoBundleKeys.ATS_ORGANIZATION: "vroncevic",
+            InfoBundleKeys.ATS_LOGO_PATH: self.temp_logo.name,
+            InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
         }
 
     def test_init_invalid(self) -> None:
@@ -87,8 +87,8 @@ class EngineTest(unittest.TestCase):
     @patch("sys.stdout.flush")
     def test_splasher_disabled(self, mock_flush: MagicMock, mock_write: MagicMock) -> None:
         prop = {"enabled": False}
-        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
-        bundle = SplashFactory.create_bundle(options)
+        options = SplashBundleOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashBundleFactory.create_bundle(options)
         splasher = SplashManager(bundle)
         self.assertTrue(splasher.is_initialized())
         self.assertIs(splasher.get_context(), self.context_bundle)
@@ -100,8 +100,8 @@ class EngineTest(unittest.TestCase):
     @patch("time.sleep")
     def test_splasher_github_valid(self, mock_sleep: MagicMock, mock_flush: MagicMock, mock_write: MagicMock) -> None:
         prop = self._get_valid_prop()
-        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
-        bundle = SplashFactory.create_bundle(options)
+        options = SplashBundleOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashBundleFactory.create_bundle(options)
         splasher = SplashManager(bundle)
         self.assertTrue(splasher.is_initialized())
         splasher.show()
@@ -120,10 +120,10 @@ class EngineTest(unittest.TestCase):
     def test_splasher_github_invalid_logo(self, mock_open: MagicMock, mock_sleep: MagicMock, mock_flush: MagicMock, mock_write: MagicMock) -> None:
         mock_open.side_effect = OSError("failed to read logo")
         prop = self._get_valid_prop()
-        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
+        options = SplashBundleOptions(prop=prop, context_bundle=self.context_bundle)
         # Skip validate file exists check in factory by patching it
         with patch("ats_utilities.splash.setup.validator.check_file_exists"):
-            bundle = SplashFactory.create_bundle(options)
+            bundle = SplashBundleFactory.create_bundle(options)
         splasher = SplashManager(bundle)
         with self.assertRaises(ATSValueError):
             splasher.show()
@@ -133,9 +133,9 @@ class EngineTest(unittest.TestCase):
     @patch("time.sleep")
     def test_splasher_external_valid(self, mock_sleep: MagicMock, mock_flush: MagicMock, mock_write: MagicMock) -> None:
         prop = self._get_valid_prop()
-        prop[InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE] = False
-        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
-        bundle = SplashFactory.create_bundle(options)
+        prop[InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE] = False
+        options = SplashBundleOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashBundleFactory.create_bundle(options)
         splasher = SplashManager(bundle)
         self.assertTrue(splasher.is_initialized())
         splasher.show()
@@ -149,8 +149,8 @@ class EngineTest(unittest.TestCase):
     @patch("sys.stdout.write")
     def test_center_disabled_splash(self, mock_write: MagicMock) -> None:
         prop = {"enabled": False}
-        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
-        bundle = SplashFactory.create_bundle(options)
+        options = SplashBundleOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashBundleFactory.create_bundle(options)
         splasher = SplashManager(bundle)
         center_data = CenterData(columns=80, additional_shifter=2)
         splasher.center(center_data, "won't show")
@@ -171,15 +171,15 @@ class EngineTest(unittest.TestCase):
 
     def test_str(self) -> None:
         prop = {"enabled": False}
-        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
-        bundle = SplashFactory.create_bundle(options)
+        options = SplashBundleOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashBundleFactory.create_bundle(options)
         splasher = SplashManager(bundle)
         self.assertIn("SplashManager", str(splasher))
 
     def test_get_bundle(self) -> None:
         prop = self._get_valid_prop()
-        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
-        bundle = SplashFactory.create_bundle(options)
+        options = SplashBundleOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashBundleFactory.create_bundle(options)
         splasher = SplashManager(bundle)
         retrieved = splasher.get_bundle()
         self.assertIsInstance(retrieved, SplashBundle)
@@ -187,14 +187,14 @@ class EngineTest(unittest.TestCase):
 
     def test_update_bundle(self) -> None:
         prop = self._get_valid_prop()
-        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
-        bundle = SplashFactory.create_bundle(options)
+        options = SplashBundleOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashBundleFactory.create_bundle(options)
         splasher = SplashManager(bundle)
         
         # Valid update
-        new_context = ContextFactory.create_bundle()
-        new_options = SplashOptions(prop=prop, context_bundle=new_context)
-        new_bundle = SplashFactory.create_bundle(new_options)
+        new_context = ContextBundleFactory.create_bundle()
+        new_options = SplashBundleOptions(prop=prop, context_bundle=new_context)
+        new_bundle = SplashBundleFactory.create_bundle(new_options)
         self.assertTrue(splasher.update_bundle(new_bundle))
         self.assertIs(splasher.get_context(), new_context)
 
@@ -204,8 +204,8 @@ class EngineTest(unittest.TestCase):
     @patch("sys.stdout.write")
     def test_center_empty_or_none_text(self, mock_write: MagicMock) -> None:
         prop = self._get_valid_prop()
-        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
-        bundle = SplashFactory.create_bundle(options)
+        options = SplashBundleOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashBundleFactory.create_bundle(options)
         splasher = SplashManager(bundle)
         
         center_data = CenterData(columns=80, additional_shifter=0)
@@ -219,8 +219,8 @@ class EngineTest(unittest.TestCase):
     @patch("sys.stdout.write")
     def test_center_invalid_position(self, mock_write: MagicMock) -> None:
         prop = self._get_valid_prop()
-        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
-        bundle = SplashFactory.create_bundle(options)
+        options = SplashBundleOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashBundleFactory.create_bundle(options)
         splasher = SplashManager(bundle)
         
         # Invalid CenterData (e.g. columns is string)
@@ -233,8 +233,8 @@ class EngineTest(unittest.TestCase):
     @patch("time.sleep")
     def test_show_logo_path_none(self, mock_sleep: MagicMock, mock_flush: MagicMock, mock_write: MagicMock) -> None:
         prop = self._get_valid_prop()
-        options = SplashOptions(prop=prop, context_bundle=self.context_bundle)
-        bundle = SplashFactory.create_bundle(options)
+        options = SplashBundleOptions(prop=prop, context_bundle=self.context_bundle)
+        bundle = SplashBundleFactory.create_bundle(options)
         splasher = SplashManager(bundle)
         
         # Mock get_logo to return None

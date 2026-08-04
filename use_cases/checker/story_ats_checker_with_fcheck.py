@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.setup.factory import CheckerFactory
+from ats_utilities.checker.setup.factory import CheckerBundleFactory
 from ats_utilities.checker.proxy_validator import fcheck
 from ats_utilities.exceptions import ATSTypeError
 
@@ -57,7 +57,7 @@ print('-'*100)
 
 @fcheck(
     [('str:arg1', None), ('int:arg2', None), ('float:arg3', None)],
-    checker=Checker(CheckerFactory.create_bundle())
+    checker=Checker(CheckerBundleFactory.create_bundle())
 )
 def use_case_no_error(arg1: str, arg2: int, arg3: float) -> tuple[str, int, float]:
     return  arg1, arg2, arg3

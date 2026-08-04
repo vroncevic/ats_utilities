@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Splash options for the splash bundle.
+    Splash bundle options for the splash bundle.
 '''
 
 from __future__ import annotations
@@ -36,15 +36,15 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class SplashOptions(TypedDict):
+class SplashBundleOptions(TypedDict):
     '''
-        Splash options for the splash bundle.
+        Splash bundle options for the splash bundle.
 
         It defines:
 
             :attributes:
-                | prop - The splash screen properties in dict format.
-                | context_bundle - The context bundle.
+                | prop - The splash screen properties in dict format for splash bundle.
+                | context_bundle - The context bundle for splash bundle.
     '''
 
     prop: Mapping[str, object]

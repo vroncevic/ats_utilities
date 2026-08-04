@@ -68,8 +68,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterKeys">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.reporter.setup.keys.</span></span><span class="sig-name descname"><span class="pre">ReporterKeys</span></span><a class="reference internal" href="_modules/ats_utilities/reporter/setup/keys.html#ReporterKeys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterKeys" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterBundleKeys">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.reporter.setup.keys.</span></span><span class="sig-name descname"><span class="pre">ReporterBundleKeys</span></span><a class="reference internal" href="_modules/ats_utilities/reporter/setup/keys.html#ReporterBundleKeys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Runtime components and interface constraints for the reporter bundle.</p>
 <p>It defines:</p>
@@ -77,59 +77,59 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">DEPENDENCY_CHECKER - The Checker interface constant.</div>
-<div class="line">DEPENDENCY_THEME - The Theme interface constant.</div>
-<div class="line">DEPENDENCY_LOGGER - The Logger interface constant.</div>
-<div class="line">OPTION_CHECKER - The Checker options constant.</div>
-<div class="line">OPTION_THEME - The Theme options constant.</div>
-<div class="line">OPTION_LOGGER - The Logger options constant.</div>
+<div class="line">DEPENDENCY_CHECKER - The Checker interface constant for the reporter bundle.</div>
+<div class="line">DEPENDENCY_THEME - The Theme interface constant for the reporter bundle.</div>
+<div class="line">DEPENDENCY_LOGGER - The Logger interface constant for the reporter bundle.</div>
+<div class="line">OPTION_CHECKER - The Checker options constant for the reporter bundle.</div>
+<div class="line">OPTION_THEME - The Theme options constant for the reporter bundle.</div>
+<div class="line">OPTION_LOGGER - The Logger options constant for the reporter bundle.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">get_dependency_to_type - Returns the mapping of the reporter dependencies to their types.</div>
-<div class="line">get_option_to_type - Returns the mapping of the reporter options to their types.</div>
+<div class="line">get_dependency_to_type - Returns the mapping of the reporter bundle dependencies to their types.</div>
+<div class="line">get_option_to_type - Returns the mapping of the reporter bundle options to their types.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterKeys.DEPENDENCY_CHECKER">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_CHECKER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'checker'</span></em><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterKeys.DEPENDENCY_CHECKER" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterBundleKeys.DEPENDENCY_CHECKER">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_CHECKER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'checker'</span></em><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.DEPENDENCY_CHECKER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterKeys.DEPENDENCY_LOGGER">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_LOGGER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'logger'</span></em><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterKeys.DEPENDENCY_LOGGER" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterBundleKeys.DEPENDENCY_LOGGER">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_LOGGER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'logger'</span></em><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.DEPENDENCY_LOGGER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterKeys.DEPENDENCY_THEME">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_THEME</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'theme'</span></em><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterKeys.DEPENDENCY_THEME" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterBundleKeys.DEPENDENCY_THEME">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_THEME</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'theme'</span></em><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.DEPENDENCY_THEME" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterKeys.OPTION_CHECKER">
-<span class="sig-name descname"><span class="pre">OPTION_CHECKER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'checker'</span></em><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterKeys.OPTION_CHECKER" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterBundleKeys.OPTION_CHECKER">
+<span class="sig-name descname"><span class="pre">OPTION_CHECKER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'checker'</span></em><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.OPTION_CHECKER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterKeys.OPTION_LOGGER">
-<span class="sig-name descname"><span class="pre">OPTION_LOGGER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'logger'</span></em><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterKeys.OPTION_LOGGER" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterBundleKeys.OPTION_LOGGER">
+<span class="sig-name descname"><span class="pre">OPTION_LOGGER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'logger'</span></em><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.OPTION_LOGGER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterKeys.OPTION_THEME">
-<span class="sig-name descname"><span class="pre">OPTION_THEME</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'theme'</span></em><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterKeys.OPTION_THEME" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterBundleKeys.OPTION_THEME">
+<span class="sig-name descname"><span class="pre">OPTION_THEME</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'theme'</span></em><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.OPTION_THEME" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterKeys.get_dependency_to_type">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_dependency_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/setup/keys.html#ReporterKeys.get_dependency_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterKeys.get_dependency_to_type" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the mapping of the reporter dependencies to their types.</p>
+<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterBundleKeys.get_dependency_to_type">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_dependency_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/setup/keys.html#ReporterBundleKeys.get_dependency_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.get_dependency_to_type" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the mapping of the reporter bundle dependencies to their types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The mapping of the reporter dependencies to their types.</p>
+<dd class="field-odd"><p>The mapping of the reporter bundle dependencies to their types.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>None.</p>
@@ -138,12 +138,12 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterKeys.get_option_to_type">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_option_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/setup/keys.html#ReporterKeys.get_option_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterKeys.get_option_to_type" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the mapping of the reporter options to their types.</p>
+<dt class="sig sig-object py" id="ats_utilities.reporter.setup.keys.ReporterBundleKeys.get_option_to_type">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_option_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/setup/keys.html#ReporterBundleKeys.get_option_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.get_option_to_type" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the mapping of the reporter bundle options to their types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The mapping of the reporter options to their types.</p>
+<dd class="field-odd"><p>The mapping of the reporter bundle options to their types.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>None.</p>
@@ -166,15 +166,15 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.reporter.setup.keys module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterKeys"><code class="docutils literal notranslate"><span class="pre">ReporterKeys</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterKeys.DEPENDENCY_CHECKER"><code class="docutils literal notranslate"><span class="pre">ReporterKeys.DEPENDENCY_CHECKER</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterKeys.DEPENDENCY_LOGGER"><code class="docutils literal notranslate"><span class="pre">ReporterKeys.DEPENDENCY_LOGGER</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterKeys.DEPENDENCY_THEME"><code class="docutils literal notranslate"><span class="pre">ReporterKeys.DEPENDENCY_THEME</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterKeys.OPTION_CHECKER"><code class="docutils literal notranslate"><span class="pre">ReporterKeys.OPTION_CHECKER</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterKeys.OPTION_LOGGER"><code class="docutils literal notranslate"><span class="pre">ReporterKeys.OPTION_LOGGER</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterKeys.OPTION_THEME"><code class="docutils literal notranslate"><span class="pre">ReporterKeys.OPTION_THEME</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterKeys.get_dependency_to_type"><code class="docutils literal notranslate"><span class="pre">ReporterKeys.get_dependency_to_type()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterKeys.get_option_to_type"><code class="docutils literal notranslate"><span class="pre">ReporterKeys.get_option_to_type()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys"><code class="docutils literal notranslate"><span class="pre">ReporterBundleKeys</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.DEPENDENCY_CHECKER"><code class="docutils literal notranslate"><span class="pre">ReporterBundleKeys.DEPENDENCY_CHECKER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.DEPENDENCY_LOGGER"><code class="docutils literal notranslate"><span class="pre">ReporterBundleKeys.DEPENDENCY_LOGGER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.DEPENDENCY_THEME"><code class="docutils literal notranslate"><span class="pre">ReporterBundleKeys.DEPENDENCY_THEME</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.OPTION_CHECKER"><code class="docutils literal notranslate"><span class="pre">ReporterBundleKeys.OPTION_CHECKER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.OPTION_LOGGER"><code class="docutils literal notranslate"><span class="pre">ReporterBundleKeys.OPTION_LOGGER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.OPTION_THEME"><code class="docutils literal notranslate"><span class="pre">ReporterBundleKeys.OPTION_THEME</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.get_dependency_to_type"><code class="docutils literal notranslate"><span class="pre">ReporterBundleKeys.get_dependency_to_type()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.setup.keys.ReporterBundleKeys.get_option_to_type"><code class="docutils literal notranslate"><span class="pre">ReporterBundleKeys.get_option_to_type()</span></code></a></li>
 </ul>
 </li>
 </ul>

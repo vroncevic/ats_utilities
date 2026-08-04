@@ -34,7 +34,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class CheckerOptions(TypedDict):
+class CheckerBundleOptions(TypedDict):
     '''
         Options for the checker bundle.
 

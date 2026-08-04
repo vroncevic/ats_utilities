@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for BaseFactory class.
+    Unit tests for BaseBundleFactory class.
 '''
 
 from __future__ import annotations
@@ -24,9 +24,9 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock, patch
 
-from ats_utilities.base.setup.factory import BaseFactory
+from ats_utilities.base.setup.factory import BaseBundleFactory
 from ats_utilities.base.setup.bundle import BaseBundle
-from ats_utilities.base.setup.options import BaseOptions
+from ats_utilities.base.setup.options import BaseBundleOptions
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.info.engine import InfoManager
@@ -36,7 +36,7 @@ from ats_utilities.generation.engine import GeneratorManager
 
 
 class TestBaseFactory(unittest.TestCase):
-    """Unit tests for the BaseFactory class."""
+    """Unit tests for the BaseBundleFactory class."""
 
     def setUp(self) -> None:
         """Set up standard dependencies and mock components for factory testing."""
@@ -55,7 +55,7 @@ class TestBaseFactory(unittest.TestCase):
             "project_name": "ats_utilities"
         }
 
-        self.options = BaseOptions(
+        self.options = BaseBundleOptions(
             info_file=self.info_file,
             use_generator=True,
             context_bundle=self.mock_context_bundle
@@ -64,23 +64,23 @@ class TestBaseFactory(unittest.TestCase):
     def test_validation_missing_or_none_fields(self) -> None:
         """Test that passing None for required parameters triggers validation errors."""
         with self.assertRaises(Exception):
-            BaseFactory.create_bundle(
+            BaseBundleFactory.create_bundle(
                 options=None  # type: ignore
             )
 
-    @patch("ats_utilities.base.setup.factory.BaseRegistry")
+    @patch("ats_utilities.base.setup.factory.BaseBundleRegistry")
     @patch("ats_utilities.base.setup.factory.GeneratorManager")
-    @patch("ats_utilities.base.setup.factory.GeneratorFactory")
+    @patch("ats_utilities.base.setup.factory.GeneratorBundleFactory")
     @patch("ats_utilities.base.setup.factory.OptionManager")
-    @patch("ats_utilities.base.setup.factory.OptionFactory")
+    @patch("ats_utilities.base.setup.factory.OptionBundleFactory")
     @patch("ats_utilities.base.setup.factory.SplashManager")
-    @patch("ats_utilities.base.setup.factory.SplashFactory")
+    @patch("ats_utilities.base.setup.factory.SplashBundleFactory")
     @patch("ats_utilities.base.setup.factory.InfoManager")
-    @patch("ats_utilities.base.setup.factory.InfoFactory")
+    @patch("ats_utilities.base.setup.factory.InfoBundleFactory")
     @patch("ats_utilities.base.setup.factory.get_first_available")
     @patch("ats_utilities.base.setup.factory.Loader")
-    @patch("ats_utilities.base.setup.factory.ConfigIOFactory")
-    @patch("ats_utilities.base.setup.factory.BaseOptionsValidator")
+    @patch("ats_utilities.base.setup.factory.ConfigIOBundleFactory")
+    @patch("ats_utilities.base.setup.factory.BaseBundleOptionsValidator")
     def test_create_bundle_with_generator(
         self, mock_opt_val: MagicMock, mock_cfg_fac: MagicMock, mock_loader_cls: MagicMock,
         mock_get_first: MagicMock, mock_info_fac: MagicMock,
@@ -126,7 +126,7 @@ class TestBaseFactory(unittest.TestCase):
         mock_registry_cls.create_bundle.return_value = mock_bundle_inst
 
         # Act
-        result = BaseFactory.create_bundle(self.options)
+        result = BaseBundleFactory.create_bundle(self.options)
 
         # Assert Factory/Registry calls
         mock_cfg_fac.create_bundle.assert_called_once()
@@ -152,19 +152,19 @@ class TestBaseFactory(unittest.TestCase):
 
         mock_registry_cls.create_bundle.assert_called_once()
 
-    @patch("ats_utilities.base.setup.factory.BaseRegistry")
+    @patch("ats_utilities.base.setup.factory.BaseBundleRegistry")
     @patch("ats_utilities.base.setup.factory.GeneratorManager")
-    @patch("ats_utilities.base.setup.factory.GeneratorFactory")
+    @patch("ats_utilities.base.setup.factory.GeneratorBundleFactory")
     @patch("ats_utilities.base.setup.factory.OptionManager")
-    @patch("ats_utilities.base.setup.factory.OptionFactory")
+    @patch("ats_utilities.base.setup.factory.OptionBundleFactory")
     @patch("ats_utilities.base.setup.factory.SplashManager")
-    @patch("ats_utilities.base.setup.factory.SplashFactory")
+    @patch("ats_utilities.base.setup.factory.SplashBundleFactory")
     @patch("ats_utilities.base.setup.factory.InfoManager")
-    @patch("ats_utilities.base.setup.factory.InfoFactory")
+    @patch("ats_utilities.base.setup.factory.InfoBundleFactory")
     @patch("ats_utilities.base.setup.factory.get_first_available")
     @patch("ats_utilities.base.setup.factory.Loader")
-    @patch("ats_utilities.base.setup.factory.ConfigIOFactory")
-    @patch("ats_utilities.base.setup.factory.BaseOptionsValidator")
+    @patch("ats_utilities.base.setup.factory.ConfigIOBundleFactory")
+    @patch("ats_utilities.base.setup.factory.BaseBundleOptionsValidator")
     def test_create_bundle_without_generator(
         self, mock_opt_val: MagicMock, mock_cfg_fac: MagicMock, mock_loader_cls: MagicMock,
         mock_get_first: MagicMock, mock_info_fac: MagicMock,
@@ -174,7 +174,7 @@ class TestBaseFactory(unittest.TestCase):
         mock_gen_cls: MagicMock, mock_registry_cls: MagicMock
     ) -> None:
         """Test complete orchestration of external pipelines when use_generator is False."""
-        options_no_gen = BaseOptions(
+        options_no_gen = BaseBundleOptions(
             info_file=self.info_file,
             use_generator=False,
             context_bundle=self.mock_context_bundle
@@ -211,7 +211,7 @@ class TestBaseFactory(unittest.TestCase):
         mock_registry_cls.create_bundle.return_value = mock_bundle_inst
 
         # Act
-        result = BaseFactory.create_bundle(options_no_gen)
+        result = BaseBundleFactory.create_bundle(options_no_gen)
 
         # Assert Factory/Registry calls
         mock_cfg_fac.create_bundle.assert_called_once()
@@ -234,19 +234,19 @@ class TestBaseFactory(unittest.TestCase):
 
         mock_registry_cls.create_bundle.assert_called_once()
 
-    @patch("ats_utilities.base.setup.factory.BaseRegistry")
+    @patch("ats_utilities.base.setup.factory.BaseBundleRegistry")
     @patch("ats_utilities.base.setup.factory.GeneratorManager")
-    @patch("ats_utilities.base.setup.factory.GeneratorFactory")
+    @patch("ats_utilities.base.setup.factory.GeneratorBundleFactory")
     @patch("ats_utilities.base.setup.factory.OptionManager")
-    @patch("ats_utilities.base.setup.factory.OptionFactory")
+    @patch("ats_utilities.base.setup.factory.OptionBundleFactory")
     @patch("ats_utilities.base.setup.factory.SplashManager")
-    @patch("ats_utilities.base.setup.factory.SplashFactory")
+    @patch("ats_utilities.base.setup.factory.SplashBundleFactory")
     @patch("ats_utilities.base.setup.factory.InfoManager")
-    @patch("ats_utilities.base.setup.factory.InfoFactory")
+    @patch("ats_utilities.base.setup.factory.InfoBundleFactory")
     @patch("ats_utilities.base.setup.factory.get_first_available")
     @patch("ats_utilities.base.setup.factory.Loader")
-    @patch("ats_utilities.base.setup.factory.ConfigIOFactory")
-    @patch("ats_utilities.base.setup.factory.BaseOptionsValidator")
+    @patch("ats_utilities.base.setup.factory.ConfigIOBundleFactory")
+    @patch("ats_utilities.base.setup.factory.BaseBundleOptionsValidator")
     def test_create_bundle_logger_missing_attributes(
         self, mock_opt_val: MagicMock, mock_cfg_fac: MagicMock, mock_loader_cls: MagicMock,
         mock_get_first: MagicMock, mock_info_fac: MagicMock,
@@ -296,7 +296,7 @@ class TestBaseFactory(unittest.TestCase):
         mock_bundle_inst = MagicMock(spec=BaseBundle)
         mock_registry_cls.create_bundle.return_value = mock_bundle_inst
 
-        result = BaseFactory.create_bundle(self.options)
+        result = BaseBundleFactory.create_bundle(self.options)
         self.assertIs(result, mock_bundle_inst)
 
 

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ConfigIODependenciesValidator class.
+    Unit tests for ConfigIOBundleDependenciesValidator class.
 '''
 
 from __future__ import annotations
@@ -24,8 +24,8 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.config_io.setup.dependencies import ConfigIODependencies
-from ats_utilities.config_io.setup.dep_validator import ConfigIODependenciesValidator
+from ats_utilities.config_io.setup.dependencies import ConfigIOBundleDependencies
+from ats_utilities.config_io.setup.dep_validator import ConfigIOBundleDependenciesValidator
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -37,7 +37,7 @@ from ats_utilities.exceptions import ATSTypeError, ATSValueError
 class ConfigIODependenciesValidatorTest(unittest.TestCase):
     '''
         Defines class ConfigIODependenciesValidatorTest with attribute(s) and method(s).
-        Tests ConfigIODependenciesValidator component logic.
+        Tests ConfigIOBundleDependenciesValidator component logic.
     '''
 
     def setUp(self) -> None:
@@ -47,8 +47,8 @@ class ConfigIODependenciesValidatorTest(unittest.TestCase):
         self.mock_context.reporter = MagicMock(spec=IReporter)
         self.mock_context.verbose = True
 
-    def _get_valid_deps(self) -> ConfigIODependencies:
-        return ConfigIODependencies(
+    def _get_valid_deps(self) -> ConfigIOBundleDependencies:
+        return ConfigIOBundleDependencies(
             file_path="/path/to/file",
             processor=MagicMock(spec=IConfigProcessor),
             context_bundle=self.mock_context
@@ -56,27 +56,27 @@ class ConfigIODependenciesValidatorTest(unittest.TestCase):
 
     def test_validate_valid(self) -> None:
         deps = self._get_valid_deps()
-        ConfigIODependenciesValidator.validate(deps)
+        ConfigIOBundleDependenciesValidator.validate(deps)
 
     def test_validate_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            ConfigIODependenciesValidator.validate(None)  # type: ignore
+            ConfigIOBundleDependenciesValidator.validate(None)  # type: ignore
 
     def test_validate_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            ConfigIODependenciesValidator.validate("invalid")  # type: ignore
+            ConfigIOBundleDependenciesValidator.validate("invalid")  # type: ignore
 
     def test_validate_missing_attributes(self) -> None:
         deps = self._get_valid_deps()
         del deps['file_path']  # type: ignore
         with self.assertRaises(ATSValueError):
-            ConfigIODependenciesValidator.validate(deps)
+            ConfigIOBundleDependenciesValidator.validate(deps)
 
     def test_validate_invalid_attribute_types(self) -> None:
         deps = self._get_valid_deps()
         deps['file_path'] = 123  # type: ignore
         with self.assertRaises(ATSTypeError):
-            ConfigIODependenciesValidator.validate(deps)
+            ConfigIOBundleDependenciesValidator.validate(deps)
 
 
 if __name__ == "__main__":

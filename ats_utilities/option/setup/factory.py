@@ -25,12 +25,12 @@ from argparse import ArgumentParser
 from collections.abc import Mapping
 
 from ats_utilities.option.setup.bundle import OptionBundle
-from ats_utilities.option.setup.options import OptionOptions
-from ats_utilities.option.setup.dependencies import OptionDependencies
-from ats_utilities.option.setup.keys import OptionKeys
+from ats_utilities.option.setup.options import OptionBundleOptions
+from ats_utilities.option.setup.dependencies import OptionBundleDependencies
+from ats_utilities.option.setup.keys import OptionBundleKeys
 from ats_utilities.info.setup.expose import InfoExpose
-from ats_utilities.option.setup.opt_validator import OptionOptionsValidator
-from ats_utilities.option.setup.registry import OptionRegistry
+from ats_utilities.option.setup.opt_validator import OptionBundleOptionsValidator
+from ats_utilities.option.setup.registry import OptionBundleRegistry
 from ats_utilities.option.strategy.engine import ParserStrategy
 from ats_utilities.option.strategy.data import StrategyData
 from ats_utilities.context.bundle import ContextBundle
@@ -46,7 +46,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class OptionFactory:
+class OptionBundleFactory:
     '''
         A factory for creating an option bundle.
 
@@ -57,21 +57,27 @@ class OptionFactory:
     '''
 
     @classmethod
-    def create_bundle(cls, options: OptionOptions) -> OptionBundle:
+    def create_bundle(cls, options: OptionBundleOptions) -> OptionBundle:
         '''
             Creates an option bundle using configuration options.
 
             :param options: The creation options/parameters for the bundle.
             :return: The option bundle.
             :exceptions:
-                | ATSValueError: The options must be provided and have proper values.
-                | ATSTypeError:  The options must be an instance of Mapping and its
+                | ATSValueError: The option bundle options must be provided and have proper values.
+                | ATSTypeError:  The option bundle options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The option bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The option bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The option bundle must be provided and have proper values.
+                | ATSTypeError:  The option bundle must be an instance of OptionBundle and its
                 |                attributes must be instances of their respective types.
         '''
-        OptionOptionsValidator.validate(options)
+        OptionBundleOptionsValidator.validate(options)
 
-        parameters: Mapping[str, str] = options.get(OptionKeys.OPTION_PARAMETERS)
-        context_bundle: ContextBundle = options.get(OptionKeys.OPTION_CONTEXT_BUNDLE)
+        parameters: Mapping[str, str] = options.get(OptionBundleKeys.OPTION_PARAMETERS)
+        context_bundle: ContextBundle = options.get(OptionBundleKeys.OPTION_CONTEXT_BUNDLE)
         parser: ParserAdapter = ParserAdapter(
             parser=ArgumentParser(
                 prog=f'{InfoExpose.get_name(parameters)} {InfoExpose.get_version(parameters)}',
@@ -87,9 +93,6 @@ class OptionFactory:
             )
         )
 
-        return OptionRegistry.create_bundle(
-            dependencies=OptionDependencies(
-                strategy=strategy,
-                context_bundle=context_bundle
-            )
+        return OptionBundleRegistry.create_bundle(
+            dependencies=OptionBundleDependencies(strategy=strategy, context_bundle=context_bundle)
         )

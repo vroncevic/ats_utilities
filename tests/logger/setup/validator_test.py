@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for LoggerValidator class.
+    Unit tests for LoggerBundleValidator class.
 '''
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.logger.setup.bundle import LoggerBundle
-from ats_utilities.logger.setup.validator import LoggerValidator
+from ats_utilities.logger.setup.validator import LoggerBundleValidator
 from ats_utilities.logger.underlying.iunderlying import IUnderlyingLogger
 from ats_utilities.logger.formatter.iformatter import ILogFormatter
 from ats_utilities.logger.buffer.ibuffer import ILogBuffer
@@ -37,7 +37,7 @@ from ats_utilities.exceptions import ATSTypeError, ATSValueError
 class ValidatorTest(unittest.TestCase):
     '''
         Defines class ValidatorTest with attribute(s) and method(s).
-        Tests LoggerValidator logic.
+        Tests LoggerBundleValidator logic.
     '''
 
     def _get_bundle_args(self) -> dict[str, object]:
@@ -52,15 +52,15 @@ class ValidatorTest(unittest.TestCase):
 
     def test_validation_valid(self) -> None:
         bundle = LoggerBundle(**self._get_bundle_args())
-        LoggerValidator.validate(bundle)
+        LoggerBundleValidator.validate(bundle)
 
     def test_validation_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            LoggerValidator.validate(None)  # type: ignore
+            LoggerBundleValidator.validate(None)  # type: ignore
 
     def test_validation_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            LoggerValidator.validate("invalid")  # type: ignore
+            LoggerBundleValidator.validate("invalid")  # type: ignore
 
     def test_validation_missing_attributes(self) -> None:
         fields = ["logger", "has_file_handler", "formatter", "buffer", "handler_manager", "message_processor"]
@@ -70,7 +70,7 @@ class ValidatorTest(unittest.TestCase):
                 invalid_params[field] = None  # type: ignore
                 bundle = LoggerBundle(**invalid_params)
                 with self.assertRaises(ATSValueError):
-                    LoggerValidator.validate(bundle)
+                    LoggerBundleValidator.validate(bundle)
 
     def test_validation_invalid_types(self) -> None:
         type_mismatches = {
@@ -87,7 +87,7 @@ class ValidatorTest(unittest.TestCase):
                 invalid_params[field] = bad_value
                 bundle = LoggerBundle(**invalid_params)
                 with self.assertRaises(ATSTypeError):
-                    LoggerValidator.validate(bundle)
+                    LoggerBundleValidator.validate(bundle)
 
 
 if __name__ == "__main__":

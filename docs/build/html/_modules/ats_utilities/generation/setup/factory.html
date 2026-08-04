@@ -60,11 +60,11 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.bundle</span> <span class="kn">import</span> <span class="n">GeneratorBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.options</span> <span class="kn">import</span> <span class="n">GeneratorOptions</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.opt_validator</span> <span class="kn">import</span> <span class="n">GeneratorOptionsValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.dependencies</span> <span class="kn">import</span> <span class="n">GeneratorDependencies</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.keys</span> <span class="kn">import</span> <span class="n">GeneratorKeys</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.registry</span> <span class="kn">import</span> <span class="n">GeneratorRegistry</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.options</span> <span class="kn">import</span> <span class="n">GeneratorBundleOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.opt_validator</span> <span class="kn">import</span> <span class="n">GeneratorBundleOptionsValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.dependencies</span> <span class="kn">import</span> <span class="n">GeneratorBundleDependencies</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.keys</span> <span class="kn">import</span> <span class="n">GeneratorBundleKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.registry</span> <span class="kn">import</span> <span class="n">GeneratorBundleRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generation.scheme.engine</span> <span class="kn">import</span> <span class="n">SchemeLoader</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generation.tar.engine</span> <span class="kn">import</span> <span class="n">TarProcessor</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generation.template.engine</span> <span class="kn">import</span> <span class="n">TemplateProcessor</span>
@@ -83,9 +83,9 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="GeneratorFactory">
-<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.factory.html#ats_utilities.generation.setup.factory.GeneratorFactory">[docs]</a>
-<span class="k">class</span> <span class="nc">GeneratorFactory</span><span class="p">:</span>
+<div class="viewcode-block" id="GeneratorBundleFactory">
+<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.factory.html#ats_utilities.generation.setup.factory.GeneratorBundleFactory">[docs]</a>
+<span class="k">class</span> <span class="nc">GeneratorBundleFactory</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Factory for creating generator bundle.</span>
 
@@ -95,23 +95,29 @@
 <span class="sd">                | create_bundle - Creates a default generator bundle using configuration options.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="GeneratorFactory.create_bundle">
-<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.factory.html#ats_utilities.generation.setup.factory.GeneratorFactory.create_bundle">[docs]</a>
+<div class="viewcode-block" id="GeneratorBundleFactory.create_bundle">
+<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.factory.html#ats_utilities.generation.setup.factory.GeneratorBundleFactory.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">GeneratorOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GeneratorBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">GeneratorBundleOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GeneratorBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates a generator bundle using configuration options.</span>
 
 <span class="sd">            :param options: The creation options/parameters for the bundle.</span>
 <span class="sd">            :return: The generator bundle.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Generator options must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Generator options must be an instance of Mapping and its attributes</span>
+<span class="sd">                | ATSValueError: The generator bundle options must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The generator bundle options must be an instance of Mapping and its</span>
+<span class="sd">                |                attributes must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The generator bundle dependencies must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The generator bundle dependencies must be an instance of Mapping and its attributes</span>
 <span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The generator bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The generator bundle must be an instance of GeneratorBundle</span>
+<span class="sd">                |                and its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">GeneratorOptionsValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">GeneratorBundleOptionsValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
 
-        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">GeneratorKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">)</span>
+        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">GeneratorBundleKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">)</span>
 
         <span class="n">scheme_loader</span><span class="p">:</span> <span class="n">ISchemeLoader</span> <span class="o">=</span> <span class="n">SchemeLoader</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
         <span class="n">template_processor</span><span class="p">:</span> <span class="n">ITemplateProcessor</span> <span class="o">=</span> <span class="n">TemplateProcessor</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">)</span>
@@ -120,8 +126,8 @@
             <span class="n">template_processor</span><span class="o">=</span><span class="n">template_processor</span>
         <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">GeneratorRegistry</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
-            <span class="n">GeneratorDependencies</span><span class="p">(</span>
+        <span class="k">return</span> <span class="n">GeneratorBundleRegistry</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
+            <span class="n">GeneratorBundleDependencies</span><span class="p">(</span>
                 <span class="n">scheme_loader</span><span class="o">=</span><span class="n">scheme_loader</span><span class="p">,</span>
                 <span class="n">tar_processor</span><span class="o">=</span><span class="n">tar_processor</span><span class="p">,</span>
                 <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span>

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for CheckerFactory class.
+    Unit tests for CheckerBundleFactory class.
 '''
 
 from __future__ import annotations
@@ -25,8 +25,8 @@ import unittest
 from collections.abc import Set
 
 from ats_utilities.checker.setup.bundle import CheckerBundle
-from ats_utilities.checker.setup.factory import CheckerFactory
-from ats_utilities.checker.setup.options import CheckerOptions
+from ats_utilities.checker.setup.factory import CheckerBundleFactory
+from ats_utilities.checker.setup.options import CheckerBundleOptions
 from ats_utilities.checker.context.engine import ContextProvider
 from ats_utilities.checker.format.engine import FormatValidator
 from ats_utilities.checker.reporter.engine import CheckReporter
@@ -37,11 +37,11 @@ from ats_utilities.exceptions import ATSTypeError, ATSValueError
 class FactoryTest(unittest.TestCase):
     '''
         Defines class FactoryTest with attribute(s) and method(s).
-        Tests CheckerFactory static factory logic.
+        Tests CheckerBundleFactory static factory logic.
     '''
 
     def test_create_default_bundle(self) -> None:
-        bundle = CheckerFactory.create_bundle()
+        bundle = CheckerBundleFactory.create_bundle()
         self.assertIsInstance(bundle, CheckerBundle)
         self.assertIsInstance(bundle.format_validator, FormatValidator)
         self.assertIsInstance(bundle.type_validator, TypeValidator)
@@ -49,13 +49,13 @@ class FactoryTest(unittest.TestCase):
         self.assertIsInstance(bundle.check_reporter, CheckReporter)
 
     def test_create_bundle_with_options(self) -> None:
-        options = CheckerOptions(
+        options = CheckerBundleOptions(
             separator="-",
             abstract_types={"MySet": Set},
             stack_index_caller=4,
             messages_provider={"some": "msg"}
         )
-        bundle = CheckerFactory.create_bundle(options)
+        bundle = CheckerBundleFactory.create_bundle(options)
         self.assertIsInstance(bundle, CheckerBundle)
         self.assertEqual(bundle.format_validator._separator, "-")
         self.assertIn("MySet", bundle.type_validator._abstract_types)
@@ -64,10 +64,10 @@ class FactoryTest(unittest.TestCase):
 
     def test_create_bundle_invalid_options(self) -> None:
         with self.assertRaises(ATSTypeError):
-            CheckerFactory.create_bundle("invalid")  # type: ignore
+            CheckerBundleFactory.create_bundle("invalid")  # type: ignore
 
         with self.assertRaises(ATSTypeError):
-            CheckerFactory.create_bundle(CheckerOptions(separator=123))  # type: ignore
+            CheckerBundleFactory.create_bundle(CheckerBundleOptions(separator=123))  # type: ignore
 
 
 if __name__ == "__main__":

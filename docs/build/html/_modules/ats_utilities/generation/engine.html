@@ -63,7 +63,7 @@
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.bundle</span> <span class="kn">import</span> <span class="n">GeneratorBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.validator</span> <span class="kn">import</span> <span class="n">GeneratorValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.validator</span> <span class="kn">import</span> <span class="n">GeneratorBundleValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generation.data</span> <span class="kn">import</span> <span class="n">GeneratorData</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generation.data_validator</span> <span class="kn">import</span> <span class="n">GeneratorDataValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generation.scheme.ischeme_loader</span> <span class="kn">import</span> <span class="n">ISchemeLoader</span>
@@ -126,7 +126,7 @@
 <span class="sd">                |                and its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">GeneratorValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
+        <span class="n">GeneratorBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_apply_bundle</span><span class="p">(</span><span class="n">own</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -158,7 +158,7 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="n">GeneratorValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+            <span class="n">GeneratorBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_apply_bundle</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -203,14 +203,14 @@
 <span class="sd">            :param template_values: The input replacement values.</span>
 <span class="sd">            :return: The updated template values dictionary.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Template values must be provided.</span>
-<span class="sd">                | ATSTypeError:  Template values must be a mapping.</span>
-<span class="sd">                | ATSValueError: Template values is missing or empty.</span>
+<span class="sd">                | ATSValueError: The template values must be provided.</span>
+<span class="sd">                | ATSTypeError:  The template values must be a mapping.</span>
+<span class="sd">                | ATSValueError: The template values is missing or empty.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;generator::prepare_template_values(...)&#39;</span>
-        <span class="n">msg_template_values_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;template_values must be provided&#39;</span>
-        <span class="n">msg_template_values_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;template_values must be a mapping&#39;</span>
-        <span class="n">msg_project_name_empty</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;template_values must contain a non-empty project_name&#39;</span>
+        <span class="n">msg_template_values_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the template values must be provided&#39;</span>
+        <span class="n">msg_template_values_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the template values must be a mapping&#39;</span>
+        <span class="n">msg_project_name_empty</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the template values must contain a non-empty project_name&#39;</span>
 
         <span class="n">not_none</span><span class="p">(</span><span class="n">template_values</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_template_values_none</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">template_values</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_template_values_istype</span><span class="p">)</span>
@@ -242,17 +242,17 @@
 <span class="sd">            :param data: The GeneratorManager data containing template generation parameters.</span>
 <span class="sd">            :return: True if successful, otherwise False.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Generator data must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Generator data must be an instance of GeneratorData and its attributes</span>
-<span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The generator data must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The generator data must be an instance of GeneratorData and</span>
+<span class="sd">                |                its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">GeneratorDataValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="n">resolved_scheme</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scheme_loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">scheme</span><span class="p">)</span>
         <span class="n">project_scheme</span> <span class="o">=</span> <span class="n">resolved_scheme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">template_key</span><span class="p">)</span>
 
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;generator::generate(...)&#39;</span>
-        <span class="n">msg_template_key_not_found</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;template_key </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">template_key</span><span class="si">}</span><span class="s1"> not found in scheme configuration&#39;</span>
-        <span class="n">msg_source_dir_not_specified</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;source_dir not specified for template_key </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">template_key</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">msg_template_key_not_found</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the template_key </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">template_key</span><span class="si">}</span><span class="s1"> not found in scheme configuration&#39;</span>
+        <span class="n">msg_source_dir_not_specified</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the source_dir not specified for template_key </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">template_key</span><span class="si">}</span><span class="s1">&#39;</span>
 
         <span class="n">not_satisfied</span><span class="p">(</span><span class="ow">not</span> <span class="n">project_scheme</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_template_key_not_found</span><span class="p">)</span>
 
@@ -279,7 +279,7 @@
             <span class="k">return</span> <span class="kc">True</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="n">not_satisfied</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;generation failed </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+            <span class="n">not_satisfied</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;the generation failed </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="GeneratorManager.is_initialized">

@@ -54,13 +54,13 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    A validator for the base bundle.</span>
+<span class="sd">    Validator for the base bundle.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.base.setup.bundle</span> <span class="kn">import</span> <span class="n">BaseBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextBundleValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.imanager</span> <span class="kn">import</span> <span class="n">IInfoManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.imanager</span> <span class="kn">import</span> <span class="n">IOptionManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splash.imanager</span> <span class="kn">import</span> <span class="n">ISplashManager</span>
@@ -78,11 +78,11 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="BaseValidator">
-<a class="viewcode-back" href="../../../../ats_utilities.base.setup.validator.html#ats_utilities.base.setup.validator.BaseValidator">[docs]</a>
-<span class="k">class</span> <span class="nc">BaseValidator</span><span class="p">:</span>
+<div class="viewcode-block" id="BaseBundleValidator">
+<a class="viewcode-back" href="../../../../ats_utilities.base.setup.validator.html#ats_utilities.base.setup.validator.BaseBundleValidator">[docs]</a>
+<span class="k">class</span> <span class="nc">BaseBundleValidator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        A validator for the base bundle.</span>
+<span class="sd">        Validator for the base bundle.</span>
 
 <span class="sd">        It defines:</span>
 
@@ -90,35 +90,34 @@
 <span class="sd">                | validate - Validates the base bundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="BaseValidator.validate">
-<a class="viewcode-back" href="../../../../ats_utilities.base.setup.validator.html#ats_utilities.base.setup.validator.BaseValidator.validate">[docs]</a>
+<div class="viewcode-block" id="BaseBundleValidator.validate">
+<a class="viewcode-back" href="../../../../ats_utilities.base.setup.validator.html#ats_utilities.base.setup.validator.BaseBundleValidator.validate">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="n">BaseBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Validates the base bundle.</span>
+<span class="sd">            Validates the base bundle for base engine.</span>
 
-<span class="sd">            :param bundle: The base bundle to be validated.</span>
+<span class="sd">            :param bundle: The base bundle for base engine to be validated.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Base bundle must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Base bundle must be an instance of BaseBundle</span>
-<span class="sd">                |                and its attributes must be instances of their</span>
-<span class="sd">                |                respective interfaces and types.</span>
+<span class="sd">                | ATSValueError: The base bundle for base engine must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The base bundle for base engine must be an instance of BaseBundle and its</span>
+<span class="sd">                |                attributes must be instances of their respective interfaces and types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;base_validator::validate(...)&#39;</span>
-        <span class="n">msg_bundle_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;base bundle must be provided&#39;</span>
-        <span class="n">msg_bundle_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;base bundle must be an instance of BaseBundle&#39;</span>
-        <span class="n">msg_info_manager_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info manager must be provided&#39;</span>
-        <span class="n">msg_info_manager_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info manager must be an IInfoManager&#39;</span>
-        <span class="n">msg_option_manager_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;option manager must be provided&#39;</span>
-        <span class="n">msg_option_manager_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;option manager must be an IOptionManager&#39;</span>
-        <span class="n">msg_splash_manager_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;splash manager must be provided&#39;</span>
-        <span class="n">msg_splash_manager_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;splash manager must be an ISplashManager&#39;</span>
-        <span class="n">msg_generation_manager_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;generation manager must be an IGeneratorManager or None&#39;</span>
+        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;base_bundle_validator::validate(...)&#39;</span>
+        <span class="n">msg_bundle_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the base bundle must be provided&#39;</span>
+        <span class="n">msg_bundle_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the base bundle must be an instance of BaseBundle&#39;</span>
+        <span class="n">msg_info_manager_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the info manager must be provided&#39;</span>
+        <span class="n">msg_info_manager_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the info manager must be an IInfoManager&#39;</span>
+        <span class="n">msg_option_manager_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the option manager must be provided&#39;</span>
+        <span class="n">msg_option_manager_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the option manager must be an IOptionManager&#39;</span>
+        <span class="n">msg_splash_manager_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the splash manager must be provided&#39;</span>
+        <span class="n">msg_splash_manager_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the splash manager must be an ISplashManager&#39;</span>
+        <span class="n">msg_generation_manager_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the generation manager must be an IGeneratorManager or None&#39;</span>
 
         <span class="n">not_none</span><span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_bundle_none</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="n">BaseBundle</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_bundle_istype</span><span class="p">)</span>
 
-        <span class="n">ContextValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
+        <span class="n">ContextBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
 
         <span class="n">not_none</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">info_manager</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_info_manager_none</span><span class="p">)</span>
         <span class="n">not_none</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">option_manager</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_option_manager_none</span><span class="p">)</span>

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for SplashOptionsValidator class.
+    Unit tests for SplashBundleOptionsValidator class.
 '''
 
 from __future__ import annotations
@@ -26,18 +26,18 @@ from unittest.mock import MagicMock, patch
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
-from ats_utilities.splash.setup.opt_validator import SplashOptionsValidator
-from ats_utilities.splash.setup.options import SplashOptions
+from ats_utilities.splash.setup.opt_validator import SplashBundleOptionsValidator
+from ats_utilities.splash.setup.options import SplashBundleOptions
 
 
-@patch("ats_utilities.splash.setup.opt_validator.ContextValidator.validate")
+@patch("ats_utilities.splash.setup.opt_validator.ContextBundleValidator.validate")
 class SplashOptionsValidatorTest(unittest.TestCase):
     '''
         Defines class SplashOptionsValidatorTest with attribute(s) and method(s).
-        Tests SplashOptionsValidator.
+        Tests SplashBundleOptionsValidator.
     '''
 
-    def _get_valid_opts(self) -> SplashOptions:
+    def _get_valid_opts(self) -> SplashBundleOptions:
         return {
             "prop": {"enabled": True},
             "context_bundle": MagicMock(spec=ContextBundle),
@@ -45,16 +45,16 @@ class SplashOptionsValidatorTest(unittest.TestCase):
 
     def test_validate_valid(self, mock_context_val: MagicMock) -> None:
         opts = self._get_valid_opts()
-        SplashOptionsValidator.validate(opts)
+        SplashBundleOptionsValidator.validate(opts)
         mock_context_val.assert_called_once_with(opts["context_bundle"])
 
     def test_validate_invalid_none(self, mock_context_val: MagicMock) -> None:
         with self.assertRaises(ATSValueError):
-            SplashOptionsValidator.validate(None)  # type: ignore
+            SplashBundleOptionsValidator.validate(None)  # type: ignore
 
     def test_validate_invalid_type(self, mock_context_val: MagicMock) -> None:
         with self.assertRaises(ATSTypeError):
-            SplashOptionsValidator.validate(object())  # type: ignore
+            SplashBundleOptionsValidator.validate(object())  # type: ignore
 
     def test_validate_bad_types(self, mock_context_val: MagicMock) -> None:
         type_mismatches = {
@@ -66,7 +66,7 @@ class SplashOptionsValidatorTest(unittest.TestCase):
                 opts = self._get_valid_opts()
                 opts[key] = bad_value  # type: ignore
                 with self.assertRaises(ATSTypeError):
-                    SplashOptionsValidator.validate(opts)
+                    SplashBundleOptionsValidator.validate(opts)
 
 
 if __name__ == "__main__":

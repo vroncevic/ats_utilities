@@ -24,14 +24,14 @@ from __future__ import annotations
 from collections.abc import Mapping
 from types import MappingProxyType
 
-from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.keys import InfoBundleKeys
 from ats_utilities.info.setup.schema import InfoSchema
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.setup.bundle import InfoBundle
-from ats_utilities.info.setup.dependencies import InfoDependencies
-from ats_utilities.info.setup.options import InfoOptions
-from ats_utilities.info.setup.opt_validator import InfoOptionsValidator
-from ats_utilities.info.setup.registry import InfoRegistry
+from ats_utilities.info.setup.dependencies import InfoBundleDependencies
+from ats_utilities.info.setup.options import InfoBundleOptions
+from ats_utilities.info.setup.opt_validator import InfoBundleOptionsValidator
+from ats_utilities.info.setup.registry import InfoBundleRegistry
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -43,7 +43,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class InfoFactory:
+class InfoBundleFactory:
     '''
         A factory for creating an InfoBundle.
 
@@ -54,21 +54,27 @@ class InfoFactory:
     '''
 
     @classmethod
-    def create_bundle(cls, options: InfoOptions) -> InfoBundle:
+    def create_bundle(cls, options: InfoBundleOptions) -> InfoBundle:
         '''
             Creates an info bundle with pre-configured options.
 
             :param options: The dictionary containing info options.
             :return: The info bundle.
             :exceptions:
-                | ATSValueError: Info options must be provided and have proper values.
-                | ATSTypeError:  Info options must be an instance of Mapping and its
+                | ATSValueError: The info bundle options must be provided and have proper values.
+                | ATSTypeError:  The info bundle options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The info bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The info bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The info bundle must be provided and have proper values.
+                | ATSTypeError:  The info bundle must be an instance of InfoBundle and its
                 |                attributes must be instances of their respective types.
         '''
-        InfoOptionsValidator.validate(options)
+        InfoBundleOptionsValidator.validate(options)
 
-        info_configuration: Mapping[str, object] = options.get(InfoKeys.OPTION_INFO)
-        context_bundle: ContextBundle = options.get(InfoKeys.OPTION_CONTEXT_BUNDLE)
+        info_configuration: Mapping[str, object] = options.get(InfoBundleKeys.OPTION_INFO)
+        context_bundle: ContextBundle = options.get(InfoBundleKeys.OPTION_CONTEXT_BUNDLE)
 
         key_to_type: MappingProxyType[str, type] = InfoSchema.get_config_key_to_type()
         bundle_kwargs: dict[str, object] = {}
@@ -78,7 +84,7 @@ class InfoFactory:
             attr_name: str = InfoSchema.get_name_of_config_key(key)
             attribute: object = info_configuration.get(key)
 
-            if attribute is not None and key is InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE:
+            if attribute is not None and key is InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE:
                 if isinstance(attribute, str):
                     attribute = True if attribute == 'True' else False
 
@@ -87,20 +93,20 @@ class InfoFactory:
 
             bundle_kwargs[attr_name] = engine_instance
 
-        bundle_kwargs[InfoKeys.OPTION_CONTEXT_BUNDLE] = context_bundle
+        bundle_kwargs[InfoBundleKeys.OPTION_CONTEXT_BUNDLE] = context_bundle
 
-        return InfoRegistry.create_bundle(
-            InfoDependencies(
-                name=bundle_kwargs.get(InfoKeys.DEPENDENCY_NAME),
-                version=bundle_kwargs.get(InfoKeys.DEPENDENCY_VERSION),
-                licence=bundle_kwargs.get(InfoKeys.DEPENDENCY_LICENCE),
-                build_date=bundle_kwargs.get(InfoKeys.DEPENDENCY_BUILD_DATE),
-                repository=bundle_kwargs.get(InfoKeys.DEPENDENCY_REPOSITORY),
-                organization=bundle_kwargs.get(InfoKeys.DEPENDENCY_ORGANIZATION),
-                use_github=bundle_kwargs.get(InfoKeys.DEPENDENCY_USE_GITHUB_INFRASTRUCTURE),
-                logo=bundle_kwargs.get(InfoKeys.DEPENDENCY_LOGO_PATH),
-                log_file=bundle_kwargs.get(InfoKeys.DEPENDENCY_LOG_FILE),
-                info_ok=bundle_kwargs.get(InfoKeys.DEPENDENCY_INFO_OK),
-                context_bundle=bundle_kwargs.get(InfoKeys.OPTION_CONTEXT_BUNDLE)
+        return InfoBundleRegistry.create_bundle(
+            InfoBundleDependencies(
+                name=bundle_kwargs.get(InfoBundleKeys.DEPENDENCY_NAME),
+                version=bundle_kwargs.get(InfoBundleKeys.DEPENDENCY_VERSION),
+                licence=bundle_kwargs.get(InfoBundleKeys.DEPENDENCY_LICENCE),
+                build_date=bundle_kwargs.get(InfoBundleKeys.DEPENDENCY_BUILD_DATE),
+                repository=bundle_kwargs.get(InfoBundleKeys.DEPENDENCY_REPOSITORY),
+                organization=bundle_kwargs.get(InfoBundleKeys.DEPENDENCY_ORGANIZATION),
+                use_github=bundle_kwargs.get(InfoBundleKeys.DEPENDENCY_USE_GITHUB_INFRASTRUCTURE),
+                logo=bundle_kwargs.get(InfoBundleKeys.DEPENDENCY_LOGO_PATH),
+                log_file=bundle_kwargs.get(InfoBundleKeys.DEPENDENCY_LOG_FILE),
+                info_ok=bundle_kwargs.get(InfoBundleKeys.DEPENDENCY_INFO_OK),
+                context_bundle=bundle_kwargs.get(InfoBundleKeys.OPTION_CONTEXT_BUNDLE)
             )
         )

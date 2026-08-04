@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of  the logger bundle.
+    Encapsulates core runtime components for simplification of the logger bundle.
 '''
 
 from __future__ import annotations
 
 from ats_utilities.logger.setup.bundle import LoggerBundle
-from ats_utilities.logger.setup.dependencies import LoggerDependencies
-from ats_utilities.logger.setup.keys import LoggerKeys
-from ats_utilities.logger.setup.validator import LoggerValidator
-from ats_utilities.logger.setup.dep_validator import LoggerDependenciesValidator
+from ats_utilities.logger.setup.dependencies import LoggerBundleDependencies
+from ats_utilities.logger.setup.keys import LoggerBundleKeys
+from ats_utilities.logger.setup.validator import LoggerBundleValidator
+from ats_utilities.logger.setup.dep_validator import LoggerBundleDependenciesValidator
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,7 +37,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class LoggerRegistry:
+class LoggerBundleRegistry:
     '''
         Encapsulates core runtime components for simplification of the logger bundle.
 
@@ -48,28 +48,31 @@ class LoggerRegistry:
     '''
 
     @classmethod
-    def create_bundle(cls, dependencies: LoggerDependencies) -> LoggerBundle:
+    def create_bundle(cls, dependencies: LoggerBundleDependencies) -> LoggerBundle:
         '''
             Orchestrates dependency injection and creates the logger bundle.
 
             :param dependencies: The registry-specific orchestration dependencies.
             :return: The logger bundle.
             :exceptions:
-                | ATSValueError: The dependencies must be provided and have proper values.
-                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The logger bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The logger bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The logger bundle must be provided and have proper values.
+                | ATSTypeError:  The logger bundle must be an instance of LoggerBundle and
+                |                its attributes must be instances of their respective types.
         '''
-        LoggerDependenciesValidator.validate(dependencies)
+        LoggerBundleDependenciesValidator.validate(dependencies)
 
         bundle: LoggerBundle = LoggerBundle(
-            logger=dependencies.get(LoggerKeys.DEPENDENCY_LOGGER) if dependencies else None,
-            has_file_handler=dependencies.get(LoggerKeys.DEPENDENCY_HAS_FILE_HANDLER) if dependencies else None,
-            formatter=dependencies.get(LoggerKeys.DEPENDENCY_FORMATTER) if dependencies else None,
-            buffer=dependencies.get(LoggerKeys.DEPENDENCY_BUFFER) if dependencies else None,
-            handler_manager=dependencies.get(LoggerKeys.DEPENDENCY_HANDLER_MANAGER) if dependencies else None,
-            message_processor=dependencies.get(LoggerKeys.DEPENDENCY_MESSAGE_PROCESSOR) if dependencies else None
+            logger=dependencies.get(LoggerBundleKeys.DEPENDENCY_LOGGER) if dependencies else None,
+            has_file_handler=dependencies.get(LoggerBundleKeys.DEPENDENCY_HAS_FILE_HANDLER) if dependencies else None,
+            formatter=dependencies.get(LoggerBundleKeys.DEPENDENCY_FORMATTER) if dependencies else None,
+            buffer=dependencies.get(LoggerBundleKeys.DEPENDENCY_BUFFER) if dependencies else None,
+            handler_manager=dependencies.get(LoggerBundleKeys.DEPENDENCY_HANDLER_MANAGER) if dependencies else None,
+            message_processor=dependencies.get(LoggerBundleKeys.DEPENDENCY_MESSAGE_PROCESSOR) if dependencies else None
         )
 
-        LoggerValidator.validate(bundle)
+        LoggerBundleValidator.validate(bundle)
 
         return bundle

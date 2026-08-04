@@ -13,14 +13,14 @@ from logging import DEBUG, INFO, WARNING, ERROR, CRITICAL
 from loguru import logger as loguru_native
 from ats_utilities.logger.underlying.iunderlying import IUnderlyingLogger
 from ats_utilities.logger.setup.bundle import LoggerBundle
-from ats_utilities.logger.setup.factory import LoggerFactory
+from ats_utilities.logger.setup.factory import LoggerBundleFactory
 from ats_utilities.logger.engine import Logger
 
 #
 # default logging [logging]
 # ==========================
 #
-logger_default: Logger = Logger(own=LoggerFactory.create_bundle())
+logger_default: Logger = Logger(own=LoggerBundleFactory.create_bundle())
 logger_default.write_log(DEBUG, "debug test")
 logger_default.write_log(INFO, "info test")
 logger_default.write_log(WARNING, "warning test")
@@ -68,7 +68,7 @@ class LoguruATSAdapter:
 
 
 custom_logger = LoguruATSAdapter()
-default_bundle = LoggerFactory.create_bundle()
+default_bundle = LoggerBundleFactory.create_bundle()
 bundle = LoggerBundle(
     logger=custom_logger,
     has_file_handler=default_bundle.has_file_handler,

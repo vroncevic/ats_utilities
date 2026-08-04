@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ContextValidator class.
+    Unit tests for ContextBundleValidator class.
 '''
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
@@ -33,7 +33,7 @@ from ats_utilities.exceptions import ATSValueError, ATSTypeError
 
 
 class TestContextValidator(unittest.TestCase):
-    """Unit tests for the ContextValidator class."""
+    """Unit tests for the ContextBundleValidator class."""
 
     def setUp(self) -> None:
         """Set up standard context bundle mocks."""
@@ -52,17 +52,17 @@ class TestContextValidator(unittest.TestCase):
         """Test validation succeeds with a valid ContextBundle."""
         bundle = ContextBundle(**self.valid_params)
         try:
-            ContextValidator.validate(bundle)
+            ContextBundleValidator.validate(bundle)
         except (ATSValueError, ATSTypeError) as e:
             self.fail(f"validate raised unexpected error: {e}")
 
     def test_validate_invalid_bundle(self) -> None:
         """Test validation fails when bundle itself is None or wrong type."""
         with self.assertRaises(ATSValueError):
-            ContextValidator.validate(None)  # type: ignore
+            ContextBundleValidator.validate(None)  # type: ignore
 
         with self.assertRaises(ATSTypeError):
-            ContextValidator.validate(object())  # type: ignore
+            ContextBundleValidator.validate(object())  # type: ignore
 
     def test_validate_invalid_none(self) -> None:
         """Test validation fails when a required field is None."""
@@ -76,7 +76,7 @@ class TestContextValidator(unittest.TestCase):
                 for k, v in mocks.items():
                     object.__setattr__(bundle, k, v)
                 with self.assertRaises(ATSValueError):
-                    ContextValidator.validate(bundle)
+                    ContextBundleValidator.validate(bundle)
 
     def test_validate_invalid_type(self) -> None:
         """Test validation fails when a field has an incorrect type."""
@@ -95,7 +95,7 @@ class TestContextValidator(unittest.TestCase):
                 for k, v in mocks.items():
                     object.__setattr__(bundle, k, v)
                 with self.assertRaises(ATSTypeError):
-                    ContextValidator.validate(bundle)
+                    ContextBundleValidator.validate(bundle)
 
 
 if __name__ == "__main__":

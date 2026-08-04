@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    The info dependencies for the info bundle creation.
+    The info bundle dependencies for the info bundle.
 '''
 
 from __future__ import annotations
@@ -45,9 +45,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class InfoDependencies(TypedDict):
+class InfoBundleDependencies(TypedDict):
     '''
-        The info dependencies for the info bundle creation.
+        The info bundle dependencies for the info bundle.
 
         It defines:
 

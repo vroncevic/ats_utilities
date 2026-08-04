@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for LoggerKeys class.
+    Unit tests for LoggerBundleKeys class.
 '''
 
 from __future__ import annotations
@@ -24,29 +24,29 @@ from __future__ import annotations
 import unittest
 from types import MappingProxyType
 
-from ats_utilities.logger.setup.keys import LoggerKeys
+from ats_utilities.logger.setup.keys import LoggerBundleKeys
 
 
 class LoggerKeysTest(unittest.TestCase):
     '''
         Defines class LoggerKeysTest with attribute(s) and method(s).
-        Tests LoggerKeys constants and mapping helper methods.
+        Tests LoggerBundleKeys constants and mapping helper methods.
     '''
 
     def test_keys(self) -> None:
-        self.assertEqual(LoggerKeys.DEPENDENCY_LOGGER, 'logger')
-        self.assertEqual(LoggerKeys.DEPENDENCY_HAS_FILE_HANDLER, 'has_file_handler')
-        self.assertEqual(LoggerKeys.OPTION_LOG_FILE, 'log_file')
+        self.assertEqual(LoggerBundleKeys.DEPENDENCY_LOGGER, 'logger')
+        self.assertEqual(LoggerBundleKeys.DEPENDENCY_HAS_FILE_HANDLER, 'has_file_handler')
+        self.assertEqual(LoggerBundleKeys.OPTION_LOG_FILE, 'log_file')
 
     def test_get_dependency_to_type(self) -> None:
-        mapping = LoggerKeys.get_dependency_to_type()
+        mapping = LoggerBundleKeys.get_dependency_to_type()
         self.assertIsInstance(mapping, MappingProxyType)
-        self.assertIn(LoggerKeys.DEPENDENCY_LOGGER, mapping)
+        self.assertIn(LoggerBundleKeys.DEPENDENCY_LOGGER, mapping)
 
     def test_get_option_to_type(self) -> None:
-        mapping = LoggerKeys.get_option_to_type()
+        mapping = LoggerBundleKeys.get_option_to_type()
         self.assertIsInstance(mapping, MappingProxyType)
-        self.assertIn(LoggerKeys.OPTION_LOG_FILE, mapping)
+        self.assertIn(LoggerBundleKeys.OPTION_LOG_FILE, mapping)
 
 
 if __name__ == "__main__":

@@ -54,16 +54,16 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Encapsulates core runtime components for simplification of  the logger bundle.</span>
+<span class="sd">    Encapsulates core runtime components for simplification of the logger bundle.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.bundle</span> <span class="kn">import</span> <span class="n">LoggerBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.dependencies</span> <span class="kn">import</span> <span class="n">LoggerDependencies</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.keys</span> <span class="kn">import</span> <span class="n">LoggerKeys</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.validator</span> <span class="kn">import</span> <span class="n">LoggerValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.dep_validator</span> <span class="kn">import</span> <span class="n">LoggerDependenciesValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.dependencies</span> <span class="kn">import</span> <span class="n">LoggerBundleDependencies</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.keys</span> <span class="kn">import</span> <span class="n">LoggerBundleKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.validator</span> <span class="kn">import</span> <span class="n">LoggerBundleValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.dep_validator</span> <span class="kn">import</span> <span class="n">LoggerBundleDependenciesValidator</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -75,9 +75,9 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="LoggerRegistry">
-<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.registry.html#ats_utilities.logger.setup.registry.LoggerRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">LoggerRegistry</span><span class="p">:</span>
+<div class="viewcode-block" id="LoggerBundleRegistry">
+<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.registry.html#ats_utilities.logger.setup.registry.LoggerBundleRegistry">[docs]</a>
+<span class="k">class</span> <span class="nc">LoggerBundleRegistry</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for simplification of the logger bundle.</span>
 
@@ -87,32 +87,35 @@
 <span class="sd">                | create_bundle - Orchestrates dependency injection and creates the logger bundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="LoggerRegistry.create_bundle">
-<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.registry.html#ats_utilities.logger.setup.registry.LoggerRegistry.create_bundle">[docs]</a>
+<div class="viewcode-block" id="LoggerBundleRegistry.create_bundle">
+<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.registry.html#ats_utilities.logger.setup.registry.LoggerBundleRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">LoggerDependencies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LoggerBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">LoggerBundleDependencies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LoggerBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Orchestrates dependency injection and creates the logger bundle.</span>
 
 <span class="sd">            :param dependencies: The registry-specific orchestration dependencies.</span>
 <span class="sd">            :return: The logger bundle.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: The dependencies must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes</span>
-<span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The logger bundle dependencies must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The logger bundle dependencies must be an instance of Mapping and its</span>
+<span class="sd">                |                attributes must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The logger bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The logger bundle must be an instance of LoggerBundle and</span>
+<span class="sd">                |                its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">LoggerDependenciesValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">dependencies</span><span class="p">)</span>
+        <span class="n">LoggerBundleDependenciesValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">dependencies</span><span class="p">)</span>
 
         <span class="n">bundle</span><span class="p">:</span> <span class="n">LoggerBundle</span> <span class="o">=</span> <span class="n">LoggerBundle</span><span class="p">(</span>
-            <span class="n">logger</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LoggerKeys</span><span class="o">.</span><span class="n">DEPENDENCY_LOGGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">has_file_handler</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LoggerKeys</span><span class="o">.</span><span class="n">DEPENDENCY_HAS_FILE_HANDLER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">formatter</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LoggerKeys</span><span class="o">.</span><span class="n">DEPENDENCY_FORMATTER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">buffer</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LoggerKeys</span><span class="o">.</span><span class="n">DEPENDENCY_BUFFER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">handler_manager</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LoggerKeys</span><span class="o">.</span><span class="n">DEPENDENCY_HANDLER_MANAGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">message_processor</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LoggerKeys</span><span class="o">.</span><span class="n">DEPENDENCY_MESSAGE_PROCESSOR</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">logger</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LoggerBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_LOGGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">has_file_handler</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LoggerBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_HAS_FILE_HANDLER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">formatter</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LoggerBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_FORMATTER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">buffer</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LoggerBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_BUFFER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">handler_manager</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LoggerBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_HANDLER_MANAGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">message_processor</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LoggerBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_MESSAGE_PROCESSOR</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="p">)</span>
 
-        <span class="n">LoggerValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+        <span class="n">LoggerBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">bundle</span></div>
 </div>

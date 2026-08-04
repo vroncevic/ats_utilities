@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for BaseOptions class.
+    Unit tests for BaseBundleOptions class.
 '''
 
 from __future__ import annotations
@@ -24,12 +24,12 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.base.setup.options import BaseOptions
+from ats_utilities.base.setup.options import BaseBundleOptions
 from ats_utilities.context.bundle import ContextBundle
 
 
 class TestBaseOptions(unittest.TestCase):
-    """Unit tests for the BaseOptions TypedDict structure."""
+    """Unit tests for the BaseBundleOptions TypedDict structure."""
 
     def setUp(self) -> None:
         """Set up standard dependencies and mock components for options testing."""
@@ -44,7 +44,7 @@ class TestBaseOptions(unittest.TestCase):
 
     def test_successful_initialization(self) -> None:
         """Test successful initialization when all parameters match types and constraints."""
-        options: BaseOptions = {
+        options: BaseBundleOptions = {
             "info_file": self.info_file,
             "use_generator": True,
             "context_bundle": self.mock_context_bundle

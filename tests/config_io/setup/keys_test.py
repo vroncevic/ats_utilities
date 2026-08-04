@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ConfigIOKeys class.
+    Unit tests for ConfigIOBundleKeys class.
 '''
 
 from __future__ import annotations
@@ -24,34 +24,34 @@ from __future__ import annotations
 import unittest
 from types import MappingProxyType
 
-from ats_utilities.config_io.setup.keys import ConfigIOKeys
+from ats_utilities.config_io.setup.keys import ConfigIOBundleKeys
 
 
 class ConfigIOKeysTest(unittest.TestCase):
     '''
         Defines class ConfigIOKeysTest with attribute(s) and method(s).
-        Tests ConfigIOKeys constants and mapping helper methods.
+        Tests ConfigIOBundleKeys constants and mapping helper methods.
     '''
 
     def test_keys(self) -> None:
-        self.assertEqual(ConfigIOKeys.DEPENDENCY_FILE_PATH, 'file_path')
-        self.assertEqual(ConfigIOKeys.DEPENDENCY_PROCESSOR, 'processor')
-        self.assertEqual(ConfigIOKeys.DEPENDENCY_CONTEXT_BUNDLE, 'context_bundle')
+        self.assertEqual(ConfigIOBundleKeys.DEPENDENCY_FILE_PATH, 'file_path')
+        self.assertEqual(ConfigIOBundleKeys.DEPENDENCY_PROCESSOR, 'processor')
+        self.assertEqual(ConfigIOBundleKeys.DEPENDENCY_CONTEXT_BUNDLE, 'context_bundle')
 
-        self.assertEqual(ConfigIOKeys.OPTION_FILE_PATH, 'file_path')
-        self.assertEqual(ConfigIOKeys.OPTION_SCHEME, 'scheme')
-        self.assertEqual(ConfigIOKeys.OPTION_CONTEXT_BUNDLE, 'context_bundle')
+        self.assertEqual(ConfigIOBundleKeys.OPTION_FILE_PATH, 'file_path')
+        self.assertEqual(ConfigIOBundleKeys.OPTION_SCHEME, 'scheme')
+        self.assertEqual(ConfigIOBundleKeys.OPTION_CONTEXT_BUNDLE, 'context_bundle')
 
     def test_get_dependency_to_type(self) -> None:
-        mapping = ConfigIOKeys.get_dependency_to_type()
+        mapping = ConfigIOBundleKeys.get_dependency_to_type()
         self.assertIsInstance(mapping, MappingProxyType)
-        self.assertIn(ConfigIOKeys.DEPENDENCY_FILE_PATH, mapping)
-        self.assertIn(ConfigIOKeys.DEPENDENCY_PROCESSOR, mapping)
+        self.assertIn(ConfigIOBundleKeys.DEPENDENCY_FILE_PATH, mapping)
+        self.assertIn(ConfigIOBundleKeys.DEPENDENCY_PROCESSOR, mapping)
 
     def test_get_option_to_type(self) -> None:
-        mapping = ConfigIOKeys.get_option_to_type()
+        mapping = ConfigIOBundleKeys.get_option_to_type()
         self.assertIsInstance(mapping, MappingProxyType)
-        self.assertEqual(mapping[ConfigIOKeys.OPTION_FILE_PATH], str)
+        self.assertEqual(mapping[ConfigIOBundleKeys.OPTION_FILE_PATH], str)
 
 
 if __name__ == "__main__":

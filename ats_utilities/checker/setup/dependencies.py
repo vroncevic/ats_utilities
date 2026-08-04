@@ -38,7 +38,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class CheckerDependencies(TypedDict):
+class CheckerBundleDependencies(TypedDict):
     '''
         Checker dependencies for the checker bundle.
 

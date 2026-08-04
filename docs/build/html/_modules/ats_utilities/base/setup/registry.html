@@ -60,10 +60,10 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.base.setup.bundle</span> <span class="kn">import</span> <span class="n">BaseBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.dependencies</span> <span class="kn">import</span> <span class="n">BaseDependencies</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.dep_validator</span> <span class="kn">import</span> <span class="n">BaseDependenciesValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.keys</span> <span class="kn">import</span> <span class="n">BaseKeys</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.validator</span> <span class="kn">import</span> <span class="n">BaseValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.dependencies</span> <span class="kn">import</span> <span class="n">BaseBundleDependencies</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.dep_validator</span> <span class="kn">import</span> <span class="n">BaseBundleDependenciesValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.keys</span> <span class="kn">import</span> <span class="n">BaseBundleKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.base.setup.validator</span> <span class="kn">import</span> <span class="n">BaseBundleValidator</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -75,9 +75,9 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="BaseRegistry">
-<a class="viewcode-back" href="../../../../ats_utilities.base.setup.registry.html#ats_utilities.base.setup.registry.BaseRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">BaseRegistry</span><span class="p">:</span>
+<div class="viewcode-block" id="BaseBundleRegistry">
+<a class="viewcode-back" href="../../../../ats_utilities.base.setup.registry.html#ats_utilities.base.setup.registry.BaseBundleRegistry">[docs]</a>
+<span class="k">class</span> <span class="nc">BaseBundleRegistry</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for simplification of base bundle.</span>
 
@@ -87,31 +87,34 @@
 <span class="sd">                | create_bundle - Orchestrates dependency injection and creates a base bundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="BaseRegistry.create_bundle">
-<a class="viewcode-back" href="../../../../ats_utilities.base.setup.registry.html#ats_utilities.base.setup.registry.BaseRegistry.create_bundle">[docs]</a>
+<div class="viewcode-block" id="BaseBundleRegistry.create_bundle">
+<a class="viewcode-back" href="../../../../ats_utilities.base.setup.registry.html#ats_utilities.base.setup.registry.BaseBundleRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">BaseDependencies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">BaseBundleDependencies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Orchestrates dependency injection and creates a base bundle.</span>
 
 <span class="sd">            :param dependencies: The registry-specific orchestration dependencies.</span>
 <span class="sd">            :return: The base bundle.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: The dependencies must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes</span>
-<span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The base bundle dependencies must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The base bundle dependencies must be an instance of Mapping and its</span>
+<span class="sd">                |                attributes must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The base bundle for base engine must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The base bundle for base engine must be an instance of BaseBundle and its</span>
+<span class="sd">                |                attributes must be instances of their respective interfaces and types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">BaseDependenciesValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">dependencies</span><span class="p">)</span>
+        <span class="n">BaseBundleDependenciesValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">dependencies</span><span class="p">)</span>
 
         <span class="n">bundle</span><span class="p">:</span> <span class="n">BaseBundle</span> <span class="o">=</span> <span class="n">BaseBundle</span><span class="p">(</span>
-            <span class="n">context_bundle</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseKeys</span><span class="o">.</span><span class="n">DEPENDENCY_CONTEXT_BUNDLE</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">info_manager</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseKeys</span><span class="o">.</span><span class="n">DEPENDENCY_INFO_MANAGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">option_manager</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseKeys</span><span class="o">.</span><span class="n">DEPENDENCY_OPTION_MANAGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">splash_manager</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseKeys</span><span class="o">.</span><span class="n">DEPENDENCY_SPLASH_MANAGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">generation_manager</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseKeys</span><span class="o">.</span><span class="n">DEPENDENCY_GENERATION_MANAGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">context_bundle</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_CONTEXT_BUNDLE</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">info_manager</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_INFO_MANAGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">option_manager</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_OPTION_MANAGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">splash_manager</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_SPLASH_MANAGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">generation_manager</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_GENERATION_MANAGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="p">)</span>
 
-        <span class="n">BaseValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+        <span class="n">BaseBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">bundle</span></div>
 </div>

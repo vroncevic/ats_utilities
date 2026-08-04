@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the splash dependencies.
+    Validator for the splash bundle dependencies.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.splash.setup.dependencies import SplashDependencies
+from ats_utilities.splash.setup.dependencies import SplashBundleDependencies
 from ats_utilities.splash.setup.keys import SplashKeys
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -39,30 +39,30 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class SplashDependenciesValidator:
+class SplashBundleDependenciesValidator:
     '''
-        A validator for the splash dependencies.
+        Validator for the splash bundle dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the splash dependencies.
+                | validate - Validates the splash bundle dependencies.
     '''
 
     @classmethod
-    def validate(cls, dependencies: SplashDependencies) -> None:
+    def validate(cls, dependencies: SplashBundleDependencies) -> None:
         '''
-            Validates the splash dependencies.
+            Validates the splash bundle dependencies.
 
-            :param dependencies: The splash dependencies instance to be validated.
+            :param dependencies: The splash bundle dependencies instance to be validated.
             :exceptions:
-                | ATSValueError: The dependencies must be provided and have proper attributes.
-                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes
+                | ATSValueError: The splash bundle dependencies must be provided and have proper attributes.
+                | ATSTypeError:  The splash bundle dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
-        ctx: str = 'splash_dependencies_validator::validate(...)'
-        msg_dependencies_none: str = 'the dependencies must be provided'
-        msg_dependencies_istype: str = 'the dependencies must be a Mapping'
+        ctx: str = 'splash_bundle_dependencies_validator::validate(...)'
+        msg_dependencies_none: str = 'the splash bundle dependencies must be provided'
+        msg_dependencies_istype: str = 'the splash bundle dependencies must be a Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_istype)
@@ -77,4 +77,4 @@ class SplashDependenciesValidator:
             istype(attribute, expected_type, ctx, msg_attr_istype)
 
             if attr_name == SplashKeys.DEPENDENCY_CONTEXT_BUNDLE:
-                ContextValidator.validate(attribute)
+                ContextBundleValidator.validate(attribute)

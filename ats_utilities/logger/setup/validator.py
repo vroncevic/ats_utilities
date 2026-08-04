@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the logger bundle.
+    Validator for the logger bundle.
 '''
 
 from __future__ import annotations
@@ -40,9 +40,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class LoggerValidator:
+class LoggerBundleValidator:
     '''
-        A validator for the logger bundle.
+        Validator for the logger bundle.
 
         It defines:
 
@@ -57,13 +57,13 @@ class LoggerValidator:
 
             :param bundle: The logger bundle to be validated.
             :exceptions:
-                | ATSValueError: The bundle must be provided and have proper values.
-                | ATSTypeError:  The bundle must be an instance of LoggerBundle and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The logger bundle must be provided and have proper values.
+                | ATSTypeError:  The logger bundle must be an instance of LoggerBundle and
+                |                its attributes must be instances of their respective types.
         '''
-        ctx: str = 'logger_validator::validate(...)'
-        msg_bundle_none: str = 'the bundle must be provided'
-        msg_bundle_istype: str = 'the bundle must be an instance of LoggerBundle'
+        ctx: str = 'logger_bundle_validator::validate(...)'
+        msg_bundle_none: str = 'the logger bundle must be provided'
+        msg_bundle_istype: str = 'the logger bundle must be an instance of LoggerBundle'
         msg_logger_none: str = 'the logger must be provided'
         msg_logger_istype: str = 'the logger must be an instance of IUnderlyingLogger'
         msg_has_file_handler_none: str = 'the has file handler flag must be provided'

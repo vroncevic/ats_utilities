@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ContextFactory class.
+    Unit tests for ContextBundleFactory class.
 '''
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ import unittest
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.factory import ContextFactory
+from ats_utilities.context.factory import ContextBundleFactory
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 
@@ -42,7 +42,7 @@ __status__: str = 'Development'
 class ContextFactoryTest(unittest.TestCase):
     '''
         Defines class ContextFactoryTest with attribute(s) and method(s).
-        Tests ContextFactory static factory logic.
+        Tests ContextBundleFactory static factory logic.
     '''
 
     def test_create_bundle(self) -> None:
@@ -52,7 +52,7 @@ class ContextFactoryTest(unittest.TestCase):
             :exceptions: None.
         '''
         # Test with verbose=False
-        bundle = ContextFactory.create_bundle({'verbose': False})
+        bundle = ContextBundleFactory.create_bundle({'verbose': False})
         self.assertIsInstance(bundle, ContextBundle)
         self.assertIsInstance(bundle.checker, IChecker)
         self.assertIsInstance(bundle.logger, ILogger)
@@ -60,7 +60,7 @@ class ContextFactoryTest(unittest.TestCase):
         self.assertFalse(bundle.verbose)
 
         # Test with verbose=True
-        bundle_verbose = ContextFactory.create_bundle({'verbose': True})
+        bundle_verbose = ContextBundleFactory.create_bundle({'verbose': True})
         self.assertIsInstance(bundle_verbose, ContextBundle)
         self.assertTrue(bundle_verbose.verbose)
 

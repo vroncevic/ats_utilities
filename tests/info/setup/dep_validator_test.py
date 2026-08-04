@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for InfoDependenciesValidator class.
+    Unit tests for InfoBundleDependenciesValidator class.
 '''
 
 from __future__ import annotations
@@ -24,8 +24,8 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.info.setup.dep_validator import InfoDependenciesValidator
-from ats_utilities.info.setup.dependencies import InfoDependencies
+from ats_utilities.info.setup.dep_validator import InfoBundleDependenciesValidator
+from ats_utilities.info.setup.dependencies import InfoBundleDependencies
 from ats_utilities.info.name.iname import IName
 from ats_utilities.info.version.iversion import IVersion
 from ats_utilities.info.licence.ilicence import ILicence
@@ -36,7 +36,7 @@ from ats_utilities.exceptions import ATSValueError, ATSTypeError
 
 
 class TestInfoDependenciesValidator(unittest.TestCase):
-    """Unit tests for the InfoDependenciesValidator class."""
+    """Unit tests for the InfoBundleDependenciesValidator class."""
 
     def setUp(self) -> None:
         """Set up valid mock objects and parameters for dependencies validation."""
@@ -47,7 +47,7 @@ class TestInfoDependenciesValidator(unittest.TestCase):
         self.mock_info_ok = MagicMock(spec=IInfoOk)
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
 
-        self.valid_dependencies = InfoDependencies(
+        self.valid_dependencies = InfoBundleDependencies(
             name=self.mock_name,
             version=self.mock_version,
             licence=self.mock_licence,
@@ -59,20 +59,20 @@ class TestInfoDependenciesValidator(unittest.TestCase):
     def test_successful_validation(self) -> None:
         """Test successful validation with all dependencies present and valid."""
         try:
-            InfoDependenciesValidator.validate(self.valid_dependencies)
+            InfoBundleDependenciesValidator.validate(self.valid_dependencies)
         except (ATSValueError, ATSTypeError) as e:
             self.fail(f"validate raised unexpected error: {e}")
 
     def test_missing_dependencies_raises_value_error(self) -> None:
         """Test that validation fails with ATSValueError when dependencies dict is None or missing keys."""
         with self.assertRaises(ATSValueError):
-            InfoDependenciesValidator.validate(None)  # type: ignore
+            InfoBundleDependenciesValidator.validate(None)  # type: ignore
 
         # Test missing name
         invalid_deps = self.valid_dependencies.copy()
         del invalid_deps['name']
         with self.assertRaises(ATSValueError):
-            InfoDependenciesValidator.validate(invalid_deps)
+            InfoBundleDependenciesValidator.validate(invalid_deps)
 
     def test_invalid_type_raises_type_error(self) -> None:
         """Test that validation fails with ATSTypeError when attributes have incorrect types."""
@@ -80,7 +80,7 @@ class TestInfoDependenciesValidator(unittest.TestCase):
         invalid_deps = self.valid_dependencies.copy()
         invalid_deps['name'] = "not_a_name"  # type: ignore
         with self.assertRaises(ATSTypeError):
-            InfoDependenciesValidator.validate(invalid_deps)
+            InfoBundleDependenciesValidator.validate(invalid_deps)
 
 
 if __name__ == '__main__':

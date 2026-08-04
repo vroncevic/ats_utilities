@@ -16,13 +16,13 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the option bundle.
+    Validator for the option bundle.
 '''
 
 from __future__ import annotations
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.option.setup.bundle import OptionBundle
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.validation.check_type import istype
@@ -38,9 +38,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class OptionValidator:
+class OptionBundleValidator:
     '''
-        A validator for the option bundle.
+        Validator for the option bundle.
 
         It defines:
 
@@ -55,19 +55,25 @@ class OptionValidator:
 
             :param bundle: The option bundle instance to be validated.
             :exceptions:
-                | ATSValueError: Option bundle must be provided and have proper values.
-                | ATSTypeError:  Option bundle must be an instance of OptionBundle and its
+                | ATSValueError: The option bundle must be provided and have proper values.
+                | ATSTypeError:  The option bundle must be an instance of OptionBundle and its
                 |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'option_validator::validate(...)'
+        ctx: str = 'option_bundle_validator::validate(...)'
+        msg_bundle_none: str = 'the option bundle must be provided'
+        msg_bundle_istype: str = 'the option bundle must be an instance of OptionBundle'
+        msg_strategy_none: str = 'the strategy must be provided'
+        msg_strategy_istype: str = 'the strategy must be an IParserStrategy instance'
+        msg_context_bundle_none: str = 'the context bundle must be provided'
+        msg_context_bundle_istype: str = 'the context bundle must be a ContextBundle instance'
 
-        not_none(bundle, ctx, 'option bundle must be provided')
-        istype(bundle, OptionBundle, ctx, 'option bundle must be an instance of OptionBundle')
+        not_none(bundle, ctx, msg_bundle_none)
+        istype(bundle, OptionBundle, ctx, msg_bundle_istype)
 
-        not_none(bundle.strategy, ctx, 'strategy must be provided')
-        not_none(bundle.context_bundle, ctx, 'context bundle must be provided')
+        not_none(bundle.strategy, ctx, msg_strategy_none)
+        not_none(bundle.context_bundle, ctx, msg_context_bundle_none)
 
-        istype(bundle.strategy, IParserStrategy, ctx, 'strategy must be an IParserStrategy instance')
-        istype(bundle.context_bundle, ContextBundle, ctx, 'context bundle must be a ContextBundle instance')
+        istype(bundle.strategy, IParserStrategy, ctx, msg_strategy_istype)
+        istype(bundle.context_bundle, ContextBundle, ctx, msg_context_bundle_istype)
 
-        ContextValidator.validate(bundle.context_bundle)
+        ContextBundleValidator.validate(bundle.context_bundle)

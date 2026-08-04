@@ -26,8 +26,8 @@ from collections.abc import Mapping
 from typing import Final
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
-from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.context.validator import ContextBundleValidator
+from ats_utilities.info.setup.keys import InfoBundleKeys
 from ats_utilities.info.setup.expose import InfoExpose
 from ats_utilities.utils.dicts import is_present_key
 from ats_utilities.utils.reflection import to_str
@@ -81,12 +81,11 @@ class SplashProperty:
 
             :param context_bundle: The context bundle for splash screen property.
             :exceptions:
-                | ATSValueError:  Context bundle must be provided and have proper values.
-                | ATSTypeError:   Context bundle must be an instance of ContextBundle
-                |                 and its attributes must be instances of their
-                |                 respective types.
+                | ATSValueError: The context bundle must be provided and have proper values.
+                | ATSTypeError:  The context bundle must be an instance of ContextBundle
+                |                and its attributes must be instances of their respective types.
         '''
-        ContextValidator.validate(context_bundle)
+        ContextBundleValidator.validate(context_bundle)
         self._context = context_bundle
         self._settings = {
             SplashProperty.ENABLED_SETTING : False,
@@ -131,11 +130,11 @@ class SplashProperty:
                 | ATSRuntimeError:   The decorator is used on a non-class method.
                 | ATSAttributeError: The class does not provide a '_checker' object.
         '''
-        is_name_present: bool = is_present_key(settings, InfoKeys.ATS_NAME)
-        is_repository_present: bool = is_present_key(settings, InfoKeys.ATS_REPOSITORY)
-        is_organization_present: bool = is_present_key(settings, InfoKeys.ATS_ORGANIZATION)
-        is_logo_present: bool = is_present_key(settings, InfoKeys.ATS_LOGO_PATH)
-        is_github_present: bool = is_present_key(settings, InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE)
+        is_name_present: bool = is_present_key(settings, InfoBundleKeys.ATS_NAME)
+        is_repository_present: bool = is_present_key(settings, InfoBundleKeys.ATS_REPOSITORY)
+        is_organization_present: bool = is_present_key(settings, InfoBundleKeys.ATS_ORGANIZATION)
+        is_logo_present: bool = is_present_key(settings, InfoBundleKeys.ATS_LOGO_PATH)
+        is_github_present: bool = is_present_key(settings, InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE)
 
         self._settings[SplashProperty.NAME_SETTING] = InfoExpose.get_name(settings) if is_name_present else None
         self._settings[SplashProperty.REPOSITORY_SETTING] = InfoExpose.get_repository(settings) if is_repository_present else None

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for CheckerValidator class.
+    Unit tests for CheckerBundleValidator class.
 '''
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.checker.setup.bundle import CheckerBundle
-from ats_utilities.checker.setup.validator import CheckerValidator
+from ats_utilities.checker.setup.validator import CheckerBundleValidator
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
@@ -36,7 +36,7 @@ from ats_utilities.exceptions import ATSTypeError, ATSValueError
 class ValidatorTest(unittest.TestCase):
     '''
         Defines class ValidatorTest with attribute(s) and method(s).
-        Tests CheckerValidator logic.
+        Tests CheckerBundleValidator logic.
     '''
 
     def test_validation_valid(self) -> None:
@@ -51,11 +51,11 @@ class ValidatorTest(unittest.TestCase):
             context_provider=mock_context,
             check_reporter=mock_reporter
         )
-        CheckerValidator.validate(bundle)
+        CheckerBundleValidator.validate(bundle)
 
     def test_validation_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            CheckerValidator.validate(None)  # type: ignore
+            CheckerBundleValidator.validate(None)  # type: ignore
 
         mock_format = MagicMock(spec=IFormatValidator)
         mock_type = MagicMock(spec=ITypeValidator)
@@ -69,7 +69,7 @@ class ValidatorTest(unittest.TestCase):
                 context_provider=mock_context,
                 check_reporter=mock_reporter
             )
-            CheckerValidator.validate(bundle)
+            CheckerBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSValueError):
             bundle = CheckerBundle(
@@ -78,7 +78,7 @@ class ValidatorTest(unittest.TestCase):
                 context_provider=mock_context,
                 check_reporter=mock_reporter
             )
-            CheckerValidator.validate(bundle)
+            CheckerBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSValueError):
             bundle = CheckerBundle(
@@ -87,7 +87,7 @@ class ValidatorTest(unittest.TestCase):
                 context_provider=None,  # type: ignore
                 check_reporter=mock_reporter
             )
-            CheckerValidator.validate(bundle)
+            CheckerBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSValueError):
             bundle = CheckerBundle(
@@ -96,11 +96,11 @@ class ValidatorTest(unittest.TestCase):
                 context_provider=mock_context,
                 check_reporter=None  # type: ignore
             )
-            CheckerValidator.validate(bundle)
+            CheckerBundleValidator.validate(bundle)
 
     def test_validation_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            CheckerValidator.validate("invalid")  # type: ignore
+            CheckerBundleValidator.validate("invalid")  # type: ignore
 
         mock_format = MagicMock(spec=IFormatValidator)
         mock_type = MagicMock(spec=ITypeValidator)
@@ -114,7 +114,7 @@ class ValidatorTest(unittest.TestCase):
                 context_provider=mock_context,
                 check_reporter=mock_reporter
             )
-            CheckerValidator.validate(bundle)
+            CheckerBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSTypeError):
             bundle = CheckerBundle(
@@ -123,7 +123,7 @@ class ValidatorTest(unittest.TestCase):
                 context_provider=mock_context,
                 check_reporter=mock_reporter
             )
-            CheckerValidator.validate(bundle)
+            CheckerBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSTypeError):
             bundle = CheckerBundle(
@@ -132,7 +132,7 @@ class ValidatorTest(unittest.TestCase):
                 context_provider="invalid",  # type: ignore
                 check_reporter=mock_reporter
             )
-            CheckerValidator.validate(bundle)
+            CheckerBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSTypeError):
             bundle = CheckerBundle(
@@ -141,7 +141,7 @@ class ValidatorTest(unittest.TestCase):
                 context_provider=mock_context,
                 check_reporter="invalid"  # type: ignore
             )
-            CheckerValidator.validate(bundle)
+            CheckerBundleValidator.validate(bundle)
 
 
 if __name__ == "__main__":

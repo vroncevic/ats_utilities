@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ContextOptions TypedDict.
+    Unit tests for ContextBundleOptions TypedDict.
 '''
 
 from __future__ import annotations
@@ -24,22 +24,22 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.context.options import ContextOptions
-from ats_utilities.checker.setup.options import CheckerOptions
-from ats_utilities.logger.setup.options import LoggerOptions
-from ats_utilities.reporter.setup.options import ReporterOptions
+from ats_utilities.context.options import ContextBundleOptions
+from ats_utilities.checker.setup.options import CheckerBundleOptions
+from ats_utilities.logger.setup.options import LoggerBundleOptions
+from ats_utilities.reporter.setup.options import ReporterBundleOptions
 
 
 class TestContextOptions(unittest.TestCase):
-    """Unit tests for the ContextOptions TypedDict structure."""
+    """Unit tests for the ContextBundleOptions TypedDict structure."""
 
     def test_context_options_dict(self) -> None:
-        """Test creating and accessing ContextOptions structure."""
-        mock_checker = MagicMock(spec=CheckerOptions)
-        mock_logger = MagicMock(spec=LoggerOptions)
-        mock_reporter = MagicMock(spec=ReporterOptions)
+        """Test creating and accessing ContextBundleOptions structure."""
+        mock_checker = MagicMock(spec=CheckerBundleOptions)
+        mock_logger = MagicMock(spec=LoggerBundleOptions)
+        mock_reporter = MagicMock(spec=ReporterBundleOptions)
 
-        options: ContextOptions = {
+        options: ContextBundleOptions = {
             "checker": mock_checker,
             "logger": mock_logger,
             "reporter": mock_reporter,

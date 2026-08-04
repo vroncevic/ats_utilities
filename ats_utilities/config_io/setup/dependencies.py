@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Config I/O dependencies for config I/O bundle creation.
+    Config I/O bundle dependencies for config I/O bundle.
 '''
 
 from __future__ import annotations
@@ -36,16 +36,16 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ConfigIODependencies(TypedDict):
+class ConfigIOBundleDependencies(TypedDict):
     '''
-        Config I/O dependencies for config I/O bundle creation.
+        Config I/O bundle dependencies for config I/O bundle.
 
         It defines:
 
             :attributes:
-                | file_path - The configuration file path.
-                | processor - The configuration processor.
-                | context_bundle - The context bundle.
+                | file_path - The configuration file path for generator bundle.
+                | processor - The configuration processor for generator bundle.
+                | context_bundle - The context bundle for generator bundle.
     '''
 
     file_path: str

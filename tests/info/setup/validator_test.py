@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for InfoValidator class.
+    Unit tests for InfoBundleValidator class.
 '''
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.info.build_date.ibuild_date import IBuildDate
 from ats_utilities.info.setup.bundle import InfoBundle
-from ats_utilities.info.setup.validator import InfoValidator
+from ats_utilities.info.setup.validator import InfoBundleValidator
 from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
 from ats_utilities.info.licence.ilicence import ILicence
 from ats_utilities.info.log_file.ilog_file import ILogFile
@@ -40,11 +40,11 @@ from ats_utilities.info.use_github.iuse_github import IUseGitHub
 from ats_utilities.info.version.iversion import IVersion
 
 
-@patch("ats_utilities.info.setup.validator.ContextValidator")
+@patch("ats_utilities.info.setup.validator.ContextBundleValidator")
 class ValidatorTest(unittest.TestCase):
     '''
         Defines class ValidatorTest with attribute(s) and method(s).
-        Tests InfoValidator logic.
+        Tests InfoBundleValidator logic.
     '''
 
     def _get_mocks(self) -> dict[str, MagicMock]:
@@ -67,7 +67,7 @@ class ValidatorTest(unittest.TestCase):
         bundle = InfoBundle(**mocks)
         mock_ctx_val.validate.side_effect = None
         # Should not raise any exception
-        InfoValidator.validate(bundle)
+        InfoBundleValidator.validate(bundle)
 
     def test_validate_invalid_none(self, mock_ctx_val: MagicMock) -> None:
         for key in self._get_mocks().keys():
@@ -84,7 +84,7 @@ class ValidatorTest(unittest.TestCase):
                     mock_ctx_val.validate.side_effect = None
                 
                 with self.assertRaises(ATSValueError):
-                    InfoValidator.validate(bundle)
+                    InfoBundleValidator.validate(bundle)
 
     def test_validate_invalid_type(self, mock_ctx_val: MagicMock) -> None:
         for key in self._get_mocks().keys():
@@ -101,7 +101,7 @@ class ValidatorTest(unittest.TestCase):
                     mock_ctx_val.validate.side_effect = None
 
                 with self.assertRaises(ATSTypeError):
-                    InfoValidator.validate(bundle)
+                    InfoBundleValidator.validate(bundle)
 
 
 if __name__ == "__main__":

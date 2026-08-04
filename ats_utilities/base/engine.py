@@ -23,7 +23,7 @@ Info
 from __future__ import annotations
 
 from ats_utilities.base.setup.bundle import BaseBundle
-from ats_utilities.base.setup.validator import BaseValidator
+from ats_utilities.base.setup.validator import BaseBundleValidator
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.generation.imanager import IGeneratorManager
 from ats_utilities.info.imanager import IInfoManager
@@ -86,7 +86,7 @@ class Base:
                 |                respective interfaces and types.
         '''
         self._is_initialized = False
-        BaseValidator.validate(own)
+        BaseBundleValidator.validate(own)
         self._apply_bundle(own)
 
         components: list[object] = [self._info_manager, self._splash_manager, self._option_manager]
@@ -118,7 +118,7 @@ class Base:
             :exceptions: None.
         '''
         try:
-            BaseValidator.validate(bundle)
+            BaseBundleValidator.validate(bundle)
             self._apply_bundle(bundle)
 
             components: list[object] = [self._info_manager, self._splash_manager, self._option_manager]

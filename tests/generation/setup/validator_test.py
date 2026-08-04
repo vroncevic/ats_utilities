@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for GeneratorValidator class.
+    Unit tests for GeneratorBundleValidator class.
 '''
 
 from __future__ import annotations
@@ -30,7 +30,7 @@ from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.generation.setup.bundle import GeneratorBundle
-from ats_utilities.generation.setup.validator import GeneratorValidator
+from ats_utilities.generation.setup.validator import GeneratorBundleValidator
 from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generation.tar.itar_processor import ITarProcessor
 
@@ -38,7 +38,7 @@ from ats_utilities.generation.tar.itar_processor import ITarProcessor
 class GeneratorValidatorTest(unittest.TestCase):
     '''
         Defines class GeneratorValidatorTest with attribute(s) and method(s).
-        Tests GeneratorValidator logic.
+        Tests GeneratorBundleValidator logic.
     '''
 
     def setUp(self) -> None:
@@ -59,14 +59,14 @@ class GeneratorValidatorTest(unittest.TestCase):
 
     def test_validate_valid(self) -> None:
         bundle = GeneratorBundle(**self.valid_params)
-        GeneratorValidator.validate(bundle)
+        GeneratorBundleValidator.validate(bundle)
 
     def test_validate_invalid_bundle(self) -> None:
         with self.assertRaises(ATSValueError):
-            GeneratorValidator.validate(None)  # type: ignore
+            GeneratorBundleValidator.validate(None)  # type: ignore
 
         with self.assertRaises(ATSTypeError):
-            GeneratorValidator.validate(object())  # type: ignore
+            GeneratorBundleValidator.validate(object())  # type: ignore
 
     def test_validate_invalid_none(self) -> None:
         fields = ["context_bundle", "scheme_loader", "tar_processor"]
@@ -77,7 +77,7 @@ class GeneratorValidatorTest(unittest.TestCase):
                 invalid_params[field] = None  # type: ignore
                 bundle = GeneratorBundle(**invalid_params)
                 with self.assertRaises(ATSValueError):
-                    GeneratorValidator.validate(bundle)
+                    GeneratorBundleValidator.validate(bundle)
 
     def test_validate_invalid_type(self) -> None:
         type_mismatches = {
@@ -92,7 +92,7 @@ class GeneratorValidatorTest(unittest.TestCase):
                 invalid_params[field] = bad_value
                 bundle = GeneratorBundle(**invalid_params)
                 with self.assertRaises(ATSTypeError):
-                    GeneratorValidator.validate(bundle)
+                    GeneratorBundleValidator.validate(bundle)
 
 
 if __name__ == "__main__":

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for OptionDependenciesValidator class.
+    Unit tests for OptionBundleDependenciesValidator class.
 '''
 
 from __future__ import annotations
@@ -26,8 +26,8 @@ from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
-from ats_utilities.option.setup.dependencies import OptionDependencies
-from ats_utilities.option.setup.dep_validator import OptionDependenciesValidator
+from ats_utilities.option.setup.dependencies import OptionBundleDependencies
+from ats_utilities.option.setup.dep_validator import OptionBundleDependenciesValidator
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
@@ -37,7 +37,7 @@ from ats_utilities.reporter.ireporter import IReporter
 class DepValidatorTest(unittest.TestCase):
     '''
         Defines class DepValidatorTest with attribute(s) and method(s).
-        Tests OptionDependenciesValidator logic.
+        Tests OptionBundleDependenciesValidator logic.
     '''
 
     def setUp(self) -> None:
@@ -51,39 +51,38 @@ class DepValidatorTest(unittest.TestCase):
         self.mock_context.verbose = True
 
     def test_validate_valid(self) -> None:
-        deps: OptionDependencies = {
+        deps: OptionBundleDependencies = {
             "strategy": self.mock_strategy,
             "context_bundle": self.mock_context
         }
-        # Should not raise any error
-        OptionDependenciesValidator.validate(deps)
+        OptionBundleDependenciesValidator.validate(deps)
 
     def test_validate_none(self) -> None:
         with self.assertRaises(ATSValueError) as context:
-            OptionDependenciesValidator.validate(None)  # type: ignore
-        self.assertEqual(str(context.exception), "option_dependencies_validator::validate(...) - the dependencies must be provided")
+            OptionBundleDependenciesValidator.validate(None)
+        self.assertEqual(str(context.exception), "option_bundle_dependencies_validator::validate(...) - the option bundle dependencies must be provided")
 
     def test_validate_not_mapping(self) -> None:
         with self.assertRaises(ATSTypeError) as context:
-            OptionDependenciesValidator.validate("invalid")  # type: ignore
-        self.assertEqual(str(context.exception), "option_dependencies_validator::validate(...) - the dependencies must be a Mapping")
+            OptionBundleDependenciesValidator.validate("invalid")
+        self.assertEqual(str(context.exception), "option_bundle_dependencies_validator::validate(...) - the option bundle dependencies must be a Mapping")
 
     def test_validate_missing_dependency(self) -> None:
-        deps: OptionDependencies = {
+        deps: OptionBundleDependencies = {
             "strategy": self.mock_strategy
-        }  # type: ignore
+        }
         with self.assertRaises(ATSValueError) as context:
-            OptionDependenciesValidator.validate(deps)
-        self.assertEqual(str(context.exception), "option_dependencies_validator::validate(...) - the context bundle must be provided")
+            OptionBundleDependenciesValidator.validate(deps)
+        self.assertEqual(str(context.exception), "option_bundle_dependencies_validator::validate(...) - the context bundle must be provided")
 
     def test_validate_invalid_dependency_type(self) -> None:
-        deps: OptionDependencies = {
-            "strategy": "invalid",  # type: ignore
+        deps: OptionBundleDependencies = {
+            "strategy": "invalid",
             "context_bundle": self.mock_context
         }
         with self.assertRaises(ATSTypeError) as context:
-            OptionDependenciesValidator.validate(deps)
-        self.assertEqual(str(context.exception), "option_dependencies_validator::validate(...) - the strategy must be an instance of IParserStrategy")
+            OptionBundleDependenciesValidator.validate(deps)
+        self.assertEqual(str(context.exception), "option_bundle_dependencies_validator::validate(...) - the strategy must be an instance of IParserStrategy")
 
 
 if __name__ == "__main__":

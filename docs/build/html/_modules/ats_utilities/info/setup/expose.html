@@ -62,7 +62,7 @@
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.keys</span> <span class="kn">import</span> <span class="n">InfoKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.keys</span> <span class="kn">import</span> <span class="n">InfoBundleKeys</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.dicts</span> <span class="kn">import</span> <span class="n">is_present_required_key</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -110,10 +110,10 @@
 <span class="sd">                | ATSValueError: The key ATS_NAME is not present in config.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info_expose::get_name(...)&#39;</span>
-        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
-        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
+        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InfoExpose.get_version">
@@ -129,10 +129,10 @@
 <span class="sd">                | ATSValueError: The key ATS_VERSION is not present in config.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info_expose::get_version(...)&#39;</span>
-        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_VERSION</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
-        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_VERSION</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_VERSION</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
+        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_VERSION</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_VERSION</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_VERSION</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InfoExpose.get_build_date">
@@ -148,10 +148,10 @@
 <span class="sd">                | ATSValueError: The key ATS_BUILD_DATE is not present in config.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info_expose::get_build_date(...)&#39;</span>
-        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_BUILD_DATE</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
-        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_BUILD_DATE</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_BUILD_DATE</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
+        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_BUILD_DATE</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_BUILD_DATE</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_BUILD_DATE</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InfoExpose.get_licence">
@@ -167,10 +167,10 @@
 <span class="sd">                | ATSValueError: The key ATS_LICENCE is not present in config.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info_expose::get_licence(...)&#39;</span>
-        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_LICENCE</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
-        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_LICENCE</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_LICENCE</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
+        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_LICENCE</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_LICENCE</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_LICENCE</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InfoExpose.get_repository">
@@ -186,10 +186,10 @@
 <span class="sd">                | ATSValueError: The key ATS_REPOSITORY is not present in config.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info_expose::get_repository(...)&#39;</span>
-        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
-        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
+        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InfoExpose.get_organization">
@@ -205,10 +205,10 @@
 <span class="sd">                | ATSValueError: The key ATS_ORGANIZATION is not present in config.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info_expose::get_organization(...)&#39;</span>
-        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
-        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
+        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InfoExpose.get_use_github_infrastructure">
@@ -224,10 +224,10 @@
 <span class="sd">                | ATSValueError: The key ATS_USE_GITHUB_INFRASTRUCTURE is not present in config.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info_expose::get_use_github_infrastructure(...)&#39;</span>
-        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_USE_GITHUB_INFRASTRUCTURE</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
-        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_USE_GITHUB_INFRASTRUCTURE</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_USE_GITHUB_INFRASTRUCTURE</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
+        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_USE_GITHUB_INFRASTRUCTURE</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_USE_GITHUB_INFRASTRUCTURE</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_USE_GITHUB_INFRASTRUCTURE</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InfoExpose.get_logo_path">
@@ -243,10 +243,10 @@
 <span class="sd">                | ATSValueError: The key ATS_LOGO_PATH is not present in config.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info_expose::get_logo_path(...)&#39;</span>
-        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_LOGO_PATH</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
-        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_LOGO_PATH</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_LOGO_PATH</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
+        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_LOGO_PATH</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_LOGO_PATH</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_LOGO_PATH</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InfoExpose.get_log_file">
@@ -262,10 +262,10 @@
 <span class="sd">                | ATSValueError: The key ATS_LOG_FILE is not present in config.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info_expose::get_log_file(...)&#39;</span>
-        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_LOG_FILE</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
-        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_LOG_FILE</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_LOG_FILE</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
+        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_LOG_FILE</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_LOG_FILE</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_LOG_FILE</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InfoExpose.get_info_ok">
@@ -281,10 +281,10 @@
 <span class="sd">                | ATSValueError: The key ATS_INFO_OK is not present in config.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info_expose::get_info_ok(...)&#39;</span>
-        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_INFO_OK</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
-        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_INFO_OK</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_INFO_OK</span><span class="si">}</span><span class="s1"> key is not present in config&#39;</span>
+        <span class="n">is_present_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_INFO_OK</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_INFO_OK</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_INFO_OK</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

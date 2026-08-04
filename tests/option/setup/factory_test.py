@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for OptionFactory class.
+    Unit tests for OptionBundleFactory class.
 '''
 
 from __future__ import annotations
@@ -26,8 +26,8 @@ from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.setup.bundle import OptionBundle
-from ats_utilities.option.setup.factory import OptionFactory
-from ats_utilities.option.setup.options import OptionOptions
+from ats_utilities.option.setup.factory import OptionBundleFactory
+from ats_utilities.option.setup.options import OptionBundleOptions
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
@@ -36,7 +36,7 @@ from ats_utilities.reporter.ireporter import IReporter
 class OptionFactoryTest(unittest.TestCase):
     '''
         Defines class OptionFactoryTest with attribute(s) and method(s).
-        Tests OptionFactory static factory logic.
+        Tests OptionBundleFactory static factory logic.
     '''
 
     def test_create_bundle(self) -> None:
@@ -52,12 +52,12 @@ class OptionFactoryTest(unittest.TestCase):
         mock_context.reporter = MagicMock(spec=IReporter)
         mock_context.verbose = True
 
-        opts: OptionOptions = {
+        opts: OptionBundleOptions = {
             "parameters": parameters,
             "context_bundle": mock_context
         }
 
-        bundle = OptionFactory.create_bundle(opts)
+        bundle = OptionBundleFactory.create_bundle(opts)
         self.assertIsInstance(bundle, OptionBundle)
         self.assertIs(bundle.context_bundle, mock_context)
         self.assertIsNotNone(bundle.strategy)

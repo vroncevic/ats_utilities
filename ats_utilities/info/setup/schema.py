@@ -25,7 +25,7 @@ from __future__ import annotations
 from collections.abc import Sequence, Mapping
 from types import MappingProxyType
 
-from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.keys import InfoBundleKeys
 from ats_utilities.info.name.engine import Name
 from ats_utilities.info.version.engine import Version
 from ats_utilities.info.build_date.engine import BuildDate
@@ -79,16 +79,16 @@ class InfoSchema:
             :exceptions: None.
         '''
         return (
-            InfoKeys.ATS_NAME,
-            InfoKeys.ATS_VERSION,
-            InfoKeys.ATS_BUILD_DATE,
-            InfoKeys.ATS_LICENCE,
-            InfoKeys.ATS_REPOSITORY,
-            InfoKeys.ATS_ORGANIZATION,
-            InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE,
-            InfoKeys.ATS_LOGO_PATH,
-            InfoKeys.ATS_LOG_FILE,
-            InfoKeys.ATS_INFO_OK
+            InfoBundleKeys.ATS_NAME,
+            InfoBundleKeys.ATS_VERSION,
+            InfoBundleKeys.ATS_BUILD_DATE,
+            InfoBundleKeys.ATS_LICENCE,
+            InfoBundleKeys.ATS_REPOSITORY,
+            InfoBundleKeys.ATS_ORGANIZATION,
+            InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE,
+            InfoBundleKeys.ATS_LOGO_PATH,
+            InfoBundleKeys.ATS_LOG_FILE,
+            InfoBundleKeys.ATS_INFO_OK
         )
 
     @classmethod
@@ -111,16 +111,16 @@ class InfoSchema:
             :exceptions: None.
         '''
         return MappingProxyType({
-            InfoKeys.ATS_NAME: InfoKeys.DEPENDENCY_NAME,
-            InfoKeys.ATS_VERSION: InfoKeys.DEPENDENCY_VERSION,
-            InfoKeys.ATS_BUILD_DATE: InfoKeys.DEPENDENCY_BUILD_DATE,
-            InfoKeys.ATS_LICENCE: InfoKeys.DEPENDENCY_LICENCE,
-            InfoKeys.ATS_REPOSITORY: InfoKeys.DEPENDENCY_REPOSITORY,
-            InfoKeys.ATS_ORGANIZATION: InfoKeys.DEPENDENCY_ORGANIZATION,
-            InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: InfoKeys.DEPENDENCY_USE_GITHUB_INFRASTRUCTURE,
-            InfoKeys.ATS_LOGO_PATH: InfoKeys.DEPENDENCY_LOGO_PATH,
-            InfoKeys.ATS_LOG_FILE: InfoKeys.DEPENDENCY_LOG_FILE,
-            InfoKeys.ATS_INFO_OK: InfoKeys.DEPENDENCY_INFO_OK,
+            InfoBundleKeys.ATS_NAME: InfoBundleKeys.DEPENDENCY_NAME,
+            InfoBundleKeys.ATS_VERSION: InfoBundleKeys.DEPENDENCY_VERSION,
+            InfoBundleKeys.ATS_BUILD_DATE: InfoBundleKeys.DEPENDENCY_BUILD_DATE,
+            InfoBundleKeys.ATS_LICENCE: InfoBundleKeys.DEPENDENCY_LICENCE,
+            InfoBundleKeys.ATS_REPOSITORY: InfoBundleKeys.DEPENDENCY_REPOSITORY,
+            InfoBundleKeys.ATS_ORGANIZATION: InfoBundleKeys.DEPENDENCY_ORGANIZATION,
+            InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE: InfoBundleKeys.DEPENDENCY_USE_GITHUB_INFRASTRUCTURE,
+            InfoBundleKeys.ATS_LOGO_PATH: InfoBundleKeys.DEPENDENCY_LOGO_PATH,
+            InfoBundleKeys.ATS_LOG_FILE: InfoBundleKeys.DEPENDENCY_LOG_FILE,
+            InfoBundleKeys.ATS_INFO_OK: InfoBundleKeys.DEPENDENCY_INFO_OK,
         })
 
     @classmethod
@@ -132,12 +132,12 @@ class InfoSchema:
             :exceptions: None.
         '''
         return (
-            InfoKeys.ATS_REPOSITORY,
-            InfoKeys.ATS_ORGANIZATION,
-            InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE,
-            InfoKeys.ATS_LOGO_PATH,
-            InfoKeys.ATS_LOG_FILE,
-            InfoKeys.ATS_INFO_OK
+            InfoBundleKeys.ATS_REPOSITORY,
+            InfoBundleKeys.ATS_ORGANIZATION,
+            InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE,
+            InfoBundleKeys.ATS_LOGO_PATH,
+            InfoBundleKeys.ATS_LOG_FILE,
+            InfoBundleKeys.ATS_INFO_OK
         )
 
     @classmethod
@@ -231,14 +231,14 @@ class InfoSchema:
             :exceptions: None.
         '''
         return MappingProxyType({
-            InfoKeys.ATS_NAME: Name,
-            InfoKeys.ATS_VERSION: Version,
-            InfoKeys.ATS_BUILD_DATE: BuildDate,
-            InfoKeys.ATS_LICENCE: Licence,
-            InfoKeys.ATS_REPOSITORY: Repository,
-            InfoKeys.ATS_ORGANIZATION: Organization,
-            InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: UseGitHub,
-            InfoKeys.ATS_LOGO_PATH: Logo,
-            InfoKeys.ATS_LOG_FILE: LogFile,
-            InfoKeys.ATS_INFO_OK: InfoOk
+            InfoBundleKeys.ATS_NAME: Name,
+            InfoBundleKeys.ATS_VERSION: Version,
+            InfoBundleKeys.ATS_BUILD_DATE: BuildDate,
+            InfoBundleKeys.ATS_LICENCE: Licence,
+            InfoBundleKeys.ATS_REPOSITORY: Repository,
+            InfoBundleKeys.ATS_ORGANIZATION: Organization,
+            InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE: UseGitHub,
+            InfoBundleKeys.ATS_LOGO_PATH: Logo,
+            InfoBundleKeys.ATS_LOG_FILE: LogFile,
+            InfoBundleKeys.ATS_INFO_OK: InfoOk
         })

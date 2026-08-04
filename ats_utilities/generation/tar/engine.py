@@ -40,7 +40,7 @@ from ats_utilities.utils.files import (
     write_content
 )
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.exceptions import ATSGeneratorError
 from ats_utilities.validation.check_value import not_satisfied, not_none
 from ats_utilities.validation.check_type import istype
@@ -83,18 +83,18 @@ class TarProcessor:
             :param context_bundle: The context bundle for tar processor.
             :param template_processor: The custom template rendering component.
             :exceptions:
-                | ATSValueError: Context bundle must be provided and have proper values.
-                | ATSTypeError:  Context bundle must be an instance of ContextBundle and
+                | ATSValueError: The context bundle must be provided and have proper values.
+                | ATSTypeError:  The context bundle must be an instance of ContextBundle and
                 |                its attributes must be instances of their respective types.
-                | ATSValueError: Template processor must be provided.
-                | ATSTypeError:  Template processor must be an instance of ITemplateProcessor.   
+                | ATSValueError: The template processor must be provided.
+                | ATSTypeError:  The template processor must be an instance of ITemplateProcessor.   
         '''
-        ContextValidator.validate(context_bundle)
+        ContextBundleValidator.validate(context_bundle)
         self._context = context_bundle
 
         ctx: str = 'tar_processor::init(...)'
-        msg_template_processor_none: str = 'template processor must be provided'
-        msg_template_processor_istype: str = 'template processor must be an instance of ITemplateProcessor'
+        msg_template_processor_none: str = 'the template processor must be provided'
+        msg_template_processor_istype: str = 'the template processor must be an instance of ITemplateProcessor'
 
         not_none(template_processor, ctx, msg_template_processor_none)
         istype(template_processor, ITemplateProcessor, ctx, msg_template_processor_istype)
@@ -107,8 +107,8 @@ class TarProcessor:
 
             :param data: The parameters defining what to do with the tar archive member.
             :exceptions:
-                | ATSValueError: Tar member data must be provided and have proper values.
-                | ATSTypeError:  Tar member data must be an instance of TarMemberData and
+                | ATSValueError: The tar member data must be provided and have proper values.
+                | ATSTypeError:  The tar member data must be an instance of TarMemberData and
                 |                its attributes must be instances of their respective types.
         '''
         TarMemberDataValidator.validate(data)
@@ -126,7 +126,7 @@ class TarProcessor:
                 ctx: str = 'tar_processor::process_tar_member(...)'
                 write_content(
                     data.dest_full_path, rendered, ctx,
-                    f'error writing to file {data.dest_full_path}'
+                    f'the error writing to file {data.dest_full_path}'
                 )
 
     def process(self, data: TarData) -> None:
@@ -135,8 +135,8 @@ class TarProcessor:
 
             :param data: The parameters defining what to do with the tar archive.
             :exceptions:
-                | ATSValueError: Tar data must be provided and have proper values.
-                | ATSTypeError:  Tar data must be an instance of TarData and
+                | ATSValueError: The tar data must be provided and have proper values.
+                | ATSTypeError:  The tar data must be an instance of TarData and
                 |                its attributes must be instances of their respective types.
         '''
         ctx: str = 'tar_processor::process(...)'
@@ -148,10 +148,10 @@ class TarProcessor:
                 source_dir_clean = normalize_path(data.source_dir, ctx)
 
                 for member in tar.getmembers():
-                    msg_path_err: str = f'error normalizing path {member.name} in tar {data.archive_path}'
+                    msg_path_err: str = f'the error normalizing path {member.name} in tar {data.archive_path}'
                     normalized_name = normalize_path(member.name, ctx, msg_path_err)
 
-                    msg_resolve_path_err: str = f'error resolving relative path {normalized_name}'
+                    msg_resolve_path_err: str = f'the error resolving relative path {normalized_name}'
                     msg_resolve_path_err_with_source: str = f'{msg_resolve_path_err} with source dir {source_dir_clean}'
                     rel_path = resolve_relative_path(
                         normalized_name, source_dir_clean, ctx, msg_resolve_path_err_with_source
@@ -160,13 +160,13 @@ class TarProcessor:
                     if rel_path is None or not rel_path:
                         continue
 
-                    msg_exclude_path_err: str = f'error checking for excluded path {rel_path}'
+                    msg_exclude_path_err: str = f'the error checking for excluded path {rel_path}'
                     msg_exclude_path_err_with_patterns: str = f'{msg_exclude_path_err} with patterns {data.exclude_patterns}'
 
                     if is_excluded_path(rel_path, data.exclude_patterns, ctx, msg_exclude_path_err_with_patterns):
                         continue
 
-                    msg_path_replace_err: str = f'error applying path replacements to {rel_path}'
+                    msg_path_replace_err: str = f'the error applying path replacements to {rel_path}'
                     msg_path_replace_err_with_patterns: str = f'{msg_path_replace_err} with patterns {data.path_replacements}'
                     dest_rel_path = apply_path_replacements(
                         rel_path, data.path_replacements, data.vals, ctx, msg_path_replace_err_with_patterns
@@ -180,7 +180,7 @@ class TarProcessor:
 
         except Exception as exc:
             msg: str = format_error_raw(exc, self._context.verbose)
-            msg_fail: str = f'process execution failed: {msg}'
+            msg_fail: str = f'the process execution failed: {msg}'
             not_satisfied(True, ctx, msg_fail, ATSGeneratorError)
 
     def is_initialized(self) -> bool:

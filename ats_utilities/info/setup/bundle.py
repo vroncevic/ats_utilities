@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates the info runtime components for the simplification of the info bundle creation.
+    Encapsulates the info runtime components for the simplification of the info bundle.
 '''
 
 from __future__ import annotations
@@ -49,7 +49,7 @@ __status__ = 'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class InfoBundle:
     '''
-        Encapsulates the info runtime components for the simplification of the info bundle creation.
+        Encapsulates the info runtime components for the simplification of the info bundle.
 
         It defines:
 

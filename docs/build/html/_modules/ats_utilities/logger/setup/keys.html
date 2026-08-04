@@ -78,27 +78,30 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="LoggerKeys">
-<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.keys.html#ats_utilities.logger.setup.keys.LoggerKeys">[docs]</a>
-<span class="k">class</span> <span class="nc">LoggerKeys</span><span class="p">:</span>
+<div class="viewcode-block" id="LoggerBundleKeys">
+<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.keys.html#ats_utilities.logger.setup.keys.LoggerBundleKeys">[docs]</a>
+<span class="k">class</span> <span class="nc">LoggerBundleKeys</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Runtime components and interface constraints for the logger bundle.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | DEPENDENCY_LOGGER - The logger interface constant.</span>
-<span class="sd">                | DEPENDENCY_HAS_FILE_HANDLER - The has file handler flag interface constant.</span>
-<span class="sd">                | DEPENDENCY_FORMATTER - The formatter interface constant.</span>
-<span class="sd">                | DEPENDENCY_BUFFER - The buffer interface constant.</span>
-<span class="sd">                | DEPENDENCY_HANDLER_MANAGER - The handler manager interface constant.</span>
-<span class="sd">                | OPTION_LOG_FILE - The log file path option constant.</span>
-<span class="sd">                | OPTION_LOG_LEVEL - The log level option constant.</span>
-<span class="sd">                | OPTION_LOG_FORMAT - The format string for the log messages option constant.</span>
-<span class="sd">                | OPTION_LOG_DATEFMT - The date format string for the log messages option constant.</span>
+<span class="sd">                | DEPENDENCY_LOGGER - The logger interface constant for the logger bundle.</span>
+<span class="sd">                | DEPENDENCY_HAS_FILE_HANDLER - The has file handler flag interface constant for the logger bundle.</span>
+<span class="sd">                | DEPENDENCY_FORMATTER - The formatter interface constant for the logger bundle.</span>
+<span class="sd">                | DEPENDENCY_BUFFER - The buffer interface constant for the logger bundle.</span>
+<span class="sd">                | DEPENDENCY_HANDLER_MANAGER - The handler manager interface constant for the logger bundle.</span>
+<span class="sd">                | DEPENDENCY_MESSAGE_PROCESSOR - The message processor interface constant for the logger bundle.</span>
+<span class="sd">                | OPTION_LOG_FILE - The log file path option constant for the logger bundle.</span>
+<span class="sd">                | OPTION_LOG_LEVEL - The log level option constant for logger bundle.</span>
+<span class="sd">                | OPTION_LOG_FORMAT - The format string for the log messages option constant for logger bundle.</span>
+<span class="sd">                | OPTION_LOG_DATEFMT - The date format string for the log messages option constant for logger bundle.</span>
+<span class="sd">                | OPTION_LOG_BUFFER_SIZE - The buffer size option constant for logger bundle.</span>
+<span class="sd">                | OPTION_LOG_MESSAGE_PATTERN - The message pattern option constant for logger bundle.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | get_dependency_to_type - Returns the mapping of the logger dependencies to their types.</span>
-<span class="sd">                | get_option_to_type - Returns the mapping of the logger options to their types.</span>
+<span class="sd">                | get_dependency_to_type - Returns the mapping of the logger bundle dependencies to their types.</span>
+<span class="sd">                | get_option_to_type - Returns the mapping of the logger bundle options to their types.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="c1"># Dependency Keys</span>
@@ -117,14 +120,14 @@
     <span class="n">OPTION_LOG_BUFFER_SIZE</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;log_buffer_size&#39;</span>
     <span class="n">OPTION_LOG_MESSAGE_PATTERN</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;message_pattern&#39;</span>
 
-<div class="viewcode-block" id="LoggerKeys.get_dependency_to_type">
-<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.keys.html#ats_utilities.logger.setup.keys.LoggerKeys.get_dependency_to_type">[docs]</a>
+<div class="viewcode-block" id="LoggerBundleKeys.get_dependency_to_type">
+<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.keys.html#ats_utilities.logger.setup.keys.LoggerBundleKeys.get_dependency_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_dependency_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the mapping of the logger dependencies to their types.</span>
+<span class="sd">            Returns the mapping of the logger bundle dependencies to their types.</span>
 
-<span class="sd">            :return: The mapping of the logger dependencies to their types.</span>
+<span class="sd">            :return: The mapping of the logger bundle dependencies to their types.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">({</span>
@@ -137,14 +140,14 @@
         <span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="LoggerKeys.get_option_to_type">
-<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.keys.html#ats_utilities.logger.setup.keys.LoggerKeys.get_option_to_type">[docs]</a>
+<div class="viewcode-block" id="LoggerBundleKeys.get_option_to_type">
+<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.keys.html#ats_utilities.logger.setup.keys.LoggerBundleKeys.get_option_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_option_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the mapping of the logger options to their types.</span>
+<span class="sd">            Returns the mapping of the logger bundle options to their types.</span>
 
-<span class="sd">            :return: The mapping of the logger options to their types.</span>
+<span class="sd">            :return: The mapping of the logger bundle options to their types.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">({</span>

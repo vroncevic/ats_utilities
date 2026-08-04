@@ -28,7 +28,7 @@ from termios import TIOCGWINSZ
 from struct import unpack, pack
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -69,12 +69,11 @@ class TerminalProperties:
 
             :param context_bundle: The context bundle for terminal properties.
             :exceptions:
-                | ATSValueError:  Context bundle must be provided and have proper values.
-                | ATSTypeError:   Context bundle must be an instance of ContextBundle
-                |                 and its attributes must be instances of their
-                |                 respective types.
+                | ATSValueError: The context bundle must be provided and have proper values.
+                | ATSTypeError:  The context bundle must be an instance of ContextBundle
+                |                and its attributes must be instances of their respective types.
         '''
-        ContextValidator.validate(context_bundle)
+        ContextBundleValidator.validate(context_bundle)
         self._context = context_bundle
         self._window_size = None
 

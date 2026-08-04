@@ -54,15 +54,15 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    A validator for the info dependencies.</span>
+<span class="sd">    Validator for the info bundle dependencies.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.dependencies</span> <span class="kn">import</span> <span class="n">InfoDependencies</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.keys</span> <span class="kn">import</span> <span class="n">InfoKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.dependencies</span> <span class="kn">import</span> <span class="n">InfoBundleDependencies</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.keys</span> <span class="kn">import</span> <span class="n">InfoBundleKeys</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.setup.schema</span> <span class="kn">import</span> <span class="n">InfoSchema</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span><span class="p">,</span> <span class="n">not_satisfied</span>
@@ -77,34 +77,34 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="InfoDependenciesValidator">
-<a class="viewcode-back" href="../../../../ats_utilities.info.setup.dep_validator.html#ats_utilities.info.setup.dep_validator.InfoDependenciesValidator">[docs]</a>
-<span class="k">class</span> <span class="nc">InfoDependenciesValidator</span><span class="p">:</span>
+<div class="viewcode-block" id="InfoBundleDependenciesValidator">
+<a class="viewcode-back" href="../../../../ats_utilities.info.setup.dep_validator.html#ats_utilities.info.setup.dep_validator.InfoBundleDependenciesValidator">[docs]</a>
+<span class="k">class</span> <span class="nc">InfoBundleDependenciesValidator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        A validator for the info dependencies.</span>
+<span class="sd">        Validator for the info bundle dependencies.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :methods:</span>
-<span class="sd">                | validate - Validates the info dependencies.</span>
+<span class="sd">                | validate - Validates the info bundle dependencies.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="InfoDependenciesValidator.validate">
-<a class="viewcode-back" href="../../../../ats_utilities.info.setup.dep_validator.html#ats_utilities.info.setup.dep_validator.InfoDependenciesValidator.validate">[docs]</a>
+<div class="viewcode-block" id="InfoBundleDependenciesValidator.validate">
+<a class="viewcode-back" href="../../../../ats_utilities.info.setup.dep_validator.html#ats_utilities.info.setup.dep_validator.InfoBundleDependenciesValidator.validate">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">InfoDependencies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">InfoBundleDependencies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Validates the info dependencies.</span>
+<span class="sd">            Validates the info bundle dependencies.</span>
 
-<span class="sd">            :param dependencies: The info dependencies instance to be validated.</span>
+<span class="sd">            :param dependencies: The info bundle dependencies instance to be validated.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Dependencies must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Dependencies must be an instance of Mapping and its</span>
+<span class="sd">                | ATSValueError: The info bundle dependencies must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The info bundle dependencies must be an instance of Mapping and its</span>
 <span class="sd">                |                attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info_dependencies_validator::validate(...)&#39;</span>
-        <span class="n">msg_dependencies_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the dependencies must be provided&#39;</span>
-        <span class="n">msg_dependencies_not_mapping</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the dependencies must be an instance of Mapping&#39;</span>
+        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;info_bundle_dependencies_validator::validate(...)&#39;</span>
+        <span class="n">msg_dependencies_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the info bundle dependencies must be provided&#39;</span>
+        <span class="n">msg_dependencies_not_mapping</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the info bundle dependencies must be an instance of Mapping&#39;</span>
 
         <span class="n">not_none</span><span class="p">(</span><span class="n">dependencies</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_dependencies_none</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">dependencies</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_dependencies_not_mapping</span><span class="p">)</span>
@@ -120,7 +120,7 @@
             <span class="n">msg_key_missing</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> must be provided in dependencies&#39;</span>
             <span class="n">not_satisfied</span><span class="p">(</span><span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_key_missing</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">attr_name</span><span class="p">,</span> <span class="n">expected_type</span> <span class="ow">in</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">get_dependency_to_type</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">attr_name</span><span class="p">,</span> <span class="n">expected_type</span> <span class="ow">in</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">get_dependency_to_type</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">msg_attr_required_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">attr_name</span><span class="si">}</span><span class="s1"> must be provided and have proper attribute&#39;</span>
             <span class="n">msg_attr_optional_not_instance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">attr_name</span><span class="si">}</span><span class="s1"> must be an instance of </span><span class="si">{</span><span class="n">expected_type</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span>
 

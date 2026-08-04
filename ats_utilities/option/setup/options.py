@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Option options for option bundle creation.
+    Option bundle options for option bundle.
 '''
 
 from __future__ import annotations
@@ -36,15 +36,15 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class OptionOptions(TypedDict):
+class OptionBundleOptions(TypedDict):
     '''
-        Option options for option bundle creation.
+        Option bundle options for option bundle.
 
         It defines:
 
             :attributes:
-                | parameters - The configuration parameters.
-                | context_bundle - The context bundle for dependency injection.
+                | parameters - The configuration parameters for the option bundle.
+                | context_bundle - The context bundle for dependency injection for the option bundle.
     '''
 
     parameters: Mapping[str, str]

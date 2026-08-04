@@ -68,8 +68,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseKeys">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.base.setup.keys.</span></span><span class="sig-name descname"><span class="pre">BaseKeys</span></span><a class="reference internal" href="_modules/ats_utilities/base/setup/keys.html#BaseKeys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseKeys" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseBundleKeys">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.base.setup.keys.</span></span><span class="sig-name descname"><span class="pre">BaseBundleKeys</span></span><a class="reference internal" href="_modules/ats_utilities/base/setup/keys.html#BaseBundleKeys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseBundleKeys" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Runtime components and interface constraints for base bundle.</p>
 <p>It defines:</p>
@@ -77,14 +77,14 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant.</div>
-<div class="line">DEPENDENCY_INFO_MANAGER - The information manager interface constant.</div>
-<div class="line">DEPENDENCY_OPTION_MANAGER - The option manager interface constant.</div>
-<div class="line">DEPENDENCY_SPLASH_MANAGER - The splash manager interface constant.</div>
-<div class="line">DEPENDENCY_GENERATION_MANAGER - The generator manager interface constant.</div>
-<div class="line">OPTION_INFO_FILE - The information file constant.</div>
-<div class="line">OPTION_USE_GENERATOR - The use generator constant.</div>
-<div class="line">OPTION_CONTEXT_BUNDLE - The context bundle constant.</div>
+<div class="line">DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant for base bundle.</div>
+<div class="line">DEPENDENCY_INFO_MANAGER - The information manager interface constant for base bundle.</div>
+<div class="line">DEPENDENCY_OPTION_MANAGER - The option manager interface constant for base bundle.</div>
+<div class="line">DEPENDENCY_SPLASH_MANAGER - The splash manager interface constant for base bundle.</div>
+<div class="line">DEPENDENCY_GENERATION_MANAGER - The generator manager interface constant for base bundle.</div>
+<div class="line">OPTION_INFO_FILE - The information file constant for base bundle.</div>
+<div class="line">OPTION_USE_GENERATOR - The use generator constant for base bundle.</div>
+<div class="line">OPTION_CONTEXT_BUNDLE - The context bundle constant for base bundle.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -96,48 +96,48 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_CONTEXT_BUNDLE">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_CONTEXT_BUNDLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'context_bundle'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_CONTEXT_BUNDLE" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_CONTEXT_BUNDLE">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_CONTEXT_BUNDLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'context_bundle'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_CONTEXT_BUNDLE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_GENERATION_MANAGER">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_GENERATION_MANAGER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'generation_manager'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_GENERATION_MANAGER" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_GENERATION_MANAGER">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_GENERATION_MANAGER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'generation_manager'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_GENERATION_MANAGER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_INFO_MANAGER">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_INFO_MANAGER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'info_manager'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_INFO_MANAGER" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_INFO_MANAGER">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_INFO_MANAGER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'info_manager'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_INFO_MANAGER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_OPTION_MANAGER">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_OPTION_MANAGER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'option_manager'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_OPTION_MANAGER" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_OPTION_MANAGER">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_OPTION_MANAGER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'option_manager'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_OPTION_MANAGER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_SPLASH_MANAGER">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_SPLASH_MANAGER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'splash_manager'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_SPLASH_MANAGER" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_SPLASH_MANAGER">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_SPLASH_MANAGER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'splash_manager'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_SPLASH_MANAGER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseKeys.OPTION_CONTEXT_BUNDLE">
-<span class="sig-name descname"><span class="pre">OPTION_CONTEXT_BUNDLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'context_bundle'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseKeys.OPTION_CONTEXT_BUNDLE" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseBundleKeys.OPTION_CONTEXT_BUNDLE">
+<span class="sig-name descname"><span class="pre">OPTION_CONTEXT_BUNDLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'context_bundle'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseBundleKeys.OPTION_CONTEXT_BUNDLE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseKeys.OPTION_INFO_FILE">
-<span class="sig-name descname"><span class="pre">OPTION_INFO_FILE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'info_file'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseKeys.OPTION_INFO_FILE" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseBundleKeys.OPTION_INFO_FILE">
+<span class="sig-name descname"><span class="pre">OPTION_INFO_FILE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'info_file'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseBundleKeys.OPTION_INFO_FILE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseKeys.OPTION_USE_GENERATOR">
-<span class="sig-name descname"><span class="pre">OPTION_USE_GENERATOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'use_generator'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseKeys.OPTION_USE_GENERATOR" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseBundleKeys.OPTION_USE_GENERATOR">
+<span class="sig-name descname"><span class="pre">OPTION_USE_GENERATOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'use_generator'</span></em><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseBundleKeys.OPTION_USE_GENERATOR" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseKeys.get_dependency_to_type">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_dependency_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/base/setup/keys.html#BaseKeys.get_dependency_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseKeys.get_dependency_to_type" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseBundleKeys.get_dependency_to_type">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_dependency_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/base/setup/keys.html#BaseBundleKeys.get_dependency_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseBundleKeys.get_dependency_to_type" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the mapping of the base bundle dependencies to their types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -150,8 +150,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseKeys.get_option_to_type">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_option_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/base/setup/keys.html#BaseKeys.get_option_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseKeys.get_option_to_type" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.keys.BaseBundleKeys.get_option_to_type">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_option_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/base/setup/keys.html#BaseBundleKeys.get_option_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.setup.keys.BaseBundleKeys.get_option_to_type" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the mapping of the base bundle options to their types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -178,17 +178,17 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.base.setup.keys module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseKeys"><code class="docutils literal notranslate"><span class="pre">BaseKeys</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_CONTEXT_BUNDLE"><code class="docutils literal notranslate"><span class="pre">BaseKeys.DEPENDENCY_CONTEXT_BUNDLE</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_GENERATION_MANAGER"><code class="docutils literal notranslate"><span class="pre">BaseKeys.DEPENDENCY_GENERATION_MANAGER</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_INFO_MANAGER"><code class="docutils literal notranslate"><span class="pre">BaseKeys.DEPENDENCY_INFO_MANAGER</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_OPTION_MANAGER"><code class="docutils literal notranslate"><span class="pre">BaseKeys.DEPENDENCY_OPTION_MANAGER</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseKeys.DEPENDENCY_SPLASH_MANAGER"><code class="docutils literal notranslate"><span class="pre">BaseKeys.DEPENDENCY_SPLASH_MANAGER</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseKeys.OPTION_CONTEXT_BUNDLE"><code class="docutils literal notranslate"><span class="pre">BaseKeys.OPTION_CONTEXT_BUNDLE</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseKeys.OPTION_INFO_FILE"><code class="docutils literal notranslate"><span class="pre">BaseKeys.OPTION_INFO_FILE</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseKeys.OPTION_USE_GENERATOR"><code class="docutils literal notranslate"><span class="pre">BaseKeys.OPTION_USE_GENERATOR</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseKeys.get_dependency_to_type"><code class="docutils literal notranslate"><span class="pre">BaseKeys.get_dependency_to_type()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseKeys.get_option_to_type"><code class="docutils literal notranslate"><span class="pre">BaseKeys.get_option_to_type()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseBundleKeys"><code class="docutils literal notranslate"><span class="pre">BaseBundleKeys</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_CONTEXT_BUNDLE"><code class="docutils literal notranslate"><span class="pre">BaseBundleKeys.DEPENDENCY_CONTEXT_BUNDLE</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_GENERATION_MANAGER"><code class="docutils literal notranslate"><span class="pre">BaseBundleKeys.DEPENDENCY_GENERATION_MANAGER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_INFO_MANAGER"><code class="docutils literal notranslate"><span class="pre">BaseBundleKeys.DEPENDENCY_INFO_MANAGER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_OPTION_MANAGER"><code class="docutils literal notranslate"><span class="pre">BaseBundleKeys.DEPENDENCY_OPTION_MANAGER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseBundleKeys.DEPENDENCY_SPLASH_MANAGER"><code class="docutils literal notranslate"><span class="pre">BaseBundleKeys.DEPENDENCY_SPLASH_MANAGER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseBundleKeys.OPTION_CONTEXT_BUNDLE"><code class="docutils literal notranslate"><span class="pre">BaseBundleKeys.OPTION_CONTEXT_BUNDLE</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseBundleKeys.OPTION_INFO_FILE"><code class="docutils literal notranslate"><span class="pre">BaseBundleKeys.OPTION_INFO_FILE</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseBundleKeys.OPTION_USE_GENERATOR"><code class="docutils literal notranslate"><span class="pre">BaseBundleKeys.OPTION_USE_GENERATOR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseBundleKeys.get_dependency_to_type"><code class="docutils literal notranslate"><span class="pre">BaseBundleKeys.get_dependency_to_type()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.keys.BaseBundleKeys.get_option_to_type"><code class="docutils literal notranslate"><span class="pre">BaseBundleKeys.get_option_to_type()</span></code></a></li>
 </ul>
 </li>
 </ul>

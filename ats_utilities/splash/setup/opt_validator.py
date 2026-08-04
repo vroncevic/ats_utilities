@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the splash options.
+    Validator for the splash bundle options.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.splash.setup.options import SplashOptions
+from ats_utilities.splash.setup.options import SplashBundleOptions
 from ats_utilities.splash.setup.keys import SplashKeys
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -39,30 +39,30 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class SplashOptionsValidator:
+class SplashBundleOptionsValidator:
     '''
-        A validator for the splash options.
+        Validator for the splash bundle options.
 
         It defines:
 
             :methods:
-                | validate - Validates the splash options.
+                | validate - Validates the splash bundle options.
     '''
 
     @classmethod
-    def validate(cls, options: SplashOptions) -> None:
+    def validate(cls, options: SplashBundleOptions) -> None:
         '''
-            Validates the splash options.
+            Validates the splash bundle options.
 
-            :param options: The splash options to be validated.
+            :param options: The splash bundle options to be validated.
             :exceptions:
-                | ATSValueError: The options must be provided and have proper attributes.
-                | ATSTypeError:  The options must be an instance of Mapping and its attributes
+                | ATSValueError: The splash bundle options must be provided and have proper attributes.
+                | ATSTypeError:  The splash bundle options must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
-        ctx: str = 'splash_options_validator::validate(...)'
-        msg_options_none: str = 'the options must be provided'
-        msg_options_istype: str = 'the options must be a Mapping'
+        ctx: str = 'splash_bundle_options_validator::validate(...)'
+        msg_options_none: str = 'the splash bundle options must be provided'
+        msg_options_istype: str = 'the splash bundle options must be a Mapping'
 
         not_none(options, ctx, msg_options_none)
         istype(options, Mapping, ctx, msg_options_istype)
@@ -74,4 +74,4 @@ class SplashOptionsValidator:
             istype(attribute, expected_type, ctx, msg_attribute_istype)
 
             if attribute_name == SplashKeys.OPTION_CONTEXT_BUNDLE:
-                ContextValidator.validate(attribute)
+                ContextBundleValidator.validate(attribute)

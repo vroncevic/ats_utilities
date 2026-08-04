@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates generator runtime components for simplification of generator bundle creation.
+    Encapsulates generator runtime components for simplification of generator bundle.
 '''
 
 from __future__ import annotations
@@ -41,7 +41,7 @@ __status__ = 'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class GeneratorBundle:
     '''
-        Encapsulates generator runtime components for simplification of generator bundle creation.
+        Encapsulates generator runtime components for simplification of generator bundle.
 
         It defines:
 

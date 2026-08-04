@@ -16,24 +16,24 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ContextOptionsValidator class.
+    Unit tests for ContextBundleOptionsValidator class.
 '''
 
 from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.opt_validator import ContextOptionsValidator
-from ats_utilities.context.options import ContextOptions
+from ats_utilities.context.opt_validator import ContextBundleOptionsValidator
+from ats_utilities.context.options import ContextBundleOptions
 from ats_utilities.exceptions import ATSValueError, ATSTypeError
 
 
 class TestContextOptionsValidator(unittest.TestCase):
-    """Unit tests for the ContextOptionsValidator class."""
+    """Unit tests for the ContextBundleOptionsValidator class."""
 
     def setUp(self) -> None:
         """Set up valid option parameters for validation."""
-        self.valid_options = ContextOptions(
+        self.valid_options = ContextBundleOptions(
             checker={},
             logger={},
             reporter={},
@@ -43,24 +43,24 @@ class TestContextOptionsValidator(unittest.TestCase):
     def test_successful_validation(self) -> None:
         """Test successful validation with all options present and valid."""
         try:
-            ContextOptionsValidator.validate(self.valid_options)
+            ContextBundleOptionsValidator.validate(self.valid_options)
         except (ATSValueError, ATSTypeError) as e:
             self.fail(f"validate raised unexpected error: {e}")
 
     def test_successful_validation_with_missing_optional_keys(self) -> None:
         """Test successful validation when some options keys are omitted."""
-        partial_opts = ContextOptions(
+        partial_opts = ContextBundleOptions(
             verbose=False
         )
         try:
-            ContextOptionsValidator.validate(partial_opts)
+            ContextBundleOptionsValidator.validate(partial_opts)
         except (ATSValueError, ATSTypeError) as e:
             self.fail(f"validate raised unexpected error with partial options: {e}")
 
     def test_missing_options_raises_value_error(self) -> None:
         """Test that validation fails with ATSValueError when options dict is None."""
         with self.assertRaises(ATSValueError):
-            ContextOptionsValidator.validate(None)  # type: ignore
+            ContextBundleOptionsValidator.validate(None)  # type: ignore
 
     def test_invalid_type_raises_type_error(self) -> None:
         """Test that validation fails with ATSTypeError when options have incorrect types."""
@@ -68,13 +68,13 @@ class TestContextOptionsValidator(unittest.TestCase):
         invalid_opts = self.valid_options.copy()
         invalid_opts['checker'] = "not_a_dict"  # type: ignore
         with self.assertRaises(ATSTypeError):
-            ContextOptionsValidator.validate(invalid_opts)
+            ContextBundleOptionsValidator.validate(invalid_opts)
 
         # Test invalid type for verbose
         invalid_opts2 = self.valid_options.copy()
         invalid_opts2['verbose'] = "not_a_bool"  # type: ignore
         with self.assertRaises(ATSTypeError):
-            ContextOptionsValidator.validate(invalid_opts2)
+            ContextBundleOptionsValidator.validate(invalid_opts2)
 
 
 if __name__ == '__main__':

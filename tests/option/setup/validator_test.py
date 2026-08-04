@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for OptionValidator class.
+    Unit tests for OptionBundleValidator class.
 '''
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ from unittest.mock import MagicMock
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.option.setup.bundle import OptionBundle
-from ats_utilities.option.setup.validator import OptionValidator
+from ats_utilities.option.setup.validator import OptionBundleValidator
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
@@ -37,7 +37,7 @@ from ats_utilities.reporter.ireporter import IReporter
 class OptionValidatorTest(unittest.TestCase):
     '''
         Defines class OptionValidatorTest with attribute(s) and method(s).
-        Tests OptionValidator logic.
+        Tests OptionBundleValidator logic.
     '''
 
     def setUp(self) -> None:
@@ -55,39 +55,38 @@ class OptionValidatorTest(unittest.TestCase):
             strategy=self.mock_strategy,
             context_bundle=self.mock_context
         )
-        # Should validate successfully
-        OptionValidator.validate(bundle)
+        OptionBundleValidator.validate(bundle)
 
     def test_validate_invalid_bundle(self) -> None:
         with self.assertRaises(ATSValueError) as context:
-            OptionValidator.validate(None)  # type: ignore
-        self.assertEqual(str(context.exception), "option_validator::validate(...) - option bundle must be provided")
+            OptionBundleValidator.validate(None)
+        self.assertEqual(str(context.exception), "option_bundle_validator::validate(...) - the option bundle must be provided")
 
         with self.assertRaises(ATSTypeError) as context:
-            OptionValidator.validate(object())  # type: ignore
-        self.assertEqual(str(context.exception), "option_validator::validate(...) - option bundle must be an instance of OptionBundle")
+            OptionBundleValidator.validate(object())
+        self.assertEqual(str(context.exception), "option_bundle_validator::validate(...) - the option bundle must be an instance of OptionBundle")
 
     def test_validate_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError) as context:
-            bundle = OptionBundle(strategy=None, context_bundle=self.mock_context)  # type: ignore
-            OptionValidator.validate(bundle)
-        self.assertEqual(str(context.exception), "option_validator::validate(...) - strategy must be provided")
+            bundle = OptionBundle(strategy=None, context_bundle=self.mock_context)
+            OptionBundleValidator.validate(bundle)
+        self.assertEqual(str(context.exception), "option_bundle_validator::validate(...) - the strategy must be provided")
 
         with self.assertRaises(ATSValueError) as context:
-            bundle = OptionBundle(strategy=self.mock_strategy, context_bundle=None)  # type: ignore
-            OptionValidator.validate(bundle)
-        self.assertEqual(str(context.exception), "option_validator::validate(...) - context bundle must be provided")
+            bundle = OptionBundle(strategy=self.mock_strategy, context_bundle=None)
+            OptionBundleValidator.validate(bundle)
+        self.assertEqual(str(context.exception), "option_bundle_validator::validate(...) - the context bundle must be provided")
 
     def test_validate_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError) as context:
-            bundle = OptionBundle(strategy="not a strategy", context_bundle=self.mock_context)  # type: ignore
-            OptionValidator.validate(bundle)
-        self.assertEqual(str(context.exception), "option_validator::validate(...) - strategy must be an IParserStrategy instance")
+            bundle = OptionBundle(strategy="not a strategy", context_bundle=self.mock_context)
+            OptionBundleValidator.validate(bundle)
+        self.assertEqual(str(context.exception), "option_bundle_validator::validate(...) - the strategy must be an IParserStrategy instance")
 
         with self.assertRaises(ATSTypeError) as context:
-            bundle = OptionBundle(strategy=self.mock_strategy, context_bundle="not a context")  # type: ignore
-            OptionValidator.validate(bundle)
-        self.assertEqual(str(context.exception), "option_validator::validate(...) - context bundle must be a ContextBundle instance")
+            bundle = OptionBundle(strategy=self.mock_strategy, context_bundle="not a context")
+            OptionBundleValidator.validate(bundle)
+        self.assertEqual(str(context.exception), "option_bundle_validator::validate(...) - the context bundle must be a ContextBundle instance")
 
 
 if __name__ == "__main__":

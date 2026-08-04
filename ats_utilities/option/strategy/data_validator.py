@@ -16,13 +16,13 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the strategy data.
+    Validator for the strategy data.
 '''
 
 from __future__ import annotations
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.option.strategy.data import StrategyData
 from ats_utilities.option.underlying.iunderlying import IUnderlyingParser
 from ats_utilities.validation.check_value import not_none
@@ -40,7 +40,7 @@ __status__: str = 'Development'
 
 class StrategyDataValidator:
     '''
-        A validator for the strategy data.
+        Validator for the strategy data.
 
         It defines:
 
@@ -76,4 +76,4 @@ class StrategyDataValidator:
         istype(data.context_bundle, ContextBundle, ctx, msg_context_bundle_istype)
         istype(data.parser, IUnderlyingParser, ctx, msg_parser_istype)
 
-        ContextValidator.validate(data.context_bundle)
+        ContextBundleValidator.validate(data.context_bundle)

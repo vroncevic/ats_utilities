@@ -27,7 +27,7 @@ from argparse import ArgumentParser
 from collections.abc import Sequence
 from unittest.mock import MagicMock
 
-from ats_utilities.context.factory import ContextFactory
+from ats_utilities.context.factory import ContextBundleFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.option.command.data import OptionData
 from ats_utilities.option.command.ioption_command import IOptionCommand
@@ -96,7 +96,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         parser = ParserAdapter(ArgumentParser(prog="mytool 1.0.0"))
 
         bundle = StrategyData(
@@ -125,7 +125,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         parser = ParserAdapter(ArgumentParser())
 
         bundle = StrategyData(
@@ -145,7 +145,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         parser = ParserAdapter(ArgumentParser())
 
         bundle = StrategyData(
@@ -165,7 +165,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         parser = ParserAdapter(ArgumentParser())
 
         bundle = StrategyData(
@@ -189,7 +189,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         parser = ParserAdapter(ArgumentParser())
         bundle = StrategyData(
             context_bundle=context_bundle,
@@ -222,7 +222,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         parser = ParserAdapter(ArgumentParser())
 
         bundle = StrategyData(
@@ -246,7 +246,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         parser = ParserAdapter(ArgumentParser())
         bundle = StrategyData(
             context_bundle=context_bundle,
@@ -261,7 +261,7 @@ class EngineTest(unittest.TestCase):
 
             :exceptions: None.
         '''
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         parser = ParserAdapter(ArgumentParser())
         bundle = StrategyData(
             context_bundle=context_bundle,

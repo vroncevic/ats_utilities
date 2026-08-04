@@ -54,7 +54,7 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    A validator for the context bundle.</span>
+<span class="sd">    Validator for the context bundle.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -76,11 +76,11 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="ContextValidator">
-<a class="viewcode-back" href="../../../ats_utilities.context.validator.html#ats_utilities.context.validator.ContextValidator">[docs]</a>
-<span class="k">class</span> <span class="nc">ContextValidator</span><span class="p">:</span>
+<div class="viewcode-block" id="ContextBundleValidator">
+<a class="viewcode-back" href="../../../ats_utilities.context.validator.html#ats_utilities.context.validator.ContextBundleValidator">[docs]</a>
+<span class="k">class</span> <span class="nc">ContextBundleValidator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        A validator for the context bundle.</span>
+<span class="sd">        Validator for the context bundle.</span>
 
 <span class="sd">        It defines:</span>
 
@@ -88,8 +88,8 @@
 <span class="sd">                | validate - Validates the context bundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="ContextValidator.validate">
-<a class="viewcode-back" href="../../../ats_utilities.context.validator.html#ats_utilities.context.validator.ContextValidator.validate">[docs]</a>
+<div class="viewcode-block" id="ContextBundleValidator.validate">
+<a class="viewcode-back" href="../../../ats_utilities.context.validator.html#ats_utilities.context.validator.ContextBundleValidator.validate">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="n">ContextBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -101,9 +101,9 @@
 <span class="sd">                | ATSTypeError:  The context bundle must be an instance of ContextBundle and</span>
 <span class="sd">                |                its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;context_validator::validate(...)&#39;</span>
-        <span class="n">msg_bundle_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the bundle must be provided&#39;</span>
-        <span class="n">msg_bundle_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the bundle must be an instance of ContextBundle&#39;</span>
+        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;context_bundle_validator::validate(...)&#39;</span>
+        <span class="n">msg_bundle_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the context bundle must be provided&#39;</span>
+        <span class="n">msg_bundle_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the context bundle must be an instance of ContextBundle&#39;</span>
         <span class="n">msg_checker_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the checker must be provided&#39;</span>
         <span class="n">msg_logger_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the logger must be provided&#39;</span>
         <span class="n">msg_reporter_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the reporter must be provided&#39;</span>

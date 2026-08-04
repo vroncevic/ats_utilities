@@ -27,7 +27,7 @@ from types import MappingProxyType
 from typing import Final
 
 from ats_utilities.checker.reporter.data import CheckReporterData
-from ats_utilities.checker.reporter.data_validator import CheckReporterValidator
+from ats_utilities.checker.reporter.data_validator import CheckReporterDataValidator
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_empty
@@ -99,7 +99,7 @@ class CheckReporter:
                 |                and its attributes must be instances of their
                 |                respective types.
         '''
-        CheckReporterValidator.validate(data)
+        CheckReporterDataValidator.validate(data)
         message: str = data.context
         err_set: set[int] = set(data.err_indices)
 

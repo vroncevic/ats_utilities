@@ -51,7 +51,7 @@ class GeneratorDataValidatorTest(unittest.TestCase):
         mock_check_exists.assert_called_once_with(
             "/path/to/archive.tgz",
             "generator_data_validator::validate(...)",
-            "archive file does not exist"
+            "the archive file does not exist"
         )
 
     @patch("ats_utilities.generation.data_validator.check_file_exists")
@@ -64,11 +64,11 @@ class GeneratorDataValidatorTest(unittest.TestCase):
 
     def test_validate_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            GeneratorDataValidator.validate(None)  # type: ignore
+            GeneratorDataValidator.validate(None)
 
     def test_validate_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            GeneratorDataValidator.validate("not_generator_data")  # type: ignore
+            GeneratorDataValidator.validate("not_generator_data")
 
     @patch("ats_utilities.generation.data_validator.check_file_exists")
     def test_validate_missing_attributes(self, mock_check_exists: MagicMock) -> None:
@@ -76,7 +76,7 @@ class GeneratorDataValidatorTest(unittest.TestCase):
         for field in fields:
             with self.subTest(field=field):
                 invalid_params = self.valid_params.copy()
-                invalid_params[field] = None  # type: ignore
+                invalid_params[field] = None
                 data = GeneratorData(**invalid_params)
                 with self.assertRaises(ATSValueError):
                     GeneratorDataValidator.validate(data)
@@ -93,7 +93,7 @@ class GeneratorDataValidatorTest(unittest.TestCase):
         for field, bad_value in type_mismatches.items():
             with self.subTest(field=field, bad_value=bad_value):
                 invalid_params = self.valid_params.copy()
-                invalid_params[field] = bad_value  # type: ignore
+                invalid_params[field] = bad_value
                 data = GeneratorData(**invalid_params)
                 with self.assertRaises(ATSTypeError):
                     GeneratorDataValidator.validate(data)

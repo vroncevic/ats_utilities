@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for GeneratorFactory class.
+    Unit tests for GeneratorBundleFactory class.
 '''
 
 from __future__ import annotations
@@ -29,8 +29,8 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.generation.setup.bundle import GeneratorBundle
-from ats_utilities.generation.setup.factory import GeneratorFactory
-from ats_utilities.generation.setup.options import GeneratorOptions
+from ats_utilities.generation.setup.factory import GeneratorBundleFactory
+from ats_utilities.generation.setup.options import GeneratorBundleOptions
 from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generation.tar.itar_processor import ITarProcessor
 from ats_utilities.generation.template.itemplate_processor import ITemplateProcessor
@@ -39,7 +39,7 @@ from ats_utilities.generation.template.itemplate_processor import ITemplateProce
 class GeneratorFactoryTest(unittest.TestCase):
     '''
         Defines class GeneratorFactoryTest with attribute(s) and method(s).
-        Tests GeneratorFactory logic.
+        Tests GeneratorBundleFactory logic.
     '''
 
     @patch("ats_utilities.generation.setup.factory.SchemeLoader")
@@ -56,8 +56,8 @@ class GeneratorFactoryTest(unittest.TestCase):
         mock_context.reporter = MagicMock(spec=IReporter)
         mock_context.verbose = True
 
-        options = GeneratorOptions(context_bundle=mock_context)
-        bundle = GeneratorFactory.create_bundle(options)
+        options = GeneratorBundleOptions(context_bundle=mock_context)
+        bundle = GeneratorBundleFactory.create_bundle(options)
 
         self.assertIsInstance(bundle, GeneratorBundle)
         self.assertIs(bundle.context_bundle, mock_context)

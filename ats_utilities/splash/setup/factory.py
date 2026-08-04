@@ -24,10 +24,10 @@ from __future__ import annotations
 from collections.abc import Mapping
 
 from ats_utilities.splash.setup.bundle import SplashBundle
-from ats_utilities.splash.setup.options import SplashOptions
-from ats_utilities.splash.setup.opt_validator import SplashOptionsValidator
-from ats_utilities.splash.setup.dependencies import SplashDependencies
-from ats_utilities.splash.setup.registry import SplashRegistry
+from ats_utilities.splash.setup.options import SplashBundleOptions
+from ats_utilities.splash.setup.opt_validator import SplashBundleOptionsValidator
+from ats_utilities.splash.setup.dependencies import SplashBundleDependencies
+from ats_utilities.splash.setup.registry import SplashBundleRegistry
 from ats_utilities.splash.property.isplash_property import ISplashProperty
 from ats_utilities.splash.property.splash_property import SplashProperty
 from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
@@ -50,7 +50,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class SplashFactory:
+class SplashBundleFactory:
     '''
         A factory for creating splash bundle.
 
@@ -61,18 +61,24 @@ class SplashFactory:
     '''
 
     @classmethod
-    def create_bundle(cls, options: SplashOptions) -> SplashBundle:
+    def create_bundle(cls, options: SplashBundleOptions) -> SplashBundle:
         '''
             Creates a splash bundle using configuration options.
 
             :param options: The creation options/parameters for the bundle.
             :return: The splash bundle.
             :exceptions:
-                | ATSValueError: The splash options must be provided and have proper values.
-                | ATSTypeError:  The splash options must be an instance of Mapping and its
+                | ATSValueError: The splash bundle options must be provided and have proper attributes.
+                | ATSTypeError:  The splash bundle options must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
+                | ATSValueError: The splash bundle dependencies must be provided and have proper attributes.
+                | ATSTypeError:  The splash bundle dependencies must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
+                | ATSValueError: The splash bundle must be provided and have proper values.
+                | ATSTypeError:  The splash bundle must be an instance of SplashBundle and its
                 |                attributes must be instances of their respective types.
         '''
-        SplashOptionsValidator.validate(options)
+        SplashBundleOptionsValidator.validate(options)
 
         prop: Mapping[str, object] = options.get(SplashKeys.OPTION_PROP)
         context_bundle: ContextBundle = options.get(SplashKeys.OPTION_CONTEXT_BUNDLE)
@@ -90,8 +96,8 @@ class SplashFactory:
         size: tuple[object, ...] = terminal_property.size()
         pb: IProgressBar = ProgressBar(int(size[1]) - int(int(size[1]) / 2))
 
-        return SplashRegistry.create_bundle(
-            dependencies=SplashDependencies(
+        return SplashBundleRegistry.create_bundle(
+            dependencies=SplashBundleDependencies(
                 splash_property=splash_property,
                 terminal_property=terminal_property,
                 ext=ext,

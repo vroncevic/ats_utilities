@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for LoggerDependencies class.
+    Unit tests for LoggerBundleDependencies class.
 '''
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ import unittest
 from typing import get_type_hints
 from unittest.mock import MagicMock
 
-from ats_utilities.logger.setup.dependencies import LoggerDependencies
+from ats_utilities.logger.setup.dependencies import LoggerBundleDependencies
 from ats_utilities.logger.underlying.iunderlying import IUnderlyingLogger
 from ats_utilities.logger.formatter.iformatter import ILogFormatter
 from ats_utilities.logger.buffer.ibuffer import ILogBuffer
@@ -36,11 +36,11 @@ from ats_utilities.logger.processor.imessage_processor import IMessageProcessor
 class LoggerDependenciesTest(unittest.TestCase):
     '''
         Defines class LoggerDependenciesTest with attribute(s) and method(s).
-        Tests LoggerDependencies TypedDict structure.
+        Tests LoggerBundleDependencies TypedDict structure.
     '''
 
     def test_type_hints(self) -> None:
-        hints = get_type_hints(LoggerDependencies)
+        hints = get_type_hints(LoggerBundleDependencies)
         self.assertEqual(hints['logger'], IUnderlyingLogger)
         self.assertEqual(hints['has_file_handler'], bool)
         self.assertEqual(hints['formatter'], ILogFormatter)
@@ -49,7 +49,7 @@ class LoggerDependenciesTest(unittest.TestCase):
         self.assertEqual(hints['message_processor'], IMessageProcessor)
 
     def test_instantiation(self) -> None:
-        deps: LoggerDependencies = {
+        deps: LoggerBundleDependencies = {
             'logger': MagicMock(spec=IUnderlyingLogger),
             'has_file_handler': True,
             'formatter': MagicMock(spec=ILogFormatter),

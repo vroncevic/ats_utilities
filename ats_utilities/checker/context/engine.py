@@ -70,7 +70,7 @@ class ContextProvider:
                 | ATSTypeError: The stack index caller must be an integer.
         '''
         if stack_index_caller is not None:
-            ctx: str = 'context_provider::init()'
+            ctx: str = 'context_provider::init(...)'
             msg_stack_index_caller_istype: str = 'the stack index caller must be an integer'
 
             istype(stack_index_caller, int, ctx, msg_stack_index_caller_istype)

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ConfigIODependencies class.
+    Unit tests for ConfigIOBundleDependencies class.
 '''
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ import unittest
 from typing import get_type_hints
 from unittest.mock import MagicMock
 
-from ats_utilities.config_io.setup.dependencies import ConfigIODependencies
+from ats_utilities.config_io.setup.dependencies import ConfigIOBundleDependencies
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.context.bundle import ContextBundle
 
@@ -33,17 +33,17 @@ from ats_utilities.context.bundle import ContextBundle
 class ConfigIODependenciesTest(unittest.TestCase):
     '''
         Defines class ConfigIODependenciesTest with attribute(s) and method(s).
-        Tests ConfigIODependencies TypedDict structure.
+        Tests ConfigIOBundleDependencies TypedDict structure.
     '''
 
     def test_type_hints(self) -> None:
-        hints = get_type_hints(ConfigIODependencies)
+        hints = get_type_hints(ConfigIOBundleDependencies)
         self.assertEqual(hints['file_path'], str)
         self.assertEqual(hints['processor'], IConfigProcessor)
         self.assertEqual(hints['context_bundle'], ContextBundle)
 
     def test_instantiation(self) -> None:
-        deps: ConfigIODependencies = {
+        deps: ConfigIOBundleDependencies = {
             'file_path': "/path/to/file",
             'processor': MagicMock(spec=IConfigProcessor),
             'context_bundle': MagicMock(spec=ContextBundle)
