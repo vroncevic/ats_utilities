@@ -62,11 +62,11 @@
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.bundle</span> <span class="kn">import</span> <span class="n">ConfigIOBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.dependencies</span> <span class="kn">import</span> <span class="n">ConfigIODependencies</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.options</span> <span class="kn">import</span> <span class="n">ConfigIOOptions</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.opt_validator</span> <span class="kn">import</span> <span class="n">ConfigIOOptionsValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.keys</span> <span class="kn">import</span> <span class="n">ConfigIOKeys</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.registry</span> <span class="kn">import</span> <span class="n">ConfigIORegistry</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.dependencies</span> <span class="kn">import</span> <span class="n">ConfigIOBundleDependencies</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.options</span> <span class="kn">import</span> <span class="n">ConfigIOBundleOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.opt_validator</span> <span class="kn">import</span> <span class="n">ConfigIOBundleOptionsValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.keys</span> <span class="kn">import</span> <span class="n">ConfigIOBundleKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.registry</span> <span class="kn">import</span> <span class="n">ConfigIOBundleRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.factory_processor</span> <span class="kn">import</span> <span class="n">ConfigProcessorFactory</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 
@@ -80,9 +80,9 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="ConfigIOFactory">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.setup.factory.html#ats_utilities.config_io.setup.factory.ConfigIOFactory">[docs]</a>
-<span class="k">class</span> <span class="nc">ConfigIOFactory</span><span class="p">:</span>
+<div class="viewcode-block" id="ConfigIOBundleFactory">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.setup.factory.html#ats_utilities.config_io.setup.factory.ConfigIOBundleFactory">[docs]</a>
+<span class="k">class</span> <span class="nc">ConfigIOBundleFactory</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Factory for creating config I/O bundle.</span>
 
@@ -92,32 +92,38 @@
 <span class="sd">                | create_bundle - Creates a config I/O bundle using configuration options.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="ConfigIOFactory.create_bundle">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.setup.factory.html#ats_utilities.config_io.setup.factory.ConfigIOFactory.create_bundle">[docs]</a>
+<div class="viewcode-block" id="ConfigIOBundleFactory.create_bundle">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.setup.factory.html#ats_utilities.config_io.setup.factory.ConfigIOBundleFactory.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">ConfigIOOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfigIOBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">ConfigIOBundleOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfigIOBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates a config I/O bundle using configuration options.</span>
 
 <span class="sd">            :param options: The creation options/parameters for the bundle.</span>
 <span class="sd">            :return: The config I/O bundle.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Options must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Options must be an instance of Mapping and its</span>
+<span class="sd">                | ATSValueError: The config I/O bundle options must be provided and have proper attributes.</span>
+<span class="sd">                | ATSTypeError:  The config I/O bundle options must be an instance of Mapping and its attributes</span>
+<span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The config I/O bundle dependencies must be provided and have proper attributes.</span>
+<span class="sd">                | ATSTypeError:  The config I/O bundle dependencies must be an instance of Mapping and its</span>
+<span class="sd">                |                attributes must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The config I/O bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The config I/O bundle must be an instance of ConfigIOBundle and its</span>
 <span class="sd">                |                attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ConfigIOOptionsValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">ConfigIOBundleOptionsValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
 
-        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ConfigIOKeys</span><span class="o">.</span><span class="n">OPTION_FILE_PATH</span><span class="p">)</span>
-        <span class="n">scheme</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ConfigIOKeys</span><span class="o">.</span><span class="n">OPTION_SCHEME</span><span class="p">)</span>
-        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ConfigIOKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">)</span>
+        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ConfigIOBundleKeys</span><span class="o">.</span><span class="n">OPTION_FILE_PATH</span><span class="p">)</span>
+        <span class="n">scheme</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ConfigIOBundleKeys</span><span class="o">.</span><span class="n">OPTION_SCHEME</span><span class="p">)</span>
+        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ConfigIOBundleKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">)</span>
         <span class="n">processor</span> <span class="o">=</span> <span class="n">ConfigProcessorFactory</span><span class="o">.</span><span class="n">create_from_file_path</span><span class="p">(</span>
             <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
             <span class="n">scheme</span><span class="o">=</span><span class="n">scheme</span>
         <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">ConfigIORegistry</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
-            <span class="n">ConfigIODependencies</span><span class="p">(</span>
+        <span class="k">return</span> <span class="n">ConfigIOBundleRegistry</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
+            <span class="n">ConfigIOBundleDependencies</span><span class="p">(</span>
                 <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
                 <span class="n">processor</span><span class="o">=</span><span class="n">processor</span><span class="p">,</span>
                 <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span>

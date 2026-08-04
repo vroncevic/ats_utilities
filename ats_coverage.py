@@ -46,9 +46,9 @@ def check_exists(item_path: str, is_dir: bool = False) -> None:
         :param item_path: Item path.
         :param is_dir: Flag indicating if the path is a directory.
         :exceptions:
-            | TypeError: Parameter dir_path type validation failed.
-            | ValueError: Parameter dir_path format validation failed.
-            | ValueError: Directory with name does not exist.
+            | TypeError:  The parameter item_path type validation failed.
+            | ValueError: The parameter item_path format validation failed.
+            | ValueError: The directory with name does not exist.
     '''
     if not isinstance(item_path, str):
         raise TypeError(f'Parameter item_path must be of type str, not {type(item_path).__name__}')
@@ -70,9 +70,9 @@ def run_coverage(pro_name: str) -> None:
 
         :param pro_name: Project name (is equal to directory name).
         :exceptions:
-            | TypeError: Parameter pro_name type validation failed.
-            | ValueError: Parameter pro_name format validation failed.
-            | ValueError: Directory with name does not exist.
+            | TypeError:  The parameter pro_name type validation failed.
+            | ValueError: The parameter pro_name format validation failed.
+            | ValueError: The directory with name does not exist.
     '''
     check_exists(pro_name, is_dir=True)
 
@@ -108,9 +108,9 @@ def load_report(file_path: str) -> dict[str, object]:
         :param file_path: Coverage report file path.
         :return: Coverage data report in dict format.
         :exceptions:
-            | ATSTypeError: Parameter file_path type validation failed.
-            | ATSValueError: Parameter file_path format validation failed.
-            | ATSValueError: File with name does not exist.
+            | TypeError:  The parameter file_path type validation failed.
+            | ValueError: The parameter file_path format validation failed.
+            | ValueError: The file with name does not exist.
     '''
 
     check_exists(file_path)
@@ -135,8 +135,8 @@ def find_root_package(module_path: str) -> Path | None:
         :param module_path: Absolute path for project package.
         :return: Root package path.
         :exceptions:
-            | ATSTypeError: Parameter module_path type validation failed.
-            | ATSValueError: Parameter module_path format validation failed.
+            | TypeError:  The parameter module_path type validation failed.
+            | ValueError: The parameter module_path format validation failed.
     '''
     root: Path | None = None
     path: Path = Path(module_path).resolve()
@@ -157,11 +157,11 @@ def update_readme(coverage: dict[str, object], readme_path: str = 'README.md') -
         :param coverage: Coverage data report in dict format.
         :param readme_path: Path to README.md file.
         :exceptions:
-            | ATSTypeError: Parameter coverage type validation failed.
-            | ATSValueError: Parameter coverage format validation failed.
-            | ATSValueError: Parameter readme_path type validation failed.
-            | ATSValueError: Parameter readme_path format validation failed.
-            | ATSValueError: File with name does not exist.
+            | TypeError:  The parameter coverage type validation failed.
+            | ValueError: The parameter coverage format validation failed.
+            | ValueError: The parameter readme_path type validation failed.
+            | ValueError: The parameter readme_path format validation failed.
+            | ValueError: The file with name does not exist.
     '''
     check_exists(readme_path)
     lines: list[str] = []
@@ -319,9 +319,9 @@ def update_structure(pro_name: str, section: str, file_path: str = 'README.md') 
         :param section: Section name.
         :param file_path: Path to the target file.
         :exceptions:
-            | ATSTypeError: Parameter pro_name type validation failed.
-            | ATSTypeError: Parameter section type validation failed.
-            | ATSValueError: File with name does not exist.
+            | TypeError:  The parameter pro_name type validation failed.
+            | TypeError:  The parameter section type validation failed.
+            | ValueError: The file with name does not exist.
     '''
     check_exists(file_path)
 
@@ -364,6 +364,7 @@ def update_structure(pro_name: str, section: str, file_path: str = 'README.md') 
                     new_lines.extend(tree_lines)
                     new_lines.append('\n')
                     new_lines.append(f'     {num_dirs} directories, {num_files} files\n')
+                    new_lines.append('\n')
                     replace_mode = True
                     continue
 
@@ -416,9 +417,9 @@ def update_index_coverage(coverage: dict[str, object], csv_path: str = 'docs/sou
         :param coverage: Coverage data report in dict format.
         :param csv_path: Path to coverage_table.csv file.
         :exceptions:
-            | TypeError: Parameter coverage type validation failed.
-            | ValueError: Parameter csv_path type validation failed.
-            | ValueError: Directory with name does not exist.
+            | TypeError:  The parameter coverage type validation failed.
+            | ValueError: The parameter csv_path type validation failed.
+            | ValueError: The directory with name does not exist.
     '''
     dir_path = Path(csv_path).parent
     check_exists(str(dir_path), is_dir=True)

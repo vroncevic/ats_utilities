@@ -25,7 +25,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.splash.property.splash_property import SplashProperty
 from ats_utilities.utils.dicts import cherry_pick_dict, require_keys
 from ats_utilities.utils.reflection import has_attrs, to_str
@@ -77,12 +77,11 @@ class ExtInfrastructure:
 
             :param context_bundle: The context bundle for external infrastructure.
             :exceptions:
-                | ATSValueError:  Context bundle must be provided and have proper values.
-                | ATSTypeError:   Context bundle must be an instance of ContextBundle
-                |                 and its attributes must be instances of their
-                |                 respective types.
+                | ATSValueError: The context bundle must be provided and have proper values.
+                | ATSTypeError:  The context bundle must be an instance of ContextBundle
+                |                and its attributes must be instances of their respective types.
         '''
-        ContextValidator.validate(context_bundle)
+        ContextBundleValidator.validate(context_bundle)
         self._context = context_bundle
         self._infrastructure_property = None
 

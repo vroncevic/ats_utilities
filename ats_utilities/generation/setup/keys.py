@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Runtime components and interface constraints for generator.
+    Runtime components and interface constraints for generator bundle.
 '''
 
 from __future__ import annotations
@@ -38,21 +38,20 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class GeneratorKeys:
+class GeneratorBundleKeys:
     '''
-        Runtime components and interface constraints for generator.
+        Runtime components and interface constraints for generator bundle.
 
         It defines:
 
             :attributes:
-                | DEPENDENCY_SCHEME_LOADER - The scheme loader interface constant.
-                | DEPENDENCY_TAR_PROCESSOR - The tar processor interface constant.
-                | DEPENDENCY_TEMPLATE_PROCESSOR - The template processor interface constant.
-                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle constant.
-                | OPTION_CONTEXT_BUNDLE - The context bundle option constant.
+                | DEPENDENCY_SCHEME_LOADER - The scheme loader interface constant for generator bundle.
+                | DEPENDENCY_TAR_PROCESSOR - The tar processor interface constant for generator bundle.
+                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle constant for generator bundle.
+                | OPTION_CONTEXT_BUNDLE - The context bundle option constant for generator bundle.
             :methods:
-                | get_dependency_to_type - Returns mapping of generator dependencies to their types.
-                | get_option_to_type - Returns mapping of generator options to their types.
+                | get_dependency_to_type - Returns mapping of generator bundle dependencies to their types.
+                | get_option_to_type - Returns mapping of generator bundle options to their types.
     '''
 
     # Dependency Keys
@@ -66,9 +65,9 @@ class GeneratorKeys:
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of generator dependencies to their types.
+            Returns mapping of generator bundle dependencies to their types.
 
-            :return: The mapping of generator dependencies to their types.
+            :return: The mapping of generator bundle dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -80,9 +79,9 @@ class GeneratorKeys:
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns mapping of generator options to their types.
+            Returns mapping of generator bundle options to their types.
 
-            :return: The mapping of generator options to their types.
+            :return: The mapping of generator bundle options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({

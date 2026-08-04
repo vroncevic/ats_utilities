@@ -26,7 +26,7 @@ from collections.abc import Sequence
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.setup.bundle import OptionBundle
-from ats_utilities.option.setup.validator import OptionValidator
+from ats_utilities.option.setup.validator import OptionBundleValidator
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.option.setup.types import OptArgs, OptionNamespace, ParsedCommand
@@ -88,7 +88,7 @@ class OptionManager:
                 |                attributes must be instances of their respective types.
         '''
         self._is_initialized = False
-        OptionValidator.validate(own)
+        OptionBundleValidator.validate(own)
         self._apply_bundle(own)
         self._is_initialized = True
 
@@ -111,7 +111,7 @@ class OptionManager:
         '''
         try:
             self._is_initialized = False
-            OptionValidator.validate(bundle)
+            OptionBundleValidator.validate(bundle)
             self._apply_bundle(bundle)
             self._is_initialized = True
 

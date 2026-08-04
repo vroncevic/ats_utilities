@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the reporter bundle.
+    Validator for the reporter bundle.
 '''
 
 from __future__ import annotations
@@ -38,9 +38,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ReporterValidator:
+class ReporterBundleValidator:
     '''
-        A validator for the reporter bundle.
+        Validator for the reporter bundle.
 
         It defines:
 
@@ -57,12 +57,11 @@ class ReporterValidator:
             :exceptions:
                 | ATSValueError: The reporter bundle must be provided and have proper values.
                 | ATSTypeError:  The reporter bundle must be an instance of ReporterBundle
-                |                and its attributes must be instances of their
-                |                respective types.
+                |                and its attributes must be instances of their respective types.
         '''
-        ctx: str = 'reporter_validator::validate(...)'
-        msg_bundle_none: str = f'the bundle must be provided'
-        msg_bundle_istype: str = f'the bundle must be an instance of ReporterBundle'
+        ctx: str = 'reporter_bundle_validator::validate(...)'
+        msg_bundle_none: str = f'the reporter bundle must be provided'
+        msg_bundle_istype: str = f'the reporter bundle must be an instance of ReporterBundle'
         msg_checker_none: str = f'the checker must be provided'
         msg_checker_istype: str = f'the checker must be an instance of IChecker interface'
         msg_theme_none: str = f'the theme must be provided'

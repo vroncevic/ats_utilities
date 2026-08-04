@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for CheckerOptionsValidator class.
+    Unit tests for CheckerBundleOptionsValidator class.
 '''
 
 from __future__ import annotations
@@ -24,44 +24,44 @@ from __future__ import annotations
 import unittest
 from collections.abc import Set
 
-from ats_utilities.checker.setup.options import CheckerOptions
-from ats_utilities.checker.setup.opt_validator import CheckerOptionsValidator
+from ats_utilities.checker.setup.options import CheckerBundleOptions
+from ats_utilities.checker.setup.opt_validator import CheckerBundleOptionsValidator
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 
 class CheckerOptionsValidatorTest(unittest.TestCase):
     '''
         Defines class CheckerOptionsValidatorTest with attribute(s) and method(s).
-        Tests CheckerOptionsValidator component logic.
+        Tests CheckerBundleOptionsValidator component logic.
     '''
 
     def test_validate_valid_empty(self) -> None:
-        options = CheckerOptions()
-        CheckerOptionsValidator.validate(options)
+        options = CheckerBundleOptions()
+        CheckerBundleOptionsValidator.validate(options)
 
     def test_validate_valid_full(self) -> None:
-        options = CheckerOptions(
+        options = CheckerBundleOptions(
             separator="-",
             abstract_types={"MySet": Set},
             stack_index_caller=3,
             messages_provider={"err": "text"}
         )
-        CheckerOptionsValidator.validate(options)
+        CheckerBundleOptionsValidator.validate(options)
 
     def test_validate_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            CheckerOptionsValidator.validate(None)  # type: ignore
+            CheckerBundleOptionsValidator.validate(None)  # type: ignore
 
     def test_validate_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            CheckerOptionsValidator.validate("not_a_mapping")  # type: ignore
+            CheckerBundleOptionsValidator.validate("not_a_mapping")  # type: ignore
 
     def test_validate_invalid_option_types(self) -> None:
         with self.assertRaises(ATSTypeError):
-            CheckerOptionsValidator.validate(CheckerOptions(separator=123))  # type: ignore
+            CheckerBundleOptionsValidator.validate(CheckerBundleOptions(separator=123))  # type: ignore
 
         with self.assertRaises(ATSTypeError):
-            CheckerOptionsValidator.validate(CheckerOptions(stack_index_caller="invalid"))  # type: ignore
+            CheckerBundleOptionsValidator.validate(CheckerBundleOptions(stack_index_caller="invalid"))  # type: ignore
 
 
 if __name__ == "__main__":

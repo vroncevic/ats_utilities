@@ -22,10 +22,10 @@ Info
 from __future__ import annotations
 
 from ats_utilities.checker.setup.bundle import CheckerBundle
-from ats_utilities.checker.setup.dependencies import CheckerDependencies
-from ats_utilities.checker.setup.keys import CheckerKeys
-from ats_utilities.checker.setup.validator import CheckerValidator
-from ats_utilities.checker.setup.dep_validator import CheckerDependenciesValidator
+from ats_utilities.checker.setup.dependencies import CheckerBundleDependencies
+from ats_utilities.checker.setup.keys import CheckerBundleKeys
+from ats_utilities.checker.setup.validator import CheckerBundleValidator
+from ats_utilities.checker.setup.dep_validator import CheckerBundleDependenciesValidator
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,7 +37,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class CheckerRegistry:
+class CheckerBundleRegistry:
     '''
         Encapsulates core runtime components for simplification of the checker bundle.
 
@@ -48,27 +48,29 @@ class CheckerRegistry:
     '''
 
     @classmethod
-    def create_bundle(cls, dependencies: CheckerDependencies) -> CheckerBundle:
+    def create_bundle(cls, dependencies: CheckerBundleDependencies) -> CheckerBundle:
         '''
             Orchestrates dependency injection and creates the checker bundle.
 
             :param dependencies: The registry-specific orchestration dependencies.
             :return: The checker bundle.
             :exceptions:
-                | ATSValueError: The dependencies must be provided and have proper values.
-                | ATSTypeError:  The dependencies must be an instance of CheckerDependencies
-                |                and its attributes must be instances of their
-                |                respective interfaces and types.
+                | ATSValueError: The checker bundle dependencies must be provided and have proper attributes.
+                | ATSTypeError:  The checker bundle dependencies must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
+                | ATSValueError: The checker bundle must be provided and have proper values.
+                | ATSTypeError:  The checker bundle must be an instance of CheckerBundle
+                |                and its attributes must be instances of their respective types.
         '''
-        CheckerDependenciesValidator.validate(dependencies)
+        CheckerBundleDependenciesValidator.validate(dependencies)
 
         bundle: CheckerBundle = CheckerBundle(
-            format_validator=dependencies.get(CheckerKeys.DEPENDENCY_FORMAT_VALIDATOR),
-            type_validator=dependencies.get(CheckerKeys.DEPENDENCY_TYPE_VALIDATOR),
-            context_provider=dependencies.get(CheckerKeys.DEPENDENCY_CONTEXT_PROVIDER),
-            check_reporter=dependencies.get(CheckerKeys.DEPENDENCY_CHECK_REPORTER)
+            format_validator=dependencies.get(CheckerBundleKeys.DEPENDENCY_FORMAT_VALIDATOR),
+            type_validator=dependencies.get(CheckerBundleKeys.DEPENDENCY_TYPE_VALIDATOR),
+            context_provider=dependencies.get(CheckerBundleKeys.DEPENDENCY_CONTEXT_PROVIDER),
+            check_reporter=dependencies.get(CheckerBundleKeys.DEPENDENCY_CHECK_REPORTER)
         )
 
-        CheckerValidator.validate(bundle)
+        CheckerBundleValidator.validate(bundle)
 
         return bundle

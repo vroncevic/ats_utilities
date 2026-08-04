@@ -63,11 +63,11 @@
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MappingProxyType</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.options</span> <span class="kn">import</span> <span class="n">CheckerOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.options</span> <span class="kn">import</span> <span class="n">CheckerBundleOptions</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.options</span> <span class="kn">import</span> <span class="n">ReporterOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.options</span> <span class="kn">import</span> <span class="n">ReporterBundleOptions</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.options</span> <span class="kn">import</span> <span class="n">LoggerOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.options</span> <span class="kn">import</span> <span class="n">LoggerBundleOptions</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -79,26 +79,26 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="ContextKeys">
-<a class="viewcode-back" href="../../../ats_utilities.context.keys.html#ats_utilities.context.keys.ContextKeys">[docs]</a>
-<span class="k">class</span> <span class="nc">ContextKeys</span><span class="p">:</span>
+<div class="viewcode-block" id="ContextBundleKeys">
+<a class="viewcode-back" href="../../../ats_utilities.context.keys.html#ats_utilities.context.keys.ContextBundleKeys">[docs]</a>
+<span class="k">class</span> <span class="nc">ContextBundleKeys</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Runtime components and interface constraints for the context bundle.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | DEPENDENCY_CHECKER - The checker interface constant.</span>
-<span class="sd">                | DEPENDENCY_LOGGER - The logger interface constant.</span>
-<span class="sd">                | DEPENDENCY_REPORTER - The reporter interface constant.</span>
-<span class="sd">                | DEPENDENCY_VERBOSE - The verbose flag constant.</span>
-<span class="sd">                | OPTION_CHECKER - The checker options constant.</span>
-<span class="sd">                | OPTION_LOGGER - The logger options constant.</span>
-<span class="sd">                | OPTION_REPORTER - The reporter options constant.</span>
-<span class="sd">                | OPTION_VERBOSE - The verbose flag constant.</span>
+<span class="sd">                | DEPENDENCY_CHECKER - The checker interface constant for the context bundle.</span>
+<span class="sd">                | DEPENDENCY_LOGGER - The logger interface constant for the context bundle.</span>
+<span class="sd">                | DEPENDENCY_REPORTER - The reporter interface constant for the context bundle.</span>
+<span class="sd">                | DEPENDENCY_VERBOSE - The verbose flag constant for the context bundle.</span>
+<span class="sd">                | OPTION_CHECKER - The checker options constant for the context bundle.</span>
+<span class="sd">                | OPTION_LOGGER - The logger options constant for the context bundle.</span>
+<span class="sd">                | OPTION_REPORTER - The reporter options constant for the context bundle.</span>
+<span class="sd">                | OPTION_VERBOSE - The verbose flag constant for the context bundle.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | get_dependency_to_type - Returns the mapping of the context dependencies to their types.</span>
-<span class="sd">                | get_option_to_type - Returns the mapping of the context options to their types.</span>
+<span class="sd">                | get_dependency_to_type - Returns the mapping of the context bundle dependencies to their types.</span>
+<span class="sd">                | get_option_to_type - Returns the mapping of the context bundle options to their types.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="c1"># Dependency Keys</span>
@@ -113,14 +113,14 @@
     <span class="n">OPTION_REPORTER</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;reporter&#39;</span>
     <span class="n">OPTION_VERBOSE</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;verbose&#39;</span>
 
-<div class="viewcode-block" id="ContextKeys.get_dependency_to_type">
-<a class="viewcode-back" href="../../../ats_utilities.context.keys.html#ats_utilities.context.keys.ContextKeys.get_dependency_to_type">[docs]</a>
+<div class="viewcode-block" id="ContextBundleKeys.get_dependency_to_type">
+<a class="viewcode-back" href="../../../ats_utilities.context.keys.html#ats_utilities.context.keys.ContextBundleKeys.get_dependency_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_dependency_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the mapping of the context dependencies to their types.</span>
+<span class="sd">            Returns the mapping of the context bundle dependencies to their types.</span>
 
-<span class="sd">            :return: The mapping of the context dependencies to their types.</span>
+<span class="sd">            :return: The mapping of the context bundle dependencies to their types.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">({</span>
@@ -131,20 +131,20 @@
         <span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="ContextKeys.get_option_to_type">
-<a class="viewcode-back" href="../../../ats_utilities.context.keys.html#ats_utilities.context.keys.ContextKeys.get_option_to_type">[docs]</a>
+<div class="viewcode-block" id="ContextBundleKeys.get_option_to_type">
+<a class="viewcode-back" href="../../../ats_utilities.context.keys.html#ats_utilities.context.keys.ContextBundleKeys.get_option_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_option_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the mapping of the context options to their types.</span>
+<span class="sd">            Returns the mapping of the context bundle options to their types.</span>
 
-<span class="sd">            :return: The mapping of the context options to their types.</span>
+<span class="sd">            :return: The mapping of the context bundle options to their types.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">({</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">OPTION_CHECKER</span><span class="p">:</span> <span class="n">CheckerOptions</span><span class="p">,</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">OPTION_LOGGER</span><span class="p">:</span> <span class="n">LoggerOptions</span><span class="p">,</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">OPTION_REPORTER</span><span class="p">:</span> <span class="n">ReporterOptions</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">OPTION_CHECKER</span><span class="p">:</span> <span class="n">CheckerBundleOptions</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">OPTION_LOGGER</span><span class="p">:</span> <span class="n">LoggerBundleOptions</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">OPTION_REPORTER</span><span class="p">:</span> <span class="n">ReporterBundleOptions</span><span class="p">,</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">OPTION_VERBOSE</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="p">})</span></div>
 </div>

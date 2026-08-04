@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates core runtime components for simplification of splash bundle creation.
+    Encapsulates core runtime components for simplification of splash bundle.
 '''
 
 from __future__ import annotations
 
 from ats_utilities.splash.setup.bundle import SplashBundle
-from ats_utilities.splash.setup.dependencies import SplashDependencies
+from ats_utilities.splash.setup.dependencies import SplashBundleDependencies
 from ats_utilities.splash.setup.keys import SplashKeys
-from ats_utilities.splash.setup.validator import SplashValidator
-from ats_utilities.splash.setup.dep_validator import SplashDependenciesValidator
+from ats_utilities.splash.setup.validator import SplashBundleValidator
+from ats_utilities.splash.setup.dep_validator import SplashBundleDependenciesValidator
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,9 +37,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class SplashRegistry:
+class SplashBundleRegistry:
     '''
-        Encapsulates core runtime components for simplification of splash bundle creation.
+        Encapsulates core runtime components for simplification of splash bundle.
 
         It defines:
 
@@ -48,18 +48,21 @@ class SplashRegistry:
     '''
 
     @classmethod
-    def create_bundle(cls, dependencies: SplashDependencies) -> SplashBundle:
+    def create_bundle(cls, dependencies: SplashBundleDependencies) -> SplashBundle:
         '''
             Orchestrates dependency injection and creates a splash bundle.
 
             :param dependencies: The registry-specific orchestration dependencies.
             :return: The splash bundle.
             :exceptions:
-                | ATSValueError: The dependencies must be provided and have proper attributes.
-                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes
+                | ATSValueError: The splash bundle dependencies must be provided and have proper attributes.
+                | ATSTypeError:  The splash bundle dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
+                | ATSValueError: The splash bundle must be provided and have proper values.
+                | ATSTypeError:  The splash bundle must be an instance of SplashBundle and its
+                |                attributes must be instances of their respective types.
         '''
-        SplashDependenciesValidator.validate(dependencies)
+        SplashBundleDependenciesValidator.validate(dependencies)
 
         bundle: SplashBundle = SplashBundle(
             splash_property=dependencies.get(SplashKeys.DEPENDENCY_SPLASH_PROPERTY) if dependencies else None,
@@ -69,6 +72,6 @@ class SplashRegistry:
             context_bundle=dependencies.get(SplashKeys.DEPENDENCY_CONTEXT_BUNDLE) if dependencies else None
         )
 
-        SplashValidator.validate(bundle)
+        SplashBundleValidator.validate(bundle)
 
         return bundle

@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the logger dependencies.
+    Validator for the logger bundle dependencies.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.logger.setup.dependencies import LoggerDependencies
-from ats_utilities.logger.setup.keys import LoggerKeys
+from ats_utilities.logger.setup.dependencies import LoggerBundleDependencies
+from ats_utilities.logger.setup.keys import LoggerBundleKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -38,35 +38,35 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class LoggerDependenciesValidator:
+class LoggerBundleDependenciesValidator:
     '''
-        A validator for the logger dependencies.
+        Validator for the logger bundle dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the logger dependencies.
+                | validate - Validates the logger bundle dependencies.
     '''
 
     @classmethod
-    def validate(cls, dependencies: LoggerDependencies) -> None:
+    def validate(cls, dependencies: LoggerBundleDependencies) -> None:
         '''
-            Validates the logger dependencies.
+            Validates the logger bundle dependencies.
 
-            :param dependencies: The logger dependencies to be validated.
+            :param dependencies: The logger bundle dependencies to be validated.
             :exceptions:
-                | ATSValueError: The logger dependencies must be provided and have proper values.
-                | ATSTypeError:  The logger dependencies must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The logger bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The logger bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'logger_dependencies_validator::validate(...)'
-        msg_dependencies_none: str = 'the logger dependencies must be provided'
-        msg_dependencies_istype: str = 'the logger dependencies must be a Mapping'
+        ctx: str = 'logger_bundle_dependencies_validator::validate(...)'
+        msg_dependencies_none: str = 'the logger bundle dependencies must be provided'
+        msg_dependencies_istype: str = 'the logger bundle dependencies must be a Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
-        for attr_name, expected_type in LoggerKeys.get_dependency_to_type().items():
+        for attr_name, expected_type in LoggerBundleKeys.get_dependency_to_type().items():
             msg_attribute_none: str = f'the {attr_name.replace("_", " ")} must be provided'
             msg_attribute_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 

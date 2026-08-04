@@ -22,16 +22,16 @@ Info
 from __future__ import annotations
 
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.setup.factory import CheckerFactory
+from ats_utilities.checker.setup.factory import CheckerBundleFactory
 from ats_utilities.reporter.theme.engine import ConsoleTheme
 from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.setup.factory import LoggerFactory
+from ats_utilities.logger.setup.factory import LoggerBundleFactory
 from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.reporter.setup.registry import ReporterRegistry
-from ats_utilities.reporter.setup.dependencies import ReporterDependencies
-from ats_utilities.reporter.setup.options import ReporterOptions
-from ats_utilities.reporter.setup.opt_validator import ReporterOptionsValidator
-from ats_utilities.reporter.setup.keys import ReporterKeys
+from ats_utilities.reporter.setup.dependencies import ReporterBundleDependencies
+from ats_utilities.reporter.setup.options import ReporterBundleOptions
+from ats_utilities.reporter.setup.opt_validator import ReporterBundleOptionsValidator
+from ats_utilities.reporter.setup.keys import ReporterBundleKeys
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -43,7 +43,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ReporterFactory:
+class ReporterBundleFactory:
     '''
         Factory for creating the reporter bundle.
 
@@ -54,30 +54,36 @@ class ReporterFactory:
     '''
 
     @classmethod
-    def create_bundle(cls, options: ReporterOptions | None = None) -> ReporterBundle:
+    def create_bundle(cls, options: ReporterBundleOptions | None = None) -> ReporterBundle:
         '''
             Creates the reporter bundle with optional pre-configured options.
 
             :param options: The pre-configured options for the bundle (default: None).
             :return: The reporter bundle.
             :exceptions:
-                | ATSValueError: The options must be provided and have proper values.
-                | ATSTypeError:  The options must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The reporter bundle options must be provided and have proper values.
+                | ATSTypeError:  The reporter bundle options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The reporter bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The reporter bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The reporter bundle must be provided and have proper values.
+                | ATSTypeError:  The reporter bundle must be an instance of ReporterBundle
+                |                and its attributes must be instances of their respective types.
         '''
         if options is not None:
-            ReporterOptionsValidator.validate(options)
+            ReporterBundleOptionsValidator.validate(options)
 
-        checker_opts = options.get(ReporterKeys.OPTION_CHECKER) if options else None
-        logger_opts = options.get(ReporterKeys.OPTION_LOGGER) if options else None
-        theme_opts = options.get(ReporterKeys.OPTION_THEME) if options else None
+        checker_opts = options.get(ReporterBundleKeys.OPTION_CHECKER) if options else None
+        logger_opts = options.get(ReporterBundleKeys.OPTION_LOGGER) if options else None
+        theme_opts = options.get(ReporterBundleKeys.OPTION_THEME) if options else None
 
-        checker = Checker(own=CheckerFactory.create_bundle(options=checker_opts))
+        checker = Checker(own=CheckerBundleFactory.create_bundle(options=checker_opts))
         theme = ConsoleTheme(palette=theme_opts)
-        logger = Logger(own=LoggerFactory.create_bundle(options=logger_opts))
+        logger = Logger(own=LoggerBundleFactory.create_bundle(options=logger_opts))
 
         return ReporterRegistry.create_bundle(
-            dependencies=ReporterDependencies(
+            dependencies=ReporterBundleDependencies(
                 checker=checker,
                 theme=theme,
                 logger=logger

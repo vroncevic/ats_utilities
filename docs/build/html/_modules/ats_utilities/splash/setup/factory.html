@@ -62,10 +62,10 @@
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.splash.setup.bundle</span> <span class="kn">import</span> <span class="n">SplashBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.splash.setup.options</span> <span class="kn">import</span> <span class="n">SplashOptions</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.splash.setup.opt_validator</span> <span class="kn">import</span> <span class="n">SplashOptionsValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.splash.setup.dependencies</span> <span class="kn">import</span> <span class="n">SplashDependencies</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.splash.setup.registry</span> <span class="kn">import</span> <span class="n">SplashRegistry</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.setup.options</span> <span class="kn">import</span> <span class="n">SplashBundleOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.setup.opt_validator</span> <span class="kn">import</span> <span class="n">SplashBundleOptionsValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.setup.dependencies</span> <span class="kn">import</span> <span class="n">SplashBundleDependencies</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.setup.registry</span> <span class="kn">import</span> <span class="n">SplashBundleRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splash.property.isplash_property</span> <span class="kn">import</span> <span class="n">ISplashProperty</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splash.property.splash_property</span> <span class="kn">import</span> <span class="n">SplashProperty</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splash.terminal.iterminal_properties</span> <span class="kn">import</span> <span class="n">ITerminalProperties</span>
@@ -88,9 +88,9 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="SplashFactory">
-<a class="viewcode-back" href="../../../../ats_utilities.splash.setup.factory.html#ats_utilities.splash.setup.factory.SplashFactory">[docs]</a>
-<span class="k">class</span> <span class="nc">SplashFactory</span><span class="p">:</span>
+<div class="viewcode-block" id="SplashBundleFactory">
+<a class="viewcode-back" href="../../../../ats_utilities.splash.setup.factory.html#ats_utilities.splash.setup.factory.SplashBundleFactory">[docs]</a>
+<span class="k">class</span> <span class="nc">SplashBundleFactory</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        A factory for creating splash bundle.</span>
 
@@ -100,21 +100,27 @@
 <span class="sd">                | create_bundle - Creates a splash bundle using configuration options.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="SplashFactory.create_bundle">
-<a class="viewcode-back" href="../../../../ats_utilities.splash.setup.factory.html#ats_utilities.splash.setup.factory.SplashFactory.create_bundle">[docs]</a>
+<div class="viewcode-block" id="SplashBundleFactory.create_bundle">
+<a class="viewcode-back" href="../../../../ats_utilities.splash.setup.factory.html#ats_utilities.splash.setup.factory.SplashBundleFactory.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">SplashOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SplashBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">SplashBundleOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SplashBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates a splash bundle using configuration options.</span>
 
 <span class="sd">            :param options: The creation options/parameters for the bundle.</span>
 <span class="sd">            :return: The splash bundle.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: The splash options must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  The splash options must be an instance of Mapping and its</span>
+<span class="sd">                | ATSValueError: The splash bundle options must be provided and have proper attributes.</span>
+<span class="sd">                | ATSTypeError:  The splash bundle options must be an instance of Mapping and its attributes</span>
+<span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The splash bundle dependencies must be provided and have proper attributes.</span>
+<span class="sd">                | ATSTypeError:  The splash bundle dependencies must be an instance of Mapping and its attributes</span>
+<span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The splash bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The splash bundle must be an instance of SplashBundle and its</span>
 <span class="sd">                |                attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">SplashOptionsValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">SplashBundleOptionsValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
 
         <span class="n">prop</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">OPTION_PROP</span><span class="p">)</span>
         <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">)</span>
@@ -132,8 +138,8 @@
         <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">terminal_property</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
         <span class="n">pb</span><span class="p">:</span> <span class="n">IProgressBar</span> <span class="o">=</span> <span class="n">ProgressBar</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="n">SplashRegistry</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
-            <span class="n">dependencies</span><span class="o">=</span><span class="n">SplashDependencies</span><span class="p">(</span>
+        <span class="k">return</span> <span class="n">SplashBundleRegistry</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
+            <span class="n">dependencies</span><span class="o">=</span><span class="n">SplashBundleDependencies</span><span class="p">(</span>
                 <span class="n">splash_property</span><span class="o">=</span><span class="n">splash_property</span><span class="p">,</span>
                 <span class="n">terminal_property</span><span class="o">=</span><span class="n">terminal_property</span><span class="p">,</span>
                 <span class="n">ext</span><span class="o">=</span><span class="n">ext</span><span class="p">,</span>

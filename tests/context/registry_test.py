@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ContextRegistry class.
+    Unit tests for ContextBundleRegistry class.
 '''
 
 from __future__ import annotations
@@ -28,8 +28,8 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.registry import ContextRegistry
-from ats_utilities.context.dependencies import ContextDependencies
+from ats_utilities.context.registry import ContextBundleRegistry
+from ats_utilities.context.dependencies import ContextBundleDependencies
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -44,7 +44,7 @@ __status__: str = 'Development'
 class ContextRegistryTest(unittest.TestCase):
     '''
         Defines class ContextRegistryTest with attribute(s) and method(s).
-        Tests ContextRegistry logic.
+        Tests ContextBundleRegistry logic.
     '''
 
     def test_create_bundle(self) -> None:
@@ -52,8 +52,8 @@ class ContextRegistryTest(unittest.TestCase):
         mock_logger = MagicMock(spec=ILogger)
         mock_reporter = MagicMock(spec=IReporter)
 
-        bundle = ContextRegistry.create_bundle(
-            ContextDependencies(
+        bundle = ContextBundleRegistry.create_bundle(
+            ContextBundleDependencies(
                 checker=mock_checker,
                 logger=mock_logger,
                 reporter=mock_reporter,

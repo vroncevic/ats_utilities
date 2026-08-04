@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Reporter options for the reporter bundle.
+    Reporter bundle options for the reporter bundle.
 '''
 
 from __future__ import annotations
@@ -24,8 +24,8 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import TypedDict, NotRequired
 
-from ats_utilities.checker.setup.options import CheckerOptions
-from ats_utilities.logger.setup.options import LoggerOptions
+from ats_utilities.checker.setup.options import CheckerBundleOptions
+from ats_utilities.logger.setup.options import LoggerBundleOptions
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,18 +37,18 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ReporterOptions(TypedDict):
+class ReporterBundleOptions(TypedDict):
     '''
-        Reporter options for the reporter bundle.
+        Reporter bundle options for the reporter bundle.
 
         It defines:
 
             :attributes:
-                | checker - The checker for parameters validation.
+                | checker - The checker bundle options for parameters validation.
                 | theme - The theme for console output styling.
-                | logger - The logger for messages logging.
+                | logger - The logger bundle options for messages logging.
     '''
 
-    checker: NotRequired[CheckerOptions]
+    checker: NotRequired[CheckerBundleOptions]
     theme: NotRequired[Mapping[str, str]]
-    logger: NotRequired[LoggerOptions]
+    logger: NotRequired[LoggerBundleOptions]

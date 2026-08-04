@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates the core runtime components for the simplification of the info bundle creation.
+    Encapsulates the core runtime components for the simplification of the info bundle.
 '''
 
 from __future__ import annotations
 
 from ats_utilities.info.setup.bundle import InfoBundle
-from ats_utilities.info.setup.dependencies import InfoDependencies
-from ats_utilities.info.setup.dep_validator import InfoDependenciesValidator
-from ats_utilities.info.setup.validator import InfoValidator
-from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.dependencies import InfoBundleDependencies
+from ats_utilities.info.setup.dep_validator import InfoBundleDependenciesValidator
+from ats_utilities.info.setup.validator import InfoBundleValidator
+from ats_utilities.info.setup.keys import InfoBundleKeys
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,9 +37,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class InfoRegistry:
+class InfoBundleRegistry:
     '''
-        Encapsulates the core runtime components for the simplification of the info bundle creation.
+        Encapsulates the core runtime components for the simplification of the info bundle.
 
         It defines:
 
@@ -48,33 +48,36 @@ class InfoRegistry:
     '''
 
     @classmethod
-    def create_bundle(cls, dependencies: InfoDependencies) -> InfoBundle:
+    def create_bundle(cls, dependencies: InfoBundleDependencies) -> InfoBundle:
         '''
             Orchestrates dependency injection and creates the info bundle.
 
             :param dependencies: The registry-specific orchestration dependencies.
             :return: The info bundle.
             :exceptions:
-                | ATSValueError: Dependencies must be provided and have proper values.
-                | ATSTypeError:  Dependencies must be an instance of Mapping and its
+                | ATSValueError: The info bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The info bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The info bundle must be provided and have proper values.
+                | ATSTypeError:  The info bundle must be an instance of InfoBundle and its
                 |                attributes must be instances of their respective types.
         '''
-        InfoDependenciesValidator.validate(dependencies)
+        InfoBundleDependenciesValidator.validate(dependencies)
 
         bundle: InfoBundle = InfoBundle(
-            name=dependencies.get(InfoKeys.DEPENDENCY_NAME) if dependencies else None,
-            version=dependencies.get(InfoKeys.DEPENDENCY_VERSION) if dependencies else None,
-            licence=dependencies.get(InfoKeys.DEPENDENCY_LICENCE) if dependencies else None,
-            build_date=dependencies.get(InfoKeys.DEPENDENCY_BUILD_DATE) if dependencies else None,
-            repository=dependencies.get(InfoKeys.DEPENDENCY_REPOSITORY) if dependencies else None,
-            organization=dependencies.get(InfoKeys.DEPENDENCY_ORGANIZATION) if dependencies else None,
-            use_github=dependencies.get(InfoKeys.DEPENDENCY_USE_GITHUB_INFRASTRUCTURE) if dependencies else None,
-            logo=dependencies.get(InfoKeys.DEPENDENCY_LOGO_PATH) if dependencies else None,
-            log_file=dependencies.get(InfoKeys.DEPENDENCY_LOG_FILE) if dependencies else None,
-            info_ok=dependencies.get(InfoKeys.DEPENDENCY_INFO_OK) if dependencies else None,
-            context_bundle=dependencies.get(InfoKeys.OPTION_CONTEXT_BUNDLE) if dependencies else None
+            name=dependencies.get(InfoBundleKeys.DEPENDENCY_NAME) if dependencies else None,
+            version=dependencies.get(InfoBundleKeys.DEPENDENCY_VERSION) if dependencies else None,
+            licence=dependencies.get(InfoBundleKeys.DEPENDENCY_LICENCE) if dependencies else None,
+            build_date=dependencies.get(InfoBundleKeys.DEPENDENCY_BUILD_DATE) if dependencies else None,
+            repository=dependencies.get(InfoBundleKeys.DEPENDENCY_REPOSITORY) if dependencies else None,
+            organization=dependencies.get(InfoBundleKeys.DEPENDENCY_ORGANIZATION) if dependencies else None,
+            use_github=dependencies.get(InfoBundleKeys.DEPENDENCY_USE_GITHUB_INFRASTRUCTURE) if dependencies else None,
+            logo=dependencies.get(InfoBundleKeys.DEPENDENCY_LOGO_PATH) if dependencies else None,
+            log_file=dependencies.get(InfoBundleKeys.DEPENDENCY_LOG_FILE) if dependencies else None,
+            info_ok=dependencies.get(InfoBundleKeys.DEPENDENCY_INFO_OK) if dependencies else None,
+            context_bundle=dependencies.get(InfoBundleKeys.OPTION_CONTEXT_BUNDLE) if dependencies else None
         )
 
-        InfoValidator.validate(bundle)
+        InfoBundleValidator.validate(bundle)
 
         return bundle

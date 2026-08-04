@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for SplashDependenciesValidator class.
+    Unit tests for SplashBundleDependenciesValidator class.
 '''
 
 from __future__ import annotations
@@ -29,19 +29,19 @@ from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
 from ats_utilities.splash.property.isplash_property import ISplashProperty
-from ats_utilities.splash.setup.dep_validator import SplashDependenciesValidator
-from ats_utilities.splash.setup.dependencies import SplashDependencies
+from ats_utilities.splash.setup.dep_validator import SplashBundleDependenciesValidator
+from ats_utilities.splash.setup.dependencies import SplashBundleDependencies
 from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
 
 
-@patch("ats_utilities.splash.setup.dep_validator.ContextValidator.validate")
+@patch("ats_utilities.splash.setup.dep_validator.ContextBundleValidator.validate")
 class SplashDependenciesValidatorTest(unittest.TestCase):
     '''
         Defines class SplashDependenciesValidatorTest with attribute(s) and method(s).
-        Tests SplashDependenciesValidator.
+        Tests SplashBundleDependenciesValidator.
     '''
 
-    def _get_valid_deps(self) -> SplashDependencies:
+    def _get_valid_deps(self) -> SplashBundleDependencies:
         return {
             "splash_property": MagicMock(spec=ISplashProperty),
             "terminal_property": MagicMock(spec=ITerminalProperties),
@@ -52,16 +52,16 @@ class SplashDependenciesValidatorTest(unittest.TestCase):
 
     def test_validate_valid(self, mock_context_val: MagicMock) -> None:
         deps = self._get_valid_deps()
-        SplashDependenciesValidator.validate(deps)
+        SplashBundleDependenciesValidator.validate(deps)
         mock_context_val.assert_called_once_with(deps["context_bundle"])
 
     def test_validate_invalid_none(self, mock_context_val: MagicMock) -> None:
         with self.assertRaises(ATSValueError):
-            SplashDependenciesValidator.validate(None)  # type: ignore
+            SplashBundleDependenciesValidator.validate(None)  # type: ignore
 
     def test_validate_invalid_type(self, mock_context_val: MagicMock) -> None:
         with self.assertRaises(ATSTypeError):
-            SplashDependenciesValidator.validate(object())  # type: ignore
+            SplashBundleDependenciesValidator.validate(object())  # type: ignore
 
     def test_validate_missing_keys(self, mock_context_val: MagicMock) -> None:
         for key in self._get_valid_deps().keys():
@@ -69,7 +69,7 @@ class SplashDependenciesValidatorTest(unittest.TestCase):
                 deps = self._get_valid_deps()
                 del deps[key]  # type: ignore
                 with self.assertRaises(ATSValueError):
-                    SplashDependenciesValidator.validate(deps)
+                    SplashBundleDependenciesValidator.validate(deps)
 
     def test_validate_bad_types(self, mock_context_val: MagicMock) -> None:
         type_mismatches = {
@@ -84,7 +84,7 @@ class SplashDependenciesValidatorTest(unittest.TestCase):
                 deps = self._get_valid_deps()
                 deps[key] = bad_value  # type: ignore
                 with self.assertRaises(ATSTypeError):
-                    SplashDependenciesValidator.validate(deps)
+                    SplashBundleDependenciesValidator.validate(deps)
 
 
 if __name__ == "__main__":

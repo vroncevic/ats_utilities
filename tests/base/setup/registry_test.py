@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for BaseRegistry class.
+    Unit tests for BaseBundleRegistry class.
 '''
 
 from __future__ import annotations
@@ -24,9 +24,9 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock, patch
 
-from ats_utilities.base.setup.registry import BaseRegistry
+from ats_utilities.base.setup.registry import BaseBundleRegistry
 from ats_utilities.base.setup.bundle import BaseBundle
-from ats_utilities.base.setup.dependencies import BaseDependencies
+from ats_utilities.base.setup.dependencies import BaseBundleDependencies
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.option.imanager import IOptionManager
@@ -34,10 +34,10 @@ from ats_utilities.splash.imanager import ISplashManager
 from ats_utilities.generation.imanager import IGeneratorManager
 
 
-@patch("ats_utilities.base.setup.registry.BaseValidator")
-@patch("ats_utilities.base.setup.registry.BaseDependenciesValidator")
+@patch("ats_utilities.base.setup.registry.BaseBundleValidator")
+@patch("ats_utilities.base.setup.registry.BaseBundleDependenciesValidator")
 class TestBaseRegistry(unittest.TestCase):
-    """Unit tests for the BaseRegistry class."""
+    """Unit tests for the BaseBundleRegistry class."""
 
     def test_create_bundle(self, mock_dep_val: MagicMock, mock_val: MagicMock) -> None:
         """Test create_bundle delegates correctly."""
@@ -47,8 +47,8 @@ class TestBaseRegistry(unittest.TestCase):
         splash_manager = MagicMock(spec=ISplashManager)
         generation_manager = MagicMock(spec=IGeneratorManager)
 
-        bundle = BaseRegistry.create_bundle(
-            BaseDependencies(
+        bundle = BaseBundleRegistry.create_bundle(
+            BaseBundleDependencies(
                 context_bundle=mock_context_bundle,
                 info_manager=info_manager,
                 option_manager=option_manager,

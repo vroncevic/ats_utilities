@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the checker dependencies.
+    Validator for the checker bundle dependencies.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.checker.setup.dependencies import CheckerDependencies
-from ats_utilities.checker.setup.keys import CheckerKeys
+from ats_utilities.checker.setup.dependencies import CheckerBundleDependencies
+from ats_utilities.checker.setup.keys import CheckerBundleKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -38,35 +38,35 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class CheckerDependenciesValidator:
+class CheckerBundleDependenciesValidator:
     '''
-        A validator for the checker dependencies.
+        Validator for the checker bundle dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the checker dependencies.
+                | validate - Validates the checker bundle dependencies.
     '''
 
     @classmethod
-    def validate(cls, dependencies: CheckerDependencies) -> None:
+    def validate(cls, dependencies: CheckerBundleDependencies) -> None:
         '''
-            Validates the checker dependencies.
+            Validates the checker bundle dependencies.
 
-            :param dependencies: The checker dependencies to be validated.
+            :param dependencies: The checker bundle dependencies to be validated.
             :exceptions:
-                | ATSValueError: The dependencies must be provided and have proper attributes.
-                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes
+                | ATSValueError: The checker bundle dependencies must be provided and have proper attributes.
+                | ATSTypeError:  The checker bundle dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
-        ctx: str = 'checker_dependencies_validator::validate(...)'
-        msg_dependencies_none: str = 'the dependencies must be provided'
-        msg_dependencies_istype: str = 'the dependencies must be a Mapping'
+        ctx: str = 'checker_bundle_dependencies_validator::validate(...)'
+        msg_dependencies_none: str = 'the checker bundle dependencies must be provided'
+        msg_dependencies_istype: str = 'the checker bundle dependencies must be a Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
-        for attr_name, expected_type in CheckerKeys.get_dependency_to_type().items():
+        for attr_name, expected_type in CheckerBundleKeys.get_dependency_to_type().items():
             msg_attribute_none: str = f'the {attr_name.replace("_", " ")} must be provided'
             msg_attribute_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 

@@ -66,7 +66,7 @@
 <span class="kn">from</span> <span class="nn">struct</span> <span class="kn">import</span> <span class="n">unpack</span><span class="p">,</span> <span class="n">pack</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.context.bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextBundleValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">mcheck</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreport</span>
@@ -109,12 +109,11 @@
 
 <span class="sd">            :param context_bundle: The context bundle for terminal properties.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError:  Context bundle must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:   Context bundle must be an instance of ContextBundle</span>
-<span class="sd">                |                 and its attributes must be instances of their</span>
-<span class="sd">                |                 respective types.</span>
+<span class="sd">                | ATSValueError: The context bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The context bundle must be an instance of ContextBundle</span>
+<span class="sd">                |                and its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ContextValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">)</span>
+        <span class="n">ContextBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_context</span> <span class="o">=</span> <span class="n">context_bundle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_window_size</span> <span class="o">=</span> <span class="kc">None</span>
 

@@ -28,8 +28,8 @@ from ats_utilities.logger.engine import Logger
 from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.reporter.setup.registry import ReporterRegistry
 from ats_utilities.reporter.theme.engine import ConsoleTheme
-from ats_utilities.reporter.setup.dependencies import ReporterDependencies
-from ats_utilities.reporter.setup.factory import ReporterFactory
+from ats_utilities.reporter.setup.dependencies import ReporterBundleDependencies
+from ats_utilities.reporter.setup.factory import ReporterBundleFactory
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -48,9 +48,9 @@ class RegistryTest(unittest.TestCase):
     '''
 
     def test_create_bundle(self) -> None:
-        factory_bundle = ReporterFactory.create_bundle()
+        factory_bundle = ReporterBundleFactory.create_bundle()
         bundle = ReporterRegistry.create_bundle(
-            ReporterDependencies(
+            ReporterBundleDependencies(
                 checker=factory_bundle.checker,
                 theme=factory_bundle.theme,
                 logger=factory_bundle.logger

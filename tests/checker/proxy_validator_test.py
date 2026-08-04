@@ -24,7 +24,7 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.checker.setup.factory import CheckerFactory
+from ats_utilities.checker.setup.factory import CheckerBundleFactory
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.setup.types import CheckerErrorType
 from ats_utilities.checker.proxy_validator import mcheck, fcheck
@@ -34,7 +34,7 @@ from ats_utilities.exceptions import ATSRuntimeError, ATSTypeError, ATSValueErro
 class DummyClass:
     def __init__(self, use_checker: bool = True) -> None:
         if use_checker:
-            self._checker = Checker(CheckerFactory.create_bundle())
+            self._checker = Checker(CheckerBundleFactory.create_bundle())
 
     @mcheck([('str:name', None), ('int:value', None)])
     def my_method(self, name: str, value: int) -> str:
@@ -91,7 +91,7 @@ class ProxyValidatorTest(unittest.TestCase):
     def test_vcheck_invalid_format(self) -> None:
         class BadSpecClass:
             def __init__(self) -> None:
-                self._checker = Checker(CheckerFactory.create_bundle())
+                self._checker = Checker(CheckerBundleFactory.create_bundle())
 
             @mcheck([('invalid_format', None)])
             def bad_method(self, name: str) -> str:

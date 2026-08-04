@@ -64,14 +64,14 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>A validator for the splash bundle.</p>
+<dt>Info</dt><dd><p>Validator for the splash bundle.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.splash.setup.validator.SplashValidator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.splash.setup.validator.</span></span><span class="sig-name descname"><span class="pre">SplashValidator</span></span><a class="reference internal" href="_modules/ats_utilities/splash/setup/validator.html#SplashValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splash.setup.validator.SplashValidator" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.splash.setup.validator.SplashBundleValidator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.splash.setup.validator.</span></span><span class="sig-name descname"><span class="pre">SplashBundleValidator</span></span><a class="reference internal" href="_modules/ats_utilities/splash/setup/validator.html#SplashBundleValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splash.setup.validator.SplashBundleValidator" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A validator for the splash bundle.</p>
+<p>Validator for the splash bundle.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
@@ -83,8 +83,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dl>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.splash.setup.validator.SplashValidator.validate">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.splash.setup.bundle.html#ats_utilities.splash.setup.bundle.SplashBundle" title="ats_utilities.splash.setup.bundle.SplashBundle"><span class="pre">SplashBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/splash/setup/validator.html#SplashValidator.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splash.setup.validator.SplashValidator.validate" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.splash.setup.validator.SplashBundleValidator.validate">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.splash.setup.bundle.html#ats_utilities.splash.setup.bundle.SplashBundle" title="ats_utilities.splash.setup.bundle.SplashBundle"><span class="pre">SplashBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/splash/setup/validator.html#SplashBundleValidator.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splash.setup.validator.SplashBundleValidator.validate" title="Link to this definition">¶</a></dt>
 <dd><p>Validates the splash bundle.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -92,8 +92,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">ATSValueError: The option bundle must be provided and have proper values.</div>
-<div class="line">ATSTypeError:  The option bundle must be an instance of OptionBundle and its</div>
+<div class="line">ATSValueError: The splash bundle must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The splash bundle must be an instance of SplashBundle and its</div>
 <div class="line-block">
 <div class="line">attributes must be instances of their respective types.</div>
 </div>
@@ -117,8 +117,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.splash.setup.validator module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.splash.setup.validator.SplashValidator"><code class="docutils literal notranslate"><span class="pre">SplashValidator</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.splash.setup.validator.SplashValidator.validate"><code class="docutils literal notranslate"><span class="pre">SplashValidator.validate()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splash.setup.validator.SplashBundleValidator"><code class="docutils literal notranslate"><span class="pre">SplashBundleValidator</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.splash.setup.validator.SplashBundleValidator.validate"><code class="docutils literal notranslate"><span class="pre">SplashBundleValidator.validate()</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -64,14 +64,14 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Encapsulates the core runtime components for the simplification of the info bundle creation.</p>
+<dt>Info</dt><dd><p>Encapsulates the core runtime components for the simplification of the info bundle.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.info.setup.registry.InfoRegistry">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.setup.registry.</span></span><span class="sig-name descname"><span class="pre">InfoRegistry</span></span><a class="reference internal" href="_modules/ats_utilities/info/setup/registry.html#InfoRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.setup.registry.InfoRegistry" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.info.setup.registry.InfoBundleRegistry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.setup.registry.</span></span><span class="sig-name descname"><span class="pre">InfoBundleRegistry</span></span><a class="reference internal" href="_modules/ats_utilities/info/setup/registry.html#InfoBundleRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.setup.registry.InfoBundleRegistry" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Encapsulates the core runtime components for the simplification of the info bundle creation.</p>
+<p>Encapsulates the core runtime components for the simplification of the info bundle.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
@@ -83,8 +83,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dl>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.info.setup.registry.InfoRegistry.create_bundle">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.info.setup.dependencies.html#ats_utilities.info.setup.dependencies.InfoDependencies" title="ats_utilities.info.setup.dependencies.InfoDependencies"><span class="pre">InfoDependencies</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.info.setup.bundle.html#ats_utilities.info.setup.bundle.InfoBundle" title="ats_utilities.info.setup.bundle.InfoBundle"><span class="pre">InfoBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/info/setup/registry.html#InfoRegistry.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.setup.registry.InfoRegistry.create_bundle" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.info.setup.registry.InfoBundleRegistry.create_bundle">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.info.setup.dependencies.html#ats_utilities.info.setup.dependencies.InfoBundleDependencies" title="ats_utilities.info.setup.dependencies.InfoBundleDependencies"><span class="pre">InfoBundleDependencies</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.info.setup.bundle.html#ats_utilities.info.setup.bundle.InfoBundle" title="ats_utilities.info.setup.bundle.InfoBundle"><span class="pre">InfoBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/info/setup/registry.html#InfoBundleRegistry.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.setup.registry.InfoBundleRegistry.create_bundle" title="Link to this definition">¶</a></dt>
 <dd><p>Orchestrates dependency injection and creates the info bundle.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -95,8 +95,13 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">ATSValueError: Dependencies must be provided and have proper values.</div>
-<div class="line">ATSTypeError:  Dependencies must be an instance of Mapping and its</div>
+<div class="line">ATSValueError: The info bundle dependencies must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The info bundle dependencies must be an instance of Mapping and its</div>
+<div class="line-block">
+<div class="line">attributes must be instances of their respective types.</div>
+</div>
+<div class="line">ATSValueError: The info bundle must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The info bundle must be an instance of InfoBundle and its</div>
 <div class="line-block">
 <div class="line">attributes must be instances of their respective types.</div>
 </div>
@@ -120,8 +125,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.info.setup.registry module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.info.setup.registry.InfoRegistry"><code class="docutils literal notranslate"><span class="pre">InfoRegistry</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.info.setup.registry.InfoRegistry.create_bundle"><code class="docutils literal notranslate"><span class="pre">InfoRegistry.create_bundle()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.setup.registry.InfoBundleRegistry"><code class="docutils literal notranslate"><span class="pre">InfoBundleRegistry</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.info.setup.registry.InfoBundleRegistry.create_bundle"><code class="docutils literal notranslate"><span class="pre">InfoBundleRegistry.create_bundle()</span></code></a></li>
 </ul>
 </li>
 </ul>

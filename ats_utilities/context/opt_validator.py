@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the context options.
+    Validator for the context bundle options.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.context.options import ContextOptions
-from ats_utilities.context.keys import ContextKeys
+from ats_utilities.context.options import ContextBundleOptions
+from ats_utilities.context.keys import ContextBundleKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -38,35 +38,35 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ContextOptionsValidator:
+class ContextBundleOptionsValidator:
     '''
-        A validator for the context options.
+        Validator for the context bundle options.
 
         It defines:
 
             :methods:
-                | validate - Validates the context options.
+                | validate - Validates the context bundle options.
     '''
 
     @classmethod
-    def validate(cls, options: ContextOptions) -> None:
+    def validate(cls, options: ContextBundleOptions) -> None:
         '''
-            Validates the context options.
+            Validates the context bundle options.
 
-            :param options: The context options to be validated.
+            :param options: The context bundle options to be validated.
             :exceptions:
-                | ATSValueError: The context options must be provided and have proper values.
-                | ATSTypeError:  The context options must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The context bundle options must be provided and have proper values.
+                | ATSTypeError:  The context bundle options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'context_options_validator::validate(...)'
-        msg_options_none: str = 'the options must be provided'
-        msg_options_istype: str = 'the options must be a Mapping'
+        ctx: str = 'context_bundle_options_validator::validate(...)'
+        msg_options_none: str = 'the context bundle options must be provided'
+        msg_options_istype: str = 'the context bundle options must be a Mapping'
 
         not_none(options, ctx, msg_options_none)
         istype(options, Mapping, ctx, msg_options_istype)
 
-        for attr_name, expected_type in ContextKeys.get_option_to_type().items():
+        for attr_name, expected_type in ContextBundleKeys.get_option_to_type().items():
             msg_attr_name_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute = options.get(attr_name)

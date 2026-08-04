@@ -64,14 +64,14 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>A validator for the reporter bundle.</p>
+<dt>Info</dt><dd><p>Validator for the reporter bundle.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.reporter.setup.validator.ReporterValidator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.reporter.setup.validator.</span></span><span class="sig-name descname"><span class="pre">ReporterValidator</span></span><a class="reference internal" href="_modules/ats_utilities/reporter/setup/validator.html#ReporterValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.setup.validator.ReporterValidator" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.reporter.setup.validator.ReporterBundleValidator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.reporter.setup.validator.</span></span><span class="sig-name descname"><span class="pre">ReporterBundleValidator</span></span><a class="reference internal" href="_modules/ats_utilities/reporter/setup/validator.html#ReporterBundleValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.setup.validator.ReporterBundleValidator" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A validator for the reporter bundle.</p>
+<p>Validator for the reporter bundle.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
@@ -83,8 +83,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dl>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.reporter.setup.validator.ReporterValidator.validate">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.reporter.setup.bundle.html#ats_utilities.reporter.setup.bundle.ReporterBundle" title="ats_utilities.reporter.setup.bundle.ReporterBundle"><span class="pre">ReporterBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/setup/validator.html#ReporterValidator.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.setup.validator.ReporterValidator.validate" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.reporter.setup.validator.ReporterBundleValidator.validate">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.reporter.setup.bundle.html#ats_utilities.reporter.setup.bundle.ReporterBundle" title="ats_utilities.reporter.setup.bundle.ReporterBundle"><span class="pre">ReporterBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/setup/validator.html#ReporterBundleValidator.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.setup.validator.ReporterBundleValidator.validate" title="Link to this definition">¶</a></dt>
 <dd><p>Validates the reporter bundle.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -95,8 +95,7 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <div class="line">ATSValueError: The reporter bundle must be provided and have proper values.</div>
 <div class="line">ATSTypeError:  The reporter bundle must be an instance of ReporterBundle</div>
 <div class="line-block">
-<div class="line">and its attributes must be instances of their</div>
-<div class="line">respective types.</div>
+<div class="line">and its attributes must be instances of their respective types.</div>
 </div>
 </div>
 </dd>
@@ -118,8 +117,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.reporter.setup.validator module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.reporter.setup.validator.ReporterValidator"><code class="docutils literal notranslate"><span class="pre">ReporterValidator</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.reporter.setup.validator.ReporterValidator.validate"><code class="docutils literal notranslate"><span class="pre">ReporterValidator.validate()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.setup.validator.ReporterBundleValidator"><code class="docutils literal notranslate"><span class="pre">ReporterBundleValidator</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.reporter.setup.validator.ReporterBundleValidator.validate"><code class="docutils literal notranslate"><span class="pre">ReporterBundleValidator.validate()</span></code></a></li>
 </ul>
 </li>
 </ul>

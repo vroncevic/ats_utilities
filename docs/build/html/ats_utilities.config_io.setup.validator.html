@@ -68,8 +68,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.config_io.setup.validator.ConfigIOValidator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.setup.validator.</span></span><span class="sig-name descname"><span class="pre">ConfigIOValidator</span></span><a class="reference internal" href="_modules/ats_utilities/config_io/setup/validator.html#ConfigIOValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.setup.validator.ConfigIOValidator" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.setup.validator.ConfigIOBundleValidator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.setup.validator.</span></span><span class="sig-name descname"><span class="pre">ConfigIOBundleValidator</span></span><a class="reference internal" href="_modules/ats_utilities/config_io/setup/validator.html#ConfigIOBundleValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.setup.validator.ConfigIOBundleValidator" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Validator for config I/O bundle.</p>
 <p>It defines:</p>
@@ -83,8 +83,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dl>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.config_io.setup.validator.ConfigIOValidator.validate">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.setup.bundle.html#ats_utilities.config_io.setup.bundle.ConfigIOBundle" title="ats_utilities.config_io.setup.bundle.ConfigIOBundle"><span class="pre">ConfigIOBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/setup/validator.html#ConfigIOValidator.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.setup.validator.ConfigIOValidator.validate" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.setup.validator.ConfigIOBundleValidator.validate">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.setup.bundle.html#ats_utilities.config_io.setup.bundle.ConfigIOBundle" title="ats_utilities.config_io.setup.bundle.ConfigIOBundle"><span class="pre">ConfigIOBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/setup/validator.html#ConfigIOBundleValidator.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.setup.validator.ConfigIOBundleValidator.validate" title="Link to this definition">¶</a></dt>
 <dd><p>Validates config I/O bundle.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -92,8 +92,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">ATSValueError: The config bundle must be provided and have proper values.</div>
-<div class="line">ATSTypeError:  The config bundle must be an instance of ConfigIOBundle and its</div>
+<div class="line">ATSValueError: The config I/O bundle must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The config I/O bundle must be an instance of ConfigIOBundle and its</div>
 <div class="line-block">
 <div class="line">attributes must be instances of their respective types.</div>
 </div>
@@ -117,8 +117,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.config_io.setup.validator module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.setup.validator.ConfigIOValidator"><code class="docutils literal notranslate"><span class="pre">ConfigIOValidator</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.setup.validator.ConfigIOValidator.validate"><code class="docutils literal notranslate"><span class="pre">ConfigIOValidator.validate()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.setup.validator.ConfigIOBundleValidator"><code class="docutils literal notranslate"><span class="pre">ConfigIOBundleValidator</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.config_io.setup.validator.ConfigIOBundleValidator.validate"><code class="docutils literal notranslate"><span class="pre">ConfigIOBundleValidator.validate()</span></code></a></li>
 </ul>
 </li>
 </ul>

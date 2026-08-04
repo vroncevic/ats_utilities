@@ -54,7 +54,7 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    A validator for the generator bundle.</span>
+<span class="sd">    Validator for the generator bundle.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -63,7 +63,7 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.generation.scheme.ischeme_loader</span> <span class="kn">import</span> <span class="n">ISchemeLoader</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generation.tar.itar_processor</span> <span class="kn">import</span> <span class="n">ITarProcessor</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextBundleValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span>
 
@@ -77,11 +77,11 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="GeneratorValidator">
-<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.validator.html#ats_utilities.generation.setup.validator.GeneratorValidator">[docs]</a>
-<span class="k">class</span> <span class="nc">GeneratorValidator</span><span class="p">:</span>
+<div class="viewcode-block" id="GeneratorBundleValidator">
+<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.validator.html#ats_utilities.generation.setup.validator.GeneratorBundleValidator">[docs]</a>
+<span class="k">class</span> <span class="nc">GeneratorBundleValidator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        A validator for the generator bundle.</span>
+<span class="sd">        Validator for the generator bundle.</span>
 
 <span class="sd">        It defines:</span>
 
@@ -89,28 +89,28 @@
 <span class="sd">                | validate - Validates the generator bundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="GeneratorValidator.validate">
-<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.validator.html#ats_utilities.generation.setup.validator.GeneratorValidator.validate">[docs]</a>
+<div class="viewcode-block" id="GeneratorBundleValidator.validate">
+<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.validator.html#ats_utilities.generation.setup.validator.GeneratorBundleValidator.validate">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="n">GeneratorBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Validates the generator bundle.</span>
 
-<span class="sd">            :param bundle: The generator bundle instance to be validated.</span>
+<span class="sd">            :param bundle: The generator bundle to be validated.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Generator bundle must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Generator bundle must be an instance of GeneratorBundle and its attributes</span>
-<span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The generator bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The generator bundle must be an instance of GeneratorBundle</span>
+<span class="sd">                |                and its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;generator_validator::validate(...)&#39;</span>
-        <span class="n">msg_bundle_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;bundle must be provided&#39;</span>
-        <span class="n">msg_bundle_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;bundle must be an instance of GeneratorBundle&#39;</span>
-        <span class="n">msg_scheme_loader_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;scheme loader must be provided&#39;</span>
-        <span class="n">msg_tar_processor_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;tar processor must be provided&#39;</span>
-        <span class="n">msg_context_bundle_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;context bundle must be provided&#39;</span>
-        <span class="n">msg_scheme_loader_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;scheme loader must be an ISchemeLoader instance&#39;</span>
-        <span class="n">msg_tar_processor_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;tar processor must be an ITarProcessor instance&#39;</span>
-        <span class="n">msg_context_bundle_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;context bundle must be a ContextBundle instance&#39;</span>
+        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;generator_bundle_validator::validate(...)&#39;</span>
+        <span class="n">msg_bundle_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the generator bundle must be provided&#39;</span>
+        <span class="n">msg_bundle_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the generator bundle must be an instance of GeneratorBundle&#39;</span>
+        <span class="n">msg_scheme_loader_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the scheme loader must be provided&#39;</span>
+        <span class="n">msg_tar_processor_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the tar processor must be provided&#39;</span>
+        <span class="n">msg_context_bundle_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the context bundle must be provided&#39;</span>
+        <span class="n">msg_scheme_loader_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the scheme loader must be an instance of ISchemeLoader&#39;</span>
+        <span class="n">msg_tar_processor_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the tar processor must be an instance of ITarProcessor&#39;</span>
+        <span class="n">msg_context_bundle_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the context bundle must be an instance of ContextBundle&#39;</span>
 
         <span class="n">not_none</span><span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_bundle_none</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="n">GeneratorBundle</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_bundle_istype</span><span class="p">)</span>
@@ -123,7 +123,7 @@
         <span class="n">istype</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">tar_processor</span><span class="p">,</span> <span class="n">ITarProcessor</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_tar_processor_istype</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_context_bundle_istype</span><span class="p">)</span>
 
-        <span class="n">ContextValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span></div>
+        <span class="n">ContextBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

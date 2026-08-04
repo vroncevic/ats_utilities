@@ -16,34 +16,34 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ReporterOptions TypedDict.
+    Unit tests for ReporterBundleOptions TypedDict.
 '''
 
 from __future__ import annotations
 
 import unittest
 
-from ats_utilities.checker.setup.options import CheckerOptions
-from ats_utilities.logger.setup.options import LoggerOptions
-from ats_utilities.reporter.setup.options import ReporterOptions
+from ats_utilities.checker.setup.options import CheckerBundleOptions
+from ats_utilities.logger.setup.options import LoggerBundleOptions
+from ats_utilities.reporter.setup.options import ReporterBundleOptions
 
 
 class OptionsTest(unittest.TestCase):
     '''
         Defines class OptionsTest with attribute(s) and method(s).
-        Tests ReporterOptions structure.
+        Tests ReporterBundleOptions structure.
     '''
 
     def test_options_structure(self) -> None:
-        checker_opts: CheckerOptions = {}
-        logger_opts: LoggerOptions = {
+        checker_opts: CheckerBundleOptions = {}
+        logger_opts: LoggerBundleOptions = {
             "log_level": 20
         }
         theme_opts = {
             "success": "green"
         }
 
-        opts: ReporterOptions = {
+        opts: ReporterBundleOptions = {
             "checker": checker_opts,
             "theme": theme_opts,
             "logger": logger_opts

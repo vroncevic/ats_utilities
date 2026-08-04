@@ -25,7 +25,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 
 from ats_utilities.generation.setup.bundle import GeneratorBundle
-from ats_utilities.generation.setup.validator import GeneratorValidator
+from ats_utilities.generation.setup.validator import GeneratorBundleValidator
 from ats_utilities.generation.data import GeneratorData
 from ats_utilities.generation.data_validator import GeneratorDataValidator
 from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
@@ -86,7 +86,7 @@ class GeneratorManager:
                 |                and its attributes must be instances of their respective types.
         '''
         self._is_initialized = False
-        GeneratorValidator.validate(own)
+        GeneratorBundleValidator.validate(own)
         self._apply_bundle(own)
         self._is_initialized = True
 
@@ -113,7 +113,7 @@ class GeneratorManager:
         '''
         try:
             self._is_initialized = False
-            GeneratorValidator.validate(bundle)
+            GeneratorBundleValidator.validate(bundle)
             self._apply_bundle(bundle)
             self._is_initialized = True
 
@@ -149,14 +149,14 @@ class GeneratorManager:
             :param template_values: The input replacement values.
             :return: The updated template values dictionary.
             :exceptions:
-                | ATSValueError: Template values must be provided.
-                | ATSTypeError:  Template values must be a mapping.
-                | ATSValueError: Template values is missing or empty.
+                | ATSValueError: The template values must be provided.
+                | ATSTypeError:  The template values must be a mapping.
+                | ATSValueError: The template values is missing or empty.
         '''
         ctx: str = 'generator::prepare_template_values(...)'
-        msg_template_values_none: str = 'template_values must be provided'
-        msg_template_values_istype: str = 'template_values must be a mapping'
-        msg_project_name_empty: str = 'template_values must contain a non-empty project_name'
+        msg_template_values_none: str = 'the template values must be provided'
+        msg_template_values_istype: str = 'the template values must be a mapping'
+        msg_project_name_empty: str = 'the template values must contain a non-empty project_name'
 
         not_none(template_values, ctx, msg_template_values_none)
         istype(template_values, Mapping, ctx, msg_template_values_istype)
@@ -185,17 +185,17 @@ class GeneratorManager:
             :param data: The GeneratorManager data containing template generation parameters.
             :return: True if successful, otherwise False.
             :exceptions:
-                | ATSValueError: Generator data must be provided and have proper values.
-                | ATSTypeError:  Generator data must be an instance of GeneratorData and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The generator data must be provided and have proper values.
+                | ATSTypeError:  The generator data must be an instance of GeneratorData and
+                |                its attributes must be instances of their respective types.
         '''
         GeneratorDataValidator.validate(data)
         resolved_scheme = self._scheme_loader.load(data.scheme)
         project_scheme = resolved_scheme.get(data.template_key)
 
         ctx: str = 'generator::generate(...)'
-        msg_template_key_not_found: str = f'template_key {data.template_key} not found in scheme configuration'
-        msg_source_dir_not_specified: str = f'source_dir not specified for template_key {data.template_key}'
+        msg_template_key_not_found: str = f'the template_key {data.template_key} not found in scheme configuration'
+        msg_source_dir_not_specified: str = f'the source_dir not specified for template_key {data.template_key}'
 
         not_satisfied(not project_scheme, ctx, msg_template_key_not_found)
 
@@ -222,7 +222,7 @@ class GeneratorManager:
             return True
 
         except Exception as exc:
-            not_satisfied(True, ctx, f'generation failed {exc}')
+            not_satisfied(True, ctx, f'the generation failed {exc}')
 
     def is_initialized(self) -> bool:
         '''

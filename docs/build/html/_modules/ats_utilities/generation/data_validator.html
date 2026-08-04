@@ -54,7 +54,7 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    A validator for the generator data.</span>
+<span class="sd">    Validator for the generator data.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -81,7 +81,7 @@
 <span class="k">class</span> <span class="nc">GeneratorDataValidator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 
-<span class="sd">        A validator for the generator data.</span>
+<span class="sd">        Validator for the generator data.</span>
 <span class="sd">        </span>
 <span class="sd">        It defines:</span>
 
@@ -100,25 +100,25 @@
 
 <span class="sd">            :param data: The generator data to be validated.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Generator data must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Generator data must be an instance of GeneratorData and</span>
+<span class="sd">                | ATSValueError: The generator data must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The generator data must be an instance of GeneratorData and</span>
 <span class="sd">                |                its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;generator_data_validator::validate(...)&#39;</span>
-        <span class="n">msg_data_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;generator data must be provided&#39;</span>
-        <span class="n">msg_data_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;generator data must be an instance of GeneratorData&#39;</span>
-        <span class="n">msg_archive_path_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;archive_path must be provided&#39;</span>
-        <span class="n">msg_target_dir_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;target_dir must be provided&#39;</span>
-        <span class="n">msg_template_key_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;template_key must be provided&#39;</span>
-        <span class="n">msg_scheme_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;scheme must be provided&#39;</span>
-        <span class="n">msg_template_values_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;template_values must be provided&#39;</span>
-        <span class="n">msg_archive_path_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;archive_path must be a string&#39;</span>
-        <span class="n">msg_target_dir_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;target_dir must be a string&#39;</span>
-        <span class="n">msg_template_key_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;template_key must be a string&#39;</span>
-        <span class="n">msg_scheme_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;scheme must be a string or a mapping&#39;</span>
-        <span class="n">msg_template_values_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;template_values must be a mapping&#39;</span>
-        <span class="n">msg_archive_file_not_exists</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;archive file does not exist&#39;</span>
-        <span class="n">msg_scheme_file_not_exists</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;scheme file does not exist&#39;</span>
+        <span class="n">msg_data_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the generator data must be provided&#39;</span>
+        <span class="n">msg_data_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the generator data must be an instance of GeneratorData&#39;</span>
+        <span class="n">msg_archive_path_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the archive_path must be provided&#39;</span>
+        <span class="n">msg_target_dir_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the target_dir must be provided&#39;</span>
+        <span class="n">msg_template_key_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the template_key must be provided&#39;</span>
+        <span class="n">msg_scheme_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the scheme must be provided&#39;</span>
+        <span class="n">msg_template_values_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the template_values must be provided&#39;</span>
+        <span class="n">msg_archive_path_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the archive_path must be a string&#39;</span>
+        <span class="n">msg_target_dir_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the target_dir must be a string&#39;</span>
+        <span class="n">msg_template_key_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the template_key must be a string&#39;</span>
+        <span class="n">msg_scheme_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the scheme must be a string or a mapping&#39;</span>
+        <span class="n">msg_template_values_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the template_values must be a mapping&#39;</span>
+        <span class="n">msg_archive_file_not_exists</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the archive file does not exist&#39;</span>
+        <span class="n">msg_scheme_file_not_exists</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the scheme file does not exist&#39;</span>
 
         <span class="n">not_none</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_data_none</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">GeneratorData</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_data_istype</span><span class="p">)</span>

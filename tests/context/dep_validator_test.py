@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ContextDependenciesValidator class.
+    Unit tests for ContextBundleDependenciesValidator class.
 '''
 
 from __future__ import annotations
@@ -24,8 +24,8 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.context.dep_validator import ContextDependenciesValidator
-from ats_utilities.context.dependencies import ContextDependencies
+from ats_utilities.context.dep_validator import ContextBundleDependenciesValidator
+from ats_utilities.context.dependencies import ContextBundleDependencies
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
@@ -33,7 +33,7 @@ from ats_utilities.exceptions import ATSValueError, ATSTypeError
 
 
 class TestContextDependenciesValidator(unittest.TestCase):
-    """Unit tests for the ContextDependenciesValidator class."""
+    """Unit tests for the ContextBundleDependenciesValidator class."""
 
     def setUp(self) -> None:
         """Set up valid mock objects and parameters for dependencies validation."""
@@ -41,7 +41,7 @@ class TestContextDependenciesValidator(unittest.TestCase):
         self.mock_logger = MagicMock(spec=ILogger)
         self.mock_reporter = MagicMock(spec=IReporter)
 
-        self.valid_dependencies = ContextDependencies(
+        self.valid_dependencies = ContextBundleDependencies(
             checker=self.mock_checker,
             logger=self.mock_logger,
             reporter=self.mock_reporter,
@@ -51,20 +51,20 @@ class TestContextDependenciesValidator(unittest.TestCase):
     def test_successful_validation(self) -> None:
         """Test successful validation with all dependencies present and valid."""
         try:
-            ContextDependenciesValidator.validate(self.valid_dependencies)
+            ContextBundleDependenciesValidator.validate(self.valid_dependencies)
         except (ATSValueError, ATSTypeError) as e:
             self.fail(f"validate raised unexpected error: {e}")
 
     def test_missing_dependencies_raises_value_error(self) -> None:
         """Test that validation fails with ATSValueError when dependencies dict is None or missing keys."""
         with self.assertRaises(ATSValueError):
-            ContextDependenciesValidator.validate(None)  # type: ignore
+            ContextBundleDependenciesValidator.validate(None)  # type: ignore
 
         # Test missing checker
         invalid_deps = self.valid_dependencies.copy()
         del invalid_deps['checker']
         with self.assertRaises(ATSValueError):
-            ContextDependenciesValidator.validate(invalid_deps)
+            ContextBundleDependenciesValidator.validate(invalid_deps)
 
     def test_invalid_type_raises_type_error(self) -> None:
         """Test that validation fails with ATSTypeError when attributes have incorrect types."""
@@ -72,13 +72,13 @@ class TestContextDependenciesValidator(unittest.TestCase):
         invalid_deps = self.valid_dependencies.copy()
         invalid_deps['checker'] = "not_a_checker"  # type: ignore
         with self.assertRaises(ATSTypeError):
-            ContextDependenciesValidator.validate(invalid_deps)
+            ContextBundleDependenciesValidator.validate(invalid_deps)
 
         # Test invalid type for verbose
         invalid_deps2 = self.valid_dependencies.copy()
         invalid_deps2['verbose'] = "not_a_bool"  # type: ignore
         with self.assertRaises(ATSTypeError):
-            ContextDependenciesValidator.validate(invalid_deps2)
+            ContextBundleDependenciesValidator.validate(invalid_deps2)
 
 
 if __name__ == '__main__':

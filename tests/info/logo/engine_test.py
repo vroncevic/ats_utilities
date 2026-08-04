@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.factory import ContextFactory
+from ats_utilities.context.factory import ContextBundleFactory
 from ats_utilities.info.logo.engine import Logo
 
 __author__: str = 'Vladimir Roncevic'
@@ -52,25 +52,25 @@ class EngineTest(unittest.TestCase):
     '''
 
     def test_init(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         inst = Logo(context_bundle)
         self.assertEqual(inst.logo, None)
 
     def test_property_get_set(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         inst = Logo(context_bundle)
         inst.logo = '/path/to/logo.png'
         self.assertEqual(inst.logo, '/path/to/logo.png')
 
     def test_not_none(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         inst = Logo(context_bundle)
         self.assertEqual(inst.not_none(), False)
         inst.logo = '/path/to/logo.png'
         self.assertTrue(inst.not_none())
 
     def test_str(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         inst = Logo(context_bundle)
         self.assertIn("Logo", str(inst))
 

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for SplashDependencies TypedDict.
+    Unit tests for SplashBundleDependencies TypedDict.
 '''
 
 from __future__ import annotations
@@ -29,18 +29,18 @@ from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.splash.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splash.progressbar.iprogress_bar import IProgressBar
 from ats_utilities.splash.property.isplash_property import ISplashProperty
-from ats_utilities.splash.setup.dependencies import SplashDependencies
+from ats_utilities.splash.setup.dependencies import SplashBundleDependencies
 from ats_utilities.splash.terminal.iterminal_properties import ITerminalProperties
 
 
 class SplashDependenciesTest(unittest.TestCase):
     '''
         Defines class SplashDependenciesTest with attribute(s) and method(s).
-        Tests SplashDependencies type annotations.
+        Tests SplashBundleDependencies type annotations.
     '''
 
     def test_type_hints(self) -> None:
-        hints = get_type_hints(SplashDependencies)
+        hints = get_type_hints(SplashBundleDependencies)
         self.assertEqual(hints["splash_property"], ISplashProperty)
         self.assertEqual(hints["terminal_property"], ITerminalProperties)
         self.assertEqual(hints["ext"], IExtInfrastructure)
@@ -54,7 +54,7 @@ class SplashDependenciesTest(unittest.TestCase):
         mock_pb = MagicMock(spec=IProgressBar)
         mock_context_bundle = MagicMock(spec=ContextBundle)
 
-        deps: SplashDependencies = {
+        deps: SplashBundleDependencies = {
             "splash_property": mock_splash_property,
             "terminal_property": mock_terminal_property,
             "ext": mock_ext,

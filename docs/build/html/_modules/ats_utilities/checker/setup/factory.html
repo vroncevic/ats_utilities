@@ -62,11 +62,11 @@
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.bundle</span> <span class="kn">import</span> <span class="n">CheckerBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.options</span> <span class="kn">import</span> <span class="n">CheckerOptions</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.keys</span> <span class="kn">import</span> <span class="n">CheckerKeys</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.registry</span> <span class="kn">import</span> <span class="n">CheckerRegistry</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.dependencies</span> <span class="kn">import</span> <span class="n">CheckerDependencies</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.opt_validator</span> <span class="kn">import</span> <span class="n">CheckerOptionsValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.options</span> <span class="kn">import</span> <span class="n">CheckerBundleOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.keys</span> <span class="kn">import</span> <span class="n">CheckerBundleKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.registry</span> <span class="kn">import</span> <span class="n">CheckerBundleRegistry</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.dependencies</span> <span class="kn">import</span> <span class="n">CheckerBundleDependencies</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.opt_validator</span> <span class="kn">import</span> <span class="n">CheckerBundleOptionsValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.format.engine</span> <span class="kn">import</span> <span class="n">FormatValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.type.engine</span> <span class="kn">import</span> <span class="n">TypeValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.context.engine</span> <span class="kn">import</span> <span class="n">ContextProvider</span>
@@ -82,9 +82,9 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="CheckerFactory">
-<a class="viewcode-back" href="../../../../ats_utilities.checker.setup.factory.html#ats_utilities.checker.setup.factory.CheckerFactory">[docs]</a>
-<span class="k">class</span> <span class="nc">CheckerFactory</span><span class="p">:</span>
+<div class="viewcode-block" id="CheckerBundleFactory">
+<a class="viewcode-back" href="../../../../ats_utilities.checker.setup.factory.html#ats_utilities.checker.setup.factory.CheckerBundleFactory">[docs]</a>
+<span class="k">class</span> <span class="nc">CheckerBundleFactory</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Factory for creating the checker bundle.</span>
 
@@ -94,35 +94,41 @@
 <span class="sd">                | create_bundle - Creates the checker bundle with optional pre-configured options.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="CheckerFactory.create_bundle">
-<a class="viewcode-back" href="../../../../ats_utilities.checker.setup.factory.html#ats_utilities.checker.setup.factory.CheckerFactory.create_bundle">[docs]</a>
+<div class="viewcode-block" id="CheckerBundleFactory.create_bundle">
+<a class="viewcode-back" href="../../../../ats_utilities.checker.setup.factory.html#ats_utilities.checker.setup.factory.CheckerBundleFactory.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">CheckerOptions</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckerBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">CheckerBundleOptions</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckerBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates the checker bundle with optional pre-configured options.</span>
 
-<span class="sd">            :param options: The creation options/parameters for the bundle (default: None).</span>
+<span class="sd">            :param options: The creation options/parameters for the checker bundle (default: None).</span>
 <span class="sd">            :return: The checker bundle.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: The options must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  The options must be an instance of Mapping and its attributes</span>
+<span class="sd">                | ATSValueError: The checker bundle options must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The checker bundle options must be an instance of Mapping and its attributes</span>
 <span class="sd">                |                must be instances of their respective interfaces and types.</span>
+<span class="sd">                | ATSValueError: The checker bundle dependencies must be provided and have proper attributes.</span>
+<span class="sd">                | ATSTypeError:  The checker bundle dependencies must be an instance of Mapping and its attributes</span>
+<span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The checker bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The checker bundle must be an instance of CheckerBundle</span>
+<span class="sd">                |                and its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">options</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">CheckerOptionsValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+            <span class="n">CheckerBundleOptionsValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
 
-        <span class="n">separator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerKeys</span><span class="o">.</span><span class="n">OPTION_SEPARATOR</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
-        <span class="n">abstract_types</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerKeys</span><span class="o">.</span><span class="n">OPTION_ABSTRACT_TYPES</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
-        <span class="n">stack_index_caller</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerKeys</span><span class="o">.</span><span class="n">OPTION_STACK_INDEX_CALLER</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
-        <span class="n">messages_provider</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerKeys</span><span class="o">.</span><span class="n">OPTION_MESSAGES_PROVIDER</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">separator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerBundleKeys</span><span class="o">.</span><span class="n">OPTION_SEPARATOR</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">abstract_types</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerBundleKeys</span><span class="o">.</span><span class="n">OPTION_ABSTRACT_TYPES</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">stack_index_caller</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerBundleKeys</span><span class="o">.</span><span class="n">OPTION_STACK_INDEX_CALLER</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">messages_provider</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CheckerBundleKeys</span><span class="o">.</span><span class="n">OPTION_MESSAGES_PROVIDER</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
 
         <span class="n">format_validator</span><span class="p">:</span> <span class="n">FormatValidator</span> <span class="o">=</span> <span class="n">FormatValidator</span><span class="p">(</span><span class="n">separator</span><span class="o">=</span><span class="n">separator</span><span class="p">)</span>
         <span class="n">type_validator</span><span class="p">:</span> <span class="n">TypeValidator</span> <span class="o">=</span> <span class="n">TypeValidator</span><span class="p">(</span><span class="n">abstract_types</span><span class="o">=</span><span class="n">abstract_types</span><span class="p">)</span>
         <span class="n">context_provider</span><span class="p">:</span> <span class="n">ContextProvider</span> <span class="o">=</span> <span class="n">ContextProvider</span><span class="p">(</span><span class="n">stack_index_caller</span><span class="o">=</span><span class="n">stack_index_caller</span><span class="p">)</span>
         <span class="n">check_reporter</span><span class="p">:</span> <span class="n">CheckReporter</span> <span class="o">=</span> <span class="n">CheckReporter</span><span class="p">(</span><span class="n">message_provider</span><span class="o">=</span><span class="n">messages_provider</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">CheckerRegistry</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
-            <span class="n">dependencies</span><span class="o">=</span><span class="n">CheckerDependencies</span><span class="p">(</span>
+        <span class="k">return</span> <span class="n">CheckerBundleRegistry</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
+            <span class="n">dependencies</span><span class="o">=</span><span class="n">CheckerBundleDependencies</span><span class="p">(</span>
                 <span class="n">format_validator</span><span class="o">=</span><span class="n">format_validator</span><span class="p">,</span>
                 <span class="n">type_validator</span><span class="o">=</span><span class="n">type_validator</span><span class="p">,</span>
                 <span class="n">context_provider</span><span class="o">=</span><span class="n">context_provider</span><span class="p">,</span>

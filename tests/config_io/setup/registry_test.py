@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ConfigIORegistry class.
+    Unit tests for ConfigIOBundleRegistry class.
 '''
 
 from __future__ import annotations
@@ -30,18 +30,18 @@ from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
-from ats_utilities.config_io.setup.registry import ConfigIORegistry
-from ats_utilities.config_io.setup.dependencies import ConfigIODependencies
+from ats_utilities.config_io.setup.registry import ConfigIOBundleRegistry
+from ats_utilities.config_io.setup.dependencies import ConfigIOBundleDependencies
 
 
 class ConfigIORegistryTest(unittest.TestCase):
     '''
         Defines class ConfigIORegistryTest with attribute(s) and method(s).
-        Tests ConfigIORegistry logic.
+        Tests ConfigIOBundleRegistry logic.
     '''
 
     def test_create_bundle(self) -> None:
-        """Tests create_bundle on ConfigIORegistry."""
+        """Tests create_bundle on ConfigIOBundleRegistry."""
         mock_processor = MagicMock(spec=IConfigProcessor)
         mock_context = MagicMock(spec=ContextBundle)
         mock_context.checker = MagicMock(spec=IChecker)
@@ -49,12 +49,12 @@ class ConfigIORegistryTest(unittest.TestCase):
         mock_context.reporter = MagicMock(spec=IReporter)
         mock_context.verbose = True
 
-        dependencies = ConfigIODependencies(
+        dependencies = ConfigIOBundleDependencies(
             file_path="/tmp/config.json",
             processor=mock_processor,
             context_bundle=mock_context
         )
-        bundle = ConfigIORegistry.create_bundle(dependencies)
+        bundle = ConfigIOBundleRegistry.create_bundle(dependencies)
 
         self.assertIsInstance(bundle, ConfigIOBundle)
         self.assertEqual(bundle.file_path, "/tmp/config.json")

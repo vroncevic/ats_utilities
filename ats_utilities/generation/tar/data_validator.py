@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the generator data.
+    Validator for the generator data.
 '''
 
 from __future__ import annotations
@@ -41,7 +41,7 @@ __status__ = 'Development'
 class TarDataValidator:
     '''
 
-        A validator for the tar data.
+        Validator for the tar data.
         
         It defines:
 
@@ -58,25 +58,25 @@ class TarDataValidator:
 
             :param data: The tar data to be validated.
             :exceptions:
-                | ATSValueError: Tar data must be provided and have proper values.
-                | ATSTypeError:  Tar data must be an instance of TarData and
+                | ATSValueError: The tar data must be provided and have proper values.
+                | ATSTypeError:  The tar data must be an instance of TarData and
                 |                its attributes must be instances of their respective types.
         '''
         ctx: str = 'tar_data_validator::validate(...)'
-        msg_data_none: str = 'data must be provided'
-        msg_data_istype: str = 'data must be an instance of TarData'
-        msg_archive_path_none: str = 'archive_path must be provided'
-        msg_target_dir_none: str = 'target_dir must be provided'
-        msg_source_dir_none: str = 'source_dir must be provided'
-        msg_path_replacements_none: str = 'path_replacements must be provided'
-        msg_exclude_patterns_none: str = 'exclude_patterns must be provided'
-        msg_vals_none: str = 'vals must be provided'
-        msg_archive_path_istype: str = 'archive_path must be a string'
-        msg_target_dir_istype: str = 'target_dir must be a string'
-        msg_source_dir_istype: str = 'source_dir must be a string'
-        msg_path_replacements_istype: str = 'path_replacements must be a mapping'
-        msg_exclude_patterns_istype: str = 'exclude_patterns must be a sequence'
-        msg_vals_istype: str = 'vals must be a mapping'
+        msg_data_none: str = 'the data must be provided'
+        msg_data_istype: str = 'the data must be an instance of TarData'
+        msg_archive_path_none: str = 'the archive path must be provided'
+        msg_target_dir_none: str = 'the target directory must be provided'
+        msg_source_dir_none: str = 'the source directory must be provided'
+        msg_path_replacements_none: str = 'the path replacements must be provided'
+        msg_exclude_patterns_none: str = 'the exclude patterns must be provided'
+        msg_vals_none: str = 'the values must be provided'
+        msg_archive_path_istype: str = 'the archive path must be a string'
+        msg_target_dir_istype: str = 'the target directory must be a string'
+        msg_source_dir_istype: str = 'the source directory must be a string'
+        msg_path_replacements_istype: str = 'the path replacements must be a mapping'
+        msg_exclude_patterns_istype: str = 'the exclude patterns must be a sequence'
+        msg_vals_istype: str = 'the values must be a mapping'
 
         not_none(data, ctx, msg_data_none)
         istype(data, TarData, ctx, msg_data_istype)
@@ -99,7 +99,7 @@ class TarDataValidator:
 class TarMemberDataValidator:
     '''
 
-        A validator for the tar member data.
+        Validator for the tar member data.
         
         It defines:
 
@@ -116,21 +116,21 @@ class TarMemberDataValidator:
 
             :param data: The tar member data to be validated.
             :exceptions:
-                | ATSValueError: Tar member data must be provided and have proper values.
-                | ATSTypeError:  Tar member data must be an instance of TarMemberData and
+                | ATSValueError: The tar member data must be provided and have proper values.
+                | ATSTypeError:  The tar member data must be an instance of TarMemberData and
                 |                its attributes must be instances of their respective types.
         '''
         ctx: str = 'tar_member_data_validator::validate(...)'
-        msg_data_none: str = 'data must be provided'
-        msg_data_istype: str = 'data must be an instance of TarMemberData'
-        msg_tar_none: str = 'tar must be provided'
-        msg_member_none: str = 'member must be provided'
-        msg_dest_full_path_none: str = 'dest_full_path must be provided'
-        msg_vals_none: str = 'vals must be provided'
-        msg_tar_istype: str = 'tar must be a TarFile instance'
-        msg_member_istype: str = 'member must be a TarInfo instance'
-        msg_dest_full_path_istype: str = 'dest_full_path must be a string'
-        msg_vals_istype: str = 'vals must be a mapping'
+        msg_data_none: str = 'the data must be provided'
+        msg_data_istype: str = 'the data must be an instance of TarMemberData'
+        msg_tar_none: str = 'the tar must be provided'
+        msg_member_none: str = 'the member must be provided'
+        msg_dest_full_path_none: str = 'the destination full path must be provided'
+        msg_vals_none: str = 'the values must be provided'
+        msg_tar_istype: str = 'the tar must be a TarFile instance'
+        msg_member_istype: str = 'the member must be a TarInfo instance'
+        msg_dest_full_path_istype: str = 'the destination full path must be a string'
+        msg_vals_istype: str = 'the values must be a mapping'
 
         not_none(data, ctx, msg_data_none)
         istype(data, TarMemberData, ctx, msg_data_istype)

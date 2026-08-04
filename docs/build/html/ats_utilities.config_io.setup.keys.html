@@ -68,8 +68,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOKeys">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.setup.keys.</span></span><span class="sig-name descname"><span class="pre">ConfigIOKeys</span></span><a class="reference internal" href="_modules/ats_utilities/config_io/setup/keys.html#ConfigIOKeys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOBundleKeys">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.setup.keys.</span></span><span class="sig-name descname"><span class="pre">ConfigIOBundleKeys</span></span><a class="reference internal" href="_modules/ats_utilities/config_io/setup/keys.html#ConfigIOBundleKeys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Runtime components and interface constraints for Config I/O bundle.</p>
 <p>It defines:</p>
@@ -77,59 +77,59 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">DEPENDENCY_FILE_PATH - The file path interface constant.</div>
-<div class="line">DEPENDENCY_PROCESSOR - The processor interface constant.</div>
-<div class="line">DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant.</div>
-<div class="line">OPTION_FILE_PATH - The file path option constant.</div>
-<div class="line">OPTION_SCHEME - The scheme option constant.</div>
-<div class="line">OPTION_CONTEXT_BUNDLE - The context bundle option constant.</div>
+<div class="line">DEPENDENCY_FILE_PATH - The file path interface constant for the config I/O bundle.</div>
+<div class="line">DEPENDENCY_PROCESSOR - The processor interface constant for the config I/O bundle.</div>
+<div class="line">DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant for the config I/O bundle.</div>
+<div class="line">OPTION_FILE_PATH - The file path option constant for the config I/O bundle.</div>
+<div class="line">OPTION_SCHEME - The scheme option constant for the config I/O bundle.</div>
+<div class="line">OPTION_CONTEXT_BUNDLE - The context bundle option constant for the config I/O bundle.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">get_dependency_to_type - Returns the mapping of the config I/O dependencies to their types.</div>
-<div class="line">get_option_to_type - Returns the mapping of the config I/O options to their types.</div>
+<div class="line">get_dependency_to_type - Returns the mapping of the config I/O bundle dependencies to their types.</div>
+<div class="line">get_option_to_type - Returns the mapping of the config I/O bundle options to their types.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOKeys.DEPENDENCY_CONTEXT_BUNDLE">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_CONTEXT_BUNDLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'context_bundle'</span></em><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.DEPENDENCY_CONTEXT_BUNDLE" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.DEPENDENCY_CONTEXT_BUNDLE">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_CONTEXT_BUNDLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'context_bundle'</span></em><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.DEPENDENCY_CONTEXT_BUNDLE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOKeys.DEPENDENCY_FILE_PATH">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_FILE_PATH</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'file_path'</span></em><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.DEPENDENCY_FILE_PATH" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.DEPENDENCY_FILE_PATH">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_FILE_PATH</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'file_path'</span></em><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.DEPENDENCY_FILE_PATH" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOKeys.DEPENDENCY_PROCESSOR">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_PROCESSOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'processor'</span></em><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.DEPENDENCY_PROCESSOR" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.DEPENDENCY_PROCESSOR">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_PROCESSOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'processor'</span></em><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.DEPENDENCY_PROCESSOR" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOKeys.OPTION_CONTEXT_BUNDLE">
-<span class="sig-name descname"><span class="pre">OPTION_CONTEXT_BUNDLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'context_bundle'</span></em><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.OPTION_CONTEXT_BUNDLE" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.OPTION_CONTEXT_BUNDLE">
+<span class="sig-name descname"><span class="pre">OPTION_CONTEXT_BUNDLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'context_bundle'</span></em><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.OPTION_CONTEXT_BUNDLE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOKeys.OPTION_FILE_PATH">
-<span class="sig-name descname"><span class="pre">OPTION_FILE_PATH</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'file_path'</span></em><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.OPTION_FILE_PATH" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.OPTION_FILE_PATH">
+<span class="sig-name descname"><span class="pre">OPTION_FILE_PATH</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'file_path'</span></em><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.OPTION_FILE_PATH" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOKeys.OPTION_SCHEME">
-<span class="sig-name descname"><span class="pre">OPTION_SCHEME</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'scheme'</span></em><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.OPTION_SCHEME" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.OPTION_SCHEME">
+<span class="sig-name descname"><span class="pre">OPTION_SCHEME</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'scheme'</span></em><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.OPTION_SCHEME" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOKeys.get_dependency_to_type">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_dependency_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/setup/keys.html#ConfigIOKeys.get_dependency_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.get_dependency_to_type" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the mapping of the config I/O dependencies to their types.</p>
+<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.get_dependency_to_type">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_dependency_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/setup/keys.html#ConfigIOBundleKeys.get_dependency_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.get_dependency_to_type" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the mapping of the config I/O bundle dependencies to their types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The mapping of the config I/O dependencies to their types.</p>
+<dd class="field-odd"><p>The mapping of the config I/O bundle dependencies to their types.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>None.</p>
@@ -138,12 +138,12 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOKeys.get_option_to_type">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_option_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/setup/keys.html#ConfigIOKeys.get_option_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.get_option_to_type" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the mapping of the config I/O options to their types.</p>
+<dt class="sig sig-object py" id="ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.get_option_to_type">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_option_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/setup/keys.html#ConfigIOBundleKeys.get_option_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.get_option_to_type" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the mapping of the config I/O bundle options to their types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The mapping of the config I/O options to their types.</p>
+<dd class="field-odd"><p>The mapping of the config I/O bundle options to their types.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>None.</p>
@@ -166,15 +166,15 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.config_io.setup.keys module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys"><code class="docutils literal notranslate"><span class="pre">ConfigIOKeys</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.DEPENDENCY_CONTEXT_BUNDLE"><code class="docutils literal notranslate"><span class="pre">ConfigIOKeys.DEPENDENCY_CONTEXT_BUNDLE</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.DEPENDENCY_FILE_PATH"><code class="docutils literal notranslate"><span class="pre">ConfigIOKeys.DEPENDENCY_FILE_PATH</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.DEPENDENCY_PROCESSOR"><code class="docutils literal notranslate"><span class="pre">ConfigIOKeys.DEPENDENCY_PROCESSOR</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.OPTION_CONTEXT_BUNDLE"><code class="docutils literal notranslate"><span class="pre">ConfigIOKeys.OPTION_CONTEXT_BUNDLE</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.OPTION_FILE_PATH"><code class="docutils literal notranslate"><span class="pre">ConfigIOKeys.OPTION_FILE_PATH</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.OPTION_SCHEME"><code class="docutils literal notranslate"><span class="pre">ConfigIOKeys.OPTION_SCHEME</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.get_dependency_to_type"><code class="docutils literal notranslate"><span class="pre">ConfigIOKeys.get_dependency_to_type()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOKeys.get_option_to_type"><code class="docutils literal notranslate"><span class="pre">ConfigIOKeys.get_option_to_type()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys"><code class="docutils literal notranslate"><span class="pre">ConfigIOBundleKeys</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.DEPENDENCY_CONTEXT_BUNDLE"><code class="docutils literal notranslate"><span class="pre">ConfigIOBundleKeys.DEPENDENCY_CONTEXT_BUNDLE</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.DEPENDENCY_FILE_PATH"><code class="docutils literal notranslate"><span class="pre">ConfigIOBundleKeys.DEPENDENCY_FILE_PATH</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.DEPENDENCY_PROCESSOR"><code class="docutils literal notranslate"><span class="pre">ConfigIOBundleKeys.DEPENDENCY_PROCESSOR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.OPTION_CONTEXT_BUNDLE"><code class="docutils literal notranslate"><span class="pre">ConfigIOBundleKeys.OPTION_CONTEXT_BUNDLE</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.OPTION_FILE_PATH"><code class="docutils literal notranslate"><span class="pre">ConfigIOBundleKeys.OPTION_FILE_PATH</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.OPTION_SCHEME"><code class="docutils literal notranslate"><span class="pre">ConfigIOBundleKeys.OPTION_SCHEME</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.get_dependency_to_type"><code class="docutils literal notranslate"><span class="pre">ConfigIOBundleKeys.get_dependency_to_type()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.get_option_to_type"><code class="docutils literal notranslate"><span class="pre">ConfigIOBundleKeys.get_option_to_type()</span></code></a></li>
 </ul>
 </li>
 </ul>

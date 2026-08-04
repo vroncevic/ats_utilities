@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for InfoFactory class.
+    Unit tests for InfoBundleFactory class.
 '''
 
 from __future__ import annotations
@@ -24,40 +24,40 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock, patch
 
-from ats_utilities.info.setup.factory import InfoFactory
-from ats_utilities.info.setup.keys import InfoKeys
-from ats_utilities.info.setup.options import InfoOptions
-from ats_utilities.context.factory import ContextFactory
+from ats_utilities.info.setup.factory import InfoBundleFactory
+from ats_utilities.info.setup.keys import InfoBundleKeys
+from ats_utilities.info.setup.options import InfoBundleOptions
+from ats_utilities.context.factory import ContextBundleFactory
 from ats_utilities.info.setup.bundle import InfoBundle
 
 
 class TestInfoFactory(unittest.TestCase):
-    """Unit tests for the InfoFactory class."""
+    """Unit tests for the InfoBundleFactory class."""
 
     def setUp(self) -> None:
         """Set up options and mock objects for testing."""
-        self.context_bundle = ContextFactory.create_bundle()
+        self.context_bundle = ContextBundleFactory.create_bundle()
         self.info_data = {
-            InfoKeys.ATS_NAME: "ats_utilities",
-            InfoKeys.ATS_VERSION: "3.4.4",
-            InfoKeys.ATS_BUILD_DATE: "2026-08-01",
-            InfoKeys.ATS_LICENCE: "GPL-3.0",
-            InfoKeys.ATS_INFO_OK: True
+            InfoBundleKeys.ATS_NAME: "ats_utilities",
+            InfoBundleKeys.ATS_VERSION: "3.4.4",
+            InfoBundleKeys.ATS_BUILD_DATE: "2026-08-01",
+            InfoBundleKeys.ATS_LICENCE: "GPL-3.0",
+            InfoBundleKeys.ATS_INFO_OK: True
         }
 
-        self.options = InfoOptions(
+        self.options = InfoBundleOptions(
             info=self.info_data,
             context_bundle=self.context_bundle
         )
 
-    @patch("ats_utilities.info.setup.factory.InfoRegistry")
-    @patch("ats_utilities.info.setup.factory.InfoOptionsValidator")
+    @patch("ats_utilities.info.setup.factory.InfoBundleRegistry")
+    @patch("ats_utilities.info.setup.factory.InfoBundleOptionsValidator")
     def test_create_bundle(self, mock_val: MagicMock, mock_registry: MagicMock) -> None:
-        """Test that create_bundle converts options correctly and calls InfoRegistry."""
+        """Test that create_bundle converts options correctly and calls InfoBundleRegistry."""
         mock_bundle = MagicMock(spec=InfoBundle)
         mock_registry.create_bundle.return_value = mock_bundle
 
-        result = InfoFactory.create_bundle(self.options)
+        result = InfoBundleFactory.create_bundle(self.options)
 
         mock_val.validate.assert_called_once_with(self.options)
         mock_registry.create_bundle.assert_called_once()

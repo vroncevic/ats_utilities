@@ -54,7 +54,7 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    A validator for the checker bundle.</span>
+<span class="sd">    Validator for the checker bundle.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -77,11 +77,11 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="CheckerValidator">
-<a class="viewcode-back" href="../../../../ats_utilities.checker.setup.validator.html#ats_utilities.checker.setup.validator.CheckerValidator">[docs]</a>
-<span class="k">class</span> <span class="nc">CheckerValidator</span><span class="p">:</span>
+<div class="viewcode-block" id="CheckerBundleValidator">
+<a class="viewcode-back" href="../../../../ats_utilities.checker.setup.validator.html#ats_utilities.checker.setup.validator.CheckerBundleValidator">[docs]</a>
+<span class="k">class</span> <span class="nc">CheckerBundleValidator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        A validator for the checker bundle.</span>
+<span class="sd">        Validator for the checker bundle.</span>
 
 <span class="sd">        It defines:</span>
 
@@ -89,8 +89,8 @@
 <span class="sd">                | validate - Validates the checker bundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="CheckerValidator.validate">
-<a class="viewcode-back" href="../../../../ats_utilities.checker.setup.validator.html#ats_utilities.checker.setup.validator.CheckerValidator.validate">[docs]</a>
+<div class="viewcode-block" id="CheckerBundleValidator.validate">
+<a class="viewcode-back" href="../../../../ats_utilities.checker.setup.validator.html#ats_utilities.checker.setup.validator.CheckerBundleValidator.validate">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="n">CheckerBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -98,22 +98,21 @@
 
 <span class="sd">            :param bundle: The checker bundle to be validated.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: The bundle must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  The bundle must be an instance of CheckerBundle</span>
-<span class="sd">                |                and its attributes must be instances of their</span>
-<span class="sd">                |                respective types.</span>
+<span class="sd">                | ATSValueError: The checker bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The checker bundle must be an instance of CheckerBundle</span>
+<span class="sd">                |                and its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;checker_validator::validate(...)&#39;</span>
-        <span class="n">msg_bundle_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the bundle must be provided&#39;</span>
-        <span class="n">msg_bundle_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the bundle must be an instance of CheckerBundle&#39;</span>
-        <span class="n">msg_context_provider_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the context provider must be provided&#39;</span>
-        <span class="n">msg_check_reporter_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the check reporter must be provided&#39;</span>
-        <span class="n">msg_format_validator_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the format validator must be provided&#39;</span>
-        <span class="n">msg_type_validator_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the type validator must be provided&#39;</span>
-        <span class="n">msg_context_provider_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the context provider must be an instance of IContextProvider&#39;</span>
-        <span class="n">msg_check_reporter_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the check reporter must be an instance of ICheckReporter&#39;</span>
-        <span class="n">msg_format_validator_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the format validator must be an instance of IFormatValidator&#39;</span>
-        <span class="n">msg_type_validator_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the type validator must be an instance of ITypeValidator&#39;</span>
+        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;checker_bundle_validator::validate(...)&#39;</span>
+        <span class="n">msg_bundle_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the checker bundle must be provided&#39;</span>
+        <span class="n">msg_bundle_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the checker bundle must be an instance of CheckerBundle&#39;</span>
+        <span class="n">msg_context_provider_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the checker context provider must be provided&#39;</span>
+        <span class="n">msg_check_reporter_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the checker check reporter must be provided&#39;</span>
+        <span class="n">msg_format_validator_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the checker format validator must be provided&#39;</span>
+        <span class="n">msg_type_validator_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the checker type validator must be provided&#39;</span>
+        <span class="n">msg_context_provider_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the checker context provider must be an instance of IContextProvider&#39;</span>
+        <span class="n">msg_check_reporter_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the checker check reporter must be an instance of ICheckReporter&#39;</span>
+        <span class="n">msg_format_validator_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the checker format validator must be an instance of IFormatValidator&#39;</span>
+        <span class="n">msg_type_validator_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the checker type validator must be an instance of ITypeValidator&#39;</span>
 
         <span class="n">not_none</span><span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_bundle_none</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="n">CheckerBundle</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_bundle_istype</span><span class="p">)</span>

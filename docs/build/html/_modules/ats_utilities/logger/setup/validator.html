@@ -54,7 +54,7 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    A validator for the logger bundle.</span>
+<span class="sd">    Validator for the logger bundle.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -78,11 +78,11 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="LoggerValidator">
-<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.validator.html#ats_utilities.logger.setup.validator.LoggerValidator">[docs]</a>
-<span class="k">class</span> <span class="nc">LoggerValidator</span><span class="p">:</span>
+<div class="viewcode-block" id="LoggerBundleValidator">
+<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.validator.html#ats_utilities.logger.setup.validator.LoggerBundleValidator">[docs]</a>
+<span class="k">class</span> <span class="nc">LoggerBundleValidator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        A validator for the logger bundle.</span>
+<span class="sd">        Validator for the logger bundle.</span>
 
 <span class="sd">        It defines:</span>
 
@@ -90,8 +90,8 @@
 <span class="sd">                | validate - Validates the logger bundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="LoggerValidator.validate">
-<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.validator.html#ats_utilities.logger.setup.validator.LoggerValidator.validate">[docs]</a>
+<div class="viewcode-block" id="LoggerBundleValidator.validate">
+<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.validator.html#ats_utilities.logger.setup.validator.LoggerBundleValidator.validate">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="n">LoggerBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -99,13 +99,13 @@
 
 <span class="sd">            :param bundle: The logger bundle to be validated.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: The bundle must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  The bundle must be an instance of LoggerBundle and its attributes</span>
-<span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The logger bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The logger bundle must be an instance of LoggerBundle and</span>
+<span class="sd">                |                its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;logger_validator::validate(...)&#39;</span>
-        <span class="n">msg_bundle_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the bundle must be provided&#39;</span>
-        <span class="n">msg_bundle_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the bundle must be an instance of LoggerBundle&#39;</span>
+        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;logger_bundle_validator::validate(...)&#39;</span>
+        <span class="n">msg_bundle_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the logger bundle must be provided&#39;</span>
+        <span class="n">msg_bundle_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the logger bundle must be an instance of LoggerBundle&#39;</span>
         <span class="n">msg_logger_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the logger must be provided&#39;</span>
         <span class="n">msg_logger_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the logger must be an instance of IUnderlyingLogger&#39;</span>
         <span class="n">msg_has_file_handler_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the has file handler flag must be provided&#39;</span>

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Generator dependencies.
+    Generator bundle dependencies.
 '''
 
 from __future__ import annotations
@@ -37,16 +37,16 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class GeneratorDependencies(TypedDict):
+class GeneratorBundleDependencies(TypedDict):
     '''
-        Generator dependencies.
+        Generator bundle dependencies.
 
         It defines:
 
             :attributes:
-                | scheme_loader - The loader/resolver for the scheme configuration.
-                | tar_processor - The processor for the archive extraction.
-                | context_bundle - The context bundle for generator.
+                | scheme_loader - The loader/resolver for the scheme configuration for the generator bundle.
+                | tar_processor - The processor for the archive extraction for the generator bundle.
+                | context_bundle - The context bundle for the generator bundle.
     '''
 
     scheme_loader: ISchemeLoader

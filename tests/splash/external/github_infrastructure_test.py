@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.factory import ContextFactory
+from ats_utilities.context.factory import ContextBundleFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.splash.external.github_infrastructure import GitHubInfrastructure
 from ats_utilities.splash.property.splash_property import SplashProperty
@@ -42,19 +42,19 @@ class GitHubInfrastructureTest(unittest.TestCase):
         }
 
     def test_init(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         gh = GitHubInfrastructure(context_bundle)
         self.assertEqual(gh.infrastructure_property, {})
 
     def test_getter_setter(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         gh = GitHubInfrastructure(context_bundle)
         setup = self._get_valid_setup()
         gh.infrastructure_property = setup
         self.assertEqual(gh.infrastructure_property, setup)
 
     def test_setter_invalid(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         gh = GitHubInfrastructure(context_bundle)
 
         # Invalid type
@@ -68,7 +68,7 @@ class GitHubInfrastructureTest(unittest.TestCase):
             gh.infrastructure_property = invalid_setup
 
     def test_hyperlinks_valid(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         gh = GitHubInfrastructure(context_bundle)
         gh.infrastructure_property = self._get_valid_setup()
 
@@ -77,7 +77,7 @@ class GitHubInfrastructureTest(unittest.TestCase):
         self.assertIn("vroncevic.github.io", gh.get_author_text())
 
     def test_hyperlinks_uninitialized(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         gh = GitHubInfrastructure(context_bundle)
 
         with self.assertRaises(ATSValueError):
@@ -90,7 +90,7 @@ class GitHubInfrastructureTest(unittest.TestCase):
             gh.get_author_text()
 
     def test_hyperlinks_missing_values(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         gh = GitHubInfrastructure(context_bundle)
 
         # Bypass setter check using private attribute
@@ -106,7 +106,7 @@ class GitHubInfrastructureTest(unittest.TestCase):
         self.assertIsNone(gh.get_author_text())
 
     def test_hyperlinks_repo_missing(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         gh = GitHubInfrastructure(context_bundle)
 
         gh._infrastructure_property = {
@@ -118,7 +118,7 @@ class GitHubInfrastructureTest(unittest.TestCase):
         self.assertIsNone(gh.get_issue_text())
 
     def test_str(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         gh = GitHubInfrastructure(context_bundle)
         self.assertIn("GitHubInfrastructure", str(gh))
 

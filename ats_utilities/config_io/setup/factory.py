@@ -24,11 +24,11 @@ from __future__ import annotations
 from collections.abc import Mapping
 
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
-from ats_utilities.config_io.setup.dependencies import ConfigIODependencies
-from ats_utilities.config_io.setup.options import ConfigIOOptions
-from ats_utilities.config_io.setup.opt_validator import ConfigIOOptionsValidator
-from ats_utilities.config_io.setup.keys import ConfigIOKeys
-from ats_utilities.config_io.setup.registry import ConfigIORegistry
+from ats_utilities.config_io.setup.dependencies import ConfigIOBundleDependencies
+from ats_utilities.config_io.setup.options import ConfigIOBundleOptions
+from ats_utilities.config_io.setup.opt_validator import ConfigIOBundleOptionsValidator
+from ats_utilities.config_io.setup.keys import ConfigIOBundleKeys
+from ats_utilities.config_io.setup.registry import ConfigIOBundleRegistry
 from ats_utilities.config_io.processor.factory_processor import ConfigProcessorFactory
 from ats_utilities.context.bundle import ContextBundle
 
@@ -42,7 +42,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ConfigIOFactory:
+class ConfigIOBundleFactory:
     '''
         Factory for creating config I/O bundle.
 
@@ -53,29 +53,35 @@ class ConfigIOFactory:
     '''
 
     @classmethod
-    def create_bundle(cls, options: ConfigIOOptions) -> ConfigIOBundle:
+    def create_bundle(cls, options: ConfigIOBundleOptions) -> ConfigIOBundle:
         '''
             Creates a config I/O bundle using configuration options.
 
             :param options: The creation options/parameters for the bundle.
             :return: The config I/O bundle.
             :exceptions:
-                | ATSValueError: Options must be provided and have proper values.
-                | ATSTypeError:  Options must be an instance of Mapping and its
+                | ATSValueError: The config I/O bundle options must be provided and have proper attributes.
+                | ATSTypeError:  The config I/O bundle options must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
+                | ATSValueError: The config I/O bundle dependencies must be provided and have proper attributes.
+                | ATSTypeError:  The config I/O bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The config I/O bundle must be provided and have proper values.
+                | ATSTypeError:  The config I/O bundle must be an instance of ConfigIOBundle and its
                 |                attributes must be instances of their respective types.
         '''
-        ConfigIOOptionsValidator.validate(options)
+        ConfigIOBundleOptionsValidator.validate(options)
 
-        file_path: str = options.get(ConfigIOKeys.OPTION_FILE_PATH)
-        scheme: Mapping[str, str] = options.get(ConfigIOKeys.OPTION_SCHEME)
-        context_bundle: ContextBundle = options.get(ConfigIOKeys.OPTION_CONTEXT_BUNDLE)
+        file_path: str = options.get(ConfigIOBundleKeys.OPTION_FILE_PATH)
+        scheme: Mapping[str, str] = options.get(ConfigIOBundleKeys.OPTION_SCHEME)
+        context_bundle: ContextBundle = options.get(ConfigIOBundleKeys.OPTION_CONTEXT_BUNDLE)
         processor = ConfigProcessorFactory.create_from_file_path(
             file_path=file_path,
             scheme=scheme
         )
 
-        return ConfigIORegistry.create_bundle(
-            ConfigIODependencies(
+        return ConfigIOBundleRegistry.create_bundle(
+            ConfigIOBundleDependencies(
                 file_path=file_path,
                 processor=processor,
                 context_bundle=context_bundle

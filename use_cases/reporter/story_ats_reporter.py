@@ -21,7 +21,7 @@ Info
 
 from logging import DEBUG
 from ats_utilities.reporter.engine import Reporter
-from ats_utilities.reporter.setup.factory import ReporterFactory
+from ats_utilities.reporter.setup.factory import ReporterBundleFactory
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -32,7 +32,7 @@ __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
-reporter: Reporter = Reporter(own=ReporterFactory.create_bundle())
+reporter: Reporter = Reporter(own=ReporterBundleFactory.create_bundle())
 reporter.set_level(DEBUG)
 
 reporter.warning(['Warning'])

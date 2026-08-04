@@ -16,40 +16,40 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for LoggerOptionsValidator class.
+    Unit tests for LoggerBundleOptionsValidator class.
 '''
 
 from __future__ import annotations
 
 import unittest
 
-from ats_utilities.logger.setup.options import LoggerOptions
-from ats_utilities.logger.setup.opt_validator import LoggerOptionsValidator
+from ats_utilities.logger.setup.options import LoggerBundleOptions
+from ats_utilities.logger.setup.opt_validator import LoggerBundleOptionsValidator
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 
 class LoggerOptionsValidatorTest(unittest.TestCase):
     '''
         Defines class LoggerOptionsValidatorTest with attribute(s) and method(s).
-        Tests LoggerOptionsValidator component logic.
+        Tests LoggerBundleOptionsValidator component logic.
     '''
 
     def test_validate_valid(self) -> None:
-        options = LoggerOptions(log_file="test.log", log_level=10)
-        LoggerOptionsValidator.validate(options)
+        options = LoggerBundleOptions(log_file="test.log", log_level=10)
+        LoggerBundleOptionsValidator.validate(options)
 
     def test_validate_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            LoggerOptionsValidator.validate(None)  # type: ignore
+            LoggerBundleOptionsValidator.validate(None)  # type: ignore
 
     def test_validate_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            LoggerOptionsValidator.validate("invalid")  # type: ignore
+            LoggerBundleOptionsValidator.validate("invalid")  # type: ignore
 
     def test_validate_invalid_option_types(self) -> None:
-        options = LoggerOptions(log_file=123)  # type: ignore
+        options = LoggerBundleOptions(log_file=123)  # type: ignore
         with self.assertRaises(ATSTypeError):
-            LoggerOptionsValidator.validate(options)
+            LoggerBundleOptionsValidator.validate(options)
 
 
 if __name__ == "__main__":

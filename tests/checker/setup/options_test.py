@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for CheckerOptions class.
+    Unit tests for CheckerBundleOptions class.
 '''
 
 from __future__ import annotations
@@ -24,22 +24,22 @@ from __future__ import annotations
 import unittest
 from typing import get_type_hints, NotRequired
 
-from ats_utilities.checker.setup.options import CheckerOptions
+from ats_utilities.checker.setup.options import CheckerBundleOptions
 
 
 class CheckerOptionsTest(unittest.TestCase):
     '''
         Defines class CheckerOptionsTest with attribute(s) and method(s).
-        Tests CheckerOptions TypedDict structure.
+        Tests CheckerBundleOptions TypedDict structure.
     '''
 
     def test_type_hints(self) -> None:
-        hints = get_type_hints(CheckerOptions)
+        hints = get_type_hints(CheckerBundleOptions)
         self.assertEqual(hints['separator'], str)
         self.assertEqual(hints['stack_index_caller'], int)
 
     def test_instantiation(self) -> None:
-        options: CheckerOptions = {
+        options: CheckerBundleOptions = {
             'separator': "-",
             'stack_index_caller': 3
         }

@@ -26,6 +26,7 @@ from collections.abc import Callable
 from typing import Final
 
 from ats_utilities.validation.check_type import istype
+from ats_utilities.validation.check_value import not_satisfied
 from ats_utilities.utils.reflection import to_str
 
 __author__ = 'Vladimir Roncevic'
@@ -68,11 +69,15 @@ class LogBuffer:
             :param limit: The maximum number of messages to buffer.
             :exceptions:
                 | ATSTypeError: The limit must be an integer.
+                | ATSValueError: The limit must be a positive integer.
         '''
         if limit is not None:
             ctx: str = 'log_buffer::init(...)'
-            msg_limit_istype: str = 'the limit must be an integer.'
+            msg_limit_istype: str = 'the limit must be a positive integer.'
+
             istype(limit, int, ctx, msg_limit_istype)
+            not_satisfied(limit <= 0, ctx, msg_limit_istype)
+
             self._limit = limit
         else:
             self._limit = self.DEFAULT_LIMIT

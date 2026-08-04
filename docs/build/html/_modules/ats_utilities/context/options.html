@@ -54,16 +54,16 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Context options for the context bundle.</span>
+<span class="sd">    Context bundle options for the context bundle.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypedDict</span><span class="p">,</span> <span class="n">NotRequired</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.options</span> <span class="kn">import</span> <span class="n">CheckerOptions</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.options</span> <span class="kn">import</span> <span class="n">LoggerOptions</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.options</span> <span class="kn">import</span> <span class="n">ReporterOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.options</span> <span class="kn">import</span> <span class="n">CheckerBundleOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.options</span> <span class="kn">import</span> <span class="n">LoggerBundleOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.options</span> <span class="kn">import</span> <span class="n">ReporterBundleOptions</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -75,24 +75,24 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="ContextOptions">
-<a class="viewcode-back" href="../../../ats_utilities.context.options.html#ats_utilities.context.options.ContextOptions">[docs]</a>
-<span class="k">class</span> <span class="nc">ContextOptions</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<div class="viewcode-block" id="ContextBundleOptions">
+<a class="viewcode-back" href="../../../ats_utilities.context.options.html#ats_utilities.context.options.ContextBundleOptions">[docs]</a>
+<span class="k">class</span> <span class="nc">ContextBundleOptions</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Context options for the context bundle.</span>
+<span class="sd">        Context bundle options for the context bundle.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | checker - The checker setup options.</span>
-<span class="sd">                | logger - The logger setup options.</span>
-<span class="sd">                | reporter - The reporter setup options.</span>
-<span class="sd">                | verbose - The verbose output flag.</span>
+<span class="sd">                | checker - The checker setup options for the context bundle.</span>
+<span class="sd">                | logger - The logger setup options for the context bundle.</span>
+<span class="sd">                | reporter - The reporter setup options for the context bundle.</span>
+<span class="sd">                | verbose - The verbose output flag for the context bundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">checker</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="n">CheckerOptions</span><span class="p">]</span>
-    <span class="n">logger</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="n">LoggerOptions</span><span class="p">]</span>
-    <span class="n">reporter</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="n">ReporterOptions</span><span class="p">]</span>
+    <span class="n">checker</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="n">CheckerBundleOptions</span><span class="p">]</span>
+    <span class="n">logger</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="n">LoggerBundleOptions</span><span class="p">]</span>
+    <span class="n">reporter</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="n">ReporterBundleOptions</span><span class="p">]</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span></div>
 
 </pre></div>

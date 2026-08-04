@@ -54,7 +54,7 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    A validator for the generator data.</span>
+<span class="sd">    Validator for the generator data.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -81,7 +81,7 @@
 <span class="k">class</span> <span class="nc">TarDataValidator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 
-<span class="sd">        A validator for the tar data.</span>
+<span class="sd">        Validator for the tar data.</span>
 <span class="sd">        </span>
 <span class="sd">        It defines:</span>
 
@@ -100,25 +100,25 @@
 
 <span class="sd">            :param data: The tar data to be validated.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Tar data must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Tar data must be an instance of TarData and</span>
+<span class="sd">                | ATSValueError: The tar data must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The tar data must be an instance of TarData and</span>
 <span class="sd">                |                its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;tar_data_validator::validate(...)&#39;</span>
-        <span class="n">msg_data_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;data must be provided&#39;</span>
-        <span class="n">msg_data_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;data must be an instance of TarData&#39;</span>
-        <span class="n">msg_archive_path_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;archive_path must be provided&#39;</span>
-        <span class="n">msg_target_dir_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;target_dir must be provided&#39;</span>
-        <span class="n">msg_source_dir_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;source_dir must be provided&#39;</span>
-        <span class="n">msg_path_replacements_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;path_replacements must be provided&#39;</span>
-        <span class="n">msg_exclude_patterns_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;exclude_patterns must be provided&#39;</span>
-        <span class="n">msg_vals_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;vals must be provided&#39;</span>
-        <span class="n">msg_archive_path_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;archive_path must be a string&#39;</span>
-        <span class="n">msg_target_dir_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;target_dir must be a string&#39;</span>
-        <span class="n">msg_source_dir_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;source_dir must be a string&#39;</span>
-        <span class="n">msg_path_replacements_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;path_replacements must be a mapping&#39;</span>
-        <span class="n">msg_exclude_patterns_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;exclude_patterns must be a sequence&#39;</span>
-        <span class="n">msg_vals_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;vals must be a mapping&#39;</span>
+        <span class="n">msg_data_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the data must be provided&#39;</span>
+        <span class="n">msg_data_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the data must be an instance of TarData&#39;</span>
+        <span class="n">msg_archive_path_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the archive path must be provided&#39;</span>
+        <span class="n">msg_target_dir_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the target directory must be provided&#39;</span>
+        <span class="n">msg_source_dir_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the source directory must be provided&#39;</span>
+        <span class="n">msg_path_replacements_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the path replacements must be provided&#39;</span>
+        <span class="n">msg_exclude_patterns_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the exclude patterns must be provided&#39;</span>
+        <span class="n">msg_vals_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the values must be provided&#39;</span>
+        <span class="n">msg_archive_path_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the archive path must be a string&#39;</span>
+        <span class="n">msg_target_dir_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the target directory must be a string&#39;</span>
+        <span class="n">msg_source_dir_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the source directory must be a string&#39;</span>
+        <span class="n">msg_path_replacements_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the path replacements must be a mapping&#39;</span>
+        <span class="n">msg_exclude_patterns_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the exclude patterns must be a sequence&#39;</span>
+        <span class="n">msg_vals_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the values must be a mapping&#39;</span>
 
         <span class="n">not_none</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_data_none</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">TarData</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_data_istype</span><span class="p">)</span>
@@ -145,7 +145,7 @@
 <span class="k">class</span> <span class="nc">TarMemberDataValidator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 
-<span class="sd">        A validator for the tar member data.</span>
+<span class="sd">        Validator for the tar member data.</span>
 <span class="sd">        </span>
 <span class="sd">        It defines:</span>
 
@@ -164,21 +164,21 @@
 
 <span class="sd">            :param data: The tar member data to be validated.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Tar member data must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Tar member data must be an instance of TarMemberData and</span>
+<span class="sd">                | ATSValueError: The tar member data must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The tar member data must be an instance of TarMemberData and</span>
 <span class="sd">                |                its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;tar_member_data_validator::validate(...)&#39;</span>
-        <span class="n">msg_data_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;data must be provided&#39;</span>
-        <span class="n">msg_data_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;data must be an instance of TarMemberData&#39;</span>
-        <span class="n">msg_tar_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;tar must be provided&#39;</span>
-        <span class="n">msg_member_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;member must be provided&#39;</span>
-        <span class="n">msg_dest_full_path_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;dest_full_path must be provided&#39;</span>
-        <span class="n">msg_vals_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;vals must be provided&#39;</span>
-        <span class="n">msg_tar_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;tar must be a TarFile instance&#39;</span>
-        <span class="n">msg_member_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;member must be a TarInfo instance&#39;</span>
-        <span class="n">msg_dest_full_path_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;dest_full_path must be a string&#39;</span>
-        <span class="n">msg_vals_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;vals must be a mapping&#39;</span>
+        <span class="n">msg_data_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the data must be provided&#39;</span>
+        <span class="n">msg_data_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the data must be an instance of TarMemberData&#39;</span>
+        <span class="n">msg_tar_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the tar must be provided&#39;</span>
+        <span class="n">msg_member_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the member must be provided&#39;</span>
+        <span class="n">msg_dest_full_path_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the destination full path must be provided&#39;</span>
+        <span class="n">msg_vals_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the values must be provided&#39;</span>
+        <span class="n">msg_tar_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the tar must be a TarFile instance&#39;</span>
+        <span class="n">msg_member_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the member must be a TarInfo instance&#39;</span>
+        <span class="n">msg_dest_full_path_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the destination full path must be a string&#39;</span>
+        <span class="n">msg_vals_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the values must be a mapping&#39;</span>
 
         <span class="n">not_none</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_data_none</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">TarMemberData</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_data_istype</span><span class="p">)</span>

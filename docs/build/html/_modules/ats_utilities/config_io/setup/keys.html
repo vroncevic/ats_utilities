@@ -76,24 +76,24 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="ConfigIOKeys">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.setup.keys.html#ats_utilities.config_io.setup.keys.ConfigIOKeys">[docs]</a>
-<span class="k">class</span> <span class="nc">ConfigIOKeys</span><span class="p">:</span>
+<div class="viewcode-block" id="ConfigIOBundleKeys">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.setup.keys.html#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys">[docs]</a>
+<span class="k">class</span> <span class="nc">ConfigIOBundleKeys</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Runtime components and interface constraints for Config I/O bundle.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | DEPENDENCY_FILE_PATH - The file path interface constant.</span>
-<span class="sd">                | DEPENDENCY_PROCESSOR - The processor interface constant.</span>
-<span class="sd">                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant.</span>
-<span class="sd">                | OPTION_FILE_PATH - The file path option constant.</span>
-<span class="sd">                | OPTION_SCHEME - The scheme option constant.</span>
-<span class="sd">                | OPTION_CONTEXT_BUNDLE - The context bundle option constant.</span>
+<span class="sd">                | DEPENDENCY_FILE_PATH - The file path interface constant for the config I/O bundle.</span>
+<span class="sd">                | DEPENDENCY_PROCESSOR - The processor interface constant for the config I/O bundle.</span>
+<span class="sd">                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant for the config I/O bundle.</span>
+<span class="sd">                | OPTION_FILE_PATH - The file path option constant for the config I/O bundle.</span>
+<span class="sd">                | OPTION_SCHEME - The scheme option constant for the config I/O bundle.</span>
+<span class="sd">                | OPTION_CONTEXT_BUNDLE - The context bundle option constant for the config I/O bundle.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | get_dependency_to_type - Returns the mapping of the config I/O dependencies to their types.</span>
-<span class="sd">                | get_option_to_type - Returns the mapping of the config I/O options to their types.</span>
+<span class="sd">                | get_dependency_to_type - Returns the mapping of the config I/O bundle dependencies to their types.</span>
+<span class="sd">                | get_option_to_type - Returns the mapping of the config I/O bundle options to their types.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="c1"># Dependency Keys</span>
@@ -106,14 +106,14 @@
     <span class="n">OPTION_SCHEME</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;scheme&#39;</span>
     <span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;context_bundle&#39;</span>
 
-<div class="viewcode-block" id="ConfigIOKeys.get_dependency_to_type">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.setup.keys.html#ats_utilities.config_io.setup.keys.ConfigIOKeys.get_dependency_to_type">[docs]</a>
+<div class="viewcode-block" id="ConfigIOBundleKeys.get_dependency_to_type">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.setup.keys.html#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.get_dependency_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_dependency_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the mapping of the config I/O dependencies to their types.</span>
+<span class="sd">            Returns the mapping of the config I/O bundle dependencies to their types.</span>
 
-<span class="sd">            :return: The mapping of the config I/O dependencies to their types.</span>
+<span class="sd">            :return: The mapping of the config I/O bundle dependencies to their types.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">({</span>
@@ -123,14 +123,14 @@
         <span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="ConfigIOKeys.get_option_to_type">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.setup.keys.html#ats_utilities.config_io.setup.keys.ConfigIOKeys.get_option_to_type">[docs]</a>
+<div class="viewcode-block" id="ConfigIOBundleKeys.get_option_to_type">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.setup.keys.html#ats_utilities.config_io.setup.keys.ConfigIOBundleKeys.get_option_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_option_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the mapping of the config I/O options to their types.</span>
+<span class="sd">            Returns the mapping of the config I/O bundle options to their types.</span>
 
-<span class="sd">            :return: The mapping of the config I/O options to their types.</span>
+<span class="sd">            :return: The mapping of the config I/O bundle options to their types.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">({</span>

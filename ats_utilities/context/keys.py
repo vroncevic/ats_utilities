@@ -25,11 +25,11 @@ from typing import ClassVar
 from types import MappingProxyType
 
 from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.checker.setup.options import CheckerOptions
+from ats_utilities.checker.setup.options import CheckerBundleOptions
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.setup.options import ReporterOptions
+from ats_utilities.reporter.setup.options import ReporterBundleOptions
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.logger.setup.options import LoggerOptions
+from ats_utilities.logger.setup.options import LoggerBundleOptions
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -41,24 +41,24 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ContextKeys:
+class ContextBundleKeys:
     '''
         Runtime components and interface constraints for the context bundle.
 
         It defines:
 
             :attributes:
-                | DEPENDENCY_CHECKER - The checker interface constant.
-                | DEPENDENCY_LOGGER - The logger interface constant.
-                | DEPENDENCY_REPORTER - The reporter interface constant.
-                | DEPENDENCY_VERBOSE - The verbose flag constant.
-                | OPTION_CHECKER - The checker options constant.
-                | OPTION_LOGGER - The logger options constant.
-                | OPTION_REPORTER - The reporter options constant.
-                | OPTION_VERBOSE - The verbose flag constant.
+                | DEPENDENCY_CHECKER - The checker interface constant for the context bundle.
+                | DEPENDENCY_LOGGER - The logger interface constant for the context bundle.
+                | DEPENDENCY_REPORTER - The reporter interface constant for the context bundle.
+                | DEPENDENCY_VERBOSE - The verbose flag constant for the context bundle.
+                | OPTION_CHECKER - The checker options constant for the context bundle.
+                | OPTION_LOGGER - The logger options constant for the context bundle.
+                | OPTION_REPORTER - The reporter options constant for the context bundle.
+                | OPTION_VERBOSE - The verbose flag constant for the context bundle.
             :methods:
-                | get_dependency_to_type - Returns the mapping of the context dependencies to their types.
-                | get_option_to_type - Returns the mapping of the context options to their types.
+                | get_dependency_to_type - Returns the mapping of the context bundle dependencies to their types.
+                | get_option_to_type - Returns the mapping of the context bundle options to their types.
     '''
 
     # Dependency Keys
@@ -76,9 +76,9 @@ class ContextKeys:
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns the mapping of the context dependencies to their types.
+            Returns the mapping of the context bundle dependencies to their types.
 
-            :return: The mapping of the context dependencies to their types.
+            :return: The mapping of the context bundle dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -91,14 +91,14 @@ class ContextKeys:
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns the mapping of the context options to their types.
+            Returns the mapping of the context bundle options to their types.
 
-            :return: The mapping of the context options to their types.
+            :return: The mapping of the context bundle options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
-            cls.OPTION_CHECKER: CheckerOptions,
-            cls.OPTION_LOGGER: LoggerOptions,
-            cls.OPTION_REPORTER: ReporterOptions,
+            cls.OPTION_CHECKER: CheckerBundleOptions,
+            cls.OPTION_LOGGER: LoggerBundleOptions,
+            cls.OPTION_REPORTER: ReporterBundleOptions,
             cls.OPTION_VERBOSE: bool,
         })

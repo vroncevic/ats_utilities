@@ -22,6 +22,8 @@ Info
 
 from __future__ import annotations
 
+from typing import Final
+
 from ats_utilities.validation.check_value import not_none, not_empty
 from ats_utilities.validation.check_type import istype
 from ats_utilities.utils.reflection import to_str
@@ -57,8 +59,8 @@ class LogFormatter:
                 | __str__ - Returns the log formatter as a string representation.
     '''
 
-    DEFAULT_LOG_FORMAT: str = '%(asctime)s - %(levelname)s - %(message)s'
-    DEFAULT_LOG_DATEFMT: str = '%m/%d/%Y %I:%M:%S %p'
+    DEFAULT_LOG_FORMAT: Final[str] = '%(asctime)s - %(levelname)s - %(message)s'
+    DEFAULT_LOG_DATEFMT: Final[str] = '%m/%d/%Y %I:%M:%S %p'
     _log_format: str
     _log_datefmt: str
 

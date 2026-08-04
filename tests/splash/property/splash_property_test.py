@@ -23,10 +23,10 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.factory import ContextFactory
+from ats_utilities.context.factory import ContextBundleFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.splash.property.splash_property import SplashProperty
-from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.keys import InfoBundleKeys
 
 
 class SplashPropertyTest(unittest.TestCase):
@@ -34,21 +34,21 @@ class SplashPropertyTest(unittest.TestCase):
 
     def _get_valid_prop(self) -> dict[str, object]:
         return {
-            InfoKeys.ATS_NAME: "ats_utilities",
-            InfoKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
-            InfoKeys.ATS_ORGANIZATION: "vroncevic",
-            InfoKeys.ATS_LOGO_PATH: "/path/to/logo.png",
-            InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
+            InfoBundleKeys.ATS_NAME: "ats_utilities",
+            InfoBundleKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
+            InfoBundleKeys.ATS_ORGANIZATION: "vroncevic",
+            InfoBundleKeys.ATS_LOGO_PATH: "/path/to/logo.png",
+            InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
         }
 
     def test_init(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         sp = SplashProperty(context_bundle)
         self.assertEqual(sp.settings[SplashProperty.ENABLED_SETTING], False)
         self.assertIsNone(sp.settings[SplashProperty.NAME_SETTING])
 
     def test_getter_setter(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         sp = SplashProperty(context_bundle)
         prop = self._get_valid_prop()
         sp.settings = prop
@@ -61,7 +61,7 @@ class SplashPropertyTest(unittest.TestCase):
         self.assertTrue(sp.is_settings_enabled())
 
     def test_setter_invalid(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         sp = SplashProperty(context_bundle)
 
         # Invalid type
@@ -70,7 +70,7 @@ class SplashPropertyTest(unittest.TestCase):
 
         # Missing key for name
         invalid_prop = self._get_valid_prop()
-        del invalid_prop[InfoKeys.ATS_NAME]
+        del invalid_prop[InfoBundleKeys.ATS_NAME]
         # In the actual setter implementation, it allows missing keys (assigning None).
         # But wait! If we pass missing key, it assigns None, and name is None.
         # Let's test that if name is not present, it stays None and settings are not enabled.
@@ -79,7 +79,7 @@ class SplashPropertyTest(unittest.TestCase):
         self.assertFalse(sp.is_settings_enabled())
 
     def test_str(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         sp = SplashProperty(context_bundle)
         self.assertIn("SplashProperty", str(sp))
 

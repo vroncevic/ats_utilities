@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the info dependencies.
+    Validator for the info bundle dependencies.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
 
-from ats_utilities.info.setup.dependencies import InfoDependencies
-from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.dependencies import InfoBundleDependencies
+from ats_utilities.info.setup.keys import InfoBundleKeys
 from ats_utilities.info.setup.schema import InfoSchema
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none, not_satisfied
@@ -39,30 +39,30 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class InfoDependenciesValidator:
+class InfoBundleDependenciesValidator:
     '''
-        A validator for the info dependencies.
+        Validator for the info bundle dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the info dependencies.
+                | validate - Validates the info bundle dependencies.
     '''
 
     @classmethod
-    def validate(cls, dependencies: InfoDependencies) -> None:
+    def validate(cls, dependencies: InfoBundleDependencies) -> None:
         '''
-            Validates the info dependencies.
+            Validates the info bundle dependencies.
 
-            :param dependencies: The info dependencies instance to be validated.
+            :param dependencies: The info bundle dependencies instance to be validated.
             :exceptions:
-                | ATSValueError: Dependencies must be provided and have proper values.
-                | ATSTypeError:  Dependencies must be an instance of Mapping and its
+                | ATSValueError: The info bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The info bundle dependencies must be an instance of Mapping and its
                 |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'info_dependencies_validator::validate(...)'
-        msg_dependencies_none: str = 'the dependencies must be provided'
-        msg_dependencies_not_mapping: str = 'the dependencies must be an instance of Mapping'
+        ctx: str = 'info_bundle_dependencies_validator::validate(...)'
+        msg_dependencies_none: str = 'the info bundle dependencies must be provided'
+        msg_dependencies_not_mapping: str = 'the info bundle dependencies must be an instance of Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_not_mapping)
@@ -78,7 +78,7 @@ class InfoDependenciesValidator:
             msg_key_missing: str = f'the {key} must be provided in dependencies'
             not_satisfied(key not in dependencies, ctx, msg_key_missing)
 
-        for attr_name, expected_type in InfoKeys.get_dependency_to_type().items():
+        for attr_name, expected_type in InfoBundleKeys.get_dependency_to_type().items():
             msg_attr_required_none: str = f'the {attr_name} must be provided and have proper attribute'
             msg_attr_optional_not_instance: str = f'the {attr_name} must be an instance of {expected_type.__name__}'
 

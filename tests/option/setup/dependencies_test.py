@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for OptionDependencies TypedDict.
+    Unit tests for OptionBundleDependencies TypedDict.
 '''
 
 from __future__ import annotations
@@ -25,21 +25,21 @@ import unittest
 from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.option.setup.dependencies import OptionDependencies
+from ats_utilities.option.setup.dependencies import OptionBundleDependencies
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 
 
 class DependenciesTest(unittest.TestCase):
     '''
         Defines class DependenciesTest with attribute(s) and method(s).
-        Tests OptionDependencies structure.
+        Tests OptionBundleDependencies structure.
     '''
 
     def test_dependencies_structure(self) -> None:
         mock_strategy = MagicMock(spec=IParserStrategy)
         mock_context = MagicMock(spec=ContextBundle)
 
-        deps: OptionDependencies = {
+        deps: OptionBundleDependencies = {
             "strategy": mock_strategy,
             "context_bundle": mock_context
         }

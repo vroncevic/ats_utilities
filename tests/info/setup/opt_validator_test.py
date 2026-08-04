@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for InfoOptionsValidator class.
+    Unit tests for InfoBundleOptionsValidator class.
 '''
 
 from __future__ import annotations
@@ -24,28 +24,28 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.info.setup.opt_validator import InfoOptionsValidator
-from ats_utilities.info.setup.options import InfoOptions
-from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.opt_validator import InfoBundleOptionsValidator
+from ats_utilities.info.setup.options import InfoBundleOptions
+from ats_utilities.info.setup.keys import InfoBundleKeys
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSValueError, ATSTypeError
 
 
 class TestInfoOptionsValidator(unittest.TestCase):
-    """Unit tests for the InfoOptionsValidator class."""
+    """Unit tests for the InfoBundleOptionsValidator class."""
 
     def setUp(self) -> None:
         """Set up valid option parameters for validation."""
         self.mock_context_bundle = MagicMock(spec=ContextBundle)
         self.valid_info = {
-            InfoKeys.ATS_NAME: "ats_utilities",
-            InfoKeys.ATS_VERSION: "3.4.4",
-            InfoKeys.ATS_BUILD_DATE: "2026-08-01",
-            InfoKeys.ATS_LICENCE: "GPL-3.0",
-            InfoKeys.ATS_INFO_OK: "OK"
+            InfoBundleKeys.ATS_NAME: "ats_utilities",
+            InfoBundleKeys.ATS_VERSION: "3.4.4",
+            InfoBundleKeys.ATS_BUILD_DATE: "2026-08-01",
+            InfoBundleKeys.ATS_LICENCE: "GPL-3.0",
+            InfoBundleKeys.ATS_INFO_OK: "OK"
         }
 
-        self.valid_options = InfoOptions(
+        self.valid_options = InfoBundleOptions(
             info=self.valid_info,
             context_bundle=self.mock_context_bundle
         )
@@ -53,14 +53,14 @@ class TestInfoOptionsValidator(unittest.TestCase):
     def test_successful_validation(self) -> None:
         """Test successful validation with all options present and valid."""
         try:
-            InfoOptionsValidator.validate(self.valid_options)
+            InfoBundleOptionsValidator.validate(self.valid_options)
         except (ATSValueError, ATSTypeError) as e:
             self.fail(f"validate raised unexpected error: {e}")
 
     def test_missing_options_raises_value_error(self) -> None:
         """Test that validation fails with ATSValueError when options dict is None."""
         with self.assertRaises(ATSValueError):
-            InfoOptionsValidator.validate(None)  # type: ignore
+            InfoBundleOptionsValidator.validate(None)  # type: ignore
 
     def test_invalid_type_raises_type_error(self) -> None:
         """Test that validation fails with ATSTypeError when options have incorrect types."""
@@ -68,37 +68,37 @@ class TestInfoOptionsValidator(unittest.TestCase):
         invalid_opts = self.valid_options.copy()
         invalid_opts['info'] = "not_a_mapping"  # type: ignore
         with self.assertRaises(ATSTypeError):
-            InfoOptionsValidator.validate(invalid_opts)
+            InfoBundleOptionsValidator.validate(invalid_opts)
 
         # Test invalid type for context_bundle
         invalid_opts2 = self.valid_options.copy()
         invalid_opts2['context_bundle'] = "not_a_context_bundle"  # type: ignore
         with self.assertRaises(ATSTypeError):
-            InfoOptionsValidator.validate(invalid_opts2)
+            InfoBundleOptionsValidator.validate(invalid_opts2)
 
     def test_info_structure_missing_required_keys_raises_value_error(self) -> None:
         """Test that validation fails when info dictionary is missing required keys."""
         bad_info = self.valid_info.copy()
-        del bad_info[InfoKeys.ATS_NAME]
+        del bad_info[InfoBundleKeys.ATS_NAME]
 
-        invalid_opts = InfoOptions(
+        invalid_opts = InfoBundleOptions(
             info=bad_info,
             context_bundle=self.mock_context_bundle
         )
         with self.assertRaises(ATSValueError):
-            InfoOptionsValidator.validate(invalid_opts)
+            InfoBundleOptionsValidator.validate(invalid_opts)
 
     def test_info_structure_contains_invalid_keys_raises_value_error(self) -> None:
         """Test that validation fails when info dictionary contains invalid keys."""
         bad_info = self.valid_info.copy()
         bad_info["invalid_key"] = "some_value"
 
-        invalid_opts = InfoOptions(
+        invalid_opts = InfoBundleOptions(
             info=bad_info,
             context_bundle=self.mock_context_bundle
         )
         with self.assertRaises(ATSValueError):
-            InfoOptionsValidator.validate(invalid_opts)
+            InfoBundleOptionsValidator.validate(invalid_opts)
 
 
 if __name__ == '__main__':

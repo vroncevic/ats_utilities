@@ -54,13 +54,13 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    A validator for the splash bundle.</span>
+<span class="sd">    Validator for the splash bundle.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.context.bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextBundleValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splash.setup.bundle</span> <span class="kn">import</span> <span class="n">SplashBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splash.property.isplash_property</span> <span class="kn">import</span> <span class="n">ISplashProperty</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splash.terminal.iterminal_properties</span> <span class="kn">import</span> <span class="n">ITerminalProperties</span>
@@ -80,11 +80,11 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="SplashValidator">
-<a class="viewcode-back" href="../../../../ats_utilities.splash.setup.validator.html#ats_utilities.splash.setup.validator.SplashValidator">[docs]</a>
-<span class="k">class</span> <span class="nc">SplashValidator</span><span class="p">:</span>
+<div class="viewcode-block" id="SplashBundleValidator">
+<a class="viewcode-back" href="../../../../ats_utilities.splash.setup.validator.html#ats_utilities.splash.setup.validator.SplashBundleValidator">[docs]</a>
+<span class="k">class</span> <span class="nc">SplashBundleValidator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        A validator for the splash bundle.</span>
+<span class="sd">        Validator for the splash bundle.</span>
 
 <span class="sd">        It defines:</span>
 
@@ -92,8 +92,8 @@
 <span class="sd">                | validate - Validates the splash bundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="SplashValidator.validate">
-<a class="viewcode-back" href="../../../../ats_utilities.splash.setup.validator.html#ats_utilities.splash.setup.validator.SplashValidator.validate">[docs]</a>
+<div class="viewcode-block" id="SplashBundleValidator.validate">
+<a class="viewcode-back" href="../../../../ats_utilities.splash.setup.validator.html#ats_utilities.splash.setup.validator.SplashBundleValidator.validate">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="n">SplashBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -101,13 +101,13 @@
 
 <span class="sd">            :param bundle: The splash bundle to be validated.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: The option bundle must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  The option bundle must be an instance of OptionBundle and its</span>
+<span class="sd">                | ATSValueError: The splash bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The splash bundle must be an instance of SplashBundle and its</span>
 <span class="sd">                |                attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;splash_validator::validate(...)&#39;</span>
-        <span class="n">msg_bundle_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the bundle must be provided&#39;</span>
-        <span class="n">msg_bundle_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the bundle must be an instance of SplashBundle&#39;</span>
+        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;splash_bundle_validator::validate(...)&#39;</span>
+        <span class="n">msg_bundle_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the splash bundle must be provided&#39;</span>
+        <span class="n">msg_bundle_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the splash bundle must be an instance of SplashBundle&#39;</span>
         <span class="n">msg_splash_property_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the splash property must be provided&#39;</span>
         <span class="n">msg_splash_property_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the splash property must be an ISplashProperty instance&#39;</span>
         <span class="n">msg_terminal_property_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the terminal properties must be provided&#39;</span>
@@ -135,7 +135,7 @@
         <span class="n">istype</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">pb</span><span class="p">,</span> <span class="n">IProgressBar</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_pb_type</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_context_bundle_type</span><span class="p">)</span>
 
-        <span class="n">ContextValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
+        <span class="n">ContextBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">bundle</span><span class="o">.</span><span class="n">splash_property</span><span class="o">.</span><span class="n">is_settings_enabled</span><span class="p">():</span>
             <span class="n">check_file_exists</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">splash_property</span><span class="o">.</span><span class="n">get_logo</span><span class="p">(),</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_logo_path</span><span class="p">)</span></div>

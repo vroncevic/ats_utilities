@@ -28,7 +28,7 @@ from inspect import signature, Signature
 from functools import wraps
 from typing import cast
 
-from ats_utilities.checker.setup.factory import CheckerFactory
+from ats_utilities.checker.setup.factory import CheckerBundleFactory
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.setup.types import Parameters, CheckerErrorType
@@ -259,7 +259,7 @@ def fcheck[F: Callable[..., object]](specs: Parameters, checker: IChecker | None
     '''
     validate_specs(specs, 'fcheck(...)')
 
-    active_checker: IChecker = checker or Checker(CheckerFactory.create_bundle())
+    active_checker: IChecker = checker or Checker(CheckerBundleFactory.create_bundle())
 
     def decorator(func: F) -> F:
 

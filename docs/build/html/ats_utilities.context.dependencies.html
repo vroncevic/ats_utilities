@@ -63,45 +63,45 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Context dependencies for the context bundle.</p>
+<dt>Info</dt><dd><p>Context bundle dependencies for the context bundle.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.context.dependencies.ContextDependencies">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.context.dependencies.</span></span><span class="sig-name descname"><span class="pre">ContextDependencies</span></span><a class="reference internal" href="_modules/ats_utilities/context/dependencies.html#ContextDependencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.context.dependencies.ContextDependencies" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.context.dependencies.ContextBundleDependencies">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.context.dependencies.</span></span><span class="sig-name descname"><span class="pre">ContextBundleDependencies</span></span><a class="reference internal" href="_modules/ats_utilities/context/dependencies.html#ContextBundleDependencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.context.dependencies.ContextBundleDependencies" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
-<p>Context dependencies for the context bundle.</p>
+<p>Context bundle dependencies for the context bundle.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">checker - The checker.</div>
-<div class="line">logger - The logger.</div>
-<div class="line">reporter - The reporter.</div>
-<div class="line">verbose - The verbose output flag.</div>
+<div class="line">checker - The checker for the context bundle.</div>
+<div class="line">logger - The logger for the context bundle.</div>
+<div class="line">reporter - The reporter for the context bundle.</div>
+<div class="line">verbose - The verbose output flag for the context bundle.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.context.dependencies.ContextDependencies.checker">
-<span class="sig-name descname"><span class="pre">checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.context.dependencies.ContextDependencies.checker" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.context.dependencies.ContextBundleDependencies.checker">
+<span class="sig-name descname"><span class="pre">checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.context.dependencies.ContextBundleDependencies.checker" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.context.dependencies.ContextDependencies.logger">
-<span class="sig-name descname"><span class="pre">logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a></em><a class="headerlink" href="#ats_utilities.context.dependencies.ContextDependencies.logger" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.context.dependencies.ContextBundleDependencies.logger">
+<span class="sig-name descname"><span class="pre">logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a></em><a class="headerlink" href="#ats_utilities.context.dependencies.ContextBundleDependencies.logger" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.context.dependencies.ContextDependencies.reporter">
-<span class="sig-name descname"><span class="pre">reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.context.dependencies.ContextDependencies.reporter" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.context.dependencies.ContextBundleDependencies.reporter">
+<span class="sig-name descname"><span class="pre">reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.context.dependencies.ContextBundleDependencies.reporter" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.context.dependencies.ContextDependencies.verbose">
-<span class="sig-name descname"><span class="pre">verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.context.dependencies.ContextDependencies.verbose" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.context.dependencies.ContextBundleDependencies.verbose">
+<span class="sig-name descname"><span class="pre">verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.context.dependencies.ContextBundleDependencies.verbose" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -119,11 +119,11 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.context.dependencies module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.context.dependencies.ContextDependencies"><code class="docutils literal notranslate"><span class="pre">ContextDependencies</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.context.dependencies.ContextDependencies.checker"><code class="docutils literal notranslate"><span class="pre">ContextDependencies.checker</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.context.dependencies.ContextDependencies.logger"><code class="docutils literal notranslate"><span class="pre">ContextDependencies.logger</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.context.dependencies.ContextDependencies.reporter"><code class="docutils literal notranslate"><span class="pre">ContextDependencies.reporter</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.context.dependencies.ContextDependencies.verbose"><code class="docutils literal notranslate"><span class="pre">ContextDependencies.verbose</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.context.dependencies.ContextBundleDependencies"><code class="docutils literal notranslate"><span class="pre">ContextBundleDependencies</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.context.dependencies.ContextBundleDependencies.checker"><code class="docutils literal notranslate"><span class="pre">ContextBundleDependencies.checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.context.dependencies.ContextBundleDependencies.logger"><code class="docutils literal notranslate"><span class="pre">ContextBundleDependencies.logger</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.context.dependencies.ContextBundleDependencies.reporter"><code class="docutils literal notranslate"><span class="pre">ContextBundleDependencies.reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.context.dependencies.ContextBundleDependencies.verbose"><code class="docutils literal notranslate"><span class="pre">ContextBundleDependencies.verbose</span></code></a></li>
 </ul>
 </li>
 </ul>

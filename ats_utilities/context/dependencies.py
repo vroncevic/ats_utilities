@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Context dependencies for the context bundle.
+    Context bundle dependencies for the context bundle.
 '''
 
 from __future__ import annotations
@@ -37,17 +37,17 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ContextDependencies(TypedDict):
+class ContextBundleDependencies(TypedDict):
     '''
-        Context dependencies for the context bundle.
+        Context bundle dependencies for the context bundle.
 
         It defines:
 
             :attributes:
-                | checker - The checker.
-                | logger - The logger.
-                | reporter - The reporter.
-                | verbose - The verbose output flag.
+                | checker - The checker for the context bundle.
+                | logger - The logger for the context bundle.
+                | reporter - The reporter for the context bundle.
+                | verbose - The verbose output flag for the context bundle.
     '''
 
     checker: IChecker

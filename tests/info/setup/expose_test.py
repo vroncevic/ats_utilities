@@ -5,7 +5,7 @@ import unittest
 from ats_utilities.exceptions import ATSValueError
 from ats_utilities.info.setup.expose import InfoExpose
 from ats_utilities.info.setup.iexpose import IInfoExpose
-from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.keys import InfoBundleKeys
 
 
 class TestInfoExpose(unittest.TestCase):
@@ -14,16 +14,16 @@ class TestInfoExpose(unittest.TestCase):
     def setUp(self):
         """Prepare sample valid configuration mappings for tests."""
         self.valid_config = {
-            InfoKeys.ATS_NAME: "ats_utilities",
-            InfoKeys.ATS_VERSION: "3.4.4",
-            InfoKeys.ATS_BUILD_DATE: "2026-08-01",
-            InfoKeys.ATS_LICENCE: "GPL-3.0-or-later",
-            InfoKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
-            InfoKeys.ATS_ORGANIZATION: "ats",
-            InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True,
-            InfoKeys.ATS_LOGO_PATH: "/path/to/logo.png",
-            InfoKeys.ATS_LOG_FILE: "/path/to/app.log",
-            InfoKeys.ATS_INFO_OK: True,
+            InfoBundleKeys.ATS_NAME: "ats_utilities",
+            InfoBundleKeys.ATS_VERSION: "3.4.4",
+            InfoBundleKeys.ATS_BUILD_DATE: "2026-08-01",
+            InfoBundleKeys.ATS_LICENCE: "GPL-3.0-or-later",
+            InfoBundleKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
+            InfoBundleKeys.ATS_ORGANIZATION: "ats",
+            InfoBundleKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True,
+            InfoBundleKeys.ATS_LOGO_PATH: "/path/to/logo.png",
+            InfoBundleKeys.ATS_LOG_FILE: "/path/to/app.log",
+            InfoBundleKeys.ATS_INFO_OK: True,
         }
 
     def test_protocol_conformance(self):

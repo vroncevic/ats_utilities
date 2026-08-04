@@ -31,7 +31,7 @@ from ats_utilities.checker.format.iformat_validator import IFormatValidator
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.setup.bundle import CheckerBundle
-from ats_utilities.checker.setup.validator import CheckerValidator
+from ats_utilities.checker.setup.validator import CheckerBundleValidator
 from ats_utilities.checker.reporter.data import CheckReporterData
 from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.utils.reflection import to_str
@@ -92,7 +92,7 @@ class Checker:
                 |                respective interfaces and types.
         '''
         self._is_initialized = False
-        CheckerValidator.validate(own)
+        CheckerBundleValidator.validate(own)
         self._apply_bundle(own)
         self._is_initialized = True
 
@@ -119,7 +119,7 @@ class Checker:
             :exceptions: None.
         '''
         try:
-            CheckerValidator.validate(bundle)
+            CheckerBundleValidator.validate(bundle)
             self._apply_bundle(bundle)
             self._is_initialized = True
 

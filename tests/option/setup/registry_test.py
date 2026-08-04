@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for OptionRegistry class.
+    Unit tests for OptionBundleRegistry class.
 '''
 
 from __future__ import annotations
@@ -26,8 +26,8 @@ from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.option.setup.bundle import OptionBundle
-from ats_utilities.option.setup.registry import OptionRegistry
-from ats_utilities.option.setup.dependencies import OptionDependencies
+from ats_utilities.option.setup.registry import OptionBundleRegistry
+from ats_utilities.option.setup.dependencies import OptionBundleDependencies
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
@@ -37,7 +37,7 @@ from ats_utilities.reporter.ireporter import IReporter
 class OptionRegistryTest(unittest.TestCase):
     '''
         Defines class OptionRegistryTest with attribute(s) and method(s).
-        Tests OptionRegistry logic.
+        Tests OptionBundleRegistry logic.
     '''
 
     def test_create_bundle(self) -> None:
@@ -48,12 +48,12 @@ class OptionRegistryTest(unittest.TestCase):
         mock_context.reporter = MagicMock(spec=IReporter)
         mock_context.verbose = True
 
-        deps = OptionDependencies(
+        deps = OptionBundleDependencies(
             strategy=mock_strategy,
             context_bundle=mock_context
         )
 
-        bundle = OptionRegistry.create_bundle(deps)
+        bundle = OptionBundleRegistry.create_bundle(deps)
         self.assertIsInstance(bundle, OptionBundle)
         self.assertIs(bundle.strategy, mock_strategy)
         self.assertIs(bundle.context_bundle, mock_context)

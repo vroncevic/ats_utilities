@@ -23,9 +23,9 @@ from collections.abc import Sequence
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.setup.factory import CheckerFactory
+from ats_utilities.checker.setup.factory import CheckerBundleFactory
 from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.setup.factory import LoggerFactory
+from ats_utilities.logger.setup.factory import LoggerBundleFactory
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
@@ -54,10 +54,10 @@ class TestComponent:
 
         :exceptions: None.
         '''
-        checker_bundle = CheckerFactory.create_bundle()
+        checker_bundle = CheckerBundleFactory.create_bundle()
         self.checker: IChecker = make_component(None, Checker, {'own': checker_bundle})
         self.theme: IConsoleTheme = make_component(None, ConsoleTheme, None)
-        logger_bundle = LoggerFactory.create_bundle()
+        logger_bundle = LoggerBundleFactory.create_bundle()
         logger_instance = make_component(None, Logger, {'own': logger_bundle})
         reporter_bundle = ReporterBundle(theme=self.theme, checker=self.checker, logger=logger_instance)
         self.reporter: IReporter = make_component(None, Reporter, {'own': reporter_bundle})

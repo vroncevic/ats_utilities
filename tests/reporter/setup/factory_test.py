@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ReporterFactory class.
+    Unit tests for ReporterBundleFactory class.
 '''
 
 from __future__ import annotations
@@ -26,7 +26,7 @@ import unittest
 from ats_utilities.checker.engine import Checker
 from ats_utilities.logger.engine import Logger
 from ats_utilities.reporter.setup.bundle import ReporterBundle
-from ats_utilities.reporter.setup.factory import ReporterFactory
+from ats_utilities.reporter.setup.factory import ReporterBundleFactory
 from ats_utilities.reporter.theme.engine import ConsoleTheme
 
 __author__: str = 'Vladimir Roncevic'
@@ -42,24 +42,24 @@ __status__: str = 'Development'
 class FactoryTest(unittest.TestCase):
     '''
         Defines class FactoryTest with attribute(s) and method(s).
-        Tests ReporterFactory static factory logic.
+        Tests ReporterBundleFactory static factory logic.
     '''
 
     def test_create_default_bundle(self) -> None:
-        bundle = ReporterFactory.create_bundle()
+        bundle = ReporterBundleFactory.create_bundle()
         self.assertIsInstance(bundle, ReporterBundle)
         self.assertIsInstance(bundle.checker, Checker)
         self.assertIsInstance(bundle.theme, ConsoleTheme)
         self.assertIsInstance(bundle.logger, Logger)
 
     def test_create_bundle_with_options(self) -> None:
-        from ats_utilities.reporter.setup.options import ReporterOptions
-        options: ReporterOptions = {
+        from ats_utilities.reporter.setup.options import ReporterBundleOptions
+        options: ReporterBundleOptions = {
             "checker": {},
             "logger": {"log_level": 20},
             "theme": {"success": "green"}
         }
-        bundle = ReporterFactory.create_bundle(options)
+        bundle = ReporterBundleFactory.create_bundle(options)
         self.assertIsInstance(bundle, ReporterBundle)
 
 

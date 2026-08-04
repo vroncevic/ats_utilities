@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Option dependencies for option bundle creation.
+    Option bundle dependencies for option bundle.
 '''
 
 from __future__ import annotations
@@ -36,15 +36,15 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class OptionDependencies(TypedDict):
+class OptionBundleDependencies(TypedDict):
     '''
-        Option dependencies for option bundle creation.
+        Option bundle dependencies for option bundle.
 
         It defines:
 
             :attributes:
-                | strategy - The strategy for argument parsing.
-                | context_bundle - The context bundle for dependency injection.
+                | strategy - The strategy for argument parsing for option bundle.
+                | context_bundle - The context bundle for dependency injection for option bundle.
     '''
 
     strategy: IParserStrategy

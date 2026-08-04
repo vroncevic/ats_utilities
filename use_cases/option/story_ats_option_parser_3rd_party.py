@@ -25,7 +25,7 @@ from collections.abc import Sequence, Mapping
 
 from fire import Fire  # type: ignore
 
-from ats_utilities.context.factory import ContextFactory
+from ats_utilities.context.factory import ContextBundleFactory
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.option.engine import OptionManager
@@ -120,7 +120,7 @@ opt_parser = {
     'ats_info_ok': True
 }
 OPS: list[str] = ['-n', '--name', '-v', '--verbose']
-context_bundle = ContextFactory.create_bundle()
+context_bundle = ContextBundleFactory.create_bundle()
 fire_strategy = MyAppFireStrategy()
 bundle: OptionBundle = OptionBundle(
     strategy=fire_strategy,

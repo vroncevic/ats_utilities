@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for LoggerOptions class.
+    Unit tests for LoggerBundleOptions class.
 '''
 
 from __future__ import annotations
@@ -24,22 +24,22 @@ from __future__ import annotations
 import unittest
 from typing import get_type_hints
 
-from ats_utilities.logger.setup.options import LoggerOptions
+from ats_utilities.logger.setup.options import LoggerBundleOptions
 
 
 class LoggerOptionsTest(unittest.TestCase):
     '''
         Defines class LoggerOptionsTest with attribute(s) and method(s).
-        Tests LoggerOptions TypedDict structure.
+        Tests LoggerBundleOptions TypedDict structure.
     '''
 
     def test_type_hints(self) -> None:
-        hints = get_type_hints(LoggerOptions)
+        hints = get_type_hints(LoggerBundleOptions)
         self.assertIn('log_file', hints)
         self.assertIn('log_level', hints)
 
     def test_instantiation(self) -> None:
-        options: LoggerOptions = {
+        options: LoggerBundleOptions = {
             'log_file': 'test.log',
             'log_level': 10
         }

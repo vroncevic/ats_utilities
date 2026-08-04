@@ -22,10 +22,10 @@ Info
 from __future__ import annotations
 
 from ats_utilities.option.setup.bundle import OptionBundle
-from ats_utilities.option.setup.dependencies import OptionDependencies
-from ats_utilities.option.setup.keys import OptionKeys
-from ats_utilities.option.setup.validator import OptionValidator
-from ats_utilities.option.setup.dep_validator import OptionDependenciesValidator
+from ats_utilities.option.setup.dependencies import OptionBundleDependencies
+from ats_utilities.option.setup.keys import OptionBundleKeys
+from ats_utilities.option.setup.validator import OptionBundleValidator
+from ats_utilities.option.setup.dep_validator import OptionBundleDependenciesValidator
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,7 +37,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class OptionRegistry:
+class OptionBundleRegistry:
     '''
         Encapsulates core runtime components for simplification of option bundle.
 
@@ -48,24 +48,27 @@ class OptionRegistry:
     '''
 
     @classmethod
-    def create_bundle(cls, dependencies: OptionDependencies) -> OptionBundle:
+    def create_bundle(cls, dependencies: OptionBundleDependencies) -> OptionBundle:
         '''
             Orchestrates dependency injection and creates an option bundle.
 
             :param dependencies: The registry-specific orchestration dependencies.
             :return: The option bundle.
             :exceptions:
-                | ATSValueError: The option dependencies must be provided and have proper values.
-                | ATSTypeError:  The option dependencies must be an instance of Mapping and its
+                | ATSValueError: The option bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The option bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The option bundle must be provided and have proper values.
+                | ATSTypeError:  The option bundle must be an instance of OptionBundle and its
                 |                attributes must be instances of their respective types.
         '''
-        OptionDependenciesValidator.validate(dependencies)
+        OptionBundleDependenciesValidator.validate(dependencies)
 
         bundle: OptionBundle = OptionBundle(
-            strategy=dependencies.get(OptionKeys.DEPENDENCY_STRATEGY) if dependencies else None,
-            context_bundle=dependencies.get(OptionKeys.DEPENDENCY_CONTEXT_BUNDLE) if dependencies else None
+            strategy=dependencies.get(OptionBundleKeys.DEPENDENCY_STRATEGY) if dependencies else None,
+            context_bundle=dependencies.get(OptionBundleKeys.DEPENDENCY_CONTEXT_BUNDLE) if dependencies else None
         )
 
-        OptionValidator.validate(bundle)
+        OptionBundleValidator.validate(bundle)
 
         return bundle

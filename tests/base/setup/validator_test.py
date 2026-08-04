@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for BaseValidator class.
+    Unit tests for BaseBundleValidator class.
 '''
 
 from __future__ import annotations
@@ -26,7 +26,7 @@ from unittest.mock import MagicMock, patch
 
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.base.setup.bundle import BaseBundle
-from ats_utilities.base.setup.validator import BaseValidator
+from ats_utilities.base.setup.validator import BaseBundleValidator
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.option.imanager import IOptionManager
 from ats_utilities.splash.imanager import ISplashManager
@@ -34,11 +34,11 @@ from ats_utilities.generation.imanager import IGeneratorManager
 from ats_utilities.context.bundle import ContextBundle
 
 
-@patch("ats_utilities.base.setup.validator.ContextValidator")
+@patch("ats_utilities.base.setup.validator.ContextBundleValidator")
 class BaseValidatorTest(unittest.TestCase):
     '''
         Defines class BaseValidatorTest with attribute(s) and method(s).
-        Tests BaseValidator logic.
+        Tests BaseBundleValidator logic.
     '''
 
     def setUp(self) -> None:
@@ -60,7 +60,7 @@ class BaseValidatorTest(unittest.TestCase):
         bundle = BaseBundle(**self.valid_params)
         mock_ctx_val.validate.side_effect = None
         # Should validate successfully
-        BaseValidator.validate(bundle)
+        BaseBundleValidator.validate(bundle)
 
     def test_validate_valid_gen_manager_none(self, mock_ctx_val: MagicMock) -> None:
         params = self.valid_params.copy()
@@ -68,14 +68,14 @@ class BaseValidatorTest(unittest.TestCase):
         bundle = BaseBundle(**params)
         mock_ctx_val.validate.side_effect = None
         # Should validate successfully
-        BaseValidator.validate(bundle)
+        BaseBundleValidator.validate(bundle)
 
     def test_validate_invalid_bundle(self, mock_ctx_val: MagicMock) -> None:
         with self.assertRaises(ATSValueError):
-            BaseValidator.validate(None)  # type: ignore
+            BaseBundleValidator.validate(None)  # type: ignore
 
         with self.assertRaises(ATSTypeError):
-            BaseValidator.validate(object())  # type: ignore
+            BaseBundleValidator.validate(object())  # type: ignore
 
     def test_validate_invalid_none(self, mock_ctx_val: MagicMock) -> None:
         fields = [
@@ -96,7 +96,7 @@ class BaseValidatorTest(unittest.TestCase):
                     mock_ctx_val.validate.side_effect = None
                     
                 with self.assertRaises(ATSValueError):
-                    BaseValidator.validate(bundle)
+                    BaseBundleValidator.validate(bundle)
 
     def test_validate_invalid_type(self, mock_ctx_val: MagicMock) -> None:
         type_mismatches = {
@@ -121,7 +121,7 @@ class BaseValidatorTest(unittest.TestCase):
                     mock_ctx_val.validate.side_effect = None
                     
                 with self.assertRaises(ATSTypeError):
-                    BaseValidator.validate(bundle)
+                    BaseBundleValidator.validate(bundle)
 
 
 if __name__ == "__main__":

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for InfoDependencies TypedDict.
+    Unit tests for InfoBundleDependencies TypedDict.
 '''
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.info.setup.dependencies import InfoDependencies
+from ats_utilities.info.setup.dependencies import InfoBundleDependencies
 from ats_utilities.info.name.iname import IName
 from ats_utilities.info.version.iversion import IVersion
 from ats_utilities.info.licence.ilicence import ILicence
@@ -34,10 +34,10 @@ from ats_utilities.context.bundle import ContextBundle
 
 
 class TestInfoDependencies(unittest.TestCase):
-    """Unit tests for the InfoDependencies TypedDict structure."""
+    """Unit tests for the InfoBundleDependencies TypedDict structure."""
 
     def test_info_dependencies_dict(self) -> None:
-        """Test creating and accessing InfoDependencies structure."""
+        """Test creating and accessing InfoBundleDependencies structure."""
         mock_name = MagicMock(spec=IName)
         mock_version = MagicMock(spec=IVersion)
         mock_licence = MagicMock(spec=ILicence)
@@ -45,7 +45,7 @@ class TestInfoDependencies(unittest.TestCase):
         mock_info_ok = MagicMock(spec=IInfoOk)
         mock_context_bundle = MagicMock(spec=ContextBundle)
 
-        deps: InfoDependencies = {
+        deps: InfoBundleDependencies = {
             "name": mock_name,
             "version": mock_version,
             "licence": mock_licence,

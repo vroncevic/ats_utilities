@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the generator options.
+    Validator for the generator bundle options.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.generation.setup.options import GeneratorOptions
-from ats_utilities.generation.setup.keys import GeneratorKeys
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.generation.setup.options import GeneratorBundleOptions
+from ats_utilities.generation.setup.keys import GeneratorBundleKeys
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -39,42 +39,42 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class GeneratorOptionsValidator:
+class GeneratorBundleOptionsValidator:
     '''
-        A validator for the generator options.
+        Validator for the generator bundle options.
 
         It defines:
 
             :methods:
-                | validate - Validates the generator options.
+                | validate - Validates the generator bundle options.
     '''
 
     @classmethod
-    def validate(cls, options: GeneratorOptions) -> None:
+    def validate(cls, options: GeneratorBundleOptions) -> None:
         '''
-            Validates the generator options.
+            Validates the generator bundle options.
 
-            :param options: The generator options to be validated.
+            :param options: The generator bundle options to be validated.
             :exceptions:
-                | ATSValueError: Generator options must be provided and have proper values.
-                | ATSTypeError:  Generator options must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The generator bundle options must be provided and have proper values.
+                | ATSTypeError:  The generator bundle options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'generator_options_validator::validate(...)'
-        msg_options_none: str = 'options must be provided'
-        msg_options_istype: str = 'options must be a Mapping'
+        ctx: str = 'generator_bundle_options_validator::validate(...)'
+        msg_options_none: str = 'the generator bundle options must be provided'
+        msg_options_istype: str = 'the generator bundle options must be a Mapping'
 
         not_none(options, ctx, msg_options_none)
         istype(options, Mapping, ctx, msg_options_istype)
 
-        for attr_name, expected_type in GeneratorKeys.get_option_to_type().items():
+        for attr_name, expected_type in GeneratorBundleKeys.get_option_to_type().items():
             msg_attr_name_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute = options.get(attr_name)
 
-            if attr_name == GeneratorKeys.OPTION_CONTEXT_BUNDLE:
+            if attr_name == GeneratorBundleKeys.OPTION_CONTEXT_BUNDLE:
                 istype(attribute, expected_type, ctx, msg_attr_name_istype)
-                ContextValidator.validate(attribute)
+                ContextBundleValidator.validate(attribute)
                 continue
 
             if attribute is not None:

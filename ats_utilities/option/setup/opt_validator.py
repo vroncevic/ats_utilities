@@ -16,17 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the option options.
+    Validator for the option bundle options.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.option.setup.options import OptionOptions
-from ats_utilities.option.setup.keys import OptionKeys
-from ats_utilities.context.validator import ContextValidator 
-from ats_utilities.utils.setup.iopt_validator import IOptionsValidator
+from ats_utilities.option.setup.options import OptionBundleOptions
+from ats_utilities.option.setup.keys import OptionBundleKeys
+from ats_utilities.context.validator import ContextBundleValidator 
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none, not_satisfied
 
@@ -40,35 +39,35 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class OptionOptionsValidator(IOptionsValidator[OptionOptions]):
+class OptionBundleOptionsValidator:
     '''
-        A validator for the option options.
+        Validator for the option bundle options.
 
         It defines:
 
             :methods:
-                | validate - Validates the option options.
+                | validate - Validates the option bundle options.
     '''
 
     @classmethod
-    def validate(cls, options: OptionOptions) -> None:
+    def validate(cls, options: OptionBundleOptions) -> None:
         '''
-            Validates the option options.
+            Validates the option bundle options.
 
-            :param options: The option options instance to be validated.
+            :param options: The option bundle options to be validated.
             :exceptions:
-                | ATSValueError: The options must be provided and have proper values.
-                | ATSTypeError:  The options must be an instance of Mapping and its
+                | ATSValueError: The option bundle options must be provided and have proper values.
+                | ATSTypeError:  The option bundle options must be an instance of Mapping and its
                 |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'option_options_validator::validate(...)'
-        msg_options_none: str = 'the options must be provided'
-        msg_options_istype: str = 'the options must be a Mapping'
+        ctx: str = 'option_bundle_options_validator::validate(...)'
+        msg_options_none: str = 'the option bundle options must be provided'
+        msg_options_istype: str = 'the option bundle options must be a Mapping'
 
         not_none(options, ctx, msg_options_none)
         istype(options, Mapping, ctx, msg_options_istype)
 
-        for attr_name, expected_type in OptionKeys.get_option_to_type().items():
+        for attr_name, expected_type in OptionBundleKeys.get_option_to_type().items():
             msg_attr_none: str = f'the {attr_name.replace("_", " ")} must be provided'
             msg_attr_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
@@ -77,10 +76,10 @@ class OptionOptionsValidator(IOptionsValidator[OptionOptions]):
             not_none(attribute, ctx, msg_attr_none)
             istype(attribute, expected_type, ctx, msg_attr_istype)
 
-            if attr_name == OptionKeys.OPTION_PARAMETERS:
-                missing_keys: set[str] = OptionKeys.REQUIRED_CONFIG_KEYS_SET - attribute.keys()
+            if attr_name == OptionBundleKeys.OPTION_PARAMETERS:
+                missing_keys: set[str] = OptionBundleKeys.REQUIRED_CONFIG_KEYS_SET - attribute.keys()
                 msg: str | None = f'the missing configuration keys: {', '.join(sorted(missing_keys))}' if missing_keys else None
                 not_satisfied(bool(missing_keys), ctx, msg)
 
-            if attr_name == OptionKeys.OPTION_CONTEXT_BUNDLE:
-                ContextValidator.validate(attribute)
+            if attr_name == OptionBundleKeys.OPTION_CONTEXT_BUNDLE:
+                ContextBundleValidator.validate(attribute)

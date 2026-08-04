@@ -60,16 +60,16 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.engine</span> <span class="kn">import</span> <span class="n">Checker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.factory</span> <span class="kn">import</span> <span class="n">CheckerFactory</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.factory</span> <span class="kn">import</span> <span class="n">CheckerBundleFactory</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.engine</span> <span class="kn">import</span> <span class="n">ConsoleTheme</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.logger.engine</span> <span class="kn">import</span> <span class="n">Logger</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.factory</span> <span class="kn">import</span> <span class="n">LoggerFactory</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.factory</span> <span class="kn">import</span> <span class="n">LoggerBundleFactory</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.bundle</span> <span class="kn">import</span> <span class="n">ReporterBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.registry</span> <span class="kn">import</span> <span class="n">ReporterRegistry</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.dependencies</span> <span class="kn">import</span> <span class="n">ReporterDependencies</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.options</span> <span class="kn">import</span> <span class="n">ReporterOptions</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.opt_validator</span> <span class="kn">import</span> <span class="n">ReporterOptionsValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.keys</span> <span class="kn">import</span> <span class="n">ReporterKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.dependencies</span> <span class="kn">import</span> <span class="n">ReporterBundleDependencies</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.options</span> <span class="kn">import</span> <span class="n">ReporterBundleOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.opt_validator</span> <span class="kn">import</span> <span class="n">ReporterBundleOptionsValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.keys</span> <span class="kn">import</span> <span class="n">ReporterBundleKeys</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -81,9 +81,9 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="ReporterFactory">
-<a class="viewcode-back" href="../../../../ats_utilities.reporter.setup.factory.html#ats_utilities.reporter.setup.factory.ReporterFactory">[docs]</a>
-<span class="k">class</span> <span class="nc">ReporterFactory</span><span class="p">:</span>
+<div class="viewcode-block" id="ReporterBundleFactory">
+<a class="viewcode-back" href="../../../../ats_utilities.reporter.setup.factory.html#ats_utilities.reporter.setup.factory.ReporterBundleFactory">[docs]</a>
+<span class="k">class</span> <span class="nc">ReporterBundleFactory</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Factory for creating the reporter bundle.</span>
 
@@ -93,33 +93,39 @@
 <span class="sd">                | create_bundle - Creates the reporter bundle with optional pre-configured options.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="ReporterFactory.create_bundle">
-<a class="viewcode-back" href="../../../../ats_utilities.reporter.setup.factory.html#ats_utilities.reporter.setup.factory.ReporterFactory.create_bundle">[docs]</a>
+<div class="viewcode-block" id="ReporterBundleFactory.create_bundle">
+<a class="viewcode-back" href="../../../../ats_utilities.reporter.setup.factory.html#ats_utilities.reporter.setup.factory.ReporterBundleFactory.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">ReporterOptions</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ReporterBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">ReporterBundleOptions</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ReporterBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates the reporter bundle with optional pre-configured options.</span>
 
 <span class="sd">            :param options: The pre-configured options for the bundle (default: None).</span>
 <span class="sd">            :return: The reporter bundle.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: The options must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  The options must be an instance of Mapping and its attributes</span>
-<span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The reporter bundle options must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The reporter bundle options must be an instance of Mapping and its</span>
+<span class="sd">                |                attributes must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The reporter bundle dependencies must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The reporter bundle dependencies must be an instance of Mapping and its</span>
+<span class="sd">                |                attributes must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The reporter bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The reporter bundle must be an instance of ReporterBundle</span>
+<span class="sd">                |                and its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">options</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">ReporterOptionsValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+            <span class="n">ReporterBundleOptionsValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
 
-        <span class="n">checker_opts</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ReporterKeys</span><span class="o">.</span><span class="n">OPTION_CHECKER</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
-        <span class="n">logger_opts</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ReporterKeys</span><span class="o">.</span><span class="n">OPTION_LOGGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
-        <span class="n">theme_opts</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ReporterKeys</span><span class="o">.</span><span class="n">OPTION_THEME</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">checker_opts</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ReporterBundleKeys</span><span class="o">.</span><span class="n">OPTION_CHECKER</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">logger_opts</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ReporterBundleKeys</span><span class="o">.</span><span class="n">OPTION_LOGGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">theme_opts</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ReporterBundleKeys</span><span class="o">.</span><span class="n">OPTION_THEME</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
 
-        <span class="n">checker</span> <span class="o">=</span> <span class="n">Checker</span><span class="p">(</span><span class="n">own</span><span class="o">=</span><span class="n">CheckerFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">checker_opts</span><span class="p">))</span>
+        <span class="n">checker</span> <span class="o">=</span> <span class="n">Checker</span><span class="p">(</span><span class="n">own</span><span class="o">=</span><span class="n">CheckerBundleFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">checker_opts</span><span class="p">))</span>
         <span class="n">theme</span> <span class="o">=</span> <span class="n">ConsoleTheme</span><span class="p">(</span><span class="n">palette</span><span class="o">=</span><span class="n">theme_opts</span><span class="p">)</span>
-        <span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">(</span><span class="n">own</span><span class="o">=</span><span class="n">LoggerFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">logger_opts</span><span class="p">))</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">(</span><span class="n">own</span><span class="o">=</span><span class="n">LoggerBundleFactory</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">logger_opts</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">ReporterRegistry</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
-            <span class="n">dependencies</span><span class="o">=</span><span class="n">ReporterDependencies</span><span class="p">(</span>
+            <span class="n">dependencies</span><span class="o">=</span><span class="n">ReporterBundleDependencies</span><span class="p">(</span>
                 <span class="n">checker</span><span class="o">=</span><span class="n">checker</span><span class="p">,</span>
                 <span class="n">theme</span><span class="o">=</span><span class="n">theme</span><span class="p">,</span>
                 <span class="n">logger</span><span class="o">=</span><span class="n">logger</span>

@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import unittest
 
-from ats_utilities.context.factory import ContextFactory
+from ats_utilities.context.factory import ContextBundleFactory
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.splash.external.ext_infrastructure import ExtInfrastructure
 from ats_utilities.splash.property.splash_property import SplashProperty
@@ -43,19 +43,19 @@ class ExtInfrastructureTest(unittest.TestCase):
         }
 
     def test_init(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         ext = ExtInfrastructure(context_bundle)
         self.assertEqual(ext.infrastructure_property, {})
 
     def test_getter_setter(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         ext = ExtInfrastructure(context_bundle)
         setup = self._get_valid_setup()
         ext.infrastructure_property = setup
         self.assertEqual(ext.infrastructure_property, setup)
 
     def test_setter_invalid(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         ext = ExtInfrastructure(context_bundle)
 
         # Invalid type
@@ -69,7 +69,7 @@ class ExtInfrastructureTest(unittest.TestCase):
             ext.infrastructure_property = invalid_setup
 
     def test_hyperlinks_valid(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         ext = ExtInfrastructure(context_bundle)
         ext.infrastructure_property = self._get_valid_setup()
 
@@ -78,7 +78,7 @@ class ExtInfrastructureTest(unittest.TestCase):
         self.assertIn("vroncevic", ext.get_author_text())
 
     def test_hyperlinks_uninitialized(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         ext = ExtInfrastructure(context_bundle)
 
         with self.assertRaises(ATSValueError):
@@ -91,7 +91,7 @@ class ExtInfrastructureTest(unittest.TestCase):
             ext.get_author_text()
 
     def test_hyperlinks_missing_values(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         ext = ExtInfrastructure(context_bundle)
 
         # Bypass setter check using private attribute
@@ -106,7 +106,7 @@ class ExtInfrastructureTest(unittest.TestCase):
         self.assertIsNone(ext.get_author_text())
 
     def test_str(self) -> None:
-        context_bundle = ContextFactory.create_bundle()
+        context_bundle = ContextBundleFactory.create_bundle()
         ext = ExtInfrastructure(context_bundle)
         self.assertIn("ExtInfrastructure", str(ext))
 

@@ -64,38 +64,38 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>A validator for the logger dependencies.</p>
+<dt>Info</dt><dd><p>Validator for the logger bundle dependencies.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.logger.setup.dep_validator.LoggerDependenciesValidator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logger.setup.dep_validator.</span></span><span class="sig-name descname"><span class="pre">LoggerDependenciesValidator</span></span><a class="reference internal" href="_modules/ats_utilities/logger/setup/dep_validator.html#LoggerDependenciesValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.setup.dep_validator.LoggerDependenciesValidator" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.dep_validator.LoggerBundleDependenciesValidator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logger.setup.dep_validator.</span></span><span class="sig-name descname"><span class="pre">LoggerBundleDependenciesValidator</span></span><a class="reference internal" href="_modules/ats_utilities/logger/setup/dep_validator.html#LoggerBundleDependenciesValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.setup.dep_validator.LoggerBundleDependenciesValidator" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A validator for the logger dependencies.</p>
+<p>Validator for the logger bundle dependencies.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">validate - Validates the logger dependencies.</div>
+<div class="line">validate - Validates the logger bundle dependencies.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.logger.setup.dep_validator.LoggerDependenciesValidator.validate">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.logger.setup.dependencies.html#ats_utilities.logger.setup.dependencies.LoggerDependencies" title="ats_utilities.logger.setup.dependencies.LoggerDependencies"><span class="pre">LoggerDependencies</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/setup/dep_validator.html#LoggerDependenciesValidator.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.setup.dep_validator.LoggerDependenciesValidator.validate" title="Link to this definition">¶</a></dt>
-<dd><p>Validates the logger dependencies.</p>
+<dt class="sig sig-object py" id="ats_utilities.logger.setup.dep_validator.LoggerBundleDependenciesValidator.validate">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.logger.setup.dependencies.html#ats_utilities.logger.setup.dependencies.LoggerBundleDependencies" title="ats_utilities.logger.setup.dependencies.LoggerBundleDependencies"><span class="pre">LoggerBundleDependencies</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logger/setup/dep_validator.html#LoggerBundleDependenciesValidator.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logger.setup.dep_validator.LoggerBundleDependenciesValidator.validate" title="Link to this definition">¶</a></dt>
+<dd><p>Validates the logger bundle dependencies.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>dependencies</strong> – The logger dependencies to be validated.</p>
+<dd class="field-odd"><p><strong>dependencies</strong> – The logger bundle dependencies to be validated.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">ATSValueError: The logger dependencies must be provided and have proper values.</div>
-<div class="line">ATSTypeError:  The logger dependencies must be an instance of Mapping and its attributes</div>
+<div class="line">ATSValueError: The logger bundle dependencies must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The logger bundle dependencies must be an instance of Mapping and its</div>
 <div class="line-block">
-<div class="line">must be instances of their respective types.</div>
+<div class="line">attributes must be instances of their respective types.</div>
 </div>
 </div>
 </dd>
@@ -117,8 +117,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.logger.setup.dep_validator module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.logger.setup.dep_validator.LoggerDependenciesValidator"><code class="docutils literal notranslate"><span class="pre">LoggerDependenciesValidator</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.logger.setup.dep_validator.LoggerDependenciesValidator.validate"><code class="docutils literal notranslate"><span class="pre">LoggerDependenciesValidator.validate()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.dep_validator.LoggerBundleDependenciesValidator"><code class="docutils literal notranslate"><span class="pre">LoggerBundleDependenciesValidator</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.logger.setup.dep_validator.LoggerBundleDependenciesValidator.validate"><code class="docutils literal notranslate"><span class="pre">LoggerBundleDependenciesValidator.validate()</span></code></a></li>
 </ul>
 </li>
 </ul>

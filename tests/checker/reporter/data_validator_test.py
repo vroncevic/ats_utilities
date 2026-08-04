@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for CheckReporterValidator class.
+    Unit tests for CheckReporterDataValidator class.
 '''
 
 from __future__ import annotations
@@ -24,14 +24,14 @@ from __future__ import annotations
 import unittest
 
 from ats_utilities.checker.reporter.data import CheckReporterData
-from ats_utilities.checker.reporter.data_validator import CheckReporterValidator
+from ats_utilities.checker.reporter.data_validator import CheckReporterDataValidator
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 
 class CheckReporterValidatorTest(unittest.TestCase):
     '''
         Defines class CheckReporterValidatorTest with attribute(s) and method(s).
-        Tests CheckReporterValidator component logic.
+        Tests CheckReporterDataValidator component logic.
     '''
 
     def test_validate_valid(self) -> None:
@@ -41,15 +41,15 @@ class CheckReporterValidatorTest(unittest.TestCase):
             err_indices=[0],
             is_fmt_err=True
         )
-        CheckReporterValidator.validate(data)
+        CheckReporterDataValidator.validate(data)
 
     def test_validate_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            CheckReporterValidator.validate(None)  # type: ignore
+            CheckReporterDataValidator.validate(None)  # type: ignore
 
     def test_validate_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            CheckReporterValidator.validate("invalid")  # type: ignore
+            CheckReporterDataValidator.validate("invalid")  # type: ignore
 
     def test_init_invalid_none_attributes(self) -> None:
         with self.assertRaises(ATSValueError):
@@ -59,7 +59,7 @@ class CheckReporterValidatorTest(unittest.TestCase):
                 err_indices=[0],
                 is_fmt_err=False
             )
-            CheckReporterValidator.validate(data)
+            CheckReporterDataValidator.validate(data)
 
         with self.assertRaises(ATSValueError):
             data = CheckReporterData(
@@ -68,7 +68,7 @@ class CheckReporterValidatorTest(unittest.TestCase):
                 err_indices=[0],
                 is_fmt_err=False
             )
-            CheckReporterValidator.validate(data)
+            CheckReporterDataValidator.validate(data)
 
         with self.assertRaises(ATSValueError):
             data = CheckReporterData(
@@ -77,7 +77,7 @@ class CheckReporterValidatorTest(unittest.TestCase):
                 err_indices=None,  # type: ignore
                 is_fmt_err=False
             )
-            CheckReporterValidator.validate(data)
+            CheckReporterDataValidator.validate(data)
 
         with self.assertRaises(ATSValueError):
             data = CheckReporterData(
@@ -86,7 +86,7 @@ class CheckReporterValidatorTest(unittest.TestCase):
                 err_indices=[0],
                 is_fmt_err=None  # type: ignore
             )
-            CheckReporterValidator.validate(data)
+            CheckReporterDataValidator.validate(data)
 
     def test_init_invalid_type_attributes(self) -> None:
         with self.assertRaises(ATSTypeError):
@@ -96,7 +96,7 @@ class CheckReporterValidatorTest(unittest.TestCase):
                 err_indices=[0],
                 is_fmt_err=False
             )
-            CheckReporterValidator.validate(data)
+            CheckReporterDataValidator.validate(data)
 
         with self.assertRaises(ATSTypeError):
             data = CheckReporterData(
@@ -105,7 +105,7 @@ class CheckReporterValidatorTest(unittest.TestCase):
                 err_indices=[0],
                 is_fmt_err=False
             )
-            CheckReporterValidator.validate(data)
+            CheckReporterDataValidator.validate(data)
 
         with self.assertRaises(ATSTypeError):
             data = CheckReporterData(
@@ -114,7 +114,7 @@ class CheckReporterValidatorTest(unittest.TestCase):
                 err_indices=123,  # type: ignore
                 is_fmt_err=False
             )
-            CheckReporterValidator.validate(data)
+            CheckReporterDataValidator.validate(data)
 
         with self.assertRaises(ATSTypeError):
             data = CheckReporterData(
@@ -123,7 +123,7 @@ class CheckReporterValidatorTest(unittest.TestCase):
                 err_indices=[0],
                 is_fmt_err="invalid"  # type: ignore
             )
-            CheckReporterValidator.validate(data)
+            CheckReporterDataValidator.validate(data)
 
 
 if __name__ == "__main__":

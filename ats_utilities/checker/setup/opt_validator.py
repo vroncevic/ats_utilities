@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the checker options.
+    Validator for the checker bundle options.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.checker.setup.options import CheckerOptions
-from ats_utilities.checker.setup.keys import CheckerKeys
+from ats_utilities.checker.setup.options import CheckerBundleOptions
+from ats_utilities.checker.setup.keys import CheckerBundleKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -38,35 +38,35 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class CheckerOptionsValidator:
+class CheckerBundleOptionsValidator:
     '''
-        A validator for the checker options.
+        Validator for the checker bundle options.
 
         It defines:
 
             :methods:
-                | validate - Validates the checker options.
+                | validate - Validates the checker bundle options.
     '''
 
     @classmethod
-    def validate(cls, options: CheckerOptions) -> None:
+    def validate(cls, options: CheckerBundleOptions) -> None:
         '''
-            Validates the checker options.
+            Validates the checker bundle options.
 
-            :param options: The checker options to be validated.
+            :param options: The checker bundle options to be validated.
             :exceptions:
-                | ATSValueError: The options must be provided and have proper attributes.
-                | ATSTypeError:  The options must be an instance of Mapping and its attributes
+                | ATSValueError: The checker bundle options must be provided and have proper attributes.
+                | ATSTypeError:  The checker bundle options must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
-        ctx: str = 'checker_options_validator::validate(...)'
-        msg_options_none: str = 'the options must be provided'
-        msg_options_istype: str = 'the options must be a Mapping'
+        ctx: str = 'checker_bundle_options_validator::validate(...)'
+        msg_options_none: str = 'the checker bundle options must be provided'
+        msg_options_istype: str = 'the checker bundle options must be a Mapping'
 
         not_none(options, ctx, msg_options_none)
         istype(options, Mapping, ctx, msg_options_istype)
 
-        for attribute_name, expected_type in CheckerKeys.get_option_to_type().items():
+        for attribute_name, expected_type in CheckerBundleKeys.get_option_to_type().items():
             msg_attribute_istype: str = f'the {attribute_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute: object | None = options.get(attribute_name)

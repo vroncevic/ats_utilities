@@ -54,16 +54,16 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Encapsulates core runtime components for simplification of the reporter bundle creation.</span>
+<span class="sd">    Encapsulates core runtime components for simplification of the reporter bundle.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.bundle</span> <span class="kn">import</span> <span class="n">ReporterBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.dependencies</span> <span class="kn">import</span> <span class="n">ReporterDependencies</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.keys</span> <span class="kn">import</span> <span class="n">ReporterKeys</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.validator</span> <span class="kn">import</span> <span class="n">ReporterValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.dep_validator</span> <span class="kn">import</span> <span class="n">ReporterDependenciesValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.dependencies</span> <span class="kn">import</span> <span class="n">ReporterBundleDependencies</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.keys</span> <span class="kn">import</span> <span class="n">ReporterBundleKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.validator</span> <span class="kn">import</span> <span class="n">ReporterBundleValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.setup.dep_validator</span> <span class="kn">import</span> <span class="n">ReporterBundleDependenciesValidator</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -79,7 +79,7 @@
 <a class="viewcode-back" href="../../../../ats_utilities.reporter.setup.registry.html#ats_utilities.reporter.setup.registry.ReporterRegistry">[docs]</a>
 <span class="k">class</span> <span class="nc">ReporterRegistry</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Encapsulates core runtime components for simplification of the reporter bundle creation.</span>
+<span class="sd">        Encapsulates core runtime components for simplification of the reporter bundle.</span>
 
 <span class="sd">        It defines:</span>
 
@@ -90,26 +90,29 @@
 <div class="viewcode-block" id="ReporterRegistry.create_bundle">
 <a class="viewcode-back" href="../../../../ats_utilities.reporter.setup.registry.html#ats_utilities.reporter.setup.registry.ReporterRegistry.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">ReporterDependencies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ReporterBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">ReporterBundleDependencies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ReporterBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Orchestrates dependency injection and creates the reporter bundle.</span>
 
 <span class="sd">            :param dependencies: The registry-specific orchestration dependencies.</span>
 <span class="sd">            :return: The reporter bundle.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: The dependencies must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes</span>
-<span class="sd">                |                must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The reporter bundle dependencies must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The reporter bundle dependencies must be an instance of Mapping and its</span>
+<span class="sd">                |                attributes must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The reporter bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The reporter bundle must be an instance of ReporterBundle</span>
+<span class="sd">                |                and its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ReporterDependenciesValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">dependencies</span><span class="p">)</span>
+        <span class="n">ReporterBundleDependenciesValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">dependencies</span><span class="p">)</span>
 
         <span class="n">bundle</span><span class="p">:</span> <span class="n">ReporterBundle</span> <span class="o">=</span> <span class="n">ReporterBundle</span><span class="p">(</span>
-            <span class="n">checker</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ReporterKeys</span><span class="o">.</span><span class="n">DEPENDENCY_CHECKER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">theme</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ReporterKeys</span><span class="o">.</span><span class="n">DEPENDENCY_THEME</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">logger</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ReporterKeys</span><span class="o">.</span><span class="n">DEPENDENCY_LOGGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">checker</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ReporterBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_CHECKER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">theme</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ReporterBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_THEME</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">logger</span><span class="o">=</span><span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ReporterBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_LOGGER</span><span class="p">)</span> <span class="k">if</span> <span class="n">dependencies</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="n">ReporterValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+        <span class="n">ReporterBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">bundle</span></div>
 </div>

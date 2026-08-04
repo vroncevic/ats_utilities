@@ -68,8 +68,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerKeys">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.setup.keys.</span></span><span class="sig-name descname"><span class="pre">CheckerKeys</span></span><a class="reference internal" href="_modules/ats_utilities/checker/setup/keys.html#CheckerKeys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerKeys" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerBundleKeys">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.setup.keys.</span></span><span class="sig-name descname"><span class="pre">CheckerBundleKeys</span></span><a class="reference internal" href="_modules/ats_utilities/checker/setup/keys.html#CheckerBundleKeys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Runtime components and interface constraints for the checker bundle.</p>
 <p>It defines:</p>
@@ -77,71 +77,71 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">DEPENDENCY_FORMAT_VALIDATOR - The format validator interface constant.</div>
-<div class="line">DEPENDENCY_TYPE_VALIDATOR - The type validator interface constant.</div>
-<div class="line">DEPENDENCY_CONTEXT_PROVIDER - The context provider interface constant.</div>
-<div class="line">DEPENDENCY_CHECK_REPORTER - The check reporter interface constant.</div>
-<div class="line">OPTION_SEPARATOR - The separator option constant.</div>
-<div class="line">OPTION_ABSTRACT_TYPES - The abstract types option constant.</div>
-<div class="line">OPTION_STACK_INDEX_CALLER - The stack index caller option constant.</div>
-<div class="line">OPTION_MESSAGES_PROVIDER - The messages provider option constant.</div>
+<div class="line">DEPENDENCY_FORMAT_VALIDATOR - The format validator interface constant for the checker bundle.</div>
+<div class="line">DEPENDENCY_TYPE_VALIDATOR - The type validator interface constant for the checker bundle.</div>
+<div class="line">DEPENDENCY_CONTEXT_PROVIDER - The context provider interface constant for the checker bundle.</div>
+<div class="line">DEPENDENCY_CHECK_REPORTER - The check reporter interface constant for the checker bundle.</div>
+<div class="line">OPTION_SEPARATOR - The separator option constant for the checker bundle.</div>
+<div class="line">OPTION_ABSTRACT_TYPES - The abstract types option constant for the checker bundle.</div>
+<div class="line">OPTION_STACK_INDEX_CALLER - The stack index caller option constant for the checker bundle.</div>
+<div class="line">OPTION_MESSAGES_PROVIDER - The messages provider option constant for the checker bundle.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">get_dependency_to_type - Returns mapping of the checker dependencies to their types.</div>
-<div class="line">get_option_to_type - Returns mapping of the checker options to their types.</div>
+<div class="line">get_dependency_to_type - Returns mapping of the checker bundle dependencies to their types.</div>
+<div class="line">get_option_to_type - Returns mapping of the checker bundle options to their types.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerKeys.DEPENDENCY_CHECK_REPORTER">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_CHECK_REPORTER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'check_reporter'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerKeys.DEPENDENCY_CHECK_REPORTER" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerBundleKeys.DEPENDENCY_CHECK_REPORTER">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_CHECK_REPORTER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'check_reporter'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.DEPENDENCY_CHECK_REPORTER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerKeys.DEPENDENCY_CONTEXT_PROVIDER">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_CONTEXT_PROVIDER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'context_provider'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerKeys.DEPENDENCY_CONTEXT_PROVIDER" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerBundleKeys.DEPENDENCY_CONTEXT_PROVIDER">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_CONTEXT_PROVIDER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'context_provider'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.DEPENDENCY_CONTEXT_PROVIDER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerKeys.DEPENDENCY_FORMAT_VALIDATOR">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_FORMAT_VALIDATOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'format_validator'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerKeys.DEPENDENCY_FORMAT_VALIDATOR" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerBundleKeys.DEPENDENCY_FORMAT_VALIDATOR">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_FORMAT_VALIDATOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'format_validator'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.DEPENDENCY_FORMAT_VALIDATOR" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerKeys.DEPENDENCY_TYPE_VALIDATOR">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_TYPE_VALIDATOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'type_validator'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerKeys.DEPENDENCY_TYPE_VALIDATOR" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerBundleKeys.DEPENDENCY_TYPE_VALIDATOR">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_TYPE_VALIDATOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'type_validator'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.DEPENDENCY_TYPE_VALIDATOR" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerKeys.OPTION_ABSTRACT_TYPES">
-<span class="sig-name descname"><span class="pre">OPTION_ABSTRACT_TYPES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'abstract_types'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerKeys.OPTION_ABSTRACT_TYPES" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerBundleKeys.OPTION_ABSTRACT_TYPES">
+<span class="sig-name descname"><span class="pre">OPTION_ABSTRACT_TYPES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'abstract_types'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.OPTION_ABSTRACT_TYPES" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerKeys.OPTION_MESSAGES_PROVIDER">
-<span class="sig-name descname"><span class="pre">OPTION_MESSAGES_PROVIDER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'messages_provider'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerKeys.OPTION_MESSAGES_PROVIDER" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerBundleKeys.OPTION_MESSAGES_PROVIDER">
+<span class="sig-name descname"><span class="pre">OPTION_MESSAGES_PROVIDER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'messages_provider'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.OPTION_MESSAGES_PROVIDER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerKeys.OPTION_SEPARATOR">
-<span class="sig-name descname"><span class="pre">OPTION_SEPARATOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'separator'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerKeys.OPTION_SEPARATOR" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerBundleKeys.OPTION_SEPARATOR">
+<span class="sig-name descname"><span class="pre">OPTION_SEPARATOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'separator'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.OPTION_SEPARATOR" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerKeys.OPTION_STACK_INDEX_CALLER">
-<span class="sig-name descname"><span class="pre">OPTION_STACK_INDEX_CALLER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'stack_index_caller'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerKeys.OPTION_STACK_INDEX_CALLER" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerBundleKeys.OPTION_STACK_INDEX_CALLER">
+<span class="sig-name descname"><span class="pre">OPTION_STACK_INDEX_CALLER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'stack_index_caller'</span></em><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.OPTION_STACK_INDEX_CALLER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerKeys.get_dependency_to_type">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_dependency_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/setup/keys.html#CheckerKeys.get_dependency_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerKeys.get_dependency_to_type" title="Link to this definition">¶</a></dt>
-<dd><p>Returns mapping of the checker dependencies to their types.</p>
+<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerBundleKeys.get_dependency_to_type">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_dependency_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/setup/keys.html#CheckerBundleKeys.get_dependency_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.get_dependency_to_type" title="Link to this definition">¶</a></dt>
+<dd><p>Returns mapping of the checker bundle dependencies to their types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The mapping of the checker dependencies to their types.</p>
+<dd class="field-odd"><p>The mapping of the checker bundle dependencies to their types.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>None.</p>
@@ -150,12 +150,12 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerKeys.get_option_to_type">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_option_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/setup/keys.html#CheckerKeys.get_option_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerKeys.get_option_to_type" title="Link to this definition">¶</a></dt>
-<dd><p>Returns mapping of the checker options to their types.</p>
+<dt class="sig sig-object py" id="ats_utilities.checker.setup.keys.CheckerBundleKeys.get_option_to_type">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_option_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/setup/keys.html#CheckerBundleKeys.get_option_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.get_option_to_type" title="Link to this definition">¶</a></dt>
+<dd><p>Returns mapping of the checker bundle options to their types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The mapping of the checker options to their types.</p>
+<dd class="field-odd"><p>The mapping of the checker bundle options to their types.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>None.</p>
@@ -178,17 +178,17 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.checker.setup.keys module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerKeys"><code class="docutils literal notranslate"><span class="pre">CheckerKeys</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerKeys.DEPENDENCY_CHECK_REPORTER"><code class="docutils literal notranslate"><span class="pre">CheckerKeys.DEPENDENCY_CHECK_REPORTER</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerKeys.DEPENDENCY_CONTEXT_PROVIDER"><code class="docutils literal notranslate"><span class="pre">CheckerKeys.DEPENDENCY_CONTEXT_PROVIDER</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerKeys.DEPENDENCY_FORMAT_VALIDATOR"><code class="docutils literal notranslate"><span class="pre">CheckerKeys.DEPENDENCY_FORMAT_VALIDATOR</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerKeys.DEPENDENCY_TYPE_VALIDATOR"><code class="docutils literal notranslate"><span class="pre">CheckerKeys.DEPENDENCY_TYPE_VALIDATOR</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerKeys.OPTION_ABSTRACT_TYPES"><code class="docutils literal notranslate"><span class="pre">CheckerKeys.OPTION_ABSTRACT_TYPES</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerKeys.OPTION_MESSAGES_PROVIDER"><code class="docutils literal notranslate"><span class="pre">CheckerKeys.OPTION_MESSAGES_PROVIDER</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerKeys.OPTION_SEPARATOR"><code class="docutils literal notranslate"><span class="pre">CheckerKeys.OPTION_SEPARATOR</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerKeys.OPTION_STACK_INDEX_CALLER"><code class="docutils literal notranslate"><span class="pre">CheckerKeys.OPTION_STACK_INDEX_CALLER</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerKeys.get_dependency_to_type"><code class="docutils literal notranslate"><span class="pre">CheckerKeys.get_dependency_to_type()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerKeys.get_option_to_type"><code class="docutils literal notranslate"><span class="pre">CheckerKeys.get_option_to_type()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys"><code class="docutils literal notranslate"><span class="pre">CheckerBundleKeys</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.DEPENDENCY_CHECK_REPORTER"><code class="docutils literal notranslate"><span class="pre">CheckerBundleKeys.DEPENDENCY_CHECK_REPORTER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.DEPENDENCY_CONTEXT_PROVIDER"><code class="docutils literal notranslate"><span class="pre">CheckerBundleKeys.DEPENDENCY_CONTEXT_PROVIDER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.DEPENDENCY_FORMAT_VALIDATOR"><code class="docutils literal notranslate"><span class="pre">CheckerBundleKeys.DEPENDENCY_FORMAT_VALIDATOR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.DEPENDENCY_TYPE_VALIDATOR"><code class="docutils literal notranslate"><span class="pre">CheckerBundleKeys.DEPENDENCY_TYPE_VALIDATOR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.OPTION_ABSTRACT_TYPES"><code class="docutils literal notranslate"><span class="pre">CheckerBundleKeys.OPTION_ABSTRACT_TYPES</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.OPTION_MESSAGES_PROVIDER"><code class="docutils literal notranslate"><span class="pre">CheckerBundleKeys.OPTION_MESSAGES_PROVIDER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.OPTION_SEPARATOR"><code class="docutils literal notranslate"><span class="pre">CheckerBundleKeys.OPTION_SEPARATOR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.OPTION_STACK_INDEX_CALLER"><code class="docutils literal notranslate"><span class="pre">CheckerBundleKeys.OPTION_STACK_INDEX_CALLER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.get_dependency_to_type"><code class="docutils literal notranslate"><span class="pre">CheckerBundleKeys.get_dependency_to_type()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.setup.keys.CheckerBundleKeys.get_option_to_type"><code class="docutils literal notranslate"><span class="pre">CheckerBundleKeys.get_option_to_type()</span></code></a></li>
 </ul>
 </li>
 </ul>

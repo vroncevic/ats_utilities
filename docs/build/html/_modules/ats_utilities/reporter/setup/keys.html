@@ -64,10 +64,10 @@
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MappingProxyType</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.options</span> <span class="kn">import</span> <span class="n">CheckerOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.setup.options</span> <span class="kn">import</span> <span class="n">CheckerBundleOptions</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.iconsole_theme</span> <span class="kn">import</span> <span class="n">IConsoleTheme</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.options</span> <span class="kn">import</span> <span class="n">LoggerOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.setup.options</span> <span class="kn">import</span> <span class="n">LoggerBundleOptions</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -79,24 +79,24 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="ReporterKeys">
-<a class="viewcode-back" href="../../../../ats_utilities.reporter.setup.keys.html#ats_utilities.reporter.setup.keys.ReporterKeys">[docs]</a>
-<span class="k">class</span> <span class="nc">ReporterKeys</span><span class="p">:</span>
+<div class="viewcode-block" id="ReporterBundleKeys">
+<a class="viewcode-back" href="../../../../ats_utilities.reporter.setup.keys.html#ats_utilities.reporter.setup.keys.ReporterBundleKeys">[docs]</a>
+<span class="k">class</span> <span class="nc">ReporterBundleKeys</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Runtime components and interface constraints for the reporter bundle.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | DEPENDENCY_CHECKER - The Checker interface constant.</span>
-<span class="sd">                | DEPENDENCY_THEME - The Theme interface constant.</span>
-<span class="sd">                | DEPENDENCY_LOGGER - The Logger interface constant.</span>
-<span class="sd">                | OPTION_CHECKER - The Checker options constant.</span>
-<span class="sd">                | OPTION_THEME - The Theme options constant.</span>
-<span class="sd">                | OPTION_LOGGER - The Logger options constant.</span>
+<span class="sd">                | DEPENDENCY_CHECKER - The Checker interface constant for the reporter bundle.</span>
+<span class="sd">                | DEPENDENCY_THEME - The Theme interface constant for the reporter bundle.</span>
+<span class="sd">                | DEPENDENCY_LOGGER - The Logger interface constant for the reporter bundle.</span>
+<span class="sd">                | OPTION_CHECKER - The Checker options constant for the reporter bundle.</span>
+<span class="sd">                | OPTION_THEME - The Theme options constant for the reporter bundle.</span>
+<span class="sd">                | OPTION_LOGGER - The Logger options constant for the reporter bundle.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | get_dependency_to_type - Returns the mapping of the reporter dependencies to their types.</span>
-<span class="sd">                | get_option_to_type - Returns the mapping of the reporter options to their types.</span>
+<span class="sd">                | get_dependency_to_type - Returns the mapping of the reporter bundle dependencies to their types.</span>
+<span class="sd">                | get_option_to_type - Returns the mapping of the reporter bundle options to their types.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="c1"># Dependency Keys</span>
@@ -109,14 +109,14 @@
     <span class="n">OPTION_THEME</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;theme&#39;</span>
     <span class="n">OPTION_LOGGER</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;logger&#39;</span>
 
-<div class="viewcode-block" id="ReporterKeys.get_dependency_to_type">
-<a class="viewcode-back" href="../../../../ats_utilities.reporter.setup.keys.html#ats_utilities.reporter.setup.keys.ReporterKeys.get_dependency_to_type">[docs]</a>
+<div class="viewcode-block" id="ReporterBundleKeys.get_dependency_to_type">
+<a class="viewcode-back" href="../../../../ats_utilities.reporter.setup.keys.html#ats_utilities.reporter.setup.keys.ReporterBundleKeys.get_dependency_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_dependency_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the mapping of the reporter dependencies to their types.</span>
+<span class="sd">            Returns the mapping of the reporter bundle dependencies to their types.</span>
 
-<span class="sd">            :return: The mapping of the reporter dependencies to their types.</span>
+<span class="sd">            :return: The mapping of the reporter bundle dependencies to their types.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">({</span>
@@ -126,20 +126,20 @@
         <span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="ReporterKeys.get_option_to_type">
-<a class="viewcode-back" href="../../../../ats_utilities.reporter.setup.keys.html#ats_utilities.reporter.setup.keys.ReporterKeys.get_option_to_type">[docs]</a>
+<div class="viewcode-block" id="ReporterBundleKeys.get_option_to_type">
+<a class="viewcode-back" href="../../../../ats_utilities.reporter.setup.keys.html#ats_utilities.reporter.setup.keys.ReporterBundleKeys.get_option_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_option_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the mapping of the reporter options to their types.</span>
+<span class="sd">            Returns the mapping of the reporter bundle options to their types.</span>
 
-<span class="sd">            :return: The mapping of the reporter options to their types.</span>
+<span class="sd">            :return: The mapping of the reporter bundle options to their types.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">({</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">OPTION_CHECKER</span><span class="p">:</span> <span class="n">CheckerOptions</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">OPTION_CHECKER</span><span class="p">:</span> <span class="n">CheckerBundleOptions</span><span class="p">,</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">OPTION_THEME</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">OPTION_LOGGER</span><span class="p">:</span> <span class="n">LoggerOptions</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">OPTION_LOGGER</span><span class="p">:</span> <span class="n">LoggerBundleOptions</span><span class="p">,</span>
         <span class="p">})</span></div>
 </div>
 

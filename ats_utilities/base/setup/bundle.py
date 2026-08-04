@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates base runtime components for simplification of base bundle creation.
+    Encapsulates base runtime components for simplification of base bundle.
 '''
 
 from __future__ import annotations
@@ -43,16 +43,16 @@ __status__ = 'Development'
 @dataclass(slots=True, frozen=True, kw_only=True)
 class BaseBundle:
     '''
-        Encapsulates base runtime components for simplification of base bundle creation.
+        Encapsulates base runtime components for simplification of base bundle.
 
         It defines:
 
             :attributes:
-                | context_bundle - The context bundle.
-                | info_manager - The information manager.
-                | option_manager - The option manager.
-                | splash_manager - The splash manager.
-                | generation_manager - The generation manager.
+                | context_bundle - The context bundle for base engine.
+                | info_manager - The information manager for base engine.
+                | option_manager - The option manager for base engine.
+                | splash_manager - The splash manager for base engine.
+                | generation_manager - The generation manager for base engine.
             :methods:
                 | to_dict - Converts the base bundle to a dictionary.
     '''

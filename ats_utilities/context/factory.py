@@ -22,17 +22,17 @@ Info
 from __future__ import annotations
 
 from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.setup.factory import CheckerFactory
+from ats_utilities.checker.setup.factory import CheckerBundleFactory
 from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.setup.factory import LoggerFactory
+from ats_utilities.logger.setup.factory import LoggerBundleFactory
 from ats_utilities.reporter.engine import Reporter
-from ats_utilities.reporter.setup.factory import ReporterFactory
+from ats_utilities.reporter.setup.factory import ReporterBundleFactory
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.registry import ContextRegistry
-from ats_utilities.context.dependencies import ContextDependencies
-from ats_utilities.context.options import ContextOptions
-from ats_utilities.context.opt_validator import ContextOptionsValidator
-from ats_utilities.context.keys import ContextKeys
+from ats_utilities.context.registry import ContextBundleRegistry
+from ats_utilities.context.dependencies import ContextBundleDependencies
+from ats_utilities.context.options import ContextBundleOptions
+from ats_utilities.context.opt_validator import ContextBundleOptionsValidator
+from ats_utilities.context.keys import ContextBundleKeys
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -44,7 +44,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ContextFactory:
+class ContextBundleFactory:
     '''
         Factory for creating the context bundle.
 
@@ -55,31 +55,37 @@ class ContextFactory:
     '''
 
     @classmethod
-    def create_bundle(cls, options: ContextOptions | None = None) -> ContextBundle:
+    def create_bundle(cls, options: ContextBundleOptions | None = None) -> ContextBundle:
         '''
             Creates the context bundle with optional pre-configured options.
 
             :param options: The pre-configured options for the bundle (default: None).
             :return: The context bundle.
             :exceptions:
-                | ATSValueError: The options must be provided and have proper values.
-                | ATSTypeError:  The options must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The context bundle options must be provided and have proper values.
+                | ATSTypeError:  The context bundle options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The context bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The context bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The context bundle must be provided and have proper values.
+                | ATSTypeError:  The context bundle must be an instance of ContextBundle and
+                |                its attributes must be instances of their respective types.
         '''
         if options is not None:
-            ContextOptionsValidator.validate(options)
+            ContextBundleOptionsValidator.validate(options)
 
-        checker_opts = options.get(ContextKeys.OPTION_CHECKER) if options else None
-        logger_opts = options.get(ContextKeys.OPTION_LOGGER) if options else None
-        reporter_opts = options.get(ContextKeys.OPTION_REPORTER) if options else None
-        verbose = options.get(ContextKeys.OPTION_VERBOSE) if options else False
+        checker_opts = options.get(ContextBundleKeys.OPTION_CHECKER) if options else None
+        logger_opts = options.get(ContextBundleKeys.OPTION_LOGGER) if options else None
+        reporter_opts = options.get(ContextBundleKeys.OPTION_REPORTER) if options else None
+        verbose = options.get(ContextBundleKeys.OPTION_VERBOSE) if options else False
 
-        checker: Checker = Checker(own=CheckerFactory.create_bundle(checker_opts))
-        logger: Logger = Logger(own=LoggerFactory.create_bundle(logger_opts))
-        reporter: Reporter = Reporter(own=ReporterFactory.create_bundle(reporter_opts))
+        checker: Checker = Checker(own=CheckerBundleFactory.create_bundle(checker_opts))
+        logger: Logger = Logger(own=LoggerBundleFactory.create_bundle(logger_opts))
+        reporter: Reporter = Reporter(own=ReporterBundleFactory.create_bundle(reporter_opts))
 
-        return ContextRegistry.create_bundle(
-            dependencies=ContextDependencies(
+        return ContextBundleRegistry.create_bundle(
+            dependencies=ContextBundleDependencies(
                 checker=checker,
                 logger=logger,
                 reporter=reporter,

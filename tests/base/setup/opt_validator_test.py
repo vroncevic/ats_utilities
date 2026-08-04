@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for BaseOptionsValidator class.
+    Unit tests for BaseBundleOptionsValidator class.
 '''
 
 from __future__ import annotations
@@ -24,8 +24,8 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.base.setup.options import BaseOptions
-from ats_utilities.base.setup.opt_validator import BaseOptionsValidator
+from ats_utilities.base.setup.options import BaseBundleOptions
+from ats_utilities.base.setup.opt_validator import BaseBundleOptionsValidator
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
@@ -36,7 +36,7 @@ from ats_utilities.exceptions import ATSTypeError, ATSValueError
 class BaseOptionsValidatorTest(unittest.TestCase):
     '''
         Defines class BaseOptionsValidatorTest with attribute(s) and method(s).
-        Tests BaseOptionsValidator component logic.
+        Tests BaseBundleOptionsValidator component logic.
     '''
 
     def setUp(self) -> None:
@@ -47,29 +47,29 @@ class BaseOptionsValidatorTest(unittest.TestCase):
         self.mock_context.verbose = True
 
     def test_validate_valid(self) -> None:
-        options = BaseOptions(
+        options = BaseBundleOptions(
             info_file="/path/to/info.json",
             use_generator=True,
             context_bundle=self.mock_context
         )
-        BaseOptionsValidator.validate(options)
+        BaseBundleOptionsValidator.validate(options)
 
     def test_validate_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            BaseOptionsValidator.validate(None)  # type: ignore
+            BaseBundleOptionsValidator.validate(None)  # type: ignore
 
     def test_validate_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            BaseOptionsValidator.validate("not_a_mapping")  # type: ignore
+            BaseBundleOptionsValidator.validate("not_a_mapping")  # type: ignore
 
     def test_validate_invalid_option_types(self) -> None:
-        options = BaseOptions(
+        options = BaseBundleOptions(
             info_file=123,  # type: ignore
             use_generator=True,
             context_bundle=self.mock_context
         )
         with self.assertRaises(ATSTypeError):
-            BaseOptionsValidator.validate(options)
+            BaseBundleOptionsValidator.validate(options)
 
 
 if __name__ == "__main__":

@@ -77,23 +77,23 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="OptionKeys">
-<a class="viewcode-back" href="../../../../ats_utilities.option.setup.keys.html#ats_utilities.option.setup.keys.OptionKeys">[docs]</a>
-<span class="k">class</span> <span class="nc">OptionKeys</span><span class="p">:</span>
+<div class="viewcode-block" id="OptionBundleKeys">
+<a class="viewcode-back" href="../../../../ats_utilities.option.setup.keys.html#ats_utilities.option.setup.keys.OptionBundleKeys">[docs]</a>
+<span class="k">class</span> <span class="nc">OptionBundleKeys</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Runtime components and interface constraints for option bundle.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | DEPENDENCY_STRATEGY - The strategy interface constant.</span>
-<span class="sd">                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant.</span>
-<span class="sd">                | OPTION_PARAMETERS - The parameters option constant.</span>
-<span class="sd">                | OPTION_CONTEXT_BUNDLE - The context bundle option constant.</span>
-<span class="sd">                | REQUIRED_CONFIG_KEYS_SET - The set of required information keys.</span>
+<span class="sd">                | DEPENDENCY_STRATEGY - The strategy interface constant for option bundle.</span>
+<span class="sd">                | DEPENDENCY_CONTEXT_BUNDLE - The context bundle interface constant for option bundle.</span>
+<span class="sd">                | OPTION_PARAMETERS - The parameters option constant for option bundle.</span>
+<span class="sd">                | OPTION_CONTEXT_BUNDLE - The context bundle option constant for option bundle.</span>
+<span class="sd">                | REQUIRED_CONFIG_KEYS_SET - The set of required information keys for option bundle.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | get_dependency_to_type - Returns the mapping of the option dependencies to their types.</span>
-<span class="sd">                | get_option_to_type - Returns the mapping of the option options to their types.</span>
+<span class="sd">                | get_dependency_to_type - Returns the mapping of the option bundle dependencies to their types.</span>
+<span class="sd">                | get_option_to_type - Returns the mapping of the option bundle options to their types.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="c1"># Dependency Keys</span>
@@ -109,14 +109,14 @@
         <span class="n">InfoSchema</span><span class="o">.</span><span class="n">get_required_config_keys</span><span class="p">()</span>
     <span class="p">)</span>
 
-<div class="viewcode-block" id="OptionKeys.get_dependency_to_type">
-<a class="viewcode-back" href="../../../../ats_utilities.option.setup.keys.html#ats_utilities.option.setup.keys.OptionKeys.get_dependency_to_type">[docs]</a>
+<div class="viewcode-block" id="OptionBundleKeys.get_dependency_to_type">
+<a class="viewcode-back" href="../../../../ats_utilities.option.setup.keys.html#ats_utilities.option.setup.keys.OptionBundleKeys.get_dependency_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_dependency_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the mapping of the option dependencies to their types.</span>
+<span class="sd">            Returns the mapping of the option bundle dependencies to their types.</span>
 
-<span class="sd">            :return: The mapping of the option dependencies to their types.</span>
+<span class="sd">            :return: The mapping of the option bundle dependencies to their types.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">({</span>
@@ -125,14 +125,14 @@
         <span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="OptionKeys.get_option_to_type">
-<a class="viewcode-back" href="../../../../ats_utilities.option.setup.keys.html#ats_utilities.option.setup.keys.OptionKeys.get_option_to_type">[docs]</a>
+<div class="viewcode-block" id="OptionBundleKeys.get_option_to_type">
+<a class="viewcode-back" href="../../../../ats_utilities.option.setup.keys.html#ats_utilities.option.setup.keys.OptionBundleKeys.get_option_to_type">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_option_to_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the mapping of the option options to their types.</span>
+<span class="sd">            Returns the mapping of the option bundle options to their types.</span>
 
-<span class="sd">            :return: The mapping of the option options to their types.</span>
+<span class="sd">            :return: The mapping of the option bundle options to their types.</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">({</span>

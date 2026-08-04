@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ReporterValidator class.
+    Unit tests for ReporterBundleValidator class.
 '''
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.setup.bundle import ReporterBundle
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.setup.validator import ReporterValidator
+from ats_utilities.reporter.setup.validator import ReporterBundleValidator
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
@@ -44,7 +44,7 @@ __status__ = 'Development'
 class ValidatorTest(unittest.TestCase):
     '''
         Defines class ValidatorTest with attribute(s) and method(s).
-        Tests ReporterValidator logic.
+        Tests ReporterBundleValidator logic.
     '''
 
     def test_validation_valid(self) -> None:
@@ -57,11 +57,11 @@ class ValidatorTest(unittest.TestCase):
             theme=mock_theme,
             logger=mock_logger
         )
-        ReporterValidator.validate(bundle)
+        ReporterBundleValidator.validate(bundle)
 
     def test_validation_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            ReporterValidator.validate(None)  # type: ignore
+            ReporterBundleValidator.validate(None)  # type: ignore
 
         mock_checker = MagicMock(spec=IChecker)
         mock_theme = MagicMock(spec=IConsoleTheme)
@@ -73,7 +73,7 @@ class ValidatorTest(unittest.TestCase):
                 theme=mock_theme,
                 logger=mock_logger
             )
-            ReporterValidator.validate(bundle)
+            ReporterBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSValueError):
             bundle = ReporterBundle(
@@ -81,7 +81,7 @@ class ValidatorTest(unittest.TestCase):
                 theme=None,  # type: ignore
                 logger=mock_logger
             )
-            ReporterValidator.validate(bundle)
+            ReporterBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSValueError):
             bundle = ReporterBundle(
@@ -89,11 +89,11 @@ class ValidatorTest(unittest.TestCase):
                 theme=mock_theme,
                 logger=None  # type: ignore
             )
-            ReporterValidator.validate(bundle)
+            ReporterBundleValidator.validate(bundle)
 
     def test_validation_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            ReporterValidator.validate("invalid")  # type: ignore
+            ReporterBundleValidator.validate("invalid")  # type: ignore
 
         mock_checker = MagicMock(spec=IChecker)
         mock_theme = MagicMock(spec=IConsoleTheme)
@@ -105,7 +105,7 @@ class ValidatorTest(unittest.TestCase):
                 theme=mock_theme,
                 logger=mock_logger
             )
-            ReporterValidator.validate(bundle)
+            ReporterBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSTypeError):
             bundle = ReporterBundle(
@@ -113,7 +113,7 @@ class ValidatorTest(unittest.TestCase):
                 theme="not_a_theme",  # type: ignore
                 logger=mock_logger
             )
-            ReporterValidator.validate(bundle)
+            ReporterBundleValidator.validate(bundle)
 
         with self.assertRaises(ATSTypeError):
             bundle = ReporterBundle(
@@ -121,7 +121,7 @@ class ValidatorTest(unittest.TestCase):
                 theme=mock_theme,
                 logger="not_a_logger"  # type: ignore
             )
-            ReporterValidator.validate(bundle)
+            ReporterBundleValidator.validate(bundle)
 
 
 if __name__ == "__main__":

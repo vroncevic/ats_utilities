@@ -54,16 +54,16 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Validator for the config I/O options.</span>
+<span class="sd">    Validator for the config I/O bundle options.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.options</span> <span class="kn">import</span> <span class="n">ConfigIOOptions</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.keys</span> <span class="kn">import</span> <span class="n">ConfigIOKeys</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.options</span> <span class="kn">import</span> <span class="n">ConfigIOBundleOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.setup.keys</span> <span class="kn">import</span> <span class="n">ConfigIOBundleKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextBundleValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span>
 
@@ -77,46 +77,46 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="ConfigIOOptionsValidator">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.setup.opt_validator.html#ats_utilities.config_io.setup.opt_validator.ConfigIOOptionsValidator">[docs]</a>
-<span class="k">class</span> <span class="nc">ConfigIOOptionsValidator</span><span class="p">:</span>
+<div class="viewcode-block" id="ConfigIOBundleOptionsValidator">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.setup.opt_validator.html#ats_utilities.config_io.setup.opt_validator.ConfigIOBundleOptionsValidator">[docs]</a>
+<span class="k">class</span> <span class="nc">ConfigIOBundleOptionsValidator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Validator for the config I/O options.</span>
+<span class="sd">        Validator for the config I/O bundle options.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :methods:</span>
-<span class="sd">                | validate - Validates the config I/O options.</span>
+<span class="sd">                | validate - Validates the config I/O bundle options.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="ConfigIOOptionsValidator.validate">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.setup.opt_validator.html#ats_utilities.config_io.setup.opt_validator.ConfigIOOptionsValidator.validate">[docs]</a>
+<div class="viewcode-block" id="ConfigIOBundleOptionsValidator.validate">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.setup.opt_validator.html#ats_utilities.config_io.setup.opt_validator.ConfigIOBundleOptionsValidator.validate">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">ConfigIOOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">ConfigIOBundleOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Validates the config I/O options.</span>
+<span class="sd">            Validates the config I/O bundle options.</span>
 
-<span class="sd">            :param options: The config I/O options to be validated.</span>
+<span class="sd">            :param options: The config I/O bundle options to be validated.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: The options must be provided and have proper attributes.</span>
-<span class="sd">                | ATSTypeError:  The options must be an instance of Mapping and its attributes</span>
+<span class="sd">                | ATSValueError: The config I/O bundle options must be provided and have proper attributes.</span>
+<span class="sd">                | ATSTypeError:  The config I/O bundle options must be an instance of Mapping and its attributes</span>
 <span class="sd">                |                must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;config_io_options_validator::validate(...)&#39;</span>
-        <span class="n">msg_options_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the options must be provided&#39;</span>
-        <span class="n">msg_options_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the options must be a Mapping&#39;</span>
+        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;config_io_bundle_options_validator::validate(...)&#39;</span>
+        <span class="n">msg_options_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the config I/O bundle options must be provided&#39;</span>
+        <span class="n">msg_options_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the config I/O bundle options must be a Mapping&#39;</span>
 
         <span class="n">not_none</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_options_none</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_options_istype</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">attribute_name</span><span class="p">,</span> <span class="n">expected_type</span> <span class="ow">in</span> <span class="n">ConfigIOKeys</span><span class="o">.</span><span class="n">get_option_to_type</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">attribute_name</span><span class="p">,</span> <span class="n">expected_type</span> <span class="ow">in</span> <span class="n">ConfigIOBundleKeys</span><span class="o">.</span><span class="n">get_option_to_type</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">msg_attribute_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">attribute_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="si">}</span><span class="s1"> must be an instance of </span><span class="si">{</span><span class="n">expected_type</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span>
 
             <span class="n">attribute</span><span class="p">:</span> <span class="nb">object</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attribute_name</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">attribute_name</span> <span class="o">==</span> <span class="n">ConfigIOKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">attribute_name</span> <span class="o">==</span> <span class="n">ConfigIOBundleKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">:</span>
                 <span class="n">istype</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="n">expected_type</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_attribute_istype</span><span class="p">)</span>
-                <span class="n">ContextValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
+                <span class="n">ContextBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
                 <span class="k">continue</span>
 
             <span class="k">if</span> <span class="n">attribute</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

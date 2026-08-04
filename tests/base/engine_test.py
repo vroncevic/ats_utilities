@@ -41,7 +41,7 @@ class ConcreteBase(Base):
         return True
 
 
-@patch("ats_utilities.base.engine.BaseValidator")
+@patch("ats_utilities.base.engine.BaseBundleValidator")
 class TestBaseEngine(unittest.TestCase):
     """Unit tests for the Base orchestrator engine class."""
 

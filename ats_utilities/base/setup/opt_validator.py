@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the base options.
+    Validator for the base bundle options.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.base.setup.options import BaseOptions
-from ats_utilities.context.validator import ContextValidator
-from ats_utilities.base.setup.keys import BaseKeys
+from ats_utilities.base.setup.options import BaseBundleOptions
+from ats_utilities.context.validator import ContextBundleValidator
+from ats_utilities.base.setup.keys import BaseBundleKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -39,40 +39,40 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class BaseOptionsValidator:
+class BaseBundleOptionsValidator:
     '''
-        A validator for the base options.
+        Validator for the base bundle options.
 
         It defines:
 
             :methods:
-                | validate - Validates the base options.
+                | validate - Validates the base bundle options.
     '''
 
     @classmethod
-    def validate(cls, options: BaseOptions) -> None:
+    def validate(cls, options: BaseBundleOptions) -> None:
         '''
-            Validates the base options.
+            Validates the base bundle options.
 
-            :param options: The base options to be validated.
+            :param options: The base bundle options to be validated.
             :exceptions:
-                | ATSValueError: The base options must be provided and have proper values.
-                | ATSTypeError:  The base options must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The base bundle options must be provided and have proper values.
+                | ATSTypeError:  The base bundle options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'base_options_validator::validate(...)'
-        msg_options_none: str = 'the base options must be provided'
-        msg_options_istype: str = 'the base options must be a Mapping'
+        ctx: str = 'base_bundle_options_validator::validate(...)'
+        msg_options_none: str = 'the base bundle options must be provided'
+        msg_options_istype: str = 'the base bundle options must be a Mapping'
 
         not_none(options, ctx, msg_options_none)
         istype(options, Mapping, ctx, msg_options_istype)
 
-        for attr_name, expected_type in BaseKeys.get_option_to_type().items():
+        for attr_name, expected_type in BaseBundleKeys.get_option_to_type().items():
             msg_attr_name_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute = options.get(attr_name)
 
             istype(attribute, expected_type, ctx, msg_attr_name_istype)
 
-            if attr_name == BaseKeys.OPTION_CONTEXT_BUNDLE:
-                ContextValidator.validate(attribute)
+            if attr_name == BaseBundleKeys.OPTION_CONTEXT_BUNDLE:
+                ContextBundleValidator.validate(attribute)

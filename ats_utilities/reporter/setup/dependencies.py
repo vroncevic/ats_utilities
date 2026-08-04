@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Reporter dependencies for the reporter bundle.
+    Reporter bundle dependencies for the reporter bundle.
 '''
 
 from __future__ import annotations
@@ -37,9 +37,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ReporterDependencies(TypedDict):
+class ReporterBundleDependencies(TypedDict):
     '''
-        Reporter dependencies for the reporter bundle.
+        Reporter bundle dependencies for the reporter bundle.
 
         It defines:
 

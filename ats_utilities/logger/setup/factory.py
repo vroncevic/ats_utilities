@@ -26,11 +26,11 @@ from logging import getLogger, basicConfig, INFO
 from re import Pattern
 
 from ats_utilities.logger.setup.bundle import LoggerBundle
-from ats_utilities.logger.setup.registry import LoggerRegistry
-from ats_utilities.logger.setup.dependencies import LoggerDependencies
-from ats_utilities.logger.setup.options import LoggerOptions
-from ats_utilities.logger.setup.keys import LoggerKeys
-from ats_utilities.logger.setup.opt_validator import LoggerOptionsValidator
+from ats_utilities.logger.setup.registry import LoggerBundleRegistry
+from ats_utilities.logger.setup.dependencies import LoggerBundleDependencies
+from ats_utilities.logger.setup.options import LoggerBundleOptions
+from ats_utilities.logger.setup.keys import LoggerBundleKeys
+from ats_utilities.logger.setup.opt_validator import LoggerBundleOptionsValidator
 from ats_utilities.logger.formatter.engine import LogFormatter
 from ats_utilities.logger.buffer.engine import LogBuffer
 from ats_utilities.logger.handler.engine import LogHandlerManager
@@ -47,7 +47,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class LoggerFactory:
+class LoggerBundleFactory:
     '''
         Factory for creating the logger bundle.
 
@@ -58,26 +58,32 @@ class LoggerFactory:
     '''
 
     @classmethod
-    def create_bundle(cls, options: LoggerOptions | None = None) -> LoggerBundle:
+    def create_bundle(cls, options: LoggerBundleOptions | None = None) -> LoggerBundle:
         '''
             Creates the logger bundle with optional pre-configured options.
 
             :param options: The pre-configured options for the bundle.
             :return: The logger bundle.
             :exceptions:
-                | ATSValueError: The options must be provided and have proper values.
-                | ATSTypeError:  The options must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The logger bundle options must be provided and have proper values.
+                | ATSTypeError:  The logger bundle options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The logger bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The logger bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The logger bundle must be provided and have proper values.
+                | ATSTypeError:  The logger bundle must be an instance of LoggerBundle and
+                |                its attributes must be instances of their respective types.
         '''
         if options is not None:
-            LoggerOptionsValidator.validate(options)
+            LoggerBundleOptionsValidator.validate(options)
 
-        log_file: str | None = options.get(LoggerKeys.OPTION_LOG_FILE) if options else None
-        log_level: int = options.get(LoggerKeys.OPTION_LOG_LEVEL) if options else INFO
-        log_format: str = options.get(LoggerKeys.OPTION_LOG_FORMAT) if options else '%(asctime)s - %(levelname)s - %(message)s'
-        log_datefmt: str = options.get(LoggerKeys.OPTION_LOG_DATEFMT) if options else '%m/%d/%Y %I:%M:%S %p'
-        log_buffer_size: int = options.get(LoggerKeys.OPTION_LOG_BUFFER_SIZE) if options else 200
-        log_message_pattern: Pattern[str] | None = options.get(LoggerKeys.OPTION_LOG_MESSAGE_PATTERN) if options else None
+        log_file: str | None = options.get(LoggerBundleKeys.OPTION_LOG_FILE) if options else None
+        log_level: int = options.get(LoggerBundleKeys.OPTION_LOG_LEVEL) if options else INFO
+        log_format: str = options.get(LoggerBundleKeys.OPTION_LOG_FORMAT) if options else '%(asctime)s - %(levelname)s - %(message)s'
+        log_datefmt: str = options.get(LoggerBundleKeys.OPTION_LOG_DATEFMT) if options else '%m/%d/%Y %I:%M:%S %p'
+        log_buffer_size: int = options.get(LoggerBundleKeys.OPTION_LOG_BUFFER_SIZE) if options else 200
+        log_message_pattern: Pattern[str] | None = options.get(LoggerBundleKeys.OPTION_LOG_MESSAGE_PATTERN) if options else None
 
         logger = getLogger()
 
@@ -101,8 +107,8 @@ class LoggerFactory:
         handler_manager: LogHandlerManager = LogHandlerManager(logger=underlying_logger)
         message_processor: MessageProcessor = MessageProcessor(pattern=log_message_pattern)
 
-        return LoggerRegistry.create_bundle(
-            dependencies=LoggerDependencies(
+        return LoggerBundleRegistry.create_bundle(
+            dependencies=LoggerBundleDependencies(
                 logger=underlying_logger,
                 has_file_handler=log_file is not None,
                 formatter=formatter,

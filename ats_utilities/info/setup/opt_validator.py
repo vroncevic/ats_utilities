@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the info options.
+    Validator for the info bundle options.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
 
-from ats_utilities.info.setup.options import InfoOptions
-from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.options import InfoBundleOptions
+from ats_utilities.info.setup.keys import InfoBundleKeys
 from ats_utilities.info.setup.schema import InfoSchema
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none, not_satisfied
@@ -39,38 +39,38 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class InfoOptionsValidator:
+class InfoBundleOptionsValidator:
     '''
-        A validator for the info options.
+        Validator for the info bundle options.
 
         It defines:
 
             :methods:
-                | validate - Validates the info options.
+                | validate - Validates the info bundle options.
     '''
 
     @classmethod
-    def validate(cls, options: InfoOptions) -> None:
+    def validate(cls, options: InfoBundleOptions) -> None:
         '''
-            Validates the info options.
+            Validates the info bundle options.
 
-            :param options: The info options instance to be validated.
+            :param options: The info bundle options instance to be validated.
             :exceptions:
-                | ATSValueError: Options must be provided and have proper values.
-                | ATSTypeError:  Options must be an instance of Mapping and its
+                | ATSValueError: The info bundle options must be provided and have proper values.
+                | ATSTypeError:  The info bundle options must be an instance of Mapping and its
                 |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'info_options_validator::validate(...)'
-        msg_options_none: str = 'options must be provided and have proper values'
-        msg_options_not_mapping: str = 'options must be a Mapping'
+        ctx: str = 'info_bundle_options_validator::validate(...)'
+        msg_options_none: str = 'the info bundle options must be provided'
+        msg_options_not_mapping: str = 'the info bundle options must be an instance of Mapping'
 
         not_none(options, ctx, msg_options_none)
         istype(options, Mapping, ctx, msg_options_not_mapping)
 
-        for attr_name, expected_type in InfoKeys.get_option_to_type().items():
-            msg_opt_not_provided: str = f'{attr_name} must be provided'
-            msg_opt_none: str = f'{attr_name} must be provided and have proper attribute'
-            msg_opt_not_instance: str = f'{attr_name} must be an instance of {expected_type.__name__}'
+        for attr_name, expected_type in InfoBundleKeys.get_option_to_type().items():
+            msg_opt_not_provided: str = f'the {attr_name} must be provided'
+            msg_opt_none: str = f'the {attr_name} must be provided and have proper attribute'
+            msg_opt_not_instance: str = f'the {attr_name} must be an instance of {expected_type.__name__}'
 
             not_satisfied(attr_name not in options, ctx, msg_opt_not_provided)
 
@@ -79,7 +79,7 @@ class InfoOptionsValidator:
             not_none(attribute, ctx, msg_opt_none)
             istype(attribute, expected_type, ctx, msg_opt_not_instance)
 
-            if attr_name is InfoKeys.OPTION_INFO:
+            if attr_name is InfoBundleKeys.OPTION_INFO:
                 info_structure: Mapping[str, object] = attribute
                 required_config_keys: Sequence[str] = InfoSchema.get_required_config_keys()
                 msg_required_keys_missing: str = 'the info structure must contain all required keys'

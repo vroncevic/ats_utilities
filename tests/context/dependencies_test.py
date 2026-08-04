@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ContextDependencies TypedDict.
+    Unit tests for ContextBundleDependencies TypedDict.
 '''
 
 from __future__ import annotations
@@ -24,22 +24,22 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.context.dependencies import ContextDependencies
+from ats_utilities.context.dependencies import ContextBundleDependencies
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 
 
 class TestContextDependencies(unittest.TestCase):
-    """Unit tests for the ContextDependencies TypedDict structure."""
+    """Unit tests for the ContextBundleDependencies TypedDict structure."""
 
     def test_context_dependencies_dict(self) -> None:
-        """Test creating and accessing ContextDependencies structure."""
+        """Test creating and accessing ContextBundleDependencies structure."""
         mock_checker = MagicMock(spec=IChecker)
         mock_logger = MagicMock(spec=ILogger)
         mock_reporter = MagicMock(spec=IReporter)
 
-        deps: ContextDependencies = {
+        deps: ContextBundleDependencies = {
             "checker": mock_checker,
             "logger": mock_logger,
             "reporter": mock_reporter,

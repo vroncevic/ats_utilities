@@ -80,14 +80,14 @@ class ConfigProcessorFactory:
             :param extension: The file extension (e.g., '.json', '.cfg', '.xml', '.ini', '.yml', '.yaml').
             :return: The processor class.
             :exceptions:
-                | ATSValueError: Extension must be provided.
-                | ATSTypeError: Extension must be a string.
-                | ATSValueError: Extension is not supported.
+                | ATSValueError: The extension must be provided.
+                | ATSTypeError:  The extension must be a string.
+                | ATSValueError: The extension is not supported.
         '''
         ctx: str = 'config_processor_factory::get_processor_class(...)'
-        msg_ext_none: str = 'extension must be provided.'
-        msg_ext_istype: str = 'extension must be a string.'
-        msg_ext_unsupported: str = f'The extension {extension} is not supported'
+        msg_ext_none: str = 'the extension must be provided.'
+        msg_ext_istype: str = 'the extension must be a string.'
+        msg_ext_unsupported: str = f'the extension {extension} is not supported'
 
         not_none(extension, ctx, msg_ext_none)
         istype(extension, str, ctx, msg_ext_istype)
@@ -120,14 +120,14 @@ class ConfigProcessorFactory:
             :param processor: Instance to be used as the processor | None.
             :return: The processor.
             :exceptions:
-                | ATSValueError: Extension must be provided.
-                | ATSTypeError: Extension must be a string.
-                | ATSValueError: Extension is not supported.
-                | ATSTypeError: Validation of processor instance failed.
+                | ATSValueError: The extension must be provided.
+                | ATSTypeError:  The extension must be a string.
+                | ATSValueError: The extension is not supported.
+                | ATSTypeError:  The validation of the processor instance failed.
         '''
         ctx: str = 'config_processor_factory::create_from_extension(...)'
-        msg_processor_none: str = 'provided processor must implement IConfigProcessor'
-        msg_processor_istype: str = f'processor for extension {extension} must implement IConfigProcessor'
+        msg_processor_none: str = 'the provided processor must implement IConfigProcessor'
+        msg_processor_istype: str = f'the processor for extension {extension} must implement IConfigProcessor'
 
         if processor is not None:
             validate_component(
@@ -174,21 +174,21 @@ class ConfigProcessorFactory:
             :param processor: Instance to be used as the processor | None.
             :return: The processor.
             :exceptions:
-                | ATSValueError: File path must be provided when processor is None.
-                | ATSTypeError: File path must be a string.
-                | ATSValueError: File does not exist.
-                | ATSValueError: Extension must be provided.
-                | ATSTypeError: Extension must be a string.
-                | ATSValueError: Extension is not supported.
-                | ATSTypeError: Validation of processor instance failed.
+                | ATSValueError: The file path must be provided when the processor is None.
+                | ATSTypeError:  The file path must be a string.
+                | ATSValueError: The file does not exist.
+                | ATSValueError: The extension must be provided.
+                | ATSTypeError:  The extension must be a string.
+                | ATSValueError: The extension is not supported.
+                | ATSTypeError:  The validation of the processor instance failed.
         '''
         if processor is not None:
             return cls.create_from_extension(processor=processor)
 
         ctx: str = 'config_processor_factory::create_from_file_path(...)'
-        file_path_none: str = 'file path must be provided when processor is None'
-        file_path_str: str = 'file path must be a string'
-        file_does_not_exist: str = f'file at {file_path} does not exist'
+        file_path_none: str = 'the file path must be provided when the processor is None'
+        file_path_str: str = 'the file path must be a string'
+        file_does_not_exist: str = f'the file at {file_path} does not exist'
 
         not_none(file_path, ctx, file_path_none)
         istype(file_path, str, ctx, file_path_str)

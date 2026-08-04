@@ -54,16 +54,16 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    A validator for the generator dependencies.</span>
+<span class="sd">    Validator for the generator bundle dependencies.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.dependencies</span> <span class="kn">import</span> <span class="n">GeneratorDependencies</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.keys</span> <span class="kn">import</span> <span class="n">GeneratorKeys</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.dependencies</span> <span class="kn">import</span> <span class="n">GeneratorBundleDependencies</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generation.setup.keys</span> <span class="kn">import</span> <span class="n">GeneratorBundleKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextBundleValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span>
 
@@ -77,39 +77,39 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="GeneratorDependenciesValidator">
-<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.dep_validator.html#ats_utilities.generation.setup.dep_validator.GeneratorDependenciesValidator">[docs]</a>
-<span class="k">class</span> <span class="nc">GeneratorDependenciesValidator</span><span class="p">:</span>
+<div class="viewcode-block" id="GeneratorBundleDependenciesValidator">
+<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.dep_validator.html#ats_utilities.generation.setup.dep_validator.GeneratorBundleDependenciesValidator">[docs]</a>
+<span class="k">class</span> <span class="nc">GeneratorBundleDependenciesValidator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        A validator for the generator dependencies.</span>
+<span class="sd">        Validator for the generator bundle dependencies.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :methods:</span>
-<span class="sd">                | validate - Validates the generator dependencies.</span>
+<span class="sd">                | validate - Validates the generator bundle dependencies.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="GeneratorDependenciesValidator.validate">
-<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.dep_validator.html#ats_utilities.generation.setup.dep_validator.GeneratorDependenciesValidator.validate">[docs]</a>
+<div class="viewcode-block" id="GeneratorBundleDependenciesValidator.validate">
+<a class="viewcode-back" href="../../../../ats_utilities.generation.setup.dep_validator.html#ats_utilities.generation.setup.dep_validator.GeneratorBundleDependenciesValidator.validate">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">GeneratorDependencies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">:</span> <span class="n">GeneratorBundleDependencies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Validates the generator dependencies.</span>
+<span class="sd">            Validates the generator bundle dependencies.</span>
 
-<span class="sd">            :param dependencies: The generator dependencies instance to be validated.</span>
+<span class="sd">            :param dependencies: The generator bundle dependencies instance to be validated.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Generator dependencies must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Generator dependencies must be an instance of Mapping and its attributes</span>
+<span class="sd">                | ATSValueError: The generator bundle dependencies must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The generator bundle dependencies must be an instance of Mapping and its attributes</span>
 <span class="sd">                |                must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;generator_dependencies_validator::validate(...)&#39;</span>
-        <span class="n">msg_dependencies_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the dependencies must be provided&#39;</span>
-        <span class="n">msg_dependencies_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the dependencies must be a Mapping&#39;</span>
+        <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;generator_bundle_dependencies_validator::validate(...)&#39;</span>
+        <span class="n">msg_dependencies_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the generator bundle dependencies must be provided&#39;</span>
+        <span class="n">msg_dependencies_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the generator bundle dependencies must be a Mapping&#39;</span>
 
         <span class="n">not_none</span><span class="p">(</span><span class="n">dependencies</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_dependencies_none</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">dependencies</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_dependencies_istype</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">attr_name</span><span class="p">,</span> <span class="n">expected_type</span> <span class="ow">in</span> <span class="n">GeneratorKeys</span><span class="o">.</span><span class="n">get_dependency_to_type</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">attr_name</span><span class="p">,</span> <span class="n">expected_type</span> <span class="ow">in</span> <span class="n">GeneratorBundleKeys</span><span class="o">.</span><span class="n">get_dependency_to_type</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">msg_attr_name_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">attr_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="si">}</span><span class="s1"> must be provided&#39;</span>
             <span class="n">msg_attr_name_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">attr_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="si">}</span><span class="s1"> must be an instance of </span><span class="si">{</span><span class="n">expected_type</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span>
 
@@ -118,8 +118,8 @@
             <span class="n">not_none</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_attr_name_none</span><span class="p">)</span>
             <span class="n">istype</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="n">expected_type</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_attr_name_istype</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">attr_name</span> <span class="o">==</span> <span class="n">GeneratorKeys</span><span class="o">.</span><span class="n">DEPENDENCY_CONTEXT_BUNDLE</span><span class="p">:</span>
-                <span class="n">ContextValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span></div>
+            <span class="k">if</span> <span class="n">attr_name</span> <span class="o">==</span> <span class="n">GeneratorBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_CONTEXT_BUNDLE</span><span class="p">:</span>
+                <span class="n">ContextBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

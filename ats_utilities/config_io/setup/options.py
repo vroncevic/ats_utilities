@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Config I/O options for config I/O bundle creation.
+    Config I/O bundle options for config I/O bundle.
 '''
 
 from __future__ import annotations
@@ -36,16 +36,16 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ConfigIOOptions(TypedDict):
+class ConfigIOBundleOptions(TypedDict):
     '''
-        Config I/O options for config I/O bundle creation.
+        Config I/O bundle options for config I/O bundle.
 
         It defines:
 
             :attributes:
-                | file_path - The configuration file path.
-                | scheme - The configuration scheme.
-                | context_bundle - The context bundle.
+                | file_path - The configuration file path for config I/O bundle.
+                | scheme - The configuration scheme for config I/O bundle.
+                | context_bundle - The context bundle for config I/O bundle.
     '''
 
     file_path: str

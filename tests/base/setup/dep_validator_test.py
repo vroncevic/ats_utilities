@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for BaseDependenciesValidator class.
+    Unit tests for BaseBundleDependenciesValidator class.
 '''
 
 from __future__ import annotations
@@ -24,8 +24,8 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock, patch
 
-from ats_utilities.base.setup.dep_validator import BaseDependenciesValidator
-from ats_utilities.base.setup.dependencies import BaseDependencies
+from ats_utilities.base.setup.dep_validator import BaseBundleDependenciesValidator
+from ats_utilities.base.setup.dependencies import BaseBundleDependencies
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.option.imanager import IOptionManager
 from ats_utilities.splash.imanager import ISplashManager
@@ -34,9 +34,9 @@ from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSValueError, ATSTypeError
 
 
-@patch("ats_utilities.base.setup.dep_validator.ContextValidator")
+@patch("ats_utilities.base.setup.dep_validator.ContextBundleValidator")
 class TestBaseDependenciesValidator(unittest.TestCase):
-    """Unit tests for the BaseDependenciesValidator class."""
+    """Unit tests for the BaseBundleDependenciesValidator class."""
 
     def setUp(self) -> None:
         """Set up valid mock objects and parameters for dependencies validation."""
@@ -46,7 +46,7 @@ class TestBaseDependenciesValidator(unittest.TestCase):
         self.mock_splash_manager = MagicMock(spec=ISplashManager)
         self.mock_generation_manager = MagicMock(spec=IGeneratorManager)
 
-        self.valid_dependencies = BaseDependencies(
+        self.valid_dependencies = BaseBundleDependencies(
             context_bundle=self.mock_context_bundle,
             info_manager=self.mock_info_manager,
             option_manager=self.mock_option_manager,
@@ -58,7 +58,7 @@ class TestBaseDependenciesValidator(unittest.TestCase):
         """Test successful validation with all dependencies present and valid."""
         mock_ctx_val.validate.side_effect = None
         try:
-            BaseDependenciesValidator.validate(self.valid_dependencies)
+            BaseBundleDependenciesValidator.validate(self.valid_dependencies)
         except (ATSValueError, ATSTypeError) as e:
             self.fail(f"validate raised unexpected error: {e}")
 
@@ -67,7 +67,7 @@ class TestBaseDependenciesValidator(unittest.TestCase):
         self.valid_dependencies['generation_manager'] = None
         mock_ctx_val.validate.side_effect = None
         try:
-            BaseDependenciesValidator.validate(self.valid_dependencies)
+            BaseBundleDependenciesValidator.validate(self.valid_dependencies)
         except (ATSValueError, ATSTypeError) as e:
             self.fail(f"validate raised unexpected error with None generation_manager: {e}")
 
@@ -75,14 +75,14 @@ class TestBaseDependenciesValidator(unittest.TestCase):
         """Test that validation fails with ATSValueError when dependencies dict is None or missing keys."""
         mock_ctx_val.validate.side_effect = None
         with self.assertRaises(ATSValueError):
-            BaseDependenciesValidator.validate(None)  # type: ignore
+            BaseBundleDependenciesValidator.validate(None)  # type: ignore
 
         # Test missing context_bundle
         invalid_deps = self.valid_dependencies.copy()
         del invalid_deps['context_bundle']
         mock_ctx_val.validate.side_effect = ATSValueError("the bundle must be provided")
         with self.assertRaises(ATSValueError):
-            BaseDependenciesValidator.validate(invalid_deps)
+            BaseBundleDependenciesValidator.validate(invalid_deps)
 
     def test_invalid_type_raises_type_error(self, mock_ctx_val: MagicMock) -> None:
         """Test that validation fails with ATSTypeError when attributes have incorrect types."""
@@ -91,14 +91,14 @@ class TestBaseDependenciesValidator(unittest.TestCase):
         invalid_deps['context_bundle'] = "not_a_context_bundle"  # type: ignore
         mock_ctx_val.validate.side_effect = ATSTypeError("invalid bundle type")
         with self.assertRaises(ATSTypeError):
-            BaseDependenciesValidator.validate(invalid_deps)
+            BaseBundleDependenciesValidator.validate(invalid_deps)
 
         # Test invalid type for generation_manager (not None and not IGeneratorManager)
         invalid_deps2 = self.valid_dependencies.copy()
         invalid_deps2['generation_manager'] = "not_a_generator_manager"  # type: ignore
         mock_ctx_val.validate.side_effect = None
         with self.assertRaises(ATSTypeError):
-            BaseDependenciesValidator.validate(invalid_deps2)
+            BaseBundleDependenciesValidator.validate(invalid_deps2)
 
 
 if __name__ == '__main__':

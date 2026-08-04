@@ -24,11 +24,11 @@ from __future__ import annotations
 from collections.abc import Mapping
 
 from ats_utilities.checker.setup.bundle import CheckerBundle
-from ats_utilities.checker.setup.options import CheckerOptions
-from ats_utilities.checker.setup.keys import CheckerKeys
-from ats_utilities.checker.setup.registry import CheckerRegistry
-from ats_utilities.checker.setup.dependencies import CheckerDependencies
-from ats_utilities.checker.setup.opt_validator import CheckerOptionsValidator
+from ats_utilities.checker.setup.options import CheckerBundleOptions
+from ats_utilities.checker.setup.keys import CheckerBundleKeys
+from ats_utilities.checker.setup.registry import CheckerBundleRegistry
+from ats_utilities.checker.setup.dependencies import CheckerBundleDependencies
+from ats_utilities.checker.setup.opt_validator import CheckerBundleOptionsValidator
 from ats_utilities.checker.format.engine import FormatValidator
 from ats_utilities.checker.type.engine import TypeValidator
 from ats_utilities.checker.context.engine import ContextProvider
@@ -44,7 +44,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class CheckerFactory:
+class CheckerBundleFactory:
     '''
         Factory for creating the checker bundle.
 
@@ -55,32 +55,38 @@ class CheckerFactory:
     '''
 
     @classmethod
-    def create_bundle(cls, options: CheckerOptions | None = None) -> CheckerBundle:
+    def create_bundle(cls, options: CheckerBundleOptions | None = None) -> CheckerBundle:
         '''
             Creates the checker bundle with optional pre-configured options.
 
-            :param options: The creation options/parameters for the bundle (default: None).
+            :param options: The creation options/parameters for the checker bundle (default: None).
             :return: The checker bundle.
             :exceptions:
-                | ATSValueError: The options must be provided and have proper values.
-                | ATSTypeError:  The options must be an instance of Mapping and its attributes
+                | ATSValueError: The checker bundle options must be provided and have proper values.
+                | ATSTypeError:  The checker bundle options must be an instance of Mapping and its attributes
                 |                must be instances of their respective interfaces and types.
+                | ATSValueError: The checker bundle dependencies must be provided and have proper attributes.
+                | ATSTypeError:  The checker bundle dependencies must be an instance of Mapping and its attributes
+                |                must be instances of their respective types.
+                | ATSValueError: The checker bundle must be provided and have proper values.
+                | ATSTypeError:  The checker bundle must be an instance of CheckerBundle
+                |                and its attributes must be instances of their respective types.
         '''
         if options is not None:
-            CheckerOptionsValidator.validate(options)
+            CheckerBundleOptionsValidator.validate(options)
 
-        separator: str | None = options.get(CheckerKeys.OPTION_SEPARATOR) if options else None
-        abstract_types: Mapping | None = options.get(CheckerKeys.OPTION_ABSTRACT_TYPES) if options else None
-        stack_index_caller: int | None = options.get(CheckerKeys.OPTION_STACK_INDEX_CALLER) if options else None
-        messages_provider: Mapping | None = options.get(CheckerKeys.OPTION_MESSAGES_PROVIDER) if options else None
+        separator: str | None = options.get(CheckerBundleKeys.OPTION_SEPARATOR) if options else None
+        abstract_types: Mapping | None = options.get(CheckerBundleKeys.OPTION_ABSTRACT_TYPES) if options else None
+        stack_index_caller: int | None = options.get(CheckerBundleKeys.OPTION_STACK_INDEX_CALLER) if options else None
+        messages_provider: Mapping | None = options.get(CheckerBundleKeys.OPTION_MESSAGES_PROVIDER) if options else None
 
         format_validator: FormatValidator = FormatValidator(separator=separator)
         type_validator: TypeValidator = TypeValidator(abstract_types=abstract_types)
         context_provider: ContextProvider = ContextProvider(stack_index_caller=stack_index_caller)
         check_reporter: CheckReporter = CheckReporter(message_provider=messages_provider)
 
-        return CheckerRegistry.create_bundle(
-            dependencies=CheckerDependencies(
+        return CheckerBundleRegistry.create_bundle(
+            dependencies=CheckerBundleDependencies(
                 format_validator=format_validator,
                 type_validator=type_validator,
                 context_provider=context_provider,

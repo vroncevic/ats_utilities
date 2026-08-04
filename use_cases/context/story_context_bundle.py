@@ -22,7 +22,7 @@ Info
 from dataclasses import FrozenInstanceError
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.factory import ContextFactory
+from ats_utilities.context.factory import ContextBundleFactory
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,7 +37,7 @@ __status__ = 'Development'
 # default [without DI]
 # ======================
 #
-ats_context_bundle: ContextBundle = ContextFactory.create_bundle()
+ats_context_bundle: ContextBundle = ContextBundleFactory.create_bundle()
 print(ats_context_bundle)
 print(ats_context_bundle.checker)
 print(ats_context_bundle.reporter)

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ReporterDependencies TypedDict.
+    Unit tests for ReporterBundleDependencies TypedDict.
 '''
 
 from __future__ import annotations
@@ -27,13 +27,13 @@ from unittest.mock import MagicMock
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.reporter.setup.dependencies import ReporterDependencies
+from ats_utilities.reporter.setup.dependencies import ReporterBundleDependencies
 
 
 class DependenciesTest(unittest.TestCase):
     '''
         Defines class DependenciesTest with attribute(s) and method(s).
-        Tests ReporterDependencies structure.
+        Tests ReporterBundleDependencies structure.
     '''
 
     def test_dependencies_structure(self) -> None:
@@ -41,7 +41,7 @@ class DependenciesTest(unittest.TestCase):
         mock_theme = MagicMock(spec=IConsoleTheme)
         mock_logger = MagicMock(spec=ILogger)
 
-        deps: ReporterDependencies = {
+        deps: ReporterBundleDependencies = {
             "checker": mock_checker,
             "theme": mock_theme,
             "logger": mock_logger

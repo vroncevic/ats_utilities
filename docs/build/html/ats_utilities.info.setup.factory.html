@@ -68,8 +68,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.info.setup.factory.InfoFactory">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.setup.factory.</span></span><span class="sig-name descname"><span class="pre">InfoFactory</span></span><a class="reference internal" href="_modules/ats_utilities/info/setup/factory.html#InfoFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.setup.factory.InfoFactory" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.info.setup.factory.InfoBundleFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.setup.factory.</span></span><span class="sig-name descname"><span class="pre">InfoBundleFactory</span></span><a class="reference internal" href="_modules/ats_utilities/info/setup/factory.html#InfoBundleFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.setup.factory.InfoBundleFactory" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A factory for creating an InfoBundle.</p>
 <p>It defines:</p>
@@ -83,8 +83,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dl>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.info.setup.factory.InfoFactory.create_bundle">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.info.setup.options.html#ats_utilities.info.setup.options.InfoOptions" title="ats_utilities.info.setup.options.InfoOptions"><span class="pre">InfoOptions</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.info.setup.bundle.html#ats_utilities.info.setup.bundle.InfoBundle" title="ats_utilities.info.setup.bundle.InfoBundle"><span class="pre">InfoBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/info/setup/factory.html#InfoFactory.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.setup.factory.InfoFactory.create_bundle" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.info.setup.factory.InfoBundleFactory.create_bundle">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.info.setup.options.html#ats_utilities.info.setup.options.InfoBundleOptions" title="ats_utilities.info.setup.options.InfoBundleOptions"><span class="pre">InfoBundleOptions</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.info.setup.bundle.html#ats_utilities.info.setup.bundle.InfoBundle" title="ats_utilities.info.setup.bundle.InfoBundle"><span class="pre">InfoBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/info/setup/factory.html#InfoBundleFactory.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.setup.factory.InfoBundleFactory.create_bundle" title="Link to this definition">¶</a></dt>
 <dd><p>Creates an info bundle with pre-configured options.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -95,8 +95,18 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">ATSValueError: Info options must be provided and have proper values.</div>
-<div class="line">ATSTypeError:  Info options must be an instance of Mapping and its</div>
+<div class="line">ATSValueError: The info bundle options must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The info bundle options must be an instance of Mapping and its</div>
+<div class="line-block">
+<div class="line">attributes must be instances of their respective types.</div>
+</div>
+<div class="line">ATSValueError: The info bundle dependencies must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The info bundle dependencies must be an instance of Mapping and its</div>
+<div class="line-block">
+<div class="line">attributes must be instances of their respective types.</div>
+</div>
+<div class="line">ATSValueError: The info bundle must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The info bundle must be an instance of InfoBundle and its</div>
 <div class="line-block">
 <div class="line">attributes must be instances of their respective types.</div>
 </div>
@@ -120,8 +130,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.info.setup.factory module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.info.setup.factory.InfoFactory"><code class="docutils literal notranslate"><span class="pre">InfoFactory</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.info.setup.factory.InfoFactory.create_bundle"><code class="docutils literal notranslate"><span class="pre">InfoFactory.create_bundle()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.setup.factory.InfoBundleFactory"><code class="docutils literal notranslate"><span class="pre">InfoBundleFactory</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.info.setup.factory.InfoBundleFactory.create_bundle"><code class="docutils literal notranslate"><span class="pre">InfoBundleFactory.create_bundle()</span></code></a></li>
 </ul>
 </li>
 </ul>

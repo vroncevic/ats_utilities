@@ -64,38 +64,38 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>A validator for the base options.</p>
+<dt>Info</dt><dd><p>Validator for the base bundle options.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.opt_validator.BaseOptionsValidator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.base.setup.opt_validator.</span></span><span class="sig-name descname"><span class="pre">BaseOptionsValidator</span></span><a class="reference internal" href="_modules/ats_utilities/base/setup/opt_validator.html#BaseOptionsValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.setup.opt_validator.BaseOptionsValidator" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.opt_validator.BaseBundleOptionsValidator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.base.setup.opt_validator.</span></span><span class="sig-name descname"><span class="pre">BaseBundleOptionsValidator</span></span><a class="reference internal" href="_modules/ats_utilities/base/setup/opt_validator.html#BaseBundleOptionsValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.setup.opt_validator.BaseBundleOptionsValidator" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A validator for the base options.</p>
+<p>Validator for the base bundle options.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">validate - Validates the base options.</div>
+<div class="line">validate - Validates the base bundle options.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.base.setup.opt_validator.BaseOptionsValidator.validate">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.base.setup.options.html#ats_utilities.base.setup.options.BaseOptions" title="ats_utilities.base.setup.options.BaseOptions"><span class="pre">BaseOptions</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/setup/opt_validator.html#BaseOptionsValidator.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.setup.opt_validator.BaseOptionsValidator.validate" title="Link to this definition">¶</a></dt>
-<dd><p>Validates the base options.</p>
+<dt class="sig sig-object py" id="ats_utilities.base.setup.opt_validator.BaseBundleOptionsValidator.validate">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.base.setup.options.html#ats_utilities.base.setup.options.BaseBundleOptions" title="ats_utilities.base.setup.options.BaseBundleOptions"><span class="pre">BaseBundleOptions</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/setup/opt_validator.html#BaseBundleOptionsValidator.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.setup.opt_validator.BaseBundleOptionsValidator.validate" title="Link to this definition">¶</a></dt>
+<dd><p>Validates the base bundle options.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>options</strong> – The base options to be validated.</p>
+<dd class="field-odd"><p><strong>options</strong> – The base bundle options to be validated.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">ATSValueError: The base options must be provided and have proper values.</div>
-<div class="line">ATSTypeError:  The base options must be an instance of Mapping and its attributes</div>
+<div class="line">ATSValueError: The base bundle options must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The base bundle options must be an instance of Mapping and its</div>
 <div class="line-block">
-<div class="line">must be instances of their respective types.</div>
+<div class="line">attributes must be instances of their respective types.</div>
 </div>
 </div>
 </dd>
@@ -117,8 +117,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.base.setup.opt_validator module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.base.setup.opt_validator.BaseOptionsValidator"><code class="docutils literal notranslate"><span class="pre">BaseOptionsValidator</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.base.setup.opt_validator.BaseOptionsValidator.validate"><code class="docutils literal notranslate"><span class="pre">BaseOptionsValidator.validate()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.setup.opt_validator.BaseBundleOptionsValidator"><code class="docutils literal notranslate"><span class="pre">BaseBundleOptionsValidator</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.base.setup.opt_validator.BaseBundleOptionsValidator.validate"><code class="docutils literal notranslate"><span class="pre">BaseBundleOptionsValidator.validate()</span></code></a></li>
 </ul>
 </li>
 </ul>

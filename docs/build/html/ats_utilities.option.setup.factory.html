@@ -68,8 +68,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.option.setup.factory.OptionFactory">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.option.setup.factory.</span></span><span class="sig-name descname"><span class="pre">OptionFactory</span></span><a class="reference internal" href="_modules/ats_utilities/option/setup/factory.html#OptionFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.setup.factory.OptionFactory" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.option.setup.factory.OptionBundleFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.option.setup.factory.</span></span><span class="sig-name descname"><span class="pre">OptionBundleFactory</span></span><a class="reference internal" href="_modules/ats_utilities/option/setup/factory.html#OptionBundleFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.setup.factory.OptionBundleFactory" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A factory for creating an option bundle.</p>
 <p>It defines:</p>
@@ -83,8 +83,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dl>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.option.setup.factory.OptionFactory.create_bundle">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.option.setup.options.html#ats_utilities.option.setup.options.OptionOptions" title="ats_utilities.option.setup.options.OptionOptions"><span class="pre">OptionOptions</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.setup.bundle.html#ats_utilities.option.setup.bundle.OptionBundle" title="ats_utilities.option.setup.bundle.OptionBundle"><span class="pre">OptionBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/setup/factory.html#OptionFactory.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.setup.factory.OptionFactory.create_bundle" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.option.setup.factory.OptionBundleFactory.create_bundle">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.option.setup.options.html#ats_utilities.option.setup.options.OptionBundleOptions" title="ats_utilities.option.setup.options.OptionBundleOptions"><span class="pre">OptionBundleOptions</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.setup.bundle.html#ats_utilities.option.setup.bundle.OptionBundle" title="ats_utilities.option.setup.bundle.OptionBundle"><span class="pre">OptionBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/setup/factory.html#OptionBundleFactory.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.setup.factory.OptionBundleFactory.create_bundle" title="Link to this definition">¶</a></dt>
 <dd><p>Creates an option bundle using configuration options.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -95,8 +95,18 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">ATSValueError: The options must be provided and have proper values.</div>
-<div class="line">ATSTypeError:  The options must be an instance of Mapping and its</div>
+<div class="line">ATSValueError: The option bundle options must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The option bundle options must be an instance of Mapping and its</div>
+<div class="line-block">
+<div class="line">attributes must be instances of their respective types.</div>
+</div>
+<div class="line">ATSValueError: The option bundle dependencies must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The option bundle dependencies must be an instance of Mapping and its</div>
+<div class="line-block">
+<div class="line">attributes must be instances of their respective types.</div>
+</div>
+<div class="line">ATSValueError: The option bundle must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The option bundle must be an instance of OptionBundle and its</div>
 <div class="line-block">
 <div class="line">attributes must be instances of their respective types.</div>
 </div>
@@ -120,8 +130,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.option.setup.factory module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.option.setup.factory.OptionFactory"><code class="docutils literal notranslate"><span class="pre">OptionFactory</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.option.setup.factory.OptionFactory.create_bundle"><code class="docutils literal notranslate"><span class="pre">OptionFactory.create_bundle()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.setup.factory.OptionBundleFactory"><code class="docutils literal notranslate"><span class="pre">OptionBundleFactory</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.option.setup.factory.OptionBundleFactory.create_bundle"><code class="docutils literal notranslate"><span class="pre">OptionBundleFactory.create_bundle()</span></code></a></li>
 </ul>
 </li>
 </ul>

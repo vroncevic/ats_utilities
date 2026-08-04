@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the option data.
+    Validator for the option data.
 '''
 
 from __future__ import annotations
@@ -39,7 +39,7 @@ __status__ = 'Development'
 
 class OptionDataValidator:
     '''
-        A validator for the option data.
+        Validator for the option data.
 
         It defines:
 

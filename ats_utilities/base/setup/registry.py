@@ -22,10 +22,10 @@ Info
 from __future__ import annotations
 
 from ats_utilities.base.setup.bundle import BaseBundle
-from ats_utilities.base.setup.dependencies import BaseDependencies
-from ats_utilities.base.setup.dep_validator import BaseDependenciesValidator
-from ats_utilities.base.setup.keys import BaseKeys
-from ats_utilities.base.setup.validator import BaseValidator
+from ats_utilities.base.setup.dependencies import BaseBundleDependencies
+from ats_utilities.base.setup.dep_validator import BaseBundleDependenciesValidator
+from ats_utilities.base.setup.keys import BaseBundleKeys
+from ats_utilities.base.setup.validator import BaseBundleValidator
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,7 +37,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class BaseRegistry:
+class BaseBundleRegistry:
     '''
         Encapsulates core runtime components for simplification of base bundle.
 
@@ -48,27 +48,30 @@ class BaseRegistry:
     '''
 
     @classmethod
-    def create_bundle(cls, dependencies: BaseDependencies) -> BaseBundle:
+    def create_bundle(cls, dependencies: BaseBundleDependencies) -> BaseBundle:
         '''
             Orchestrates dependency injection and creates a base bundle.
 
             :param dependencies: The registry-specific orchestration dependencies.
             :return: The base bundle.
             :exceptions:
-                | ATSValueError: The dependencies must be provided and have proper values.
-                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The base bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The base bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The base bundle for base engine must be provided and have proper values.
+                | ATSTypeError:  The base bundle for base engine must be an instance of BaseBundle and its
+                |                attributes must be instances of their respective interfaces and types.
         '''
-        BaseDependenciesValidator.validate(dependencies)
+        BaseBundleDependenciesValidator.validate(dependencies)
 
         bundle: BaseBundle = BaseBundle(
-            context_bundle=dependencies.get(BaseKeys.DEPENDENCY_CONTEXT_BUNDLE) if dependencies else None,
-            info_manager=dependencies.get(BaseKeys.DEPENDENCY_INFO_MANAGER) if dependencies else None,
-            option_manager=dependencies.get(BaseKeys.DEPENDENCY_OPTION_MANAGER) if dependencies else None,
-            splash_manager=dependencies.get(BaseKeys.DEPENDENCY_SPLASH_MANAGER) if dependencies else None,
-            generation_manager=dependencies.get(BaseKeys.DEPENDENCY_GENERATION_MANAGER) if dependencies else None
+            context_bundle=dependencies.get(BaseBundleKeys.DEPENDENCY_CONTEXT_BUNDLE) if dependencies else None,
+            info_manager=dependencies.get(BaseBundleKeys.DEPENDENCY_INFO_MANAGER) if dependencies else None,
+            option_manager=dependencies.get(BaseBundleKeys.DEPENDENCY_OPTION_MANAGER) if dependencies else None,
+            splash_manager=dependencies.get(BaseBundleKeys.DEPENDENCY_SPLASH_MANAGER) if dependencies else None,
+            generation_manager=dependencies.get(BaseBundleKeys.DEPENDENCY_GENERATION_MANAGER) if dependencies else None
         )
 
-        BaseValidator.validate(bundle)
+        BaseBundleValidator.validate(bundle)
 
         return bundle

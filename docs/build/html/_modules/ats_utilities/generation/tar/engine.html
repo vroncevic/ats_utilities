@@ -78,7 +78,7 @@
     <span class="n">write_content</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.validator</span> <span class="kn">import</span> <span class="n">ContextBundleValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSGeneratorError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_satisfied</span><span class="p">,</span> <span class="n">not_none</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
@@ -123,18 +123,18 @@
 <span class="sd">            :param context_bundle: The context bundle for tar processor.</span>
 <span class="sd">            :param template_processor: The custom template rendering component.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Context bundle must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Context bundle must be an instance of ContextBundle and</span>
+<span class="sd">                | ATSValueError: The context bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The context bundle must be an instance of ContextBundle and</span>
 <span class="sd">                |                its attributes must be instances of their respective types.</span>
-<span class="sd">                | ATSValueError: Template processor must be provided.</span>
-<span class="sd">                | ATSTypeError:  Template processor must be an instance of ITemplateProcessor.   </span>
+<span class="sd">                | ATSValueError: The template processor must be provided.</span>
+<span class="sd">                | ATSTypeError:  The template processor must be an instance of ITemplateProcessor.   </span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ContextValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">)</span>
+        <span class="n">ContextBundleValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">context_bundle</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_context</span> <span class="o">=</span> <span class="n">context_bundle</span>
 
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;tar_processor::init(...)&#39;</span>
-        <span class="n">msg_template_processor_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;template processor must be provided&#39;</span>
-        <span class="n">msg_template_processor_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;template processor must be an instance of ITemplateProcessor&#39;</span>
+        <span class="n">msg_template_processor_none</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the template processor must be provided&#39;</span>
+        <span class="n">msg_template_processor_istype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;the template processor must be an instance of ITemplateProcessor&#39;</span>
 
         <span class="n">not_none</span><span class="p">(</span><span class="n">template_processor</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_template_processor_none</span><span class="p">)</span>
         <span class="n">istype</span><span class="p">(</span><span class="n">template_processor</span><span class="p">,</span> <span class="n">ITemplateProcessor</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_template_processor_istype</span><span class="p">)</span>
@@ -149,8 +149,8 @@
 
 <span class="sd">            :param data: The parameters defining what to do with the tar archive member.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Tar member data must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Tar member data must be an instance of TarMemberData and</span>
+<span class="sd">                | ATSValueError: The tar member data must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The tar member data must be an instance of TarMemberData and</span>
 <span class="sd">                |                its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">TarMemberDataValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -168,7 +168,7 @@
                 <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;tar_processor::process_tar_member(...)&#39;</span>
                 <span class="n">write_content</span><span class="p">(</span>
                     <span class="n">data</span><span class="o">.</span><span class="n">dest_full_path</span><span class="p">,</span> <span class="n">rendered</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;error writing to file </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">dest_full_path</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="sa">f</span><span class="s1">&#39;the error writing to file </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">dest_full_path</span><span class="si">}</span><span class="s1">&#39;</span>
                 <span class="p">)</span></div>
 
 
@@ -180,8 +180,8 @@
 
 <span class="sd">            :param data: The parameters defining what to do with the tar archive.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Tar data must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Tar data must be an instance of TarData and</span>
+<span class="sd">                | ATSValueError: The tar data must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The tar data must be an instance of TarData and</span>
 <span class="sd">                |                its attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ctx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;tar_processor::process(...)&#39;</span>
@@ -193,10 +193,10 @@
                 <span class="n">source_dir_clean</span> <span class="o">=</span> <span class="n">normalize_path</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">source_dir</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span>
 
                 <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">tar</span><span class="o">.</span><span class="n">getmembers</span><span class="p">():</span>
-                    <span class="n">msg_path_err</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;error normalizing path </span><span class="si">{</span><span class="n">member</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> in tar </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">archive_path</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="n">msg_path_err</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the error normalizing path </span><span class="si">{</span><span class="n">member</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> in tar </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">archive_path</span><span class="si">}</span><span class="s1">&#39;</span>
                     <span class="n">normalized_name</span> <span class="o">=</span> <span class="n">normalize_path</span><span class="p">(</span><span class="n">member</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_path_err</span><span class="p">)</span>
 
-                    <span class="n">msg_resolve_path_err</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;error resolving relative path </span><span class="si">{</span><span class="n">normalized_name</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="n">msg_resolve_path_err</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the error resolving relative path </span><span class="si">{</span><span class="n">normalized_name</span><span class="si">}</span><span class="s1">&#39;</span>
                     <span class="n">msg_resolve_path_err_with_source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">msg_resolve_path_err</span><span class="si">}</span><span class="s1"> with source dir </span><span class="si">{</span><span class="n">source_dir_clean</span><span class="si">}</span><span class="s1">&#39;</span>
                     <span class="n">rel_path</span> <span class="o">=</span> <span class="n">resolve_relative_path</span><span class="p">(</span>
                         <span class="n">normalized_name</span><span class="p">,</span> <span class="n">source_dir_clean</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_resolve_path_err_with_source</span>
@@ -205,13 +205,13 @@
                     <span class="k">if</span> <span class="n">rel_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">rel_path</span><span class="p">:</span>
                         <span class="k">continue</span>
 
-                    <span class="n">msg_exclude_path_err</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;error checking for excluded path </span><span class="si">{</span><span class="n">rel_path</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="n">msg_exclude_path_err</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the error checking for excluded path </span><span class="si">{</span><span class="n">rel_path</span><span class="si">}</span><span class="s1">&#39;</span>
                     <span class="n">msg_exclude_path_err_with_patterns</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">msg_exclude_path_err</span><span class="si">}</span><span class="s1"> with patterns </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">exclude_patterns</span><span class="si">}</span><span class="s1">&#39;</span>
 
                     <span class="k">if</span> <span class="n">is_excluded_path</span><span class="p">(</span><span class="n">rel_path</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">exclude_patterns</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_exclude_path_err_with_patterns</span><span class="p">):</span>
                         <span class="k">continue</span>
 
-                    <span class="n">msg_path_replace_err</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;error applying path replacements to </span><span class="si">{</span><span class="n">rel_path</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="n">msg_path_replace_err</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the error applying path replacements to </span><span class="si">{</span><span class="n">rel_path</span><span class="si">}</span><span class="s1">&#39;</span>
                     <span class="n">msg_path_replace_err_with_patterns</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">msg_path_replace_err</span><span class="si">}</span><span class="s1"> with patterns </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">path_replacements</span><span class="si">}</span><span class="s1">&#39;</span>
                     <span class="n">dest_rel_path</span> <span class="o">=</span> <span class="n">apply_path_replacements</span><span class="p">(</span>
                         <span class="n">rel_path</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">path_replacements</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_path_replace_err_with_patterns</span>
@@ -225,7 +225,7 @@
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
             <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">format_error_raw</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
-            <span class="n">msg_fail</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;process execution failed: </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="n">msg_fail</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;the process execution failed: </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s1">&#39;</span>
             <span class="n">not_satisfied</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">msg_fail</span><span class="p">,</span> <span class="n">ATSGeneratorError</span><span class="p">)</span></div>
 
 

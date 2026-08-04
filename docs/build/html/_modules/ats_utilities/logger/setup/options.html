@@ -71,19 +71,19 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="LoggerOptions">
-<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.options.html#ats_utilities.logger.setup.options.LoggerOptions">[docs]</a>
-<span class="k">class</span> <span class="nc">LoggerOptions</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<div class="viewcode-block" id="LoggerBundleOptions">
+<a class="viewcode-back" href="../../../../ats_utilities.logger.setup.options.html#ats_utilities.logger.setup.options.LoggerBundleOptions">[docs]</a>
+<span class="k">class</span> <span class="nc">LoggerBundleOptions</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Logger options for the logger factory bundle.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | log_file - The path to the log file.</span>
-<span class="sd">                | log_level - The log level.</span>
-<span class="sd">                | log_format - The format string for the log messages.</span>
-<span class="sd">                | log_datefmt - The date format string for the log messages.</span>
+<span class="sd">                | log_file - The path to the log file for the logger bundle.</span>
+<span class="sd">                | log_level - The log level for the logger bundle.</span>
+<span class="sd">                | log_format - The format string for the log messages for the logger bundle.</span>
+<span class="sd">                | log_datefmt - The date format string for the log messages for the logger bundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">log_file</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span>

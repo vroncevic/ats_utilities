@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for OptionOptionsValidator class.
+    Unit tests for OptionBundleOptionsValidator class.
 '''
 
 from __future__ import annotations
@@ -26,8 +26,8 @@ from unittest.mock import MagicMock
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
-from ats_utilities.option.setup.options import OptionOptions
-from ats_utilities.option.setup.opt_validator import OptionOptionsValidator
+from ats_utilities.option.setup.options import OptionBundleOptions
+from ats_utilities.option.setup.opt_validator import OptionBundleOptionsValidator
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
@@ -36,7 +36,7 @@ from ats_utilities.reporter.ireporter import IReporter
 class OptValidatorTest(unittest.TestCase):
     '''
         Defines class OptValidatorTest with attribute(s) and method(s).
-        Tests OptionOptionsValidator logic.
+        Tests OptionBundleOptionsValidator logic.
     '''
 
     def setUp(self) -> None:
@@ -54,42 +54,42 @@ class OptValidatorTest(unittest.TestCase):
         }
 
     def test_validate_valid(self) -> None:
-        opts: OptionOptions = {
+        opts: OptionBundleOptions = {
             "parameters": self.valid_params,
             "context_bundle": self.mock_context
         }
         # Should not raise error
-        OptionOptionsValidator.validate(opts)
+        OptionBundleOptionsValidator.validate(opts)
 
     def test_validate_none(self) -> None:
         with self.assertRaises(ATSValueError) as context:
-            OptionOptionsValidator.validate(None)  # type: ignore
-        self.assertEqual(str(context.exception), "option_options_validator::validate(...) - the options must be provided")
+            OptionBundleOptionsValidator.validate(None)
+        self.assertEqual(str(context.exception), "option_bundle_options_validator::validate(...) - the option bundle options must be provided")
 
     def test_validate_not_mapping(self) -> None:
         with self.assertRaises(ATSTypeError) as context:
-            OptionOptionsValidator.validate("invalid")  # type: ignore
-        self.assertEqual(str(context.exception), "option_options_validator::validate(...) - the options must be a Mapping")
+            OptionBundleOptionsValidator.validate("invalid")
+        self.assertEqual(str(context.exception), "option_bundle_options_validator::validate(...) - the option bundle options must be a Mapping")
 
     def test_validate_missing_parameter(self) -> None:
-        opts: OptionOptions = {
+        opts: OptionBundleOptions = {
             "context_bundle": self.mock_context
-        }  # type: ignore
+        }
         with self.assertRaises(ATSValueError) as context:
-            OptionOptionsValidator.validate(opts)
-        self.assertEqual(str(context.exception), "option_options_validator::validate(...) - the parameters must be provided")
+            OptionBundleOptionsValidator.validate(opts)
+        self.assertEqual(str(context.exception), "option_bundle_options_validator::validate(...) - the parameters must be provided")
 
     def test_validate_missing_required_config_key(self) -> None:
         invalid_params = {
             "ats_name": "mytool"
             # missing version, licence, build_date
         }
-        opts: OptionOptions = {
-            "parameters": invalid_params,  # type: ignore
+        opts: OptionBundleOptions = {
+            "parameters": invalid_params,
             "context_bundle": self.mock_context
         }
         with self.assertRaises(ATSValueError) as context:
-            OptionOptionsValidator.validate(opts)
+            OptionBundleOptionsValidator.validate(opts)
         self.assertIn("the missing configuration keys", str(context.exception))
 
 

@@ -26,10 +26,10 @@ from typing import ClassVar
 from types import MappingProxyType
 
 from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.checker.setup.options import CheckerOptions
+from ats_utilities.checker.setup.options import CheckerBundleOptions
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.logger.setup.options import LoggerOptions
+from ats_utilities.logger.setup.options import LoggerBundleOptions
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -41,22 +41,22 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ReporterKeys:
+class ReporterBundleKeys:
     '''
         Runtime components and interface constraints for the reporter bundle.
 
         It defines:
 
             :attributes:
-                | DEPENDENCY_CHECKER - The Checker interface constant.
-                | DEPENDENCY_THEME - The Theme interface constant.
-                | DEPENDENCY_LOGGER - The Logger interface constant.
-                | OPTION_CHECKER - The Checker options constant.
-                | OPTION_THEME - The Theme options constant.
-                | OPTION_LOGGER - The Logger options constant.
+                | DEPENDENCY_CHECKER - The Checker interface constant for the reporter bundle.
+                | DEPENDENCY_THEME - The Theme interface constant for the reporter bundle.
+                | DEPENDENCY_LOGGER - The Logger interface constant for the reporter bundle.
+                | OPTION_CHECKER - The Checker options constant for the reporter bundle.
+                | OPTION_THEME - The Theme options constant for the reporter bundle.
+                | OPTION_LOGGER - The Logger options constant for the reporter bundle.
             :methods:
-                | get_dependency_to_type - Returns the mapping of the reporter dependencies to their types.
-                | get_option_to_type - Returns the mapping of the reporter options to their types.
+                | get_dependency_to_type - Returns the mapping of the reporter bundle dependencies to their types.
+                | get_option_to_type - Returns the mapping of the reporter bundle options to their types.
     '''
 
     # Dependency Keys
@@ -72,9 +72,9 @@ class ReporterKeys:
     @classmethod
     def get_dependency_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns the mapping of the reporter dependencies to their types.
+            Returns the mapping of the reporter bundle dependencies to their types.
 
-            :return: The mapping of the reporter dependencies to their types.
+            :return: The mapping of the reporter bundle dependencies to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
@@ -86,13 +86,13 @@ class ReporterKeys:
     @classmethod
     def get_option_to_type(cls) -> MappingProxyType[str, type]:
         '''
-            Returns the mapping of the reporter options to their types.
+            Returns the mapping of the reporter bundle options to their types.
 
-            :return: The mapping of the reporter options to their types.
+            :return: The mapping of the reporter bundle options to their types.
             :exceptions: None.
         '''
         return MappingProxyType({
-            cls.OPTION_CHECKER: CheckerOptions,
+            cls.OPTION_CHECKER: CheckerBundleOptions,
             cls.OPTION_THEME: Mapping[str, str],
-            cls.OPTION_LOGGER: LoggerOptions,
+            cls.OPTION_LOGGER: LoggerBundleOptions,
         })

@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the context dependencies.
+    Validator for the context bundle dependencies.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.context.dependencies import ContextDependencies
-from ats_utilities.context.keys import ContextKeys
+from ats_utilities.context.dependencies import ContextBundleDependencies
+from ats_utilities.context.keys import ContextBundleKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -38,35 +38,35 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ContextDependenciesValidator:
+class ContextBundleDependenciesValidator:
     '''
-        A validator for the context dependencies.
+        Validator for the context bundle dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the context dependencies.
+                | validate - Validates the context bundle dependencies.
     '''
 
     @classmethod
-    def validate(cls, dependencies: ContextDependencies) -> None:
+    def validate(cls, dependencies: ContextBundleDependencies) -> None:
         '''
-            Validates the context dependencies.
+            Validates the context bundle dependencies.
 
-            :param dependencies: The context dependencies to be validated.
+            :param dependencies: The context bundle dependencies to be validated.
             :exceptions:
-                | ATSValueError: The context dependencies must be provided and have proper values.
-                | ATSTypeError:  The context dependencies must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The context bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The context bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'context_dependencies_validator::validate(...)'
-        msg_dependencies_none: str = 'the dependencies must be provided'
-        msg_dependencies_istype: str = 'the dependencies must be a Mapping'
+        ctx: str = 'context_bundle_dependencies_validator::validate(...)'
+        msg_dependencies_none: str = 'the context bundle dependencies must be provided'
+        msg_dependencies_istype: str = 'the context bundle dependencies must be a Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
-        for attr_name, expected_type in ContextKeys.get_dependency_to_type().items():
+        for attr_name, expected_type in ContextBundleKeys.get_dependency_to_type().items():
             msg_attr_name_none: str = f'the {attr_name.replace("_", " ")} must be provided'
             msg_attr_name_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 

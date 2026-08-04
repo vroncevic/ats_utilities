@@ -16,69 +16,69 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ReporterOptionsValidator class.
+    Unit tests for ReporterBundleOptionsValidator class.
 '''
 
 from __future__ import annotations
 
 import unittest
 
-from ats_utilities.checker.setup.options import CheckerOptions
+from ats_utilities.checker.setup.options import CheckerBundleOptions
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
-from ats_utilities.logger.setup.options import LoggerOptions
-from ats_utilities.reporter.setup.options import ReporterOptions
-from ats_utilities.reporter.setup.opt_validator import ReporterOptionsValidator
+from ats_utilities.logger.setup.options import LoggerBundleOptions
+from ats_utilities.reporter.setup.options import ReporterBundleOptions
+from ats_utilities.reporter.setup.opt_validator import ReporterBundleOptionsValidator
 
 
 class OptValidatorTest(unittest.TestCase):
     '''
         Defines class OptValidatorTest with attribute(s) and method(s).
-        Tests ReporterOptionsValidator logic.
+        Tests ReporterBundleOptionsValidator logic.
     '''
 
     def test_validate_valid(self) -> None:
-        checker_opts: CheckerOptions = {}
-        logger_opts: LoggerOptions = {
+        checker_opts: CheckerBundleOptions = {}
+        logger_opts: LoggerBundleOptions = {
             "log_level": 20
         }
         theme_opts = {
             "success": "green"
         }
 
-        opts: ReporterOptions = {
+        opts: ReporterBundleOptions = {
             "checker": checker_opts,
             "theme": theme_opts,
             "logger": logger_opts
         }
         # Should not raise any error
-        ReporterOptionsValidator.validate(opts)
+        ReporterBundleOptionsValidator.validate(opts)
 
     def test_validate_none(self) -> None:
         with self.assertRaises(ATSValueError) as context:
-            ReporterOptionsValidator.validate(None)  # type: ignore
+            ReporterBundleOptionsValidator.validate(None)  # type: ignore
         self.assertEqual(str(context.exception), "reporter_options_validator::validate(...) - the options must be provided")
 
     def test_validate_not_mapping(self) -> None:
         with self.assertRaises(ATSTypeError) as context:
-            ReporterOptionsValidator.validate("invalid")  # type: ignore
+            ReporterBundleOptionsValidator.validate("invalid")  # type: ignore
         self.assertEqual(str(context.exception), "reporter_options_validator::validate(...) - the options must be a Mapping")
 
     def test_validate_invalid_option_type(self) -> None:
-        opts: ReporterOptions = {
+        opts: ReporterBundleOptions = {
             "checker": "invalid"  # type: ignore
         }
         with self.assertRaises(ATSTypeError) as context:
-            ReporterOptionsValidator.validate(opts)
-        self.assertEqual(str(context.exception), "reporter_options_validator::validate(...) - the checker must be an instance of CheckerOptions")
+            ReporterBundleOptionsValidator.validate(opts)
+        self.assertEqual(str(context.exception), "reporter_options_validator::validate(...) - the checker must be an instance of CheckerBundleOptions")
 
     def test_validate_none_fields(self) -> None:
-        opts: ReporterOptions = {
+        opts: ReporterBundleOptions = {
             "checker": None,
             "theme": None,
             "logger": None
         }
         # Should not raise error
-        ReporterOptionsValidator.validate(opts)
+        ReporterBundleOptionsValidator.validate(opts)
 
 
 if __name__ == "__main__":

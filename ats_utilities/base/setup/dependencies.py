@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Base dependencies for base bundle.
+    Base bundle dependencies for base bundle.
 '''
 
 from __future__ import annotations
@@ -39,18 +39,18 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class BaseDependencies(TypedDict):
+class BaseBundleDependencies(TypedDict):
     '''
-        Base dependencies for base bundle.
+        Base bundle dependencies for base bundle.
 
         It defines:
 
             :attributes:
-                | context_bundle - The context bundle.
-                | info_manager - The information manager.
-                | option_manager - The options parser.
-                | splash_manager - The SplashManager.
-                | generation_manager - The GeneratorManager.
+                | context_bundle - The context bundle for base bundle.
+                | info_manager - The information manager for base bundle.
+                | option_manager - The options parser for base bundle.
+                | splash_manager - The SplashManager for base bundle.
+                | generation_manager - The GeneratorManager for base bundle.
     '''
 
     context_bundle: ContextBundle

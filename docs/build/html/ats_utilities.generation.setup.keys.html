@@ -64,61 +64,60 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Runtime components and interface constraints for generator.</p>
+<dt>Info</dt><dd><p>Runtime components and interface constraints for generator bundle.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.generation.setup.keys.GeneratorKeys">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.generation.setup.keys.</span></span><span class="sig-name descname"><span class="pre">GeneratorKeys</span></span><a class="reference internal" href="_modules/ats_utilities/generation/setup/keys.html#GeneratorKeys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generation.setup.keys.GeneratorKeys" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.generation.setup.keys.GeneratorBundleKeys">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.generation.setup.keys.</span></span><span class="sig-name descname"><span class="pre">GeneratorBundleKeys</span></span><a class="reference internal" href="_modules/ats_utilities/generation/setup/keys.html#GeneratorBundleKeys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generation.setup.keys.GeneratorBundleKeys" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Runtime components and interface constraints for generator.</p>
+<p>Runtime components and interface constraints for generator bundle.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">DEPENDENCY_SCHEME_LOADER - The scheme loader interface constant.</div>
-<div class="line">DEPENDENCY_TAR_PROCESSOR - The tar processor interface constant.</div>
-<div class="line">DEPENDENCY_TEMPLATE_PROCESSOR - The template processor interface constant.</div>
-<div class="line">DEPENDENCY_CONTEXT_BUNDLE - The context bundle constant.</div>
-<div class="line">OPTION_CONTEXT_BUNDLE - The context bundle option constant.</div>
+<div class="line">DEPENDENCY_SCHEME_LOADER - The scheme loader interface constant for generator bundle.</div>
+<div class="line">DEPENDENCY_TAR_PROCESSOR - The tar processor interface constant for generator bundle.</div>
+<div class="line">DEPENDENCY_CONTEXT_BUNDLE - The context bundle constant for generator bundle.</div>
+<div class="line">OPTION_CONTEXT_BUNDLE - The context bundle option constant for generator bundle.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">get_dependency_to_type - Returns mapping of generator dependencies to their types.</div>
-<div class="line">get_option_to_type - Returns mapping of generator options to their types.</div>
+<div class="line">get_dependency_to_type - Returns mapping of generator bundle dependencies to their types.</div>
+<div class="line">get_option_to_type - Returns mapping of generator bundle options to their types.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.generation.setup.keys.GeneratorKeys.DEPENDENCY_CONTEXT_BUNDLE">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_CONTEXT_BUNDLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'context_bundle'</span></em><a class="headerlink" href="#ats_utilities.generation.setup.keys.GeneratorKeys.DEPENDENCY_CONTEXT_BUNDLE" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.generation.setup.keys.GeneratorBundleKeys.DEPENDENCY_CONTEXT_BUNDLE">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_CONTEXT_BUNDLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'context_bundle'</span></em><a class="headerlink" href="#ats_utilities.generation.setup.keys.GeneratorBundleKeys.DEPENDENCY_CONTEXT_BUNDLE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.generation.setup.keys.GeneratorKeys.DEPENDENCY_SCHEME_LOADER">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_SCHEME_LOADER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'scheme_loader'</span></em><a class="headerlink" href="#ats_utilities.generation.setup.keys.GeneratorKeys.DEPENDENCY_SCHEME_LOADER" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.generation.setup.keys.GeneratorBundleKeys.DEPENDENCY_SCHEME_LOADER">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_SCHEME_LOADER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'scheme_loader'</span></em><a class="headerlink" href="#ats_utilities.generation.setup.keys.GeneratorBundleKeys.DEPENDENCY_SCHEME_LOADER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.generation.setup.keys.GeneratorKeys.DEPENDENCY_TAR_PROCESSOR">
-<span class="sig-name descname"><span class="pre">DEPENDENCY_TAR_PROCESSOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'tar_processor'</span></em><a class="headerlink" href="#ats_utilities.generation.setup.keys.GeneratorKeys.DEPENDENCY_TAR_PROCESSOR" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.generation.setup.keys.GeneratorBundleKeys.DEPENDENCY_TAR_PROCESSOR">
+<span class="sig-name descname"><span class="pre">DEPENDENCY_TAR_PROCESSOR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'tar_processor'</span></em><a class="headerlink" href="#ats_utilities.generation.setup.keys.GeneratorBundleKeys.DEPENDENCY_TAR_PROCESSOR" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.generation.setup.keys.GeneratorKeys.OPTION_CONTEXT_BUNDLE">
-<span class="sig-name descname"><span class="pre">OPTION_CONTEXT_BUNDLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'context_bundle'</span></em><a class="headerlink" href="#ats_utilities.generation.setup.keys.GeneratorKeys.OPTION_CONTEXT_BUNDLE" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.generation.setup.keys.GeneratorBundleKeys.OPTION_CONTEXT_BUNDLE">
+<span class="sig-name descname"><span class="pre">OPTION_CONTEXT_BUNDLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'context_bundle'</span></em><a class="headerlink" href="#ats_utilities.generation.setup.keys.GeneratorBundleKeys.OPTION_CONTEXT_BUNDLE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.generation.setup.keys.GeneratorKeys.get_dependency_to_type">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_dependency_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/generation/setup/keys.html#GeneratorKeys.get_dependency_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generation.setup.keys.GeneratorKeys.get_dependency_to_type" title="Link to this definition">¶</a></dt>
-<dd><p>Returns mapping of generator dependencies to their types.</p>
+<dt class="sig sig-object py" id="ats_utilities.generation.setup.keys.GeneratorBundleKeys.get_dependency_to_type">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_dependency_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/generation/setup/keys.html#GeneratorBundleKeys.get_dependency_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generation.setup.keys.GeneratorBundleKeys.get_dependency_to_type" title="Link to this definition">¶</a></dt>
+<dd><p>Returns mapping of generator bundle dependencies to their types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The mapping of generator dependencies to their types.</p>
+<dd class="field-odd"><p>The mapping of generator bundle dependencies to their types.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>None.</p>
@@ -127,12 +126,12 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.generation.setup.keys.GeneratorKeys.get_option_to_type">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_option_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/generation/setup/keys.html#GeneratorKeys.get_option_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generation.setup.keys.GeneratorKeys.get_option_to_type" title="Link to this definition">¶</a></dt>
-<dd><p>Returns mapping of generator options to their types.</p>
+<dt class="sig sig-object py" id="ats_utilities.generation.setup.keys.GeneratorBundleKeys.get_option_to_type">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_option_to_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/generation/setup/keys.html#GeneratorBundleKeys.get_option_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generation.setup.keys.GeneratorBundleKeys.get_option_to_type" title="Link to this definition">¶</a></dt>
+<dd><p>Returns mapping of generator bundle options to their types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The mapping of generator options to their types.</p>
+<dd class="field-odd"><p>The mapping of generator bundle options to their types.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>None.</p>
@@ -155,13 +154,13 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.generation.setup.keys module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.generation.setup.keys.GeneratorKeys"><code class="docutils literal notranslate"><span class="pre">GeneratorKeys</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.generation.setup.keys.GeneratorKeys.DEPENDENCY_CONTEXT_BUNDLE"><code class="docutils literal notranslate"><span class="pre">GeneratorKeys.DEPENDENCY_CONTEXT_BUNDLE</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.generation.setup.keys.GeneratorKeys.DEPENDENCY_SCHEME_LOADER"><code class="docutils literal notranslate"><span class="pre">GeneratorKeys.DEPENDENCY_SCHEME_LOADER</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.generation.setup.keys.GeneratorKeys.DEPENDENCY_TAR_PROCESSOR"><code class="docutils literal notranslate"><span class="pre">GeneratorKeys.DEPENDENCY_TAR_PROCESSOR</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.generation.setup.keys.GeneratorKeys.OPTION_CONTEXT_BUNDLE"><code class="docutils literal notranslate"><span class="pre">GeneratorKeys.OPTION_CONTEXT_BUNDLE</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.generation.setup.keys.GeneratorKeys.get_dependency_to_type"><code class="docutils literal notranslate"><span class="pre">GeneratorKeys.get_dependency_to_type()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.generation.setup.keys.GeneratorKeys.get_option_to_type"><code class="docutils literal notranslate"><span class="pre">GeneratorKeys.get_option_to_type()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.generation.setup.keys.GeneratorBundleKeys"><code class="docutils literal notranslate"><span class="pre">GeneratorBundleKeys</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.generation.setup.keys.GeneratorBundleKeys.DEPENDENCY_CONTEXT_BUNDLE"><code class="docutils literal notranslate"><span class="pre">GeneratorBundleKeys.DEPENDENCY_CONTEXT_BUNDLE</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.generation.setup.keys.GeneratorBundleKeys.DEPENDENCY_SCHEME_LOADER"><code class="docutils literal notranslate"><span class="pre">GeneratorBundleKeys.DEPENDENCY_SCHEME_LOADER</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.generation.setup.keys.GeneratorBundleKeys.DEPENDENCY_TAR_PROCESSOR"><code class="docutils literal notranslate"><span class="pre">GeneratorBundleKeys.DEPENDENCY_TAR_PROCESSOR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.generation.setup.keys.GeneratorBundleKeys.OPTION_CONTEXT_BUNDLE"><code class="docutils literal notranslate"><span class="pre">GeneratorBundleKeys.OPTION_CONTEXT_BUNDLE</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.generation.setup.keys.GeneratorBundleKeys.get_dependency_to_type"><code class="docutils literal notranslate"><span class="pre">GeneratorBundleKeys.get_dependency_to_type()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.generation.setup.keys.GeneratorBundleKeys.get_option_to_type"><code class="docutils literal notranslate"><span class="pre">GeneratorBundleKeys.get_option_to_type()</span></code></a></li>
 </ul>
 </li>
 </ul>

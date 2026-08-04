@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the generator bundle.
+    Validator for the generator bundle.
 '''
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ from ats_utilities.generation.setup.bundle import GeneratorBundle
 from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generation.tar.itar_processor import ITarProcessor
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -39,9 +39,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class GeneratorValidator:
+class GeneratorBundleValidator:
     '''
-        A validator for the generator bundle.
+        Validator for the generator bundle.
 
         It defines:
 
@@ -54,21 +54,21 @@ class GeneratorValidator:
         '''
             Validates the generator bundle.
 
-            :param bundle: The generator bundle instance to be validated.
+            :param bundle: The generator bundle to be validated.
             :exceptions:
-                | ATSValueError: Generator bundle must be provided and have proper values.
-                | ATSTypeError:  Generator bundle must be an instance of GeneratorBundle and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The generator bundle must be provided and have proper values.
+                | ATSTypeError:  The generator bundle must be an instance of GeneratorBundle
+                |                and its attributes must be instances of their respective types.
         '''
-        ctx: str = 'generator_validator::validate(...)'
-        msg_bundle_none: str = 'bundle must be provided'
-        msg_bundle_istype: str = 'bundle must be an instance of GeneratorBundle'
-        msg_scheme_loader_none: str = 'scheme loader must be provided'
-        msg_tar_processor_none: str = 'tar processor must be provided'
-        msg_context_bundle_none: str = 'context bundle must be provided'
-        msg_scheme_loader_istype: str = 'scheme loader must be an ISchemeLoader instance'
-        msg_tar_processor_istype: str = 'tar processor must be an ITarProcessor instance'
-        msg_context_bundle_istype: str = 'context bundle must be a ContextBundle instance'
+        ctx: str = 'generator_bundle_validator::validate(...)'
+        msg_bundle_none: str = 'the generator bundle must be provided'
+        msg_bundle_istype: str = 'the generator bundle must be an instance of GeneratorBundle'
+        msg_scheme_loader_none: str = 'the scheme loader must be provided'
+        msg_tar_processor_none: str = 'the tar processor must be provided'
+        msg_context_bundle_none: str = 'the context bundle must be provided'
+        msg_scheme_loader_istype: str = 'the scheme loader must be an instance of ISchemeLoader'
+        msg_tar_processor_istype: str = 'the tar processor must be an instance of ITarProcessor'
+        msg_context_bundle_istype: str = 'the context bundle must be an instance of ContextBundle'
 
         not_none(bundle, ctx, msg_bundle_none)
         istype(bundle, GeneratorBundle, ctx, msg_bundle_istype)
@@ -81,4 +81,4 @@ class GeneratorValidator:
         istype(bundle.tar_processor, ITarProcessor, ctx, msg_tar_processor_istype)
         istype(bundle.context_bundle, ContextBundle, ctx, msg_context_bundle_istype)
 
-        ContextValidator.validate(bundle.context_bundle)
+        ContextBundleValidator.validate(bundle.context_bundle)

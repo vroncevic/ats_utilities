@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for CheckerRegistry class.
+    Unit tests for CheckerBundleRegistry class.
 '''
 
 from __future__ import annotations
@@ -24,8 +24,8 @@ from __future__ import annotations
 import unittest
 
 from ats_utilities.checker.setup.bundle import CheckerBundle
-from ats_utilities.checker.setup.registry import CheckerRegistry
-from ats_utilities.checker.setup.dependencies import CheckerDependencies
+from ats_utilities.checker.setup.registry import CheckerBundleRegistry
+from ats_utilities.checker.setup.dependencies import CheckerBundleDependencies
 from ats_utilities.checker.context.engine import ContextProvider
 from ats_utilities.checker.format.engine import FormatValidator
 from ats_utilities.checker.reporter.engine import CheckReporter
@@ -36,7 +36,7 @@ from ats_utilities.exceptions import ATSTypeError, ATSValueError
 class RegistryTest(unittest.TestCase):
     '''
         Defines class RegistryTest with attribute(s) and method(s).
-        Tests CheckerRegistry logic.
+        Tests CheckerBundleRegistry logic.
     '''
 
     def test_create_bundle_with_args(self) -> None:
@@ -45,8 +45,8 @@ class RegistryTest(unittest.TestCase):
         context_provider = ContextProvider()
         check_reporter = CheckReporter()
 
-        bundle = CheckerRegistry.create_bundle(
-            dependencies=CheckerDependencies(
+        bundle = CheckerBundleRegistry.create_bundle(
+            dependencies=CheckerBundleDependencies(
                 format_validator=format_validator,
                 type_validator=type_validator,
                 context_provider=context_provider,
@@ -61,10 +61,10 @@ class RegistryTest(unittest.TestCase):
 
     def test_create_bundle_invalid(self) -> None:
         with self.assertRaises(ATSValueError):
-            CheckerRegistry.create_bundle(None)  # type: ignore
+            CheckerBundleRegistry.create_bundle(None)  # type: ignore
 
         with self.assertRaises(ATSTypeError):
-            CheckerRegistry.create_bundle("invalid")  # type: ignore
+            CheckerBundleRegistry.create_bundle("invalid")  # type: ignore
 
 
 if __name__ == "__main__":

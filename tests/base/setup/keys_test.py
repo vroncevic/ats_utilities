@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for BaseKeys class.
+    Unit tests for BaseBundleKeys class.
 '''
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ from __future__ import annotations
 import unittest
 from types import MappingProxyType
 
-from ats_utilities.base.setup.keys import BaseKeys
+from ats_utilities.base.setup.keys import BaseBundleKeys
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.option.imanager import IOptionManager
@@ -33,27 +33,27 @@ from ats_utilities.generation.imanager import IGeneratorManager
 
 
 class TestBaseKeys(unittest.TestCase):
-    """Unit tests for the BaseKeys class."""
+    """Unit tests for the BaseBundleKeys class."""
 
     def test_get_dependency_to_type(self) -> None:
         """Test get_dependency_to_type returns correct MappingProxyType with all dependency classes."""
-        dep_mapping = BaseKeys.get_dependency_to_type()
+        dep_mapping = BaseBundleKeys.get_dependency_to_type()
         self.assertIsInstance(dep_mapping, MappingProxyType)
 
-        self.assertEqual(dep_mapping.get(BaseKeys.DEPENDENCY_CONTEXT_BUNDLE), ContextBundle)
-        self.assertEqual(dep_mapping.get(BaseKeys.DEPENDENCY_INFO_MANAGER), IInfoManager)
-        self.assertEqual(dep_mapping.get(BaseKeys.DEPENDENCY_OPTION_MANAGER), IOptionManager)
-        self.assertEqual(dep_mapping.get(BaseKeys.DEPENDENCY_SPLASH_MANAGER), ISplashManager)
-        self.assertEqual(dep_mapping.get(BaseKeys.DEPENDENCY_GENERATION_MANAGER), IGeneratorManager)
+        self.assertEqual(dep_mapping.get(BaseBundleKeys.DEPENDENCY_CONTEXT_BUNDLE), ContextBundle)
+        self.assertEqual(dep_mapping.get(BaseBundleKeys.DEPENDENCY_INFO_MANAGER), IInfoManager)
+        self.assertEqual(dep_mapping.get(BaseBundleKeys.DEPENDENCY_OPTION_MANAGER), IOptionManager)
+        self.assertEqual(dep_mapping.get(BaseBundleKeys.DEPENDENCY_SPLASH_MANAGER), ISplashManager)
+        self.assertEqual(dep_mapping.get(BaseBundleKeys.DEPENDENCY_GENERATION_MANAGER), IGeneratorManager)
 
     def test_get_option_to_type(self) -> None:
         """Test get_option_to_type returns correct MappingProxyType with all option types."""
-        opt_mapping = BaseKeys.get_option_to_type()
+        opt_mapping = BaseBundleKeys.get_option_to_type()
         self.assertIsInstance(opt_mapping, MappingProxyType)
 
-        self.assertEqual(opt_mapping.get(BaseKeys.OPTION_INFO_FILE), str)
-        self.assertEqual(opt_mapping.get(BaseKeys.OPTION_USE_GENERATOR), bool)
-        self.assertEqual(opt_mapping.get(BaseKeys.OPTION_CONTEXT_BUNDLE), ContextBundle)
+        self.assertEqual(opt_mapping.get(BaseBundleKeys.OPTION_INFO_FILE), str)
+        self.assertEqual(opt_mapping.get(BaseBundleKeys.OPTION_USE_GENERATOR), bool)
+        self.assertEqual(opt_mapping.get(BaseBundleKeys.OPTION_CONTEXT_BUNDLE), ContextBundle)
 
 
 if __name__ == '__main__':

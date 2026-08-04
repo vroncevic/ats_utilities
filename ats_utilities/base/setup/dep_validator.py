@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the base dependencies.
+    Validator for the base bundle dependencies.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.base.setup.dependencies import BaseDependencies
-from ats_utilities.base.setup.keys import BaseKeys
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.base.setup.dependencies import BaseBundleDependencies
+from ats_utilities.base.setup.keys import BaseBundleKeys
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -39,38 +39,38 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class BaseDependenciesValidator:
+class BaseBundleDependenciesValidator:
     '''
-        A validator for the base dependencies.
+        Validator for the base bundle dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the base dependencies.
+                | validate - Validates the base bundle dependencies.
     '''
 
     @classmethod
-    def validate(cls, dependencies: BaseDependencies) -> None:
+    def validate(cls, dependencies: BaseBundleDependencies) -> None:
         '''
-            Validates the base dependencies.
+            Validates the base bundle dependencies.
 
-            :param dependencies: The base dependencies.
+            :param dependencies: The base bundle dependencies.
             :exceptions:
-                | ATSValueError: The base dependencies must be provided and have proper values.
-                | ATSTypeError:  The base dependencies must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The base bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The base bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'base_dependencies_validator::validate(...)'
+        ctx: str = 'base_bundle_dependencies_validator::validate(...)'
         msg_dependencies_none: str = 'the dependencies must be provided'
         msg_dependencies_istype: str = 'the dependencies must be a Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
-        for attr_name, expected_type in BaseKeys.get_dependency_to_type().items():
+        for attr_name, expected_type in BaseBundleKeys.get_dependency_to_type().items():
             attribute = dependencies.get(attr_name)
 
-            if attr_name == BaseKeys.DEPENDENCY_GENERATION_MANAGER and attribute is None:
+            if attr_name == BaseBundleKeys.DEPENDENCY_GENERATION_MANAGER and attribute is None:
                 continue
 
             msg_attr_name_none: str = f'the {attr_name.replace("_", " ")} must be provided'
@@ -79,5 +79,5 @@ class BaseDependenciesValidator:
             not_none(attribute, ctx, msg_attr_name_none)
             istype(attribute, expected_type, ctx, msg_attr_name_istype)
 
-            if attr_name == BaseKeys.DEPENDENCY_CONTEXT_BUNDLE:
-                ContextValidator.validate(attribute)
+            if attr_name == BaseBundleKeys.DEPENDENCY_CONTEXT_BUNDLE:
+                ContextBundleValidator.validate(attribute)

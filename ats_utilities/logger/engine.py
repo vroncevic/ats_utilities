@@ -24,7 +24,7 @@ from __future__ import annotations
 
 from ats_utilities.logger.setup.bundle import LoggerBundle
 from ats_utilities.logger.underlying.iunderlying import IUnderlyingLogger
-from ats_utilities.logger.setup.validator import LoggerValidator
+from ats_utilities.logger.setup.validator import LoggerBundleValidator
 from ats_utilities.logger.formatter.iformatter import ILogFormatter
 from ats_utilities.logger.buffer.ibuffer import ILogBuffer
 from ats_utilities.logger.handler.ihandler_manager import ILogHandlerManager
@@ -92,7 +92,7 @@ class Logger:
                 |                respective interfaces and types.
         '''
         self._is_initialized = False
-        LoggerValidator.validate(own)
+        LoggerBundleValidator.validate(own)
         self._apply_bundle(own)
         self._is_initialized = self._logger.has_handlers()
 
@@ -130,7 +130,7 @@ class Logger:
             :exceptions: None.
         '''
         try:
-            LoggerValidator.validate(bundle)
+            LoggerBundleValidator.validate(bundle)
             self._apply_bundle(bundle)
             self._is_initialized = self._logger.has_handlers()
 

@@ -25,7 +25,7 @@ from __future__ import annotations
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
-from ats_utilities.config_io.setup.validator import ConfigIOValidator
+from ats_utilities.config_io.setup.validator import ConfigIOBundleValidator
 from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.config_io.data import FileData
 from ats_utilities.config_io.conf_file import ConfFile
@@ -75,7 +75,7 @@ class Loader:
                 | ATSTypeError:  The config bundle must be an instance of ConfigIOBundle and its
                 |                attributes must be instances of their respective types.
         '''
-        ConfigIOValidator.validate(own)
+        ConfigIOBundleValidator.validate(own)
         self._context = own.context_bundle
         self._processor = own.processor
         self._conf_file = ConfFile(

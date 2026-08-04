@@ -21,7 +21,7 @@ Info
 
 from ats_utilities.info.build_date.engine import BuildDate
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.factory import ContextFactory
+from ats_utilities.context.factory import ContextBundleFactory
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -33,7 +33,7 @@ __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
-context_bundle: ContextBundle = ContextFactory.create_bundle()
+context_bundle: ContextBundle = ContextBundleFactory.create_bundle()
 ats_build_date: BuildDate = BuildDate(context_bundle=context_bundle)
 ats_build_date.build_date = 'Sun Jun 14 03:06:12 PM CEST 2026'
 print(ats_build_date.build_date)

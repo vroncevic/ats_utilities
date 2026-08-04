@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the logger options.
+    Validator for the logger bundle options.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.logger.setup.options import LoggerOptions
-from ats_utilities.logger.setup.keys import LoggerKeys
+from ats_utilities.logger.setup.options import LoggerBundleOptions
+from ats_utilities.logger.setup.keys import LoggerBundleKeys
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -38,36 +38,36 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class LoggerOptionsValidator:
+class LoggerBundleOptionsValidator:
     '''
-        A validator for the logger options.
+        Validator for the logger bundle options.
 
         It defines:
 
             :methods:
-                | validate - Validates the logger options.
+                | validate - Validates the logger bundle options.
     '''
 
     @classmethod
-    def validate(cls, options: LoggerOptions) -> None:
+    def validate(cls, options: LoggerBundleOptions) -> None:
         '''
-            Validates the logger options.
+            Validates the logger bundle options.
 
-            :param options: The logger options to be validated.
+            :param options: The logger bundle options to be validated.
             :exceptions:
-                | ATSValueError: The logger options must be provided and have proper values.
-                | ATSTypeError:  The logger options must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The logger bundle options must be provided and have proper values.
+                | ATSTypeError:  The logger bundle options must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'logger_options_validator::validate(...)'
+        ctx: str = 'logger_bundle_options_validator::validate(...)'
 
-        msg_options_none: str = 'the logger options must be provided'
-        msg_options_istype: str = 'the logger options must be a Mapping'
+        msg_options_none: str = 'the logger bundle options must be provided'
+        msg_options_istype: str = 'the logger bundle options must be a Mapping'
 
         not_none(options, ctx, msg_options_none)
         istype(options, Mapping, ctx, msg_options_istype)
 
-        for attribute_name, expected_type in LoggerKeys.get_option_to_type().items():
+        for attribute_name, expected_type in LoggerBundleKeys.get_option_to_type().items():
             msg_attribute_istype: str = f'the {attribute_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
             attribute = options.get(attribute_name)

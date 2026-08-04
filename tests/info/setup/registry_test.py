@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for InfoRegistry class.
+    Unit tests for InfoBundleRegistry class.
 '''
 
 from __future__ import annotations
@@ -24,9 +24,9 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock, patch
 
-from ats_utilities.info.setup.registry import InfoRegistry
+from ats_utilities.info.setup.registry import InfoBundleRegistry
 from ats_utilities.info.setup.bundle import InfoBundle
-from ats_utilities.info.setup.dependencies import InfoDependencies
+from ats_utilities.info.setup.dependencies import InfoBundleDependencies
 from ats_utilities.info.name.iname import IName
 from ats_utilities.info.version.iversion import IVersion
 from ats_utilities.info.licence.ilicence import ILicence
@@ -35,12 +35,12 @@ from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
 from ats_utilities.context.bundle import ContextBundle
 
 
-@patch("ats_utilities.info.setup.registry.InfoValidator")
-@patch("ats_utilities.info.setup.registry.InfoDependenciesValidator")
+@patch("ats_utilities.info.setup.registry.InfoBundleValidator")
+@patch("ats_utilities.info.setup.registry.InfoBundleDependenciesValidator")
 class InfoRegistryTest(unittest.TestCase):
     '''
         Defines class InfoRegistryTest with attribute(s) and method(s).
-        Tests InfoRegistry logic.
+        Tests InfoBundleRegistry logic.
     '''
 
     def test_create_bundle(self, mock_dep_val: MagicMock, mock_val: MagicMock) -> None:
@@ -51,7 +51,7 @@ class InfoRegistryTest(unittest.TestCase):
         mock_build_date = MagicMock(spec=IBuildDate)
         mock_info_ok = MagicMock(spec=IInfoOk)
 
-        params = InfoDependencies(
+        params = InfoBundleDependencies(
             name=mock_name,
             version=mock_version,
             licence=mock_licence,
@@ -60,7 +60,7 @@ class InfoRegistryTest(unittest.TestCase):
             context_bundle=mock_context_bundle
         )
 
-        bundle = InfoRegistry.create_bundle(params)
+        bundle = InfoBundleRegistry.create_bundle(params)
         self.assertIsInstance(bundle, InfoBundle)
         self.assertEqual(bundle.name, mock_name)
         self.assertEqual(bundle.version, mock_version)

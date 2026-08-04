@@ -67,8 +67,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.context.factory.ContextFactory">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.context.factory.</span></span><span class="sig-name descname"><span class="pre">ContextFactory</span></span><a class="reference internal" href="_modules/ats_utilities/context/factory.html#ContextFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.context.factory.ContextFactory" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.context.factory.ContextBundleFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.context.factory.</span></span><span class="sig-name descname"><span class="pre">ContextBundleFactory</span></span><a class="reference internal" href="_modules/ats_utilities/context/factory.html#ContextBundleFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.context.factory.ContextBundleFactory" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Factory for creating the context bundle.</p>
 <p>It defines:</p>
@@ -82,8 +82,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dl>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.context.factory.ContextFactory.create_bundle">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.options.html#ats_utilities.context.options.ContextOptions" title="ats_utilities.context.options.ContextOptions"><span class="pre">ContextOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context.bundle.html#ats_utilities.context.bundle.ContextBundle" title="ats_utilities.context.bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/context/factory.html#ContextFactory.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.context.factory.ContextFactory.create_bundle" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.context.factory.ContextBundleFactory.create_bundle">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.options.html#ats_utilities.context.options.ContextBundleOptions" title="ats_utilities.context.options.ContextBundleOptions"><span class="pre">ContextBundleOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context.bundle.html#ats_utilities.context.bundle.ContextBundle" title="ats_utilities.context.bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/context/factory.html#ContextBundleFactory.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.context.factory.ContextBundleFactory.create_bundle" title="Link to this definition">¶</a></dt>
 <dd><p>Creates the context bundle with optional pre-configured options.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -94,10 +94,20 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">ATSValueError: The options must be provided and have proper values.</div>
-<div class="line">ATSTypeError:  The options must be an instance of Mapping and its attributes</div>
+<div class="line">ATSValueError: The context bundle options must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The context bundle options must be an instance of Mapping and its</div>
 <div class="line-block">
-<div class="line">must be instances of their respective types.</div>
+<div class="line">attributes must be instances of their respective types.</div>
+</div>
+<div class="line">ATSValueError: The context bundle dependencies must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The context bundle dependencies must be an instance of Mapping and its</div>
+<div class="line-block">
+<div class="line">attributes must be instances of their respective types.</div>
+</div>
+<div class="line">ATSValueError: The context bundle must be provided and have proper values.</div>
+<div class="line">ATSTypeError:  The context bundle must be an instance of ContextBundle and</div>
+<div class="line-block">
+<div class="line">its attributes must be instances of their respective types.</div>
 </div>
 </div>
 </dd>
@@ -119,8 +129,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.context.factory module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.context.factory.ContextFactory"><code class="docutils literal notranslate"><span class="pre">ContextFactory</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.context.factory.ContextFactory.create_bundle"><code class="docutils literal notranslate"><span class="pre">ContextFactory.create_bundle()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.context.factory.ContextBundleFactory"><code class="docutils literal notranslate"><span class="pre">ContextBundleFactory</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.context.factory.ContextBundleFactory.create_bundle"><code class="docutils literal notranslate"><span class="pre">ContextBundleFactory.create_bundle()</span></code></a></li>
 </ul>
 </li>
 </ul>

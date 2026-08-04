@@ -27,9 +27,9 @@ from types import MappingProxyType
 
 from ats_utilities.context.bundle import ContextBundle
 from ats_utilities.info.setup.bundle import InfoBundle
-from ats_utilities.info.setup.factory import InfoFactory
-from ats_utilities.info.setup.validator import InfoValidator
-from ats_utilities.info.setup.keys import InfoKeys
+from ats_utilities.info.setup.factory import InfoBundleFactory
+from ats_utilities.info.setup.validator import InfoBundleValidator
+from ats_utilities.info.setup.keys import InfoBundleKeys
 from ats_utilities.info.setup.schema import InfoSchema
 from ats_utilities.exceptions import ATSAttributeError, ATSValueError, ATSTypeError
 from ats_utilities.utils.reflection import to_str
@@ -91,7 +91,7 @@ class InfoManager:
                 |                attributes must be instances of their respective types.
         '''
         self._is_initialized = False
-        InfoValidator.validate(own)
+        InfoBundleValidator.validate(own)
         self._apply_bundle(own)
         self._is_initialized = True
 
@@ -114,7 +114,7 @@ class InfoManager:
         '''
         try:
             self._is_initialized = False
-            InfoValidator.validate(bundle)
+            InfoBundleValidator.validate(bundle)
             self._apply_bundle(bundle)
             self._is_initialized = True
 
@@ -159,9 +159,9 @@ class InfoManager:
         not_none(info, ctx, msg_info_none)
         istype(info, Mapping, ctx, msg_info_istype)
 
-        self._components = InfoFactory.create_bundle({
-            InfoKeys.OPTION_INFO: info,
-            InfoKeys.OPTION_CONTEXT_BUNDLE: self._context
+        self._components = InfoBundleFactory.create_bundle({
+            InfoBundleKeys.OPTION_INFO: info,
+            InfoBundleKeys.OPTION_CONTEXT_BUNDLE: self._context
         })
         self.refresh_status()
 
@@ -256,9 +256,9 @@ class InfoManager:
         if not self._is_initialized or self._components is None:
             return False
 
-        info_ok_component = getattr(self._components, InfoKeys.DEPENDENCY_INFO_OK, None)
+        info_ok_component = getattr(self._components, InfoBundleKeys.DEPENDENCY_INFO_OK, None)
 
-        return bool(info_ok_component and getattr(info_ok_component, InfoKeys.DEPENDENCY_INFO_OK, False))
+        return bool(info_ok_component and getattr(info_ok_component, InfoBundleKeys.DEPENDENCY_INFO_OK, False))
 
     def refresh_status(self) -> None:
         '''
@@ -273,7 +273,7 @@ class InfoManager:
         is_all_ok: bool = True
 
         for dep_name in required_dep_names:
-            if dep_name == InfoKeys.DEPENDENCY_INFO_OK:
+            if dep_name == InfoBundleKeys.DEPENDENCY_INFO_OK:
                 continue
 
             component = getattr(self._components, dep_name, None)
@@ -288,10 +288,10 @@ class InfoManager:
                 is_all_ok = False
                 break
 
-        info_ok_component = getattr(self._components, InfoKeys.DEPENDENCY_INFO_OK, None)
+        info_ok_component = getattr(self._components, InfoBundleKeys.DEPENDENCY_INFO_OK, None)
 
         if info_ok_component is not None:
-            setattr(info_ok_component, InfoKeys.DEPENDENCY_INFO_OK, is_all_ok)
+            setattr(info_ok_component, InfoBundleKeys.DEPENDENCY_INFO_OK, is_all_ok)
 
     def __str__(self) -> str:
         '''

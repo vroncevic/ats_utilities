@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    A validator for the generator dependencies.
+    Validator for the generator bundle dependencies.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.generation.setup.dependencies import GeneratorDependencies
-from ats_utilities.generation.setup.keys import GeneratorKeys
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.generation.setup.dependencies import GeneratorBundleDependencies
+from ats_utilities.generation.setup.keys import GeneratorBundleKeys
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -39,35 +39,35 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class GeneratorDependenciesValidator:
+class GeneratorBundleDependenciesValidator:
     '''
-        A validator for the generator dependencies.
+        Validator for the generator bundle dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates the generator dependencies.
+                | validate - Validates the generator bundle dependencies.
     '''
 
     @classmethod
-    def validate(cls, dependencies: GeneratorDependencies) -> None:
+    def validate(cls, dependencies: GeneratorBundleDependencies) -> None:
         '''
-            Validates the generator dependencies.
+            Validates the generator bundle dependencies.
 
-            :param dependencies: The generator dependencies instance to be validated.
+            :param dependencies: The generator bundle dependencies instance to be validated.
             :exceptions:
-                | ATSValueError: Generator dependencies must be provided and have proper values.
-                | ATSTypeError:  Generator dependencies must be an instance of Mapping and its attributes
+                | ATSValueError: The generator bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The generator bundle dependencies must be an instance of Mapping and its attributes
                 |                must be instances of their respective types.
         '''
-        ctx: str = 'generator_dependencies_validator::validate(...)'
-        msg_dependencies_none: str = 'the dependencies must be provided'
-        msg_dependencies_istype: str = 'the dependencies must be a Mapping'
+        ctx: str = 'generator_bundle_dependencies_validator::validate(...)'
+        msg_dependencies_none: str = 'the generator bundle dependencies must be provided'
+        msg_dependencies_istype: str = 'the generator bundle dependencies must be a Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
-        for attr_name, expected_type in GeneratorKeys.get_dependency_to_type().items():
+        for attr_name, expected_type in GeneratorBundleKeys.get_dependency_to_type().items():
             msg_attr_name_none: str = f'the {attr_name.replace("_", " ")} must be provided'
             msg_attr_name_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
@@ -76,5 +76,5 @@ class GeneratorDependenciesValidator:
             not_none(attribute, ctx, msg_attr_name_none)
             istype(attribute, expected_type, ctx, msg_attr_name_istype)
 
-            if attr_name == GeneratorKeys.DEPENDENCY_CONTEXT_BUNDLE:
-                ContextValidator.validate(attribute)
+            if attr_name == GeneratorBundleKeys.DEPENDENCY_CONTEXT_BUNDLE:
+                ContextBundleValidator.validate(attribute)

@@ -22,10 +22,10 @@ Info
 from __future__ import annotations
 
 from ats_utilities.context.bundle import ContextBundle
-from ats_utilities.context.dependencies import ContextDependencies
-from ats_utilities.context.validator import ContextValidator
-from ats_utilities.context.dep_validator import ContextDependenciesValidator
-from ats_utilities.context.keys import ContextKeys
+from ats_utilities.context.dependencies import ContextBundleDependencies
+from ats_utilities.context.validator import ContextBundleValidator
+from ats_utilities.context.dep_validator import ContextBundleDependenciesValidator
+from ats_utilities.context.keys import ContextBundleKeys
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,7 +37,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ContextRegistry:
+class ContextBundleRegistry:
     '''
         Encapsulates core runtime components for simplification of the context bundle.
 
@@ -48,26 +48,29 @@ class ContextRegistry:
     '''
 
     @classmethod
-    def create_bundle(cls, dependencies: ContextDependencies) -> ContextBundle:
+    def create_bundle(cls, dependencies: ContextBundleDependencies) -> ContextBundle:
         '''
             Orchestrates dependency injection and creates the context bundle.
 
             :param dependencies: The registry-specific orchestration dependencies.
             :return: The context bundle.
             :exceptions:
-                | ATSValueError: The dependencies must be provided and have proper values.
-                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The context bundle dependencies must be provided and have proper values.
+                | ATSTypeError:  The context bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
+                | ATSValueError: The context bundle must be provided and have proper values.
+                | ATSTypeError:  The context bundle must be an instance of ContextBundle and
+                |                its attributes must be instances of their respective types.
         '''
-        ContextDependenciesValidator.validate(dependencies)
+        ContextBundleDependenciesValidator.validate(dependencies)
 
         bundle: ContextBundle = ContextBundle(
-            checker=dependencies.get(ContextKeys.DEPENDENCY_CHECKER) if dependencies else None,
-            logger=dependencies.get(ContextKeys.DEPENDENCY_LOGGER) if dependencies else None,
-            reporter=dependencies.get(ContextKeys.DEPENDENCY_REPORTER) if dependencies else None,
-            verbose=dependencies.get(ContextKeys.DEPENDENCY_VERBOSE) if dependencies else False
+            checker=dependencies.get(ContextBundleKeys.DEPENDENCY_CHECKER) if dependencies else None,
+            logger=dependencies.get(ContextBundleKeys.DEPENDENCY_LOGGER) if dependencies else None,
+            reporter=dependencies.get(ContextBundleKeys.DEPENDENCY_REPORTER) if dependencies else None,
+            verbose=dependencies.get(ContextBundleKeys.DEPENDENCY_VERBOSE) if dependencies else False
         )
 
-        ContextValidator.validate(bundle)
+        ContextBundleValidator.validate(bundle)
 
         return bundle

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for GeneratorDependenciesValidator class.
+    Unit tests for GeneratorBundleDependenciesValidator class.
 '''
 
 from __future__ import annotations
@@ -24,8 +24,8 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock
 
-from ats_utilities.generation.setup.dependencies import GeneratorDependencies
-from ats_utilities.generation.setup.dep_validator import GeneratorDependenciesValidator
+from ats_utilities.generation.setup.dependencies import GeneratorBundleDependencies
+from ats_utilities.generation.setup.dep_validator import GeneratorBundleDependenciesValidator
 from ats_utilities.generation.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generation.tar.itar_processor import ITarProcessor
 from ats_utilities.context.bundle import ContextBundle
@@ -38,7 +38,7 @@ from ats_utilities.exceptions import ATSTypeError, ATSValueError
 class GeneratorDependenciesValidatorTest(unittest.TestCase):
     '''
         Defines class GeneratorDependenciesValidatorTest with attribute(s) and method(s).
-        Tests GeneratorDependenciesValidator component logic.
+        Tests GeneratorBundleDependenciesValidator component logic.
     '''
 
     def setUp(self) -> None:
@@ -48,8 +48,8 @@ class GeneratorDependenciesValidatorTest(unittest.TestCase):
         self.mock_context.reporter = MagicMock(spec=IReporter)
         self.mock_context.verbose = True
 
-    def _get_valid_deps(self) -> GeneratorDependencies:
-        return GeneratorDependencies(
+    def _get_valid_deps(self) -> GeneratorBundleDependencies:
+        return GeneratorBundleDependencies(
             scheme_loader=MagicMock(spec=ISchemeLoader),
             tar_processor=MagicMock(spec=ITarProcessor),
             context_bundle=self.mock_context
@@ -57,21 +57,21 @@ class GeneratorDependenciesValidatorTest(unittest.TestCase):
 
     def test_validate_valid(self) -> None:
         deps = self._get_valid_deps()
-        GeneratorDependenciesValidator.validate(deps)
+        GeneratorBundleDependenciesValidator.validate(deps)
 
     def test_validate_invalid_none(self) -> None:
         with self.assertRaises(ATSValueError):
-            GeneratorDependenciesValidator.validate(None)  # type: ignore
+            GeneratorBundleDependenciesValidator.validate(None)  # type: ignore
 
     def test_validate_invalid_type(self) -> None:
         with self.assertRaises(ATSTypeError):
-            GeneratorDependenciesValidator.validate("invalid")  # type: ignore
+            GeneratorBundleDependenciesValidator.validate("invalid")  # type: ignore
 
     def test_validate_missing_attributes(self) -> None:
         deps = self._get_valid_deps()
         del deps['scheme_loader']  # type: ignore
         with self.assertRaises(ATSValueError):
-            GeneratorDependenciesValidator.validate(deps)
+            GeneratorBundleDependenciesValidator.validate(deps)
 
 
 if __name__ == "__main__":

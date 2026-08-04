@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for CheckerDependencies class.
+    Unit tests for CheckerBundleDependencies class.
 '''
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ import unittest
 from typing import get_type_hints
 from unittest.mock import MagicMock
 
-from ats_utilities.checker.setup.dependencies import CheckerDependencies
+from ats_utilities.checker.setup.dependencies import CheckerBundleDependencies
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
@@ -35,18 +35,18 @@ from ats_utilities.checker.type.itype_validator import ITypeValidator
 class CheckerDependenciesTest(unittest.TestCase):
     '''
         Defines class CheckerDependenciesTest with attribute(s) and method(s).
-        Tests CheckerDependencies TypeDict structure.
+        Tests CheckerBundleDependencies TypeDict structure.
     '''
 
     def test_type_hints(self) -> None:
-        hints = get_type_hints(CheckerDependencies)
+        hints = get_type_hints(CheckerBundleDependencies)
         self.assertEqual(hints['format_validator'], IFormatValidator)
         self.assertEqual(hints['type_validator'], ITypeValidator)
         self.assertEqual(hints['context_provider'], IContextProvider)
         self.assertEqual(hints['check_reporter'], ICheckReporter)
 
     def test_instantiation(self) -> None:
-        deps: CheckerDependencies = {
+        deps: CheckerBundleDependencies = {
             'format_validator': MagicMock(spec=IFormatValidator),
             'type_validator': MagicMock(spec=ITypeValidator),
             'context_provider': MagicMock(spec=IContextProvider),

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Base options for base bundle.
+    Base bundle options for base bundle.
 '''
 
 from __future__ import annotations
@@ -35,16 +35,16 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class BaseOptions(TypedDict):
+class BaseBundleOptions(TypedDict):
     '''
-        Base options for base bundle.
+        Base bundle options for base bundle.
 
         It defines:
 
             :attributes:
-                | info_file - The information file path for the App/Tool/Script.
-                | use_generator - Use the configuration generator to generate configuration files.
-                | context_bundle - The context bundle.
+                | info_file - The information file path for the App/Tool/Script for base bundle.
+                | use_generator - Use the configuration generator to generate configuration files for base bundle.
+                | context_bundle - The context bundle for base bundle.
     '''
 
     info_file: str

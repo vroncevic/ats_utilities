@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Validator for config I/O dependencies.
+    Validator for config I/O bundle dependencies.
 '''
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.config_io.setup.dependencies import ConfigIODependencies
-from ats_utilities.config_io.setup.keys import ConfigIOKeys
-from ats_utilities.context.validator import ContextValidator
+from ats_utilities.config_io.setup.dependencies import ConfigIOBundleDependencies
+from ats_utilities.config_io.setup.keys import ConfigIOBundleKeys
+from ats_utilities.context.validator import ContextBundleValidator
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -39,35 +39,35 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
 
 
-class ConfigIODependenciesValidator:
+class ConfigIOBundleDependenciesValidator:
     '''
-        Validator for config I/O dependencies.
+        Validator for config I/O bundle dependencies.
 
         It defines:
 
             :methods:
-                | validate - Validates config I/O dependencies.
+                | validate - Validates config I/O bundle dependencies.
     '''
 
     @classmethod
-    def validate(cls, dependencies: ConfigIODependencies) -> None:
+    def validate(cls, dependencies: ConfigIOBundleDependencies) -> None:
         '''
-            Validates config I/O dependencies.
+            Validates config I/O bundle dependencies.
 
-            :param dependencies: The config I/O dependencies to be validated.
+            :param dependencies: The config I/O bundle dependencies to be validated.
             :exceptions:
-                | ATSValueError: The dependencies must be provided and have proper attributes.
-                | ATSTypeError:  The dependencies must be an instance of Mapping and its attributes
-                |                must be instances of their respective types.
+                | ATSValueError: The config I/O bundle dependencies must be provided and have proper attributes.
+                | ATSTypeError:  The config I/O bundle dependencies must be an instance of Mapping and its
+                |                attributes must be instances of their respective types.
         '''
-        ctx: str = 'config_io_dependencies_validator::validate(...)'
-        msg_dependencies_none: str = 'the dependencies must be provided'
-        msg_dependencies_istype: str = 'the dependencies must be a Mapping'
+        ctx: str = 'config_io_bundle_dependencies_validator::validate(...)'
+        msg_dependencies_none: str = 'the config I/O bundle dependencies must be provided'
+        msg_dependencies_istype: str = 'the config I/O bundle dependencies must be a Mapping'
 
         not_none(dependencies, ctx, msg_dependencies_none)
         istype(dependencies, Mapping, ctx, msg_dependencies_istype)
 
-        for attr_name, expected_type in ConfigIOKeys.get_dependency_to_type().items():
+        for attr_name, expected_type in ConfigIOBundleKeys.get_dependency_to_type().items():
             msg_attribute_none: str = f'the {attr_name.replace("_", " ")} must be provided'
             msg_attribute_istype: str = f'the {attr_name.replace("_", " ")} must be an instance of {expected_type.__name__}'
 
@@ -76,5 +76,5 @@ class ConfigIODependenciesValidator:
             not_none(attribute, ctx, msg_attribute_none)
             istype(attribute, expected_type, ctx, msg_attribute_istype)
 
-            if attr_name == ConfigIOKeys.DEPENDENCY_CONTEXT_BUNDLE:
-                ContextValidator.validate(attribute)
+            if attr_name == ConfigIOBundleKeys.DEPENDENCY_CONTEXT_BUNDLE:
+                ContextBundleValidator.validate(attribute)

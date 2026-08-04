@@ -62,14 +62,14 @@
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MappingProxyType</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.keys</span> <span class="kn">import</span> <span class="n">InfoKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.keys</span> <span class="kn">import</span> <span class="n">InfoBundleKeys</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.setup.schema</span> <span class="kn">import</span> <span class="n">InfoSchema</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.setup.bundle</span> <span class="kn">import</span> <span class="n">InfoBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.dependencies</span> <span class="kn">import</span> <span class="n">InfoDependencies</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.options</span> <span class="kn">import</span> <span class="n">InfoOptions</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.opt_validator</span> <span class="kn">import</span> <span class="n">InfoOptionsValidator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.registry</span> <span class="kn">import</span> <span class="n">InfoRegistry</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.dependencies</span> <span class="kn">import</span> <span class="n">InfoBundleDependencies</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.options</span> <span class="kn">import</span> <span class="n">InfoBundleOptions</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.opt_validator</span> <span class="kn">import</span> <span class="n">InfoBundleOptionsValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.setup.registry</span> <span class="kn">import</span> <span class="n">InfoBundleRegistry</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -81,9 +81,9 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Development&#39;</span>
 
 
-<div class="viewcode-block" id="InfoFactory">
-<a class="viewcode-back" href="../../../../ats_utilities.info.setup.factory.html#ats_utilities.info.setup.factory.InfoFactory">[docs]</a>
-<span class="k">class</span> <span class="nc">InfoFactory</span><span class="p">:</span>
+<div class="viewcode-block" id="InfoBundleFactory">
+<a class="viewcode-back" href="../../../../ats_utilities.info.setup.factory.html#ats_utilities.info.setup.factory.InfoBundleFactory">[docs]</a>
+<span class="k">class</span> <span class="nc">InfoBundleFactory</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        A factory for creating an InfoBundle.</span>
 
@@ -93,24 +93,30 @@
 <span class="sd">                | create_bundle - Creates an info bundle with pre-configured options.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="InfoFactory.create_bundle">
-<a class="viewcode-back" href="../../../../ats_utilities.info.setup.factory.html#ats_utilities.info.setup.factory.InfoFactory.create_bundle">[docs]</a>
+<div class="viewcode-block" id="InfoBundleFactory.create_bundle">
+<a class="viewcode-back" href="../../../../ats_utilities.info.setup.factory.html#ats_utilities.info.setup.factory.InfoBundleFactory.create_bundle">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">InfoOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InfoBundle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">InfoBundleOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InfoBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Creates an info bundle with pre-configured options.</span>
 
 <span class="sd">            :param options: The dictionary containing info options.</span>
 <span class="sd">            :return: The info bundle.</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Info options must be provided and have proper values.</span>
-<span class="sd">                | ATSTypeError:  Info options must be an instance of Mapping and its</span>
+<span class="sd">                | ATSValueError: The info bundle options must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The info bundle options must be an instance of Mapping and its</span>
+<span class="sd">                |                attributes must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The info bundle dependencies must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The info bundle dependencies must be an instance of Mapping and its</span>
+<span class="sd">                |                attributes must be instances of their respective types.</span>
+<span class="sd">                | ATSValueError: The info bundle must be provided and have proper values.</span>
+<span class="sd">                | ATSTypeError:  The info bundle must be an instance of InfoBundle and its</span>
 <span class="sd">                |                attributes must be instances of their respective types.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">InfoOptionsValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">InfoBundleOptionsValidator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
 
-        <span class="n">info_configuration</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">OPTION_INFO</span><span class="p">)</span>
-        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">)</span>
+        <span class="n">info_configuration</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">OPTION_INFO</span><span class="p">)</span>
+        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">)</span>
 
         <span class="n">key_to_type</span><span class="p">:</span> <span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="n">InfoSchema</span><span class="o">.</span><span class="n">get_config_key_to_type</span><span class="p">()</span>
         <span class="n">bundle_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -120,7 +126,7 @@
             <span class="n">attr_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">InfoSchema</span><span class="o">.</span><span class="n">get_name_of_config_key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
             <span class="n">attribute</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="n">info_configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">attribute</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">is</span> <span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_USE_GITHUB_INFRASTRUCTURE</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">attribute</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">is</span> <span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">ATS_USE_GITHUB_INFRASTRUCTURE</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                     <span class="n">attribute</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">attribute</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span> <span class="k">else</span> <span class="kc">False</span>
 
@@ -129,21 +135,21 @@
 
             <span class="n">bundle_kwargs</span><span class="p">[</span><span class="n">attr_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">engine_instance</span>
 
-        <span class="n">bundle_kwargs</span><span class="p">[</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">]</span> <span class="o">=</span> <span class="n">context_bundle</span>
+        <span class="n">bundle_kwargs</span><span class="p">[</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">]</span> <span class="o">=</span> <span class="n">context_bundle</span>
 
-        <span class="k">return</span> <span class="n">InfoRegistry</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
-            <span class="n">InfoDependencies</span><span class="p">(</span>
-                <span class="n">name</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_NAME</span><span class="p">),</span>
-                <span class="n">version</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_VERSION</span><span class="p">),</span>
-                <span class="n">licence</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_LICENCE</span><span class="p">),</span>
-                <span class="n">build_date</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_BUILD_DATE</span><span class="p">),</span>
-                <span class="n">repository</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_REPOSITORY</span><span class="p">),</span>
-                <span class="n">organization</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_ORGANIZATION</span><span class="p">),</span>
-                <span class="n">use_github</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_USE_GITHUB_INFRASTRUCTURE</span><span class="p">),</span>
-                <span class="n">logo</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_LOGO_PATH</span><span class="p">),</span>
-                <span class="n">log_file</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_LOG_FILE</span><span class="p">),</span>
-                <span class="n">info_ok</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">DEPENDENCY_INFO_OK</span><span class="p">),</span>
-                <span class="n">context_bundle</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">InfoBundleRegistry</span><span class="o">.</span><span class="n">create_bundle</span><span class="p">(</span>
+            <span class="n">InfoBundleDependencies</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_NAME</span><span class="p">),</span>
+                <span class="n">version</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_VERSION</span><span class="p">),</span>
+                <span class="n">licence</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_LICENCE</span><span class="p">),</span>
+                <span class="n">build_date</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_BUILD_DATE</span><span class="p">),</span>
+                <span class="n">repository</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_REPOSITORY</span><span class="p">),</span>
+                <span class="n">organization</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_ORGANIZATION</span><span class="p">),</span>
+                <span class="n">use_github</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_USE_GITHUB_INFRASTRUCTURE</span><span class="p">),</span>
+                <span class="n">logo</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_LOGO_PATH</span><span class="p">),</span>
+                <span class="n">log_file</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_LOG_FILE</span><span class="p">),</span>
+                <span class="n">info_ok</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">DEPENDENCY_INFO_OK</span><span class="p">),</span>
+                <span class="n">context_bundle</span><span class="o">=</span><span class="n">bundle_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoBundleKeys</span><span class="o">.</span><span class="n">OPTION_CONTEXT_BUNDLE</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span></div>
 </div>

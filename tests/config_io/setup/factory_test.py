@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Unit tests for ConfigIOFactory class.
+    Unit tests for ConfigIOBundleFactory class.
 '''
 
 from __future__ import annotations
@@ -30,14 +30,14 @@ from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.config_io.setup.bundle import ConfigIOBundle
-from ats_utilities.config_io.setup.factory import ConfigIOFactory
-from ats_utilities.config_io.setup.options import ConfigIOOptions
+from ats_utilities.config_io.setup.factory import ConfigIOBundleFactory
+from ats_utilities.config_io.setup.options import ConfigIOBundleOptions
 
 
 class ConfigIOFactoryTest(unittest.TestCase):
     '''
         Defines class ConfigIOFactoryTest with attribute(s) and method(s).
-        Tests ConfigIOFactory logic.
+        Tests ConfigIOBundleFactory logic.
     '''
 
     @patch("ats_utilities.config_io.setup.factory.ConfigProcessorFactory")
@@ -51,12 +51,12 @@ class ConfigIOFactoryTest(unittest.TestCase):
         mock_context.reporter = MagicMock(spec=IReporter)
         mock_context.verbose = True
 
-        options = ConfigIOOptions(
+        options = ConfigIOBundleOptions(
             file_path="/tmp/config.json",
             scheme={"key": "val"},
             context_bundle=mock_context
         )
-        bundle = ConfigIOFactory.create_bundle(options)
+        bundle = ConfigIOBundleFactory.create_bundle(options)
 
         self.assertIsInstance(bundle, ConfigIOBundle)
         self.assertEqual(bundle.file_path, "/tmp/config.json")

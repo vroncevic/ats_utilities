@@ -64,36 +64,36 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>A validator for the checker dependencies.</p>
+<dt>Info</dt><dd><p>Validator for the checker bundle dependencies.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.checker.setup.dep_validator.CheckerDependenciesValidator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.setup.dep_validator.</span></span><span class="sig-name descname"><span class="pre">CheckerDependenciesValidator</span></span><a class="reference internal" href="_modules/ats_utilities/checker/setup/dep_validator.html#CheckerDependenciesValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.setup.dep_validator.CheckerDependenciesValidator" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.setup.dep_validator.CheckerBundleDependenciesValidator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.setup.dep_validator.</span></span><span class="sig-name descname"><span class="pre">CheckerBundleDependenciesValidator</span></span><a class="reference internal" href="_modules/ats_utilities/checker/setup/dep_validator.html#CheckerBundleDependenciesValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.setup.dep_validator.CheckerBundleDependenciesValidator" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A validator for the checker dependencies.</p>
+<p>Validator for the checker bundle dependencies.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">validate - Validates the checker dependencies.</div>
+<div class="line">validate - Validates the checker bundle dependencies.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.checker.setup.dep_validator.CheckerDependenciesValidator.validate">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.checker.setup.dependencies.html#ats_utilities.checker.setup.dependencies.CheckerDependencies" title="ats_utilities.checker.setup.dependencies.CheckerDependencies"><span class="pre">CheckerDependencies</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/setup/dep_validator.html#CheckerDependenciesValidator.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.setup.dep_validator.CheckerDependenciesValidator.validate" title="Link to this definition">¶</a></dt>
-<dd><p>Validates the checker dependencies.</p>
+<dt class="sig sig-object py" id="ats_utilities.checker.setup.dep_validator.CheckerBundleDependenciesValidator.validate">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.checker.setup.dependencies.html#ats_utilities.checker.setup.dependencies.CheckerBundleDependencies" title="ats_utilities.checker.setup.dependencies.CheckerBundleDependencies"><span class="pre">CheckerBundleDependencies</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/setup/dep_validator.html#CheckerBundleDependenciesValidator.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.setup.dep_validator.CheckerBundleDependenciesValidator.validate" title="Link to this definition">¶</a></dt>
+<dd><p>Validates the checker bundle dependencies.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>dependencies</strong> – The checker dependencies to be validated.</p>
+<dd class="field-odd"><p><strong>dependencies</strong> – The checker bundle dependencies to be validated.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">ATSValueError: The dependencies must be provided and have proper attributes.</div>
-<div class="line">ATSTypeError:  The dependencies must be an instance of Mapping and its attributes</div>
+<div class="line">ATSValueError: The checker bundle dependencies must be provided and have proper attributes.</div>
+<div class="line">ATSTypeError:  The checker bundle dependencies must be an instance of Mapping and its attributes</div>
 <div class="line-block">
 <div class="line">must be instances of their respective types.</div>
 </div>
@@ -117,8 +117,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.checker.setup.dep_validator module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.checker.setup.dep_validator.CheckerDependenciesValidator"><code class="docutils literal notranslate"><span class="pre">CheckerDependenciesValidator</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.checker.setup.dep_validator.CheckerDependenciesValidator.validate"><code class="docutils literal notranslate"><span class="pre">CheckerDependenciesValidator.validate()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.setup.dep_validator.CheckerBundleDependenciesValidator"><code class="docutils literal notranslate"><span class="pre">CheckerBundleDependenciesValidator</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.checker.setup.dep_validator.CheckerBundleDependenciesValidator.validate"><code class="docutils literal notranslate"><span class="pre">CheckerBundleDependenciesValidator.validate()</span></code></a></li>
 </ul>
 </li>
 </ul>
