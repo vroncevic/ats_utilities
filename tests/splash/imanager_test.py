@@ -60,7 +60,7 @@ class TestISplashManager(unittest.TestCase):
 
     def setUp(self) -> None:
         '''Setup test environment and instance before each test.'''
-        self.mock_bundle = {"title": "ATS Utilities", "version": "3.4.5"}
+        self.mock_bundle = {"title": "ATS Utilities", "version": "3.4.6"}
         self.mock_context = {"width": 80, "height": 24}
         self.splash_manager = ConcreteSplashManager(
             bundle=self.mock_bundle,

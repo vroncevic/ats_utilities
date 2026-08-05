@@ -15,7 +15,7 @@ class TestInfoExpose(unittest.TestCase):
         """Prepare sample valid configuration mappings for tests."""
         self.valid_config = {
             InfoBundleKeys.ATS_NAME: "ats_utilities",
-            InfoBundleKeys.ATS_VERSION: "3.4.5",
+            InfoBundleKeys.ATS_VERSION: "3.4.6",
             InfoBundleKeys.ATS_BUILD_DATE: "2026-08-01",
             InfoBundleKeys.ATS_LICENCE: "GPL-3.0-or-later",
             InfoBundleKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
@@ -33,7 +33,7 @@ class TestInfoExpose(unittest.TestCase):
     def test_get_all_properties_success(self):
         """Test successfully extracting all configuration properties."""
         self.assertEqual(InfoExpose.get_name(self.valid_config), "ats_utilities")
-        self.assertEqual(InfoExpose.get_version(self.valid_config), "3.4.5")
+        self.assertEqual(InfoExpose.get_version(self.valid_config), "3.4.6")
         self.assertEqual(InfoExpose.get_build_date(self.valid_config), "2026-08-01")
         self.assertEqual(InfoExpose.get_licence(self.valid_config), "GPL-3.0-or-later")
         self.assertEqual(InfoExpose.get_repository(self.valid_config), "https://github.com/vroncevic/ats_utilities")

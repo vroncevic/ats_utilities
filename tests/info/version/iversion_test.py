@@ -48,7 +48,7 @@ class TestIVersion(unittest.TestCase):
 
     def setUp(self) -> None:
         '''Setup test environment and instance before each test.'''
-        self.version_inst = ConcreteVersion("3.4.5")
+        self.version_inst = ConcreteVersion("3.4.6")
 
     def test_protocol_conformance(self) -> None:
         '''Test if class with all methods passes runtime_checkable check.'''
@@ -61,7 +61,7 @@ class TestIVersion(unittest.TestCase):
 
     def test_property_getter_setter(self) -> None:
         '''Test getter and setter for version property.'''
-        self.assertEqual(self.version_inst.version, "3.4.5")
+        self.assertEqual(self.version_inst.version, "3.4.6")
         self.version_inst.version = "3.5.0"
         self.assertEqual(self.version_inst.version, "3.5.0")
 
@@ -73,7 +73,7 @@ class TestIVersion(unittest.TestCase):
 
     def test_string_representation(self) -> None:
         '''Test __str__ method.'''
-        self.assertEqual(str(self.version_inst), "3.4.5")
+        self.assertEqual(str(self.version_inst), "3.4.6")
 
 
 if __name__ == '__main__':

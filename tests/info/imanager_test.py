@@ -66,7 +66,7 @@ class TestIInfoManager(unittest.TestCase):
         '''Prepares test environment and instance before each test.'''
         self.mock_bundle = {"info_file": "config/info.yaml", "format": "yaml"}
         self.mock_context = {"env": "production"}
-        self.mock_info = {"app_name": "ats_utilities", "version": "3.4.5"}
+        self.mock_info = {"app_name": "ats_utilities", "version": "3.4.6"}
 
         self.info_manager = ConcreteInfoManager(
             bundle=self.mock_bundle,
