@@ -43,7 +43,7 @@ class EngineTest(unittest.TestCase):
     def _get_valid_info_data(self) -> dict[str, object]:
         return {
             InfoBundleKeys.ATS_NAME: "ats_utilities",
-            InfoBundleKeys.ATS_VERSION: "3.4.5",
+            InfoBundleKeys.ATS_VERSION: "3.4.6",
             InfoBundleKeys.ATS_BUILD_DATE: "2026-07-18",
             InfoBundleKeys.ATS_LICENCE: "GPLv3",
             InfoBundleKeys.ATS_REPOSITORY: "https://github.com/vroncevic/ats_utilities",
@@ -143,7 +143,7 @@ class EngineTest(unittest.TestCase):
 
         # Get managed attribute
         self.assertEqual(manager.name, "ats_utilities")
-        self.assertEqual(manager.version, "3.4.5")
+        self.assertEqual(manager.version, "3.4.6")
 
         # Set managed attribute
         manager.name = "changed_name"

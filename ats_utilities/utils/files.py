@@ -34,7 +34,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2017 - 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.4.5'
+__version__ = '3.4.6'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Development'
@@ -431,7 +431,7 @@ def apply_path_replacements(
             continue
 
         pattern_str = r'[-_]?'.join(escape(w) for w in words)
-        pattern = compile(rf'\b{pattern_str}\b', IGNORECASE)
+        pattern = compile(rf'(?<![a-zA-Z0-9]){pattern_str}(?![a-zA-Z0-9])', IGNORECASE)
 
         def replace_match(match: Match) -> str:
             clean_str = match.group(0).lstrip('-_')
